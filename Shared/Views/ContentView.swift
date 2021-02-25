@@ -11,8 +11,12 @@ struct ContentView: View {
     private var login: Login? = nil
     
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        if let login = login {
+            Text("Token: \(login.token)")
+                .padding()
+        } else {
+            NativeLoginView()
+        }
     }
 }
 
