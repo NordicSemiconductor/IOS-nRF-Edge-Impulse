@@ -26,7 +26,7 @@ struct NativeLoginView: View {
             Button("Login") {
                 // Send Login Request.
             }
-            .disabled(email.isEmpty || password.isEmpty)
+            .disabled(!email.isEmailAddress() || password.isEmpty)
         }
         .navigationTitle("Login")
         .padding()
