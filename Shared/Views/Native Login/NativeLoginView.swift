@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import Combine
 
 struct NativeLoginView: View {
     @State var email: String = ""
     @State var password: String = ""
+    
+    @State private var loginCancellable: Cancellable? = nil
     
     var body: some View {
         VStack(alignment: .center) {
@@ -24,12 +27,24 @@ struct NativeLoginView: View {
                     .disableAutocorrection(true)
             }
             Button("Login") {
-                // Send Login Request.
+                attemptLogin()
             }
             .disabled(!email.isEmailAddress() || password.isEmpty)
         }
         .navigationTitle("Login")
         .padding()
+    }
+    
+    func attemptLogin() {
+        let parameters = LoginParameters(username: email, password: password)
+        guard let request = LoginRequest(parameters) else {
+            // Show error.
+            return
+        }
+        loginCancellable = Network.shared.perform(request)
+            .decode(type: Login.self, decoder: JSONDecoder())
+            .sink(receiveCompletion: { print ("Received completion: \($0).") },
+                  receiveValue: { user in print ("Received user: \(user.token).")})
     }
 }
 

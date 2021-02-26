@@ -15,6 +15,11 @@
 		AA03E98525E3EF13003DA9DA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03E95A25E3EF12003DA9DA /* ContentView.swift */; };
 		AA03E98625E3EF13003DA9DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA03E95B25E3EF13003DA9DA /* Assets.xcassets */; };
 		AA03E98725E3EF13003DA9DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA03E95B25E3EF13003DA9DA /* Assets.xcassets */; };
+		AA1016FC25E9173A006DC88A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1016FB25E9173A006DC88A /* Network.swift */; };
+		AA1016FD25E9173A006DC88A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1016FB25E9173A006DC88A /* Network.swift */; };
+		AA10170325E91885006DC88A /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* Request.swift */; };
+		AA10170425E91885006DC88A /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* Request.swift */; };
+		AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCBE8125E90734001C52B0 /* LoginRequest.swift */; };
 		AAFED86B25E7DFB100BB7445 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED86A25E7DFB100BB7445 /* Login.swift */; };
 		AAFED86C25E7DFB100BB7445 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED86A25E7DFB100BB7445 /* Login.swift */; };
 		AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */; };
@@ -55,6 +60,9 @@
 		AA03E97B25E3EF13003DA9DA /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA03E97F25E3EF13003DA9DA /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		AA03E98125E3EF13003DA9DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA1016FB25E9173A006DC88A /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		AA10170225E91885006DC88A /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		AAFCBE8125E90734001C52B0 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		AAFED86A25E7DFB100BB7445 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeLoginView.swift; sourceTree = "<group>"; };
 		AAFED87E25E7FFFF00BB7445 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -163,6 +171,15 @@
 			path = "Tests macOS";
 			sourceTree = "<group>";
 		};
+		AAFCBE8025E90720001C52B0 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				AA10170225E91885006DC88A /* Request.swift */,
+				AAFCBE8125E90734001C52B0 /* LoginRequest.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
 		AAFED86625E7DE6900BB7445 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,7 +200,6 @@
 		AAFED86825E7DE8400BB7445 /* State */ = {
 			isa = PBXGroup;
 			children = (
-				AAFED86A25E7DFB100BB7445 /* Login.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -191,6 +207,9 @@
 		AAFED86925E7DE8D00BB7445 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				AAFCBE8025E90720001C52B0 /* Requests */,
+				AAFED86A25E7DFB100BB7445 /* Login.swift */,
+				AA1016FB25E9173A006DC88A /* Network.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -369,8 +388,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAFED86B25E7DFB100BB7445 /* Login.swift in Sources */,
+				AA10170325E91885006DC88A /* Request.swift in Sources */,
 				AA03E98425E3EF13003DA9DA /* ContentView.swift in Sources */,
 				AAFED87F25E7FFFF00BB7445 /* String.swift in Sources */,
+				AA1016FC25E9173A006DC88A /* Network.swift in Sources */,
+				AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */,
 				AA03E98225E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 			);
@@ -380,9 +402,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA1016FD25E9173A006DC88A /* Network.swift in Sources */,
 				AAFED86C25E7DFB100BB7445 /* Login.swift in Sources */,
 				AA03E98525E3EF13003DA9DA /* ContentView.swift in Sources */,
 				AAFED88025E7FFFF00BB7445 /* String.swift in Sources */,
+				AA10170425E91885006DC88A /* Request.swift in Sources */,
 				AA03E98325E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 			);
@@ -471,6 +495,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -524,6 +549,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
