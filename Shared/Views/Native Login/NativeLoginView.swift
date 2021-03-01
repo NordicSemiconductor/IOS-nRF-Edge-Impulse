@@ -46,11 +46,11 @@ struct NativeLoginView: View {
     
     func attemptLogin() {
         let parameters = LoginParameters(username: email, password: password)
-        guard let request = LoginRequest(parameters) else {
+        guard let request = APIRequest.login(parameters) else {
             // Show error.
             return
         }
-        loginCancellable = Network.shared.perform(request)
+        loginCancellable = Network.shared.perform(request)?
             .decode(type: LoginResponse.self, decoder: JSONDecoder())
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { _ in },

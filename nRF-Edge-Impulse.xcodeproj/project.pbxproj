@@ -17,13 +17,15 @@
 		AA03E98725E3EF13003DA9DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA03E95B25E3EF13003DA9DA /* Assets.xcassets */; };
 		AA1016FC25E9173A006DC88A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1016FB25E9173A006DC88A /* Network.swift */; };
 		AA1016FD25E9173A006DC88A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1016FB25E9173A006DC88A /* Network.swift */; };
-		AA10170325E91885006DC88A /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* Request.swift */; };
-		AA10170425E91885006DC88A /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* Request.swift */; };
+		AA10170325E91885006DC88A /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* APIRequest.swift */; };
+		AA10170425E91885006DC88A /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* APIRequest.swift */; };
 		AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AAFAE5E425ED11CA00A45A90 /* KeychainSwift */; };
 		AAFAE5EB25ED14E500A45A90 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE5EA25ED14E500A45A90 /* AppData.swift */; };
 		AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE5EA25ED14E500A45A90 /* AppData.swift */; };
 		AAFAE5F225ED1A3A00A45A90 /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE5F125ED1A3A00A45A90 /* ProjectList.swift */; };
 		AAFAE5F325ED1A3A00A45A90 /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE5F125ED1A3A00A45A90 /* ProjectList.swift */; };
+		AAFAE60525ED279300A45A90 /* ListProjectsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE60425ED279300A45A90 /* ListProjectsRequest.swift */; };
+		AAFAE60625ED279300A45A90 /* ListProjectsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE60425ED279300A45A90 /* ListProjectsRequest.swift */; };
 		AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCBE8125E90734001C52B0 /* LoginRequest.swift */; };
 		AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */; };
 		AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */; };
@@ -64,9 +66,10 @@
 		AA03E97F25E3EF13003DA9DA /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		AA03E98125E3EF13003DA9DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA1016FB25E9173A006DC88A /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		AA10170225E91885006DC88A /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		AA10170225E91885006DC88A /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		AAFAE5EA25ED14E500A45A90 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		AAFAE5F125ED1A3A00A45A90 /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
+		AAFAE60425ED279300A45A90 /* ListProjectsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProjectsRequest.swift; sourceTree = "<group>"; };
 		AAFCBE8125E90734001C52B0 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeLoginView.swift; sourceTree = "<group>"; };
 		AAFED87E25E7FFFF00BB7445 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -179,8 +182,9 @@
 		AAFCBE8025E90720001C52B0 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
-				AA10170225E91885006DC88A /* Request.swift */,
+				AA10170225E91885006DC88A /* APIRequest.swift */,
 				AAFCBE8125E90734001C52B0 /* LoginRequest.swift */,
+				AAFAE60425ED279300A45A90 /* ListProjectsRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -399,7 +403,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA10170325E91885006DC88A /* Request.swift in Sources */,
+				AA10170325E91885006DC88A /* APIRequest.swift in Sources */,
 				AA03E98425E3EF13003DA9DA /* ContentView.swift in Sources */,
 				AAFAE5F225ED1A3A00A45A90 /* ProjectList.swift in Sources */,
 				AAFED87F25E7FFFF00BB7445 /* String.swift in Sources */,
@@ -408,6 +412,7 @@
 				AA03E98225E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AAFAE5EB25ED14E500A45A90 /* AppData.swift in Sources */,
+				AAFAE60525ED279300A45A90 /* ListProjectsRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,9 +424,10 @@
 				AA03E98525E3EF13003DA9DA /* ContentView.swift in Sources */,
 				AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */,
 				AAFED88025E7FFFF00BB7445 /* String.swift in Sources */,
-				AA10170425E91885006DC88A /* Request.swift in Sources */,
+				AA10170425E91885006DC88A /* APIRequest.swift in Sources */,
 				AA03E98325E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
+				AAFAE60625ED279300A45A90 /* ListProjectsRequest.swift in Sources */,
 				AAFAE5F325ED1A3A00A45A90 /* ProjectList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

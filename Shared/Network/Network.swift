@@ -27,8 +27,9 @@ final class Network {
 
 extension Network {
     
-    public func perform<R: Request>(_ request: R) -> AnyPublisher<Data, Error> {
-        return session.dataTaskPublisher(for: request.urlRequest())
+    public func perform(_ request: APIRequest) -> AnyPublisher<Data, Error>? {
+        guard let url = request.url() else { return nil }
+        return session.dataTaskPublisher(for: request.urlRequest(url))
             .tryMap() { element -> Data in
                 guard let httpResponse = element.response as? HTTPURLResponse,
                       httpResponse.statusCode == 200 else {

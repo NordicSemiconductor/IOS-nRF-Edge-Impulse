@@ -10,20 +10,12 @@ import Combine
 
 // MARK: - LoginRequest
 
-struct LoginRequest: Request {
-    typealias DataType = LoginParameters
+extension APIRequest {
     
-    let url: URL
-    let data: LoginParameters
-    
-    init?(_ parameters: LoginParameters) {
-        self.data = parameters
-        var components = URLComponents()
-        components.scheme = "https"
-        components.host = "studio.edgeimpulse.com"
-        components.path = "/v\(API_VERSION)" + "/api-login"
-        guard let url = components.url else { return nil }
-        self.url = url
+    static func login(_ parameters: LoginParameters) -> APIRequest? {
+        guard let bodyData = try? JSONEncoder().encode(parameters),
+              let bodyString = String(data: bodyData, encoding: .utf8) else { return nil }
+        return .httpPOST(endpoint: "api-login", body: bodyString)
     }
 }
 
