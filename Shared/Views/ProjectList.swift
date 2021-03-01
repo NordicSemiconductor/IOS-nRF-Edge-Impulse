@@ -14,7 +14,7 @@ struct ProjectList: View {
         if let token = appData.apiToken {
             NavigationView {
                 Text("Logged-in with Token: \(token)")
-                    .navigationTitle("Welcome")
+                    .navigationTitle("Projects")
                     .toolbar {
                         Button("Logout") {
                             appData.logout()

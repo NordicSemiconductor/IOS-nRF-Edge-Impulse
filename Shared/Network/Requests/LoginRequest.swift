@@ -33,3 +33,11 @@ struct LoginParameters: Codable {
     let username: String
     let password: String
 }
+
+// MARK: - LoginResponse
+
+struct LoginResponse: Codable {
+    let success: Bool
+    let token: String?
+    let error: String?
+}

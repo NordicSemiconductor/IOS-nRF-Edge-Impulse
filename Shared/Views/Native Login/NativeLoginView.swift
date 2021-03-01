@@ -13,28 +13,35 @@ struct NativeLoginView: View {
     
     @State var email: String = ""
     @State var password: String = ""
+    @State var errorMessage: String = ""
     
     @State private var loginCancellable: Cancellable? = nil
     
     var body: some View {
-        VStack(alignment: .center) {
-            HStack {
-                Text("E-mail")
-                TextField("nordic@edgeimpulse.com", text: $email)
-                    .keyboardType(.emailAddress)
+        NavigationView {
+            VStack(alignment: .center) {
+                HStack {
+                    Text("E-mail")
+                    TextField("nordic@edgeimpulse.com", text: $email)
+                        .keyboardType(.emailAddress)
+                        .disableAutocorrection(true)
+                }
+                .padding(.horizontal, 16)
+                HStack {
+                    Text("Password")
+                    SecureField("1234", text: $password)
+                        .disableAutocorrection(true)
+                }
+                .padding(.horizontal, 16)
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                Button("Login") {
+                    attemptLogin()
+                }
+                .disabled(!email.isEmailAddress() || password.isEmpty)
             }
-            HStack {
-                Text("Password")
-                SecureField("1234", text: $password)
-                    .disableAutocorrection(true)
-            }
-            Button("Login") {
-                attemptLogin()
-            }
-            .disabled(!email.isEmailAddress() || password.isEmpty)
+            .navigationTitle("Login")
         }
-        .navigationTitle("Login")
-        .padding()
     }
     
     func attemptLogin() {
@@ -44,15 +51,16 @@ struct NativeLoginView: View {
             return
         }
         loginCancellable = Network.shared.perform(request)
-            .decode(type: Login.self, decoder: JSONDecoder())
+            .decode(type: LoginResponse.self, decoder: JSONDecoder())
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: {    
-                print ("Received completion: \($0).")
-            },
-            receiveValue: { user in
-                print ("Received user: \(user.token).")
-                appData.apiToken = user.token
-            })
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { loginResponse in
+                    guard loginResponse.success else {
+                        errorMessage = loginResponse.error ?? ""
+                        return
+                    }
+                    appData.apiToken = loginResponse.token
+                  })
     }
 }
 
