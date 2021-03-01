@@ -9,6 +9,8 @@ import SwiftUI
 import Combine
 
 struct NativeLoginView: View {
+    @EnvironmentObject var appData: AppData
+    
     @State var email: String = ""
     @State var password: String = ""
     
@@ -43,8 +45,14 @@ struct NativeLoginView: View {
         }
         loginCancellable = Network.shared.perform(request)
             .decode(type: Login.self, decoder: JSONDecoder())
-            .sink(receiveCompletion: { print ("Received completion: \($0).") },
-                  receiveValue: { user in print ("Received user: \(user.token).")})
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: {    
+                print ("Received completion: \($0).")
+            },
+            receiveValue: { user in
+                print ("Received user: \(user.token).")
+                appData.apiToken = user.token
+            })
     }
 }
 

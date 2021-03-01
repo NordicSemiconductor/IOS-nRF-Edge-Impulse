@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    private var login: Login? = nil
+    @StateObject var appData = AppData()
     
     var body: some View {
-        if let login = login {
-            Text("Token: \(login.token)")
+        if let token = appData.apiToken {
+            Text("Token: \(token)")
                 .padding()
         } else {
             NativeLoginView()
+                .environmentObject(appData)
         }
     }
 }
@@ -26,6 +27,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(AppData())
     }
 }
 #endif
