@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,7 @@
 		AA1016FD25E9173A006DC88A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1016FB25E9173A006DC88A /* Network.swift */; };
 		AA10170325E91885006DC88A /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* Request.swift */; };
 		AA10170425E91885006DC88A /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* Request.swift */; };
+		AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AAFAE5E425ED11CA00A45A90 /* KeychainSwift */; };
 		AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCBE8125E90734001C52B0 /* LoginRequest.swift */; };
 		AAFED86B25E7DFB100BB7445 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED86A25E7DFB100BB7445 /* Login.swift */; };
 		AAFED86C25E7DFB100BB7445 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED86A25E7DFB100BB7445 /* Login.swift */; };
@@ -73,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +248,9 @@
 			dependencies = (
 			);
 			name = "nRF-Edge-Impulse (iOS)";
+			packageProductDependencies = (
+				AAFAE5E425ED11CA00A45A90 /* KeychainSwift */,
+			);
 			productName = "nRF-Edge-Impulse (iOS)";
 			productReference = AA03E96025E3EF13003DA9DA /* nRF-Edge-Impulse.app */;
 			productType = "com.apple.product-type.application";
@@ -337,6 +342,9 @@
 				Base,
 			);
 			mainGroup = AA03E95325E3EF12003DA9DA;
+			packageReferences = (
+				AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */,
+			);
 			productRefGroup = AA03E96125E3EF13003DA9DA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -788,6 +796,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 19.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AAFAE5E425ED11CA00A45A90 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AA03E95425E3EF12003DA9DA /* Project object */;
 }
