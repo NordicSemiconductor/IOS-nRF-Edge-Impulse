@@ -6,3 +6,18 @@
 //
 
 import Foundation
+
+extension APIRequest {
+    
+    static func listProjects(_ apiToken: String) -> APIRequest {
+        let jwtValue = "jwt=" + apiToken
+        return .httpGET(endpoint: "api/projects", headers: ["cookie": jwtValue])
+    }
+}
+
+// MARK: - Response
+
+struct ProjectsResponse: Codable {
+    let success: Bool
+    let error: String?
+}

@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ProjectList: View {
     @EnvironmentObject var appData: AppData
+    
+    @State private var listCancellable: Cancellable? = nil
     
     var body: some View {
         if let token = appData.apiToken {
@@ -20,6 +23,23 @@ struct ProjectList: View {
                             appData.logout()
                         }
                     }
+            }
+            .onAppear() {
+                let request = APIRequest.listProjects(token)
+                
+                listCancellable = Network.shared.perform(request)?
+                    .decode(type: ProjectsResponse.self, decoder: JSONDecoder())
+                    .receive(on: RunLoop.main)
+                    .sink(receiveCompletion: { completition in
+                        print(completition)
+                    },
+                    receiveValue: { projectsResponse in
+                        print(projectsResponse.success)
+                        print(projectsResponse.error)
+                    })
+            }
+            .onDisappear() {
+                listCancellable?.cancel()
             }
         }
     }
