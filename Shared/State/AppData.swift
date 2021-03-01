@@ -34,6 +34,8 @@ final class AppData: ObservableObject {
     
     // MARK: - API
     
+    var isLoggedIn: Bool { apiToken != nil }
+    
     func logout() {
         apiToken = nil
     }

@@ -22,6 +22,8 @@
 		AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AAFAE5E425ED11CA00A45A90 /* KeychainSwift */; };
 		AAFAE5EB25ED14E500A45A90 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE5EA25ED14E500A45A90 /* AppData.swift */; };
 		AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE5EA25ED14E500A45A90 /* AppData.swift */; };
+		AAFAE5F225ED1A3A00A45A90 /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE5F125ED1A3A00A45A90 /* ProjectList.swift */; };
+		AAFAE5F325ED1A3A00A45A90 /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE5F125ED1A3A00A45A90 /* ProjectList.swift */; };
 		AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCBE8125E90734001C52B0 /* LoginRequest.swift */; };
 		AAFED86B25E7DFB100BB7445 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED86A25E7DFB100BB7445 /* Login.swift */; };
 		AAFED86C25E7DFB100BB7445 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED86A25E7DFB100BB7445 /* Login.swift */; };
@@ -66,6 +68,7 @@
 		AA1016FB25E9173A006DC88A /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		AA10170225E91885006DC88A /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		AAFAE5EA25ED14E500A45A90 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		AAFAE5F125ED1A3A00A45A90 /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
 		AAFCBE8125E90734001C52B0 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		AAFED86A25E7DFB100BB7445 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeLoginView.swift; sourceTree = "<group>"; };
@@ -197,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				AAFED87525E7F7E800BB7445 /* Native Login */,
+				AAFAE5F125ED1A3A00A45A90 /* ProjectList.swift */,
 				AA03E95A25E3EF12003DA9DA /* ContentView.swift */,
 			);
 			path = Views;
@@ -402,6 +406,7 @@
 				AAFED86B25E7DFB100BB7445 /* Login.swift in Sources */,
 				AA10170325E91885006DC88A /* Request.swift in Sources */,
 				AA03E98425E3EF13003DA9DA /* ContentView.swift in Sources */,
+				AAFAE5F225ED1A3A00A45A90 /* ProjectList.swift in Sources */,
 				AAFED87F25E7FFFF00BB7445 /* String.swift in Sources */,
 				AA1016FC25E9173A006DC88A /* Network.swift in Sources */,
 				AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */,
@@ -423,6 +428,7 @@
 				AA10170425E91885006DC88A /* Request.swift in Sources */,
 				AA03E98325E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
+				AAFAE5F325ED1A3A00A45A90 /* ProjectList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

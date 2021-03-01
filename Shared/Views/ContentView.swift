@@ -11,9 +11,9 @@ struct ContentView: View {
     @StateObject var appData = AppData()
     
     var body: some View {
-        if let token = appData.apiToken {
-            Text("Token: \(token)")
-                .padding()
+        if appData.isLoggedIn {
+            ProjectList()
+                .environmentObject(appData)
         } else {
             NativeLoginView()
                 .environmentObject(appData)
