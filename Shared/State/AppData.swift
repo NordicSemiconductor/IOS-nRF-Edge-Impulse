@@ -6,12 +6,44 @@
 //
 
 import Foundation
+import KeychainSwift
 
 final class AppData: ObservableObject {
     
-    @Published var apiToken: String?
+    // MARK: - Private Properties
+    
+    private lazy var keychain = KeychainSwift()
+    
+    // MARK: - Init
     
     init() {
-        self.apiToken = nil
+        self.apiToken = keychain.get(KeychainKeys.apiToken.rawValue)
+    }
+    
+    // MARK: - Publishers
+    
+    @Published var apiToken: String? {
+        didSet {
+            if let token = apiToken {
+                keychain.set(token, forKey: KeychainKeys.apiToken.rawValue)
+            } else {
+                keychain.delete(KeychainKeys.apiToken.rawValue)
+            }
+        }
+    }
+    
+    // MARK: - API
+    
+    func logout() {
+        apiToken = nil
+    }
+}
+
+// MARK: - KeychainKeys
+
+private extension AppData {
+    
+    enum KeychainKeys: String, RawRepresentable {
+        case apiToken
     }
 }
