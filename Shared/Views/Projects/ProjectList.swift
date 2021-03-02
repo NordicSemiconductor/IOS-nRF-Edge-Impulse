@@ -19,7 +19,7 @@ struct ProjectList: View {
             NavigationView {
                 List {
                     ForEach(projects) { project in
-                        Text(project.name)
+                        ProjectRow(project: project)
                     }
                 }
                 .navigationTitle("Projects")

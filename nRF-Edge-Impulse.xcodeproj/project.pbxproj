@@ -21,6 +21,8 @@
 		AA1016FD25E9173A006DC88A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1016FB25E9173A006DC88A /* Network.swift */; };
 		AA10170325E91885006DC88A /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* APIRequest.swift */; };
 		AA10170425E91885006DC88A /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* APIRequest.swift */; };
+		AA80988425EE518F00091AC0 /* ProjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA80988325EE518F00091AC0 /* ProjectRow.swift */; };
+		AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA80988325EE518F00091AC0 /* ProjectRow.swift */; };
 		AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AAFAE5E425ED11CA00A45A90 /* KeychainSwift */; };
 		AAFAE5EB25ED14E500A45A90 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE5EA25ED14E500A45A90 /* AppData.swift */; };
 		AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE5EA25ED14E500A45A90 /* AppData.swift */; };
@@ -70,6 +72,7 @@
 		AA03E98125E3EF13003DA9DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA1016FB25E9173A006DC88A /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		AA10170225E91885006DC88A /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		AA80988325EE518F00091AC0 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		AAFAE5EA25ED14E500A45A90 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		AAFAE5F125ED1A3A00A45A90 /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
 		AAFAE60425ED279300A45A90 /* ListProjectsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProjectsRequest.swift; sourceTree = "<group>"; };
@@ -114,6 +117,7 @@
 		AA008A7D25EE4BBC00F70F75 /* Projects */ = {
 			isa = PBXGroup;
 			children = (
+				AA80988325EE518F00091AC0 /* ProjectRow.swift */,
 				AAFAE5F125ED1A3A00A45A90 /* ProjectList.swift */,
 			);
 			path = Projects;
@@ -421,6 +425,7 @@
 				AAFED87F25E7FFFF00BB7445 /* String.swift in Sources */,
 				AA1016FC25E9173A006DC88A /* Network.swift in Sources */,
 				AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */,
+				AA80988425EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA03E98225E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				AA008A7725EE422C00F70F75 /* Project.swift in Sources */,
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
@@ -438,6 +443,7 @@
 				AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */,
 				AA008A7825EE422C00F70F75 /* Project.swift in Sources */,
 				AAFED88025E7FFFF00BB7445 /* String.swift in Sources */,
+				AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA10170425E91885006DC88A /* APIRequest.swift in Sources */,
 				AA03E98325E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
