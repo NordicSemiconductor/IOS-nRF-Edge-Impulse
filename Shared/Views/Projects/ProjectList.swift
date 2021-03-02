@@ -11,22 +11,26 @@ import Combine
 struct ProjectList: View {
     @EnvironmentObject var appData: AppData
     
+    @State private var projects: [Project] = []
     @State private var listCancellable: Cancellable? = nil
     
     var body: some View {
         if let token = appData.apiToken {
             NavigationView {
-                Text("Logged-in with Token: \(token)")
-                    .navigationTitle("Projects")
-                    .toolbar {
-                        Button("Logout") {
-                            appData.logout()
-                        }
+                List {
+                    ForEach(projects) { project in
+                        Text(project.name)
                     }
+                }
+                .navigationTitle("Projects")
+                .toolbar {
+                    Button("Logout") {
+                        appData.logout()
+                    }
+                }
             }
             .onAppear() {
-                let request = APIRequest.listProjects(token)
-                
+                let request = APIRequest.listProjects(using: token)
                 listCancellable = Network.shared.perform(request)?
                     .decode(type: ProjectsResponse.self, decoder: JSONDecoder())
                     .receive(on: RunLoop.main)
@@ -34,7 +38,7 @@ struct ProjectList: View {
                         print(completition)
                     },
                     receiveValue: { projectsResponse in
-                        print(projectsResponse.projects)
+                        projects = projectsResponse.projects
                         print(projectsResponse.error)
                     })
             }

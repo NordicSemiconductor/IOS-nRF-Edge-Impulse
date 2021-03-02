@@ -111,6 +111,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA008A7D25EE4BBC00F70F75 /* Projects */ = {
+			isa = PBXGroup;
+			children = (
+				AAFAE5F125ED1A3A00A45A90 /* ProjectList.swift */,
+			);
+			path = Projects;
+			sourceTree = "<group>";
+		};
 		AA03E95325E3EF12003DA9DA = {
 			isa = PBXGroup;
 			children = (
@@ -204,7 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				AAFED87525E7F7E800BB7445 /* Native Login */,
-				AAFAE5F125ED1A3A00A45A90 /* ProjectList.swift */,
+				AA008A7D25EE4BBC00F70F75 /* Projects */,
 				AA03E95A25E3EF12003DA9DA /* ContentView.swift */,
 			);
 			path = Views;

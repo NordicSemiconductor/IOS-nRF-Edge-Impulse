@@ -9,7 +9,7 @@ import Foundation
 
 extension APIRequest {
     
-    static func listProjects(_ apiToken: String) -> APIRequest {
+    static func listProjects(using apiToken: String) -> APIRequest {
         let jwtValue = "jwt=" + apiToken
         return .httpGET(endpoint: "api/projects", headers: ["cookie": jwtValue])
     }
