@@ -31,10 +31,12 @@ extension Network {
         guard let url = request.url() else { return nil }
         return session.dataTaskPublisher(for: request.urlRequest(url))
             .tryMap() { element -> Data in
-                guard let httpResponse = element.response as? HTTPURLResponse,
-                      httpResponse.statusCode == 200 else {
-                        throw URLError(.badServerResponse)
-                    }
+                guard let httpResponse = element.response as? HTTPURLResponse else {
+                    throw URLError(.badServerResponse)
+                }
+                if httpResponse.statusCode == 401 {
+                    throw URLError(.userAuthenticationRequired)
+                }
                 return element.data
             }
             .eraseToAnyPublisher()

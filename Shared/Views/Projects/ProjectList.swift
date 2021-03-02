@@ -25,27 +25,47 @@ struct ProjectList: View {
                 .navigationTitle("Projects")
                 .toolbar {
                     Button("Logout") {
-                        appData.logout()
+                        logoutUser()
                     }
                 }
             }
             .onAppear() {
-                let request = APIRequest.listProjects(using: token)
-                listCancellable = Network.shared.perform(request)?
-                    .decode(type: ProjectsResponse.self, decoder: JSONDecoder())
-                    .receive(on: RunLoop.main)
-                    .sink(receiveCompletion: { completition in
-                        print(completition)
-                    },
-                    receiveValue: { projectsResponse in
-                        projects = projectsResponse.projects
-                        print(projectsResponse.error)
-                    })
+                requestList(with: token)
             }
             .onDisappear() {
-                listCancellable?.cancel()
+                cancelListRequest()
             }
         }
+    }
+}
+
+// MARK: - API
+
+extension ProjectList {
+    
+    func requestList(with token: String) {
+        let request = APIRequest.listProjects(using: token)
+        listCancellable = Network.shared.perform(request)?
+            .onUnauthorisedUserError {
+                appData.logout()
+            }
+            .decode(type: ProjectsResponse.self, decoder: JSONDecoder())
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { completition in
+                print(completition)
+            },
+            receiveValue: { projectsResponse in
+                projects = projectsResponse.projects
+                print(projectsResponse.error)
+            })
+    }
+    
+    func cancelListRequest() {
+        listCancellable?.cancel()
+    }
+    
+    func logoutUser() {
+        appData.logout()
     }
 }
 
