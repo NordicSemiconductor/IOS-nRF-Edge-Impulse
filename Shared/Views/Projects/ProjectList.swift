@@ -45,12 +45,10 @@ extension ProjectList {
     
     func requestList(with token: String) {
         let request = APIRequest.listProjects(using: token)
-        listCancellable = Network.shared.perform(request)?
+        listCancellable = Network.shared.perform(request, responseType: ProjectsResponse.self)?
             .onUnauthorisedUserError {
                 appData.logout()
             }
-            .decode(type: ProjectsResponse.self, decoder: JSONDecoder())
-            .receive(on: RunLoop.main)
             .sink(receiveCompletion: { completition in
                 print(completition)
             },

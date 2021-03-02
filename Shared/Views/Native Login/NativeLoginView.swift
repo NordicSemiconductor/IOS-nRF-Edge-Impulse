@@ -50,17 +50,14 @@ struct NativeLoginView: View {
             // Show error.
             return
         }
-        loginCancellable = Network.shared.perform(request)?
-            .decode(type: LoginResponse.self, decoder: JSONDecoder())
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { _ in },
-                  receiveValue: { loginResponse in
-                    guard loginResponse.success else {
-                        errorMessage = loginResponse.error ?? ""
-                        return
-                    }
-                    appData.apiToken = loginResponse.token
-                  })
+        loginCancellable = Network.shared.perform(request, responseType: LoginResponse.self)?
+            .sink(receiveCompletion: { _ in }, receiveValue: { loginResponse in
+                guard loginResponse.success else {
+                    errorMessage = loginResponse.error ?? ""
+                    return
+                }
+                appData.apiToken = loginResponse.token
+            })
     }
 }
 

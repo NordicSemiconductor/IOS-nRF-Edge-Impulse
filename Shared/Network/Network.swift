@@ -27,7 +27,7 @@ final class Network {
 
 extension Network {
     
-    public func perform(_ request: APIRequest) -> AnyPublisher<Data, Error>? {
+    public func perform<T: Codable>(_ request: APIRequest, responseType: T.Type = T.self) -> AnyPublisher<T, Error>? {
         guard let url = request.url() else { return nil }
         return session.dataTaskPublisher(for: request.urlRequest(url))
             .tryMap() { element -> Data in
@@ -39,6 +39,8 @@ extension Network {
                 }
                 return element.data
             }
+            .decode(type: T.self, decoder: JSONDecoder())
+            .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
 }
