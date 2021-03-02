@@ -20,4 +20,5 @@ extension APIRequest {
 struct ProjectsResponse: Codable {
     let success: Bool
     let error: String?
+    let projects: [Project]
 }

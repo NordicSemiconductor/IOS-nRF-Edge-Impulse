@@ -34,7 +34,7 @@ struct ProjectList: View {
                         print(completition)
                     },
                     receiveValue: { projectsResponse in
-                        print(projectsResponse.success)
+                        print(projectsResponse.projects)
                         print(projectsResponse.error)
                     })
             }
