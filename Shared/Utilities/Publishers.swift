@@ -34,7 +34,9 @@ extension Publishers {
             self.upstream
                 .catch { error -> AnyPublisher<Output, Failure> in
                     if let urlError = error as? URLError, urlError.code == .userAuthenticationRequired {
-                        unauthorisedUserCallback()
+                        DispatchQueue.main.async {
+                            unauthorisedUserCallback()
+                        }
                     }
                     return Fail<Output, Failure>(error: error).eraseToAnyPublisher()
                 }
