@@ -34,7 +34,7 @@ struct NativeLoginView: View {
                 HStack(alignment: .lastTextBaseline) {
                     Image(systemName: "person.fill")
                         .frame(width: 40, height: 40)
-                        .foregroundColor(Assets.darkGrey.color)
+                        .accentColor(Assets.darkGrey.color)
                     TextField("Username or E-Mail", text: $username)
                         .textCase(.lowercase)
                         .frame(height: 20)
@@ -49,7 +49,7 @@ struct NativeLoginView: View {
                 HStack(alignment: .lastTextBaseline) {
                     Image(systemName: "key.fill")
                         .frame(width: 40, height: 40)
-                        .foregroundColor(Assets.darkGrey.color)
+                        .accentColor(Assets.darkGrey.color)
                     SecureField("Password", text: $password)
                         .frame(height: 20)
                         .padding()
@@ -59,13 +59,22 @@ struct NativeLoginView: View {
                         .padding(.bottom, 16)
                 }
                 .padding(.horizontal, 16)
-                Text(errorMessage)
-                    .foregroundColor(.red)
+                
+                if errorMessage.count > 0 {
+                    HStack {
+                        Image(systemName: "info.circle.fill")
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(Assets.red.color)
+                        Text(errorMessage)
+                            .foregroundColor(Assets.red.color)
+                    }
+                }
+                
                 Button("Login") {
                     attemptLogin()
                 }
                 .font(.headline)
-                .foregroundColor(.white)
+                .accentColor(.white)
                 .frame(width: 80, height: 15)
                 .padding()
                 .background(isLoginDisabled ?
