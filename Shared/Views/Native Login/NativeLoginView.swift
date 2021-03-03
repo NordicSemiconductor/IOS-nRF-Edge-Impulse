@@ -70,7 +70,7 @@ struct NativeLoginView: View {
                         .background(textFieldBackground)
                         .cornerRadius(20)
                         .disableAutocorrection(true)
-                        .padding(.bottom, 16)
+                        .padding(.bottom, 8)
                 }
                 .padding(.horizontal, 16)
                 
@@ -82,6 +82,13 @@ struct NativeLoginView: View {
                         Text(errorMessage)
                             .foregroundColor(Assets.red.color)
                     }
+                    .padding(.bottom, 8)
+                }
+                
+                if let forgotPasswordURL = URL(string: "https://studio.edgeimpulse.com/forgot-password") {
+                    Link("Forgot your password?", destination: forgotPasswordURL)
+                        .foregroundColor(Assets.blue.color)
+                        .padding(.bottom, 8)
                 }
                 
                 Button("Login") {
@@ -89,18 +96,28 @@ struct NativeLoginView: View {
                 }
                 .font(.headline)
                 .accentColor(.white)
-                .frame(width: 80, height: 15)
+                .frame(width: 80, height: 12)
                 .padding()
                 .background(isLoginDisabled ?
                                 Assets.lightGrey.color : Assets.blue.color)
                 .cornerRadius(30)
                 .disabled(isLoginDisabled)
+                .padding(.bottom, 8)
+                
+                if let signUpURL = URL(string: "https://studio.edgeimpulse.com/signup") {
+                    HStack {
+                        Text("Don't have an account?")
+                            .foregroundColor(Assets.darkGrey.color)
+                        Link("Sign Up", destination: signUpURL)
+                            .foregroundColor(Assets.blue.color)
+                    }
+                }
                 
                 Spacer()
                 
                 Text("Copyright © \(copyrightYear) Nordic Semiconductor ASA")
                     .font(.caption2)
-                    .foregroundColor(Assets.darkGrey.color)
+                    .foregroundColor(Assets.middleGrey.color)
             }
             .navigationTitle("Login")
         }
