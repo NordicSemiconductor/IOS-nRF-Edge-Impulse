@@ -20,6 +20,12 @@ struct NativeLoginView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .center) {
+                Spacer()
+                Image("EdgeImpulseFull")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: .infinity, height: 100)
+                    .padding(.horizontal, 16)
                 HStack {
                     Text("E-mail")
                     TextField("nordic@edgeimpulse.com", text: $email)
@@ -39,6 +45,7 @@ struct NativeLoginView: View {
                     attemptLogin()
                 }
                 .disabled(!email.isEmailAddress() || password.isEmpty)
+                Spacer()
             }
             .navigationTitle("Login")
         }
