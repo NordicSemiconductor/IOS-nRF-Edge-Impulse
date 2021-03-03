@@ -29,11 +29,6 @@ struct NativeLoginView: View {
         username.isEmpty || password.isEmpty
     }
     
-    var copyrightYear: String {
-        let currentYear = Calendar.current.component(.year, from: Date())
-        return NumberFormatter().string(from: NSNumber(value: currentYear)) ?? "2021"
-    }
-    
     // MARK: - Body
     
     var body: some View {
@@ -85,11 +80,9 @@ struct NativeLoginView: View {
                     .padding(.bottom, 8)
                 }
                 
-                if let forgotPasswordURL = URL(string: "https://studio.edgeimpulse.com/forgot-password") {
-                    Link("Forgot your password?", destination: forgotPasswordURL)
-                        .foregroundColor(Assets.blue.color)
-                        .padding(.bottom, 8)
-                }
+                Link("Forgot your password?", destination: Constant.forgottenPasswordURL)
+                    .foregroundColor(Assets.blue.color)
+                    .padding(.bottom, 8)
                 
                 Button("Login") {
                     attemptLogin()
@@ -104,18 +97,16 @@ struct NativeLoginView: View {
                 .disabled(isLoginDisabled)
                 .padding(.bottom, 8)
                 
-                if let signUpURL = URL(string: "https://studio.edgeimpulse.com/signup") {
-                    HStack {
-                        Text("Don't have an account?")
-                            .foregroundColor(Assets.darkGrey.color)
-                        Link("Sign Up", destination: signUpURL)
-                            .foregroundColor(Assets.blue.color)
-                    }
+                HStack {
+                    Text("Don't have an account?")
+                        .foregroundColor(Assets.darkGrey.color)
+                    Link("Sign Up", destination: Constant.signupURL)
+                        .foregroundColor(Assets.blue.color)
                 }
                 
                 Spacer()
                 
-                Text("Copyright © \(copyrightYear) Nordic Semiconductor ASA")
+                Text(Constant.copyrightString)
                     .font(.caption2)
                     .foregroundColor(Assets.middleGrey.color)
             }
