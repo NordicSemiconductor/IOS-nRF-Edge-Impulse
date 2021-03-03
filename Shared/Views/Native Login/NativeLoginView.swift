@@ -11,7 +11,7 @@ import Combine
 struct NativeLoginView: View {
     @EnvironmentObject var appData: AppData
     
-    @State var email: String = ""
+    @State var username: String = ""
     @State var password: String = ""
     @State var errorMessage: String = ""
     
@@ -31,7 +31,7 @@ struct NativeLoginView: View {
                     Image(systemName: "person.fill")
                         .frame(width: 40, height: 40)
                         .foregroundColor(Assets.darkGrey.color)
-                    TextField("Username or E-Mail", text: $email)
+                    TextField("Username or E-Mail", text: $username)
                         .frame(height: 20)
                         .padding()
                         .background(textFieldBackground)
@@ -67,7 +67,7 @@ struct NativeLoginView: View {
     }
     
     func attemptLogin() {
-        let parameters = LoginParameters(username: email, password: password)
+        let parameters = LoginParameters(username: username, password: password)
         guard let request = APIRequest.login(parameters) else {
             // Show error.
             return

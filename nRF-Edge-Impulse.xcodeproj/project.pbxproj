@@ -37,8 +37,6 @@
 		AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCBE8125E90734001C52B0 /* LoginRequest.swift */; };
 		AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */; };
 		AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */; };
-		AAFED87F25E7FFFF00BB7445 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87E25E7FFFF00BB7445 /* String.swift */; };
-		AAFED88025E7FFFF00BB7445 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87E25E7FFFF00BB7445 /* String.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,7 +82,6 @@
 		AAFAE60425ED279300A45A90 /* ListProjectsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProjectsRequest.swift; sourceTree = "<group>"; };
 		AAFCBE8125E90734001C52B0 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeLoginView.swift; sourceTree = "<group>"; };
-		AAFED87E25E7FFFF00BB7445 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,7 +254,6 @@
 		AAFED87D25E7FFF000BB7445 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				AAFED87E25E7FFFF00BB7445 /* String.swift */,
 				AA80989925EE959B00091AC0 /* Publishers.swift */,
 				AA01F3CF25EFACB000368707 /* Assets.swift */,
 			);
@@ -431,7 +427,6 @@
 				AA03E98425E3EF13003DA9DA /* ContentView.swift in Sources */,
 				AA01F3D025EFACB000368707 /* Assets.swift in Sources */,
 				AAFAE5F225ED1A3A00A45A90 /* ProjectList.swift in Sources */,
-				AAFED87F25E7FFFF00BB7445 /* String.swift in Sources */,
 				AA1016FC25E9173A006DC88A /* Network.swift in Sources */,
 				AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */,
 				AA80988425EE518F00091AC0 /* ProjectRow.swift in Sources */,
@@ -453,7 +448,6 @@
 				AA03E98525E3EF13003DA9DA /* ContentView.swift in Sources */,
 				AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */,
 				AA008A7825EE422C00F70F75 /* Project.swift in Sources */,
-				AAFED88025E7FFFF00BB7445 /* String.swift in Sources */,
 				AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA10170425E91885006DC88A /* APIRequest.swift in Sources */,
 				AA03E98325E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
