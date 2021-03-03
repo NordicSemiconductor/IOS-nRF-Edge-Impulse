@@ -9,18 +9,32 @@ import SwiftUI
 import Combine
 
 struct NativeLoginView: View {
+    // MARK: - EnvironmentObject(s)
+    
     @EnvironmentObject var appData: AppData
+    
+    // MARK: - State
     
     @State var username: String = ""
     @State var password: String = ""
+    @State var errorMessage: String = ""
+    
+    @State private var loginCancellable: Cancellable? = nil
+    
+    // MARK: - Properties
+    
+    private let textFieldBackground = Assets.lightGrey.color.opacity(0.5)
+    
     var isLoginDisabled: Bool {
         username.isEmpty || password.isEmpty
     }
     
-    @State var errorMessage: String = ""
+    var copyrightYear: String {
+        let currentYear = Calendar.current.component(.year, from: Date())
+        return NumberFormatter().string(from: NSNumber(value: currentYear)) ?? "2021"
+    }
     
-    @State private var loginCancellable: Cancellable? = nil
-    private let textFieldBackground = Assets.lightGrey.color.opacity(0.5)
+    // MARK: - Body
     
     var body: some View {
         NavigationView {
@@ -81,7 +95,12 @@ struct NativeLoginView: View {
                                 Assets.lightGrey.color : Assets.blue.color)
                 .cornerRadius(30)
                 .disabled(isLoginDisabled)
+                
                 Spacer()
+                
+                Text("Copyright © \(copyrightYear) Nordic Semiconductor ASA")
+                    .font(.caption2)
+                    .foregroundColor(Assets.darkGrey.color)
             }
             .navigationTitle("Login")
         }
