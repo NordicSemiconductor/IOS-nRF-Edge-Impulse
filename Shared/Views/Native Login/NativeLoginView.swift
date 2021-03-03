@@ -13,6 +13,10 @@ struct NativeLoginView: View {
     
     @State var username: String = ""
     @State var password: String = ""
+    var isLoginDisabled: Bool {
+        username.isEmpty || password.isEmpty
+    }
+    
     @State var errorMessage: String = ""
     
     @State private var loginCancellable: Cancellable? = nil
@@ -32,6 +36,7 @@ struct NativeLoginView: View {
                         .frame(width: 40, height: 40)
                         .foregroundColor(Assets.darkGrey.color)
                     TextField("Username or E-Mail", text: $username)
+                        .textCase(.lowercase)
                         .frame(height: 20)
                         .padding()
                         .background(textFieldBackground)
@@ -59,7 +64,14 @@ struct NativeLoginView: View {
                 Button("Login") {
                     attemptLogin()
                 }
-                .disabled(!email.isEmailAddress() || password.isEmpty)
+                .font(.headline)
+                .foregroundColor(.white)
+                .frame(width: 80, height: 15)
+                .padding()
+                .background(isLoginDisabled ?
+                                Assets.lightGrey.color : Assets.blue.color)
+                .cornerRadius(30)
+                .disabled(isLoginDisabled)
                 Spacer()
             }
             .navigationTitle("Login")
