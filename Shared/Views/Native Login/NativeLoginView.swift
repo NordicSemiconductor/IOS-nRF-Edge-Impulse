@@ -45,12 +45,11 @@ struct NativeLoginView: View {
                         .frame(width: 40, height: 40)
                         .accentColor(Assets.darkGrey.color)
                     TextField("Username or E-Mail", text: $username)
-                        .textCase(.lowercase)
                         .frame(height: 20)
                         .padding()
                         .background(textFieldBackground)
                         .cornerRadius(20)
-                        .keyboardType(.emailAddress)
+                        .autocapitalization(.none)
                         .disableAutocorrection(true)
                         .padding(.bottom, 16)
                 }
