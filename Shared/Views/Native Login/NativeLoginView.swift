@@ -16,6 +16,7 @@ struct NativeLoginView: View {
     @State var errorMessage: String = ""
     
     @State private var loginCancellable: Cancellable? = nil
+    private let textFieldBackground = Assets.lightGrey.color.opacity(0.5)
     
     var body: some View {
         NavigationView {
@@ -24,23 +25,33 @@ struct NativeLoginView: View {
                 Image("EdgeImpulseFull")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: .infinity, height: 80)
+                    .frame(height: 80)
                     .padding(.horizontal, 16)
-                HStack {
+                HStack(alignment: .lastTextBaseline) {
                     Image(systemName: "person.fill")
                         .frame(width: 40, height: 40)
-                        .foregroundColor(.primary)
+                        .foregroundColor(Assets.darkGrey.color)
                     TextField("Username or E-Mail", text: $email)
+                        .frame(height: 20)
+                        .padding()
+                        .background(textFieldBackground)
+                        .cornerRadius(20)
                         .keyboardType(.emailAddress)
                         .disableAutocorrection(true)
+                        .padding(.bottom, 16)
                 }
                 .padding(.horizontal, 16)
-                HStack {
+                HStack(alignment: .lastTextBaseline) {
                     Image(systemName: "key.fill")
                         .frame(width: 40, height: 40)
-                        .foregroundColor(.primary)
+                        .foregroundColor(Assets.darkGrey.color)
                     SecureField("Password", text: $password)
+                        .frame(height: 20)
+                        .padding()
+                        .background(textFieldBackground)
+                        .cornerRadius(20)
                         .disableAutocorrection(true)
+                        .padding(.bottom, 16)
                 }
                 .padding(.horizontal, 16)
                 Text(errorMessage)
