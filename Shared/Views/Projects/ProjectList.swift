@@ -60,6 +60,8 @@ extension ProjectList {
         appearance.titleTextAttributes = attributes
         appearance.largeTitleTextAttributes = attributes
         appearance.backgroundColor = backgroundColor
+        UINavigationBar.appearance().compactAppearance = appearance
+        UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
     
