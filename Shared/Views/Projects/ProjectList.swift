@@ -14,6 +14,10 @@ struct ProjectList: View {
     @State private var projects: [Project] = []
     @State private var listCancellable: Cancellable? = nil
     
+    init() {
+        setupNavBar(backgroundColor: Assets.blue.uiColor, titleColor: .white)
+    }
+    
     var body: some View {
         if let token = appData.apiToken {
             NavigationView {
@@ -33,7 +37,6 @@ struct ProjectList: View {
             }
             .accentColor(.white)
             .onAppear() {
-                setupNavBar()
                 requestList(with: token)
             }
             .onDisappear() {
@@ -47,15 +50,15 @@ struct ProjectList: View {
 
 extension ProjectList {
     
-    func setupNavBar() {
+    func setupNavBar(backgroundColor: UIColor, titleColor: UIColor) {
         let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.white
+            .foregroundColor: titleColor
         ]
         
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = attributes
         appearance.largeTitleTextAttributes = attributes
-        appearance.backgroundColor = Assets.blue.uiColor
+        appearance.backgroundColor = backgroundColor
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
     
