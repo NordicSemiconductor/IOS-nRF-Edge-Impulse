@@ -24,6 +24,7 @@ struct ProjectList: View {
                 List {
                     ForEach(projects) { project in
                         ProjectRow(project: project)
+                            .listRowInsets(EdgeInsets())
                     }
                 }
                 .navigationTitle("Projects")

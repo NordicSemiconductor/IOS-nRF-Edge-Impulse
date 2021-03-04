@@ -13,17 +13,18 @@ struct ProjectRow: View {
     var project: Project
     
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             Image("EdgeImpulse")
                 .resizable()
                 .frame(width: 50, height: 50)
+                .background(Assets.lightGrey.color)
                 .cornerRadius(12)
             VStack(alignment: .leading) {
                 Text(project.name)
                     .font(.headline)
                     .bold()
                 Text(project.description)
-                    .font(.caption)
+                    .font(.body)
                     .lineLimit(1)
                 Text(project.created, style: .date)
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -32,6 +33,7 @@ struct ProjectRow: View {
                     .lineLimit(1)
             }
         }
+        .padding(16)
     }
 }
 
