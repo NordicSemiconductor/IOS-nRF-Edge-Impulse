@@ -14,7 +14,7 @@ struct ProjectRow: View {
     
     var body: some View {
         HStack {
-            Image("nRFConnect")
+            Image("EdgeImpulse")
                 .resizable()
                 .frame(width: 50, height: 50)
                 .cornerRadius(12)

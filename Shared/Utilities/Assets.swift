@@ -30,4 +30,8 @@ enum Assets: String {
     var color: Color {
         Color(rawValue)
     }
+    
+    var uiColor: UIColor! {
+        UIColor(named: rawValue)
+    }
 }

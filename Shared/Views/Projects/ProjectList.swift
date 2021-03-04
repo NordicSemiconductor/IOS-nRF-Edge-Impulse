@@ -24,12 +24,16 @@ struct ProjectList: View {
                 }
                 .navigationTitle("Projects")
                 .toolbar {
-                    Button("Logout") {
-                        logoutUser()
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Logout") {
+                            logoutUser()
+                        }
                     }
                 }
             }
+            .accentColor(.white)
             .onAppear() {
+                setupNavBar()
                 requestList(with: token)
             }
             .onDisappear() {
@@ -43,11 +47,23 @@ struct ProjectList: View {
 
 extension ProjectList {
     
+    func setupNavBar() {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white
+        ]
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.titleTextAttributes = attributes
+        appearance.largeTitleTextAttributes = attributes
+        appearance.backgroundColor = Assets.blue.uiColor
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    }
+    
     func requestList(with token: String) {
         let request = APIRequest.listProjects(using: token)
         listCancellable = Network.shared.perform(request, responseType: ProjectsResponse.self)?
             .onUnauthorisedUserError {
-                appData.logout()
+                logoutUser()
             }
             .sink(receiveCompletion: { completition in
                 print(completition)
@@ -71,9 +87,16 @@ extension ProjectList {
 
 #if DEBUG
 struct ProjectList_Previews: PreviewProvider {
+    
+    static var previewAppData: AppData = {
+       var appData = AppData()
+        appData.apiToken = "Test"
+        return appData
+    }()
+    
     static var previews: some View {
-        ContentView()
-            .environmentObject(AppData())
+        ProjectList()
+            .environmentObject(previewAppData)
     }
 }
 #endif
