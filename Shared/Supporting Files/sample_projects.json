@@ -1,0 +1,69 @@
+[
+    {
+        "id": 19,
+        "name": "dinesh.harjani-project-1",
+        "description": "This is your Edge Impulse project. From here you acquire new training data, design impulses and train models.",
+        "created": "2021-02-26T10:55:47.731Z",
+        "owner": "Dinesh Harjani",
+        "collaborators": [
+            {
+                "id": 14754,
+                "created": "2021-02-26T10:55:47.731Z",
+                "isEdgeImpulseStaff": false,
+                "name": "Dinesh Harjani",
+                "username": "dinesh.harjani",
+                "photo": ""
+            }
+        ]
+    },
+    {
+        "id": 20,
+        "name": "Filip's Revenge",
+        "description": "This is the finished Edge Impulse project for the tutorial 'Continuous motion recognition'. From here you acquire new training data, design impulses and train models.",
+        "created": "2021-03-03T18:06:51.370Z",
+        "owner": "Supreme Leader",
+        "collaborators": [
+            {
+                "id": 1,
+                "created": "2021-03-03T18:06:51.370Z",
+                "isEdgeImpulseStaff": true,
+                "name": "Jan Jongboom",
+                "username": "janjongboom",
+                "photo": "https://usercdn.edgeimpulse.com/1/57bdd06dbbd242225fd7890d6542b20d07c7ef9633d591e759564d9d49684976"
+            },
+            {
+                "id": 14754,
+                "created": "2021-03-03T18:06:51.370Z",
+                "isEdgeImpulseStaff": false,
+                "name": "Dinesh Harjani",
+                "username": "dinesh.harjani",
+                "photo": ""
+            }
+        ]
+    },
+    {
+        "id": 31,
+        "name": "You Dream?",
+        "description": "Me too, my cat was jumping on the bed the whole night.",
+        "created": "2021-03-03T18:07:44.097Z",
+        "owner": "Nicky Boi",
+        "collaborators": [
+            {
+                "id": 1,
+                "created": "2021-03-03T18:07:44.097Z",
+                "isEdgeImpulseStaff": true,
+                "name": "Jan Jongboom",
+                "username": "janjongboom",
+                "photo": "https://usercdn.edgeimpulse.com/1/57bdd06dbbd242225fd7890d6542b20d07c7ef9633d591e759564d9d49684976"
+            },
+            {
+                "id": 14754,
+                "created": "2021-03-03T18:07:44.097Z",
+                "isEdgeImpulseStaff": false,
+                "name": "Dinesh Harjani",
+                "username": "dinesh.harjani",
+                "photo": ""
+            }
+        ]
+    }
+]

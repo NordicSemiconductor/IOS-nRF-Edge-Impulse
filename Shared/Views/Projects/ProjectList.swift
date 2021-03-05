@@ -11,7 +11,6 @@ import Combine
 struct ProjectList: View {
     @EnvironmentObject var appData: AppData
     
-    @State private var projects: [Project] = []
     @State private var listCancellable: Cancellable? = nil
     
     init() {
@@ -22,14 +21,14 @@ struct ProjectList: View {
         if let token = appData.apiToken {
             NavigationView {
                 List {
-                    ForEach(projects) { project in
+                    ForEach(appData.projects) { project in
                         ProjectRow(project: project)
                             .listRowInsets(EdgeInsets())
                     }
                 }
                 .navigationTitle("Projects")
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                    ToolbarItem(placement: .cancellationAction) {
                         Button("Logout") {
                             logoutUser()
                         }
@@ -75,7 +74,7 @@ extension ProjectList {
                 print(completition)
             },
             receiveValue: { projectsResponse in
-                projects = projectsResponse.projects
+                appData.projects = projectsResponse.projects
                 print(projectsResponse.error)
             })
     }
@@ -97,11 +96,20 @@ struct ProjectList_Previews: PreviewProvider {
     static var previewAppData: AppData = {
        var appData = AppData()
         appData.apiToken = "Test"
+        appData.projects = previewProjects
         return appData
+    }()
+    
+    static var previewProjects: [Project]! = {
+        let path: String! = Bundle.main.path(forResource: "sample_projects", ofType: "json")
+        let content: String! = try? String(contentsOfFile: path)
+        let contentData: Data! = content.data(using: .utf8)
+        return try? JSONDecoder().decode([Project].self, from: contentData)
     }()
     
     static var previews: some View {
         ProjectList()
+            .previewDevice("iPhone 12 mini")
             .environmentObject(previewAppData)
     }
 }
