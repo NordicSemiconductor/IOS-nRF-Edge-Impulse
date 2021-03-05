@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Project
 
-struct Project: Identifiable, Codable {
+struct Project: Identifiable, Hashable, Codable {
     let id: Int
     let name: String
     let description: String

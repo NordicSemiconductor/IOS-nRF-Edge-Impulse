@@ -22,8 +22,11 @@ struct ProjectList: View {
             NavigationView {
                 List {
                     ForEach(appData.projects) { project in
-                        ProjectRow(project: project)
-                            .listRowInsets(EdgeInsets())
+                        NavigationLink(destination: DataAcquisitionView(project: project)) {
+                            ProjectRow(project: project)
+                                .listRowInsets(EdgeInsets())
+                        }
+                        .tag(project)
                     }
                 }
                 .navigationTitle("Projects")
