@@ -233,7 +233,6 @@
 			children = (
 				AAFAE5EA25ED14E500A45A90 /* AppData.swift */,
 				AA008A7625EE422C00F70F75 /* Project.swift */,
-				AA01F3DE25EFDC5000368707 /* Constant.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -260,6 +259,7 @@
 			children = (
 				AA80989925EE959B00091AC0 /* Publishers.swift */,
 				AA01F3CF25EFACB000368707 /* Assets.swift */,
+				AA01F3DE25EFDC5000368707 /* Constant.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
