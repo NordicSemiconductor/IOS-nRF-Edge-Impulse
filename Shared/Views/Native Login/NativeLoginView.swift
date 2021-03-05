@@ -108,6 +108,7 @@ struct NativeLoginView: View {
                 Text(Constant.copyrightString)
                     .font(.caption2)
                     .foregroundColor(Assets.middleGrey.color)
+                    .padding(.bottom, 8)
             }
             .navigationTitle("Login")
         }
