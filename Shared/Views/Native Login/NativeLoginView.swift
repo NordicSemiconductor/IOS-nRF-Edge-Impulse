@@ -35,11 +35,16 @@ struct NativeLoginView: View {
         NavigationView {
             VStack(alignment: .center) {
                 Spacer()
-                Image("EdgeImpulseFull")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 80)
-                    .padding(.horizontal, 16)
+                HStack(alignment: .center, spacing: 16) {
+                    Image("Nordic")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 50)
+                    Image("EdgeImpulse")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 80)
+                }
                 HStack(alignment: .lastTextBaseline) {
                     Image(systemName: "person.fill")
                         .frame(width: 40, height: 40)
@@ -90,8 +95,7 @@ struct NativeLoginView: View {
                 .accentColor(.white)
                 .frame(width: 80, height: 12)
                 .padding()
-                .background(isLoginDisabled ?
-                                Assets.lightGrey.color : Assets.blue.color)
+                .background(isLoginDisabled ? Assets.lightGrey.color : Assets.blue.color)
                 .cornerRadius(30)
                 .disabled(isLoginDisabled)
                 .padding(.bottom, 8)
@@ -104,11 +108,6 @@ struct NativeLoginView: View {
                 }
                 
                 Spacer()
-                
-                Text(Constant.copyrightString)
-                    .font(.caption2)
-                    .foregroundColor(Assets.middleGrey.color)
-                    .padding(.bottom, 8)
             }
             .navigationTitle("Login")
         }
