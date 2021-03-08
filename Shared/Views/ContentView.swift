@@ -9,11 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var appData = AppData()
-    @StateObject var scanner = Scanner()
     
     var body: some View {
         if appData.isLoggedIn {
-            ProjectList()
+            LoggedInRootView()
                 .environmentObject(appData)
         } else {
             NativeLoginView()

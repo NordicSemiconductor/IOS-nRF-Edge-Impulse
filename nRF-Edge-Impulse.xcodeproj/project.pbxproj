@@ -21,6 +21,12 @@
 		AA02088425F6516D00FD6B24 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02088225F6516D00FD6B24 /* Scanner.swift */; };
 		AA02088E25F651D100FD6B24 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02088D25F651D100FD6B24 /* Device.swift */; };
 		AA02088F25F651D100FD6B24 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02088D25F651D100FD6B24 /* Device.swift */; };
+		AA02089625F65A3700FD6B24 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02089525F65A3700FD6B24 /* DeviceList.swift */; };
+		AA02089725F65A3700FD6B24 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02089525F65A3700FD6B24 /* DeviceList.swift */; };
+		AA0208A125F65C7600FD6B24 /* LoggedInRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */; };
+		AA0208A225F65C7600FD6B24 /* LoggedInRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */; };
+		AA0208A925F65EB400FD6B24 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A825F65EB400FD6B24 /* Tabs.swift */; };
+		AA0208AA25F65EB400FD6B24 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A825F65EB400FD6B24 /* Tabs.swift */; };
 		AA03E97525E3EF13003DA9DA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03E97425E3EF13003DA9DA /* Tests_iOS.swift */; };
 		AA03E98025E3EF13003DA9DA /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03E97F25E3EF13003DA9DA /* Tests_macOS.swift */; };
 		AA03E98225E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03E95925E3EF12003DA9DA /* nRF_Edge_ImpulseApp.swift */; };
@@ -78,6 +84,9 @@
 		AA02086E25F648C200FD6B24 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		AA02088225F6516D00FD6B24 /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
 		AA02088D25F651D100FD6B24 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		AA02089525F65A3700FD6B24 /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
+		AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInRootView.swift; sourceTree = "<group>"; };
+		AA0208A825F65EB400FD6B24 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		AA03E95925E3EF12003DA9DA /* nRF_Edge_ImpulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF_Edge_ImpulseApp.swift; sourceTree = "<group>"; };
 		AA03E95A25E3EF12003DA9DA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AA03E95B25E3EF13003DA9DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -154,6 +163,23 @@
 				AA02088D25F651D100FD6B24 /* Device.swift */,
 			);
 			path = Bluetooth;
+			sourceTree = "<group>";
+		};
+		AA02089425F654C300FD6B24 /* Devices */ = {
+			isa = PBXGroup;
+			children = (
+				AA02089525F65A3700FD6B24 /* DeviceList.swift */,
+			);
+			path = Devices;
+			sourceTree = "<group>";
+		};
+		AA0208A725F65E9500FD6B24 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */,
+				AA0208A825F65EB400FD6B24 /* Tabs.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		AA03E95325E3EF12003DA9DA = {
@@ -259,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				AAFED87525E7F7E800BB7445 /* Native Login */,
+				AA0208A725F65E9500FD6B24 /* TabBar */,
 				AA008A7D25EE4BBC00F70F75 /* Projects */,
 				AA02089425F654C300FD6B24 /* Devices */,
 				AAF5054525F11E15003AFED7 /* Data */,
@@ -484,7 +511,10 @@
 				AA02086825F641D900FD6B24 /* Sample.swift in Sources */,
 				AA03E98225E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				AA02088E25F651D100FD6B24 /* Device.swift in Sources */,
+				AA0208A125F65C7600FD6B24 /* LoggedInRootView.swift in Sources */,
+				AA0208A925F65EB400FD6B24 /* Tabs.swift in Sources */,
 				AA008A7725EE422C00F70F75 /* Project.swift in Sources */,
+				AA02089625F65A3700FD6B24 /* DeviceList.swift in Sources */,
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AA01F3DF25EFDC5000368707 /* Constant.swift in Sources */,
 				AAFAE5EB25ED14E500A45A90 /* AppData.swift in Sources */,
@@ -503,11 +533,14 @@
 				AA03E98525E3EF13003DA9DA /* ContentView.swift in Sources */,
 				AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */,
 				AA008A7825EE422C00F70F75 /* Project.swift in Sources */,
+				AA02089725F65A3700FD6B24 /* DeviceList.swift in Sources */,
 				AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA10170425E91885006DC88A /* APIRequest.swift in Sources */,
 				AA01F3E025EFDC5000368707 /* Constant.swift in Sources */,
 				AA03E98325E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				AAF5054825F11E45003AFED7 /* DataAcquisitionView.swift in Sources */,
+				AA0208A225F65C7600FD6B24 /* LoggedInRootView.swift in Sources */,
+				AA0208AA25F65EB400FD6B24 /* Tabs.swift in Sources */,
 				AA02086925F641D900FD6B24 /* Sample.swift in Sources */,
 				AA02088425F6516D00FD6B24 /* Scanner.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
