@@ -9,15 +9,20 @@ import SwiftUI
 
 struct DataAcquisitionView: View {
     
-    private static let Sensors = ["Accelerometer", "Microphone", "Camera"]
-    private static let Frequencies = [8000, 11000, 16000, 32000, 44100, 48000]
-    
     let project: Project
     
     @State private var label = ""
-    @State private var selectedSensor = 0
+    @State private var selectedSensorIndex = 0
     @State private var sampleLength = 10000
-    @State private var selectedFrequency = 1
+    @State private var selectedFrequencyIndex = 1
+    
+    var sampleLengthAndFrequencyEnabled: Bool {
+        Sensor.allCases[selectedSensorIndex] != .Camera
+    }
+    
+    var startSamplingDisabled: Bool {
+        label.count < 1
+    }
     
     var body: some View {
         Form {
@@ -32,35 +37,41 @@ struct DataAcquisitionView: View {
             }
 
             Section(header: Text("Sensor")) {
-                Picker("Type", selection: $selectedSensor) {
-                    ForEach(Self.Sensors.indices) { i in
-                        Text(Self.Sensors[i]).tag(i)
+                Picker("Type", selection: $selectedSensorIndex) {
+                    ForEach(Sensor.allCases.indices) { i in
+                        Text(Sensor.allCases[i].rawValue).tag(i)
                     }
                 }
                 .pickerStyle(InlinePickerStyle())
                 .frame(maxHeight: 75)
             }
             
-            Section(header: Text("Sample Length")) {
-                Stepper(value: $sampleLength, in: 0...100000) {
-                    Text("\(sampleLength, specifier: "%d") ms")
+            if sampleLengthAndFrequencyEnabled {
+                Section(header: Text("Sample Length")) {
+                    Stepper(value: $sampleLength, in: 0...100000) {
+                        Text("\(sampleLength, specifier: "%d") ms")
+                    }
                 }
             }
             
-            Section(header: Text("Frequency")) {
-                Picker("Value", selection: $selectedFrequency) {
-                    ForEach(Self.Frequencies.indices) { i in
-                        Text("\(Self.Frequencies[i]) Hz").tag(i)
+            if sampleLengthAndFrequencyEnabled {
+                Section(header: Text("Frequency")) {
+                    Picker("Value", selection: $selectedFrequencyIndex) {
+                        ForEach(Frequency.allCases.indices) { i in
+                            Text(Frequency.allCases[i].description).tag(i)
+                        }
                     }
+                    .pickerStyle(InlinePickerStyle())
+                    .frame(maxHeight: 75)
                 }
-                .pickerStyle(InlinePickerStyle())
-                .frame(maxHeight: 75)
             }
             
             Button("Start Sampling") {
                 startSampling()
             }
-            .accentColor(Assets.red.color)
+            .centerTextInsideForm()
+            .disabled(startSamplingDisabled)
+            .accentColor(startSamplingDisabled ? Assets.middleGrey.color : Assets.red.color)
         }
         .padding(.top, 8)
         .navigationBarTitle("Data Acquisition")
