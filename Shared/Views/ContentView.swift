@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var appData = AppData()
+    @StateObject var scanner = Scanner()
     
     var body: some View {
         if appData.isLoggedIn {
@@ -28,6 +29,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(AppData())
+            .environmentObject(Scanner())
     }
 }
 #endif

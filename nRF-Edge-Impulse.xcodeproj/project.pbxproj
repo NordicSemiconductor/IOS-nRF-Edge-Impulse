@@ -17,6 +17,10 @@
 		AA02086925F641D900FD6B24 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02086725F641D900FD6B24 /* Sample.swift */; };
 		AA02086F25F648C200FD6B24 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02086E25F648C200FD6B24 /* View.swift */; };
 		AA02087025F648C200FD6B24 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02086E25F648C200FD6B24 /* View.swift */; };
+		AA02088325F6516D00FD6B24 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02088225F6516D00FD6B24 /* Scanner.swift */; };
+		AA02088425F6516D00FD6B24 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02088225F6516D00FD6B24 /* Scanner.swift */; };
+		AA02088E25F651D100FD6B24 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02088D25F651D100FD6B24 /* Device.swift */; };
+		AA02088F25F651D100FD6B24 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02088D25F651D100FD6B24 /* Device.swift */; };
 		AA03E97525E3EF13003DA9DA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03E97425E3EF13003DA9DA /* Tests_iOS.swift */; };
 		AA03E98025E3EF13003DA9DA /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03E97F25E3EF13003DA9DA /* Tests_macOS.swift */; };
 		AA03E98225E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03E95925E3EF12003DA9DA /* nRF_Edge_ImpulseApp.swift */; };
@@ -72,6 +76,8 @@
 		AA01F3DE25EFDC5000368707 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		AA02086725F641D900FD6B24 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		AA02086E25F648C200FD6B24 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		AA02088225F6516D00FD6B24 /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
+		AA02088D25F651D100FD6B24 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		AA03E95925E3EF12003DA9DA /* nRF_Edge_ImpulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF_Edge_ImpulseApp.swift; sourceTree = "<group>"; };
 		AA03E95A25E3EF12003DA9DA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AA03E95B25E3EF13003DA9DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -141,6 +147,15 @@
 			path = Projects;
 			sourceTree = "<group>";
 		};
+		AA02088125F6515900FD6B24 /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				AA02088225F6516D00FD6B24 /* Scanner.swift */,
+				AA02088D25F651D100FD6B24 /* Device.swift */,
+			);
+			path = Bluetooth;
+			sourceTree = "<group>";
+		};
 		AA03E95325E3EF12003DA9DA = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +173,7 @@
 			children = (
 				AAFED86725E7DE7C00BB7445 /* Views */,
 				AAFED86825E7DE8400BB7445 /* State */,
+				AA02088125F6515900FD6B24 /* Bluetooth */,
 				AAFED86925E7DE8D00BB7445 /* Network */,
 				AAFED87D25E7FFF000BB7445 /* Utilities */,
 				AA03E95925E3EF12003DA9DA /* nRF_Edge_ImpulseApp.swift */,
@@ -244,6 +260,7 @@
 			children = (
 				AAFED87525E7F7E800BB7445 /* Native Login */,
 				AA008A7D25EE4BBC00F70F75 /* Projects */,
+				AA02089425F654C300FD6B24 /* Devices */,
 				AAF5054525F11E15003AFED7 /* Data */,
 				AA03E95A25E3EF12003DA9DA /* ContentView.swift */,
 			);
@@ -457,6 +474,7 @@
 				AA10170325E91885006DC88A /* APIRequest.swift in Sources */,
 				AA03E98425E3EF13003DA9DA /* ContentView.swift in Sources */,
 				AA01F3D025EFACB000368707 /* Assets.swift in Sources */,
+				AA02088325F6516D00FD6B24 /* Scanner.swift in Sources */,
 				AA02086F25F648C200FD6B24 /* View.swift in Sources */,
 				AAFAE5F225ED1A3A00A45A90 /* ProjectList.swift in Sources */,
 				AA1016FC25E9173A006DC88A /* Network.swift in Sources */,
@@ -465,6 +483,7 @@
 				AA80989A25EE959B00091AC0 /* Publishers.swift in Sources */,
 				AA02086825F641D900FD6B24 /* Sample.swift in Sources */,
 				AA03E98225E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
+				AA02088E25F651D100FD6B24 /* Device.swift in Sources */,
 				AA008A7725EE422C00F70F75 /* Project.swift in Sources */,
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AA01F3DF25EFDC5000368707 /* Constant.swift in Sources */,
@@ -480,6 +499,7 @@
 				AA02087025F648C200FD6B24 /* View.swift in Sources */,
 				AA80989B25EE959B00091AC0 /* Publishers.swift in Sources */,
 				AA1016FD25E9173A006DC88A /* Network.swift in Sources */,
+				AA02088F25F651D100FD6B24 /* Device.swift in Sources */,
 				AA03E98525E3EF13003DA9DA /* ContentView.swift in Sources */,
 				AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */,
 				AA008A7825EE422C00F70F75 /* Project.swift in Sources */,
@@ -489,6 +509,7 @@
 				AA03E98325E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				AAF5054825F11E45003AFED7 /* DataAcquisitionView.swift in Sources */,
 				AA02086925F641D900FD6B24 /* Sample.swift in Sources */,
+				AA02088425F6516D00FD6B24 /* Scanner.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AAFAE60625ED279300A45A90 /* ListProjectsRequest.swift in Sources */,
