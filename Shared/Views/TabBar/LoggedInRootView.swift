@@ -14,13 +14,13 @@ struct LoggedInRootView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            ProjectList()
+            Tabs.Projects.view()
                 .tabItem {
                     Label(Tabs.Projects.description, systemImage: "list.bullet")
                 }
                 .tag(Tabs.Projects.rawValue)
             
-            DeviceList()
+            Tabs.Scanner.view()
                 .environmentObject(scanner)
                 .tabItem {
                     Label(Tabs.Scanner.description, systemImage: "wave.3.left")
@@ -36,9 +36,18 @@ struct LoggedInRootView: View {
 #if DEBUG
 struct LoggedInRootView_Previews: PreviewProvider {
     static var previews: some View {
-        LoggedInRootView()
-            .environmentObject(AppData())
-            .environmentObject(Scanner())
+        Group {
+            LoggedInRootView()
+                .preferredColorScheme(.light)
+                .environmentObject(AppData())
+                .environmentObject(Scanner())
+        }
+        Group {
+            LoggedInRootView()
+                .preferredColorScheme(.dark)
+                .environmentObject(AppData())
+                .environmentObject(Scanner())
+        }
     }
 }
 #endif

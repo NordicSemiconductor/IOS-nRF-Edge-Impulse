@@ -12,6 +12,21 @@ enum Tabs: Int, RawRepresentable, CaseIterable {
     case Scanner
 }
 
+// MARK: - ViewBuilder
+
+extension Tabs {
+    
+    @ViewBuilder
+    func view() -> some View {
+        switch self {
+        case .Projects:
+            ProjectList()
+        case .Scanner:
+             DeviceList()
+        }
+    }
+}
+
 // MARK: - Identifiable, CustomStringConvertible
 
 extension Tabs: Identifiable, CustomStringConvertible {
