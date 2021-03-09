@@ -33,6 +33,15 @@ extension Tabs: Identifiable, CustomStringConvertible {
     
     var id: Int { rawValue }
     
+    var systemImageName: String {
+        switch self {
+        case .Projects:
+            return "list.bullet"
+        case .Scanner:
+            return "wave.3.left"
+        }
+    }
+    
     var description: String {
         switch self {
         case .Projects:

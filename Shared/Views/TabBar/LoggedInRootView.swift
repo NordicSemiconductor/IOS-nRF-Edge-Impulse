@@ -14,18 +14,14 @@ struct LoggedInRootView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            Tabs.Projects.view()
-                .tabItem {
-                    Label(Tabs.Projects.description, systemImage: "list.bullet")
-                }
-                .tag(Tabs.Projects.rawValue)
-            
-            Tabs.Scanner.view()
-                .environmentObject(scanner)
-                .tabItem {
-                    Label(Tabs.Scanner.description, systemImage: "wave.3.left")
-                }
-                .tag(Tabs.Scanner.rawValue)
+            ForEach(Tabs.allCases) { tab in
+                tab.view()
+                    .environmentObject(scanner)
+                    .tabItem {
+                        Label(tab.description, systemImage: tab.systemImageName)
+                    }
+                    .tag(tab.rawValue)
+            }
         }
         .accentColor(Assets.blue.color)
     }
