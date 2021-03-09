@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DeviceList: View {
-    @StateObject var scanner = Scanner()
+    @EnvironmentObject var scanner: Scanner
     
     init() {
         setupNavBar(backgroundColor: Assets.blue.uiColor, titleColor: .white)
@@ -16,11 +16,22 @@ struct DeviceList: View {
     
     var body: some View {
         NavigationView {
-            List(scanner.scannedDevices) { device in
-                Text(device.id.uuidString)
+            List {
+                ForEach(scanner.scannedDevices) { device in
+                    Text(device.id.uuidString)
+                        .lineLimit(1)
+                }
             }
             .navigationTitle("Devices")
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
+                        scanner.toggle()
+                    }
+                }
+            }
         }
+        .accentColor(.white)
     }
 }
 
