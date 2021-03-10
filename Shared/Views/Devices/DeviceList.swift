@@ -11,12 +11,8 @@ import Combine
 struct DeviceList: View {
     @EnvironmentObject var scanner: Scanner
     
-    @State private var scannedDevices: [Device] = []
+    @State var scannedDevices: [Device] = []
     @State private var scannerCancellable: Cancellable? = nil
-    
-    init() {
-        setupNavBar(backgroundColor: Assets.blue.uiColor, titleColor: .white)
-    }
     
     var body: some View {
         NavigationView {
@@ -35,6 +31,7 @@ struct DeviceList: View {
                 }
             }
             .onAppear() {
+                setupNavBar(backgroundColor: Assets.blue.uiColor, titleColor: .white)
                 scannerCancellable = scanner.devicePublisher
                     .throttle(for: 1.0, scheduler: RunLoop.main, latest: false)
                     .sink(receiveCompletion: { result in
@@ -57,20 +54,14 @@ struct DeviceList: View {
 #if DEBUG
 struct DeviceList_Previews: PreviewProvider {
     
-    static let previewScanner: Scanner = {
-       let scanner = Scanner()
-//        scanner.scannedDevices = [
-//            Device(id: UUID()),
-//            Device(id: UUID()),
-//            Device(id: UUID()),
-//        ]
-        return scanner
-    }()
-    
     static var previews: some View {
-        DeviceList()
-            .environmentObject(previewScanner)
-            .previewDevice("iPhone 12 mini")
+        DeviceList(scannedDevices: [
+            Device(id: UUID()),
+            Device(id: UUID()),
+            Device(id: UUID())
+        ])
+        .environmentObject(Scanner())
+        .previewDevice("iPhone 12 mini")
     }
 }
 #endif
