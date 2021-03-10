@@ -95,9 +95,11 @@ struct NativeLoginView: View {
             .font(.headline)
             .accentColor(.white)
             .frame(width: 80, height: 12)
-            .padding()
-            .background(isLoginDisabled ? Assets.lightGrey.color : Assets.blue.color)
-            .cornerRadius(30)
+//            #if os(iOS)
+//            .padding()
+//            .background(isLoginDisabled ? Assets.lightGrey.color : Assets.blue.color)
+//            .cornerRadius(30)
+//            #endif
             .disabled(isLoginDisabled)
             .padding(.bottom, 8)
             
