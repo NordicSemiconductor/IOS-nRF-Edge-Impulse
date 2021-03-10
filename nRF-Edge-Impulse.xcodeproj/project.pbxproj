@@ -39,6 +39,8 @@
 		AA1016FD25E9173A006DC88A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1016FB25E9173A006DC88A /* Network.swift */; };
 		AA10170325E91885006DC88A /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* APIRequest.swift */; };
 		AA10170425E91885006DC88A /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* APIRequest.swift */; };
+		AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
+		AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA80988425EE518F00091AC0 /* ProjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA80988325EE518F00091AC0 /* ProjectRow.swift */; };
 		AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA80988325EE518F00091AC0 /* ProjectRow.swift */; };
 		AA80989A25EE959B00091AC0 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA80989925EE959B00091AC0 /* Publishers.swift */; };
@@ -103,6 +105,7 @@
 		AA03E98125E3EF13003DA9DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA1016FB25E9173A006DC88A /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		AA10170225E91885006DC88A /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		AA1F07A325F7989400CC41A9 /* BluetoothError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothError.swift; sourceTree = "<group>"; };
 		AA80988325EE518F00091AC0 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		AA80989925EE959B00091AC0 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
 		AAE5B63425F23A4500AA003D /* sample_projects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_projects.json; sourceTree = "<group>"; };
@@ -161,6 +164,7 @@
 			children = (
 				AA02088225F6516D00FD6B24 /* Scanner.swift */,
 				AA02088D25F651D100FD6B24 /* Device.swift */,
+				AA1F07A325F7989400CC41A9 /* BluetoothError.swift */,
 			);
 			path = Bluetooth;
 			sourceTree = "<group>";
@@ -517,6 +521,7 @@
 				AA02089625F65A3700FD6B24 /* DeviceList.swift in Sources */,
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AA01F3DF25EFDC5000368707 /* Constant.swift in Sources */,
+				AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */,
 				AAFAE5EB25ED14E500A45A90 /* AppData.swift in Sources */,
 				AAFAE60525ED279300A45A90 /* ListProjectsRequest.swift in Sources */,
 			);
@@ -543,6 +548,7 @@
 				AA0208AA25F65EB400FD6B24 /* Tabs.swift in Sources */,
 				AA02086925F641D900FD6B24 /* Sample.swift in Sources */,
 				AA02088425F6516D00FD6B24 /* Scanner.swift in Sources */,
+				AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AAFAE60625ED279300A45A90 /* ListProjectsRequest.swift in Sources */,

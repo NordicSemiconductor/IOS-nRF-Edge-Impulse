@@ -6,9 +6,13 @@
 //
 
 import SwiftUI
+import Combine
 
 struct DeviceList: View {
     @EnvironmentObject var scanner: Scanner
+    
+    @State private var scannedDevices: [Device] = []
+    @State private var scannerCancellable: Cancellable? = nil
     
     init() {
         setupNavBar(backgroundColor: Assets.blue.uiColor, titleColor: .white)
@@ -17,7 +21,7 @@ struct DeviceList: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(scanner.scannedDevices) { device in
+                ForEach(scannedDevices) { device in
                     Text(device.id.uuidString)
                         .lineLimit(1)
                 }
@@ -29,6 +33,19 @@ struct DeviceList: View {
                         scanner.toggle()
                     }
                 }
+            }
+            .onAppear() {
+                scannerCancellable = scanner.devicePublisher
+                    .throttle(for: 1.0, scheduler: RunLoop.main, latest: false)
+                    .sink(receiveCompletion: { result in
+                        print(result)
+                    }, receiveValue: { device in
+                        guard !scannedDevices.contains(device) else { return }
+                        scannedDevices.append(device)
+                    })
+            }
+            .onDisappear() {
+                scannerCancellable?.cancel()
             }
         }
         .accentColor(.white)
@@ -42,11 +59,11 @@ struct DeviceList_Previews: PreviewProvider {
     
     static let previewScanner: Scanner = {
        let scanner = Scanner()
-        scanner.scannedDevices = [
-            Device(id: UUID()),
-            Device(id: UUID()),
-            Device(id: UUID()),
-        ]
+//        scanner.scannedDevices = [
+//            Device(id: UUID()),
+//            Device(id: UUID()),
+//            Device(id: UUID()),
+//        ]
         return scanner
     }()
     
