@@ -31,7 +31,7 @@ struct DeviceList: View {
                 }
             }
             .onAppear() {
-                setupNavBar(backgroundColor: Assets.blue.color, titleColor: .white)
+                setupNavBar(backgroundColor: Assets.blue, titleColor: .white)
                 scannerCancellable = scanner.devicePublisher
                     .throttle(for: 1.0, scheduler: RunLoop.main, latest: false)
                     .sink(receiveCompletion: { result in

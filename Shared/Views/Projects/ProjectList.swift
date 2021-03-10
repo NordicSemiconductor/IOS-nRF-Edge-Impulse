@@ -14,7 +14,7 @@ struct ProjectList: View {
     @State private var listCancellable: Cancellable? = nil
     
     init() {
-        setupNavBar(backgroundColor: Assets.blue.color, titleColor: .white)
+        setupNavBar(backgroundColor: Assets.blue, titleColor: .white)
     }
     
     var body: some View {
