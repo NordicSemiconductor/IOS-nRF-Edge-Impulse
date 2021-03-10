@@ -14,11 +14,12 @@ extension View {
         return frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
     }
     
-    func setupNavBar(backgroundColor: UIColor, titleColor: UIColor) {
+    func setupNavBar(backgroundColor: Color, titleColor: Color) {
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: titleColor
         ]
         
+        #if os(iOS)
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = attributes
         appearance.largeTitleTextAttributes = attributes
@@ -26,5 +27,6 @@ extension View {
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        #endif
     }
 }

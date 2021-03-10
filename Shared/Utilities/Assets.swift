@@ -31,7 +31,9 @@ enum Assets: String {
         Color(rawValue)
     }
     
+    #if os(iOS)
     var uiColor: UIColor! {
         UIColor(named: rawValue)
     }
+    #endif
 }

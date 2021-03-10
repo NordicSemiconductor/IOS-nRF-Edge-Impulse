@@ -54,7 +54,7 @@ struct NativeLoginView: View {
                         .padding()
                         .background(textFieldBackground)
                         .cornerRadius(20)
-                        .autocapitalization(.none)
+//                        .autocapitalization(.none)
                         .disableAutocorrection(true)
                         .padding(.bottom, 16)
                 }
@@ -135,7 +135,14 @@ struct NativeLoginView: View {
 #if DEBUG
 struct NativeLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        NativeLoginView()
+        Group {
+            NativeLoginView()
+                .preferredColorScheme(.light)
+        }
+        Group {
+            NativeLoginView()
+                .preferredColorScheme(.dark)
+        }
     }
 }
 #endif
