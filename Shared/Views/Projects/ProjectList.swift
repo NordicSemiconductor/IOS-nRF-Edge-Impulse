@@ -24,12 +24,12 @@ struct ProjectList: View {
                     .tag(project)
                 }
             }
-        }
-        .navigationTitle("Projects")
-        .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                Button("Logout") {
-                    logoutUser()
+            .navigationTitle("Projects")
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Logout") {
+                        logoutUser()
+                    }
                 }
             }
         }
