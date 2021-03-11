@@ -82,6 +82,11 @@ struct ProjectList_Previews: PreviewProvider {
        var appData = AppData()
         appData.apiToken = "Test"
         appData.projects = previewProjects
+        appData.devices = [
+            Device(id: UUID()),
+            Device(id: UUID()),
+            Device(id: UUID())
+        ]
         return appData
     }()
     

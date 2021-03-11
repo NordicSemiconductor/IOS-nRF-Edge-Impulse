@@ -35,13 +35,13 @@ struct LoggedInRootView_Previews: PreviewProvider {
         Group {
             LoggedInRootView()
                 .preferredColorScheme(.light)
-                .environmentObject(AppData())
+                .environmentObject(ProjectList_Previews.previewAppData)
                 .environmentObject(Scanner())
         }
         Group {
             LoggedInRootView()
                 .preferredColorScheme(.dark)
-                .environmentObject(AppData())
+                .environmentObject(ProjectList_Previews.previewAppData)
                 .environmentObject(Scanner())
         }
     }

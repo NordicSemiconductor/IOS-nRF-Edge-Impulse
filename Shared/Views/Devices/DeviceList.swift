@@ -54,25 +54,15 @@ struct DeviceList: View {
 #if DEBUG
 struct DeviceList_Previews: PreviewProvider {
     
-    static var appData: AppData = {
-        var appData = AppData()
-        appData.devices = [
-            Device(id: UUID()),
-            Device(id: UUID()),
-            Device(id: UUID())
-        ]
-        return appData
-    }()
-    
     static var previews: some View {
         Group {
             DeviceList()
-                .environmentObject(appData)
+                .environmentObject(ProjectList_Previews.previewAppData)
                 .environmentObject(Scanner())
                 .previewDevice("iPhone 12 mini")
             DeviceList()
                 .preferredColorScheme(.dark)
-                .environmentObject(appData)
+                .environmentObject(ProjectList_Previews.previewAppData)
                 .environmentObject(Scanner())
                 .previewDevice("iPhone 12 mini")
         }
