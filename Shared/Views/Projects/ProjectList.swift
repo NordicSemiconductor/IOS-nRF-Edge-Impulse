@@ -13,38 +13,34 @@ struct ProjectList: View {
     
     @State private var listCancellable: Cancellable? = nil
     
-    init() {
-        setupNavBar(backgroundColor: Assets.blue, titleColor: .white)
-    }
-    
     var body: some View {
-        if let token = appData.apiToken {
-            NavigationView {
-                List {
-                    ForEach(appData.projects) { project in
-                        NavigationLink(destination: DataAcquisitionView(project: project)) {
-                            ProjectRow(project: project)
-                                .listRowInsets(EdgeInsets())
-                        }
-                        .tag(project)
+        NavigationView {
+            List {
+                ForEach(appData.projects) { project in
+                    NavigationLink(destination: DataAcquisitionView(project: project)) {
+                        ProjectRow(project: project)
+                            .listRowInsets(EdgeInsets())
                     }
-                }
-                .navigationTitle("Projects")
-                .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Logout") {
-                            logoutUser()
-                        }
-                    }
+                    .tag(project)
                 }
             }
-            .accentColor(.white)
-            .onAppear() {
-                requestList(with: token)
+        }
+        .navigationTitle("Projects")
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Logout") {
+                    logoutUser()
+                }
             }
-            .onDisappear() {
-                cancelListRequest()
-            }
+        }
+        .accentColor(.white)
+        .onAppear() {
+//            setupNavBar(backgroundColor: Assets.blue, titleColor: .white)
+            guard let token = appData.apiToken else { return }
+            requestList(with: token)
+        }
+        .onDisappear() {
+            cancelListRequest()
         }
     }
 }
