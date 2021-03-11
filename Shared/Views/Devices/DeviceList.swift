@@ -10,8 +10,8 @@ import Combine
 
 struct DeviceList: View {
     @EnvironmentObject var appData: AppData
-    @EnvironmentObject var scanner: Scanner
     
+    @StateObject var scanner = Scanner()
     @State private var scannerCancellable: Cancellable? = nil
     
     var body: some View {
@@ -45,6 +45,7 @@ struct DeviceList: View {
                 scannerCancellable?.cancel()
             }
         }
+        .setSingleColumnNavigationViewStyle()
         .accentColor(.white)
     }
 }
@@ -58,13 +59,11 @@ struct DeviceList_Previews: PreviewProvider {
         Group {
             DeviceList()
                 .environmentObject(ProjectList_Previews.previewAppData)
-                .environmentObject(Scanner())
                 .previewDevice("iPhone 12 mini")
             DeviceList()
                 .preferredColorScheme(.dark)
                 .environmentObject(ProjectList_Previews.previewAppData)
-                .environmentObject(Scanner())
-                .previewDevice("iPhone 12 mini")
+                .previewDevice("iPad Pro (12.9-inch) (4th generation)")
         }
     }
 }

@@ -33,6 +33,7 @@ struct ProjectList: View {
                 }
             }
         }
+        .setSingleColumnNavigationViewStyle()
         .accentColor(.white)
         .onAppear() {
 //            setupNavBar(backgroundColor: Assets.blue, titleColor: .white)
@@ -98,9 +99,15 @@ struct ProjectList_Previews: PreviewProvider {
     }()
     
     static var previews: some View {
-        ProjectList()
-            .previewDevice("iPhone 12 mini")
-            .environmentObject(previewAppData)
+        Group {
+            #if os(iOS)
+            ProjectList()
+                .previewDevice("iPhone 12 mini")
+                .environmentObject(previewAppData)
+            #endif
+            ProjectList()
+                .environmentObject(previewAppData)
+        }
     }
 }
 #endif
