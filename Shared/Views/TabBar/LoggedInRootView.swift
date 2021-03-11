@@ -9,11 +9,10 @@ import SwiftUI
 
 struct LoggedInRootView: View {
     
-    @State var selectedTab: Tabs = .Projects
     @StateObject var scanner = Scanner()
     
     var body: some View {
-        TabView(selection: $selectedTab) {
+        TabView {
             ForEach(Tabs.allCases) { tab in
                 tab.view
                     .environmentObject(scanner)
