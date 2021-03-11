@@ -17,7 +17,7 @@ enum Tabs: Int, RawRepresentable, CaseIterable {
 extension Tabs {
     
     @ViewBuilder
-    func view() -> some View {
+    var view: some View {
         switch self {
         case .Projects:
             ProjectList()

@@ -15,7 +15,7 @@ struct LoggedInRootView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             ForEach(Tabs.allCases) { tab in
-                tab.view()
+                tab.view
                     .environmentObject(scanner)
                     .tabItem {
                         Label(tab.description, systemImage: tab.systemImageName)
