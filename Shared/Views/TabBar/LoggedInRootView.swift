@@ -9,17 +9,27 @@ import SwiftUI
 
 struct LoggedInRootView: View {
     
+    #if os(iOS)
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    #endif
+    
     @StateObject var scanner = Scanner()
     
+    var isUsingCompactLayout: Bool {
+        #if os(iOS)
+        return horizontalSizeClass == .compact
+        #else
+        return false
+        #endif
+    }
+    
     var body: some View {
-        TabView {
-            ForEach(Tabs.allCases) { tab in
-                tab.view
+        NavigationView {
+            if isUsingCompactLayout {
+                RegularLoggedInView()
                     .environmentObject(scanner)
-                    .tabItem {
-                        Label(tab.description, systemImage: tab.systemImageName)
-                    }
-                    .tag(tab.rawValue)
+            } else {
+                Text("Regular")
             }
         }
         .accentColor(Assets.blue.color)
@@ -31,18 +41,26 @@ struct LoggedInRootView: View {
 #if DEBUG
 struct LoggedInRootView_Previews: PreviewProvider {
     static var previews: some View {
+        #if os(OSX)
+        LoggedInRootView()
+            .environmentObject(ProjectList_Previews.previewAppData)
+            .environmentObject(Scanner())
+        #elseif os(iOS)
         Group {
             LoggedInRootView()
+                .previewDevice("iPhone 12 mini")
                 .preferredColorScheme(.light)
                 .environmentObject(ProjectList_Previews.previewAppData)
                 .environmentObject(Scanner())
         }
         Group {
             LoggedInRootView()
+                .previewDevice("iPad Pro (12.9-inch) (4th generation)")
                 .preferredColorScheme(.dark)
                 .environmentObject(ProjectList_Previews.previewAppData)
                 .environmentObject(Scanner())
         }
+        #endif
     }
 }
 #endif
