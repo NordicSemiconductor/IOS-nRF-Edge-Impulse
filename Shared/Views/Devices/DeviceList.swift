@@ -9,15 +9,15 @@ import SwiftUI
 import Combine
 
 struct DeviceList: View {
+    @EnvironmentObject var appData: AppData
     @EnvironmentObject var scanner: Scanner
     
-    @State var scannedDevices: [Device] = []
     @State private var scannerCancellable: Cancellable? = nil
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(scannedDevices) { device in
+                ForEach(appData.devices) { device in
                     Text(device.id.uuidString)
                         .lineLimit(1)
                 }
@@ -37,8 +37,8 @@ struct DeviceList: View {
                     .sink(receiveCompletion: { result in
                         print(result)
                     }, receiveValue: { device in
-                        guard !scannedDevices.contains(device) else { return }
-                        scannedDevices.append(device)
+                        guard !appData.devices.contains(device) else { return }
+                        appData.devices.append(device)
                     })
             }
             .onDisappear() {
@@ -54,14 +54,28 @@ struct DeviceList: View {
 #if DEBUG
 struct DeviceList_Previews: PreviewProvider {
     
-    static var previews: some View {
-        DeviceList(scannedDevices: [
+    static var appData: AppData = {
+        var appData = AppData()
+        appData.devices = [
             Device(id: UUID()),
             Device(id: UUID()),
             Device(id: UUID())
-        ])
-        .environmentObject(Scanner())
-        .previewDevice("iPhone 12 mini")
+        ]
+        return appData
+    }()
+    
+    static var previews: some View {
+        Group {
+            DeviceList()
+                .environmentObject(appData)
+                .environmentObject(Scanner())
+                .previewDevice("iPhone 12 mini")
+            DeviceList()
+                .preferredColorScheme(.dark)
+                .environmentObject(appData)
+                .environmentObject(Scanner())
+                .previewDevice("iPhone 12 mini")
+        }
     }
 }
 #endif

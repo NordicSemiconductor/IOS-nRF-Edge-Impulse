@@ -32,6 +32,7 @@ final class AppData: ObservableObject {
         }
     }
     @Published var projects: [Project] = []
+    @Published var devices: [Device] = []
     
     // MARK: - API
     
