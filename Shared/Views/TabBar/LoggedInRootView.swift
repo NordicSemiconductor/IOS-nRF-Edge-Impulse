@@ -10,7 +10,7 @@ import SwiftUI
 struct LoggedInRootView: View {
     
     @State var selectedTab: Tabs = .Projects
-    @State var scanner = Scanner()
+    @StateObject var scanner = Scanner()
     
     var body: some View {
         TabView(selection: $selectedTab) {
