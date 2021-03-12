@@ -14,29 +14,27 @@ struct ProjectList: View {
     @State private var listCancellable: Cancellable? = nil
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(appData.projects) { project in
-                    NavigationLink(destination: DataAcquisitionView(project: project)) {
-                        ProjectRow(project: project)
-                            .listRowInsets(EdgeInsets())
-                    }
-                    .tag(project)
+        List {
+            ForEach(appData.projects) { project in
+                NavigationLink(destination: DataAcquisitionView(project: project)) {
+                    ProjectRow(project: project)
+                        .listRowInsets(EdgeInsets())
                 }
+                .tag(project)
             }
-            .navigationTitle("Projects")
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Logout") {
-                        logoutUser()
-                    }
+        }
+        .navigationTitle("Projects")
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Logout") {
+                    logoutUser()
                 }
             }
         }
-        .setSingleColumnNavigationViewStyle()
+        .background(Color.white)
         .accentColor(.white)
         .onAppear() {
-//            setupNavBar(backgroundColor: Assets.blue, titleColor: .white)
+            setupNavBar(backgroundColor: Assets.blue, titleColor: .white)
             guard let token = appData.apiToken else { return }
             requestList(with: token)
         }

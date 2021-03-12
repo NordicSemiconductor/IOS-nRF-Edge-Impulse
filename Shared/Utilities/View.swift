@@ -15,18 +15,29 @@ extension View {
     }
     
     func setupNavBar(backgroundColor: Assets, titleColor: Color) {
-        let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: titleColor
-        ]
-        
+//        #if targetEnvironment(simulator)
+//        
+//        #elseif os(iOS)
+//        let appearance = UINavigationBarAppearance()
+//        let attributes: [NSAttributedString.Key: Any] = [
+//            .foregroundColor: titleColor
+//        ]
+//        appearance.titleTextAttributes = attributes
+//        appearance.largeTitleTextAttributes = attributes
+//        appearance.backgroundColor = backgroundColor.uiColor
+//        UINavigationBar.appearance().compactAppearance = appearance
+//        UINavigationBar.appearance().standardAppearance = appearance
+//        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+//        #endif
+    }
+}
+
+extension NavigationView {
+    
+    @inlinable func setSingleColumnNavigationViewStyle() -> some View {
         #if os(iOS)
-        let appearance = UINavigationBarAppearance()
-        appearance.titleTextAttributes = attributes
-        appearance.largeTitleTextAttributes = attributes
-        appearance.backgroundColor = backgroundColor.uiColor
-        UINavigationBar.appearance().compactAppearance = appearance
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        navigationViewStyle(StackNavigationViewStyle())
         #endif
+        return self
     }
 }

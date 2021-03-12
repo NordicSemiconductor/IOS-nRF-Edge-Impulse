@@ -15,37 +15,34 @@ struct DeviceList: View {
     @State private var scannerCancellable: Cancellable? = nil
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(appData.devices) { device in
-                    Text(device.id.uuidString)
-                        .lineLimit(1)
-                }
-            }
-            .navigationTitle("Devices")
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
-                        scanner.toggle()
-                    }
-                }
-            }
-            .onAppear() {
-                setupNavBar(backgroundColor: Assets.blue, titleColor: .white)
-                scannerCancellable = scanner.devicePublisher
-                    .throttle(for: 1.0, scheduler: RunLoop.main, latest: false)
-                    .sink(receiveCompletion: { result in
-                        print(result)
-                    }, receiveValue: { device in
-                        guard !appData.devices.contains(device) else { return }
-                        appData.devices.append(device)
-                    })
-            }
-            .onDisappear() {
-                scannerCancellable?.cancel()
+        List {
+            ForEach(appData.devices) { device in
+                Text(device.id.uuidString)
+                    .lineLimit(1)
             }
         }
-        .setSingleColumnNavigationViewStyle()
+        .navigationTitle("Devices")
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
+                    scanner.toggle()
+                }
+            }
+        }
+        .onAppear() {
+            setupNavBar(backgroundColor: Assets.blue, titleColor: .white)
+            scannerCancellable = scanner.devicePublisher
+                .throttle(for: 1.0, scheduler: RunLoop.main, latest: false)
+                .sink(receiveCompletion: { result in
+                    print(result)
+                }, receiveValue: { device in
+                    guard !appData.devices.contains(device) else { return }
+                    appData.devices.append(device)
+                })
+        }
+        .onDisappear() {
+            scannerCancellable?.cancel()
+        }
         .accentColor(.white)
     }
 }
@@ -57,6 +54,7 @@ struct DeviceList_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
+            #if os(iOS)
             DeviceList()
                 .environmentObject(ProjectList_Previews.previewAppData)
                 .previewDevice("iPhone 12 mini")
@@ -64,6 +62,11 @@ struct DeviceList_Previews: PreviewProvider {
                 .preferredColorScheme(.dark)
                 .environmentObject(ProjectList_Previews.previewAppData)
                 .previewDevice("iPad Pro (12.9-inch) (4th generation)")
+            #else
+            DeviceList()
+                .preferredColorScheme(.dark)
+                .environmentObject(ProjectList_Previews.previewAppData)
+            #endif
         }
     }
 }

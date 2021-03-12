@@ -29,30 +29,35 @@ struct LoggedInRootView: View {
                 CompactLoggedInView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
-                List {
-                    ForEach(Tabs.allCases) { tab in
-                        Button(action: {
-                            selectedTab = tab
-                        }, label: {
-                            Label(tab.description, systemImage: tab.systemImageName)
-                                .padding(.leading, 4)
-                                .frame(height: 30)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(selectedTab == tab ? Assets.blue.color : Color.clear)
-                                .cornerRadius(8)
-                        })
-                        .buttonStyle(PlainButtonStyle())
+                NavigationView {
+                    List {
+                        ForEach(Tabs.allCases) { tab in
+                            Button(action: {
+                                selectedTab = tab
+                            }, label: {
+                                Label(tab.description, systemImage: tab.systemImageName)
+                                    .padding(.leading, 4)
+                                    .frame(height: 30)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .background(selectedTab == tab ? Assets.blue.color : Color.clear)
+                                    .cornerRadius(8)
+                            })
+                            .buttonStyle(PlainButtonStyle())
+                        }
                     }
-                }
-                .frame(maxWidth: 200, maxHeight: .infinity)
-                .listStyle(SidebarListStyle())
-                
-                if let selectedTab = selectedTab {
-                    selectedTab.view
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                } else {
-                    Text("A")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .navigationViewStyle(DoubleColumnNavigationViewStyle())
+                    .frame(width: 125, alignment: .leading)
+                    .frame(maxHeight: .infinity)
+                    .listStyle(SidebarListStyle())
+                    
+                    
+                    if let selectedTab = selectedTab {
+                        selectedTab.view
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    } else {
+                        Text("A")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
                 }
             }
         }
