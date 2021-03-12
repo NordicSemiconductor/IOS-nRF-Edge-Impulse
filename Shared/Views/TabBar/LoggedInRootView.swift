@@ -35,7 +35,13 @@ struct LoggedInRootView: View {
                             selectedTab = tab
                         }, label: {
                             Label(tab.description, systemImage: tab.systemImageName)
+                                .padding(.leading, 4)
+                                .frame(height: 30)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(selectedTab == tab ? Assets.blue.color : Color.clear)
+                                .cornerRadius(8)
                         })
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
                 .frame(maxWidth: 200, maxHeight: .infinity)
