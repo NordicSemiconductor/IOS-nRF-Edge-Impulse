@@ -14,16 +14,17 @@ struct ProjectList: View {
     @State private var listCancellable: Cancellable? = nil
     
     var body: some View {
-        List {
-            ForEach(appData.projects) { project in
-                NavigationLink(destination: DataAcquisitionView(project: project)) {
-                    ProjectRow(project: project)
-                        .listRowInsets(EdgeInsets())
+        NavigationView {
+            List {
+                ForEach(appData.projects) { project in
+                    NavigationLink(destination: DataAcquisitionView(project: project)) {
+                        ProjectRow(project: project)
+                    }
                 }
-                .tag(project)
             }
+            .navigationTitle("Projects")
         }
-        .navigationTitle("Projects")
+        .setSingleColumnNavigationViewStyle()
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Logout") {
@@ -104,6 +105,7 @@ struct ProjectList_Previews: PreviewProvider {
                 .environmentObject(previewAppData)
             #endif
             ProjectList()
+                .preferredColorScheme(.dark)
                 .environmentObject(previewAppData)
         }
     }

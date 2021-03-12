@@ -15,7 +15,7 @@ struct LoggedInRootView: View {
     
     var isUsingCompactLayout: Bool {
         #if os(iOS)
-        return horizontalSizeClass == .compact
+        return UIDevice.current.orientation == .portrait || horizontalSizeClass == .compact
         #else
         return false
         #endif
@@ -24,32 +24,39 @@ struct LoggedInRootView: View {
     @State var selectedTab: Tabs? = nil
     
     var body: some View {
-        GeometryReader { _ in
-            if isUsingCompactLayout {
-                CompactLoggedInView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else {
-                NavigationView {
-                    List {
-                        ForEach(Tabs.allCases) { tab in
-                            NavigationLink(
-                                destination: tab.view,
-                                label: {
-                                    Text(tab.description)
-                                })
-                        }
+        if isUsingCompactLayout {
+            CompactLoggedInView()
+        } else {
+            HStack {
+                List {
+                    ForEach(Tabs.allCases) { tab in
+                        Label(tab.description, systemImage: tab.systemImageName)
+                            .padding(.leading, 4)
+                            .frame(height: 30)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(selectedTab == tab ? Assets.blue.color : Color.clear)
+                            .cornerRadius(8)
+                            .onTapGesture {
+                                guard selectedTab != tab else {
+                                    selectedTab = nil
+                                    return
+                                }
+                                selectedTab = tab
+                            }
                     }
-                    .listStyle(SidebarListStyle())
-                    .frame(width: 185, alignment: .leading)
-                    
-
-                    Text("A")
                 }
-                .navigationViewStyle(DoubleColumnNavigationViewStyle())
-                .padding()
+                .frame(width: 150, alignment: .leading)
+                .listStyle(SidebarListStyle())
+                
+                if let selectedTab = selectedTab {
+                    selectedTab.view
+                } else {
+                    Text("Dual-Pane")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
             }
+            .frame(minWidth: 400)
         }
-        .accentColor(Assets.blue.color)
     }
 }
 
@@ -65,7 +72,7 @@ struct LoggedInRootView_Previews: PreviewProvider {
         #elseif os(iOS)
         Group {
             LoggedInRootView()
-                .previewDevice("iPhone 12 mini")
+                .previewDevice("iPhone 11")
                 .preferredColorScheme(.light)
                 .environmentObject(ProjectList_Previews.previewAppData)
         }
