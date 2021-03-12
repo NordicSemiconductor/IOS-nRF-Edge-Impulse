@@ -24,7 +24,7 @@ struct LoggedInRootView: View {
     @State var selectedTab: Tabs? = nil
     
     var body: some View {
-        HStack {
+        GeometryReader { _ in
             if isUsingCompactLayout {
                 CompactLoggedInView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -32,33 +32,21 @@ struct LoggedInRootView: View {
                 NavigationView {
                     List {
                         ForEach(Tabs.allCases) { tab in
-                            Button(action: {
-                                selectedTab = tab
-                            }, label: {
-                                Label(tab.description, systemImage: tab.systemImageName)
-                                    .padding(.leading, 4)
-                                    .frame(height: 30)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(selectedTab == tab ? Assets.blue.color : Color.clear)
-                                    .cornerRadius(8)
-                            })
-                            .buttonStyle(PlainButtonStyle())
+                            NavigationLink(
+                                destination: tab.view,
+                                label: {
+                                    Text(tab.description)
+                                })
                         }
                     }
-                    .navigationViewStyle(DoubleColumnNavigationViewStyle())
-                    .frame(width: 125, alignment: .leading)
-                    .frame(maxHeight: .infinity)
                     .listStyle(SidebarListStyle())
+                    .frame(width: 185, alignment: .leading)
                     
-                    
-                    if let selectedTab = selectedTab {
-                        selectedTab.view
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else {
-                        Text("A")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    }
+
+                    Text("A")
                 }
+                .navigationViewStyle(DoubleColumnNavigationViewStyle())
+                .padding()
             }
         }
         .accentColor(Assets.blue.color)
