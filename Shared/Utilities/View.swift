@@ -34,10 +34,10 @@ extension View {
 
 extension NavigationView {
     
-    @inlinable func setSingleColumnNavigationViewStyle() -> some View {
+    @inlinable func setSingleColumnNavigationViewStyle() -> AnyView {
         #if os(iOS)
-        navigationViewStyle(StackNavigationViewStyle())
+        return AnyView(navigationViewStyle(StackNavigationViewStyle()))
         #endif
-        return self
+        return AnyView(self)
     }
 }
