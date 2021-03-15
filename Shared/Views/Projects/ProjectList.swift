@@ -23,15 +23,15 @@ struct ProjectList: View {
                 }
             }
             .navigationTitle("Projects")
-        }
-        .setSingleColumnNavigationViewStyle()
-        .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                Button("Logout") {
-                    logoutUser()
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Logout") {
+                        logoutUser()
+                    }
                 }
             }
         }
+        .setSingleColumnNavigationViewStyle()
         .background(Color.white)
         .accentColor(.white)
         .onAppear() {

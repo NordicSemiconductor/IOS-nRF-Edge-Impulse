@@ -23,15 +23,15 @@ struct DeviceList: View {
                 }
             }
             .navigationTitle("Devices")
-        }
-        .setSingleColumnNavigationViewStyle()
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
-                    scanner.toggle()
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
+                        scanner.toggle()
+                    }
                 }
             }
         }
+        .setSingleColumnNavigationViewStyle()
         .onAppear() {
             setupNavBar(backgroundColor: Assets.blue, titleColor: .white)
             scannerCancellable = scanner.devicePublisher
