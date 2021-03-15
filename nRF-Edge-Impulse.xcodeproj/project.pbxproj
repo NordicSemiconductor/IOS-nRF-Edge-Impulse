@@ -65,6 +65,8 @@
 		AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */; };
 		AAFFEB3025FF6A29002287D6 /* HorizontalTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB2F25FF6A29002287D6 /* HorizontalTabView.swift */; };
 		AAFFEB3125FF6A29002287D6 /* HorizontalTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB2F25FF6A29002287D6 /* HorizontalTabView.swift */; };
+		AAFFEB3325FF7A06002287D6 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB3225FF7A06002287D6 /* ButtonStyles.swift */; };
+		AAFFEB3425FF7A06002287D6 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB3225FF7A06002287D6 /* ButtonStyles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +125,7 @@
 		AAFCBE8125E90734001C52B0 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeLoginView.swift; sourceTree = "<group>"; };
 		AAFFEB2F25FF6A29002287D6 /* HorizontalTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTabView.swift; sourceTree = "<group>"; };
+		AAFFEB3225FF7A06002287D6 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -351,6 +354,7 @@
 				AA01F3CF25EFACB000368707 /* Assets.swift */,
 				AA01F3DE25EFDC5000368707 /* Constant.swift */,
 				AA02086E25F648C200FD6B24 /* View.swift */,
+				AAFFEB3225FF7A06002287D6 /* ButtonStyles.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -530,6 +534,7 @@
 				AA02088325F6516D00FD6B24 /* Scanner.swift in Sources */,
 				AA02086F25F648C200FD6B24 /* View.swift in Sources */,
 				AAFAE5F225ED1A3A00A45A90 /* ProjectList.swift in Sources */,
+				AAFFEB3325FF7A06002287D6 /* ButtonStyles.swift in Sources */,
 				AA1016FC25E9173A006DC88A /* Network.swift in Sources */,
 				AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */,
 				AA80988425EE518F00091AC0 /* ProjectRow.swift in Sources */,
@@ -562,6 +567,7 @@
 				AA03E98525E3EF13003DA9DA /* ContentView.swift in Sources */,
 				AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */,
 				AA008A7825EE422C00F70F75 /* Project.swift in Sources */,
+				AAFFEB3425FF7A06002287D6 /* ButtonStyles.swift in Sources */,
 				AA02089725F65A3700FD6B24 /* DeviceList.swift in Sources */,
 				AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA7F5DE425F8F6C900185328 /* LoginRequest.swift in Sources */,

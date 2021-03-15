@@ -30,14 +30,7 @@ struct LoggedInRootView: View {
             HStack {
                 List {
                     ForEach(Tabs.allCases) { tab in
-                        HorizontalTabView(tab: tab, isSelected: selectedTab == tab)
-                            .onTapGesture {
-                                guard selectedTab != tab else {
-                                    selectedTab = nil
-                                    return
-                                }
-                                selectedTab = tab
-                            }
+                        HorizontalTabView(tab: tab, selectedTab: $selectedTab)
                     }
                 }
                 .frame(width: 205, alignment: .leading)
@@ -46,7 +39,7 @@ struct LoggedInRootView: View {
                 if let selectedTab = selectedTab {
                     selectedTab.view
                 } else {
-                    Text("Dual-Pane")
+                    Text("Select a Tab from the left Pane.")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
