@@ -45,11 +45,15 @@ extension NavigationView {
 #if DEBUG
 struct Landscape<Content>: View where Content: View {
     let content: () -> Content
-    let height = UIScreen.main.bounds.width
-    let width = UIScreen.main.bounds.height
     
     var body: some View {
-        content().previewLayout(PreviewLayout.fixed(width: width, height: height))
+        #if os(iOS)
+        let screenHeight = UIScreen.main.bounds.width
+        let screenWidth = UIScreen.main.bounds.height
+        content().previewLayout(PreviewLayout.fixed(width: screenWidth, height: screenHeight))
+        #else
+        content()
+        #endif
     }
 }
 #endif
