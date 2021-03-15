@@ -15,13 +15,16 @@ struct DeviceList: View {
     @State private var scannerCancellable: Cancellable? = nil
     
     var body: some View {
-        List {
-            ForEach(appData.devices) { device in
-                Text(device.id.uuidString)
-                    .lineLimit(1)
+        NavigationView {
+            List {
+                ForEach(appData.devices) { device in
+                    Text(device.id.uuidString)
+                        .lineLimit(1)
+                }
             }
+            .navigationTitle("Devices")
         }
-        .navigationTitle("Devices")
+        .setSingleColumnNavigationViewStyle()
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {

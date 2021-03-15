@@ -74,9 +74,7 @@ struct DataAcquisitionView: View {
             .accentColor(startSamplingDisabled ? Assets.middleGrey.color : Assets.red.color)
         }
         .padding(.top, 8)
-//        #if os(iOS)
-//        .navigationBarTitle("Data Acquisition")
-//        #endif
+        .navigationTitle("Data Acquisition")
     }
 }
 
