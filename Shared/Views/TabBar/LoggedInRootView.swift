@@ -42,6 +42,7 @@ struct LoggedInRootView: View {
                 } else {
                     Text("Select a Tab from the left Pane.")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .multilineTextAlignment(.center)
                 }
             }
             .frame(minWidth: 400)

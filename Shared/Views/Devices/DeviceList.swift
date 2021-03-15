@@ -31,9 +31,9 @@ struct DeviceList: View {
                 }
             }
         }
+        .setBackgroundColor(.blue)
         .setSingleColumnNavigationViewStyle()
         .onAppear() {
-            setupNavBar(backgroundColor: Assets.blue, titleColor: .white)
             scannerCancellable = scanner.devicePublisher
                 .throttle(for: 1.0, scheduler: RunLoop.main, latest: false)
                 .sink(receiveCompletion: { result in

@@ -31,11 +31,11 @@ struct ProjectList: View {
                 }
             }
         }
+        .setBackgroundColor(Assets.blue)
         .setSingleColumnNavigationViewStyle()
         .background(Color.white)
         .accentColor(.white)
         .onAppear() {
-            setupNavBar(backgroundColor: Assets.blue, titleColor: .white)
             guard let token = appData.apiToken else { return }
             requestList(with: token)
         }
