@@ -21,7 +21,7 @@ struct LoggedInRootView: View {
         #endif
     }
     
-    @State var selectedTab: Tabs? = nil
+    @State var selectedTab: Tabs? = .Projects
     
     var body: some View {
         if isUsingCompactLayout {
