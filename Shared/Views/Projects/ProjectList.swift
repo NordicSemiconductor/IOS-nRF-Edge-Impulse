@@ -15,7 +15,10 @@ struct ProjectList: View {
     
     var body: some View {
         NavigationView {
-            appData.projectListStatus.view
+            appData.projectListStatus.view(onRetry: {
+                guard let token = appData.apiToken else { return }
+                requestList(with: token)
+            })        
             .navigationTitle("Projects")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -103,6 +106,9 @@ struct ProjectList_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             #if os(iOS)
+            ProjectList()
+                .previewDevice("iPhone 12 mini")
+                .environmentObject(previewAppData(.loading))
             ProjectList()
                 .previewDevice("iPhone 12 mini")
                 .environmentObject(previewAppData(.empty))

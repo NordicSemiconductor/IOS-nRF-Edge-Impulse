@@ -24,15 +24,23 @@ extension ProjectList {
 extension ProjectList.Status {
  
     @ViewBuilder
-    var view: some View {
+    func view(onRetry: @escaping () -> Void) -> some View {
         switch self {
         case .error(let error):
-            Text("\(error.localizedDescription)")
-                .multilineTextAlignment(.center)
+            VStack(alignment: .center, spacing: 8) {
+                Text("\(error.localizedDescription)")
+                    .multilineTextAlignment(.center)
+                Button("Retry", action: onRetry)
+                    .circularButtonShape(backgroundAsset: .blue)
+            }
         case .empty:
             Text("There are no Projects.")
         case .loading:
-            Text("Loading...")
+            VStack(alignment: .center, spacing: 8) {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                Text("Loading...")
+            }
         case .showingProjects(let projects):
             List {
                 ForEach(projects) { project in
