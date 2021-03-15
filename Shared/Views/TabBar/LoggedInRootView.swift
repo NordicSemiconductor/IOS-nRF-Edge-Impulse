@@ -31,6 +31,7 @@ struct LoggedInRootView: View {
                 List {
                     ForEach(Tabs.allCases) { tab in
                         HorizontalTabView(tab: tab, selectedTab: $selectedTab)
+                            .withoutListRowInsets()
                     }
                 }
                 .frame(width: 205, alignment: .leading)

@@ -7,11 +7,17 @@
 
 import SwiftUI
 
+// MARK: - View
+
 extension View {
     
     @inlinable public func centerTextInsideForm() -> some View {
         // Hack.
         return frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
+    }
+    
+    @inlinable public func withoutListRowInsets() -> some View {
+        return listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
     }
     
     func setupNavBar(backgroundColor: Assets, titleColor: Color) {
@@ -31,6 +37,8 @@ extension View {
 //        #endif
     }
 }
+
+// MARK: - NavigationView
 
 extension NavigationView {
     
