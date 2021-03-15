@@ -15,13 +15,7 @@ struct ProjectList: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(appData.projects) { project in
-                    NavigationLink(destination: DataAcquisitionView(project: project)) {
-                        ProjectRow(project: project)
-                    }
-                }
-            }
+            appData.projectListStatus.view
             .navigationTitle("Projects")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -55,13 +49,20 @@ extension ProjectList {
             .onUnauthorisedUserError {
                 logoutUser()
             }
-            .sink(receiveCompletion: { completition in
-                print(completition)
+            .sink(receiveCompletion: { completion in
+                guard !Constant.isRunningInPreviewMode else { return }
+                switch completion {
+                case .failure(let error):
+                    appData.projectListStatus = .error(error)
+                default:
+                    break
+                }
             },
             receiveValue: { projectsResponse in
-                appData.projects = projectsResponse.projects
-                print(projectsResponse.error)
+                appData.projectListStatus = .showingProjects(projectsResponse.projects)
             })
+        guard !Constant.isRunningInPreviewMode else { return }
+        appData.projectListStatus = .loading
     }
     
     func cancelListRequest() {
@@ -78,18 +79,6 @@ extension ProjectList {
 #if DEBUG
 struct ProjectList_Previews: PreviewProvider {
     
-    static var previewAppData: AppData = {
-       var appData = AppData()
-        appData.apiToken = "Test"
-        appData.projects = previewProjects
-        appData.devices = [
-            Device(id: UUID()),
-            Device(id: UUID()),
-            Device(id: UUID())
-        ]
-        return appData
-    }()
-    
     static var previewProjects: [Project]! = {
         let path: String! = Bundle.main.path(forResource: "sample_projects", ofType: "json")
         let content: String! = try? String(contentsOfFile: path)
@@ -97,16 +86,33 @@ struct ProjectList_Previews: PreviewProvider {
         return try? JSONDecoder().decode([Project].self, from: contentData)
     }()
     
+    static let projectsPreviewAppData = previewAppData(.showingProjects(previewProjects))
+    
+    static func previewAppData(_ status: ProjectList.Status) -> AppData {
+       let appData = AppData()
+        appData.apiToken = "Test"
+        appData.projectListStatus = status
+        appData.devices = [
+            Device(id: UUID()),
+            Device(id: UUID()),
+            Device(id: UUID())
+        ]
+        return appData
+    }
+    
     static var previews: some View {
         Group {
             #if os(iOS)
             ProjectList()
                 .previewDevice("iPhone 12 mini")
-                .environmentObject(previewAppData)
+                .environmentObject(previewAppData(.empty))
+            ProjectList()
+                .previewDevice("iPhone 12 mini")
+                .environmentObject(previewAppData(.error(NordicError(description: "There was en error"))))
             #endif
             ProjectList()
                 .preferredColorScheme(.dark)
-                .environmentObject(previewAppData)
+                .environmentObject(projectsPreviewAppData)
         }
     }
 }

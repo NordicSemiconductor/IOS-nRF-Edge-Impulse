@@ -11,6 +11,12 @@ import Foundation
 
 enum Constant {
     
+    // MARK: - Preview
+    
+    static var isRunningInPreviewMode: Bool {
+        ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
+    }
+    
     // MARK: - URL(s)
     
     static let signupURL: URL! = URL(string: "https://studio.edgeimpulse.com/signup")

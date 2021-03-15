@@ -31,12 +31,12 @@ struct CompactLoggedInView_Previews: PreviewProvider {
         Group {
             CompactLoggedInView()
                 .preferredColorScheme(.light)
-                .environmentObject(ProjectList_Previews.previewAppData)
+                .environmentObject(ProjectList_Previews.projectsPreviewAppData)
         }
         Group {
             CompactLoggedInView()
                 .preferredColorScheme(.dark)
-                .environmentObject(ProjectList_Previews.previewAppData)
+                .environmentObject(ProjectList_Previews.projectsPreviewAppData)
         }
     }
 }

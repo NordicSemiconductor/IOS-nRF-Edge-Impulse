@@ -57,27 +57,26 @@ struct LoggedInRootView_Previews: PreviewProvider {
     static var previews: some View {
         #if os(OSX)
         LoggedInRootView()
-            .environmentObject(ProjectList_Previews.previewAppData)
-            .environmentObject(Scanner())
+            .environmentObject(ProjectList_Previews.projectsPreviewAppData)
         #elseif os(iOS)
         Group {
             LoggedInRootView()
                 .previewDevice("iPhone 11")
                 .preferredColorScheme(.light)
-                .environmentObject(ProjectList_Previews.previewAppData)
+                .environmentObject(ProjectList_Previews.projectsPreviewAppData)
         }
         Group {
             Landscape {
                 LoggedInRootView()
                     .preferredColorScheme(.light)
-                    .environmentObject(ProjectList_Previews.previewAppData)
+                    .environmentObject(ProjectList_Previews.projectsPreviewAppData)
             }
         }
         Group {
             LoggedInRootView()
                 .previewDevice("iPad Pro (12.9-inch) (4th generation)")
                 .preferredColorScheme(.dark)
-                .environmentObject(ProjectList_Previews.previewAppData)
+                .environmentObject(ProjectList_Previews.projectsPreviewAppData)
         }
         #endif
     }
