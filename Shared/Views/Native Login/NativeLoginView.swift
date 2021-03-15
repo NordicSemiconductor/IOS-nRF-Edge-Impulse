@@ -92,14 +92,7 @@ struct NativeLoginView: View {
             Button("Login") {
                 attemptLogin()
             }
-            .font(.headline)
-            .accentColor(.white)
-            .frame(width: 80, height: 12)
-//            #if os(iOS)
-//            .padding()
-//            .background(isLoginDisabled ? Assets.lightGrey.color : Assets.blue.color)
-//            .cornerRadius(30)
-//            #endif
+            .circularButtonShape(backgroundAsset: isLoginDisabled ? .lightGrey : .blue)
             .disabled(isLoginDisabled)
             .padding(.bottom, 8)
             

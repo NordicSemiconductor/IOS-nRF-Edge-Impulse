@@ -19,6 +19,18 @@ extension View {
     @inlinable public func withoutListRowInsets() -> some View {
         return listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
     }
+    
+    func circularButtonShape(backgroundAsset: Assets) -> AnyView {
+        #if os(iOS)
+         return AnyView(frame(width: 80, height: 12)
+            .font(.headline)
+            .foregroundColor(.white)
+            .padding()
+            .background(backgroundAsset.color)
+            .cornerRadius(30))
+        #endif
+        return AnyView(self)
+    }
 }
 
 // MARK: - NavigationView
