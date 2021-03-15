@@ -63,6 +63,8 @@
 		AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCBE8125E90734001C52B0 /* LoginRequest.swift */; };
 		AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */; };
 		AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */; };
+		AAFFEB3025FF6A29002287D6 /* HorizontalTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB2F25FF6A29002287D6 /* HorizontalTabView.swift */; };
+		AAFFEB3125FF6A29002287D6 /* HorizontalTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB2F25FF6A29002287D6 /* HorizontalTabView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +122,7 @@
 		AAFAE60425ED279300A45A90 /* ListProjectsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProjectsRequest.swift; sourceTree = "<group>"; };
 		AAFCBE8125E90734001C52B0 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeLoginView.swift; sourceTree = "<group>"; };
+		AAFFEB2F25FF6A29002287D6 /* HorizontalTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTabView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +189,7 @@
 		AA0208A725F65E9500FD6B24 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				AAFFEB2F25FF6A29002287D6 /* HorizontalTabView.swift */,
 				AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */,
 				AA43B2A725FA574F00C5B5EE /* CompactLoggedInView.swift */,
 				AA0208A825F65EB400FD6B24 /* Tabs.swift */,
@@ -532,6 +536,7 @@
 				AA43B2A825FA574F00C5B5EE /* CompactLoggedInView.swift in Sources */,
 				AA80989A25EE959B00091AC0 /* Publishers.swift in Sources */,
 				AA02086825F641D900FD6B24 /* Sample.swift in Sources */,
+				AAFFEB3025FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
 				AA03E98225E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				AA02088E25F651D100FD6B24 /* Device.swift in Sources */,
 				AA0208A125F65C7600FD6B24 /* LoggedInRootView.swift in Sources */,
@@ -563,6 +568,7 @@
 				AA43B2A925FA58B500C5B5EE /* CompactLoggedInView.swift in Sources */,
 				AA10170425E91885006DC88A /* APIRequest.swift in Sources */,
 				AA01F3E025EFDC5000368707 /* Constant.swift in Sources */,
+				AAFFEB3125FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
 				AA03E98325E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				AAF5054825F11E45003AFED7 /* DataAcquisitionView.swift in Sources */,
 				AA0208A225F65C7600FD6B24 /* LoggedInRootView.swift in Sources */,

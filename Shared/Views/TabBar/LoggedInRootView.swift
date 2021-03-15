@@ -30,12 +30,7 @@ struct LoggedInRootView: View {
             HStack {
                 List {
                     ForEach(Tabs.allCases) { tab in
-                        Label(tab.description, systemImage: tab.systemImageName)
-                            .padding(.leading, 4)
-                            .frame(height: 30)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(selectedTab == tab ? Assets.blue.color : Color.clear)
-                            .cornerRadius(8)
+                        HorizontalTabView(tab: tab, isSelected: selectedTab == tab)
                             .onTapGesture {
                                 guard selectedTab != tab else {
                                     selectedTab = nil
@@ -45,7 +40,7 @@ struct LoggedInRootView: View {
                             }
                     }
                 }
-                .frame(width: 150, alignment: .leading)
+                .frame(width: 205, alignment: .leading)
                 .listStyle(SidebarListStyle())
                 
                 if let selectedTab = selectedTab {
@@ -75,6 +70,13 @@ struct LoggedInRootView_Previews: PreviewProvider {
                 .previewDevice("iPhone 11")
                 .preferredColorScheme(.light)
                 .environmentObject(ProjectList_Previews.previewAppData)
+        }
+        Group {
+            Landscape {
+                LoggedInRootView()
+                    .preferredColorScheme(.light)
+                    .environmentObject(ProjectList_Previews.previewAppData)
+            }
         }
         Group {
             LoggedInRootView()

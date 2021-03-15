@@ -41,3 +41,15 @@ extension NavigationView {
         return AnyView(self)
     }
 }
+
+#if DEBUG
+struct Landscape<Content>: View where Content: View {
+    let content: () -> Content
+    let height = UIScreen.main.bounds.width
+    let width = UIScreen.main.bounds.height
+    
+    var body: some View {
+        content().previewLayout(PreviewLayout.fixed(width: width, height: height))
+    }
+}
+#endif
