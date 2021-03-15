@@ -28,22 +28,30 @@ struct LoggedInRootView: View {
             CompactLoggedInView()
         } else {
             HStack {
-                List {
-                    ForEach(Tabs.allCases) { tab in
-                        HorizontalTabView(tab: tab, selectedTab: $selectedTab)
-                            .withoutListRowInsets()
+                NavigationView {
+                    List {
+                        ForEach(Tabs.allCases) { tab in
+                            HorizontalTabView(tab: tab, selectedTab: $selectedTab)
+                                .withoutListRowInsets()
+                        }
+                    }
+                    .padding(.top, 8)
+                    .listStyle(SidebarListStyle())
+                    .navigationTitle("Edge Impulse")
+                }
+                .setBackgroundColor(.blue)
+                .setSingleColumnNavigationViewStyle()
+                .frame(width: 265, alignment: .leading)
+                
+                VStack {
+                    if let selectedTab = selectedTab {
+                        selectedTab.view
+                    } else {
+                        Text("Select a Tab from the left Pane.")
+                            .multilineTextAlignment(.center)
                     }
                 }
-                .frame(width: 205, alignment: .leading)
-                .listStyle(SidebarListStyle())
-                
-                if let selectedTab = selectedTab {
-                    selectedTab.view
-                } else {
-                    Text("Select a Tab from the left Pane.")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .multilineTextAlignment(.center)
-                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .frame(minWidth: 400)
         }
