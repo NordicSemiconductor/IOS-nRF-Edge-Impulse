@@ -15,7 +15,8 @@ struct LoggedInRootView: View {
     
     var isUsingCompactLayout: Bool {
         #if os(iOS)
-        return UIDevice.current.orientation == .portrait || horizontalSizeClass == .compact
+        return UIDevice.current.orientation == .portrait
+            || horizontalSizeClass == .compact
         #else
         return false
         #endif
@@ -37,11 +38,10 @@ struct LoggedInRootView: View {
                     }
                     .padding(.top, 8)
                     .listStyle(SidebarListStyle())
-                    .navigationTitle("Edge Impulse")
                 }
                 .setBackgroundColor(.blue)
                 .setSingleColumnNavigationViewStyle()
-                .frame(width: 265, alignment: .leading)
+                .frame(width: 185, alignment: .leading)
                 
                 VStack {
                     if let selectedTab = selectedTab {

@@ -18,7 +18,8 @@ struct ProjectList: View {
             appData.projectListStatus.view(onRetry: {
                 guard let token = appData.apiToken else { return }
                 requestList(with: token)
-            })        
+            })
+            .frame(minWidth: 295)
             .navigationTitle("Projects")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -30,7 +31,6 @@ struct ProjectList: View {
         }
         .setBackgroundColor(Assets.blue)
         .setSingleColumnNavigationViewStyle()
-        .background(Color.white)
         .accentColor(.white)
         .onAppear() {
             guard let token = appData.apiToken else { return }
