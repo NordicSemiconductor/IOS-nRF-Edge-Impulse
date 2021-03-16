@@ -13,3 +13,7 @@ struct NordicError: Error {
     
     var localizedDescription: String { description }
 }
+
+extension NordicError {
+    static let testError = NordicError(description: "This is a Test Error")
+}

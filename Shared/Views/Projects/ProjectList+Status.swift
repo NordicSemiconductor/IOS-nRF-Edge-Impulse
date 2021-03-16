@@ -28,8 +28,7 @@ extension ProjectList.Status {
         switch self {
         case .error(let error):
             VStack(alignment: .center, spacing: 8) {
-                Text("\(error.localizedDescription)")
-                    .multilineTextAlignment(.center)
+                ErrorView(error: error)
                 Button("Retry", action: onRetry)
                     .circularButtonShape(backgroundAsset: .blue)
             }
