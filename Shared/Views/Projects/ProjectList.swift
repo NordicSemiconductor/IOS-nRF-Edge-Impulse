@@ -93,7 +93,6 @@ struct ProjectList_Previews: PreviewProvider {
     
     static func previewAppData(_ status: ProjectList.Status) -> AppData {
        let appData = AppData()
-        appData.apiToken = "Test"
         appData.projectListStatus = status
         appData.devices = [
             Device(id: UUID()),

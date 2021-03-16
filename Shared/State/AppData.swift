@@ -25,6 +25,7 @@ final class AppData: ObservableObject {
     @Published var apiToken: String? {
         didSet {
             if let token = apiToken {
+                guard !Constant.isRunningInPreviewMode else { return }
                 keychain.set(token, forKey: KeychainKeys.apiToken.rawValue)
             } else {
                 keychain.delete(KeychainKeys.apiToken.rawValue)
