@@ -31,9 +31,11 @@ struct LoggedInRootView: View {
             HStack {
                 NavigationView {
                     List {
-                        ForEach(Tabs.allCases) { tab in
-                            HorizontalTabView(tab: tab, selectedTab: $selectedTab)
-                                .withoutListRowInsets()
+                        Section(header: Text("Tabs")) {
+                            ForEach(Tabs.allCases) { tab in
+                                HorizontalTabView(tab: tab, selectedTab: $selectedTab)
+                                    .withoutListRowInsets()
+                            }
                         }
                     }
                     .padding(.top, 8)
