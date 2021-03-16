@@ -123,6 +123,7 @@
 		AA43B2A725FA574F00C5B5EE /* CompactLoggedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactLoggedInView.swift; sourceTree = "<group>"; };
 		AA80988325EE518F00091AC0 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		AA80989925EE959B00091AC0 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
+		AACCBA862600BF370042E87B /* nRF-Edge-Impulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "nRF-Edge-Impulse.entitlements"; sourceTree = "<group>"; };
 		AACCBA872600C32C0042E87B /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		AAE5B63425F23A4500AA003D /* sample_projects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_projects.json; sourceTree = "<group>"; };
 		AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
@@ -214,6 +215,7 @@
 		AA03E95325E3EF12003DA9DA = {
 			isa = PBXGroup;
 			children = (
+				AACCBA862600BF370042E87B /* nRF-Edge-Impulse.entitlements */,
 				AA03E95825E3EF12003DA9DA /* Shared */,
 				AA03E96225E3EF13003DA9DA /* iOS */,
 				AA03E96925E3EF13003DA9DA /* macOS */,
@@ -757,6 +759,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "nRF-Edge-Impulse.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P3R8YQEV4L;
@@ -781,6 +784,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "nRF-Edge-Impulse.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P3R8YQEV4L;
@@ -807,6 +811,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = P3R8YQEV4L;
@@ -820,6 +825,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.nRF-Edge-Impulse";
 				PRODUCT_NAME = "nRF-Edge-Impulse";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
@@ -831,6 +837,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = P3R8YQEV4L;
@@ -844,6 +851,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.nRF-Edge-Impulse";
 				PRODUCT_NAME = "nRF-Edge-Impulse";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
