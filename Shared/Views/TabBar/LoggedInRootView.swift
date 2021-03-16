@@ -37,6 +37,7 @@ struct LoggedInRootView: View {
                                     .withoutListRowInsets()
                             }
                         }
+                        .accentColor(Assets.blue.color)
                     }
                     .padding(.top, 8)
                     .listStyle(SidebarListStyle())
