@@ -20,6 +20,31 @@ extension View {
         return listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
     }
     
+    func setTitle(_ title: String) -> AnyView {
+        #if os(iOS)
+        return AnyView(navigationBarTitle("nRF Edge Impulse", displayMode: .inline))
+        #else
+        return AnyView(navigationTitle(title))
+        #endif
+    }
+    
+    func toolbarPrincipalImage(_ image: Image) -> AnyView {
+        #if os(iOS)
+        return AnyView(toolbar {
+            ToolbarItem(placement: .principal) {
+                image
+                    .resizable()
+                    .renderingMode(.template)
+                    .colorMultiply(.white)
+                    .frame(width: 30, height: 30, alignment: .center)
+                    .aspectRatio(contentMode: .fit)
+            }
+        })
+        #else
+        return AnyView(self)
+        #endif
+    }
+    
     func circularButtonShape(backgroundAsset: Assets) -> AnyView {
         #if os(iOS)
          return AnyView(frame(width: 80, height: 12)

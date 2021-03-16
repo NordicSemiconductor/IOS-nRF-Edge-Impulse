@@ -20,7 +20,7 @@ struct ProjectList: View {
                 requestList(with: token)
             })
             .frame(minWidth: 295)
-            .navigationTitle("Projects")
+            .setTitle("Projects")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Logout") {

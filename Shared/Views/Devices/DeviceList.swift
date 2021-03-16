@@ -22,7 +22,7 @@ struct DeviceList: View {
                         .lineLimit(1)
                 }
             }
-            .navigationTitle("Devices")
+            .setTitle("Devices")
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
