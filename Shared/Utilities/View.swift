@@ -58,6 +58,20 @@ extension View {
     }
 }
 
+// MARK: - Picker
+
+extension Picker {
+    
+    func setAsSegmentedControlStyle() -> AnyView {
+        #if os(iOS)
+        return AnyView(pickerStyle(InlinePickerStyle())
+                        .frame(maxHeight: 75))
+        #else
+        return AnyView(self)
+        #endif
+    }
+}
+
 // MARK: - NavigationView
 
 extension NavigationView {

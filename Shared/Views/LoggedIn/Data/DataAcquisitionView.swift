@@ -34,7 +34,6 @@ struct DataAcquisitionView: View {
                     .font(.body)
                     .foregroundColor(Assets.middleGrey.color)
             }
-            .padding(.top, 16)
             
             Section(header: Text("Device")) {
                 if appData.devices.count > 0 {
@@ -43,8 +42,7 @@ struct DataAcquisitionView: View {
                             Text(device.id.uuidString).tag(device.id)
                         }
                     }
-                    .pickerStyle(InlinePickerStyle())
-                    .frame(maxHeight: 75)
+                    .setAsSegmentedControlStyle()
                 } else {
                     Text("No Devices Scanned.")
                         .foregroundColor(Assets.middleGrey.color)
@@ -62,8 +60,7 @@ struct DataAcquisitionView: View {
                         Text(Sensor.allCases[i].rawValue).tag(i)
                     }
                 }
-                .pickerStyle(InlinePickerStyle())
-                .frame(maxHeight: 75)
+                .setAsSegmentedControlStyle()
             }
             
             Section(header: Text("Sample Length")) {
@@ -79,9 +76,8 @@ struct DataAcquisitionView: View {
                         Text(Frequency.allCases[i].description).tag(i)
                     }
                 }
+                .setAsSegmentedControlStyle()
                 .disabled(sampleLengthAndFrequencyDisabled)
-                .pickerStyle(InlinePickerStyle())
-                .frame(maxHeight: 75)
             }
             
             Button("Start Sampling") {
@@ -109,6 +105,7 @@ struct NewSampleView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             DataAcquisitionView(project: ProjectList_Previews.previewProjects.first!)
+                .environmentObject(ProjectList_Previews.projectsPreviewAppData)
                 .previewDevice("iPhone 12 mini")
         }
         .setBackgroundColor(Assets.blue)
