@@ -1,5 +1,5 @@
 //
-//  TwoPaneLayout.swift
+//  TwoPaneLayoutView.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Dinesh Harjani on 17/3/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TwoPaneLayout: View {
+struct TwoPaneLayoutView: View {
     
     @EnvironmentObject var appData: AppData
     
@@ -48,13 +48,13 @@ struct TwoPaneLayout: View {
 // MARK: - Preview
 
 #if DEBUG
-struct TwoPaneLayout_Previews: PreviewProvider {
+struct TwoPaneLayoutView_Previews: PreviewProvider {
     static var previews: some View {
         #if os(OSX)
-        TwoPaneLayout()
+        TwoPaneLayoutView()
             .environmentObject(ProjectList_Previews.projectsPreviewAppData)
         #elseif os(iOS)
-        TwoPaneLayout()
+        TwoPaneLayoutView()
             .previewDevice("iPad Pro (11-inch) (2nd generation)")
             .environmentObject(ProjectList_Previews.projectsPreviewAppData)
         #endif

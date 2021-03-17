@@ -1,5 +1,5 @@
 //
-//  CompactLoggedInView.swift
+//  TabBarLayoutView.swift
 //  nRF-Edge-Impulse (iOS)
 //
 //  Created by Dinesh Harjani on 11/3/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CompactLoggedInView: View {
+struct TabBarLayoutView: View {
     
     var body: some View {
         TabView {
@@ -26,15 +26,15 @@ struct CompactLoggedInView: View {
 // MARK: - Preview
 
 #if DEBUG
-struct CompactLoggedInView_Previews: PreviewProvider {
+struct TabBarLayoutView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CompactLoggedInView()
+            TabBarLayoutView()
                 .preferredColorScheme(.light)
                 .environmentObject(ProjectList_Previews.projectsPreviewAppData)
         }
         Group {
-            CompactLoggedInView()
+            TabBarLayoutView()
                 .preferredColorScheme(.dark)
                 .environmentObject(ProjectList_Previews.projectsPreviewAppData)
         }

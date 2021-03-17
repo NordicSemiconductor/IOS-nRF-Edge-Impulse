@@ -33,9 +33,9 @@ struct LoggedInRootView: View {
     var body: some View {
         switch layout {
         case .tabs:
-            CompactLoggedInView()
+            TabBarLayoutView()
         case .dualPane:
-            TwoPaneLayout()
+            TwoPaneLayoutView()
         }
     }
 }
