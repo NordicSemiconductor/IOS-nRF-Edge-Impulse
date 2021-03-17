@@ -15,7 +15,7 @@ struct ProjectList: View {
     
     var body: some View {
         NavigationView {
-            appData.projectListStatus.view(onRetry: {
+            appData.projectsViewState.view(onRetry: {
                 refreshList()
             })
             .frame(minWidth: 295)
@@ -60,16 +60,16 @@ extension ProjectList {
                 guard !Constant.isRunningInPreviewMode else { return }
                 switch completion {
                 case .failure(let error):
-                    appData.projectListStatus = .error(error)
+                    appData.projectsViewState = .error(error)
                 default:
                     break
                 }
             },
             receiveValue: { projectsResponse in
-                appData.projectListStatus = .showingProjects(projectsResponse.projects)
+                appData.projectsViewState = .showingProjects(projectsResponse.projects)
             })
         guard !Constant.isRunningInPreviewMode else { return }
-        appData.projectListStatus = .loading
+        appData.projectsViewState = .loading
     }
     
     func cancelListRequest() {
@@ -95,9 +95,9 @@ struct ProjectList_Previews: PreviewProvider {
     
     static let projectsPreviewAppData = previewAppData(.showingProjects(previewProjects))
     
-    static func previewAppData(_ status: ProjectList.Status) -> AppData {
+    static func previewAppData(_ status: ProjectList.ViewState) -> AppData {
        let appData = AppData()
-        appData.projectListStatus = status
+        appData.projectsViewState = status
         appData.devices = [
             Device(id: UUID()),
             Device(id: UUID()),

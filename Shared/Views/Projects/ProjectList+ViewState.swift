@@ -1,5 +1,5 @@
 //
-//  ProjectList+Status.swift
+//  ProjectList+ViewState.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Dinesh Harjani on 15/3/21.
@@ -11,7 +11,7 @@ import SwiftUI
 
 extension ProjectList {
     
-    enum Status {
+    enum ViewState {
         case error(_ error: Error)
         case empty
         case loading
@@ -21,7 +21,7 @@ extension ProjectList {
 
 // MARK: - ViewBuilder
 
-extension ProjectList.Status {
+extension ProjectList.ViewState {
  
     @ViewBuilder
     func view(onRetry: @escaping () -> Void) -> some View {
@@ -45,7 +45,9 @@ extension ProjectList.Status {
                 ForEach(projects) { project in
                     NavigationLink(destination: DataAcquisitionView(project: project)) {
                         ProjectRow(project: project)
-                    }
+                    }.onDisappear(perform: {
+                        print("Closed \(project.name)")
+                    }).navigationViewStyle(DoubleColumnNavigationViewStyle())
                 }
             }
         }
@@ -54,8 +56,8 @@ extension ProjectList.Status {
 
 // MARK: - CaseIterable
 
-extension ProjectList.Status: CaseIterable {
-    static var allCases: [ProjectList.Status] = [
+extension ProjectList.ViewState: CaseIterable {
+    static var allCases: [ProjectList.ViewState] = [
         .error(NordicError(description: "Sample Error")),
         .empty,
         .loading,

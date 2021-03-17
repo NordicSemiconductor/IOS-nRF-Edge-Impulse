@@ -32,7 +32,7 @@ final class AppData: ObservableObject {
             }
         }
     }
-    @Published var projectListStatus: ProjectList.Status = .empty
+    @Published var projectsViewState: ProjectList.ViewState = .empty
     @Published var devices: [Device] = []
     
     // MARK: - API
