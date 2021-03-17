@@ -9,23 +9,32 @@ import SwiftUI
 
 struct LoggedInRootView: View {
     
+    enum LoggedInLayout {
+        case tabs
+        case dualPane
+    }
+    
     #if os(iOS)
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     #endif
     
-    var shouldUseTabBarLayout: Bool {
+    var layout: LoggedInLayout {
         #if os(iOS)
-        return UIDevice.current.orientation == .portrait
-            || horizontalSizeClass == .compact
+        if UIDevice.current.orientation == .portrait
+            || horizontalSizeClass == .compact {
+            return .tabs
+        }
+        return .dualPane
         #else
-        return false
+        return .dualPane
         #endif
     }
     
     var body: some View {
-        if shouldUseTabBarLayout {
+        switch layout {
+        case .tabs:
             CompactLoggedInView()
-        } else {
+        case .dualPane:
             TwoPaneLayout()
         }
     }
