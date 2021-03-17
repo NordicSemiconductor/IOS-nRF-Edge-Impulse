@@ -33,7 +33,13 @@ extension ProjectList.ViewState {
                     .circularButtonShape(backgroundAsset: .blue)
             }
         case .empty:
-            Text("There are no Projects.")
+            VStack(alignment: .center, spacing: 16) {
+                Image(systemName: "moon.stars.fill")
+                    .resizable()
+                    .frame(width: 90, height: 90, alignment: .center)
+                    .foregroundColor(Assets.blueslate.color)
+                Text("Your Project List is empty.")
+            }
         case .loading:
             VStack(alignment: .center, spacing: 8) {
                 ProgressView()
