@@ -11,17 +11,20 @@ struct DataAcquisitionView: View {
     
     let project: Project
     
+    @EnvironmentObject var appData: AppData
+    
     @State private var label = ""
+    @State private var selectedDeviceIndex = 0
     @State private var selectedSensorIndex = 0
     @State private var sampleLength = 10000
     @State private var selectedFrequencyIndex = 1
     
-    var sampleLengthAndFrequencyEnabled: Bool {
-        Sensor.allCases[selectedSensorIndex] != .Camera
+    var sampleLengthAndFrequencyDisabled: Bool {
+        Sensor.allCases[selectedSensorIndex] == .Camera
     }
     
     var startSamplingDisabled: Bool {
-        label.count < 1
+        label.count < 1 || appData.devices.isEmpty
     }
     
     var body: some View {
@@ -30,6 +33,23 @@ struct DataAcquisitionView: View {
                 Text("\(project.name)")
                     .font(.body)
                     .foregroundColor(Assets.middleGrey.color)
+            }
+            .padding(.top, 16)
+            
+            Section(header: Text("Device")) {
+                if appData.devices.count > 0 {
+                    Picker("Selected", selection: $selectedDeviceIndex) {
+                        ForEach(appData.devices) { device in
+                            Text(device.id.uuidString).tag(device.id)
+                        }
+                    }
+                    .pickerStyle(InlinePickerStyle())
+                    .frame(maxHeight: 75)
+                } else {
+                    Text("No Devices Scanned.")
+                        .foregroundColor(Assets.middleGrey.color)
+                        .multilineTextAlignment(.leading)
+                }
             }
             
             Section(header: Text("Label")) {
@@ -46,24 +66,22 @@ struct DataAcquisitionView: View {
                 .frame(maxHeight: 75)
             }
             
-            if sampleLengthAndFrequencyEnabled {
-                Section(header: Text("Sample Length")) {
-                    Stepper(value: $sampleLength, in: 0...100000) {
-                        Text("\(sampleLength, specifier: "%d") ms")
-                    }
+            Section(header: Text("Sample Length")) {
+                Stepper(value: $sampleLength, in: 0...100000) {
+                    Text("\(sampleLength, specifier: "%d") ms")
                 }
+                .disabled(sampleLengthAndFrequencyDisabled)
             }
             
-            if sampleLengthAndFrequencyEnabled {
-                Section(header: Text("Frequency")) {
-                    Picker("Value", selection: $selectedFrequencyIndex) {
-                        ForEach(Frequency.allCases.indices) { i in
-                            Text(Frequency.allCases[i].description).tag(i)
-                        }
+            Section(header: Text("Frequency")) {
+                Picker("Value", selection: $selectedFrequencyIndex) {
+                    ForEach(Frequency.allCases.indices) { i in
+                        Text(Frequency.allCases[i].description).tag(i)
                     }
-                    .pickerStyle(InlinePickerStyle())
-                    .frame(maxHeight: 75)
                 }
+                .disabled(sampleLengthAndFrequencyDisabled)
+                .pickerStyle(InlinePickerStyle())
+                .frame(maxHeight: 75)
             }
             
             Button("Start Sampling") {
@@ -73,7 +91,6 @@ struct DataAcquisitionView: View {
             .disabled(startSamplingDisabled)
             .accentColor(startSamplingDisabled ? Assets.middleGrey.color : Assets.red.color)
         }
-        .padding(.top, 8)
         .navigationTitle("Data Acquisition")
     }
 }
@@ -94,6 +111,7 @@ struct NewSampleView_Previews: PreviewProvider {
             DataAcquisitionView(project: ProjectList_Previews.previewProjects.first!)
                 .previewDevice("iPhone 12 mini")
         }
+        .setBackgroundColor(Assets.blue)
     }
 }
 #endif
