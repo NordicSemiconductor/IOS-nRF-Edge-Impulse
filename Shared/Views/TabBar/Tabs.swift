@@ -9,7 +9,7 @@ import SwiftUI
 
 enum Tabs: Int, RawRepresentable, CaseIterable {
     case Projects
-    case Scanner
+    case Devices
 }
 
 // MARK: - ViewBuilder
@@ -21,7 +21,7 @@ extension Tabs {
         switch self {
         case .Projects:
             ProjectList()
-        case .Scanner:
+        case .Devices:
              DeviceList()
         }
     }
@@ -37,8 +37,8 @@ extension Tabs: Identifiable, CustomStringConvertible {
         switch self {
         case .Projects:
             return "list.bullet"
-        case .Scanner:
-            return "wave.3.left"
+        case .Devices:
+            return "apps.ipad"
         }
     }
     
@@ -46,8 +46,8 @@ extension Tabs: Identifiable, CustomStringConvertible {
         switch self {
         case .Projects:
             return "Projects"
-        case .Scanner:
-            return "Scanner"
+        case .Devices:
+            return "Devices"
         }
     }
 }
