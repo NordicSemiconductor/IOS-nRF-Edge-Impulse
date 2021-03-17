@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TwoPaneLayout: View {
     
-    @State var selectedTab: Tabs? = .Projects
+    @EnvironmentObject var appData: AppData
     
     var body: some View {
         HStack {
@@ -17,7 +17,7 @@ struct TwoPaneLayout: View {
                 List {
                     Section(header: Text("Tabs")) {
                         ForEach(Tabs.allCases) { tab in
-                            HorizontalTabView(tab: tab, selectedTab: $selectedTab)
+                            HorizontalTabView(tab: tab)
                                 .withoutListRowInsets()
                         }
                     }
@@ -33,7 +33,7 @@ struct TwoPaneLayout: View {
             .frame(width: 215, alignment: .leading)
             
             VStack {
-                if let selectedTab = selectedTab {
+                if let selectedTab = appData.selectedTab {
                     selectedTab.view
                 } else {
                     Text("Select a Tab from the left Pane.")
@@ -45,10 +45,19 @@ struct TwoPaneLayout: View {
     }
 }
 
+// MARK: - Preview
+
+#if DEBUG
 struct TwoPaneLayout_Previews: PreviewProvider {
     static var previews: some View {
+        #if os(OSX)
+        TwoPaneLayout()
+            .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+        #elseif os(iOS)
         TwoPaneLayout()
             .previewDevice("iPad Pro (11-inch) (2nd generation)")
             .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+        #endif
     }
 }
+#endif

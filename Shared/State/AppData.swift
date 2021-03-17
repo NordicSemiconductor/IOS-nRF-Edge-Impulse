@@ -35,6 +35,8 @@ final class AppData: ObservableObject {
     @Published var projectsViewState: ProjectList.ViewState = .empty
     @Published var devices: [Device] = []
     
+    @Published var selectedTab: Tabs? = .Projects
+    
     // MARK: - API
     
     var isLoggedIn: Bool { apiToken != nil }

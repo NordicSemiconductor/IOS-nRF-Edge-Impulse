@@ -22,8 +22,6 @@ struct LoggedInRootView: View {
         #endif
     }
     
-    @State var selectedTab: Tabs? = .Projects
-    
     var body: some View {
         if shouldUseTabBarLayout {
             CompactLoggedInView()
