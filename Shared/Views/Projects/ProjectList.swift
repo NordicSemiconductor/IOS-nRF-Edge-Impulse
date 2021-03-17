@@ -16,16 +16,20 @@ struct ProjectList: View {
     var body: some View {
         NavigationView {
             appData.projectListStatus.view(onRetry: {
-                guard let token = appData.apiToken else { return }
-                requestList(with: token)
+                refreshList()
             })
             .frame(minWidth: 295)
             .setTitle("Projects")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Logout") {
-                        logoutUser()
-                    }
+                    Button(action: logoutUser, label: {
+                        Image(systemName: "person.fill.xmark")
+                    })
+                }
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: refreshList, label: {
+                        Image(systemName: "arrow.clockwise")
+                    })
                 }
             }
         }
@@ -33,8 +37,7 @@ struct ProjectList: View {
         .setSingleColumnNavigationViewStyle()
         .accentColor(.white)
         .onAppear() {
-            guard let token = appData.apiToken else { return }
-            requestList(with: token)
+            refreshList()
         }
         .onDisappear() {
             cancelListRequest()
@@ -46,7 +49,8 @@ struct ProjectList: View {
 
 extension ProjectList {
     
-    func requestList(with token: String) {
+    func refreshList() {
+        guard let token = appData.apiToken else { return }
         let request = APIRequest.listProjects(using: token)
         listCancellable = Network.shared.perform(request, responseType: ProjectsResponse.self)?
             .onUnauthorisedUserError {

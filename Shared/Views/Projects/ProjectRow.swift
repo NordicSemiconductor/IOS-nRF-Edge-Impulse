@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: - ProjectRow
 
 struct ProjectRow: View {
-    var project: Project
+    let project: Project
     
     var body: some View {
         HStack(alignment: .top) {
