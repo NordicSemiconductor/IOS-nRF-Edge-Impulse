@@ -16,6 +16,25 @@ struct Sample {
     let frequency: Frequency
 }
 
+// MARK: - Sample.DataType
+
+extension Sample {
+    
+    enum DataType: String, RawRepresentable, CaseIterable {
+        case Test
+        case Training
+        
+        var description: String {
+            switch self {
+            case .Test:
+                return "Test Data"
+            case .Training:
+                return "Training Data"
+            }
+        }
+    }
+}
+    
 // MARK: - Sensor
 
 enum Sensor: String, RawRepresentable, CaseIterable {

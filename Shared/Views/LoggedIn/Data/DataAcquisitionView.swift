@@ -15,6 +15,7 @@ struct DataAcquisitionView: View {
     
     @State private var label = ""
     @State private var selectedDeviceIndex = 0
+    @State private var selectedDataTypeIndex = 0
     @State private var selectedSensorIndex = 0
     @State private var sampleLength = 10000
     @State private var selectedFrequencyIndex = 1
@@ -33,6 +34,15 @@ struct DataAcquisitionView: View {
                 Text("\(project.name)")
                     .font(.body)
                     .foregroundColor(Assets.middleGrey.color)
+            }
+            
+            Section(header: Text("Data Type")) {
+                Picker("Type", selection: $selectedDataTypeIndex) {
+                    ForEach(Sample.DataType.allCases.indices) { i in
+                        Text(Sample.DataType.allCases[i].rawValue).tag(i)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
             }
             
             Section(header: Text("Device")) {
