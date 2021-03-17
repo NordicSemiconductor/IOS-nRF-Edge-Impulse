@@ -13,7 +13,7 @@ struct LoggedInRootView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     #endif
     
-    var isUsingCompactLayout: Bool {
+    var shouldUseTabBarLayout: Bool {
         #if os(iOS)
         return UIDevice.current.orientation == .portrait
             || horizontalSizeClass == .compact
@@ -25,7 +25,7 @@ struct LoggedInRootView: View {
     @State var selectedTab: Tabs? = .Projects
     
     var body: some View {
-        if isUsingCompactLayout {
+        if shouldUseTabBarLayout {
             CompactLoggedInView()
         } else {
             HStack {
@@ -87,7 +87,7 @@ struct LoggedInRootView_Previews: PreviewProvider {
         }
         Group {
             LoggedInRootView()
-                .previewDevice("iPad Pro (12.9-inch) (4th generation)")
+                .previewDevice("iPad Pro (11-inch) (2nd generation)")
                 .preferredColorScheme(.dark)
                 .environmentObject(ProjectList_Previews.projectsPreviewAppData)
         }
