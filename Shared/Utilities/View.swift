@@ -62,7 +62,7 @@ extension View {
 
 extension Picker {
     
-    func setAsSegmentedControlStyle() -> AnyView {
+    func setAsComboBoxStyle() -> AnyView {
         #if os(iOS)
         return AnyView(pickerStyle(InlinePickerStyle())
                         .frame(maxHeight: 75))

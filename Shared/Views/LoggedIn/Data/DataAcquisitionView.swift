@@ -42,7 +42,7 @@ struct DataAcquisitionView: View {
                             Text(device.id.uuidString).tag(device.id)
                         }
                     }
-                    .setAsSegmentedControlStyle()
+                    .setAsComboBoxStyle()
                 } else {
                     Text("No Devices Scanned.")
                         .foregroundColor(Assets.middleGrey.color)
@@ -60,7 +60,7 @@ struct DataAcquisitionView: View {
                         Text(Sensor.allCases[i].rawValue).tag(i)
                     }
                 }
-                .setAsSegmentedControlStyle()
+                .setAsComboBoxStyle()
             }
             
             Section(header: Text("Sample Length")) {
@@ -76,7 +76,7 @@ struct DataAcquisitionView: View {
                         Text(Frequency.allCases[i].description).tag(i)
                     }
                 }
-                .setAsSegmentedControlStyle()
+                .setAsComboBoxStyle()
                 .disabled(sampleLengthAndFrequencyDisabled)
             }
             
