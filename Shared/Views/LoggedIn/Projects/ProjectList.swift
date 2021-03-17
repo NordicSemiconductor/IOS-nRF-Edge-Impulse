@@ -83,7 +83,6 @@ extension ProjectList {
 
 // MARK: - Preview
 
-#if DEBUG
 struct ProjectList_Previews: PreviewProvider {
     
     static var previewProjects: [Project]! = {
@@ -125,4 +124,3 @@ struct ProjectList_Previews: PreviewProvider {
         }
     }
 }
-#endif
