@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>To Connect to Devices, we need Access to Bluetooth.</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>To Scan Devices, we need Access to Bluetooth.</string>
 	<key>CFBundleDevelopmentRegion</key>
