@@ -48,8 +48,8 @@ struct DataAcquisitionView: View {
             Section(header: Text("Device")) {
                 if appData.devices.count > 0 {
                     Picker("Selected", selection: $selectedDeviceIndex) {
-                        ForEach(appData.devices) { device in
-                            Text(device.id.uuidString)
+                        ForEach(appData.devices.identifiableIndices) { i in
+                            Text(appData.devices[i].id.uuidString).tag(i)
                         }
                     }
                     .setAsComboBoxStyle()
@@ -120,13 +120,31 @@ private extension DataAcquisitionView {
 
 #if DEBUG
 struct NewSampleView_Previews: PreviewProvider {
+    
+    static let noProjectsAppData: AppData = {
+        let appData = AppData()
+        appData.projectsViewState = .showingProjects([ProjectList_Previews.previewProjects[0]])
+        appData.devices = []
+        return appData
+    }()
+    
     static var previews: some View {
-        NavigationView {
-            DataAcquisitionView(project: ProjectList_Previews.previewProjects.first!)
-                .environmentObject(ProjectList_Previews.projectsPreviewAppData)
-                .previewDevice("iPhone 12 mini")
+        Group {
+            NavigationView {
+                DataAcquisitionView(project: ProjectList_Previews.previewProjects.first!)
+                    .environmentObject(noProjectsAppData)
+            }
+            .setBackgroundColor(Assets.blue)
+            .setSingleColumnNavigationViewStyle()
+            
+            NavigationView {
+                DataAcquisitionView(project: ProjectList_Previews.previewProjects.first!)
+                    .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+            }
+            .setBackgroundColor(Assets.blue)
+            .setSingleColumnNavigationViewStyle()
         }
-        .setBackgroundColor(Assets.blue)
+        .previewDevice("iPhone 12 mini")
     }
 }
 #endif
