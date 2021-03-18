@@ -49,7 +49,7 @@ extension ProjectList.ViewState {
         case .showingProjects(let projects):
             List {
                 ForEach(projects) { project in
-                    NavigationLink(destination: DataAcquisitionView(project: project)) {
+                    NavigationLink(destination: DataAcquisitionView()) {
                         ProjectRow(project: project)
                     }.onDisappear(perform: {
                         print("Closed \(project.name)")

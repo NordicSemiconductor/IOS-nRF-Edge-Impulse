@@ -60,12 +60,14 @@ extension ProjectList {
                 guard !Constant.isRunningInPreviewMode else { return }
                 switch completion {
                 case .failure(let error):
+                    appData.projects = []
                     appData.projectsViewState = .error(error)
                 default:
                     break
                 }
             },
             receiveValue: { projectsResponse in
+                appData.projects = projectsResponse.projects
                 appData.projectsViewState = .showingProjects(projectsResponse.projects)
             })
         guard !Constant.isRunningInPreviewMode else { return }
@@ -97,6 +99,12 @@ struct ProjectList_Previews: PreviewProvider {
     static func previewAppData(_ status: ProjectList.ViewState) -> AppData {
        let appData = AppData()
         appData.projectsViewState = status
+        switch status {
+        case .showingProjects(let projects):
+            appData.projects = projects
+        default:
+            appData.projects = []
+        }
         appData.devices = [
             Device(id: UUID()),
             Device(id: UUID()),

@@ -9,10 +9,9 @@ import SwiftUI
 
 struct DataAcquisitionView: View {
     
-    let project: Project
-    
     @EnvironmentObject var appData: AppData
     
+    @State private var selectedProjectIndex = 0
     @State private var label = ""
     @State private var selectedDeviceIndex = 0
     @State private var selectedDataTypeIndex = 0
@@ -25,15 +24,23 @@ struct DataAcquisitionView: View {
     }
     
     var startSamplingDisabled: Bool {
-        label.count < 1 || appData.devices.isEmpty
+        appData.projects.isEmpty || label.count < 1 || appData.devices.isEmpty
     }
     
     var body: some View {
         Form {
             Section(header: Text("Project")) {
-                Text("\(project.name)")
-                    .font(.body)
-                    .foregroundColor(Assets.middleGrey.color)
+                if appData.projects.count > 0 {
+                    Picker("Selected", selection: $selectedProjectIndex) {
+                        ForEach(appData.projects.identifiableIndices) { i in
+                            Text(appData.projects[i].name).tag(i)
+                        }
+                    }
+                    .setAsComboBoxStyle()
+                } else {
+                    Text("No Projects for this User.")
+                        .foregroundColor(Assets.middleGrey.color)
+                }
             }
             
             Section(header: Text("Data Type")) {
@@ -121,7 +128,7 @@ private extension DataAcquisitionView {
 #if DEBUG
 struct NewSampleView_Previews: PreviewProvider {
     
-    static let noProjectsAppData: AppData = {
+    static let noDevicesAppData: AppData = {
         let appData = AppData()
         appData.projectsViewState = .showingProjects([ProjectList_Previews.previewProjects[0]])
         appData.devices = []
@@ -131,20 +138,19 @@ struct NewSampleView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                DataAcquisitionView(project: ProjectList_Previews.previewProjects.first!)
-                    .environmentObject(noProjectsAppData)
+                DataAcquisitionView()
+                    .environmentObject(noDevicesAppData)
             }
             .setBackgroundColor(Assets.blue)
             .setSingleColumnNavigationViewStyle()
             
             NavigationView {
-                DataAcquisitionView(project: ProjectList_Previews.previewProjects.first!)
+                DataAcquisitionView()
                     .environmentObject(ProjectList_Previews.projectsPreviewAppData)
             }
             .setBackgroundColor(Assets.blue)
             .setSingleColumnNavigationViewStyle()
         }
-        .previewDevice("iPhone 12 mini")
     }
 }
 #endif
