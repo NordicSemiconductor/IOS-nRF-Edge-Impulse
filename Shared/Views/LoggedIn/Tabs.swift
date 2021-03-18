@@ -10,6 +10,7 @@ import SwiftUI
 enum Tabs: Int, RawRepresentable, CaseIterable {
     case Projects
     case Devices
+    case DataAcquisition
 }
 
 // MARK: - ViewBuilder
@@ -23,6 +24,8 @@ extension Tabs {
             ProjectList()
         case .Devices:
              DeviceList()
+        case .DataAcquisition:
+            DataAcquisitionView()
         }
     }
 }
@@ -39,6 +42,8 @@ extension Tabs: Identifiable, CustomStringConvertible {
             return "list.bullet"
         case .Devices:
             return "apps.ipad"
+        case .DataAcquisition:
+            return "cylinder.split.1x2"
         }
     }
     
@@ -48,6 +53,8 @@ extension Tabs: Identifiable, CustomStringConvertible {
             return "Projects"
         case .Devices:
             return "Devices"
+        case .DataAcquisition:
+            return "DataAcquisitionView"
         }
     }
 }
