@@ -45,6 +45,7 @@
 		AA263F01260369530018CF5B /* IdentifiableIndices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA263EFF260369530018CF5B /* IdentifiableIndices.swift */; };
 		AA43B2A825FA574F00C5B5EE /* TabBarLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */; };
 		AA43B2A925FA58B500C5B5EE /* TabBarLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */; };
+		AA710DB5260391D800A4935F /* DataAcquisitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA263F05260385690018CF5B /* DataAcquisitionView.swift */; };
 		AA7F5DE325F8F57D00185328 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AA7F5DE225F8F57D00185328 /* KeychainSwift */; };
 		AA7F5DE425F8F6C900185328 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCBE8125E90734001C52B0 /* LoginRequest.swift */; };
 		AA80988425EE518F00091AC0 /* ProjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA80988325EE518F00091AC0 /* ProjectRow.swift */; };
@@ -56,7 +57,6 @@
 		AAE5B63525F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAE5B63625F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAF5054725F11E45003AFED7 /* DataAcquisitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */; };
-		AAF5054825F11E45003AFED7 /* DataAcquisitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */; };
 		AAF936AB260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */; };
 		AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */; };
 		AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AAFAE5E425ED11CA00A45A90 /* KeychainSwift */; };
@@ -125,6 +125,7 @@
 		AA10170225E91885006DC88A /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		AA1F07A325F7989400CC41A9 /* BluetoothError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothError.swift; sourceTree = "<group>"; };
 		AA263EFF260369530018CF5B /* IdentifiableIndices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableIndices.swift; sourceTree = "<group>"; };
+		AA263F05260385690018CF5B /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
 		AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarLayoutView.swift; sourceTree = "<group>"; };
 		AA80988325EE518F00091AC0 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		AA80989925EE959B00091AC0 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
@@ -272,6 +273,7 @@
 		AA03E96925E3EF13003DA9DA /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				AA263F022603854D0018CF5B /* Views */,
 				AA03E96A25E3EF13003DA9DA /* Info.plist */,
 				AA03E96B25E3EF13003DA9DA /* macOS.entitlements */,
 			);
@@ -294,6 +296,30 @@
 				AA03E98125E3EF13003DA9DA /* Info.plist */,
 			);
 			path = "Tests macOS";
+			sourceTree = "<group>";
+		};
+		AA263F022603854D0018CF5B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AA263F03260385530018CF5B /* LoggedIn */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AA263F03260385530018CF5B /* LoggedIn */ = {
+			isa = PBXGroup;
+			children = (
+				AA263F04260385590018CF5B /* DataAcquisition */,
+			);
+			path = LoggedIn;
+			sourceTree = "<group>";
+		};
+		AA263F04260385590018CF5B /* DataAcquisition */ = {
+			isa = PBXGroup;
+			children = (
+				AA263F05260385690018CF5B /* DataAcquisitionView.swift */,
+			);
+			path = DataAcquisition;
 			sourceTree = "<group>";
 		};
 		AA7F5DE125F8F57D00185328 /* Frameworks */ = {
@@ -617,6 +643,7 @@
 				AACCBA892600C32C0042E87B /* ErrorView.swift in Sources */,
 				AA02088F25F651D100FD6B24 /* Device.swift in Sources */,
 				AA03E98525E3EF13003DA9DA /* ContentView.swift in Sources */,
+				AA710DB5260391D800A4935F /* DataAcquisitionView.swift in Sources */,
 				AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */,
 				AA008A7825EE422C00F70F75 /* Project.swift in Sources */,
 				AAFFEB3425FF7A06002287D6 /* ButtonStyles.swift in Sources */,
@@ -629,7 +656,6 @@
 				AA01F3E025EFDC5000368707 /* Constant.swift in Sources */,
 				AAFFEB3125FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
 				AA03E98325E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
-				AAF5054825F11E45003AFED7 /* DataAcquisitionView.swift in Sources */,
 				AA0208A225F65C7600FD6B24 /* LoggedInRootView.swift in Sources */,
 				AA0208AA25F65EB400FD6B24 /* Tabs.swift in Sources */,
 				AA02086925F641D900FD6B24 /* Sample.swift in Sources */,

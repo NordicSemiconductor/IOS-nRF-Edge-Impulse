@@ -25,6 +25,7 @@ extension Tabs {
         case .Devices:
              DeviceList()
         case .DataAcquisition:
+            // Note: There's one for iOS and one for macOS.
             DataAcquisitionView()
         }
     }
@@ -54,7 +55,7 @@ extension Tabs: Identifiable, CustomStringConvertible {
         case .Devices:
             return "Devices"
         case .DataAcquisition:
-            return "DataAcquisitionView"
+            return "Data Acquisition"
         }
     }
 }
