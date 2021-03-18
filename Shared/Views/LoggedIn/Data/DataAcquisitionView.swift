@@ -20,8 +20,8 @@ struct DataAcquisitionView: View {
     @State private var sampleLength = 10000
     @State private var selectedFrequencyIndex = 1
     
-    var sampleLengthAndFrequencyDisabled: Bool {
-        Sensor.allCases[selectedSensorIndex] == .Camera
+    var sampleLengthAndFrequencyEnabled: Bool {
+        Sensor.allCases[selectedSensorIndex] != .Camera
     }
     
     var startSamplingDisabled: Bool {
@@ -49,7 +49,7 @@ struct DataAcquisitionView: View {
                 if appData.devices.count > 0 {
                     Picker("Selected", selection: $selectedDeviceIndex) {
                         ForEach(appData.devices) { device in
-                            Text(device.id.uuidString).tag(device.id)
+                            Text(device.id.uuidString)
                         }
                     }
                     .setAsComboBoxStyle()
@@ -74,20 +74,28 @@ struct DataAcquisitionView: View {
             }
             
             Section(header: Text("Sample Length")) {
-                Stepper(value: $sampleLength, in: 0...100000) {
-                    Text("\(sampleLength, specifier: "%d") ms")
+                if sampleLengthAndFrequencyEnabled {
+                    Stepper(value: $sampleLength, in: 0...100000) {
+                        Text("\(sampleLength, specifier: "%d") ms")
+                    }
+                } else {
+                    Text("Unavailable for \(Sensor.Camera.rawValue) Sensor")
+                        .foregroundColor(Assets.middleGrey.color)
                 }
-                .disabled(sampleLengthAndFrequencyDisabled)
             }
             
             Section(header: Text("Frequency")) {
-                Picker("Value", selection: $selectedFrequencyIndex) {
-                    ForEach(Frequency.allCases.indices) { i in
-                        Text(Frequency.allCases[i].description).tag(i)
+                if sampleLengthAndFrequencyEnabled {
+                    Picker("Value", selection: $selectedFrequencyIndex) {
+                        ForEach(Frequency.allCases.indices) { i in
+                            Text(Frequency.allCases[i].description).tag(i)
+                        }
                     }
+                    .setAsComboBoxStyle()
+                } else {
+                    Text("Unavailable for \(Sensor.Camera.rawValue) Sensor")
+                        .foregroundColor(Assets.middleGrey.color)
                 }
-                .setAsComboBoxStyle()
-                .disabled(sampleLengthAndFrequencyDisabled)
             }
             
             Button("Start Sampling") {
