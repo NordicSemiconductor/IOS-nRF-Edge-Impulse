@@ -20,8 +20,7 @@ struct LoggedInRootView: View {
     
     var layout: LoggedInLayout {
         #if os(iOS)
-        if UIDevice.current.orientation == .portrait
-            || horizontalSizeClass == .compact {
+        if horizontalSizeClass == .compact {
             return .tabs
         }
         return .dualPane
