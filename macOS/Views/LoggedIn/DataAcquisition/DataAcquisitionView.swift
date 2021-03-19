@@ -13,7 +13,7 @@ struct DataAcquisitionView: View {
     
     @EnvironmentObject var appData: AppData
     
-    @State private var selectedProjectIndex = 0
+    @State private var selectedProject: Project?
     @State private var label = ""
     @State private var selectedDeviceIndex = 0
     @State private var selectedDataTypeIndex = 0
@@ -26,7 +26,9 @@ struct DataAcquisitionView: View {
     }
     
     var startSamplingDisabled: Bool {
-        appData.projects.isEmpty || label.count < 1 || appData.devices.isEmpty
+        return selectedProject == Project.Sample
+            || label.count < 1
+            || appData.devices.isEmpty
     }
     
     // MARK: - View
@@ -35,13 +37,14 @@ struct DataAcquisitionView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 Section(header: Text("Project").bold()) {
-                    Picker("Selected", selection: $selectedProjectIndex) {
+                    Picker("Selected", selection: $selectedProject) {
                         if appData.projects.count > 0 {
-                            ForEach(appData.projects.identifiableIndices) { i in
-                                Text(appData.projects[i].name).tag(i)
+                            ForEach(appData.projects, id: \.self) { project in
+                                Text(project.name)
+                                    .tag(project as Project?)
                             }
                         } else {
-                            Text("--").tag(0)
+                            Text("--").tag(Project.Sample as Project?)
                         }
                     }
                 }
@@ -121,7 +124,7 @@ struct DataAcquisitionView: View {
         }
         .frame(width: 320)
         .onAppear {
-            selectedProjectIndex = 5
+            selectedProject = appData.projects.first ?? Project.Sample
         }
     }
 }
@@ -139,9 +142,22 @@ extension DataAcquisitionView {
 
 #if DEBUG
 struct DataAcquisitionView_Previews: PreviewProvider {
+    
+    static let noProjectsAppData: AppData = {
+        let appData = AppData()
+        appData.projectsViewState = .showingProjects([])
+        appData.projects = []
+        appData.devices = []
+        return appData
+    }()
+    
     static var previews: some View {
-        DataAcquisitionView()
-            .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+        Group {
+            DataAcquisitionView()
+                .environmentObject(Self.noProjectsAppData)
+            DataAcquisitionView()
+                .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+        }
     }
 }
 #endif
