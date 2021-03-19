@@ -11,29 +11,19 @@ struct DataAcquisitionView: View {
     
     @EnvironmentObject var appData: AppData
     
-    @State private var selectedProjectIndex = 0
-    @State private var label = ""
-    @State private var selectedDeviceIndex = 0
-    @State private var selectedDataTypeIndex = 0
-    @State private var selectedSensorIndex = 0
-    @State private var sampleLength = 10000
-    @State private var selectedFrequencyIndex = 1
+    // MARK: - State
     
-    var sampleLengthAndFrequencyEnabled: Bool {
-        Sample.Sensor.allCases[selectedSensorIndex] != .Camera
-    }
+    @ObservedObject var viewState = DataAcquisitionViewState()
     
-    var startSamplingDisabled: Bool {
-        appData.projects.isEmpty || label.count < 1 || appData.devices.isEmpty
-    }
+    // MARK: - @viewBuilder
     
     var body: some View {
         Form {
             Section(header: Text("Project")) {
                 if appData.projects.count > 0 {
-                    Picker("Selected", selection: $selectedProjectIndex) {
-                        ForEach(appData.projects.identifiableIndices) { i in
-                            Text(appData.projects[i].name).tag(i)
+                    Picker("Selected", selection: $viewState.selectedProject) {
+                        ForEach(appData.projects, id: \.self) { project in
+                            Text(project.name).tag(project as Project?)
                         }
                     }
                     .setAsComboBoxStyle()
@@ -44,9 +34,9 @@ struct DataAcquisitionView: View {
             }
             
             Section(header: Text("Data Type")) {
-                Picker("Type", selection: $selectedDataTypeIndex) {
-                    ForEach(Sample.DataType.allCases.indices) { i in
-                        Text(Sample.DataType.allCases[i].rawValue).tag(i)
+                Picker("Type", selection: $viewState.selectedDataType) {
+                    ForEach(Sample.DataType.allCases, id: \.self) { dataType in
+                        Text(dataType.rawValue).tag(dataType)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
@@ -54,9 +44,9 @@ struct DataAcquisitionView: View {
             
             Section(header: Text("Device")) {
                 if appData.devices.count > 0 {
-                    Picker("Selected", selection: $selectedDeviceIndex) {
-                        ForEach(appData.devices.identifiableIndices) { i in
-                            Text(appData.devices[i].id.uuidString).tag(i)
+                    Picker("Selected", selection: $viewState.selectedDevice) {
+                        ForEach(appData.devices, id: \.self) { device in
+                            Text(device.id.uuidString).tag(device)
                         }
                     }
                     .setAsComboBoxStyle()
@@ -68,22 +58,22 @@ struct DataAcquisitionView: View {
             }
             
             Section(header: Text("Label")) {
-                TextField("Label", text: $label)
+                TextField("Label", text: $viewState.label)
             }
 
             Section(header: Text("Sensor")) {
-                Picker("Type", selection: $selectedSensorIndex) {
-                    ForEach(Sample.Sensor.allCases.indices) { i in
-                        Text(Sample.Sensor.allCases[i].rawValue).tag(i)
+                Picker("Type", selection: $viewState.selectedSensor) {
+                    ForEach(Sample.Sensor.allCases, id: \.self) { sensor in
+                        Text(sensor.rawValue).tag(sensor)
                     }
                 }
                 .setAsComboBoxStyle()
             }
             
             Section(header: Text("Sample Length")) {
-                if sampleLengthAndFrequencyEnabled {
-                    Stepper(value: $sampleLength, in: 0...100000) {
-                        Text("\(sampleLength, specifier: "%d") ms")
+                if viewState.canSelectSampleLengthAndFrequency {
+                    Stepper(value: $viewState.sampleLength, in: 0...100000) {
+                        Text("\(viewState.sampleLength, specifier: "%d") ms")
                     }
                 } else {
                     Text("Unavailable for \(Sample.Sensor.Camera.rawValue) Sensor")
@@ -92,10 +82,10 @@ struct DataAcquisitionView: View {
             }
             
             Section(header: Text("Frequency")) {
-                if sampleLengthAndFrequencyEnabled {
-                    Picker("Value", selection: $selectedFrequencyIndex) {
-                        ForEach(Sample.Frequency.allCases.indices) { i in
-                            Text(Sample.Frequency.allCases[i].description).tag(i)
+                if viewState.canSelectSampleLengthAndFrequency {
+                    Picker("Value", selection: $viewState.selectedFrequency) {
+                        ForEach(Sample.Frequency.allCases, id: \.self) { frequency in
+                            Text(frequency.description).tag(frequency)
                         }
                     }
                     .setAsComboBoxStyle()
@@ -109,8 +99,8 @@ struct DataAcquisitionView: View {
                 startSampling()
             }
             .centerTextInsideForm()
-            .disabled(startSamplingDisabled)
-            .accentColor(startSamplingDisabled ? Assets.middleGrey.color : Assets.red.color)
+            .disabled(viewState.canStartSampling)
+            .accentColor(viewState.canStartSampling ? Assets.middleGrey.color : Assets.red.color)
         }
         .navigationTitle("Data Acquisition")
     }
@@ -151,6 +141,7 @@ struct NewSampleView_Previews: PreviewProvider {
             .setBackgroundColor(Assets.blue)
             .setSingleColumnNavigationViewStyle()
         }
+        .previewDevice("iPhone 12 mini")
     }
 }
 #endif
