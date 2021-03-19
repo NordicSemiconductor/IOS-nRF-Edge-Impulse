@@ -15,7 +15,7 @@ struct DataAcquisitionView: View {
     
     @State private var selectedProject: Project?
     @State private var label = ""
-    @State private var selectedDeviceIndex = 0
+    @State private var selectedDevice: Device?
     @State private var selectedDataTypeIndex = 0
     @State private var selectedSensorIndex = 0
     @State private var sampleLength = 10000.0
@@ -52,13 +52,13 @@ struct DataAcquisitionView: View {
                 Divider()
                 
                 Section(header: Text("Target").bold()) {
-                    Picker("Device", selection: $selectedDeviceIndex) {
+                    Picker("Device", selection: $selectedDevice) {
                         if appData.devices.count > 0 {
-                            ForEach(appData.devices.identifiableIndices) { i in
-                                Text(appData.devices[i].id.uuidString).tag(i)
+                            ForEach(appData.devices, id: \.self) { device in
+                                Text(device.id.uuidString).tag(device as Device?)
                             }
                         } else {
-                            Text("--").tag(0)
+                            Text("--").tag(Device.Dummy as Device?)
                         }
                     }
                 }
@@ -125,6 +125,7 @@ struct DataAcquisitionView: View {
         .frame(width: 320)
         .onAppear {
             selectedProject = appData.projects.first ?? Project.Sample
+            selectedDevice = appData.devices.first ?? Device.Dummy
         }
     }
 }
