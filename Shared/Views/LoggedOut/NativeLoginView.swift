@@ -54,7 +54,6 @@ struct NativeLoginView: View {
                     .padding()
                     .background(textFieldBackground)
                     .cornerRadius(20)
-//                        .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .padding(.bottom, 16)
             }
@@ -133,11 +132,13 @@ struct NativeLoginView_Previews: PreviewProvider {
             NativeLoginView()
                 .preferredColorScheme(.light)
         }
+        #if os(iOS)
         Group {
             NativeLoginView()
                 .previewDevice("iPad Pro (11-inch) (2nd generation)")
                 .preferredColorScheme(.dark)
         }
+        #endif
     }
 }
 #endif
