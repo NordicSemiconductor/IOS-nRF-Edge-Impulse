@@ -73,8 +73,8 @@ struct DataAcquisitionView: View {
                 
                 Section(header: Text("Sample Length")) {
                     if viewState.canSelectSampleLengthAndFrequency {
-                        Stepper(value: $viewState.sampleLength, in: 0...100000) {
-                            Text("\(viewState.sampleLength, specifier: "%d") ms")
+                        Stepper(value: $viewState.sampleLength, in: 0...100000, step: 10) {
+                            Text("\(viewState.sampleLength, specifier: "%.0f") ms")
                         }
                     } else {
                         Text("Unavailable for \(Sample.Sensor.Camera.rawValue) Sensor")
