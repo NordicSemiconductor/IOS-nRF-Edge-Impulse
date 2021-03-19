@@ -16,13 +16,13 @@ struct DataAcquisitionView: View {
     @State private var selectedProject: Project?
     @State private var label = ""
     @State private var selectedDevice: Device?
-    @State private var selectedDataTypeIndex = 0
-    @State private var selectedSensorIndex = 0
+    @State private var selectedDataType = Sample.DataType.Test
+    @State private var selectedSensor = Sensor.Accelerometer
     @State private var sampleLength = 10000.0
-    @State private var selectedFrequencyIndex = 1
+    @State private var selectedFrequency = Frequency._11000Hz
     
     var sampleLengthAndFrequencyEnabled: Bool {
-        Sensor.allCases[selectedSensorIndex] != .Camera
+        selectedSensor != .Camera
     }
     
     var startSamplingDisabled: Bool {
@@ -71,17 +71,16 @@ struct DataAcquisitionView: View {
                         TextField("Label", text: $label)
                     }
                     
-                    Picker("Data Type", selection: $selectedDataTypeIndex) {
-                        ForEach(Sample.DataType.allCases.indices) { i in
-                            Text(Sample.DataType.allCases[i].rawValue)
-                                .tag(i)
+                    Picker("Data Type", selection: $selectedDataType) {
+                        ForEach(Sample.DataType.allCases, id: \.self) { dataType in
+                            Text(dataType.rawValue).tag(dataType)
                         }
                         .frame(width: 70)
                     }.pickerStyle(RadioGroupPickerStyle())
                     
-                    Picker("Sensor", selection: $selectedSensorIndex) {
-                        ForEach(Sensor.allCases.indices) { i in
-                            Text(Sensor.allCases[i].rawValue).tag(i)
+                    Picker("Sensor", selection: $selectedSensor) {
+                        ForEach(Sensor.allCases, id: \.self) { sensor in
+                            Text(sensor.rawValue).tag(sensor)
                         }
                     }
                     
@@ -99,9 +98,9 @@ struct DataAcquisitionView: View {
                     HStack {
                         Text("Frequency")
                         if sampleLengthAndFrequencyEnabled {
-                            Picker("Value", selection: $selectedFrequencyIndex) {
-                                ForEach(Frequency.allCases.indices) { i in
-                                    Text(Frequency.allCases[i].description).tag(i)
+                            Picker("Value", selection: $selectedFrequency) {
+                                ForEach(Frequency.allCases, id: \.self) { frequency in
+                                    Text(frequency.description).tag(frequency)
                                 }
                             }
                         } else {
