@@ -20,7 +20,7 @@ struct DataAcquisitionView: View {
     @State private var selectedFrequencyIndex = 1
     
     var sampleLengthAndFrequencyEnabled: Bool {
-        Sensor.allCases[selectedSensorIndex] != .Camera
+        Sample.Sensor.allCases[selectedSensorIndex] != .Camera
     }
     
     var startSamplingDisabled: Bool {
@@ -73,8 +73,8 @@ struct DataAcquisitionView: View {
 
             Section(header: Text("Sensor")) {
                 Picker("Type", selection: $selectedSensorIndex) {
-                    ForEach(Sensor.allCases.indices) { i in
-                        Text(Sensor.allCases[i].rawValue).tag(i)
+                    ForEach(Sample.Sensor.allCases.indices) { i in
+                        Text(Sample.Sensor.allCases[i].rawValue).tag(i)
                     }
                 }
                 .setAsComboBoxStyle()
@@ -86,7 +86,7 @@ struct DataAcquisitionView: View {
                         Text("\(sampleLength, specifier: "%d") ms")
                     }
                 } else {
-                    Text("Unavailable for \(Sensor.Camera.rawValue) Sensor")
+                    Text("Unavailable for \(Sample.Sensor.Camera.rawValue) Sensor")
                         .foregroundColor(Assets.middleGrey.color)
                 }
             }
@@ -94,13 +94,13 @@ struct DataAcquisitionView: View {
             Section(header: Text("Frequency")) {
                 if sampleLengthAndFrequencyEnabled {
                     Picker("Value", selection: $selectedFrequencyIndex) {
-                        ForEach(Frequency.allCases.indices) { i in
-                            Text(Frequency.allCases[i].description).tag(i)
+                        ForEach(Sample.Frequency.allCases.indices) { i in
+                            Text(Sample.Frequency.allCases[i].description).tag(i)
                         }
                     }
                     .setAsComboBoxStyle()
                 } else {
-                    Text("Unavailable for \(Sensor.Camera.rawValue) Sensor")
+                    Text("Unavailable for \(Sample.Sensor.Camera.rawValue) Sensor")
                         .foregroundColor(Assets.middleGrey.color)
                 }
             }
