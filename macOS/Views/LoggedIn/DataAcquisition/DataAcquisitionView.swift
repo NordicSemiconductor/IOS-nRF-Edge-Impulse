@@ -13,23 +13,7 @@ struct DataAcquisitionView: View {
     
     @EnvironmentObject var appData: AppData
     
-    @State private var selectedProject: Project?
-    @State private var label = ""
-    @State private var selectedDevice: Device?
-    @State private var selectedDataType = Sample.DataType.Test
-    @State private var selectedSensor = Sensor.Accelerometer
-    @State private var sampleLength = 10000.0
-    @State private var selectedFrequency = Frequency._11000Hz
-    
-    var sampleLengthAndFrequencyEnabled: Bool {
-        selectedSensor != .Camera
-    }
-    
-    var startSamplingDisabled: Bool {
-        return selectedProject == Project.Sample
-            || label.count < 1
-            || appData.devices.isEmpty
-    }
+    @ObservedObject private var viewState = DataAcquisitionViewState()
     
     // MARK: - View
     
@@ -37,7 +21,7 @@ struct DataAcquisitionView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 Section(header: Text("Project").bold()) {
-                    Picker("Selected", selection: $selectedProject) {
+                    Picker("Selected", selection: $viewState.selectedProject) {
                         if appData.projects.count > 0 {
                             ForEach(appData.projects, id: \.self) { project in
                                 Text(project.name)
@@ -52,7 +36,7 @@ struct DataAcquisitionView: View {
                 Divider()
                 
                 Section(header: Text("Target").bold()) {
-                    Picker("Device", selection: $selectedDevice) {
+                    Picker("Device", selection: $viewState.selectedDevice) {
                         if appData.devices.count > 0 {
                             ForEach(appData.devices, id: \.self) { device in
                                 Text(device.id.uuidString).tag(device as Device?)
@@ -68,27 +52,27 @@ struct DataAcquisitionView: View {
                 Section(header: Text("Data Collection").bold()) {
                     HStack {
                         Text("Sample Name")
-                        TextField("Label", text: $label)
+                        TextField("Label", text: $viewState.label)
                     }
                     
-                    Picker("Data Type", selection: $selectedDataType) {
+                    Picker("Data Type", selection: $viewState.selectedDataType) {
                         ForEach(Sample.DataType.allCases, id: \.self) { dataType in
                             Text(dataType.rawValue).tag(dataType)
                         }
                         .frame(width: 70)
                     }.pickerStyle(RadioGroupPickerStyle())
                     
-                    Picker("Sensor", selection: $selectedSensor) {
-                        ForEach(Sensor.allCases, id: \.self) { sensor in
+                    Picker("Sensor", selection: $viewState.selectedSensor) {
+                        ForEach(Sample.Sensor.allCases, id: \.self) { sensor in
                             Text(sensor.rawValue).tag(sensor)
                         }
                     }
                     
                     HStack {
                         Text("Sample Length")
-                        if sampleLengthAndFrequencyEnabled {
-                            Slider(value: $sampleLength, in: 0...100000)
-                            Text("\(sampleLength, specifier: "%2.f") ms")
+                        if viewState.canSelectSampleLengthAndFrequency {
+                            Slider(value: $viewState.sampleLength, in: 0...100000)
+                            Text("\(viewState.sampleLength, specifier: "%2.f") ms")
                         } else {
                             Text("Unavailable")
                                 .foregroundColor(Assets.middleGrey.color)
@@ -97,9 +81,9 @@ struct DataAcquisitionView: View {
                     
                     HStack {
                         Text("Frequency")
-                        if sampleLengthAndFrequencyEnabled {
-                            Picker("Value", selection: $selectedFrequency) {
-                                ForEach(Frequency.allCases, id: \.self) { frequency in
+                        if viewState.canSelectSampleLengthAndFrequency {
+                            Picker("Value", selection: $viewState.selectedFrequency) {
+                                ForEach(Sample.Frequency.allCases, id: \.self) { frequency in
                                     Text(frequency.description).tag(frequency)
                                 }
                             }
@@ -116,15 +100,15 @@ struct DataAcquisitionView: View {
                     startSampling()
                 }
                 .centerTextInsideForm()
-                .disabled(startSamplingDisabled)
-                .accentColor(startSamplingDisabled ? Assets.middleGrey.color : Assets.red.color)
+                .disabled(viewState.canStartSampling)
+                .accentColor(viewState.canStartSampling ? Assets.middleGrey.color : Assets.red.color)
             }
             .padding()
         }
         .frame(width: 320)
         .onAppear {
-            selectedProject = appData.projects.first ?? Project.Sample
-            selectedDevice = appData.devices.first ?? Device.Dummy
+            viewState.selectedProject = appData.projects.first ?? Project.Sample
+            viewState.selectedDevice = appData.devices.first ?? Device.Dummy
         }
     }
 }
