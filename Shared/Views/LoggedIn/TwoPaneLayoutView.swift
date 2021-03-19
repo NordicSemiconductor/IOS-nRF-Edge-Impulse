@@ -24,7 +24,6 @@ struct TwoPaneLayoutView: View {
                     .accentColor(Assets.blue.color)
                 }
                 .setTitle("nRF Edge Impulse")
-                .padding(.top, 8)
                 .listStyle(SidebarListStyle())
                 .toolbarPrincipalImage(Image("Nordic"))
             }
