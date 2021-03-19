@@ -24,11 +24,10 @@ struct DataAcquisitionView: View {
                     Picker("Selected", selection: $viewState.selectedProject) {
                         if appData.projects.count > 0 {
                             ForEach(appData.projects, id: \.self) { project in
-                                Text(project.name)
-                                    .tag(project as Project?)
+                                Text(project.name).tag(project as Project?)
                             }
                         } else {
-                            Text("--").tag(Project.Sample as Project?)
+                            Text("--").tag(Constant.unselectedProject as Project?)
                         }
                     }
                 }
@@ -39,10 +38,10 @@ struct DataAcquisitionView: View {
                     Picker("Device", selection: $viewState.selectedDevice) {
                         if appData.devices.count > 0 {
                             ForEach(appData.devices, id: \.self) { device in
-                                Text(device.id.uuidString).tag(device as Device?)
+                                Text(device.id.uuidString).tag(device)
                             }
                         } else {
-                            Text("--").tag(Device.Dummy as Device?)
+                            Text("--").tag(Constant.unselectedDevice)
                         }
                     }
                 }
@@ -107,8 +106,12 @@ struct DataAcquisitionView: View {
         }
         .frame(width: 320)
         .onAppear {
-            viewState.selectedProject = appData.projects.first ?? Project.Sample
-            viewState.selectedDevice = appData.devices.first ?? Device.Dummy
+            if let project = appData.projects.first {
+                viewState.selectedProject = project
+            }
+            if let device = appData.devices.first {
+                viewState.selectedDevice = device
+            }
         }
     }
 }

@@ -11,7 +11,3 @@ struct Device: Identifiable, Hashable {
     
     let id: UUID
 }
-
-extension Device {
-    static let Dummy = Device(id: UUID())
-}

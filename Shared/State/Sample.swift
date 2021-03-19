@@ -35,25 +35,31 @@ extension Sample {
     }
 }
     
-// MARK: - Sensor
+// MARK: - Sample.Sensor
 
-enum Sensor: String, RawRepresentable, CaseIterable {
-    case Accelerometer
-    case Microphone
-    case Camera
+extension Sample {
+    
+    enum Sensor: String, RawRepresentable, CaseIterable {
+        case Accelerometer
+        case Microphone
+        case Camera
+    }
 }
 
-// MARK: - Frequency
+// MARK: - Sample.Frequency
 
-enum Frequency: Int, RawRepresentable, CaseIterable, CustomStringConvertible {
-    case _8000Hz = 8000
-    case _11000Hz = 11000
-    case _16000Hz = 16000
-    case _32000Hz = 32000
-    case _44100Hz = 44100
-    case _48000Hz = 48000
-    
-    var description: String {
-        "\(rawValue) Hz"
+extension Sample {
+
+    enum Frequency: Int, RawRepresentable, CaseIterable, CustomStringConvertible {
+        case _8000Hz = 8000
+        case _11000Hz = 11000
+        case _16000Hz = 16000
+        case _32000Hz = 32000
+        case _44100Hz = 44100
+        case _48000Hz = 48000
+        
+        var description: String {
+            "\(rawValue) Hz"
+        }
     }
 }

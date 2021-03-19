@@ -5,13 +5,14 @@
 //  Created by Dinesh Harjani on 19/3/21.
 //
 
+import Foundation
 import Combine
 
 final class DataAcquisitionViewState: ObservableObject {
     
-    @Published var selectedProject: Project?
+    @Published var selectedProject = Constant.unselectedProject
     @Published var label = ""
-    @Published var selectedDevice: Device?
+    @Published var selectedDevice = Constant.unselectedDevice
     @Published var selectedDataType = Sample.DataType.Test
     @Published var selectedSensor = Sample.Sensor.Accelerometer
     @Published var sampleLength = 10000.0
@@ -22,6 +23,6 @@ final class DataAcquisitionViewState: ObservableObject {
     }
     
     var canStartSampling: Bool {
-        selectedProject != nil || selectedDevice != nil || label.count < 1
+        selectedProject != Constant.unselectedProject || selectedDevice != Constant.unselectedDevice || label.count < 1
     }
 }
