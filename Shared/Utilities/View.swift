@@ -40,7 +40,7 @@ extension View {
                 image
                     .resizable()
                     .renderingMode(.template)
-                    .colorMultiply(.white)
+                    .foregroundColor(.white)
                     .frame(width: 30, height: 30, alignment: .center)
                     .aspectRatio(contentMode: .fit)
             }
