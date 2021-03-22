@@ -21,16 +21,19 @@ extension View {
     }
     
     func setTitle(_ title: String) -> AnyView {
+        let anyView: AnyView
         #if os(iOS)
-        return AnyView(navigationBarTitle("nRF Edge Impulse", displayMode: .inline))
+        anyView = AnyView(navigationBarTitle("nRF Edge Impulse", displayMode: .inline))
         #else
-        return AnyView(navigationTitle(title))
+        anyView = AnyView(navigationTitle(title))
         #endif
+        return anyView
     }
     
     func toolbarPrincipalImage(_ image: Image) -> AnyView {
+        let anyView: AnyView
         #if os(iOS)
-        return AnyView(toolbar {
+        anyView = AnyView(toolbar {
             ToolbarItem(placement: .principal) {
                 image
                     .resizable()
@@ -41,8 +44,9 @@ extension View {
             }
         })
         #else
-        return AnyView(self)
+        anyView = AnyView(self)
         #endif
+        return anyView
     }
     
     func roundedTextFieldShape(backgroundAsset: Assets, hasTextFieldBelow: Bool = false) -> AnyView {
@@ -63,15 +67,18 @@ extension View {
     }
     
     func circularButtonShape(backgroundAsset: Assets) -> AnyView {
+        let anyView: AnyView
         #if os(iOS)
-         return AnyView(frame(width: 80, height: 12)
-            .font(.headline)
-            .foregroundColor(.white)
-            .padding()
-            .background(backgroundAsset.color)
-            .cornerRadius(30))
+        anyView = AnyView(frame(width: 80, height: 12)
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(backgroundAsset.color)
+                            .cornerRadius(30))
+        #else
+        anyView = AnyView(self)
         #endif
-        return AnyView(self)
+        return anyView
     }
 }
 
@@ -80,12 +87,14 @@ extension View {
 extension Picker {
     
     func setAsComboBoxStyle() -> AnyView {
+        let anyView: AnyView
         #if os(iOS)
-        return AnyView(pickerStyle(InlinePickerStyle())
-                        .frame(maxHeight: 75))
+        anyView = AnyView(pickerStyle(InlinePickerStyle())
+                            .frame(maxHeight: 75))
         #else
-        return AnyView(self)
+        anyView = AnyView(self)
         #endif
+        return anyView
     }
 }
 
@@ -94,10 +103,13 @@ extension Picker {
 extension NavigationView {
     
     @inlinable func setSingleColumnNavigationViewStyle() -> AnyView {
+        let anyView: AnyView
         #if os(iOS)
-        return AnyView(navigationViewStyle(StackNavigationViewStyle()))
+        anyView = AnyView(navigationViewStyle(StackNavigationViewStyle()))
+        #else
+        anyView = AnyView(self)
         #endif
-        return AnyView(self)
+        return anyView
     }
     
     func setBackgroundColor(_ backgroundColor: Assets) -> NavigationView {
