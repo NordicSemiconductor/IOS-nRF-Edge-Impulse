@@ -15,24 +15,20 @@ struct DeviceList: View {
     @State private var scannerCancellable: Cancellable? = nil
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(appData.devices) { device in
-                    Text(device.id.uuidString)
-                        .lineLimit(1)
-                }
+        List {
+            ForEach(appData.devices) { device in
+                Text(device.id.uuidString)
+                    .lineLimit(1)
             }
-            .setTitle("Devices")
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
-                        scanner.toggle()
-                    }
+        }
+        .setTitle("Devices")
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
+                    scanner.toggle()
                 }
             }
         }
-        .setBackgroundColor(.blue)
-        .setSingleColumnNavigationViewStyle()
         .onAppear() {
             scannerCancellable = scanner.devicePublisher
                 .throttle(for: 1.0, scheduler: RunLoop.main, latest: false)

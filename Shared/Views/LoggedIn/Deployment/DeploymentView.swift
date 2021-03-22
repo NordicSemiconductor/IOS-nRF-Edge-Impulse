@@ -10,6 +10,7 @@ import SwiftUI
 struct DeploymentView: View {
     var body: some View {
         Text("Hello, World!")
+            .setTitle("Data Acquisition")
     }
 }
 

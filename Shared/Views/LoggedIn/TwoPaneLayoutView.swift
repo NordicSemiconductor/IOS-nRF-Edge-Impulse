@@ -39,6 +39,7 @@ struct TwoPaneLayoutView: View {
                         .multilineTextAlignment(.center)
                 }
             }
+            .wrapInNavigationViewForiOS()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }

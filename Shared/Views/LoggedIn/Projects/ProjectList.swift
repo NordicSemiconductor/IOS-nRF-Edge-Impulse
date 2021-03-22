@@ -14,7 +14,7 @@ struct ProjectList: View {
     @State private var listCancellable: Cancellable? = nil
     
     var body: some View {
-        NavigationView {
+        ZStack {
             appData.projectsViewState.view(onRetry: {
                 refreshList()
             })
@@ -33,9 +33,6 @@ struct ProjectList: View {
                 }
             }
         }
-        .setBackgroundColor(Assets.blue)
-        .setSingleColumnNavigationViewStyle()
-        .accentColor(.white)
         .onAppear() {
             refreshList()
         }

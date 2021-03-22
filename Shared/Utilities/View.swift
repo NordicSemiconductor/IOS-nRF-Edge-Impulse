@@ -20,6 +20,8 @@ extension View {
         return listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
     }
     
+    // MARK: - NavBar
+    
     func setTitle(_ title: String) -> AnyView {
         let anyView: AnyView
         #if os(iOS)
@@ -49,6 +51,26 @@ extension View {
         return anyView
     }
     
+    // MARK: - NavigationView
+    
+    func wrapInNavigationViewForiOS() -> AnyView {
+        let anyView: AnyView
+        #if os(iOS)
+        anyView = AnyView(
+            NavigationView {
+                self
+            }
+            .setBackgroundColor(.blue)
+            .setSingleColumnNavigationViewStyle()
+            .accentColor(.white))
+        #else
+        anyView = AnyView(self)
+        #endif
+        return anyView
+    }
+    
+    // MARK: - UITextField
+    
     func roundedTextFieldShape(backgroundAsset: Assets, hasTextFieldBelow: Bool = false) -> AnyView {
         var anyView: AnyView
         #if os(iOS)
@@ -65,6 +87,8 @@ extension View {
         #endif
         return anyView
     }
+    
+    // MARK: - Button
     
     func circularButtonShape(backgroundAsset: Assets) -> AnyView {
         let anyView: AnyView
