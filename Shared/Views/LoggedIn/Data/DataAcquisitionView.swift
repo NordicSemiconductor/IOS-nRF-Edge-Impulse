@@ -99,8 +99,8 @@ struct DataAcquisitionView: View {
                 startSampling()
             }
             .centerTextInsideForm()
-            .disabled(viewState.canStartSampling)
-            .accentColor(viewState.canStartSampling ? Assets.middleGrey.color : Assets.red.color)
+            .disabled(!viewState.canStartSampling)
+            .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
         }
         .navigationBarTitle(Text("Data Acquisition"), displayMode: .inline)
         .accentColor(.white)

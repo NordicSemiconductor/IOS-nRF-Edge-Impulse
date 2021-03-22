@@ -14,6 +14,7 @@ struct DataAcquisitionView: View {
     @EnvironmentObject var appData: AppData
     
     @ObservedObject private var viewState = DataAcquisitionViewState()
+    @State private var isSampling = false
     
     // MARK: - View
     
@@ -92,17 +93,15 @@ struct DataAcquisitionView: View {
                         }
                     }
                 }
-                
-                Divider()
-                
-                Button("Start Sampling") {
-                    startSampling()
-                }
-                .centerTextInsideForm()
-                .disabled(viewState.canStartSampling)
-                .accentColor(viewState.canStartSampling ? Assets.middleGrey.color : Assets.red.color)
             }
             .padding()
+        }
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: startSampling, label: {
+                    Image(systemName: isSampling ? "stop.fill" : "play.fill")
+                }).disabled(!viewState.canStartSampling)
+            }
         }
         .frame(width: 320)
         .onAppear {
@@ -121,7 +120,7 @@ struct DataAcquisitionView: View {
 extension DataAcquisitionView {
     
     func startSampling() {
-        
+        isSampling.toggle()
     }
 }
 

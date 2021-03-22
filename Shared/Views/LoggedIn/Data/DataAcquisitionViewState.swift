@@ -23,6 +23,6 @@ final class DataAcquisitionViewState: ObservableObject {
     }
     
     var canStartSampling: Bool {
-        selectedProject != Constant.unselectedProject || selectedDevice != Constant.unselectedDevice || label.count < 1
+        selectedProject != Constant.unselectedProject && selectedDevice != Constant.unselectedDevice && label.count > 0
     }
 }
