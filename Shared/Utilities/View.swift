@@ -25,7 +25,7 @@ extension View {
     func setTitle(_ title: String) -> AnyView {
         let anyView: AnyView
         #if os(iOS)
-        anyView = AnyView(navigationBarTitle("nRF Edge Impulse", displayMode: .inline))
+        anyView = AnyView(navigationBarTitle(title, displayMode: .inline))
         #else
         anyView = AnyView(navigationTitle(title))
         #endif
