@@ -19,7 +19,6 @@ struct ProjectList: View {
                 refreshList()
             })
             .frame(minWidth: 295)
-            .setTitle("Projects")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: logoutUser, label: {

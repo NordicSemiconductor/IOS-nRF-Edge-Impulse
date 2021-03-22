@@ -21,7 +21,6 @@ struct DeviceList: View {
                     .lineLimit(1)
             }
         }
-        .setTitle("Devices")
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
