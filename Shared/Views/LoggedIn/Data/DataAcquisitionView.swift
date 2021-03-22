@@ -121,7 +121,7 @@ private extension DataAcquisitionView {
 // MARK: - Preview
 
 #if DEBUG
-struct NewSampleView_Previews: PreviewProvider {
+struct DataAcquisitionView_Previews: PreviewProvider {
     
     static let noDevicesAppData: AppData = {
         let appData = AppData()

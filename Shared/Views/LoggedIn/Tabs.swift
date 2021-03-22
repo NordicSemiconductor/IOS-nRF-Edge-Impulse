@@ -11,6 +11,7 @@ enum Tabs: Int, RawRepresentable, CaseIterable {
     case Projects
     case Devices
     case DataAcquisition
+    case Deployment
 }
 
 // MARK: - ViewBuilder
@@ -27,6 +28,8 @@ extension Tabs {
         case .DataAcquisition:
             // Note: There's one for iOS and one for macOS.
             DataAcquisitionView()
+        case .Deployment:
+            DeploymentView()
         }
     }
 }
@@ -45,6 +48,8 @@ extension Tabs: Identifiable, CustomStringConvertible {
             return "apps.ipad"
         case .DataAcquisition:
             return "cylinder.split.1x2"
+        case .Deployment:
+            return "shippingbox"
         }
     }
     
@@ -56,6 +61,8 @@ extension Tabs: Identifiable, CustomStringConvertible {
             return "Devices"
         case .DataAcquisition:
             return "Data Acquisition"
+        case .Deployment:
+            return "Deployment"
         }
     }
 }
