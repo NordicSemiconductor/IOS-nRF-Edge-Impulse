@@ -45,6 +45,23 @@ extension View {
         #endif
     }
     
+    func roundedTextFieldShape(backgroundAsset: Assets, hasTextFieldBelow: Bool = false) -> AnyView {
+        var anyView: AnyView
+        #if os(iOS)
+        anyView = AnyView(frame(maxWidth: 300)
+            .frame(height: 20)
+            .padding()
+            .background(backgroundAsset.color)
+            .cornerRadius(30))
+        if hasTextFieldBelow {
+            anyView = AnyView(anyView.padding(.bottom, 16))
+        }
+        #else
+        anyView = AnyView(self)
+        #endif
+        return anyView
+    }
+    
     func circularButtonShape(backgroundAsset: Assets) -> AnyView {
         #if os(iOS)
          return AnyView(frame(width: 80, height: 12)
