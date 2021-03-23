@@ -28,13 +28,4 @@ struct GetUserResponse: APIResponse {
     let photo: String
     let created: String
     let projects: [Project]
-    
-    // MARK: - User
-    
-    func user() -> User? {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions =  [.withInternetDateTime, .withFractionalSeconds]
-        guard let createdDate = formatter.date(from: created) else { return nil }
-        return User(id: id, username: username, created: createdDate)
-    }
 }

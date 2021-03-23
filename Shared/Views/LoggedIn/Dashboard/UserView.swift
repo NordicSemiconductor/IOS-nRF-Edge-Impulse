@@ -9,6 +9,8 @@ import SwiftUI
 
 struct UserView: View {
     
+    static let ImageSize = CGSize(width: 50, height: 50)
+    
     let user: User
     
     var body: some View {
@@ -16,21 +18,24 @@ struct UserView: View {
             Image("EdgeImpulseFull")
                 .resizable()
                 .scaledToFit()
+                .brightness(-1.0)
                 .blur(radius: 25)
             HStack {
-                CircleImage(image: Image("EdgeImpulse"), size: CGSize(width: 100, height: 100))
+                CircleImage(image: Image("EdgeImpulse"), size: UserView.ImageSize)
+
                 VStack(alignment: .leading) {
                     Text(user.username)
                         .font(.title)
                         .bold()
-                    Text("Joined [XX] ago")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text("Joined \(user.createdSince) ago")
                         .font(.callout)
                         .fontWeight(.light)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
-            .padding()
         }
-        .frame(height: 150)
+        .frame(height: 2 * UserView.ImageSize.height)
     }
 }
 

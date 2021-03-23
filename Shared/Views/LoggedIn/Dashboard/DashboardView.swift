@@ -59,7 +59,7 @@ extension DashboardView {
                 }
             },
             receiveValue: { projectsResponse in
-                guard let user = projectsResponse.user() else {
+                guard let user = User(response: projectsResponse) else {
                     print("Failed")
                     return
                 }
