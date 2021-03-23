@@ -12,6 +12,7 @@ final class DeploymentViewState: ObservableObject {
     @Published var selectedDevice = Constant.unselectedDevice
     @Published var compiler: Compiler = .EON
     @Published var optimizationLevel: Optimization = .Quant
+    @Published var progress = 0.0
     @Published var duration: Duration = .OneShot
 }
 

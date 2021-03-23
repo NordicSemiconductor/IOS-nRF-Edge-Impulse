@@ -14,7 +14,6 @@ struct DeploymentView: View {
     // MARK: - State
     
     @ObservedObject private var viewState = DeploymentViewState()
-    @State private var progress = 0.0
     
     // MARK: - viewBuilder
     
@@ -52,6 +51,8 @@ struct DeploymentView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
             }
+            
+            ProgressView(value: viewState.progress, total: 100.0)
             
             Button("Deploy") {
                 deploy()
