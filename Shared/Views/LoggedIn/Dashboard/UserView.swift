@@ -18,7 +18,7 @@ struct UserView: View {
                 .scaledToFit()
                 .blur(radius: 25)
             HStack {
-                CircleImage(image: Image("EdgeImpulse"))
+                CircleImage(image: Image("EdgeImpulse"), size: CGSize(width: 100, height: 100))
                 VStack(alignment: .leading) {
                     Text(user.username)
                         .font(.title)
