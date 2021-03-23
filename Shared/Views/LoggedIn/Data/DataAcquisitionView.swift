@@ -117,18 +117,11 @@ private extension DataAcquisitionView {
 #if DEBUG
 struct DataAcquisitionView_Previews: PreviewProvider {
     
-    static let noDevicesAppData: AppData = {
-        let appData = AppData()
-        appData.projectsViewState = .showingProjects([ProjectList_Previews.previewProjects[0]])
-        appData.devices = []
-        return appData
-    }()
-    
     static var previews: some View {
         Group {
             NavigationView {
                 DataAcquisitionView()
-                    .environmentObject(noDevicesAppData)
+                    .environmentObject(ProjectList_Previews.noDevicesAppData)
             }
             
             NavigationView {

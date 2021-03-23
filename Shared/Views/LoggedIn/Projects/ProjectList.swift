@@ -92,6 +92,13 @@ struct ProjectList_Previews: PreviewProvider {
     
     static let projectsPreviewAppData = previewAppData(.showingProjects(previewProjects))
     
+    static let noDevicesAppData: AppData = {
+        let appData = AppData()
+        appData.projectsViewState = .showingProjects([ProjectList_Previews.previewProjects[0]])
+        appData.devices = []
+        return appData
+    }()
+    
     static func previewAppData(_ status: ProjectList.ViewState) -> AppData {
        let appData = AppData()
         appData.projectsViewState = status
