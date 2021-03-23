@@ -25,6 +25,7 @@ struct TwoPaneLayoutView: View {
                 }
                 .listStyle(SidebarListStyle())
                 .toolbarPrincipalImage(Image("Nordic"))
+                .setTitle("nRF Edge Impulse")
             }
             .setBackgroundColor(.blue)
             .setSingleColumnNavigationViewStyle()
