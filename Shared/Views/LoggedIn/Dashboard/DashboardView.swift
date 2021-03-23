@@ -23,9 +23,7 @@ struct DashboardView: View {
             if let user = appData.user {
                 UserView(user: user)
                 
-                Section(header: Text("Projects")) {
-                    ProjectList()
-                }
+                ProjectList()
             } else {
                 Text("No User")
             }

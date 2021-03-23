@@ -48,8 +48,10 @@ extension ProjectList.ViewState {
             }
         case .showingProjects(let projects):
             List {
-                ForEach(projects) { project in
-                    ProjectRow(project: project)
+                Section(header: Text("Projects")) {
+                    ForEach(projects) { project in
+                        ProjectRow(project: project)
+                    }
                 }
             }
         }
