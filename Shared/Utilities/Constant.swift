@@ -17,6 +17,11 @@ enum Constant {
         ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
     }
     
+    // MARK: - Unselected
+    
+    static let unselectedProject = Project.Sample
+    static let unselectedDevice = Device(name: "", id: UUID(), rssi: .outOfRange)
+    
     // MARK: - URL(s)
     
     static let signupURL: URL! = URL(string: "https://studio.edgeimpulse.com/signup")

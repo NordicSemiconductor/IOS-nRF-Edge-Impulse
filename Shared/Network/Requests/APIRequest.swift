@@ -49,3 +49,11 @@ extension APIRequest {
         return urlRequest
     }
 }
+
+// MARK: - APIResponse
+
+protocol APIResponse: Codable {
+    
+    var success: Bool { get }
+    var error: String? { get }
+}

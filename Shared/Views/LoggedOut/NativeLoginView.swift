@@ -49,14 +49,9 @@ struct NativeLoginView: View {
                     .frame(width: 40, height: 40)
                     .accentColor(Assets.darkGrey.color)
                 TextField("Username or E-Mail", text: $username)
-                    .frame(maxWidth: 300)
-                    .frame(height: 20)
-                    .padding()
-                    .background(textFieldBackground)
-                    .cornerRadius(20)
-//                        .autocapitalization(.none)
+                    .foregroundColor(.black)
+                    .roundedTextFieldShape(backgroundAsset: .lightGrey, hasTextFieldBelow: true)
                     .disableAutocorrection(true)
-                    .padding(.bottom, 16)
             }
             .padding(.horizontal, 16)
             HStack(alignment: .lastTextBaseline) {
@@ -64,11 +59,8 @@ struct NativeLoginView: View {
                     .frame(width: 40, height: 40)
                     .accentColor(Assets.darkGrey.color)
                 SecureField("Password", text: $password)
-                    .frame(maxWidth: 300)
-                    .frame(height: 20)
-                    .padding()
-                    .background(textFieldBackground)
-                    .cornerRadius(20)
+                    .foregroundColor(.black)
+                    .roundedTextFieldShape(backgroundAsset: .lightGrey)
                     .disableAutocorrection(true)
                     .padding(.bottom, 8)
             }
@@ -133,11 +125,13 @@ struct NativeLoginView_Previews: PreviewProvider {
             NativeLoginView()
                 .preferredColorScheme(.light)
         }
+        #if os(iOS)
         Group {
             NativeLoginView()
                 .previewDevice("iPad Pro (11-inch) (2nd generation)")
                 .preferredColorScheme(.dark)
         }
+        #endif
     }
 }
 #endif

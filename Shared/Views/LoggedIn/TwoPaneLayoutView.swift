@@ -23,10 +23,9 @@ struct TwoPaneLayoutView: View {
                     }
                     .accentColor(Assets.blue.color)
                 }
-                .setTitle("nRF Edge Impulse")
-                .padding(.top, 8)
                 .listStyle(SidebarListStyle())
                 .toolbarPrincipalImage(Image("Nordic"))
+                .setTitle("nRF Edge Impulse")
             }
             .setBackgroundColor(.blue)
             .setSingleColumnNavigationViewStyle()
@@ -35,11 +34,13 @@ struct TwoPaneLayoutView: View {
             VStack {
                 if let selectedTab = appData.selectedTab {
                     selectedTab.view
+                        .setTitle(selectedTab.description)
                 } else {
-                    Text("Select a Tab from the left Pane.")
+                    Text("Select a Tab from the Sidebar.")
                         .multilineTextAlignment(.center)
                 }
             }
+            .wrapInNavigationViewForiOS()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }

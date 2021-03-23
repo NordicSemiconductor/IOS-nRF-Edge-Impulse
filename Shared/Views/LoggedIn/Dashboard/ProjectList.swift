@@ -14,12 +14,11 @@ struct ProjectList: View {
     @State private var listCancellable: Cancellable? = nil
     
     var body: some View {
-        NavigationView {
+        VStack {
             appData.projectsViewState.view(onRetry: {
                 refreshList()
             })
             .frame(minWidth: 295)
-            .setTitle("Projects")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: logoutUser, label: {
@@ -33,9 +32,6 @@ struct ProjectList: View {
                 }
             }
         }
-        .setBackgroundColor(Assets.blue)
-        .setSingleColumnNavigationViewStyle()
-        .accentColor(.white)
         .onAppear() {
             refreshList()
         }
@@ -60,12 +56,14 @@ extension ProjectList {
                 guard !Constant.isRunningInPreviewMode else { return }
                 switch completion {
                 case .failure(let error):
+                    appData.projects = []
                     appData.projectsViewState = .error(error)
                 default:
                     break
                 }
             },
             receiveValue: { projectsResponse in
+                appData.projects = projectsResponse.projects
                 appData.projectsViewState = .showingProjects(projectsResponse.projects)
             })
         guard !Constant.isRunningInPreviewMode else { return }
@@ -94,9 +92,24 @@ struct ProjectList_Previews: PreviewProvider {
     
     static let projectsPreviewAppData = previewAppData(.showingProjects(previewProjects))
     
+    static let noDevicesAppData: AppData = {
+        let appData = AppData()
+        appData.projectsViewState = .showingProjects([ProjectList_Previews.previewProjects[0]])
+        appData.devices = []
+        return appData
+    }()
+    
     static func previewAppData(_ status: ProjectList.ViewState) -> AppData {
-       let appData = AppData()
+        let appData = AppData()
+        appData.apiToken = "hello"
+        appData.user = User(id: 3, username: "independence.day", created: Date())
         appData.projectsViewState = status
+        switch status {
+        case .showingProjects(let projects):
+            appData.projects = projects
+        default:
+            appData.projects = []
+        }
         appData.devices = [
             Device(name: "Device 1", id: UUID(), rssi: .good),
             Device(name: "Device 1", id: UUID(), rssi: .bad),

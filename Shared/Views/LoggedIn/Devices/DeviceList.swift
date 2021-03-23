@@ -21,17 +21,14 @@ struct DeviceList: View {
                     DeviceRow(device: device)
                 }
             }
-            .setTitle("Devices")
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
-                        scanner.toggle()
-                    }
+        }
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
+                    scanner.toggle()
                 }
             }
         }
-        .setBackgroundColor(.blue)
-        .setSingleColumnNavigationViewStyle()
         .onAppear() {
             scannerCancellable = scanner.devicePublisher
                 .throttle(for: 1.0, scheduler: RunLoop.main, latest: false)

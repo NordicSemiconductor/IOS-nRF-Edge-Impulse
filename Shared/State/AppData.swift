@@ -32,10 +32,13 @@ final class AppData: ObservableObject {
             }
         }
     }
+    @Published var user: User?
+    
     @Published var projectsViewState: ProjectList.ViewState = .empty
+    @Published var projects: [Project] = []
     @Published var devices: [Device] = []
     
-    @Published var selectedTab: Tabs? = .Projects
+    @Published var selectedTab: Tabs? = .Dashboard
     
     // MARK: - API
     
@@ -43,6 +46,7 @@ final class AppData: ObservableObject {
     
     func logout() {
         apiToken = nil
+        user = nil
     }
 }
 

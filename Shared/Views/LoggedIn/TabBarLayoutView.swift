@@ -13,6 +13,8 @@ struct TabBarLayoutView: View {
         TabView {
             ForEach(Tabs.allCases) { tab in
                 tab.view
+                    .setTitle(tab.description)
+                    .wrapInNavigationViewForiOS()
                     .tabItem {
                         Label(tab.description, systemImage: tab.systemImageName)
                     }
