@@ -36,7 +36,7 @@ final class AppData: ObservableObject {
     @Published var projects: [Project] = []
     @Published var devices: [Device] = []
     
-    @Published var selectedTab: Tabs? = .Projects
+    @Published var selectedTab: Tabs? = .Dashboard
     
     // MARK: - API
     

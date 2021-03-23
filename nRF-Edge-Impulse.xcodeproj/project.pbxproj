@@ -185,7 +185,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AA008A7D25EE4BBC00F70F75 /* Projects */ = {
+		AA008A7D25EE4BBC00F70F75 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
 				AA80988325EE518F00091AC0 /* ProjectRow.swift */,
@@ -193,7 +193,7 @@
 				AAFFEB3525FF8EAA002287D6 /* ProjectList+ViewState.swift */,
 				AACCBA872600C32C0042E87B /* ErrorView.swift */,
 			);
-			path = Projects;
+			path = Dashboard;
 			sourceTree = "<group>";
 		};
 		AA02088125F6515900FD6B24 /* Bluetooth */ = {
@@ -217,7 +217,7 @@
 		AA0208A725F65E9500FD6B24 /* LoggedIn */ = {
 			isa = PBXGroup;
 			children = (
-				AA008A7D25EE4BBC00F70F75 /* Projects */,
+				AA008A7D25EE4BBC00F70F75 /* Dashboard */,
 				AA02089425F654C300FD6B24 /* Devices */,
 				AAF5054525F11E15003AFED7 /* Data */,
 				AA0D81272608C00F00AE615A /* Deployment */,
