@@ -14,7 +14,7 @@ struct ProjectList: View {
     @State private var listCancellable: Cancellable? = nil
     
     var body: some View {
-        ZStack {
+        VStack {
             appData.projectsViewState.view(onRetry: {
                 refreshList()
             })
@@ -100,7 +100,9 @@ struct ProjectList_Previews: PreviewProvider {
     }()
     
     static func previewAppData(_ status: ProjectList.ViewState) -> AppData {
-       let appData = AppData()
+        let appData = AppData()
+        appData.apiToken = "hello"
+        appData.user = User(id: 3, username: "independence.day", created: Date())
         appData.projectsViewState = status
         switch status {
         case .showingProjects(let projects):

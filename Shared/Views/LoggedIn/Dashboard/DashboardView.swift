@@ -19,8 +19,16 @@ struct DashboardView: View {
     // MARK: - @viewBuilder
     
     var body: some View {
-        ZStack {
-            Text("Hello, World!")
+        VStack {
+            if let user = appData.user {
+                UserView(user: user)
+                
+                Section(header: Text("Projects")) {
+                    ProjectList()
+                }
+            } else {
+                Text("No User")
+            }
         }
         .frame(minWidth: 295)
         .onAppear() {
@@ -57,7 +65,7 @@ extension DashboardView {
                     print("Failed")
                     return
                 }
-                print("Got User \(user.username)")
+                appData.user = user
             })
     }
     
@@ -70,9 +78,21 @@ extension DashboardView {
 
 #if DEBUG
 struct DashboardView_Previews: PreviewProvider {
+    
+    static let loggedInWithoutUser: AppData = {
+        let appData = AppData()
+        appData.apiToken = "A"
+        appData.user = nil
+        return appData
+    }()
+    
     static var previews: some View {
-        DashboardView()
-            .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+        Group {
+            DashboardView()
+                .environmentObject(DashboardView_Previews.loggedInWithoutUser)
+            DashboardView()
+                .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+        }
     }
 }
 #endif
