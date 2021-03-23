@@ -112,8 +112,8 @@ struct ProjectList_Previews: PreviewProvider {
         }
         appData.devices = [
             Device(name: "Device 1", id: UUID(), rssi: .good),
-            Device(name: "Device 1", id: UUID(), rssi: .bad),
-            Device(name: "Device 1", id: UUID(), rssi: .ok)
+            Device(name: "Device 2", id: UUID(), rssi: .bad),
+            Device(name: "Device 3", id: UUID(), rssi: .ok)
         ]
         return appData
     }

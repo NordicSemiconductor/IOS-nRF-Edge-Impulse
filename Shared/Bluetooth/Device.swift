@@ -31,5 +31,5 @@ struct Device: Identifiable, Hashable {
 }
 
 extension Device {
-    static let sample = Device(name: "Test Device", id: UUID(uuidString: "") ?? UUID(), rssi: .outOfRange)
+    static let sample = Device(name: "Test Device", id: UUID(), rssi: .outOfRange)
 }
