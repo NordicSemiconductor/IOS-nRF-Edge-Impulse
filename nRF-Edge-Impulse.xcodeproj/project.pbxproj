@@ -66,6 +66,8 @@
 		AAF0C96D260A0210001B76B9 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C96B260A0210001B76B9 /* DashboardView.swift */; };
 		AAF0C96F260A069F001B76B9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C96E260A069F001B76B9 /* User.swift */; };
 		AAF0C970260A069F001B76B9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C96E260A069F001B76B9 /* User.swift */; };
+		AAF0C972260A121B001B76B9 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C971260A121B001B76B9 /* UserView.swift */; };
+		AAF0C973260A121B001B76B9 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C971260A121B001B76B9 /* UserView.swift */; };
 		AAF0C975260A1482001B76B9 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C974260A1482001B76B9 /* CircleImageView.swift */; };
 		AAF0C976260A1482001B76B9 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C974260A1482001B76B9 /* CircleImageView.swift */; };
 		AAF5054725F11E45003AFED7 /* DataAcquisitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */; };
@@ -149,6 +151,7 @@
 		AAF0C9682609FEBE001B76B9 /* GetCurrentUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentUserRequest.swift; sourceTree = "<group>"; };
 		AAF0C96B260A0210001B76B9 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		AAF0C96E260A069F001B76B9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		AAF0C971260A121B001B76B9 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		AAF0C974260A1482001B76B9 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
 		AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
 		AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPaneLayoutView.swift; sourceTree = "<group>"; };
@@ -205,6 +208,7 @@
 				AAFFEB3525FF8EAA002287D6 /* ProjectList+ViewState.swift */,
 				AACCBA872600C32C0042E87B /* ErrorView.swift */,
 				AAF0C96B260A0210001B76B9 /* DashboardView.swift */,
+				AAF0C971260A121B001B76B9 /* UserView.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -648,6 +652,7 @@
 				AA80989A25EE959B00091AC0 /* Publishers.swift in Sources */,
 				AA0D812C2608F62700AE615A /* DeploymentViewState.swift in Sources */,
 				AAF0C96C260A0210001B76B9 /* DashboardView.swift in Sources */,
+				AAF0C972260A121B001B76B9 /* UserView.swift in Sources */,
 				AA02086825F641D900FD6B24 /* Sample.swift in Sources */,
 				AAFFEB3025FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
 				AA03E98225E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
@@ -692,6 +697,7 @@
 				AA43B2A925FA58B500C5B5EE /* TabBarLayoutView.swift in Sources */,
 				AA0D812D2608F62700AE615A /* DeploymentViewState.swift in Sources */,
 				AAF0C96D260A0210001B76B9 /* DashboardView.swift in Sources */,
+				AAF0C973260A121B001B76B9 /* UserView.swift in Sources */,
 				AA10170425E91885006DC88A /* APIRequest.swift in Sources */,
 				AA01F3E025EFDC5000368707 /* Constant.swift in Sources */,
 				AAFFEB3125FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
