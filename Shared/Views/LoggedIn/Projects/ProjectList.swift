@@ -98,9 +98,9 @@ struct ProjectList_Previews: PreviewProvider {
        let appData = AppData()
         appData.projectsViewState = status
         appData.devices = [
-            Device(id: UUID()),
-            Device(id: UUID()),
-            Device(id: UUID())
+            Device(name: "Device 1", id: UUID(), rssi: .good),
+            Device(name: "Device 1", id: UUID(), rssi: .bad),
+            Device(name: "Device 1", id: UUID(), rssi: .ok)
         ]
         return appData
     }

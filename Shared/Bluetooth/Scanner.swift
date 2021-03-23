@@ -45,10 +45,12 @@ extension Scanner {
 // MARK: - CBCentralManagerDelegate
 
 extension Scanner: CBCentralManagerDelegate {
+    private typealias R = RSSI
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral,
                         advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        devicePublisher.send(Device(id: peripheral.identifier))
+        
+        devicePublisher.send(Device(name: peripheral.name ?? "n/a", id: peripheral.identifier, rssi: R(value: RSSI.intValue)))
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {

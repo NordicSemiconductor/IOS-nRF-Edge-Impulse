@@ -18,8 +18,7 @@ struct DeviceList: View {
         NavigationView {
             List {
                 ForEach(appData.devices) { device in
-                    Text(device.id.uuidString)
-                        .lineLimit(1)
+                    DeviceRow(device: device)
                 }
             }
             .setTitle("Devices")
