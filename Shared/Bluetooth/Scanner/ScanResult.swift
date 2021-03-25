@@ -24,12 +24,21 @@ enum RSSI: Int {
     }
 }
     
-struct Device: Identifiable, Hashable {
+struct ScanResult: Identifiable, Hashable {
+    static func == (lhs: ScanResult, rhs: ScanResult) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     let name: String
     let id: UUID
     let rssi: RSSI
+    let advertisementData: AdvertisementData
 }
 
-extension Device {
-    static let sample = Device(name: "Test Device", id: UUID(), rssi: .outOfRange)
+extension ScanResult {
+    static let sample = ScanResult(name: "Test Device", id: UUID(), rssi: .outOfRange, advertisementData: AdvertisementData())
 }

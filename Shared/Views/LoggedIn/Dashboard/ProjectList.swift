@@ -95,7 +95,7 @@ struct ProjectList_Previews: PreviewProvider {
     static let noDevicesAppData: AppData = {
         let appData = AppData()
         appData.projectsViewState = .showingProjects([ProjectList_Previews.previewProjects[0]])
-        appData.devices = []
+        appData.scanResults = []
         return appData
     }()
     
@@ -110,10 +110,10 @@ struct ProjectList_Previews: PreviewProvider {
         default:
             appData.projects = []
         }
-        appData.devices = [
-            Device(name: "Device 1", id: UUID(), rssi: .good),
-            Device(name: "Device 2", id: UUID(), rssi: .bad),
-            Device(name: "Device 3", id: UUID(), rssi: .ok)
+        appData.scanResults = [
+            ScanResult(name: "Device 1", id: UUID(), rssi: .good, advertisementData: AdvertisementData()),
+            ScanResult(name: "Device 2", id: UUID(), rssi: .bad, advertisementData: AdvertisementData()),
+            ScanResult(name: "Device 3", id: UUID(), rssi: .ok, advertisementData: AdvertisementData())
         ]
         return appData
     }

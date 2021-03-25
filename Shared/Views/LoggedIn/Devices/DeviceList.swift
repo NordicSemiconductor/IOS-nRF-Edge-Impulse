@@ -15,11 +15,12 @@ struct DeviceList: View {
     @State private var scannerCancellable: Cancellable? = nil
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(appData.devices) { device in
+        List {
+            ForEach(appData.scanResults) { device in
+                NavigationLink(destination: DeviceDetails(scanResult: device)) {
                     DeviceRow(device: device)
                 }
+                
             }
         }
         .toolbar {
@@ -35,8 +36,8 @@ struct DeviceList: View {
                 .sink(receiveCompletion: { result in
                     print(result)
                 }, receiveValue: { device in
-                    guard !appData.devices.contains(device) else { return }
-                    appData.devices.append(device)
+                    guard !appData.scanResults.contains(device) else { return }
+                    appData.scanResults.append(device)
                 })
         }
         .onDisappear() {

@@ -36,7 +36,7 @@ final class AppData: ObservableObject {
     
     @Published var projectsViewState: ProjectList.ViewState = .empty
     @Published var projects: [Project] = []
-    @Published var devices: [Device] = []
+    @Published var scanResults: [ScanResult] = []
     
     @Published var selectedTab: Tabs? = .Dashboard
     
