@@ -24,6 +24,8 @@ struct ProjectList: View {
 
 struct ProjectList_Previews: PreviewProvider {
     
+    static var previewUser = User(id: 3, username: "independence.day", created: Date())
+    
     static var previewProjects: [Project]! = {
         let path: String! = Bundle.main.path(forResource: "sample_projects", ofType: "json")
         let content: String! = try? String(contentsOfFile: path)
@@ -31,24 +33,25 @@ struct ProjectList_Previews: PreviewProvider {
         return try? JSONDecoder().decode([Project].self, from: contentData)
     }()
     
-    static let projectsPreviewAppData = previewAppData(.showingProjects(previewProjects))
+    static let projectsPreviewAppData = previewAppData(.showingUser(previewUser, previewProjects))
     
     static let noDevicesAppData: AppData = {
         let appData = AppData()
-        appData.dashboardViewState = .showingProjects([ProjectList_Previews.previewProjects[0]])
+        appData.dashboardViewState = .showingUser(previewUser, [ProjectList_Previews.previewProjects[0]])
         appData.devices = []
         return appData
     }()
     
-    static func previewAppData(_ status: DashboardView.ViewState) -> AppData {
+    static func previewAppData(_ viewState: DashboardView.ViewState) -> AppData {
         let appData = AppData()
         appData.apiToken = "hello"
-        appData.user = User(id: 3, username: "independence.day", created: Date())
-        appData.dashboardViewState = status
-        switch status {
-        case .showingProjects(let projects):
+        appData.dashboardViewState = viewState
+        switch viewState {
+        case .showingUser(let user, let projects):
+            appData.user = user
             appData.projects = projects
         default:
+            appData.user = nil
             appData.projects = []
         }
         appData.devices = [

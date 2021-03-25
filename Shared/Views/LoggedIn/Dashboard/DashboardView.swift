@@ -19,14 +19,9 @@ struct DashboardView: View {
     // MARK: - @viewBuilder
     
     var body: some View {
-        VStack {
-            if let user = appData.user {
-                UserView(user: user)
-                
-                ProjectList(onRetryButton:  requestUser)
-            } else {
-                Text("No User")
-            }
+        ZStack {
+            appData.dashboardViewState.view(onRetry: requestUser)
+                .frame(minWidth: 295)
         }
         .frame(minWidth: 295)
         .toolbar {
@@ -42,6 +37,7 @@ struct DashboardView: View {
             }
         }
         .onAppear() {
+            guard !Constant.isRunningInPreviewMode else { return }
             requestUser()
         }
         .onDisappear() {
@@ -80,7 +76,7 @@ extension DashboardView {
                 }
                 appData.user = user
                 appData.projects = projectsResponse.projects
-                appData.dashboardViewState = .showingProjects(projectsResponse.projects)
+                appData.dashboardViewState = .showingUser(user, projectsResponse.projects)
             })
     }
     
@@ -108,9 +104,13 @@ struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             DashboardView()
-                .environmentObject(DashboardView_Previews.loggedInWithoutUser)
+                .environmentObject(ProjectList_Previews.previewAppData(.loading))
             DashboardView()
                 .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+            DashboardView()
+                .environmentObject(ProjectList_Previews.previewAppData(.empty))
+            DashboardView()
+                .environmentObject(ProjectList_Previews.previewAppData(.error(NordicError(description: "There was en error"))))
         }
     }
 }

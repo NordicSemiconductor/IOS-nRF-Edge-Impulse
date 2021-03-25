@@ -15,7 +15,7 @@ extension DashboardView {
         case error(_ error: Error)
         case empty
         case loading
-        case showingProjects(_ projects: [Project])
+        case showingUser(_ user: User, _ projects: [Project])
     }
 }
 
@@ -46,14 +46,19 @@ extension DashboardView.ViewState {
                     .progressViewStyle(CircularProgressViewStyle())
                 Text("Loading...")
             }
-        case .showingProjects(let projects):
-            List {
-                Section(header: Text("Projects")) {
-                    ForEach(projects) { project in
-                        ProjectRow(project: project)
+        case .showingUser(let user, let projects):
+            VStack {
+                UserView(user: user)
+                    
+                List {
+                    Section(header: Text("Projects")) {
+                        ForEach(projects) { project in
+                            ProjectRow(project: project)
+                        }
                     }
                 }
             }
+            .frame(minWidth: 295)
         }
     }
 }
@@ -65,6 +70,6 @@ extension DashboardView.ViewState: CaseIterable {
         .error(NordicError(description: "Sample Error")),
         .empty,
         .loading,
-        .showingProjects(ProjectList_Previews.previewProjects)
+        .showingUser(ProjectList_Previews.previewUser, ProjectList_Previews.previewProjects)
     ]
 }
