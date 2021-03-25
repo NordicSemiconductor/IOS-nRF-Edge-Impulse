@@ -121,12 +121,12 @@ struct DataAcquisitionView_Previews: PreviewProvider {
         Group {
             NavigationView {
                 DataAcquisitionView()
-                    .environmentObject(ProjectList_Previews.noDevicesAppData)
+                    .environmentObject(Preview.noDevicesAppData)
             }
             
             NavigationView {
                 DataAcquisitionView()
-                    .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+                    .environmentObject(Preview.projectsPreviewAppData)
             }
             .setBackgroundColor(.blue)
         }

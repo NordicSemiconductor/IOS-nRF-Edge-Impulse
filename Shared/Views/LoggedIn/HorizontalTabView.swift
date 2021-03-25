@@ -39,7 +39,7 @@ struct HorizontalTabView_Previews: PreviewProvider {
         List {
             ForEach(Tabs.allCases) { tab in
                 HorizontalTabView(tab: tab)
-                    .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+                    .environmentObject(Preview.projectsPreviewAppData)
             }
         }
     }

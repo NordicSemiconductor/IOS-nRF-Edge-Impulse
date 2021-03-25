@@ -95,7 +95,7 @@ struct DeploymentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             DeploymentView()
-                .environmentObject(ProjectList_Previews.noDevicesAppData)
+                .environmentObject(Preview.noDevicesAppData)
         }
         .setBackgroundColor(.blue)
     }

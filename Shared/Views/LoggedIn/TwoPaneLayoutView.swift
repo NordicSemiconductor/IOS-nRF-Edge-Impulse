@@ -53,11 +53,11 @@ struct TwoPaneLayoutView_Previews: PreviewProvider {
     static var previews: some View {
         #if os(OSX)
         TwoPaneLayoutView()
-            .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+            .environmentObject(Preview.projectsPreviewAppData)
         #elseif os(iOS)
         TwoPaneLayoutView()
             .previewDevice("iPad Pro (11-inch) (2nd generation)")
-            .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+            .environmentObject(Preview.projectsPreviewAppData)
         #endif
     }
 }

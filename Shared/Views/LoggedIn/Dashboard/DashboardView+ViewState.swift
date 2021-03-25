@@ -62,14 +62,3 @@ extension DashboardView.ViewState {
         }
     }
 }
-
-// MARK: - CaseIterable
-
-extension DashboardView.ViewState: CaseIterable {
-    static var allCases: [DashboardView.ViewState] = [
-        .error(NordicError(description: "Sample Error")),
-        .empty,
-        .loading,
-        .showingUser(ProjectList_Previews.previewUser, ProjectList_Previews.previewProjects)
-    ]
-}

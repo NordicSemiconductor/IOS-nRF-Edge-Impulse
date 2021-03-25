@@ -104,13 +104,13 @@ struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             DashboardView()
-                .environmentObject(ProjectList_Previews.previewAppData(.loading))
+                .environmentObject(Preview.previewAppData(.loading))
             DashboardView()
-                .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+                .environmentObject(Preview.projectsPreviewAppData)
             DashboardView()
-                .environmentObject(ProjectList_Previews.previewAppData(.empty))
+                .environmentObject(Preview.previewAppData(.empty))
             DashboardView()
-                .environmentObject(ProjectList_Previews.previewAppData(.error(NordicError(description: "There was en error"))))
+                .environmentObject(Preview.previewAppData(.error(NordicError(description: "There was en error"))))
         }
     }
 }

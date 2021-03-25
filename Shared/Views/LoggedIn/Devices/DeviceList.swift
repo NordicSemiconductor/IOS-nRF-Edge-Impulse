@@ -53,16 +53,16 @@ struct DeviceList_Previews: PreviewProvider {
         Group {
             #if os(iOS)
             DeviceList()
-                .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+                .environmentObject(Preview.projectsPreviewAppData)
                 .previewDevice("iPhone 12 mini")
             DeviceList()
                 .preferredColorScheme(.dark)
-                .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+                .environmentObject(Preview.projectsPreviewAppData)
                 .previewDevice("iPad Pro (12.9-inch) (4th generation)")
             #else
             DeviceList()
                 .preferredColorScheme(.dark)
-                .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+                .environmentObject(Preview.projectsPreviewAppData)
             #endif
         }
     }
