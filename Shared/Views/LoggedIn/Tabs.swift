@@ -22,7 +22,7 @@ extension Tabs {
     var view: some View {
         switch self {
         case .Dashboard:
-            ProjectList()
+            DashboardView()
         case .Devices:
              DeviceList()
         case .DataAcquisition:
