@@ -15,11 +15,9 @@ struct DeviceList: View {
     @State private var scannerCancellable: Cancellable? = nil
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(appData.devices) { device in
-                    DeviceRow(device: device)
-                }
+        List {
+            ForEach(appData.devices) { device in
+                DeviceRow(device: device)
             }
         }
         .toolbar {
