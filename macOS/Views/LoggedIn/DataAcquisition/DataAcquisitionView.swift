@@ -39,7 +39,7 @@ struct DataAcquisitionView: View {
                     Picker("Device", selection: $viewState.selectedDevice) {
                         if appData.devices.count > 0 {
                             ForEach(appData.devices, id: \.self) { device in
-                                Text(device.id.uuidString).tag(device)
+                                Text(device.name).tag(device)
                             }
                         } else {
                             Text("--").tag(Constant.unselectedDevice)

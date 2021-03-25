@@ -46,7 +46,7 @@ struct DataAcquisitionView: View {
                 if appData.devices.count > 0 {
                     Picker("Selected", selection: $viewState.selectedDevice) {
                         ForEach(appData.devices, id: \.self) { device in
-                            Text(device.id.uuidString).tag(device)
+                            Text(device.name).tag(device)
                         }
                     }
                     .setAsComboBoxStyle()
