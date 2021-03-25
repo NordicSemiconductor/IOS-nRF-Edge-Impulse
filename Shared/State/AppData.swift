@@ -34,7 +34,7 @@ final class AppData: ObservableObject {
     }
     @Published var user: User?
     
-    @Published var projectsViewState: ProjectList.ViewState = .empty
+    @Published var dashboardViewState: DashboardView.ViewState = .empty
     @Published var projects: [Project] = []
     @Published var devices: [Device] = []
     

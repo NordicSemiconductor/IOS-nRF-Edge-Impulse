@@ -15,7 +15,7 @@ struct ProjectList: View {
     @State private var listCancellable: Cancellable? = nil
     
     var body: some View {
-        appData.projectsViewState.view(onRetry: onRetryButton)
+        appData.dashboardViewState.view(onRetry: onRetryButton)
             .frame(minWidth: 295)
     }
 }
@@ -35,16 +35,16 @@ struct ProjectList_Previews: PreviewProvider {
     
     static let noDevicesAppData: AppData = {
         let appData = AppData()
-        appData.projectsViewState = .showingProjects([ProjectList_Previews.previewProjects[0]])
+        appData.dashboardViewState = .showingProjects([ProjectList_Previews.previewProjects[0]])
         appData.devices = []
         return appData
     }()
     
-    static func previewAppData(_ status: ProjectList.ViewState) -> AppData {
+    static func previewAppData(_ status: DashboardView.ViewState) -> AppData {
         let appData = AppData()
         appData.apiToken = "hello"
         appData.user = User(id: 3, username: "independence.day", created: Date())
-        appData.projectsViewState = status
+        appData.dashboardViewState = status
         switch status {
         case .showingProjects(let projects):
             appData.projects = projects

@@ -85,8 +85,8 @@
 		AAFFEB3125FF6A29002287D6 /* HorizontalTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB2F25FF6A29002287D6 /* HorizontalTabView.swift */; };
 		AAFFEB3325FF7A06002287D6 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB3225FF7A06002287D6 /* ButtonStyles.swift */; };
 		AAFFEB3425FF7A06002287D6 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB3225FF7A06002287D6 /* ButtonStyles.swift */; };
-		AAFFEB3625FF8EAA002287D6 /* ProjectList+ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB3525FF8EAA002287D6 /* ProjectList+ViewState.swift */; };
-		AAFFEB3725FF8EAA002287D6 /* ProjectList+ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB3525FF8EAA002287D6 /* ProjectList+ViewState.swift */; };
+		AAFFEB3625FF8EAA002287D6 /* DashboardView+ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB3525FF8EAA002287D6 /* DashboardView+ViewState.swift */; };
+		AAFFEB3725FF8EAA002287D6 /* DashboardView+ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB3525FF8EAA002287D6 /* DashboardView+ViewState.swift */; };
 		AAFFEB3925FF9554002287D6 /* NordicError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB3825FF9554002287D6 /* NordicError.swift */; };
 		AAFFEB3A25FF9554002287D6 /* NordicError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB3825FF9554002287D6 /* NordicError.swift */; };
 		C33C10C12609791E0097EA5A /* SignalParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33C10BF2609791E0097EA5A /* SignalParameters.swift */; };
@@ -165,7 +165,7 @@
 		AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeLoginView.swift; sourceTree = "<group>"; };
 		AAFFEB2F25FF6A29002287D6 /* HorizontalTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTabView.swift; sourceTree = "<group>"; };
 		AAFFEB3225FF7A06002287D6 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
-		AAFFEB3525FF8EAA002287D6 /* ProjectList+ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectList+ViewState.swift"; sourceTree = "<group>"; };
+		AAFFEB3525FF8EAA002287D6 /* DashboardView+ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DashboardView+ViewState.swift"; sourceTree = "<group>"; };
 		AAFFEB3825FF9554002287D6 /* NordicError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NordicError.swift; sourceTree = "<group>"; };
 		C33C10BF2609791E0097EA5A /* SignalParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalParameters.swift; sourceTree = "<group>"; };
 		C33C10C02609791E0097EA5A /* SignalLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalLevel.swift; sourceTree = "<group>"; };
@@ -211,9 +211,9 @@
 			children = (
 				AA80988325EE518F00091AC0 /* ProjectRow.swift */,
 				AAFAE5F125ED1A3A00A45A90 /* ProjectList.swift */,
-				AAFFEB3525FF8EAA002287D6 /* ProjectList+ViewState.swift */,
 				AACCBA872600C32C0042E87B /* ErrorView.swift */,
 				AAF0C96B260A0210001B76B9 /* DashboardView.swift */,
+				AAFFEB3525FF8EAA002287D6 /* DashboardView+ViewState.swift */,
 				AAF0C971260A121B001B76B9 /* UserView.swift */,
 			);
 			path = Dashboard;
@@ -645,7 +645,7 @@
 				AAFFEB3925FF9554002287D6 /* NordicError.swift in Sources */,
 				AA10170325E91885006DC88A /* APIRequest.swift in Sources */,
 				C33C10C12609791E0097EA5A /* SignalParameters.swift in Sources */,
-				AAFFEB3625FF8EAA002287D6 /* ProjectList+ViewState.swift in Sources */,
+				AAFFEB3625FF8EAA002287D6 /* DashboardView+ViewState.swift in Sources */,
 				AA03E98425E3EF13003DA9DA /* ContentView.swift in Sources */,
 				AACCBA882600C32C0042E87B /* ErrorView.swift in Sources */,
 				AA01F3D025EFACB000368707 /* Assets.swift in Sources */,
@@ -692,7 +692,7 @@
 				AAFFEB3A25FF9554002287D6 /* NordicError.swift in Sources */,
 				AA80989B25EE959B00091AC0 /* Publishers.swift in Sources */,
 				C33C10C22609791E0097EA5A /* SignalParameters.swift in Sources */,
-				AAFFEB3725FF8EAA002287D6 /* ProjectList+ViewState.swift in Sources */,
+				AAFFEB3725FF8EAA002287D6 /* DashboardView+ViewState.swift in Sources */,
 				AA1016FD25E9173A006DC88A /* Network.swift in Sources */,
 				AACCBA892600C32C0042E87B /* ErrorView.swift in Sources */,
 				AA02088F25F651D100FD6B24 /* Device.swift in Sources */,

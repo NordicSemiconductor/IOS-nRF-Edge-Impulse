@@ -1,5 +1,5 @@
 //
-//  ProjectList+ViewState.swift
+//  DashboardView+ViewState.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Dinesh Harjani on 15/3/21.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-// MARK: - ProjectList.Status
+// MARK: - DashboardView.Status
 
-extension ProjectList {
+extension DashboardView {
     
     enum ViewState {
         case error(_ error: Error)
@@ -21,7 +21,7 @@ extension ProjectList {
 
 // MARK: - ViewBuilder
 
-extension ProjectList.ViewState {
+extension DashboardView.ViewState {
  
     @ViewBuilder
     func view(onRetry: @escaping () -> Void) -> some View {
@@ -60,8 +60,8 @@ extension ProjectList.ViewState {
 
 // MARK: - CaseIterable
 
-extension ProjectList.ViewState: CaseIterable {
-    static var allCases: [ProjectList.ViewState] = [
+extension DashboardView.ViewState: CaseIterable {
+    static var allCases: [DashboardView.ViewState] = [
         .error(NordicError(description: "Sample Error")),
         .empty,
         .loading,

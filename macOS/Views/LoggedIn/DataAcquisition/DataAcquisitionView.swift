@@ -131,7 +131,7 @@ struct DataAcquisitionView_Previews: PreviewProvider {
     
     static let noProjectsAppData: AppData = {
         let appData = AppData()
-        appData.projectsViewState = .showingProjects([])
+        appData.dashboardViewState = .showingProjects([])
         appData.projects = []
         appData.devices = []
         return appData

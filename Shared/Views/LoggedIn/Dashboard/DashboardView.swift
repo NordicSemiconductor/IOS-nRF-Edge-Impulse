@@ -56,7 +56,7 @@ extension DashboardView {
     
     func requestUser() {
         guard let token = appData.apiToken else { return }
-        appData.projectsViewState = .loading
+        appData.dashboardViewState = .loading
         let request = APIRequest.getUser(using: token)
         userCancellable = Network.shared.perform(request, responseType: GetUserResponse.self)?
             .onUnauthorisedUserError {
@@ -67,7 +67,7 @@ extension DashboardView {
                 switch completion {
                 case .failure(let error):
                     appData.projects = []
-                    appData.projectsViewState = .error(error)
+                    appData.dashboardViewState = .error(error)
                 default:
                     break
                 }
@@ -80,7 +80,7 @@ extension DashboardView {
                 }
                 appData.user = user
                 appData.projects = projectsResponse.projects
-                appData.projectsViewState = .showingProjects(projectsResponse.projects)
+                appData.dashboardViewState = .showingProjects(projectsResponse.projects)
             })
     }
     
