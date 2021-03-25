@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import CoreBluetooth
+import os
 
 // MARK: - Scanner
 
@@ -21,7 +22,7 @@ final class Scanner: NSObject, ObservableObject {
     
     @Published var isScanning = false
     
-    private(set) var devicePublisher = PassthroughSubject<Device, BluetoothError>()
+    private(set) var devicePublisher = PassthroughSubject<ScanResult, BluetoothError>()
 }
 
 // MARK: - API
@@ -49,8 +50,15 @@ extension Scanner: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral,
                         advertisementData: [String : Any], rssi RSSI: NSNumber) {
+            let name = advertisementData[CBAdvertisementDataLocalNameKey] as? String
+                ?? peripheral.name
+                ?? "N/A"
         
-        devicePublisher.send(Device(name: peripheral.name ?? "n/a", id: peripheral.identifier, rssi: R(value: RSSI.intValue)))
+        let scanResult = ScanResult(name: name, id: peripheral.identifier, rssi: R(value: RSSI.intValue), advertisementData: AdvertisementData(advertisementData))
+        
+        if scanResult.advertisementData.isConnectable == true {
+            devicePublisher.send(scanResult)            
+        }
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {

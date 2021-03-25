@@ -37,9 +37,9 @@ struct DataAcquisitionView: View {
                 
                 Section(header: Text("Target").bold()) {
                     Picker("Device", selection: $viewState.selectedDevice) {
-                        if appData.devices.count > 0 {
-                            ForEach(appData.devices, id: \.self) { device in
-                                Text(device.name).tag(device)
+                        if appData.scanResults.count > 0 {
+                            ForEach(appData.scanResults, id: \.self) { device in
+                                Text(device.id.uuidString).tag(device)
                             }
                         } else {
                             Text("--").tag(Constant.unselectedDevice)
@@ -108,7 +108,7 @@ struct DataAcquisitionView: View {
             if let project = appData.projects.first {
                 viewState.selectedProject = project
             }
-            if let device = appData.devices.first {
+            if let device = appData.scanResults.first {
                 viewState.selectedDevice = device
             }
         }
@@ -133,7 +133,7 @@ struct DataAcquisitionView_Previews: PreviewProvider {
         let appData = AppData()
         appData.dashboardViewState = .showingUser(Preview.previewUser, [])
         appData.projects = []
-        appData.devices = []
+        appData.scanResults = []
         return appData
     }()
     

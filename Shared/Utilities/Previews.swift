@@ -23,7 +23,7 @@ struct Preview {
     static let noDevicesAppData: AppData = {
         let appData = AppData()
         appData.dashboardViewState = .showingUser(previewUser, [Preview.previewProjects[0]])
-        appData.devices = []
+        appData.scanResults = []
         return appData
     }()
     
@@ -39,10 +39,10 @@ struct Preview {
             appData.user = nil
             appData.projects = []
         }
-        appData.devices = [
-            Device(name: "Device 1", id: UUID(), rssi: .good),
-            Device(name: "Device 2", id: UUID(), rssi: .bad),
-            Device(name: "Device 3", id: UUID(), rssi: .ok)
+        appData.scanResults = [
+            ScanResult(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock),
+            ScanResult(name: "Device 2", id: UUID(), rssi: .bad, advertisementData: .mock),
+            ScanResult(name: "Device 3", id: UUID(), rssi: .ok, advertisementData: .mock)
         ]
         return appData
     }
