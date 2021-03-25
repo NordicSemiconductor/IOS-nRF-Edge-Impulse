@@ -16,7 +16,7 @@ struct ProjectRow: View {
         HStack(alignment: .top) {
             Image("EdgeImpulse")
                 .resizable()
-                .frame(width: 50, height: 50)
+                .frame(width: 40, height: 40)
                 .background(Assets.lightGrey.color)
                 .cornerRadius(12)
             VStack(alignment: .leading) {
@@ -33,7 +33,7 @@ struct ProjectRow: View {
                     .lineLimit(1)
             }
         }
-        .padding(16)
+        .padding(.vertical)
     }
 }
 

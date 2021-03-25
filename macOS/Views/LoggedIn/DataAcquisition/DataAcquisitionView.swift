@@ -131,7 +131,7 @@ struct DataAcquisitionView_Previews: PreviewProvider {
     
     static let noProjectsAppData: AppData = {
         let appData = AppData()
-        appData.projectsViewState = .showingProjects([])
+        appData.dashboardViewState = .showingUser(Preview.previewUser, [])
         appData.projects = []
         appData.scanResults = []
         return appData
@@ -142,7 +142,7 @@ struct DataAcquisitionView_Previews: PreviewProvider {
             DataAcquisitionView()
                 .environmentObject(Self.noProjectsAppData)
             DataAcquisitionView()
-                .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+                .environmentObject(Preview.projectsPreviewAppData)
         }
     }
 }

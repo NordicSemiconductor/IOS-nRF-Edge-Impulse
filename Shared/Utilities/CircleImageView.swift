@@ -17,11 +17,10 @@ struct CircleImage: View {
     var body: some View {
         image
             .resizable()
-            .frame(width: size.width, height: size.height, alignment: .leading)
-
+            .frame(width: size.width, height: size.height)
             .clipShape(Circle())
-            .overlay(Circle().stroke(Color.white, lineWidth: 5))
-            .shadow(radius: 7)
+            .overlay(Circle().stroke(Color.white, lineWidth: 2))
+            .shadow(radius: 2)
             .padding()
     }
 }

@@ -19,21 +19,29 @@ struct DashboardView: View {
     // MARK: - @viewBuilder
     
     var body: some View {
-        VStack {
-            if let user = appData.user {
-                UserView(user: user)
-                
-                ProjectList()
-            } else {
-                Text("No User")
-            }
+        ZStack {
+            appData.dashboardViewState.view(onRetry: requestUser)
+                .frame(minWidth: 295)
         }
         .frame(minWidth: 295)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button(action: logoutUser, label: {
+                    Image(systemName: "person.fill.xmark")
+                })
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: requestUser, label: {
+                    Image(systemName: "arrow.clockwise")
+                })
+            }
+        }
         .onAppear() {
+            guard !Constant.isRunningInPreviewMode else { return }
             requestUser()
         }
         .onDisappear() {
-            cancelUserRequest()
+            cancelAllRequests()
         }
     }
 }
@@ -44,30 +52,39 @@ extension DashboardView {
     
     func requestUser() {
         guard let token = appData.apiToken else { return }
+        appData.dashboardViewState = .loading
         let request = APIRequest.getUser(using: token)
         userCancellable = Network.shared.perform(request, responseType: GetUserResponse.self)?
             .onUnauthorisedUserError {
-                appData.logout()
+                logoutUser()
             }
             .sink(receiveCompletion: { completion in
                 guard !Constant.isRunningInPreviewMode else { return }
                 switch completion {
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    appData.projects = []
+                    appData.dashboardViewState = .error(error)
                 default:
                     break
                 }
             },
             receiveValue: { projectsResponse in
-                guard let user = projectsResponse.user() else {
+                guard let user = User(response: projectsResponse) else {
+                    // TODO.
                     print("Failed")
                     return
                 }
                 appData.user = user
+                appData.projects = projectsResponse.projects
+                appData.dashboardViewState = .showingUser(user, projectsResponse.projects)
             })
     }
     
-    func cancelUserRequest() {
+    func logoutUser() {
+        appData.logout()
+    }
+    
+    func cancelAllRequests() {
         userCancellable?.cancel()
     }
 }
@@ -87,9 +104,13 @@ struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             DashboardView()
-                .environmentObject(DashboardView_Previews.loggedInWithoutUser)
+                .environmentObject(Preview.previewAppData(.loading))
             DashboardView()
-                .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+                .environmentObject(Preview.projectsPreviewAppData)
+            DashboardView()
+                .environmentObject(Preview.previewAppData(.empty))
+            DashboardView()
+                .environmentObject(Preview.previewAppData(.error(NordicError(description: "There was en error"))))
         }
     }
 }

@@ -23,7 +23,7 @@ struct DeploymentView: View {
                 if appData.scanResults.count > 0 {
                     Picker("Selected", selection: $viewState.selectedDevice) {
                         ForEach(appData.scanResults, id: \.self) { device in
-                            Text(device.id.uuidString).tag(device)
+                            Text(device.name).tag(device)
                         }
                     }
                     .setAsComboBoxStyle()
@@ -95,7 +95,7 @@ struct DeploymentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             DeploymentView()
-                .environmentObject(ProjectList_Previews.noDevicesAppData)
+                .environmentObject(Preview.noDevicesAppData)
         }
         .setBackgroundColor(.blue)
     }

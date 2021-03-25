@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - RSSI
+
 enum RSSI: Int {
     case outOfRange = 127
     case practicalWorst = -100
@@ -23,14 +25,12 @@ enum RSSI: Int {
         }
     }
 }
+
+// MARK: - Device
     
-struct ScanResult: Identifiable, Hashable {
+struct ScanResult: Identifiable {
     static func == (lhs: ScanResult, rhs: ScanResult) -> Bool {
         lhs.id == rhs.id
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
     }
     
     let name: String
@@ -39,6 +39,16 @@ struct ScanResult: Identifiable, Hashable {
     let advertisementData: AdvertisementData
 }
 
+// MARK: - DeviceScanResult
+extension ScanResult: Hashable {
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
+// MARK: - Sample
+
 extension ScanResult {
-    static let sample = ScanResult(name: "Test Device", id: UUID(), rssi: .outOfRange, advertisementData: AdvertisementData())
+    static let sample = ScanResult(name: "Test Device", id: UUID(), rssi: .outOfRange, advertisementData: .mock)
 }

@@ -46,7 +46,7 @@ struct DataAcquisitionView: View {
                 if appData.scanResults.count > 0 {
                     Picker("Selected", selection: $viewState.selectedDevice) {
                         ForEach(appData.scanResults, id: \.self) { device in
-                            Text(device.id.uuidString).tag(device)
+                            Text(device.name).tag(device)
                         }
                     }
                     .setAsComboBoxStyle()
@@ -121,12 +121,12 @@ struct DataAcquisitionView_Previews: PreviewProvider {
         Group {
             NavigationView {
                 DataAcquisitionView()
-                    .environmentObject(ProjectList_Previews.noDevicesAppData)
+                    .environmentObject(Preview.noDevicesAppData)
             }
             
             NavigationView {
                 DataAcquisitionView()
-                    .environmentObject(ProjectList_Previews.projectsPreviewAppData)
+                    .environmentObject(Preview.projectsPreviewAppData)
             }
             .setBackgroundColor(.blue)
         }
