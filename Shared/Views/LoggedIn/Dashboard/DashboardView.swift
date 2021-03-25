@@ -23,17 +23,29 @@ struct DashboardView: View {
             if let user = appData.user {
                 UserView(user: user)
                 
-                ProjectList()
+                ProjectList(onRetryButton:  requestUser)
             } else {
                 Text("No User")
             }
         }
         .frame(minWidth: 295)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button(action: logoutUser, label: {
+                    Image(systemName: "person.fill.xmark")
+                })
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: requestUser, label: {
+                    Image(systemName: "arrow.clockwise")
+                })
+            }
+        }
         .onAppear() {
             requestUser()
         }
         .onDisappear() {
-            cancelUserRequest()
+            cancelAllRequests()
         }
     }
 }
@@ -44,30 +56,39 @@ extension DashboardView {
     
     func requestUser() {
         guard let token = appData.apiToken else { return }
+        appData.projectsViewState = .loading
         let request = APIRequest.getUser(using: token)
         userCancellable = Network.shared.perform(request, responseType: GetUserResponse.self)?
             .onUnauthorisedUserError {
-                appData.logout()
+                logoutUser()
             }
             .sink(receiveCompletion: { completion in
                 guard !Constant.isRunningInPreviewMode else { return }
                 switch completion {
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    appData.projects = []
+                    appData.projectsViewState = .error(error)
                 default:
                     break
                 }
             },
             receiveValue: { projectsResponse in
                 guard let user = User(response: projectsResponse) else {
+                    // TODO.
                     print("Failed")
                     return
                 }
                 appData.user = user
+                appData.projects = projectsResponse.projects
+                appData.projectsViewState = .showingProjects(projectsResponse.projects)
             })
     }
     
-    func cancelUserRequest() {
+    func logoutUser() {
+        appData.logout()
+    }
+    
+    func cancelAllRequests() {
         userCancellable?.cancel()
     }
 }
