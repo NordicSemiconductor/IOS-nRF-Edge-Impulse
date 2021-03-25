@@ -27,7 +27,8 @@ enum RSSI: Int {
 }
 
 // MARK: - Device
-    
+
+/// `ScanResult` represents discovered device by Scanner
 struct ScanResult: Identifiable {
     static func == (lhs: ScanResult, rhs: ScanResult) -> Bool {
         lhs.id == rhs.id

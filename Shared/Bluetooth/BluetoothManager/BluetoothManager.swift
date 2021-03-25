@@ -8,6 +8,8 @@
 import Foundation
 import CoreBluetooth
 
+/// `BluetoothManager` is responsible for connection and managing peripheral connection
+/// Each `BluetoothManager` can handle only one peripheral
 final class BluetoothManager: NSObject {
     let peripheral: CBPeripheral
     
