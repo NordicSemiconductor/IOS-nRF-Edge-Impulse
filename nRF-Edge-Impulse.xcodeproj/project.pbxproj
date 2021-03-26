@@ -289,7 +289,6 @@
 				AA02088125F6515900FD6B24 /* Bluetooth */,
 				AAFED86925E7DE8D00BB7445 /* Network */,
 				AAFED87D25E7FFF000BB7445 /* Utilities */,
-				AA03E95925E3EF12003DA9DA /* nRF_Edge_ImpulseApp.swift */,
 				AAFED86625E7DE6900BB7445 /* Supporting Files */,
 			);
 			path = Shared;
@@ -416,6 +415,7 @@
 				AAFED87525E7F7E800BB7445 /* LoggedOut */,
 				AA0208A725F65E9500FD6B24 /* LoggedIn */,
 				AA03E95A25E3EF12003DA9DA /* ContentView.swift */,
+				AA03E95925E3EF12003DA9DA /* nRF_Edge_ImpulseApp.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -692,7 +692,6 @@
 				AA02088325F6516D00FD6B24 /* Scanner.swift in Sources */,
 				AA02086F25F648C200FD6B24 /* View.swift in Sources */,
 				C3846EE5260B4386005AEF67 /* BluetoothManager.swift in Sources */,
-				AAFAE5F225ED1A3A00A45A90 /* ProjectList.swift in Sources */,
 				AA386B09260CEDD60079F12D /* Previews.swift in Sources */,
 				AAFFEB3325FF7A06002287D6 /* ButtonStyles.swift in Sources */,
 				AA1016FC25E9173A006DC88A /* Network.swift in Sources */,

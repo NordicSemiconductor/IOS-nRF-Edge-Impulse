@@ -8,15 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var appData = AppData()
+    
+    @EnvironmentObject var appData: AppData
     
     var body: some View {
         if appData.isLoggedIn {
             LoggedInRootView()
-                .environmentObject(appData)
         } else {
             NativeLoginView()
-                .environmentObject(appData)
         }
     }
 }
