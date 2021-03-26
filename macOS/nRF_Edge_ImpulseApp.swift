@@ -1,9 +1,11 @@
 //
 //  nRF_Edge_ImpulseApp.swift
-//  Shared
+//  nRF-Edge-Impulse (macOS)
 //
-//  Created by Dinesh Harjani on 22/02/2021.
+//  Created by Dinesh Harjani on 26/3/21.
 //
+
+import Foundation
 
 import SwiftUI
 
