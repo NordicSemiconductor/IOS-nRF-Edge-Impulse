@@ -22,7 +22,6 @@
 		AA02088E25F651D100FD6B24 /* ScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02088D25F651D100FD6B24 /* ScanResult.swift */; };
 		AA02088F25F651D100FD6B24 /* ScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02088D25F651D100FD6B24 /* ScanResult.swift */; };
 		AA02089625F65A3700FD6B24 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02089525F65A3700FD6B24 /* DeviceList.swift */; };
-		AA02089725F65A3700FD6B24 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02089525F65A3700FD6B24 /* DeviceList.swift */; };
 		AA0208A125F65C7600FD6B24 /* LoggedInRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */; };
 		AA0208A225F65C7600FD6B24 /* LoggedInRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */; };
 		AA0208A925F65EB400FD6B24 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A825F65EB400FD6B24 /* Tabs.swift */; };
@@ -58,6 +57,7 @@
 		AA80989A25EE959B00091AC0 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA80989925EE959B00091AC0 /* Publishers.swift */; };
 		AA80989B25EE959B00091AC0 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA80989925EE959B00091AC0 /* Publishers.swift */; };
 		AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */; };
+		AAC1634E260E17670081271A /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1634C260E17670081271A /* DeviceList.swift */; };
 		AACCBA882600C32C0042E87B /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCBA872600C32C0042E87B /* ErrorView.swift */; };
 		AACCBA892600C32C0042E87B /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCBA872600C32C0042E87B /* ErrorView.swift */; };
 		AAE5B63525F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
@@ -158,6 +158,7 @@
 		AA80988325EE518F00091AC0 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		AA80989925EE959B00091AC0 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
 		AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionViewState.swift; sourceTree = "<group>"; };
+		AAC1634C260E17670081271A /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
 		AACCBA862600BF370042E87B /* nRF-Edge-Impulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "nRF-Edge-Impulse.entitlements"; sourceTree = "<group>"; };
 		AACCBA872600C32C0042E87B /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		AAE5B63425F23A4500AA003D /* sample_projects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_projects.json; sourceTree = "<group>"; };
@@ -361,6 +362,7 @@
 		AA263F03260385530018CF5B /* LoggedIn */ = {
 			isa = PBXGroup;
 			children = (
+				AAC1634B260E175C0081271A /* Devices */,
 				AA263F04260385590018CF5B /* DataAcquisition */,
 			);
 			path = LoggedIn;
@@ -379,6 +381,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AAC1634B260E175C0081271A /* Devices */ = {
+			isa = PBXGroup;
+			children = (
+				AAC1634C260E17670081271A /* DeviceList.swift */,
+			);
+			path = Devices;
 			sourceTree = "<group>";
 		};
 		AAF5054525F11E15003AFED7 /* Data */ = {
@@ -750,7 +760,6 @@
 				C37DD4B1260CAA1500D667EA /* HeaderDeviceDetails.swift in Sources */,
 				C37DD49A260C89D800D667EA /* AdvertisementData.swift in Sources */,
 				AAF0C976260A1482001B76B9 /* CircleImageView.swift in Sources */,
-				AA02089725F65A3700FD6B24 /* DeviceList.swift in Sources */,
 				AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA7F5DE425F8F6C900185328 /* LoginRequest.swift in Sources */,
 				AA43B2A925FA58B500C5B5EE /* TabBarLayoutView.swift in Sources */,
@@ -770,6 +779,7 @@
 				AA02088425F6516D00FD6B24 /* Scanner.swift in Sources */,
 				AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
+				AAC1634E260E17670081271A /* DeviceList.swift in Sources */,
 				AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				C37DD4AA260C991900D667EA /* DeviceDetails.swift in Sources */,

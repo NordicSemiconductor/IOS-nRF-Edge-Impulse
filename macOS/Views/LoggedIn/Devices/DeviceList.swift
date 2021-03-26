@@ -2,13 +2,14 @@
 //  DeviceList.swift
 //  nRF-Edge-Impulse
 //
-//  Created by Dinesh Harjani on 8/3/21.
+//  Created by Dinesh Harjani on 26/3/21.
 //
 
 import SwiftUI
 import Combine
 
 struct DeviceList: View {
+    
     @EnvironmentObject var appData: AppData
     
     @StateObject var scanner = Scanner()
@@ -17,9 +18,7 @@ struct DeviceList: View {
     var body: some View {
         List {
             ForEach(appData.scanResults) { device in
-                NavigationLink(destination: DeviceDetails(scanResult: device)) {
-                    DeviceRow(device: device)
-                }
+                DeviceRow(device: device)
             }
         }
         .toolbar {
@@ -53,22 +52,9 @@ struct DeviceList_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            NavigationView {
-                DeviceList()
-                    .setTitle("Devices")
-                    .environmentObject(Preview.projectsPreviewAppData)
-                    .previewDevice("iPhone 12 mini")
-            }
-            .setBackgroundColor(Assets.blue)
-            
-            NavigationView {
-                DeviceList()
-                    .setTitle("Devices")
-                    .preferredColorScheme(.dark)
-                    .environmentObject(Preview.projectsPreviewAppData)
-                    .previewDevice("iPad Pro (12.9-inch) (4th generation)")
-            }
-            .setBackgroundColor(Assets.blue)
+            DeviceList()
+                .preferredColorScheme(.dark)
+                .environmentObject(Preview.projectsPreviewAppData)
         }
     }
 }
