@@ -7,15 +7,15 @@
 
 import Foundation
 
-extension HTTPEndpoint {
+// MARK: - Request
+
+extension HTTPRequest {
     
-    static func getUser(using apiToken: String) -> URLRequest? {
-        guard let endpoint = HTTPEndpoint(host: .EdgeImpulse, path: "/v1/api/user") else { return nil }
-        
-        var urlRequest = URLRequest(url: endpoint.url)
+    static func getUser(using apiToken: String) -> HTTPRequest? {
+        guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/user") else { return nil }
         let jwtValue = "jwt=" + apiToken
-        urlRequest.setMethod(.GET(headers: ["cookie": jwtValue]))
-        return urlRequest
+        httpRequest.setMethod(.GET(headers: ["cookie": jwtValue]))
+        return httpRequest
     }
 }
 

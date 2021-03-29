@@ -101,11 +101,11 @@ struct NativeLoginView: View {
     
     func attemptLogin() {
         let parameters = LoginParameters(username: username, password: password)
-        guard let urlRequest = HTTPEndpoint.login(parameters) else {
+        guard let httpRequest = HTTPRequest.login(parameters) else {
             // Show error.
             return
         }
-        loginCancellable = Network.shared.perform(urlRequest, responseType: LoginResponse.self)?
+        loginCancellable = Network.shared.perform(httpRequest, responseType: LoginResponse.self)?
             .sink(receiveCompletion: { _ in }, receiveValue: { loginResponse in
                 guard loginResponse.success else {
                     errorMessage = loginResponse.error ?? ""

@@ -7,15 +7,14 @@
 
 import Foundation
 
-// MARK: - Endpoint
+// MARK: - Request
 
-extension HTTPEndpoint {
+extension HTTPRequest {
     
-    static func getResource(_ resource: Resources) -> URLRequest? {
-        guard let endpoint = HTTPEndpoint(host: .GitHubUserContent, path: resource.path) else { return nil }
-        var urlRequest = URLRequest(url: endpoint.url)
-        urlRequest.setMethod(.GET(headers: [:]))
-        return urlRequest
+    static func getResource(_ resource: Resources) -> HTTPRequest? {
+        guard var httpRequest = HTTPRequest(host: .GitHubUserContent, path: resource.path) else { return nil }
+        httpRequest.setMethod(.GET(headers: [:]))
+        return httpRequest
     }
 }
 

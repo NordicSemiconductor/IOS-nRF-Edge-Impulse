@@ -53,7 +53,7 @@ final class AppData: ObservableObject {
     }
     
     func updateResources() {
-        guard let request = HTTPEndpoint.getResource(.serviceUUIDs) else { return }
+        guard let request = HTTPRequest.getResource(.serviceUUIDs) else { return }
         Network.shared.perform(request, responseType: [UUIDMapping].self)?
             .sink(receiveCompletion: { [unowned self] completion in
                 switch completion {

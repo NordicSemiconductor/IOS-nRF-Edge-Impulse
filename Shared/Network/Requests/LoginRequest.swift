@@ -10,16 +10,15 @@ import Combine
 
 // MARK: - LoginRequest
 
-extension HTTPEndpoint {
+extension HTTPRequest {
     
-    static func login(_ parameters: LoginParameters) -> URLRequest? {
-        guard let endpoint = HTTPEndpoint(host: .EdgeImpulse, path: "/v1/api-login"),
+    static func login(_ parameters: LoginParameters) -> HTTPRequest? {
+        guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api-login"),
               let bodyData = try? JSONEncoder().encode(parameters),
               let bodyString = String(data: bodyData, encoding: .utf8) else { return nil }
         
-        var urlRequest = URLRequest(url: endpoint.url)
-        urlRequest.setMethod(.POST(body: bodyString))
-        return urlRequest
+        httpRequest.setMethod(.POST(body: bodyString))
+        return httpRequest
     }
 }
 
