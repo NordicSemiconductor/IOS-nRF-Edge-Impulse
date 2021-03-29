@@ -7,20 +7,11 @@
 
 import Foundation
 import KeychainSwift
+import Combine
 
 final class AppData: ObservableObject {
     
-    // MARK: - Private Properties
-    
-    private lazy var keychain = KeychainSwift()
-    
-    // MARK: - Init
-    
-    init() {
-        self.apiToken = keychain.get(KeychainKeys.apiToken.rawValue)
-    }
-    
-    // MARK: - Publishers
+    // MARK: - Public Properties
     
     @Published var apiToken: String? {
         didSet {
@@ -39,6 +30,18 @@ final class AppData: ObservableObject {
     @Published var scanResults: [ScanResult] = []
     
     @Published var selectedTab: Tabs? = .Dashboard
+    @Published var serviceUUIDs: [UUID: UUIDMapping] = [:]
+    
+    // MARK: - Private Properties
+    
+    private lazy var keychain = KeychainSwift()
+    private var cancellables = Set<AnyCancellable>()
+    
+    // MARK: - Init
+    
+    init() {
+        self.apiToken = keychain.get(KeychainKeys.apiToken.rawValue)
+    }
     
     // MARK: - API
     
@@ -47,6 +50,25 @@ final class AppData: ObservableObject {
     func logout() {
         apiToken = nil
         user = nil
+    }
+    
+    func updateResources() {
+        guard let request = HTTPEndpoint.getResource(.serviceUUIDs) else { return }
+        Network.shared.perform(request, responseType: [UUIDMapping].self)?
+            .sink(receiveCompletion: { [unowned self] completion in
+                switch completion {
+                case .failure(_):
+                    self.serviceUUIDs = [:]
+                default:
+                    break
+                }
+            }, receiveValue: {
+                self.serviceUUIDs = [:]
+                $0.forEach {
+                    guard let uuid = UUID(uuidString: $0.id) else { return }
+                    self.serviceUUIDs[uuid] = $0
+                }
+            }).store(in: &cancellables)
     }
 }
 

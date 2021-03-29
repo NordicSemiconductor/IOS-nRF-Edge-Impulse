@@ -28,11 +28,14 @@ struct HTTPEndpoint {
 enum HTTPHost: String, RawRepresentable {
     
     case EdgeImpulse
+    case GitHubUserContent
     
     var rawValue: String {
         switch self {
         case .EdgeImpulse:
             return "studio.edgeimpulse.com"
+        case .GitHubUserContent:
+            return "raw.githubusercontent.com"
         }
     }
 }

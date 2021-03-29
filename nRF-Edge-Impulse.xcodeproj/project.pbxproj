@@ -56,8 +56,14 @@
 		AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA80988325EE518F00091AC0 /* ProjectRow.swift */; };
 		AA80989A25EE959B00091AC0 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA80989925EE959B00091AC0 /* Publishers.swift */; };
 		AA80989B25EE959B00091AC0 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA80989925EE959B00091AC0 /* Publishers.swift */; };
+		AA92BEEE2611F80800BED04B /* UUIDMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92BEED2611F80800BED04B /* UUIDMapping.swift */; };
+		AA92BEEF2611F80800BED04B /* UUIDMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92BEED2611F80800BED04B /* UUIDMapping.swift */; };
+		AA92BEF12611F9E400BED04B /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92BEF02611F9E400BED04B /* Resources.swift */; };
+		AA92BEF22611F9E400BED04B /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92BEF02611F9E400BED04B /* Resources.swift */; };
 		AA92BEF72611FD4500BED04B /* HTTPEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92BEF62611FD4500BED04B /* HTTPEndpoint.swift */; };
 		AA92BEF82611FD4500BED04B /* HTTPEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92BEF62611FD4500BED04B /* HTTPEndpoint.swift */; };
+		AA92BEFA2612064E00BED04B /* UUIDMappingsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92BEF92612064E00BED04B /* UUIDMappingsRequest.swift */; };
+		AA92BEFB2612064E00BED04B /* UUIDMappingsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92BEF92612064E00BED04B /* UUIDMappingsRequest.swift */; };
 		AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */; };
 		AAC1634E260E17670081271A /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1634C260E17670081271A /* DeviceList.swift */; };
 		AACCBA882600C32C0042E87B /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCBA872600C32C0042E87B /* ErrorView.swift */; };
@@ -160,7 +166,10 @@
 		AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarLayoutView.swift; sourceTree = "<group>"; };
 		AA80988325EE518F00091AC0 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		AA80989925EE959B00091AC0 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
+		AA92BEED2611F80800BED04B /* UUIDMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDMapping.swift; sourceTree = "<group>"; };
+		AA92BEF02611F9E400BED04B /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		AA92BEF62611FD4500BED04B /* HTTPEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPEndpoint.swift; sourceTree = "<group>"; };
+		AA92BEF92612064E00BED04B /* UUIDMappingsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDMappingsRequest.swift; sourceTree = "<group>"; };
 		AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionViewState.swift; sourceTree = "<group>"; };
 		AAC1634C260E17670081271A /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
 		AACCBA862600BF370042E87B /* nRF-Edge-Impulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "nRF-Edge-Impulse.entitlements"; sourceTree = "<group>"; };
@@ -388,6 +397,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AA92BEEC2611F7EC00BED04B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AA92BEF02611F9E400BED04B /* Resources.swift */,
+				AA92BEED2611F80800BED04B /* UUIDMapping.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		AAC1634B260E175C0081271A /* Devices */ = {
 			isa = PBXGroup;
 			children = (
@@ -412,6 +430,7 @@
 				AA10170225E91885006DC88A /* URLRequest.swift */,
 				AAFCBE8125E90734001C52B0 /* LoginRequest.swift */,
 				AAF0C9682609FEBE001B76B9 /* GetCurrentUserRequest.swift */,
+				AA92BEF92612064E00BED04B /* UUIDMappingsRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -439,6 +458,7 @@
 		AAFED86825E7DE8400BB7445 /* State */ = {
 			isa = PBXGroup;
 			children = (
+				AA92BEEC2611F7EC00BED04B /* Resources */,
 				AAFAE5EA25ED14E500A45A90 /* AppData.swift */,
 				AAF0C96E260A069F001B76B9 /* User.swift */,
 				AA008A7625EE422C00F70F75 /* Project.swift */,
@@ -732,13 +752,16 @@
 				AA008A7725EE422C00F70F75 /* Project.swift in Sources */,
 				AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */,
 				AA02089625F65A3700FD6B24 /* DeviceList.swift in Sources */,
+				AA92BEFA2612064E00BED04B /* UUIDMappingsRequest.swift in Sources */,
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AA01F3DF25EFDC5000368707 /* Constant.swift in Sources */,
+				AA92BEF12611F9E400BED04B /* Resources.swift in Sources */,
 				AAF936AB260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
 				AA92BEF72611FD4500BED04B /* HTTPEndpoint.swift in Sources */,
 				AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */,
 				C37DD4A9260C991900D667EA /* DeviceDetails.swift in Sources */,
 				AAF0C96F260A069F001B76B9 /* User.swift in Sources */,
+				AA92BEEE2611F80800BED04B /* UUIDMapping.swift in Sources */,
 				AAF0C9692609FEBE001B76B9 /* GetCurrentUserRequest.swift in Sources */,
 				AAFAE5EB25ED14E500A45A90 /* AppData.swift in Sources */,
 				C3A3665B260414BC008D82CC /* DeviceRow.swift in Sources */,
@@ -784,13 +807,16 @@
 				AA02086925F641D900FD6B24 /* Sample.swift in Sources */,
 				AA32792D2604C66B00A0CA6A /* DataAcquisitionViewState.swift in Sources */,
 				AA02088425F6516D00FD6B24 /* Scanner.swift in Sources */,
+				AA92BEFB2612064E00BED04B /* UUIDMappingsRequest.swift in Sources */,
 				AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
+				AA92BEF22611F9E400BED04B /* Resources.swift in Sources */,
 				AAC1634E260E17670081271A /* DeviceList.swift in Sources */,
 				AA92BEF82611FD4500BED04B /* HTTPEndpoint.swift in Sources */,
 				AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				C37DD4AA260C991900D667EA /* DeviceDetails.swift in Sources */,
+				AA92BEEF2611F80800BED04B /* UUIDMapping.swift in Sources */,
 				AAF0C970260A069F001B76B9 /* User.swift in Sources */,
 				AAF0C96A2609FEBE001B76B9 /* GetCurrentUserRequest.swift in Sources */,
 				C3A3665A260414BC008D82CC /* DeviceRow.swift in Sources */,
