@@ -11,15 +11,16 @@ import Foundation
 
 struct HTTPEndpoint {
     
-    let host: HTTPHost
-    let path: String
+    let url: URL
     
-    func url() -> URL? {
+    init?(host: HTTPHost, path: String) {
         var components = URLComponents()
         components.scheme = "https"
         components.host = host.rawValue
         components.path = path
-        return components.url
+        
+        guard let url = components.url else { return nil }
+        self.url = url
     }
 }
 

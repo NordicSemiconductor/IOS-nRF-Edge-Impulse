@@ -10,10 +10,9 @@ import Foundation
 extension HTTPEndpoint {
     
     static func getUser(using apiToken: String) -> URLRequest? {
-        let endpoint = HTTPEndpoint(host: .EdgeImpulse, path: "/v1/api/user")
-        guard let url = endpoint.url() else { return nil }
+        guard let endpoint = HTTPEndpoint(host: .EdgeImpulse, path: "/v1/api/user") else { return nil }
         
-        var urlRequest = URLRequest(url: url)
+        var urlRequest = URLRequest(url: endpoint.url)
         let jwtValue = "jwt=" + apiToken
         urlRequest.setMethod(.GET(headers: ["cookie": jwtValue]))
         return urlRequest

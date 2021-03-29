@@ -12,9 +12,8 @@ import Foundation
 extension HTTPEndpoint {
     
     static func getResource(_ resource: Resources) -> URLRequest? {
-        let endpoint = HTTPEndpoint(host: .GitHubUserContent, path: resource.path)
-        guard let url = endpoint.url() else { return nil }
-        var urlRequest = URLRequest(url: url)
+        guard let endpoint = HTTPEndpoint(host: .GitHubUserContent, path: resource.path) else { return nil }
+        var urlRequest = URLRequest(url: endpoint.url)
         urlRequest.setMethod(.GET(headers: [:]))
         return urlRequest
     }

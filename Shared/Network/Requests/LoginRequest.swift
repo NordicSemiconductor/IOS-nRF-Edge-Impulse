@@ -13,12 +13,11 @@ import Combine
 extension HTTPEndpoint {
     
     static func login(_ parameters: LoginParameters) -> URLRequest? {
-        let endpoint = HTTPEndpoint(host: .EdgeImpulse, path: "/v1/api-login")
-        guard let url = endpoint.url(),
+        guard let endpoint = HTTPEndpoint(host: .EdgeImpulse, path: "/v1/api-login"),
               let bodyData = try? JSONEncoder().encode(parameters),
               let bodyString = String(data: bodyData, encoding: .utf8) else { return nil }
         
-        var urlRequest = URLRequest(url: url)
+        var urlRequest = URLRequest(url: endpoint.url)
         urlRequest.setMethod(.POST(body: bodyString))
         return urlRequest
     }
