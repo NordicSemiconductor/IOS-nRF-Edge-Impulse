@@ -27,9 +27,8 @@ final class Network {
 
 extension Network {
     
-    public func perform<T: Codable>(_ request: APIRequest, responseType: T.Type = T.self) -> AnyPublisher<T, Error>? {
-        guard let url = request.url() else { return nil }
-        return session.dataTaskPublisher(for: request.urlRequest(url))
+    public func perform<T: Codable>(_ request: URLRequest, responseType: T.Type = T.self) -> AnyPublisher<T, Error>? {
+        return session.dataTaskPublisher(for: request)
             .tryMap() { element -> Data in
                 guard let httpResponse = element.response as? HTTPURLResponse else {
                     throw URLError(.badServerResponse)

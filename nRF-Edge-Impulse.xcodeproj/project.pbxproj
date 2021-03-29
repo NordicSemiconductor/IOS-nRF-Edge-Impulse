@@ -40,8 +40,8 @@
 		AA0D90AE260E1F1100A455B7 /* nRF_Edge_ImpulseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D90AD260E1F1100A455B7 /* nRF_Edge_ImpulseApp.swift */; };
 		AA1016FC25E9173A006DC88A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1016FB25E9173A006DC88A /* Network.swift */; };
 		AA1016FD25E9173A006DC88A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1016FB25E9173A006DC88A /* Network.swift */; };
-		AA10170325E91885006DC88A /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* APIRequest.swift */; };
-		AA10170425E91885006DC88A /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* APIRequest.swift */; };
+		AA10170325E91885006DC88A /* URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* URLRequest.swift */; };
+		AA10170425E91885006DC88A /* URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* URLRequest.swift */; };
 		AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA32792D2604C66B00A0CA6A /* DataAcquisitionViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */; };
@@ -56,6 +56,8 @@
 		AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA80988325EE518F00091AC0 /* ProjectRow.swift */; };
 		AA80989A25EE959B00091AC0 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA80989925EE959B00091AC0 /* Publishers.swift */; };
 		AA80989B25EE959B00091AC0 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA80989925EE959B00091AC0 /* Publishers.swift */; };
+		AA92BEF72611FD4500BED04B /* HTTPEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92BEF62611FD4500BED04B /* HTTPEndpoint.swift */; };
+		AA92BEF82611FD4500BED04B /* HTTPEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92BEF62611FD4500BED04B /* HTTPEndpoint.swift */; };
 		AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */; };
 		AAC1634E260E17670081271A /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC1634C260E17670081271A /* DeviceList.swift */; };
 		AACCBA882600C32C0042E87B /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCBA872600C32C0042E87B /* ErrorView.swift */; };
@@ -151,13 +153,14 @@
 		AA0D812B2608F62700AE615A /* DeploymentViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentViewState.swift; sourceTree = "<group>"; };
 		AA0D90AD260E1F1100A455B7 /* nRF_Edge_ImpulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF_Edge_ImpulseApp.swift; sourceTree = "<group>"; };
 		AA1016FB25E9173A006DC88A /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		AA10170225E91885006DC88A /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		AA10170225E91885006DC88A /* URLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequest.swift; sourceTree = "<group>"; };
 		AA1F07A325F7989400CC41A9 /* BluetoothError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothError.swift; sourceTree = "<group>"; };
 		AA263F05260385690018CF5B /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
 		AA386B08260CEDD60079F12D /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
 		AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarLayoutView.swift; sourceTree = "<group>"; };
 		AA80988325EE518F00091AC0 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		AA80989925EE959B00091AC0 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
+		AA92BEF62611FD4500BED04B /* HTTPEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPEndpoint.swift; sourceTree = "<group>"; };
 		AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionViewState.swift; sourceTree = "<group>"; };
 		AAC1634C260E17670081271A /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
 		AACCBA862600BF370042E87B /* nRF-Edge-Impulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "nRF-Edge-Impulse.entitlements"; sourceTree = "<group>"; };
@@ -405,7 +408,8 @@
 		AAFCBE8025E90720001C52B0 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
-				AA10170225E91885006DC88A /* APIRequest.swift */,
+				AA92BEF62611FD4500BED04B /* HTTPEndpoint.swift */,
+				AA10170225E91885006DC88A /* URLRequest.swift */,
 				AAFCBE8125E90734001C52B0 /* LoginRequest.swift */,
 				AAF0C9682609FEBE001B76B9 /* GetCurrentUserRequest.swift */,
 			);
@@ -695,7 +699,7 @@
 			files = (
 				AAF5054725F11E45003AFED7 /* DataAcquisitionView.swift in Sources */,
 				AAFFEB3925FF9554002287D6 /* NordicError.swift in Sources */,
-				AA10170325E91885006DC88A /* APIRequest.swift in Sources */,
+				AA10170325E91885006DC88A /* URLRequest.swift in Sources */,
 				C33C10C12609791E0097EA5A /* SignalParameters.swift in Sources */,
 				AAFFEB3625FF8EAA002287D6 /* DashboardView+ViewState.swift in Sources */,
 				AA03E98425E3EF13003DA9DA /* ContentView.swift in Sources */,
@@ -731,6 +735,7 @@
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AA01F3DF25EFDC5000368707 /* Constant.swift in Sources */,
 				AAF936AB260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
+				AA92BEF72611FD4500BED04B /* HTTPEndpoint.swift in Sources */,
 				AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */,
 				C37DD4A9260C991900D667EA /* DeviceDetails.swift in Sources */,
 				AAF0C96F260A069F001B76B9 /* User.swift in Sources */,
@@ -769,7 +774,7 @@
 				AA0D812D2608F62700AE615A /* DeploymentViewState.swift in Sources */,
 				AAF0C96D260A0210001B76B9 /* DashboardView.swift in Sources */,
 				AAF0C973260A121B001B76B9 /* UserView.swift in Sources */,
-				AA10170425E91885006DC88A /* APIRequest.swift in Sources */,
+				AA10170425E91885006DC88A /* URLRequest.swift in Sources */,
 				AA01F3E025EFDC5000368707 /* Constant.swift in Sources */,
 				AAFFEB3125FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
 				C33C10C42609791E0097EA5A /* SignalLevel.swift in Sources */,
@@ -782,6 +787,7 @@
 				AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
 				AAC1634E260E17670081271A /* DeviceList.swift in Sources */,
+				AA92BEF82611FD4500BED04B /* HTTPEndpoint.swift in Sources */,
 				AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				C37DD4AA260C991900D667EA /* DeviceDetails.swift in Sources */,

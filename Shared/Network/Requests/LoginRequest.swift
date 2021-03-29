@@ -10,12 +10,17 @@ import Combine
 
 // MARK: - LoginRequest
 
-extension APIRequest {
+extension HTTPEndpoint {
     
-    static func login(_ parameters: LoginParameters) -> APIRequest? {
-        guard let bodyData = try? JSONEncoder().encode(parameters),
+    static func login(_ parameters: LoginParameters) -> URLRequest? {
+        let endpoint = HTTPEndpoint(host: .EdgeImpulse, path: "/v1/api-login")
+        guard let url = endpoint.url(),
+              let bodyData = try? JSONEncoder().encode(parameters),
               let bodyString = String(data: bodyData, encoding: .utf8) else { return nil }
-        return .httpPOST(endpoint: "api-login", body: bodyString)
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.setMethod(.POST(body: bodyString))
+        return urlRequest
     }
 }
 

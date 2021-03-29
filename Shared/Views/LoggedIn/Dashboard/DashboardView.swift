@@ -51,10 +51,10 @@ struct DashboardView: View {
 extension DashboardView {
     
     func requestUser() {
-        guard let token = appData.apiToken else { return }
+        guard let token = appData.apiToken,
+              let urlRequest = HTTPEndpoint.getUser(using: token) else { return }
         appData.dashboardViewState = .loading
-        let request = APIRequest.getUser(using: token)
-        userCancellable = Network.shared.perform(request, responseType: GetUserResponse.self)?
+        userCancellable = Network.shared.perform(urlRequest, responseType: GetUserResponse.self)?
             .onUnauthorisedUserError {
                 logoutUser()
             }
