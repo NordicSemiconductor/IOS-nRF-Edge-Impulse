@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Resources {
+enum Resources: String, Codable {
     
     case serviceUUIDs
 }

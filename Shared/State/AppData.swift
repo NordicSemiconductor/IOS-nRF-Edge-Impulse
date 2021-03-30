@@ -30,7 +30,7 @@ final class AppData: ObservableObject {
     @Published var scanResults: [ScanResult] = []
     
     @Published var selectedTab: Tabs? = .Dashboard
-    @Published var serviceUUIDs: [UUID: UUIDMapping] = [:]
+    @Published var serviceUUIDs: [UUIDMapping]
     
     // MARK: - Private Properties
     
@@ -40,6 +40,8 @@ final class AppData: ObservableObject {
     // MARK: - Init
     
     init() {
+        self.serviceUUIDs = [UUIDMapping]()
+        
         self.apiToken = keychain.get(KeychainKeys.apiToken.rawValue)
     }
     
@@ -55,20 +57,9 @@ final class AppData: ObservableObject {
     func updateResources() {
         guard let request = HTTPRequest.getResource(.serviceUUIDs) else { return }
         Network.shared.perform(request, responseType: [UUIDMapping].self)?
-            .sink(receiveCompletion: { [unowned self] completion in
-                switch completion {
-                case .failure(_):
-                    self.serviceUUIDs = [:]
-                default:
-                    break
-                }
-            }, receiveValue: {
-                self.serviceUUIDs = [:]
-                $0.forEach {
-                    guard let uuid = UUID(uuidString: $0.id) else { return }
-                    self.serviceUUIDs[uuid] = $0
-                }
-            }).store(in: &cancellables)
+            .replaceError(with: [])
+            .assign(to: \.serviceUUIDs, on: self)
+            .store(in: &cancellables)
     }
 }
 
