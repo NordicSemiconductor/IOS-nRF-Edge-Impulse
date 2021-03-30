@@ -10,10 +10,14 @@ import SwiftUI
 struct ContentView: View {
     
     @EnvironmentObject var appData: AppData
+    @EnvironmentObject var resourceData: ResourceData
     
     var body: some View {
         if appData.isLoggedIn {
             LoggedInRootView()
+                .onAppear() {
+                    resourceData.update()
+                }
         } else {
             NativeLoginView()
         }

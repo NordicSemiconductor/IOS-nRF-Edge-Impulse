@@ -30,9 +30,6 @@ final class AppData: ObservableObject {
     @Published var scanResults: [ScanResult] = []
     
     @Published var selectedTab: Tabs? = .Dashboard
-    @Published var serviceUUIDs: [UUIDMapping]
-    @Published var characteristicUUIDs: [UUIDMapping]
-    @Published var descriptorUUIDs: [UUIDMapping]
     
     // MARK: - Private Properties
     
@@ -42,10 +39,6 @@ final class AppData: ObservableObject {
     // MARK: - Init
     
     init() {
-        self.serviceUUIDs = [UUIDMapping]()
-        self.characteristicUUIDs = [UUIDMapping]()
-        self.descriptorUUIDs = [UUIDMapping]()
-        
         self.apiToken = keychain.get(KeychainKeys.apiToken.rawValue)
     }
     
@@ -56,19 +49,6 @@ final class AppData: ObservableObject {
     func logout() {
         apiToken = nil
         user = nil
-    }
-    
-    func updateResources() {
-        let resourcesToArrayKeyPaths: [Resources: ReferenceWritableKeyPath<AppData, [UUIDMapping]>] = [
-            .services: \.serviceUUIDs, .characteristics: \.characteristicUUIDs,
-            .descriptors: \.descriptorUUIDs
-        ]
-        for (resource, arrayKeyPath) in resourcesToArrayKeyPaths {
-            guard let request = HTTPRequest.getResource(resource) else { return }
-            Network.shared.perform(request, responseType: [UUIDMapping].self)
-                .sink(to: arrayKeyPath, in: self, assigningInCaseOfError: [UUIDMapping]())
-                .store(in: &cancellables)
-        }
     }
 }
 

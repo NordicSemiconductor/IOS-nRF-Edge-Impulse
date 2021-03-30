@@ -11,7 +11,7 @@ import Foundation
 
 extension HTTPRequest {
     
-    static func getResource(_ resource: Resources) -> HTTPRequest? {
+    static func getResource(_ resource: Resource) -> HTTPRequest? {
         guard var httpRequest = HTTPRequest(host: .GitHubUserContent, path: resource.path) else { return nil }
         httpRequest.setMethod(.GET(headers: [:]))
         return httpRequest
@@ -20,7 +20,7 @@ extension HTTPRequest {
 
 // MARK: - Resources Extension
 
-fileprivate extension Resources {
+fileprivate extension Resource {
     
     var path: String {
         let basePath = "/NordicSemiconductor/bluetooth-numbers-database/master/v1/"

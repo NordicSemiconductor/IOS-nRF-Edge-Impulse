@@ -13,11 +13,13 @@ import SwiftUI
 struct nRF_Edge_ImpulseApp: App {
     
     @StateObject var appData = AppData()
+    @StateObject var resourceData = ResourceData()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(appData)
+                .environmentObject(resourceData)
         }
     }
 }
