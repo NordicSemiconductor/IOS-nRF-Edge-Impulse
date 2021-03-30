@@ -26,8 +26,12 @@ fileprivate extension Resources {
         let basePath = "/NordicSemiconductor/bluetooth-numbers-database/master/v1/"
         let resourceFile: String
         switch self {
-        case .serviceUUIDs:
+        case .services:
             resourceFile = "service_uuids.json"
+        case .characteristics:
+            resourceFile = "characteristic_uuids.json"
+        case .descriptors:
+            resourceFile = "descriptor_uuids.json"
         }
         return basePath + resourceFile
     }

@@ -9,5 +9,7 @@ import Foundation
 
 enum Resources: String, Codable {
     
-    case serviceUUIDs
+    case services
+    case characteristics
+    case descriptors
 }
