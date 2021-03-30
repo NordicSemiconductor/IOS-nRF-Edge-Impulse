@@ -55,7 +55,7 @@ extension DashboardView {
               let httpRequest = HTTPRequest.getUser(using: token) else { return }
         appData.dashboardViewState = .loading
         appData.updateResources()
-        userCancellable = Network.shared.perform(httpRequest, responseType: GetUserResponse.self)?
+        userCancellable = Network.shared.perform(httpRequest, responseType: GetUserResponse.self)
             .onUnauthorisedUserError {
                 logoutUser()
             }

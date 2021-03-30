@@ -65,7 +65,7 @@ final class AppData: ObservableObject {
         ]
         for (resource, arrayKeyPath) in resources {
             guard let request = HTTPRequest.getResource(resource) else { return }
-            Network.shared.perform(request, responseType: [UUIDMapping].self)?
+            Network.shared.perform(request, responseType: [UUIDMapping].self)
                 .sink(receiveCompletion: { [unowned self] completion in
                     switch completion {
                     case .failure(_):

@@ -105,7 +105,7 @@ struct NativeLoginView: View {
             // Show error.
             return
         }
-        loginCancellable = Network.shared.perform(httpRequest, responseType: LoginResponse.self)?
+        loginCancellable = Network.shared.perform(httpRequest, responseType: LoginResponse.self)
             .sink(receiveCompletion: { _ in }, receiveValue: { loginResponse in
                 guard loginResponse.success else {
                     errorMessage = loginResponse.error ?? ""
