@@ -8,6 +8,26 @@
 import Foundation
 import Combine
 
+// MARK: - SinkToKeyPath
+
+extension Publisher {
+    
+    func sink<Root>(to keyPath: ReferenceWritableKeyPath<Root, Output>, in root: Root, assigningInCaseOfError errorValue: Output) -> AnyCancellable {
+        self.sink(receiveCompletion: { completion in
+            switch completion {
+            case .failure(_):
+                root[keyPath: keyPath] = errorValue
+            default:
+                break
+            }
+        }) { result in
+            root[keyPath: keyPath] = result
+        }
+    }
+}
+
+// MARK: - OnUnauthorisedUserError
+
 extension Publisher {
     
     func onUnauthorisedUserError(_ unauthorisedUserCallback: @escaping () -> Void) -> Publishers.OnUnauthorisedUserError<Self> {

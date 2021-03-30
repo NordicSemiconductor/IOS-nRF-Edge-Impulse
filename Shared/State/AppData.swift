@@ -59,23 +59,14 @@ final class AppData: ObservableObject {
     }
     
     func updateResources() {
-        let resources: [Resources: ReferenceWritableKeyPath<AppData, [UUIDMapping]>] = [
+        let resourcesToArrayKeyPaths: [Resources: ReferenceWritableKeyPath<AppData, [UUIDMapping]>] = [
             .services: \.serviceUUIDs, .characteristics: \.characteristicUUIDs,
             .descriptors: \.descriptorUUIDs
         ]
-        for (resource, arrayKeyPath) in resources {
+        for (resource, arrayKeyPath) in resourcesToArrayKeyPaths {
             guard let request = HTTPRequest.getResource(resource) else { return }
             Network.shared.perform(request, responseType: [UUIDMapping].self)
-                .sink(receiveCompletion: { [unowned self] completion in
-                    switch completion {
-                    case .failure(_):
-                        self[keyPath: arrayKeyPath] = []
-                    default:
-                        break
-                    }
-                }, receiveValue: {
-                    self[keyPath: arrayKeyPath] = $0
-                })
+                .sink(to: arrayKeyPath, in: self, assigningInCaseOfError: [UUIDMapping]())
                 .store(in: &cancellables)
         }
     }
