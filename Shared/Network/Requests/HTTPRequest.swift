@@ -62,7 +62,10 @@ enum HTTPHost: String, RawRepresentable {
 // MARK: - Method
 
 enum HTTPMethod {
-    case GET(headers: [String: String])
+    
+    static let emptyHeader = [String:String]()
+    
+    case GET(header: [String: String])
     case POST(body: String)
 }
 

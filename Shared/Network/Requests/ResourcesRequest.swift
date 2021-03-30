@@ -13,7 +13,7 @@ extension HTTPRequest {
     
     static func getResource(_ resource: Resource) -> HTTPRequest? {
         guard var httpRequest = HTTPRequest(host: .GitHubUserContent, path: resource.path) else { return nil }
-        httpRequest.setMethod(.GET(headers: [:]))
+        httpRequest.setMethod(.GET(header: HTTPMethod.emptyHeader))
         return httpRequest
     }
 }
