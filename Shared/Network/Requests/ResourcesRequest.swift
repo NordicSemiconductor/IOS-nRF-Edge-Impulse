@@ -11,11 +11,24 @@ import Foundation
 
 extension HTTPRequest {
     
+    static func getResourceStatus() -> HTTPRequest? {
+        let path = "/repos/NordicSemiconductor/bluetooth-numbers-database/commits/master"
+        guard var httpRequest = HTTPRequest(host: .GitHubAPI, path: path) else { return nil }
+        httpRequest.setMethod(.GET(header: HTTPMethod.emptyHeader))
+        return httpRequest
+    }
+    
     static func getResource(_ resource: Resource) -> HTTPRequest? {
         guard var httpRequest = HTTPRequest(host: .GitHubUserContent, path: resource.path) else { return nil }
         httpRequest.setMethod(.GET(header: HTTPMethod.emptyHeader))
         return httpRequest
     }
+}
+
+// MARK: - GitHubStatusResponse
+
+struct GitHubStatusResponse: Codable {
+    let sha: String
 }
 
 // MARK: - Resources Extension

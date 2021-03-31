@@ -6,24 +6,33 @@
 //
 
 import Foundation
+import KeychainSwift
 import Combine
 
 final class ResourceData: ObservableObject {
     
     // MARK: - Private
     
+    private var lastSavedSHA: String? {
+        didSet {
+            guard let newSHA = lastSavedSHA else { return }
+            keychain.set(newSHA, forKey: KeychainKeys.lastSavedSHA.rawValue)
+        }
+    }
     private var serviceUUIDs: [UUIDMapping]
     private var characteristicUUIDs: [UUIDMapping]
     private var descriptorUUIDs: [UUIDMapping]
-    private var cancellables: Set<AnyCancellable>
+    
+    private var keychain = KeychainSwift()
+    private lazy var cancellables = Set<AnyCancellable>()
     
     // MARK: - Init
     
     init() {
+        self.lastSavedSHA = keychain.get(KeychainKeys.lastSavedSHA.rawValue)
         self.serviceUUIDs = [UUIDMapping]()
         self.characteristicUUIDs = [UUIDMapping]()
         self.descriptorUUIDs = [UUIDMapping]()
-        self.cancellables = Set<AnyCancellable>()
     }
     
     // MARK: - API
@@ -46,22 +55,70 @@ final class ResourceData: ObservableObject {
     }
     
     func update() {
+        guard let statusRequest = HTTPRequest.getResourceStatus() else { return }
+        Network.shared.perform(statusRequest, responseType: GitHubStatusResponse.self)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print("Error requesting Resources SHA: \(error.localizedDescription)")
+                default:
+                    break
+                }
+            } receiveValue: { [weak self] response in
+                guard let self = self, response.sha != self.lastSavedSHA else { return }
+                self.downloadFreshResources(withSHA: response.sha)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func downloadFreshResources(withSHA sha: String) {
         let resourcesToArrayKeyPaths: [Resource: ReferenceWritableKeyPath<ResourceData, [UUIDMapping]>] = [
             .services: \.serviceUUIDs, .characteristics: \.characteristicUUIDs,
             .descriptors: \.descriptorUUIDs
         ]
-        for (resource, arrayKeyPath) in resourcesToArrayKeyPaths {
-            guard let request = HTTPRequest.getResource(resource) else { return }
-            Network.shared.perform(request, responseType: [UUIDMapping].self)
-                .sink(to: arrayKeyPath, in: self, assigningInCaseOfError: [UUIDMapping]())
-                .store(in: &cancellables)
+        
+        let requestPublishers = Resource.allCases.compactMap { (resource) -> AnyPublisher<(Resource, [UUIDMapping]), Error>? in
+            guard let request = HTTPRequest.getResource(resource) else { return nil }
+            return Network.shared.perform(request, responseType: [UUIDMapping].self)
+                .map { (resource, $0) }
+                .eraseToAnyPublisher()
         }
+        
+        Publishers.MergeMany(requestPublishers)
+            .collect()
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print("There was an error downloading all Resources: \(error.localizedDescription)")
+                default:
+                    break
+                }
+            } receiveValue: { [weak self] result in
+                guard let self = self else { return }
+                for mapping in result {
+                    guard let arrayKeyPath = resourcesToArrayKeyPaths[mapping.0] else { return }
+                    self[keyPath: arrayKeyPath] = mapping.1
+                }
+                // TODO: Save to Disk
+                
+//                self.lastSavedSHA = sha
+            }
+            .store(in: &cancellables)
+    }
+}
+
+// MARK: - KeychainKeys
+
+private extension ResourceData {
+    
+    enum KeychainKeys: String, Codable {
+        case lastSavedSHA
     }
 }
 
 // MARK: - Resource
 
-enum Resource: String, Codable {
+enum Resource: String, Codable, CaseIterable {
     
     case services
     case characteristics

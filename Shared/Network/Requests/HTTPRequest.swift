@@ -47,12 +47,15 @@ extension HTTPRequest {
 enum HTTPHost: String, RawRepresentable {
     
     case EdgeImpulse
+    case GitHubAPI
     case GitHubUserContent
     
     var rawValue: String {
         switch self {
         case .EdgeImpulse:
             return "studio.edgeimpulse.com"
+        case .GitHubAPI:
+            return "api.github.com"
         case .GitHubUserContent:
             return "raw.githubusercontent.com"
         }
