@@ -11,15 +11,15 @@ import Foundation
 
 extension Encodable {
     
-    func writeToDocumentsDirectory(withName name: String, andExtension fileExtension: String) throws {
+    func writeToDocumentsDirectory(fileName: String, andExtension fileExtension: String) throws {
         let encoder = JSONEncoder()
         
         guard let data = try? encoder.encode(self),
               let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             throw CodableError.directoryNotFound("Could not find Documents Directory.")
         }
-        let filePath = documentsDirectory.appendingPathComponent(name + "." + fileExtension)
-        try data.write(to: filePath)
+        let fileURL = documentsDirectory.appendingPathComponent(fileName + "." + fileExtension)
+        try data.write(to: fileURL)
     }
 }
 
@@ -31,8 +31,8 @@ extension Decodable {
         guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             throw CodableError.directoryNotFound("Could not find Documents Directory.")
         }
-        let filePath = documentsDirectory.appendingPathComponent(fileName + "." + fileExtension)
-        let data = try Data(contentsOf: filePath)
+        let fileURL = documentsDirectory.appendingPathComponent(fileName + "." + fileExtension)
+        let data = try Data(contentsOf: fileURL)
         
         let decoder = JSONDecoder()
         return try decoder.decode(Self.self, from: data)

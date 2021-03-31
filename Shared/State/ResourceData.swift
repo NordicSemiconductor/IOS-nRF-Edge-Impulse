@@ -125,7 +125,7 @@ fileprivate extension ResourceData {
                     self[keyPath: arrayKeyPath] = mapping.1
                     
                     do {
-                        try mapping.1.writeToDocumentsDirectory(withName: mapping.0.rawValue, andExtension: "json")
+                        try mapping.1.writeToDocumentsDirectory(fileName: mapping.0.rawValue, andExtension: "json")
                     } catch {
                         encounteredError = true
                         continue
