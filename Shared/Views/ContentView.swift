@@ -16,7 +16,7 @@ struct ContentView: View {
         if appData.isLoggedIn {
             LoggedInRootView()
                 .onAppear() {
-                    resourceData.update()
+                    resourceData.load()
                 }
         } else {
             NativeLoginView()

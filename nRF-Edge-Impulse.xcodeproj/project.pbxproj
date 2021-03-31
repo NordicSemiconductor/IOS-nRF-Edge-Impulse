@@ -42,6 +42,8 @@
 		AA1016FD25E9173A006DC88A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1016FB25E9173A006DC88A /* Network.swift */; };
 		AA10170325E91885006DC88A /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* HTTPRequest.swift */; };
 		AA10170425E91885006DC88A /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* HTTPRequest.swift */; };
+		AA14CA75261490CD004F08FE /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14CA74261490CD004F08FE /* Codable.swift */; };
+		AA14CA76261490CD004F08FE /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14CA74261490CD004F08FE /* Codable.swift */; };
 		AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA32792D2604C66B00A0CA6A /* DataAcquisitionViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */; };
@@ -156,6 +158,7 @@
 		AA0D90AD260E1F1100A455B7 /* nRF_Edge_ImpulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF_Edge_ImpulseApp.swift; sourceTree = "<group>"; };
 		AA1016FB25E9173A006DC88A /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		AA10170225E91885006DC88A /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
+		AA14CA74261490CD004F08FE /* Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
 		AA1F07A325F7989400CC41A9 /* BluetoothError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothError.swift; sourceTree = "<group>"; };
 		AA263F05260385690018CF5B /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
 		AA386B08260CEDD60079F12D /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
@@ -474,6 +477,7 @@
 				AA80989925EE959B00091AC0 /* Publishers.swift */,
 				AA01F3CF25EFACB000368707 /* Assets.swift */,
 				AA01F3DE25EFDC5000368707 /* Constant.swift */,
+				AA14CA74261490CD004F08FE /* Codable.swift */,
 				AA02086E25F648C200FD6B24 /* View.swift */,
 				AAFFEB3225FF7A06002287D6 /* ButtonStyles.swift */,
 				AAF0C974260A1482001B76B9 /* CircleImageView.swift */,
@@ -702,6 +706,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAF5054725F11E45003AFED7 /* DataAcquisitionView.swift in Sources */,
+				AA14CA75261490CD004F08FE /* Codable.swift in Sources */,
 				AAFFEB3925FF9554002287D6 /* NordicError.swift in Sources */,
 				AA10170325E91885006DC88A /* HTTPRequest.swift in Sources */,
 				C33C10C12609791E0097EA5A /* SignalParameters.swift in Sources */,
@@ -755,6 +760,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA02087025F648C200FD6B24 /* View.swift in Sources */,
+				AA14CA76261490CD004F08FE /* Codable.swift in Sources */,
 				AAFFEB3A25FF9554002287D6 /* NordicError.swift in Sources */,
 				AA80989B25EE959B00091AC0 /* Publishers.swift in Sources */,
 				C33C10C22609791E0097EA5A /* SignalParameters.swift in Sources */,

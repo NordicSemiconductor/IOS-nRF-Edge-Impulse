@@ -11,19 +11,29 @@ import Combine
 
 final class ResourceData: ObservableObject {
     
-    // MARK: - Private
+    // MARK: - UUID Arrays
     
+    private var serviceUUIDs: [UUIDMapping]
+    private var characteristicUUIDs: [UUIDMapping]
+    private var descriptorUUIDs: [UUIDMapping]
+    
+    private lazy var resourcesToArrayKeyPaths: [Resource: ReferenceWritableKeyPath<ResourceData, [UUIDMapping]>] = [
+        .services: \.serviceUUIDs, .characteristics: \.characteristicUUIDs,
+        .descriptors: \.descriptorUUIDs
+    ]
+    
+    // MARK: - Keychain
+    
+    private var keychain = KeychainSwift()
     private var lastSavedSHA: String? {
         didSet {
             guard let newSHA = lastSavedSHA else { return }
             keychain.set(newSHA, forKey: KeychainKeys.lastSavedSHA.rawValue)
         }
     }
-    private var serviceUUIDs: [UUIDMapping]
-    private var characteristicUUIDs: [UUIDMapping]
-    private var descriptorUUIDs: [UUIDMapping]
     
-    private var keychain = KeychainSwift()
+    // MARK: - Combine
+    
     private lazy var cancellables = Set<AnyCancellable>()
     
     // MARK: - Init
@@ -35,7 +45,7 @@ final class ResourceData: ObservableObject {
         self.descriptorUUIDs = [UUIDMapping]()
     }
     
-    // MARK: - API
+    // MARK: - Public API
     
     subscript(_ resource: Resource, uuid: UUID) -> UUIDMapping? {
         self[resource, uuid.uuidString]
@@ -54,7 +64,9 @@ final class ResourceData: ObservableObject {
         return self[keyPath: arrayKeyPath].first(where: { $0.uuid == uuidString })
     }
     
-    func update() {
+    func load() {
+        readResourcesFromDisk()
+        
         guard let statusRequest = HTTPRequest.getResourceStatus() else { return }
         Network.shared.perform(statusRequest, responseType: GitHubStatusResponse.self)
             .sink { completion in
@@ -65,18 +77,30 @@ final class ResourceData: ObservableObject {
                     break
                 }
             } receiveValue: { [weak self] response in
-                guard let self = self, response.sha != self.lastSavedSHA else { return }
-                self.downloadFreshResources(withSHA: response.sha)
+                guard let self = self else { return }
+                if response.sha != self.lastSavedSHA {
+                    self.downloadFreshResources(withSHA: response.sha)
+                }
             }
             .store(in: &cancellables)
     }
+}
+
+// MARK: - Private API
+
+fileprivate extension ResourceData {
     
-    func downloadFreshResources(withSHA sha: String) {
-        let resourcesToArrayKeyPaths: [Resource: ReferenceWritableKeyPath<ResourceData, [UUIDMapping]>] = [
-            .services: \.serviceUUIDs, .characteristics: \.characteristicUUIDs,
-            .descriptors: \.descriptorUUIDs
-        ]
-        
+    private func readResourcesFromDisk() {
+        do {
+            for resource in Resource.allCases {
+                _ = try [UUIDMapping].readFromDocumentsDirectory(fileName: resource.rawValue, andExtension: "json")
+            }
+        } catch {
+            lastSavedSHA = nil
+        }
+    }
+    
+    private func downloadFreshResources(withSHA sha: String) {
         let requestPublishers = Resource.allCases.compactMap { (resource) -> AnyPublisher<(Resource, [UUIDMapping]), Error>? in
             guard let request = HTTPRequest.getResource(resource) else { return nil }
             return Network.shared.perform(request, responseType: [UUIDMapping].self)
@@ -95,13 +119,20 @@ final class ResourceData: ObservableObject {
                 }
             } receiveValue: { [weak self] result in
                 guard let self = self else { return }
+                var encounteredError = false
                 for mapping in result {
-                    guard let arrayKeyPath = resourcesToArrayKeyPaths[mapping.0] else { return }
+                    guard let arrayKeyPath = self.resourcesToArrayKeyPaths[mapping.0] else { continue }
                     self[keyPath: arrayKeyPath] = mapping.1
+                    
+                    do {
+                        try mapping.1.writeToDocumentsDirectory(withName: mapping.0.rawValue, andExtension: "json")
+                    } catch {
+                        encounteredError = true
+                        continue
+                    }
                 }
-                // TODO: Save to Disk
-                
-//                self.lastSavedSHA = sha
+                guard !encounteredError else { return }
+                self.lastSavedSHA = sha
             }
             .store(in: &cancellables)
     }
