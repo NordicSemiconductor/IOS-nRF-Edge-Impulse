@@ -32,4 +32,11 @@ struct GetUserResponse: APIResponse {
     let photo: String
     let created: String
     let projects: [Project]
+    
+    // MARK: - API
+    
+    func getUser() -> User? {
+        guard let createdDate = created.formatAsDate() else { return nil }
+        return User(id: id, username: username, created: createdDate)
+    }
 }

@@ -28,7 +28,7 @@ struct UserView: View {
                         .font(.title)
                         .bold()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Text("Joined \(user.createdSince) ago")
+                    Text("Joined \(user.createdSince)")
                         .font(.callout)
                         .fontWeight(.light)
                         .frame(maxWidth: .infinity, alignment: .leading)

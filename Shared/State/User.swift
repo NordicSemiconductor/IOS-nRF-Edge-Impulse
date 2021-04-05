@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct User: Identifiable {
+struct User: Identifiable, Codable {
+    
+    static let PlaceholderImage = ""
+    
+    // MARK: - Properties
     
     let id: Int
     let username: String
@@ -16,11 +20,17 @@ struct User: Identifiable {
     
     // MARK: - Init
     
-    init?(response: GetUserResponse) {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions =  [.withInternetDateTime, .withFractionalSeconds]
-        guard let createdDate = formatter.date(from: response.created) else { return nil }
-        self.init(id: response.id, username: response.username, created: createdDate)
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let id = try container.decode(Int.self, forKey: .id)
+        let username = try container.decode(String.self, forKey: .username)
+        
+        let createdString = try container.decode(String.self, forKey: .created)
+        guard let created = createdString.formatAsDate() else {
+            throw DecodingError.dataCorruptedError(forKey: .created, in: container,
+                                                   debugDescription: "`Created` Date String does not match expected format.")
+        }
+        self.init(id: id, username: username, created: created)
     }
     
     init(id: Int, username: String, created: Date) {
@@ -28,11 +38,16 @@ struct User: Identifiable {
         self.username = username
         self.created = created
         
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .full
-        formatter.allowedUnits = [.year, .month, .day, .hour, .minute, .second]
-        formatter.zeroFormattingBehavior = .dropAll
-        formatter.maximumUnitCount = 1
-        self.createdSince = String(format: formatter.string(from: created, to: Date()) ?? "N/A", locale: .current)
+        let relativeDateFormatter = RelativeDateTimeFormatter()
+        self.createdSince = relativeDateFormatter.localizedString(for: created, relativeTo: Date())
+    }
+}
+
+// MARK: - Hashable
+
+extension User: Hashable {
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }

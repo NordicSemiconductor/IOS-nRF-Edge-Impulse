@@ -33,6 +33,7 @@ struct LoginParameters: Codable {
 
 struct LoginResponse: Codable {
     let success: Bool
-    let token: String?
     let error: String?
+    
+    let token: String?
 }
