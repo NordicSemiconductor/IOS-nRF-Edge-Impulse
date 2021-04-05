@@ -7,6 +7,10 @@
 
 import Foundation
 import Combine
+import SwiftUI
+#if os(OSX)
+import AppKit
+#endif
 
 // MARK: - Network
 
@@ -40,6 +44,24 @@ extension Network {
             }
             .decode(type: T.self, decoder: JSONDecoder())
             .receive(on: RunLoop.main)
+            .eraseToAnyPublisher()
+    }
+    
+    public func downloadImage(for url: URL) -> AnyPublisher<Image?, Never> {
+        return session.dataTaskPublisher(for: url)
+            .map { response -> Image? in
+                let image: Image?
+                #if os(OSX)
+                guard let nsimage = NSImage(data: response.data) else { return nil }
+                image = Image(nsImage: nsimage)
+                #elseif os(iOS)
+                guard let uiimage = UIImage(data: response.data) else { return nil }
+                image = Image(uiImage: uiimage)
+                #endif
+                return image
+            }
+            .replaceError(with: nil)
+            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
 }

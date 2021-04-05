@@ -10,7 +10,7 @@ import Foundation
 struct User: Identifiable, Codable {
     
     static let NoImage = ""
-    static let PlaceholderImage = "https://via.placeholder.com/150"
+    static let PlaceholderImage = "https://avatars.githubusercontent.com/u/52098900?s=200&v=4" // Edge Impulse Logo
     
     // MARK: - Properties
     

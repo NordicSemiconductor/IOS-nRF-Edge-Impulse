@@ -21,7 +21,8 @@ struct UserView: View {
                 .brightness(-1.0)
                 .blur(radius: 25)
             HStack {
-                CircleImage(image: Image("EdgeImpulse"), size: UserView.ImageSize)
+                URLImage(url: user.photo, placeholderImage: Image("EdgeImpulse"),
+                         size: UserView.ImageSize)
 
                 VStack(alignment: .leading) {
                     Text(user.username)
@@ -44,14 +45,16 @@ struct UserView: View {
 #if DEBUG
 struct UserView_Previews: PreviewProvider {
     
-    static let userWithoutImage = User(id: 5, username: "taylor.swift", created: Date())
-    static let userWithImage = User(id: 8, username: "dinesh.harjani", created: Date())
+    static let userWithoutImage = User(id: 8, username: "dinesh.harjani", created: Date())
+    static let userWithImage = User(id: 5, username: "taylor.swift", created: Date(),
+                                    photo: "https://avatarfiles.alphacoders.com/169/169651.jpg")
     
     static var previews: some View {
         Group {
             UserView(user: UserView_Previews.userWithoutImage)
             UserView(user: UserView_Previews.userWithImage)
         }
+        .fixedSize()
     }
 }
 #endif

@@ -12,7 +12,7 @@ struct CircleImage: View {
     let image: Image
     let size: CGSize
     
-    // MARK: - @viewBuilder
+    // MARK: - View
     
     var body: some View {
         image
