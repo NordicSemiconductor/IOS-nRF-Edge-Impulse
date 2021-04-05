@@ -23,20 +23,12 @@ struct URLImage: View {
     // MARK: - Body
     
     var body: some View {
-        Group {
-            if let loadedImage = loader.image {
-                loadedImage
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            } else {
-                placeholderImage
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .onAppear() {
-                        loader.load()
-                    }
+        (loader.image ?? placeholderImage)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .onAppear() {
+                loader.load()
             }
-        }
     }
 }
 
@@ -60,7 +52,7 @@ final class URLImageLoader: ObservableObject {
     }
     
     deinit {
-        cancel()
+        cancellable?.cancel()
     }
     
     // MARK: - API
@@ -68,10 +60,6 @@ final class URLImageLoader: ObservableObject {
     func load() {
         cancellable = Network.shared.downloadImage(for: url)
             .assign(to: \.image, on: self)
-    }
-    
-    func cancel() {
-        cancellable?.cancel()
     }
 }
 
@@ -83,7 +71,9 @@ struct URLImage_Previews: PreviewProvider {
         Group {
             URLImage(url: URL(string: "https://avatarfiles.alphacoders.com/169/169651.jpg")!,
                      placeholderImage: Image("EdgeImpulse"))
+                .frame(width: 200, height: 200)
         }
+        .fixedSize()
     }
 }
 #endif
