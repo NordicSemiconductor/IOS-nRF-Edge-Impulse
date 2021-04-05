@@ -22,8 +22,8 @@ struct CircleAround<T: View>: View {
     var body: some View {
         view
             .clipShape(Circle())
-            .overlay(Circle().stroke(Color.primary, lineWidth: 2))
-            .shadow(radius: 1)
+            .overlay(Circle().stroke(Color.primary, lineWidth: 1))
+            .shadow(radius: 0.5)
     }
 }
 

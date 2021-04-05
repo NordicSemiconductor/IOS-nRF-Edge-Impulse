@@ -60,6 +60,20 @@ extension Project {
         "created": "2021-02-26T10:55:47.731Z",
         "owner": "Pongo Harjani",
         "collaborators": [
+            {
+                "id": 1989,
+                "username": "taylor.swift",
+                "created": "1989-12-13T10:55:47.731Z",
+                "createdSince": "1989",
+                "photo": "https://avatarfiles.alphacoders.com/169/169651.jpg"
+            },
+            {
+                "id": 1981,
+                "username": "fernando.alonso",
+                "created": "1981-07-29T10:55:47.731Z",
+                "createdSince": "1981",
+                "photo": "https://live.planetf1.com/content/images/uploads/drivers/profile/2021/195077.jpg"
+            }
         ]
     }
     """

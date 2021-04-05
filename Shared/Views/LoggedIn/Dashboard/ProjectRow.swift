@@ -19,7 +19,7 @@ struct ProjectRow: View {
                             .resizable())
                 .frame(width: 40, height: 40)
 
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 2) {
                 Text(project.name)
                     .font(.headline)
                     .bold()
@@ -31,6 +31,16 @@ struct ProjectRow: View {
                     .foregroundColor(.secondary)
                     .font(.caption)
                     .lineLimit(1)
+                
+                HStack {
+                    Label("Collaborators:", systemImage: "person.fill")
+                        .padding(.trailing, 4)
+                    ForEach(project.collaborators) { collaborator in
+                        CircleAround(URLImage(url: collaborator.photo, placeholderImage: Image("EdgeImpulse")))
+                            .frame(width: 15, height: 15)
+                            .padding(.horizontal, 2)
+                    }
+                }
             }
         }
         .padding(.vertical)
