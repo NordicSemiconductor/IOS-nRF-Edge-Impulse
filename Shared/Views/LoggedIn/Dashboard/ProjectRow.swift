@@ -10,15 +10,15 @@ import SwiftUI
 // MARK: - ProjectRow
 
 struct ProjectRow: View {
+    
     let project: Project
     
     var body: some View {
         HStack(alignment: .top) {
-            Image("EdgeImpulse")
-                .resizable()
+            CircleAround(Image("EdgeImpulse")
+                            .resizable())
                 .frame(width: 40, height: 40)
-                .background(Assets.lightGrey.color)
-                .cornerRadius(12)
+
             VStack(alignment: .leading) {
                 Text(project.name)
                     .font(.headline)
