@@ -11,24 +11,32 @@ import Combine
 struct URLImage: View {
     
     let placeholderImage: Image
-    let size: CGSize
     @StateObject private var loader: URLImageLoader
     
     // MARK: - Init
     
-    init(url: URL, placeholderImage: Image, size: CGSize) {
+    init(url: URL, placeholderImage: Image) {
         self.placeholderImage = placeholderImage
-        self.size = size
         _loader = StateObject(wrappedValue: URLImageLoader(url: url))
     }
     
     // MARK: - Body
     
     var body: some View {
-        CircleImage(image: loader.image ?? placeholderImage, size: size)
-            .onAppear() {
-                loader.load()
+        Group {
+            if let loadedImage = loader.image {
+                loadedImage
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            } else {
+                placeholderImage
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .onAppear() {
+                        loader.load()
+                    }
             }
+        }
     }
 }
 
@@ -74,7 +82,7 @@ struct URLImage_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             URLImage(url: URL(string: "https://avatarfiles.alphacoders.com/169/169651.jpg")!,
-                     placeholderImage: Image("EdgeImpulse"), size: CGSize(width: 250, height: 250))
+                     placeholderImage: Image("EdgeImpulse"))
         }
     }
 }
