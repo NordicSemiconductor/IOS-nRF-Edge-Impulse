@@ -18,7 +18,7 @@ struct User: Identifiable, Codable {
     let username: String
     let created: Date
     let createdSince: String
-    let photo: String
+    let photo: URL
     
     // MARK: - Init
     
@@ -40,7 +40,7 @@ struct User: Identifiable, Codable {
         self.id = id
         self.username = username
         self.created = created
-        self.photo = photo == User.NoImage ? User.PlaceholderImage : photo
+        self.photo = URL(string: photo == User.NoImage ? User.PlaceholderImage : photo)!
         
         let relativeDateFormatter = RelativeDateTimeFormatter()
         self.createdSince = relativeDateFormatter.localizedString(for: created, relativeTo: Date())
