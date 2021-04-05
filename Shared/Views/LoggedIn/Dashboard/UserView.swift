@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UserView: View {
     
-    static let ImageSize = CGSize(width: 50, height: 50)
+    static let ImageSize = CGSize(width: 60, height: 60)
     
     let user: User
     
@@ -21,8 +21,9 @@ struct UserView: View {
                 .brightness(-1.0)
                 .blur(radius: 25)
             HStack {
-                URLImage(url: user.photo, placeholderImage: Image("EdgeImpulse"),
-                         size: UserView.ImageSize)
+                CircleAround(URLImage(url: user.photo, placeholderImage: Image("EdgeImpulse")))
+                    .frame(width: UserView.ImageSize.width, height: UserView.ImageSize.height)
+                    .padding()
 
                 VStack(alignment: .leading) {
                     Text(user.username)
