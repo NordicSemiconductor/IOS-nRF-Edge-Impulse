@@ -9,7 +9,8 @@ import Foundation
 
 struct User: Identifiable, Codable {
     
-    static let PlaceholderImage = ""
+    static let NoImage = ""
+    static let PlaceholderImage = "https://via.placeholder.com/150"
     
     // MARK: - Properties
     
@@ -17,6 +18,7 @@ struct User: Identifiable, Codable {
     let username: String
     let created: Date
     let createdSince: String
+    let photo: String
     
     // MARK: - Init
     
@@ -24,19 +26,21 @@ struct User: Identifiable, Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let id = try container.decode(Int.self, forKey: .id)
         let username = try container.decode(String.self, forKey: .username)
+        let photo = try container.decode(String.self, forKey: .photo)
         
         let createdString = try container.decode(String.self, forKey: .created)
         guard let created = createdString.formatAsDate() else {
             throw DecodingError.dataCorruptedError(forKey: .created, in: container,
                                                    debugDescription: "`Created` Date String does not match expected format.")
         }
-        self.init(id: id, username: username, created: created)
+        self.init(id: id, username: username, created: created, photo: photo)
     }
     
-    init(id: Int, username: String, created: Date) {
+    init(id: Int, username: String, created: Date, photo: String = NoImage) {
         self.id = id
         self.username = username
         self.created = created
+        self.photo = photo == User.NoImage ? User.PlaceholderImage : photo
         
         let relativeDateFormatter = RelativeDateTimeFormatter()
         self.createdSince = relativeDateFormatter.localizedString(for: created, relativeTo: Date())
