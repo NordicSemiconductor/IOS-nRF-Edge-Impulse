@@ -47,11 +47,15 @@ struct User: Identifiable, Codable {
     }
 }
 
-// MARK: - Hashable
+// MARK: - Hashable, Equatable
 
-extension User: Hashable {
+extension User: Hashable, Equatable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+    }
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
     }
 }
