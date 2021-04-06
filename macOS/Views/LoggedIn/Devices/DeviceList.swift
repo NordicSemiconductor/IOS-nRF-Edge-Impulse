@@ -1,6 +1,6 @@
 //
 //  DeviceList.swift
-//  nRF-Edge-Impulse
+//  nRF-Edge-Impulse (macOS)
 //
 //  Created by Dinesh Harjani on 26/3/21.
 //

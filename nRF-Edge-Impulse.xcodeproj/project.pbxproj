@@ -54,7 +54,7 @@
 		AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */; };
 		AA535511261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */; };
 		AA535513261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA535512261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift */; };
-		AA535514261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA535512261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift */; };
+		AA535519261C896B007B2C94 /* CollaboratorsDisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA535518261C896B007B2C94 /* CollaboratorsDisclosureView.swift */; };
 		AA710DB5260391D800A4935F /* DataAcquisitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA263F05260385690018CF5B /* DataAcquisitionView.swift */; };
 		AA7F5DE325F8F57D00185328 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AA7F5DE225F8F57D00185328 /* KeychainSwift */; };
 		AA7F5DE425F8F6C900185328 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCBE8125E90734001C52B0 /* LoginRequest.swift */; };
@@ -173,6 +173,7 @@
 		AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarLayoutView.swift; sourceTree = "<group>"; };
 		AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorRow.swift; sourceTree = "<group>"; };
 		AA535512261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorsDisclosureView.swift; sourceTree = "<group>"; };
+		AA535518261C896B007B2C94 /* CollaboratorsDisclosureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorsDisclosureView.swift; sourceTree = "<group>"; };
 		AA80988325EE518F00091AC0 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		AA80989925EE959B00091AC0 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
 		AA92BEF02611F9E400BED04B /* ResourceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceData.swift; sourceTree = "<group>"; };
@@ -385,6 +386,7 @@
 		AA263F03260385530018CF5B /* LoggedIn */ = {
 			isa = PBXGroup;
 			children = (
+				AA535516261C8940007B2C94 /* Dashboard */,
 				AAC1634B260E175C0081271A /* Devices */,
 				AA263F04260385590018CF5B /* DataAcquisition */,
 			);
@@ -405,6 +407,22 @@
 				AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */,
 				AA535512261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift */,
 				AA80988325EE518F00091AC0 /* ProjectRow.swift */,
+			);
+			path = Project;
+			sourceTree = "<group>";
+		};
+		AA535516261C8940007B2C94 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				AA535517261C8947007B2C94 /* Project */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		AA535517261C8947007B2C94 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				AA535518261C896B007B2C94 /* CollaboratorsDisclosureView.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -806,7 +824,7 @@
 				AAFFEB3425FF7A06002287D6 /* ButtonStyles.swift in Sources */,
 				C37DD4B1260CAA1500D667EA /* HeaderDeviceDetails.swift in Sources */,
 				C37DD49A260C89D800D667EA /* AdvertisementData.swift in Sources */,
-				AA535514261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift in Sources */,
+				AA535519261C896B007B2C94 /* CollaboratorsDisclosureView.swift in Sources */,
 				AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */,
 				AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA7F5DE425F8F6C900185328 /* LoginRequest.swift in Sources */,

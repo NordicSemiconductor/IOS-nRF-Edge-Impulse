@@ -26,6 +26,7 @@ struct CollaboratorRow: View {
                 .padding(.horizontal, 4)
             
             Text(collaborator.username)
+                .foregroundColor(.secondary)
         }
     }
 }
