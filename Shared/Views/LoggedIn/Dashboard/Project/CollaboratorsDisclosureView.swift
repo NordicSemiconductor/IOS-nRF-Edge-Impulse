@@ -31,9 +31,15 @@ struct CollaboratorsDisclosureView: View {
         },
         label: {
             HStack {
-                Label("Collaborators:", systemImage: "person.fill")
-                    .foregroundColor(.secondary)
-                    .font(.callout)
+                Label(title: {
+                    Text("Collaborators")
+                        .fontWeight(.bold)
+                        .font(.callout)
+                    },
+                    icon: {
+                        Image(systemName: "person.fill")
+                    }
+                )
                 
                 if !isShowingListOfCollaborators {
                     ForEach(collaborators) { collaborator in
