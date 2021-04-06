@@ -13,7 +13,7 @@ struct DeviceDetails: View {
     var body: some View {
         
         VStack(alignment: .center) {
-            HeaderDeviceDetails(scanResult: scanResult)
+            HeaderDeviceDetails(btManager: BluetoothManager(peripheralId: scanResult.id), scanResult: scanResult)
             Divider()
             Spacer()
         }
