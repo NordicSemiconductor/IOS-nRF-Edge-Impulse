@@ -46,7 +46,7 @@ struct NativeLoginView: View {
             }
             HStack(alignment: .lastTextBaseline) {
                 Image(systemName: "person.fill")
-                    .frame(width: 40, height: 40)
+                    .frame(size: .StandardImageSize)
                     .accentColor(Assets.darkGrey.color)
                 TextField("Username or E-Mail", text: $username)
                     .foregroundColor(.black)
@@ -56,7 +56,7 @@ struct NativeLoginView: View {
             .padding(.horizontal, 16)
             HStack(alignment: .lastTextBaseline) {
                 Image(systemName: "key.fill")
-                    .frame(width: 40, height: 40)
+                    .frame(size: .StandardImageSize)
                     .accentColor(Assets.darkGrey.color)
                 SecureField("Password", text: $password)
                     .foregroundColor(.black)
@@ -69,7 +69,7 @@ struct NativeLoginView: View {
             if errorMessage.count > 0 {
                 HStack {
                     Image(systemName: "info.circle.fill")
-                        .frame(width: 25, height: 25)
+                        .frame(size: .ToolbarImageSize)
                         .foregroundColor(Assets.red.color)
                     Text(errorMessage)
                         .foregroundColor(Assets.red.color)

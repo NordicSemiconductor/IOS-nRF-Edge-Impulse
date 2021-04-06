@@ -11,6 +11,10 @@ import SwiftUI
 
 extension View {
     
+    @inlinable public func frame(size: CGSize, alignment: Alignment = .center) -> some View {
+        return frame(width: size.width, height: size.height, alignment: alignment)
+    }
+    
     @inlinable public func centerTextInsideForm() -> some View {
         // Hack.
         return frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
@@ -41,7 +45,7 @@ extension View {
                     .resizable()
                     .renderingMode(.template)
                     .foregroundColor(.white)
-                    .frame(width: 30, height: 30, alignment: .center)
+                    .frame(size: .ToolbarImageSize)
                     .aspectRatio(contentMode: .fit)
             }
         })

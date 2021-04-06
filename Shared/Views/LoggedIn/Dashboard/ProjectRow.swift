@@ -21,7 +21,7 @@ struct ProjectRow: View {
         HStack(alignment: .top) {
             CircleAround(Image("EdgeImpulse")
                             .resizable())
-                .frame(width: 40, height: 40)
+                .frame(size: .StandardImageSize)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(project.name)
@@ -40,7 +40,7 @@ struct ProjectRow: View {
                     ForEach(project.collaborators) { collaborator in
                         HStack {
                             CircleAround(URLImage(url: collaborator.photo, placeholderImage: Image("EdgeImpulse")))
-                                .frame(width: 15, height: 15)
+                                .frame(size: .SmallImageSize)
                                 .padding(.horizontal, 4)
                             
                             Text(collaborator.username)
@@ -55,7 +55,7 @@ struct ProjectRow: View {
                         if !isShowingListOfCollaborators {
                             ForEach(project.collaborators) { collaborator in
                                 CircleAround(URLImage(url: collaborator.photo, placeholderImage: Image("EdgeImpulse")))
-                                    .frame(width: 15, height: 15)
+                                    .frame(size: .SmallImageSize)
                                     .padding(.horizontal, 2)
                             }
                         }
@@ -74,6 +74,7 @@ struct ProjectRow: View {
 struct ProjectRow_Previews: PreviewProvider {
     static var previews: some View {
         ProjectRow(project: .Sample)
+            .fixedSize()
     }
 }
 #endif

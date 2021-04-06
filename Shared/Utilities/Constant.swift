@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 // MARK: - Constant
 
@@ -26,4 +27,13 @@ enum Constant {
     
     static let signupURL: URL! = URL(string: "https://studio.edgeimpulse.com/signup")
     static let forgottenPasswordURL: URL! = URL(string: "https://studio.edgeimpulse.com/forgot-password")
+}
+
+// MARK: - Size(s)
+
+extension CGSize {
+    
+    static let SmallImageSize = CGSize(width: 15, height: 15)
+    static let ToolbarImageSize = CGSize(width: 30, height: 30)
+    static let StandardImageSize = CGSize(width: 40, height: 40)
 }
