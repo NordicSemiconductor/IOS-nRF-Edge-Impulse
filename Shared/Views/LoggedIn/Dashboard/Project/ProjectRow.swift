@@ -11,14 +11,19 @@ import SwiftUI
 
 struct ProjectRow: View {
     
-    let project: Project
+    private let project: Project
+    
+    // MARK: - Init
+    
+    init(_ project: Project) {
+        self.project = project
+    }
     
     // MARK: - Body
     
     var body: some View {
         HStack(alignment: .top) {
-            CircleAround(Image("EdgeImpulse")
-                            .resizable())
+            CircleAround(URLImage(url: project.logo, placeholderImage: Image("EdgeImpulse")))
                 .frame(size: .StandardImageSize)
 
             VStack(alignment: .leading, spacing: 8) {
@@ -47,7 +52,7 @@ struct ProjectRow: View {
 #if DEBUG
 struct ProjectRow_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectRow(project: .Sample)
+        ProjectRow(.Sample)
             .previewLayout(.sizeThatFits)
     }
 }

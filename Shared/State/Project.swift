@@ -16,6 +16,7 @@ struct Project: Identifiable, Codable {
     let description: String
     let created: Date
     let owner: String
+    let logo: URL
     let collaborators: [User]
     
     // MARK: - Init
@@ -26,6 +27,12 @@ struct Project: Identifiable, Codable {
         self.name = try container.decode(String.self, forKey: .name)
         self.description = try container.decode(String.self, forKey: .description)
         self.owner = try container.decode(String.self, forKey: .owner)
+        if let logoString = try? container.decode(String.self, forKey: .logo),
+           let logoURL = URL(string: logoString) {
+            self.logo = logoURL
+        } else {
+            self.logo = URL(string: User.PlaceholderImage)!
+        }
         self.collaborators = try container.decode([User].self, forKey: .collaborators)
         
         let createdString = try container.decode(String.self, forKey: .created)
