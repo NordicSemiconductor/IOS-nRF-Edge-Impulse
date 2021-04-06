@@ -13,34 +13,55 @@ struct ProjectRow: View {
     
     let project: Project
     
+    @State private var isShowingListOfCollaborators: Bool = false
+    
+    // MARK: - Body
+    
     var body: some View {
         HStack(alignment: .top) {
             CircleAround(Image("EdgeImpulse")
                             .resizable())
                 .frame(width: 40, height: 40)
 
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(project.name)
                     .font(.headline)
                     .bold()
                 Text(project.description)
                     .font(.body)
-                    .lineLimit(1)
+                    .lineLimit(3)
                 Text(project.created, style: .date)
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .foregroundColor(.secondary)
                     .font(.caption)
                     .lineLimit(1)
                 
-                HStack {
-                    Label("Collaborators:", systemImage: "person.fill")
-                        .padding(.trailing, 4)
+                DisclosureGroup(isExpanded: $isShowingListOfCollaborators, content: {
                     ForEach(project.collaborators) { collaborator in
-                        CircleAround(URLImage(url: collaborator.photo, placeholderImage: Image("EdgeImpulse")))
-                            .frame(width: 15, height: 15)
-                            .padding(.horizontal, 2)
+                        HStack {
+                            CircleAround(URLImage(url: collaborator.photo, placeholderImage: Image("EdgeImpulse")))
+                                .frame(width: 15, height: 15)
+                                .padding(.horizontal, 4)
+                            
+                            Text(collaborator.username)
+                        }
+                        .padding(.leading, 4)
                     }
-                }
+                },
+                label: {
+                    HStack {
+                        Label("Collaborators:", systemImage: "person.fill")
+                        
+                        if !isShowingListOfCollaborators {
+                            ForEach(project.collaborators) { collaborator in
+                                CircleAround(URLImage(url: collaborator.photo, placeholderImage: Image("EdgeImpulse")))
+                                    .frame(width: 15, height: 15)
+                                    .padding(.horizontal, 2)
+                            }
+                        }
+                    }
+                })
+                .padding(0)
             }
         }
         .padding(.vertical)
