@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CollaboratorRow: View {
     
+    @EnvironmentObject var appData: AppData
+    
     private let collaborator: User
     
     // MARK: - Init
@@ -25,8 +27,14 @@ struct CollaboratorRow: View {
                 .frame(size: .SmallImageSize)
                 .padding(.horizontal, 4)
             
-            Text(collaborator.username)
-                .foregroundColor(.secondary)
+            if let user = appData.user, user == collaborator {
+                Text("\(collaborator.username) (You)")
+                    .foregroundColor(.secondary)
+                    .fontWeight(.bold)
+            } else {
+                Text(collaborator.username)
+                    .foregroundColor(.secondary)
+            }
         }
     }
 }
@@ -40,7 +48,9 @@ struct CollaboratorRow_Previews: PreviewProvider {
             ForEach(Project.Sample.collaborators) { collaborator in
                 CollaboratorRow(collaborator)
             }
+            CollaboratorRow(Preview.projectsPreviewAppData.user!)
         }
+        .environmentObject(Preview.projectsPreviewAppData)
         .previewLayout(.sizeThatFits)
     }
 }
