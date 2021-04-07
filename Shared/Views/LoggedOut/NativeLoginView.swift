@@ -52,6 +52,7 @@ struct NativeLoginView: View {
                     .foregroundColor(.black)
                     .roundedTextFieldShape(backgroundAsset: .lightGrey, hasTextFieldBelow: true)
                     .disableAutocorrection(true)
+                    .frame(maxWidth: 320)
             }
             .padding(.horizontal, 16)
             HStack(alignment: .lastTextBaseline) {
@@ -62,6 +63,7 @@ struct NativeLoginView: View {
                     .foregroundColor(.black)
                     .roundedTextFieldShape(backgroundAsset: .lightGrey)
                     .disableAutocorrection(true)
+                    .frame(maxWidth: 320)
                     .padding(.bottom, 8)
             }
             .padding(.horizontal, 16)
