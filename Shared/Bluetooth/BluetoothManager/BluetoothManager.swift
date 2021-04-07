@@ -9,17 +9,20 @@ import Foundation
 import CoreBluetooth
 import os
 
-/// `BluetoothManager` is responsible for connection and managing peripheral connection
-/// Each `BluetoothManager` can handle only one peripheral
-final class BluetoothManager: NSObject {
-    
+/// Static methods and nested structures
+extension BluetoothManager {
     struct BluetoothManagerError: Error {
         static let cantRetreivePeripheral = BluetoothManagerError()
     }
     
-    private let uartServiceId = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
-    private let txCharacteristicId = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
-    private let rxCharacteristicId = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
+    static let uartServiceId = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
+    static let txCharacteristicId = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
+    static let rxCharacteristicId = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
+}
+
+/// `BluetoothManager` is responsible for connection and managing peripheral connection
+/// Each `BluetoothManager` can handle only one peripheral
+final class BluetoothManager: NSObject {
     
     private var pId: UUID
     
@@ -51,46 +54,80 @@ final class BluetoothManager: NSObject {
 
 extension BluetoothManager: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        if let e = error {
+            Logger().error("Failed to dicover services. Error: \(e.localizedDescription)")
+            return
+        }
+        
         peripheral.services?
-            .filter { $0.uuid == uartServiceId }
-            .forEach { peripheral.discoverCharacteristics(nil, for: $0) }
+            .filter { $0.uuid == Self.uartServiceId }
+            .forEach {
+                Logger().info("Did discovered service: \($0.uuid.uuidString)")
+                peripheral.discoverCharacteristics(nil, for: $0)
+            }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         
+        if let e = error {
+            Logger().error("Failed to discover characteristic. Error: \(e.localizedDescription)")
+        }
+        
         service.characteristics?
             .forEach {
-                if $0.uuid == txCharacteristicId {
+                
+                if $0.uuid == Self.txCharacteristicId {
                     txCharacteristic = $0
                     peripheral.setNotifyValue(true, for: txCharacteristic)
-                } else if $0.uuid == rxCharacteristicId {
+                    Logger().info("TX Characteristic discovered")
+                } else if $0.uuid == Self.rxCharacteristicId {
                     rxCharacteristic = $0
+                    Logger().info("RX Characteristic discovered")
                 }
                 
                 if case .some = txCharacteristic, case .some = rxCharacteristic {
-                    
+                    // TODO: Start workflow
                 }
             }
         
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        guard case .none = error else {
-            // TODO: Log error
+        if let e = error {
+            Logger().warning("Updating characteristic has failed")
+            Logger().error("\(e.localizedDescription)")
             return
+        }
+        
+        guard let bytesReceived = characteristic.value else {
+            Logger().info("Notification received from: \(characteristic.uuid.uuidString), with empty value")
+            Logger().error("Empty packet received")
+            return
+        }
+        
+        if let validUTF8String = String(data: bytesReceived, encoding: .utf8) {
+            Logger().debug("Received new data: \(validUTF8String)")
+        } else {
+            Logger().debug("Received string can't be parsed")
         }
     }
 }
 
 extension BluetoothManager: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-
+        Logger().info("Central Manager state changed to \(central.state)")
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        Logger().info("Connected the peripheral: \(peripheral.identifier.uuidString)")
         if peripheral == self.peripheral {
-            peripheral.discoverServices([uartServiceId])
+            peripheral.discoverServices([Self.uartServiceId])
         }
+    }
+    
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        Logger().info("Did fail to connect the peripheral: \(peripheral.identifier.uuidString)")
+        Logger().error("Error: \(error?.localizedDescription ?? "")")
     }
     
 }

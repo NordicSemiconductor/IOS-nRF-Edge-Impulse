@@ -36,7 +36,7 @@ extension Scanner {
         switch isScanning {
         case true:
             guard bluetoothManager.state == .poweredOn else { break }
-            bluetoothManager.scanForPeripherals(withServices: nil, options: nil)
+            bluetoothManager.scanForPeripherals(withServices: [BluetoothManager.uartServiceId], options: nil)
         case false:
             bluetoothManager.stopScan()
         }
@@ -74,7 +74,7 @@ private extension Scanner {
         switch bluetoothManager.state {
         case .poweredOn:
             guard isScanning else { return }
-            bluetoothManager.scanForPeripherals(withServices: nil, options: nil)
+            bluetoothManager.scanForPeripherals(withServices: [BluetoothManager.uartServiceId], options: nil)
         default:
             guard isScanning else { return }
             isScanning = false
