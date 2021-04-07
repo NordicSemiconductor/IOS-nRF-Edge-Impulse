@@ -17,23 +17,20 @@ struct NativeLoginView: View {
     
     @State var username: String = ""
     @State var password: String = ""
-    @State var errorMessage: String = ""
     
+    @State private var viewState: ViewState = .clean
     @State private var loginCancellable: Cancellable? = nil
     
     // MARK: - Properties
     
     private let textFieldBackground = Assets.lightGrey.color.opacity(0.5)
     
-    var isLoginDisabled: Bool {
-        username.isEmpty || password.isEmpty
-    }
-    
     // MARK: - Body
     
     var body: some View {
         VStack(alignment: .center) {
             Spacer()
+            
             HStack(alignment: .center, spacing: 16) {
                 Image("Nordic")
                     .resizable()
@@ -44,6 +41,7 @@ struct NativeLoginView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 80)
             }
+            
             HStack(alignment: .lastTextBaseline) {
                 Image(systemName: "person.fill")
                     .frame(size: .StandardImageSize)
@@ -53,8 +51,10 @@ struct NativeLoginView: View {
                     .roundedTextFieldShape(backgroundAsset: .lightGrey, hasTextFieldBelow: true)
                     .disableAutocorrection(true)
                     .frame(maxWidth: 320)
+                    .disabled(isMakingRequest)
             }
             .padding(.horizontal, 16)
+            
             HStack(alignment: .lastTextBaseline) {
                 Image(systemName: "key.fill")
                     .frame(size: .StandardImageSize)
@@ -65,30 +65,43 @@ struct NativeLoginView: View {
                     .disableAutocorrection(true)
                     .frame(maxWidth: 320)
                     .padding(.bottom, 8)
+                    .disabled(isMakingRequest)
             }
             .padding(.horizontal, 16)
             
-            if errorMessage.count > 0 {
+            switch viewState {
+            case .error(let message):
                 HStack {
                     Image(systemName: "info.circle.fill")
                         .frame(size: .ToolbarImageSize)
                         .foregroundColor(Assets.red.color)
-                    Text(errorMessage)
+                    Text(message)
                         .foregroundColor(Assets.red.color)
                 }
                 .padding(.bottom, 8)
+            default:
+                Text("")
             }
             
-            Link("Forgot your password?", destination: Constant.forgottenPasswordURL)
-                .foregroundColor(Assets.blue.color)
-                .padding(.bottom, 8)
-            
-            Button("Login") {
-                attemptLogin()
+            VStack {
+                switch viewState {
+                case .makingRequest:
+                    ProgressView()
+                        .foregroundColor(.accentColor)
+                        .progressViewStyle(CircularProgressViewStyle())
+                default:
+                    Link("Forgot your password?", destination: Constant.forgottenPasswordURL)
+                        .foregroundColor(Assets.blue.color)
+                        
+                    
+                    Button("Login") {
+                        attemptLogin()
+                    }
+                    .circularButtonShape(backgroundAsset: isLoginButtonDisabled ? .lightGrey : .blue)
+                    .disabled(isLoginButtonDisabled)
+                }
             }
-            .circularButtonShape(backgroundAsset: isLoginDisabled ? .lightGrey : .blue)
-            .disabled(isLoginDisabled)
-            .padding(.bottom, 8)
+            .padding(.vertical, 8)
             
             HStack {
                 Text("Don't have an account?")
@@ -100,6 +113,24 @@ struct NativeLoginView: View {
             Spacer()
         }
     }
+}
+
+// MARK: - Logic
+
+fileprivate extension NativeLoginView {
+    
+    var isLoginButtonDisabled: Bool {
+        !isMakingRequest && (username.isEmpty || password.isEmpty)
+    }
+    
+    var isMakingRequest: Bool {
+        switch viewState {
+        case .makingRequest:
+            return true
+        default:
+            return false
+        }
+    }
     
     func attemptLogin() {
         let parameters = LoginParameters(username: username, password: password)
@@ -108,13 +139,27 @@ struct NativeLoginView: View {
             return
         }
         loginCancellable = Network.shared.perform(httpRequest, responseType: LoginResponse.self)
-            .sink(receiveCompletion: { _ in }, receiveValue: { loginResponse in
+            .sink(receiveCompletion: { error in
+                viewState = .error("There was an error contacting with the Server.")
+            }, receiveValue: { loginResponse in
                 guard loginResponse.success else {
-                    errorMessage = loginResponse.error ?? ""
+                    viewState = .error(loginResponse.error ?? "")
                     return
                 }
                 appData.apiToken = loginResponse.token
             })
+        viewState = .makingRequest
+    }
+}
+
+// MARK: - ViewState
+
+fileprivate extension NativeLoginView {
+    
+    enum ViewState {
+        case clean
+        case makingRequest
+        case error(_ message: String)
     }
 }
 
