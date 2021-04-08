@@ -46,6 +46,12 @@
 		AA14CA76261490CD004F08FE /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14CA74261490CD004F08FE /* Codable.swift */; };
 		AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
+		AA284059261F4DFC00EB8637 /* AppHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA284058261F4DFC00EB8637 /* AppHeaderView.swift */; };
+		AA28405A261F4DFC00EB8637 /* AppHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA284058261F4DFC00EB8637 /* AppHeaderView.swift */; };
+		AA28405C261F4F3D00EB8637 /* UsernameField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA28405B261F4F3D00EB8637 /* UsernameField.swift */; };
+		AA28405D261F4F3D00EB8637 /* UsernameField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA28405B261F4F3D00EB8637 /* UsernameField.swift */; };
+		AA28405F261F537C00EB8637 /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA28405E261F537C00EB8637 /* PasswordField.swift */; };
+		AA284060261F537C00EB8637 /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA28405E261F537C00EB8637 /* PasswordField.swift */; };
 		AA32792D2604C66B00A0CA6A /* DataAcquisitionViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */; };
 		AA386B09260CEDD60079F12D /* Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA386B08260CEDD60079F12D /* Previews.swift */; };
 		AA386B0A260CEDD60079F12D /* Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA386B08260CEDD60079F12D /* Previews.swift */; };
@@ -175,6 +181,9 @@
 		AA14CA74261490CD004F08FE /* Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
 		AA1F07A325F7989400CC41A9 /* BluetoothError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothError.swift; sourceTree = "<group>"; };
 		AA263F05260385690018CF5B /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
+		AA284058261F4DFC00EB8637 /* AppHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderView.swift; sourceTree = "<group>"; };
+		AA28405B261F4F3D00EB8637 /* UsernameField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameField.swift; sourceTree = "<group>"; };
+		AA28405E261F537C00EB8637 /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
 		AA386B08260CEDD60079F12D /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
 		AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarLayoutView.swift; sourceTree = "<group>"; };
 		AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorRow.swift; sourceTree = "<group>"; };
@@ -485,6 +494,7 @@
 			children = (
 				AAFED87525E7F7E800BB7445 /* LoggedOut */,
 				AA0208A725F65E9500FD6B24 /* LoggedIn */,
+				AA284058261F4DFC00EB8637 /* AppHeaderView.swift */,
 				AA03E95A25E3EF12003DA9DA /* ContentView.swift */,
 				AA03E95925E3EF12003DA9DA /* nRF_Edge_ImpulseApp.swift */,
 			);
@@ -516,6 +526,8 @@
 		AAFED87525E7F7E800BB7445 /* LoggedOut */ = {
 			isa = PBXGroup;
 			children = (
+				AA28405B261F4F3D00EB8637 /* UsernameField.swift */,
+				AA28405E261F537C00EB8637 /* PasswordField.swift */,
 				AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */,
 			);
 			path = LoggedOut;
@@ -802,6 +814,7 @@
 				C33C10C32609791E0097EA5A /* SignalLevel.swift in Sources */,
 				AA02088E25F651D100FD6B24 /* ScanResult.swift in Sources */,
 				AAA87ADD261B143B0097EA74 /* String.swift in Sources */,
+				AA284059261F4DFC00EB8637 /* AppHeaderView.swift in Sources */,
 				AA0208A125F65C7600FD6B24 /* LoggedInRootView.swift in Sources */,
 				AA0208A925F65EB400FD6B24 /* Tabs.swift in Sources */,
 				AA0D81292608C03A00AE615A /* DeploymentView.swift in Sources */,
@@ -812,10 +825,12 @@
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */,
 				AA8EC8B4261F30A900FBE990 /* Modifiers.swift in Sources */,
+				AA28405F261F537C00EB8637 /* PasswordField.swift in Sources */,
 				AA01F3DF25EFDC5000368707 /* Constant.swift in Sources */,
 				AA92BEF12611F9E400BED04B /* ResourceData.swift in Sources */,
 				AAF936AB260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
 				AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */,
+				AA28405C261F4F3D00EB8637 /* UsernameField.swift in Sources */,
 				C37DD4A9260C991900D667EA /* DeviceDetails.swift in Sources */,
 				AAF0C96F260A069F001B76B9 /* User.swift in Sources */,
 				AAF0C9692609FEBE001B76B9 /* GetCurrentUserRequest.swift in Sources */,
@@ -863,6 +878,7 @@
 				AAFFEB3125FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
 				C33C10C42609791E0097EA5A /* SignalLevel.swift in Sources */,
 				AAA87ADE261B143B0097EA74 /* String.swift in Sources */,
+				AA28405A261F4DFC00EB8637 /* AppHeaderView.swift in Sources */,
 				AA0208A225F65C7600FD6B24 /* LoggedInRootView.swift in Sources */,
 				AA0208AA25F65EB400FD6B24 /* Tabs.swift in Sources */,
 				AA0D812A2608C03A00AE615A /* DeploymentView.swift in Sources */,
@@ -873,10 +889,12 @@
 				AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */,
 				AA535511261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */,
 				AA8EC8B5261F30A900FBE990 /* Modifiers.swift in Sources */,
+				AA284060261F537C00EB8637 /* PasswordField.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
 				AA92BEF22611F9E400BED04B /* ResourceData.swift in Sources */,
 				AAC1634E260E17670081271A /* DeviceList.swift in Sources */,
 				AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
+				AA28405D261F4F3D00EB8637 /* UsernameField.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				C37DD4AA260C991900D667EA /* DeviceDetails.swift in Sources */,
 				AAF0C970260A069F001B76B9 /* User.swift in Sources */,

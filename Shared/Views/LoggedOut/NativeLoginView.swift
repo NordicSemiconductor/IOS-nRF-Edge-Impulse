@@ -31,45 +31,13 @@ struct NativeLoginView: View {
         VStack(alignment: .center) {
             Spacer()
             
-            HStack(alignment: .center, spacing: 16) {
-                Image("Nordic")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 50)
-                Image("EdgeImpulse")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 80)
-            }
+            AppHeaderView()
             
-            HStack(alignment: .lastTextBaseline) {
-                Image(systemName: "person.fill")
-                    .frame(size: .StandardImageSize)
-                    .accentColor(Assets.darkGrey.color)
-                TextField("", text: $username)
-                    .modifier(FixPlaceholder(for: $username, text: "Username or E-Mail"))
-                    .disableAllAutocorrections()
-                    .foregroundColor(.accentColor)
-                    .roundedTextFieldShape(backgroundAsset: .lightGrey, hasTextFieldBelow: true)
-                    .frame(maxWidth: 320)
-                    .disabled(isMakingRequest)
-            }
-            .padding(.horizontal, 16)
+            UsernameField($username, enabled: !isMakingRequest)
+                .padding(.horizontal, 16)
             
-            HStack(alignment: .lastTextBaseline) {
-                Image(systemName: "key.fill")
-                    .frame(size: .StandardImageSize)
-                    .accentColor(Assets.darkGrey.color)
-                SecureField("", text: $password)
-                    .modifier(FixPlaceholder(for: $password, text: "Password"))
-                    .disableAllAutocorrections()
-                    .foregroundColor(.accentColor)
-                    .roundedTextFieldShape(backgroundAsset: .lightGrey)
-                    .frame(maxWidth: 320)
-                    .padding(.bottom, 8)
-                    .disabled(isMakingRequest)
-            }
-            .padding(.horizontal, 16)
+            PasswordField($password, enabled: !isMakingRequest)
+                .padding(.horizontal, 16)
             
             switch viewState {
             case .error(let message):

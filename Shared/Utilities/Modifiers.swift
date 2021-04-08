@@ -28,6 +28,7 @@ public struct FixPlaceholder: ViewModifier {
             if contentString.wrappedValue.isEmpty {
                 Text(placeholderText)
                     .foregroundColor(.gray)
+                    .padding(2)
             }
             
             content
