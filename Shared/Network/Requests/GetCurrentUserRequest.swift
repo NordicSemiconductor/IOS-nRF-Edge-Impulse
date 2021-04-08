@@ -37,6 +37,6 @@ struct GetUserResponse: APIResponse {
     
     func getUser() -> User? {
         guard let createdDate = created.formatAsDate() else { return nil }
-        return User(id: id, username: username, created: createdDate)
+        return User(id: id, username: username, created: createdDate, photo: photo)
     }
 }
