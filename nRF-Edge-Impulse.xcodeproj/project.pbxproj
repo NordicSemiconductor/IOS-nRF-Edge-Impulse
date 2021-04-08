@@ -522,12 +522,9 @@
 			isa = PBXGroup;
 			children = (
 				C301A34E261DC09D0010717D /* Extensions */,
-				AA80989925EE959B00091AC0 /* Publishers.swift */,
 				AA01F3CF25EFACB000368707 /* Assets.swift */,
 				AA01F3DE25EFDC5000368707 /* Constant.swift */,
 				AA14CA74261490CD004F08FE /* Codable.swift */,
-				AAA87ADC261B143B0097EA74 /* String.swift */,
-				AA02086E25F648C200FD6B24 /* View.swift */,
 				AAFFEB3225FF7A06002287D6 /* ButtonStyles.swift */,
 				AAF0C974260A1482001B76B9 /* CircleAround.swift */,
 				AAFFEB3825FF9554002287D6 /* NordicError.swift */,
@@ -541,6 +538,9 @@
 			isa = PBXGroup;
 			children = (
 				C301A34F261DC0B80010717D /* CBCentralManager+Ext.swift */,
+				AA80989925EE959B00091AC0 /* Publishers.swift */,
+				AA02086E25F648C200FD6B24 /* View.swift */,
+				AAA87ADC261B143B0097EA74 /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
