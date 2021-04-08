@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HeaderDeviceDetails: View {
+    let btManager: BluetoothManager
     let scanResult: ScanResult
     
     var body: some View {
@@ -26,7 +27,11 @@ struct HeaderDeviceDetails: View {
             let connectable = scanResult.advertisementData.isConnectable == true
             
             Button("Connect") {
-                
+                do {
+                    try self.btManager.connect()
+                } catch let e {
+                    print(e.localizedDescription)
+                }
             }
             .disabled(!connectable)
             
@@ -43,7 +48,7 @@ struct HeaderDeviceDetails: View {
 #if DEBUG
 struct HeaderDeviceDetails_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderDeviceDetails(scanResult: ScanResult(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock))
+        HeaderDeviceDetails(btManager: BluetoothManager(peripheralId: UUID()), scanResult: ScanResult(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock))
     }
 }
 #endif

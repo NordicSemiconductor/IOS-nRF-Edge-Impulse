@@ -20,9 +20,6 @@ struct DeviceRow: View {
                 Text(device.name)
                     .font(.headline)
                     .bold()
-                Text(device.id.uuidString)
-                    .font(.body)
-                    .lineLimit(1)
             }
         }
         .padding(16)

@@ -105,6 +105,7 @@
 		AAFFEB3725FF8EAA002287D6 /* DashboardView+ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB3525FF8EAA002287D6 /* DashboardView+ViewState.swift */; };
 		AAFFEB3925FF9554002287D6 /* NordicError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB3825FF9554002287D6 /* NordicError.swift */; };
 		AAFFEB3A25FF9554002287D6 /* NordicError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB3825FF9554002287D6 /* NordicError.swift */; };
+		C301A350261DC0B80010717D /* CBCentralManager+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C301A34F261DC0B80010717D /* CBCentralManager+Ext.swift */; };
 		C33C10C12609791E0097EA5A /* SignalParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33C10BF2609791E0097EA5A /* SignalParameters.swift */; };
 		C33C10C22609791E0097EA5A /* SignalParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33C10BF2609791E0097EA5A /* SignalParameters.swift */; };
 		C33C10C32609791E0097EA5A /* SignalLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33C10C02609791E0097EA5A /* SignalLevel.swift */; };
@@ -202,6 +203,7 @@
 		AAFFEB3225FF7A06002287D6 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		AAFFEB3525FF8EAA002287D6 /* DashboardView+ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DashboardView+ViewState.swift"; sourceTree = "<group>"; };
 		AAFFEB3825FF9554002287D6 /* NordicError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NordicError.swift; sourceTree = "<group>"; };
+		C301A34F261DC0B80010717D /* CBCentralManager+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CBCentralManager+Ext.swift"; sourceTree = "<group>"; };
 		C33C10BF2609791E0097EA5A /* SignalParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalParameters.swift; sourceTree = "<group>"; };
 		C33C10C02609791E0097EA5A /* SignalLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalLevel.swift; sourceTree = "<group>"; };
 		C37DD498260C89D800D667EA /* AdvertisementData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementData.swift; sourceTree = "<group>"; };
@@ -518,6 +520,7 @@
 		AAFED87D25E7FFF000BB7445 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C301A34E261DC09D0010717D /* Extensions */,
 				AA80989925EE959B00091AC0 /* Publishers.swift */,
 				AA01F3CF25EFACB000368707 /* Assets.swift */,
 				AA01F3DE25EFDC5000368707 /* Constant.swift */,
@@ -531,6 +534,14 @@
 				AAF4E321261DD193009C387B /* Cache.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		C301A34E261DC09D0010717D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C301A34F261DC0B80010717D /* CBCentralManager+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C37DD493260C894700D667EA /* BluetoothManager */ = {
@@ -766,6 +777,7 @@
 				C3846EE5260B4386005AEF67 /* BluetoothManager.swift in Sources */,
 				AA386B09260CEDD60079F12D /* Previews.swift in Sources */,
 				AAFFEB3325FF7A06002287D6 /* ButtonStyles.swift in Sources */,
+				C301A350261DC0B80010717D /* CBCentralManager+Ext.swift in Sources */,
 				AA1016FC25E9173A006DC88A /* Network.swift in Sources */,
 				C37DD4B0260CAA1500D667EA /* HeaderDeviceDetails.swift in Sources */,
 				C37DD499260C89D800D667EA /* AdvertisementData.swift in Sources */,
