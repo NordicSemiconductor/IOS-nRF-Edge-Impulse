@@ -95,6 +95,7 @@
 		AAFAE5EB25ED14E500A45A90 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE5EA25ED14E500A45A90 /* AppData.swift */; };
 		AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE5EA25ED14E500A45A90 /* AppData.swift */; };
 		AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCBE8125E90734001C52B0 /* LoginRequest.swift */; };
+		AAFEA59D261F0B8C0021B8CF /* CBCentralManager+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C301A34F261DC0B80010717D /* CBCentralManager+Ext.swift */; };
 		AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */; };
 		AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */; };
 		AAFFEB3025FF6A29002287D6 /* HorizontalTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFFEB2F25FF6A29002287D6 /* HorizontalTabView.swift */; };
@@ -827,6 +828,7 @@
 				AAFFEB3A25FF9554002287D6 /* NordicError.swift in Sources */,
 				AA80989B25EE959B00091AC0 /* Publishers.swift in Sources */,
 				C33C10C22609791E0097EA5A /* SignalParameters.swift in Sources */,
+				AAFEA59D261F0B8C0021B8CF /* CBCentralManager+Ext.swift in Sources */,
 				AA0D90AE260E1F1100A455B7 /* nRF_Edge_ImpulseApp.swift in Sources */,
 				AAF4E323261DD193009C387B /* Cache.swift in Sources */,
 				AAFFEB3725FF8EAA002287D6 /* DashboardView+ViewState.swift in Sources */,
