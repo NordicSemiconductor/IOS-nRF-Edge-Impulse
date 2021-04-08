@@ -31,6 +31,8 @@ final class Network {
 
 extension Network {
     
+    // MARK: - HTTPRequest
+    
     public func perform<T: Codable>(_ request: HTTPRequest, responseType: T.Type = T.self) -> AnyPublisher<T, Error> {
         return session.dataTaskPublisher(for: request)
             .tryMap() { element -> Data in
@@ -39,6 +41,9 @@ extension Network {
                 }
                 if httpResponse.statusCode == 401 {
                     throw URLError(.userAuthenticationRequired)
+                }
+                guard httpResponse.statusCode == 200 else {
+                    throw URLError(.badServerResponse)
                 }
                 return element.data
             }
