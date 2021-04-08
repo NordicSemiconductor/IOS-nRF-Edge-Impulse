@@ -57,17 +57,9 @@ final class URLImageLoader: ObservableObject {
     
     // MARK: - API
     
-    static let sharedCache = Cache<URL, Image>()
-    
     func load() {
-        guard let cachedImage = URLImageLoader.sharedCache[url] else {
-            cancellable = Network.shared.downloadImage(for: url)
-                .sink { [url] in
-                    URLImageLoader.sharedCache[url] = $0
-                }
-            return
-        }
-        image = cachedImage
+        cancellable = Network.shared.downloadImage(for: url)
+            .assign(to: \.image, on: self)
     }
 }
 

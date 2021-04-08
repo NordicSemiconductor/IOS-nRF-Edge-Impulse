@@ -18,7 +18,8 @@ final class Network {
     
     // MARK: - Properties
     
-    public lazy var session = URLSession(configuration: .default)
+    private lazy var session = URLSession(configuration: .default)
+    private lazy var imageCache = Cache<URL, Image>()
     
     // MARK: - Singleton
     
@@ -52,7 +53,15 @@ extension Network {
             .eraseToAnyPublisher()
     }
     
+    // MARK: - Image(s)
+    
     public func downloadImage(for url: URL) -> AnyPublisher<Image?, Never> {
+        if let cachedImage = imageCache[url] {
+            return Just(cachedImage)
+                .receive(on: DispatchQueue.main)
+                .eraseToAnyPublisher()
+        }
+
         return session.dataTaskPublisher(for: url)
             .map { response -> Image? in
                 let image: Image?
@@ -67,6 +76,10 @@ extension Network {
             }
             .replaceError(with: nil)
             .receive(on: DispatchQueue.main)
+            .map { [imageCache] image in
+                imageCache[url] = image
+                return image
+            }
             .eraseToAnyPublisher()
     }
 }
