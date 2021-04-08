@@ -75,6 +75,15 @@ extension View {
     
     // MARK: - UITextField
     
+    func disableAllAutocorrections() -> some View {
+        #if os(iOS)
+        return autocapitalization(.none)
+            .disableAutocorrection(true)
+        #else
+        return disableAutocorrection(true)
+        #endif
+    }
+    
     func roundedTextFieldShape(backgroundAsset: Assets, hasTextFieldBelow: Bool = false) -> AnyView {
         var anyView: AnyView
         #if os(iOS)
