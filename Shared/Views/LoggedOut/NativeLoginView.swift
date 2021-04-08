@@ -139,8 +139,13 @@ fileprivate extension NativeLoginView {
             return
         }
         loginCancellable = Network.shared.perform(httpRequest, responseType: LoginResponse.self)
-            .sink(receiveCompletion: { error in
-                viewState = .error("There was an error contacting with the Server.")
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    viewState = .error(error.localizedDescription)
+                default:
+                    break
+                }
             }, receiveValue: { loginResponse in
                 guard loginResponse.success else {
                     viewState = .error(loginResponse.error ?? "")
