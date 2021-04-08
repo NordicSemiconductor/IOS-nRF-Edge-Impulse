@@ -68,15 +68,10 @@ extension DashboardView {
                     break
                 }
             },
-            receiveValue: { projectsResponse in
-                guard let user = projectsResponse.getUser() else {
-                    // TODO.
-                    print("Failed")
-                    return
-                }
-                appData.user = user
-                appData.projects = projectsResponse.projects
-                appData.dashboardViewState = .showingUser(user, projectsResponse.projects)
+            receiveValue: { userResponse in
+                appData.user = userResponse.user
+                appData.projects = userResponse.projects
+                appData.dashboardViewState = .showingUser(userResponse.user, userResponse.projects)
             })
     }
     
