@@ -131,3 +131,24 @@ extension BluetoothManager: CBCentralManagerDelegate {
     }
     
 }
+
+extension CBManagerState: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .resetting:
+            return "Resetting"
+        case .unsupported:
+            return "Unsupported"
+        case .unauthorized:
+            return "Unauthorized"
+        case .poweredOff:
+            return "Off"
+        case .poweredOn:
+            return "On"
+        case .unknown:
+            fallthrough
+        @unknown default:
+            return "Unknown"
+        }
+    }
+}
