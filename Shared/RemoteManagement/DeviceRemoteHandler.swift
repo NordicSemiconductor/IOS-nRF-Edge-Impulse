@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import Combine
 
 class DeviceRemoteHandler {
     
     private let scanResult: ScanResult
     private var bluetoothManager: BluetoothManager!
     private var webSocketManager: WebSocketManager!
+    private var cancelable = Set<AnyCancellable>()
     
     init(scanResult: ScanResult) {
         self.scanResult = scanResult
@@ -23,27 +25,18 @@ class DeviceRemoteHandler {
     
     func connect() {
         bluetoothManager = BluetoothManager(peripheralId: scanResult.id)
-        do {
-            try bluetoothManager.connect()
-            bluetoothManager.objectWillChange.sink { [weak self] in
-                self?.stateChanged()
+        bluetoothManager.connect().sink { (completion) in
+            switch (completion) {
+            case .finished: break
+            case .failure(let e):
+                print(e.localizedDescription)
             }
-        } catch let e {
+        } receiveValue: { (data) in
             
         }
-    }
-}
+        .store(in: &cancelable)
 
-extension DeviceRemoteHandler {
-    private func stateChanged() {
-        switch bluetoothManager.state {
-        case .readyToConnect:
-            try! bluetoothManager.connect()
-        case .readyToUse:
-            // TODO: listen for TX Messages
-            break
-        default:
-            break 
-        }
+        
+
     }
 }

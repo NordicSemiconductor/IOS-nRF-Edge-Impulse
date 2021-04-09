@@ -8,24 +8,12 @@
 import Foundation
 import CoreBluetooth
 import os
-
-protocol BluetoothManagerDelegate: class {
-    
-}
+import Combine
 
 /// Static methods and nested structures
 extension BluetoothManager {
     struct Error: Swift.Error {
         static let cantRetreivePeripheral = Error()
-    }
-    
-    enum State {
-        case unknown
-        case initializing
-        case readyToConnect
-        case connecting
-        case readyToUse
-        case turnedOff
     }
     
     static let uartServiceId = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
@@ -44,9 +32,10 @@ final class BluetoothManager: NSObject, ObservableObject {
     private var peripheral: CBPeripheral!
     private var txCharacteristic: CBCharacteristic!
     private var rxCharacteristic: CBCharacteristic!
+    // Throw en error if the peripheral was not connected or required characteristics were not found, or data was not received after timeout.
     private var timer: Timer!
     
-    @Published var state: State = .unknown
+    private let publisher = BTManagerPublisher()
     
     init(peripheralId: UUID) {
         self.centralManager = CBCentralManager()
@@ -56,14 +45,17 @@ final class BluetoothManager: NSObject, ObservableObject {
         centralManager.delegate = self
     }
     
-    func connect() throws {
+    func connect() -> AnyPublisher<Data, Error> {
         guard let p = centralManager.retrievePeripherals(withIdentifiers: [pId]).first else {
-            throw Error.cantRetreivePeripheral
+            return Result.Publisher.init(.failure(Error.cantRetreivePeripheral)).eraseToAnyPublisher()
         }
         
         peripheral = p
         peripheral?.delegate = self 
         centralManager.connect(p, options: nil)
+        
+        // TODO: Is `makeConnectable` required?
+        return publisher.eraseToAnyPublisher()
     }
 }
 
@@ -120,6 +112,8 @@ extension BluetoothManager: CBPeripheralDelegate {
             return
         }
         
+        publisher.add(data: bytesReceived)
+        
         if let validUTF8String = String(data: bytesReceived, encoding: .utf8) {
             Logger().debug("Received new data: \(validUTF8String)")
         } else {
@@ -145,4 +139,45 @@ extension BluetoothManager: CBCentralManagerDelegate {
         Logger().error("Error: \(error?.localizedDescription ?? "")")
     }
     
+}
+
+private class BTManagerPublisher: Publisher {
+    typealias Output = Data
+    typealias Failure = BluetoothManager.Error
+    
+    private var addDataClosure: ((Data) -> Void)?
+    private var completeWithError: ((BluetoothManager.Error) -> Void)?
+    
+    func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
+        let subscription = BTManagerSubscription<S>()
+        subscription.target = subscriber
+        subscriber.receive(subscription: subscription)
+        
+        addDataClosure = { [weak subscription] data in
+            _ = subscription?.target?.receive(data)
+        }
+        
+        completeWithError = { [weak subscription] error in
+            subscription?.target?.receive(completion: .failure(error))
+        }
+        
+    }
+    
+    func add(data: Data) {
+        addDataClosure?(data)
+    }
+    
+}
+
+private class BTManagerSubscription<Target: Subscriber>: Subscription where Target.Input == Data {
+    typealias Input = Data
+    typealias Failure = BluetoothManager.Error
+    
+    var target: Target?
+    
+    func request(_ demand: Subscribers.Demand) { }
+    
+    func cancel() {
+        target = nil
+    }
 }
