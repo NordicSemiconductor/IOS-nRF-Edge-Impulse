@@ -11,9 +11,8 @@ struct DeviceDetails: View {
     let scanResult: ScanResult
     
     var body: some View {
-        
         VStack(alignment: .center) {
-            HeaderDeviceDetails(btManager: BluetoothManager(peripheralId: scanResult.id), scanResult: scanResult)
+            HeaderDeviceDetails(deviceHandler: DeviceRemoteHandler(scanResult: scanResult))
             Divider()
             Spacer()
         }

@@ -10,45 +10,67 @@ import Combine
 
 /// Static constants and structures
 extension WebSocketManager {
-    struct Error: Swift.Error {
+    enum Error: Swift.Error {
         // TODO: Add code and message to error
-        static let wrongUrl = Error()
+        case wrongUrl
+        case wsError(Swift.Error)
     }
+    
+    // TODO: maybe we should get it from DK
+    static let address = "wss://remote-mgmt.edgeimpulse.com"
 }
 
 class WebSocketManager {
+    private let publisher = PassthroughSubject<Data, Error>()
     private let session: URLSession
+    
     private var task: URLSessionWebSocketTask!
+    private var cancellable = Set<AnyCancellable>()
     
     init() {
         session = URLSession(configuration: .default)
     }
     
-    func connect(to urlString: String) throws {
+    func connect() -> AnyPublisher<Data, Error> {
+        self.connect(to: Self.address)
+    }
+    
+    func connect(to urlString: String) -> AnyPublisher<Data, Error> {
         guard let url = URL(string: urlString) else {
-            throw Error.wrongUrl
+            return Result.Publisher(.failure(Error.wrongUrl)).eraseToAnyPublisher()
         }
         
         task = session.webSocketTask(with: url)
         listen()
+        
+        return publisher.eraseToAnyPublisher()
     }
     
-    func send() {
-        
+    func send(_ data: Data) {
+        task.send(.data(data)) { [weak self] (error) in
+            if let e = error {
+                self?.publisher.send(completion: .failure(.wsError(e)))
+            }
+        }
     }
 }
 
 /// Private API
 extension WebSocketManager {
     private func listen() {
-        task.receive { result in
+        task.receive { [weak self] result in
             switch result {
             case .failure(let e):
-                // TODO: Handle error
-                break
+                self?.publisher.send(completion: .failure(.wsError(e)))
             case .success(let msg):
-                // TODO: emit message
-                break
+                switch msg {
+                case .data(let d):
+                    self?.publisher.send(d)
+                case .string(let s):
+                    self?.publisher.send(s.data(using: .utf8)!)
+                @unknown default:
+                    break 
+                }
             }
         }
     }

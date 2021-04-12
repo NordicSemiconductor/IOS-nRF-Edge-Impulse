@@ -120,6 +120,8 @@
 		C3846EE6260B4386005AEF67 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3846EE4260B4386005AEF67 /* BluetoothManager.swift */; };
 		C3A3665A260414BC008D82CC /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A36659260414BC008D82CC /* DeviceRow.swift */; };
 		C3A3665B260414BC008D82CC /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A36659260414BC008D82CC /* DeviceRow.swift */; };
+		C3BF6AAC26244907006330C8 /* Logger+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BF6AAB26244907006330C8 /* Logger+Ext.swift */; };
+		C3BF6AB12624490B006330C8 /* Logger+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BF6AAB26244907006330C8 /* Logger+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,6 +212,7 @@
 		C37DD4AF260CAA1500D667EA /* HeaderDeviceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderDeviceDetails.swift; sourceTree = "<group>"; };
 		C3846EE4260B4386005AEF67 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		C3A36659260414BC008D82CC /* DeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRow.swift; sourceTree = "<group>"; };
+		C3BF6AAB26244907006330C8 /* Logger+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -513,6 +516,7 @@
 			isa = PBXGroup;
 			children = (
 				C301A34F261DC0B80010717D /* CBCentralManager+Ext.swift */,
+				C3BF6AAB26244907006330C8 /* Logger+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -779,6 +783,7 @@
 				AA1016FC25E9173A006DC88A /* Network.swift in Sources */,
 				C37DD4B0260CAA1500D667EA /* HeaderDeviceDetails.swift in Sources */,
 				C37DD499260C89D800D667EA /* AdvertisementData.swift in Sources */,
+				C3BF6AAC26244907006330C8 /* Logger+Ext.swift in Sources */,
 				AAF0C975260A1482001B76B9 /* CircleAround.swift in Sources */,
 				AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */,
 				AA80988425EE518F00091AC0 /* ProjectRow.swift in Sources */,
@@ -851,6 +856,7 @@
 				AA01F3E025EFDC5000368707 /* Constant.swift in Sources */,
 				AAFFEB3125FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
 				C33C10C42609791E0097EA5A /* SignalLevel.swift in Sources */,
+				C3BF6AB12624490B006330C8 /* Logger+Ext.swift in Sources */,
 				AAA87ADE261B143B0097EA74 /* String.swift in Sources */,
 				AA0208A225F65C7600FD6B24 /* LoggedInRootView.swift in Sources */,
 				C301A35C261DE9280010717D /* DeviceRemoteHandler.swift in Sources */,
