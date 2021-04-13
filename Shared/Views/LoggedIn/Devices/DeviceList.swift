@@ -52,6 +52,13 @@ struct DeviceList: View {
 struct DeviceList_Previews: PreviewProvider {
     
     static var previews: some View {
+        #if os(OSX)
+        Group {
+            DeviceList()
+                .setTitle("Devices")
+                .environmentObject(Preview.projectsPreviewAppData)
+        }
+        #elseif os(iOS)
         Group {
             NavigationView {
                 DeviceList()
@@ -70,6 +77,7 @@ struct DeviceList_Previews: PreviewProvider {
             }
             .setBackgroundColor(Assets.blue)
         }
+        #endif
     }
 }
 #endif
