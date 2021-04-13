@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import os
 
 /// Static constants and structures
 extension WebSocketManager {
@@ -23,6 +24,7 @@ extension WebSocketManager {
 class WebSocketManager {
     private let publisher = PassthroughSubject<Data, Error>()
     private let session: URLSession
+    private let logger = Logger(category: "WebSocketManager")
     
     private var task: URLSessionWebSocketTask!
     private var cancellable = Set<AnyCancellable>()
@@ -47,10 +49,17 @@ class WebSocketManager {
     }
     
     func send(_ data: Data) {
+        
+        
         task.send(.data(data)) { [weak self] (error) in
             if let e = error {
                 self?.publisher.send(completion: .failure(.wsError(e)))
-            }
+                self?.logger.error("Send error: \(e.localizedDescription)")
+            } 
+            
+            #warning("remove test code")
+            self?.publisher.send(WSHelloResponse.success.data)
+            
         }
     }
 }
@@ -62,12 +71,15 @@ extension WebSocketManager {
             switch result {
             case .failure(let e):
                 self?.publisher.send(completion: .failure(.wsError(e)))
+                self?.logger.error("Error: \(e.localizedDescription)")
             case .success(let msg):
                 switch msg {
                 case .data(let d):
                     self?.publisher.send(d)
+                    self?.logger.info("Data received: \(d)")
                 case .string(let s):
                     self?.publisher.send(s.data(using: .utf8)!)
+                    self?.logger.info("Message received: \(s)")
                 @unknown default:
                     break 
                 }

@@ -9,6 +9,46 @@ import Foundation
 import Combine
 import os
 
+extension DeviceRemoteHandler {
+    enum Error: Swift.Error {
+        case anyError(Swift.Error)
+        case stringError(String)
+        case timeout
+        
+        var localizedDescription: String {
+            switch self {
+            case .anyError(let e):
+                return e.localizedDescription
+            case .timeout:
+                return "Timeout error"
+            case .stringError(let s):
+                return s
+            }
+        }
+    }
+    
+    enum State: CustomDebugStringConvertible {
+        case notConnected
+        case connecting
+        case error(Error)
+        case ready
+        
+        var debugDescription: String {
+            switch self {
+            case .notConnected:
+                return "notConnected"
+            case .connecting:
+                return "connecting"
+            case .error(let e):
+                return "error: \(e.localizedDescription)"
+            case .ready:
+                return "ready"
+            }
+        }
+        
+    }
+}
+
 class DeviceRemoteHandler {
     private let logger = Logger(category: "DeviceRemoteHandler")
     
@@ -17,9 +57,12 @@ class DeviceRemoteHandler {
     private var webSocketManager: WebSocketManager!
     private var cancelable = Set<AnyCancellable>()
     
+    @Published private (set) var state: State = .notConnected
+    
     init(scanResult: ScanResult) {
         self.scanResult = scanResult
         bluetoothManager = BluetoothManager(peripheralId: scanResult.id)
+        webSocketManager = WebSocketManager()
     }
     
     deinit {
@@ -27,23 +70,44 @@ class DeviceRemoteHandler {
     }
     
     func connect() {
+        self.state = .connecting
+
+        let wsPublisher = webSocketManager.connect()
+        
         bluetoothManager.connect()
-            .mapError( Error )
-            .tryMap { try JSONDecoder().decode(HelloMessage.self, from: $0) }
-            .flatMap { webSocketManager.connect() }
-            
-            
-            .sink { [weak self] (completion) in
-            switch (completion) {
-            case .finished:
-                self?.logger.info("BT Publisher finished")
-            case .failure(let e):
-                self?.logger.error("BT Publisher finished with error: \(e.localizedDescription)")
+            .mapError { Error.anyError($0) }
+            .decode(type: ResponseRootObject.self, decoder: JSONDecoder())
+//            .compactMap { try? JSONDecoder().decode(HelloMessage.self, from: $0) }
+            .flatMap { [unowned self] data -> AnyPublisher<Data, Swift.Error> in
+                do {
+                    let hello = data.hello
+                    let d = try JSONEncoder().encode(hello)
+                    self.webSocketManager.send(d)
+                } catch let e {
+                    return Result.Publisher(.failure(e)).eraseToAnyPublisher()
+                }
+                return wsPublisher.mapError({ Error.anyError($0) }).eraseToAnyPublisher()
             }
-        } receiveValue: { (data) in
-            let str = String(data: data, encoding: .utf8)!
-            Logger(category: "DeviceRemoteHandler").info("Got data from Bluetooth manager: \(str)")
-        }
-        .store(in: &cancelable)
+            .decode(type: WSHelloResponse.self, decoder: JSONDecoder())
+            .mapError { Error.anyError($0) }
+            .flatMap { (response) -> AnyPublisher<State, Error> in
+                if let e = response.err {
+                    return Result.Publisher(.failure(.stringError(e))).eraseToAnyPublisher()
+                } else {
+                    return Result.Publisher(.success(.ready)).eraseToAnyPublisher()
+                }
+            }
+            .sink { [weak self] (completion) in
+                if case .failure(let e) = completion {
+                    self?.state = .error(e)
+                    self?.logger.error("Error: \(e.localizedDescription)")
+                } else {
+                    self?.logger.info("Connecting completed")
+                }
+            } receiveValue: { [weak self] (state) in
+                self?.state = state
+                self?.logger.info("New state: \(state.debugDescription)")
+            }
+            .store(in: &cancelable)
     }
 }

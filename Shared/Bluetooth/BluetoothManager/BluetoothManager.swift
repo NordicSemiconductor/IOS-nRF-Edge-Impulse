@@ -96,8 +96,9 @@ extension BluetoothManager: CBPeripheralDelegate {
                 }
                 
                 if case .some = txCharacteristic, case .some = rxCharacteristic {
-                    // TODO: Start workflow
-                    publisher.send("String".data(using: .utf8)!)
+                    let mockMsh = ResponseRootObject.mock
+                    let data = try! JSONEncoder().encode(mockMsh)
+                    publisher.send(data)
                 }
             }
         
