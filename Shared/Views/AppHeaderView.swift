@@ -9,22 +9,38 @@ import SwiftUI
 
 struct AppHeaderView: View {
     
+    private let renderingMode: Image.TemplateRenderingMode
+    
+    private let templateColor = Assets.middleGrey.color
+    
+    // MARK: Init
+    
+    init(_ mode: Image.TemplateRenderingMode = .original) {
+        renderingMode = mode
+    }
+    
+    // MARK: body
+    
     var body: some View {
-        HStack(alignment: .center, spacing: 16) {
+        HStack(alignment: .center, spacing: 8) {
             Image("Nordic")
                 .resizable()
+                .renderingMode(renderingMode)
+                .foregroundColor(templateColor)
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 50)
             
             Divider()
-                .foregroundColor(Assets.lightGrey.color)
+                .foregroundColor(.white)
                 .frame(width: 2, height: 60)
                 .padding(.leading, 12)
             
             Image("EdgeImpulse")
                 .resizable()
+                .renderingMode(renderingMode)
+                .foregroundColor(templateColor)
                 .aspectRatio(contentMode: .fit)
-                .frame(height: 80)
+                .frame(height: 90)
         }
     }
 }
@@ -34,8 +50,11 @@ struct AppHeaderView: View {
 #if DEBUG
 struct AppHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        AppHeaderView()
-            .previewLayout(.sizeThatFits)
+        Group {
+            AppHeaderView()
+            AppHeaderView(.template)
+        }
+        .previewLayout(.sizeThatFits)
     }
 }
 #endif

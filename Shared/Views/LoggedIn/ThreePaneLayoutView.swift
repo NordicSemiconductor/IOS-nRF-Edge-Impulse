@@ -27,9 +27,11 @@ struct ThreePaneLayoutView: View {
             }
             .frame(minWidth: 160)
             
-            Text("Select Something")
+            AppHeaderView(.template)
+                .frame(maxWidth: 120)
             
-            Text("Select Something Again")
+            AppHeaderView(.template)
+                .frame(maxWidth: 120)
         }.frame(
             minWidth: 800,
             maxWidth: .infinity,
