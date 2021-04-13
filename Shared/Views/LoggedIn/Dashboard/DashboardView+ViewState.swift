@@ -53,7 +53,7 @@ extension DashboardView.ViewState {
                 List {
                     Section(header: Text("Projects")) {
                         ForEach(projects) { project in
-                            ProjectRow(project: project)
+                            ProjectRow(project)
                         }
                     }
                 }

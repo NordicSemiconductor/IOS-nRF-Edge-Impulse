@@ -11,39 +11,39 @@ import SwiftUI
 
 struct ProjectRow: View {
     
-    let project: Project
+    private let project: Project
+    
+    // MARK: - Init
+    
+    init(_ project: Project) {
+        self.project = project
+    }
+    
+    // MARK: - Body
     
     var body: some View {
         HStack(alignment: .top) {
-            CircleAround(Image("EdgeImpulse")
-                            .resizable())
-                .frame(width: 40, height: 40)
+            CircleAround(URLImage(url: project.logo, placeholderImage: Image("EdgeImpulse")))
+                .frame(size: .StandardImageSize)
 
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: 8) {
                 Text(project.name)
                     .font(.headline)
                     .bold()
                 Text(project.description)
                     .font(.body)
-                    .lineLimit(1)
+                    .lineLimit(3)
+                
+                CollaboratorsDisclosureView(project.collaborators)
+                
                 Text(project.created, style: .date)
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .foregroundColor(.secondary)
                     .font(.caption)
                     .lineLimit(1)
-                
-                HStack {
-                    Label("Collaborators:", systemImage: "person.fill")
-                        .padding(.trailing, 4)
-                    ForEach(project.collaborators) { collaborator in
-                        CircleAround(URLImage(url: collaborator.photo, placeholderImage: Image("EdgeImpulse")))
-                            .frame(width: 15, height: 15)
-                            .padding(.horizontal, 2)
-                    }
-                }
             }
         }
-        .padding(.vertical)
+        .padding()
     }
 }
 
@@ -52,7 +52,8 @@ struct ProjectRow: View {
 #if DEBUG
 struct ProjectRow_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectRow(project: .Sample)
+        ProjectRow(.Sample)
+            .previewLayout(.sizeThatFits)
     }
 }
 #endif

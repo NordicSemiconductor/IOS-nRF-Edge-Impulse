@@ -55,7 +55,7 @@ struct UserView_Previews: PreviewProvider {
             UserView(user: UserView_Previews.userWithoutImage)
             UserView(user: UserView_Previews.userWithImage)
         }
-        .fixedSize()
+        .previewLayout(.sizeThatFits)
     }
 }
 #endif

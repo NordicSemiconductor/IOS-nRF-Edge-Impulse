@@ -50,6 +50,8 @@ extension ScanResult: Hashable {
 
 // MARK: - Sample
 
+#if DEBUG
 extension ScanResult {
     static let sample = ScanResult(name: "Test Device", id: UUID(), rssi: .outOfRange, advertisementData: .mock)
 }
+#endif

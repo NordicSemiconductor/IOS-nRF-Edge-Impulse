@@ -73,7 +73,7 @@ struct URLImage_Previews: PreviewProvider {
                      placeholderImage: Image("EdgeImpulse"))
                 .frame(width: 200, height: 200)
         }
-        .fixedSize()
+        .previewLayout(.sizeThatFits)
     }
 }
 #endif

@@ -27,16 +27,18 @@ struct GetUserResponse: APIResponse {
     
     // MARK: - Data
     
-    let id: Int
-    let username: String
-    let photo: String
-    let created: String
+    let user: User
     let projects: [Project]
     
-    // MARK: - API
+    // MARK: - Init
     
-    func getUser() -> User? {
-        guard let createdDate = created.formatAsDate() else { return nil }
-        return User(id: id, username: username, created: createdDate)
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.success = try container.decode(Bool.self, forKey: .success)
+        self.error = try? container.decode(String.self, forKey: .error)
+        self.projects = try container.decode([Project].self, forKey: .projects)
+        
+        let singleValueContainer = try decoder.singleValueContainer()
+        self.user = try singleValueContainer.decode(User.self)
     }
 }

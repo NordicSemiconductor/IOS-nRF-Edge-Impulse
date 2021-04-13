@@ -18,7 +18,8 @@ final class Network {
     
     // MARK: - Properties
     
-    public lazy var session = URLSession(configuration: .default)
+    private lazy var session = URLSession(configuration: .default)
+    private lazy var imageCache = Cache<URL, Image>()
     
     // MARK: - Singleton
     
@@ -31,6 +32,8 @@ final class Network {
 
 extension Network {
     
+    // MARK: - HTTPRequest
+    
     public func perform<T: Codable>(_ request: HTTPRequest, responseType: T.Type = T.self) -> AnyPublisher<T, Error> {
         return session.dataTaskPublisher(for: request)
             .tryMap() { element -> Data in
@@ -40,6 +43,9 @@ extension Network {
                 if httpResponse.statusCode == 401 {
                     throw URLError(.userAuthenticationRequired)
                 }
+                guard httpResponse.statusCode == 200 else {
+                    throw URLError(.badServerResponse)
+                }
                 return element.data
             }
             .decode(type: T.self, decoder: JSONDecoder())
@@ -47,7 +53,15 @@ extension Network {
             .eraseToAnyPublisher()
     }
     
+    // MARK: - Image(s)
+    
     public func downloadImage(for url: URL) -> AnyPublisher<Image?, Never> {
+        if let cachedImage = imageCache[url] {
+            return Just(cachedImage)
+                .receive(on: DispatchQueue.main)
+                .eraseToAnyPublisher()
+        }
+
         return session.dataTaskPublisher(for: url)
             .map { response -> Image? in
                 let image: Image?
@@ -62,6 +76,10 @@ extension Network {
             }
             .replaceError(with: nil)
             .receive(on: DispatchQueue.main)
+            .map { [imageCache] image in
+                imageCache[url] = image
+                return image
+            }
             .eraseToAnyPublisher()
     }
 }

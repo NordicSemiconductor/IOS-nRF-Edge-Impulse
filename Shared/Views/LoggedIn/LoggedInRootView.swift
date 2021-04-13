@@ -12,6 +12,7 @@ struct LoggedInRootView: View {
     enum LoggedInLayout {
         case tabs
         case dualPane
+        case threePane
     }
     
     #if os(iOS)
@@ -25,7 +26,7 @@ struct LoggedInRootView: View {
         }
         return .dualPane
         #else
-        return .dualPane
+        return .threePane
         #endif
     }
     
@@ -35,6 +36,8 @@ struct LoggedInRootView: View {
             TabBarLayoutView()
         case .dualPane:
             TwoPaneLayoutView()
+        case .threePane:
+            ThreePaneLayoutView()
         }
     }
 }

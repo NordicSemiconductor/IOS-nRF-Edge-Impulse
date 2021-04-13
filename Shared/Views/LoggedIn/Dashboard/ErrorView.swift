@@ -27,7 +27,7 @@ struct ErrorView: View {
         VStack(spacing: 10) {
             Image(systemName: "xmark.octagon.fill")
                 .resizable()
-                .frame(width: 40, height: 40)
+                .frame(size: .StandardImageSize)
                 .foregroundColor(Assets.red.color)
             Text("\(errorMessage)")
                 .multilineTextAlignment(.center)
