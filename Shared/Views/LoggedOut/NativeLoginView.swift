@@ -39,19 +39,7 @@ struct NativeLoginView: View {
             PasswordField($password, enabled: !isMakingRequest)
                 .padding(.horizontal, 16)
             
-            switch viewState {
-            case .error(let message):
-                HStack {
-                    Image(systemName: "info.circle.fill")
-                        .frame(size: .ToolbarImageSize)
-                        .foregroundColor(Assets.red.color)
-                    Text(message)
-                        .foregroundColor(Assets.red.color)
-                }
-                .padding(.bottom, 8)
-            default:
-                Text("")
-            }
+            LoginErrorView(viewState: viewState)
             
             VStack {
                 switch viewState {
@@ -74,12 +62,7 @@ struct NativeLoginView: View {
             }
             .padding(.vertical, 8)
             
-            HStack {
-                Text("Don't have an account?")
-                    .foregroundColor(Assets.darkGrey.color)
-                Link("Sign Up", destination: Constant.signupURL)
-                    .foregroundColor(Assets.blue.color)
-            }
+            SignedUpView()
             
             Spacer()
         }
@@ -130,7 +113,7 @@ fileprivate extension NativeLoginView {
 
 // MARK: - ViewState
 
-fileprivate extension NativeLoginView {
+internal extension NativeLoginView {
     
     enum ViewState {
         case clean

@@ -96,6 +96,10 @@
 		AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C974260A1482001B76B9 /* CircleAround.swift */; };
 		AAF4E322261DD193009C387B /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4E321261DD193009C387B /* Cache.swift */; };
 		AAF4E323261DD193009C387B /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4E321261DD193009C387B /* Cache.swift */; };
+		AAF4F6BA2625C02E00012359 /* SignedUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6B92625C02E00012359 /* SignedUpView.swift */; };
+		AAF4F6BB2625C02E00012359 /* SignedUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6B92625C02E00012359 /* SignedUpView.swift */; };
+		AAF4F6BD2625C0A700012359 /* LoginErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6BC2625C0A700012359 /* LoginErrorView.swift */; };
+		AAF4F6BE2625C0A700012359 /* LoginErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6BC2625C0A700012359 /* LoginErrorView.swift */; };
 		AAF5054725F11E45003AFED7 /* DataAcquisitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */; };
 		AAF936AB260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */; };
 		AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */; };
@@ -207,6 +211,8 @@
 		AAF0C971260A121B001B76B9 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		AAF0C974260A1482001B76B9 /* CircleAround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleAround.swift; sourceTree = "<group>"; };
 		AAF4E321261DD193009C387B /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		AAF4F6B92625C02E00012359 /* SignedUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedUpView.swift; sourceTree = "<group>"; };
+		AAF4F6BC2625C0A700012359 /* LoginErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginErrorView.swift; sourceTree = "<group>"; };
 		AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
 		AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPaneLayoutView.swift; sourceTree = "<group>"; };
 		AAFAE5EA25ED14E500A45A90 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
@@ -528,6 +534,8 @@
 			children = (
 				AA28405B261F4F3D00EB8637 /* UsernameField.swift */,
 				AA28405E261F537C00EB8637 /* PasswordField.swift */,
+				AAF4F6BC2625C0A700012359 /* LoginErrorView.swift */,
+				AAF4F6B92625C02E00012359 /* SignedUpView.swift */,
 				AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */,
 			);
 			path = LoggedOut;
@@ -803,6 +811,7 @@
 				AA535513261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift in Sources */,
 				AA80988425EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA43B2A825FA574F00C5B5EE /* TabBarLayoutView.swift in Sources */,
+				AAF4F6BD2625C0A700012359 /* LoginErrorView.swift in Sources */,
 				AA80989A25EE959B00091AC0 /* Publishers.swift in Sources */,
 				AAA87AE3261B28F50097EA74 /* URLImage.swift in Sources */,
 				AA0D812C2608F62700AE615A /* DeploymentViewState.swift in Sources */,
@@ -828,6 +837,7 @@
 				AA28405F261F537C00EB8637 /* PasswordField.swift in Sources */,
 				AA01F3DF25EFDC5000368707 /* Constant.swift in Sources */,
 				AA92BEF12611F9E400BED04B /* ResourceData.swift in Sources */,
+				AAF4F6BA2625C02E00012359 /* SignedUpView.swift in Sources */,
 				AAF936AB260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
 				AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */,
 				AA28405C261F4F3D00EB8637 /* UsernameField.swift in Sources */,
@@ -867,6 +877,7 @@
 				AA535519261C896B007B2C94 /* CollaboratorsDisclosureView.swift in Sources */,
 				AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */,
 				AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */,
+				AAF4F6BE2625C0A700012359 /* LoginErrorView.swift in Sources */,
 				AA7F5DE425F8F6C900185328 /* LoginRequest.swift in Sources */,
 				AAA87AE4261B28F50097EA74 /* URLImage.swift in Sources */,
 				AA43B2A925FA58B500C5B5EE /* TabBarLayoutView.swift in Sources */,
@@ -892,6 +903,7 @@
 				AA284060261F537C00EB8637 /* PasswordField.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
 				AA92BEF22611F9E400BED04B /* ResourceData.swift in Sources */,
+				AAF4F6BB2625C02E00012359 /* SignedUpView.swift in Sources */,
 				AAC1634E260E17670081271A /* DeviceList.swift in Sources */,
 				AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
 				AA28405D261F4F3D00EB8637 /* UsernameField.swift in Sources */,
