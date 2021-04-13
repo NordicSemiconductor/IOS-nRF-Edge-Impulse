@@ -77,7 +77,6 @@ class DeviceRemoteHandler {
         bluetoothManager.connect()
             .mapError { Error.anyError($0) }
             .decode(type: ResponseRootObject.self, decoder: JSONDecoder())
-//            .compactMap { try? JSONDecoder().decode(HelloMessage.self, from: $0) }
             .flatMap { [unowned self] data -> AnyPublisher<Data, Swift.Error> in
                 do {
                     let hello = data.hello
@@ -97,6 +96,8 @@ class DeviceRemoteHandler {
                     return Result.Publisher(.success(.ready)).eraseToAnyPublisher()
                 }
             }
+            .prefix(1)
+            .timeout(5, scheduler: DispatchQueue.main, customError: { Error.timeout })
             .sink { [weak self] (completion) in
                 if case .failure(let e) = completion {
                     self?.state = .error(e)

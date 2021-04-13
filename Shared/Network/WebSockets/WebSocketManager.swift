@@ -30,7 +30,9 @@ class WebSocketManager {
     private var cancellable = Set<AnyCancellable>()
     
     init() {
-        session = URLSession(configuration: .default)
+        self.session = URLSession(configuration: .default)
+//        super.init()
+//        session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
     }
     
     func connect() -> AnyPublisher<Data, Error> {
@@ -44,6 +46,7 @@ class WebSocketManager {
         
         task = session.webSocketTask(with: url)
         listen()
+        task.resume()
         
         return publisher.eraseToAnyPublisher()
     }
@@ -87,3 +90,56 @@ extension WebSocketManager {
         }
     }
 }
+/*
+extension WebSocketManager: URLSessionWebSocketDelegate {
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+        logger.info("Web Socket Connection was opened")
+    }
+    
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
+        logger.info("Web socket connection was closed due to \(closeCode.rawValue)")
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, willBeginDelayedRequest request: URLRequest, completionHandler: @escaping (URLSession.DelayedRequestDisposition, URLRequest?) -> Void) {
+        let s = #function
+        logger.debug("URLSessionWebSocketDelegate: \(s)")
+    }
+    
+    func urlSession(_ session: URLSession, taskIsWaitingForConnectivity task: URLSessionTask) {
+        let s = #function
+        logger.debug("URLSessionWebSocketDelegate: \(s)")
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
+        let s = #function
+        logger.debug("URLSessionWebSocketDelegate: \(s)")
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        let s = #function
+        logger.debug("URLSessionWebSocketDelegate: \(s)")
+        
+        
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, needNewBodyStream completionHandler: @escaping (InputStream?) -> Void) {
+        let s = #function
+        logger.debug("URLSessionWebSocketDelegate: \(s)")
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
+        let s = #function
+        logger.debug("URLSessionWebSocketDelegate: \(s)")
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics) {
+        let s = #function
+        logger.debug("URLSessionWebSocketDelegate: \(s)")
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Swift.Error?) {
+        let s = #function
+        logger.debug("URLSessionWebSocketDelegate: \(s)")
+    }
+}
+*/
