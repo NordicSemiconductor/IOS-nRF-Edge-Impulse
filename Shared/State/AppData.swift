@@ -27,7 +27,7 @@ final class AppData: ObservableObject {
     
     @Published var dashboardViewState: DashboardView.ViewState = .empty
     @Published var projects: [Project] = []
-    @Published var scanResults: [ScanResult] = []
+    @Published var scanResults: [DeviceRemoteHandler] = []
     
     @Published var selectedTab: Tabs? = .Dashboard
     

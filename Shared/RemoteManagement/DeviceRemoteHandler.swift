@@ -46,6 +46,14 @@ extension DeviceRemoteHandler {
             }
         }
         
+        var isReady: Bool {
+            if case .ready = self {
+                return true
+            } else {
+                return false 
+            }
+        }
+        
     }
 }
 
@@ -112,3 +120,23 @@ class DeviceRemoteHandler {
             .store(in: &cancelable)
     }
 }
+
+extension DeviceRemoteHandler: Hashable, Identifiable {
+    static func == (lhs: DeviceRemoteHandler, rhs: DeviceRemoteHandler) -> Bool {
+        lhs.scanResult == rhs.scanResult
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(scanResult)
+    }
+    
+    var id: UUID {
+        scanResult.id
+    }
+}
+
+#if DEBUG
+extension DeviceRemoteHandler {
+    static let mock = DeviceRemoteHandler(scanResult: ScanResult.sample)
+}
+#endif

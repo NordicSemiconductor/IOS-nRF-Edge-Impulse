@@ -22,7 +22,7 @@ final class Scanner: NSObject, ObservableObject {
     
     @Published var isScanning = false
     
-    private(set) var devicePublisher = PassthroughSubject<ScanResult, BluetoothError>()
+    private(set) var devicePublisher = PassthroughSubject<DeviceRemoteHandler, BluetoothError>()
 }
 
 // MARK: - API
@@ -57,7 +57,8 @@ extension Scanner: CBCentralManagerDelegate {
         let scanResult = ScanResult(name: name, id: peripheral.identifier, rssi: R(value: RSSI.intValue), advertisementData: AdvertisementData(advertisementData))
         
         if scanResult.advertisementData.isConnectable == true {
-            devicePublisher.send(scanResult)            
+            let handler = DeviceRemoteHandler(scanResult: scanResult)
+            devicePublisher.send(handler)
         }
     }
     

@@ -43,7 +43,7 @@ struct Preview {
             ScanResult(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock),
             ScanResult(name: "Device 2", id: UUID(), rssi: .bad, advertisementData: .mock),
             ScanResult(name: "Device 3", id: UUID(), rssi: .ok, advertisementData: .mock)
-        ]
+        ].map { DeviceRemoteHandler(scanResult: $0) }
         return appData
     }
 }

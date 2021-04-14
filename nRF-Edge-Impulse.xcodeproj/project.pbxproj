@@ -307,8 +307,7 @@
 				C37DD4A7260C98EA00D667EA /* DeviceDetails */,
 				C3A36659260414BC008D82CC /* DeviceRow.swift */,
 				AA02089525F65A3700FD6B24 /* DeviceList.swift */,
-				C33C10C02609791E0097EA5A /* SignalLevel.swift */,
-				C33C10BF2609791E0097EA5A /* SignalParameters.swift */,
+				C3BF6AC72626D662006330C8 /* SignalLevel */,
 			);
 			path = Devices;
 			sourceTree = "<group>";
@@ -629,6 +628,15 @@
 				AA1F07A325F7989400CC41A9 /* BluetoothError.swift */,
 			);
 			path = Scanner;
+			sourceTree = "<group>";
+		};
+		C3BF6AC72626D662006330C8 /* SignalLevel */ = {
+			isa = PBXGroup;
+			children = (
+				C33C10C02609791E0097EA5A /* SignalLevel.swift */,
+				C33C10BF2609791E0097EA5A /* SignalParameters.swift */,
+			);
+			path = SignalLevel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

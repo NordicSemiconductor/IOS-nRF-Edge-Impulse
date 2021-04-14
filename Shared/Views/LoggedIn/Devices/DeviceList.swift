@@ -15,13 +15,8 @@ struct DeviceList: View {
     @State private var scannerCancellable: Cancellable? = nil
     
     var body: some View {
-        List {
-            ForEach(appData.scanResults) { device in
-                NavigationLink(destination: DeviceDetails(scanResult: device)) {
-                    DeviceRow(device: device)
-                }
-            }
-        }
+        
+        buildRootView()
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
@@ -43,6 +38,28 @@ struct DeviceList: View {
             scannerCancellable?.cancel()
         }
         .accentColor(.white)
+    }
+    
+    @ViewBuilder
+    private func buildRootView() -> some View {
+        if appData.scanResults.isEmpty {
+            Text("No Scanned Devices")
+                .font(.headline)
+                .bold()
+        } else {
+            buildDeviceList()
+        }
+    }
+    
+    @ViewBuilder
+    private func buildDeviceList() -> some View {
+        List {
+            ForEach(appData.scanResults) { device in
+                NavigationLink(destination: DeviceDetails(device: device)) {
+                    DeviceRow(scanResult: device.scanResult)
+                }
+            }
+        }
     }
 }
 

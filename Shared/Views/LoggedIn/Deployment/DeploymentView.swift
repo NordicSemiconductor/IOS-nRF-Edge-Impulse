@@ -20,9 +20,13 @@ struct DeploymentView: View {
     var body: some View {
         Form {
             Section(header: Text("Device")) {
-                if appData.scanResults.count > 0 {
+                let connectedDevices = appData.scanResults
+                    .filter { $0.state.isReady }
+                    .map (\.scanResult)
+                
+                if connectedDevices.count > 0 {
                     Picker("Selected", selection: $viewState.selectedDevice) {
-                        ForEach(appData.scanResults, id: \.self) { device in
+                        ForEach(connectedDevices, id: \.self) { device in
                             Text(device.name).tag(device)
                         }
                     }
