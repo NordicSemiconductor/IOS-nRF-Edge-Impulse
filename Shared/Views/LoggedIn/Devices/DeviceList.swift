@@ -25,10 +25,15 @@ struct DeviceList: View {
             }
         }
         .toolbar {
+            ToolbarItem(placement: .destructiveAction) {
+                Button(action: refreshScanner, label: {
+                    Label("Refresh", systemImage: "arrow.clockwise")
+                })
+            }
             ToolbarItem(placement: .confirmationAction) {
-                Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
-                    scanner.toggle(with: preferencesData)
-                }
+                Button(action: toggleScanner, label: {
+                    Image(systemName: scanner.isScanning ? "stop.fill" : "play.fill")
+                })
             }
         }
         .onAppear() {
@@ -45,6 +50,21 @@ struct DeviceList: View {
             scannerCancellable?.cancel()
         }
         .accentColor(.white)
+    }
+}
+
+// MARK: - Private API
+
+private extension DeviceList {
+    
+    func toggleScanner() {
+        scanner.toggle(with: preferencesData)
+    }
+    
+    func refreshScanner() {
+        appData.scanResults.removeAll()
+        guard !scanner.isScanning else { return }
+        toggleScanner()
     }
 }
 
