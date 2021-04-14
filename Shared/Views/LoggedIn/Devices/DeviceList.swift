@@ -9,7 +9,9 @@ import SwiftUI
 import Combine
 
 struct DeviceList: View {
+    
     @EnvironmentObject var appData: AppData
+    @EnvironmentObject var preferencesData: PreferencesData
     
     @StateObject var scanner = Scanner()
     @State private var scannerCancellable: Cancellable? = nil
@@ -25,7 +27,7 @@ struct DeviceList: View {
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
-                    scanner.toggle()
+                    scanner.toggle(preferencesData)
                 }
             }
         }

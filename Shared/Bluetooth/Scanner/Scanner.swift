@@ -16,6 +16,7 @@ final class Scanner: NSObject, ObservableObject {
     
     // MARK: - Private
     
+    private var preferences = PreferencesData()
     private lazy var bluetoothManager = CBCentralManager(delegate: self, queue: nil)
     
     // MARK: - API Properties
@@ -29,14 +30,16 @@ final class Scanner: NSObject, ObservableObject {
 
 extension Scanner {
     
-    func toggle() {
+    func toggle(_ preferences: PreferencesData) {
+        self.preferences = preferences
         checkForBluetoothManagerErrors()
         
         isScanning.toggle()
         switch isScanning {
         case true:
             guard bluetoothManager.state == .poweredOn else { break }
-            bluetoothManager.scanForPeripherals(withServices: [BluetoothManager.uartServiceId], options: nil)
+            let scanServices: [CBUUID]? = preferences.onlyScanUARTDevices ? [BluetoothManager.uartServiceId] : nil
+            bluetoothManager.scanForPeripherals(withServices: scanServices, options: nil)
         case false:
             bluetoothManager.stopScan()
         }
@@ -56,8 +59,12 @@ extension Scanner: CBCentralManagerDelegate {
         
         let scanResult = ScanResult(name: name, id: peripheral.identifier, rssi: R(value: RSSI.intValue), advertisementData: AdvertisementData(advertisementData))
         
-        if scanResult.advertisementData.isConnectable == true {
-            devicePublisher.send(scanResult)            
+        switch preferences.onlyScanConnectableDevices {
+        case true:
+            guard scanResult.advertisementData.isConnectable == true else { return }
+            fallthrough
+        default:
+            devicePublisher.send(scanResult)
         }
     }
     
