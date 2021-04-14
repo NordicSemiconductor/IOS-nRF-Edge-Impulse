@@ -30,7 +30,7 @@ final class Scanner: NSObject, ObservableObject {
 
 extension Scanner {
     
-    func toggle(_ preferences: PreferencesData) {
+    func toggle(with preferences: PreferencesData) {
         self.preferences = preferences
         checkForBluetoothManagerErrors()
         

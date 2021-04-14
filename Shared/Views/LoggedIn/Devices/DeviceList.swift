@@ -27,7 +27,7 @@ struct DeviceList: View {
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
-                    scanner.toggle(preferencesData)
+                    scanner.toggle(with: preferencesData)
                 }
             }
         }
