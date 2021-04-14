@@ -53,10 +53,28 @@ struct DeviceList: View {
     
     @ViewBuilder
     private func buildDeviceList() -> some View {
+//        let splitedDevices = appData.allDevices.split(whereSeparator: { $0.state.isReady })
+//        
+//        let connected = appData.allDevices.filter { $0.state.isReady }
+//        let notConnected = appData.allDevices.filter { !$0.state.isReady }
+        
         List {
-            ForEach(appData.scanResults) { device in
-                NavigationLink(destination: DeviceDetails(device: device)) {
-                    DeviceRow(scanResult: device.scanResult)
+            if !appData.scanResults.filter { $0.state.isReady }.isEmpty {
+                Section(header: Text("Connected Devices")) {
+                    ForEach(appData.scanResults.filter { $0.state.isReady }) { device in
+                        NavigationLink(destination: DeviceDetails(device: device)) {
+                            DeviceRow(scanResult: device.scanResult)
+                        }
+                    }
+                }
+            }
+            if !appData.scanResults.filter { !$0.state.isReady }.isEmpty {
+                Section(header: Text("Not Connected Devices")) {
+                    ForEach(appData.scanResults.filter { !$0.state.isReady }) { device in
+                        NavigationLink(destination: DeviceDetails(device: device)) {
+                            DeviceRow(scanResult: device.scanResult)
+                        }
+                    }
                 }
             }
         }

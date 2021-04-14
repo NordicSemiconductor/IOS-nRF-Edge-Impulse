@@ -27,7 +27,22 @@ extension DeviceRemoteHandler {
         }
     }
     
-    enum State: CustomDebugStringConvertible {
+    enum State: Equatable, CustomDebugStringConvertible {
+        static func == (lhs: DeviceRemoteHandler.State, rhs: DeviceRemoteHandler.State) -> Bool {
+            switch (lhs, rhs) {
+            case (.notConnected, .notConnected):
+                return true
+            case (.connecting, .connecting):
+                return true
+            case (.error, .error):
+                return true
+            case (.ready, .ready):
+                return true
+            default:
+                return false
+            }
+        }
+        
         case notConnected
         case connecting
         case error(Error)
@@ -57,13 +72,16 @@ extension DeviceRemoteHandler {
     }
 }
 
-class DeviceRemoteHandler {
+class DeviceRemoteHandler: ObservableObject {
     private let logger = Logger(category: "DeviceRemoteHandler")
     
     let scanResult: ScanResult
     private var bluetoothManager: BluetoothManager!
     private var webSocketManager: WebSocketManager!
     private var cancelable = Set<AnyCancellable>()
+    
+    private var btPublisher: AnyPublisher<Data, BluetoothManager.Error>?
+    private var wsPublisher: AnyPublisher<Data, WebSocketManager.Error>?
     
     @Published private (set) var state: State = .notConnected
     
@@ -78,12 +96,16 @@ class DeviceRemoteHandler {
     }
     
     func connect() {
-        self.state = .connecting
-
-        let wsPublisher = webSocketManager.connect()
+        wsPublisher = webSocketManager.connect()
+        btPublisher = bluetoothManager.connect()
         
-        bluetoothManager.connect()
-            .mapError { Error.anyError($0) }
+        guard let wsPublisher = self.wsPublisher, let btPublisher = self.btPublisher else {
+            return
+        }
+        
+        self.state = .connecting
+        
+        btPublisher
             .decode(type: ResponseRootObject.self, decoder: JSONDecoder())
             .flatMap { [unowned self] data -> AnyPublisher<Data, Swift.Error> in
                 do {
@@ -91,17 +113,23 @@ class DeviceRemoteHandler {
                     let d = try JSONEncoder().encode(hello)
                     self.webSocketManager.send(d)
                 } catch let e {
-                    return Result.Publisher(.failure(e)).eraseToAnyPublisher()
+                    return Fail(error: e)
+                        .eraseToAnyPublisher()
                 }
-                return wsPublisher.mapError({ Error.anyError($0) }).eraseToAnyPublisher()
+                return wsPublisher
+                    .mapError { Error.anyError($0) }
+                    .eraseToAnyPublisher()
             }
             .decode(type: WSHelloResponse.self, decoder: JSONDecoder())
             .mapError { Error.anyError($0) }
             .flatMap { (response) -> AnyPublisher<State, Error> in
                 if let e = response.err {
-                    return Result.Publisher(.failure(.stringError(e))).eraseToAnyPublisher()
+                    return Fail(error: Error.stringError(e))
+                        .eraseToAnyPublisher()
                 } else {
-                    return Result.Publisher(.success(.ready)).eraseToAnyPublisher()
+                    return Just(.ready)
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
                 }
             }
             .prefix(1)
