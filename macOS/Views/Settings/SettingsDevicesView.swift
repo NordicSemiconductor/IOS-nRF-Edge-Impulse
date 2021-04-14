@@ -9,15 +9,17 @@ import SwiftUI
 
 struct SettingsDevicesView: View {
     
-    @State var a = false
+    @EnvironmentObject var preferencesData: PreferencesData
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 
-                Toggle("Only Show Devices Advertising 'UART' Service", isOn: $a)
+                Toggle("Only Scan Devices Advertising 'UART' Service",
+                       isOn: $preferencesData.onlyScanUARTDevices)
                 
-                Toggle("Only Show Connectable Devices", isOn: $a)
+                Toggle("Only Scan Connectable Devices",
+                       isOn: $preferencesData.onlyScanConnectableDevices)
             }
             .frame(width: 300)
         }
@@ -31,6 +33,7 @@ struct SettingsDevicesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             SettingsDevicesView()
+                .environmentObject(PreferencesData())
                 .previewLayout(.sizeThatFits)
         }
     }
