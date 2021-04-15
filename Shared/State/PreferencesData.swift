@@ -5,8 +5,7 @@
 //  Created by Dinesh Harjani on 14/4/21.
 //
 
-import Foundation
-import KeychainSwift
+import SwiftUI
 
 final class PreferencesData: ObservableObject {
     
@@ -14,29 +13,21 @@ final class PreferencesData: ObservableObject {
     
     @Published var onlyScanUARTDevices: Bool {
         didSet {
-            guard !Constant.isRunningInPreviewMode else { return }
-            keychain.set(onlyScanUARTDevices, forKey: KeychainKeys.onlyScanUARTDevices.rawValue)
+            UserDefaults.standard.set(self.onlyScanUARTDevices, forKey: UserDefaultKeys.onlyScanUARTDevices)
         }
     }
+    
     @Published var onlyScanConnectableDevices: Bool {
         didSet {
-            guard !Constant.isRunningInPreviewMode else { return }
-            keychain.set(onlyScanConnectableDevices, forKey: KeychainKeys.onlyScanConnectableDevices.rawValue)
+            UserDefaults.standard.set(self.onlyScanConnectableDevices, forKey: UserDefaultKeys.onlyScanConnectableDevices)
         }
     }
-    
-    // MARK: - Private Properties
-    
-    private var keychain: KeychainSwift
     
     // MARK: - Init
     
     init() {
-        let keychain = KeychainSwift()
-        
-        self.onlyScanUARTDevices = keychain.getBool(KeychainKeys.onlyScanUARTDevices.rawValue) ?? true
-        self.onlyScanConnectableDevices = keychain.getBool(KeychainKeys.onlyScanConnectableDevices.rawValue) ?? true
-        self.keychain = keychain
+        onlyScanUARTDevices = UserDefaults.standard.object(forKey: UserDefaultKeys.onlyScanUARTDevices) as? Bool ?? true
+        onlyScanConnectableDevices = UserDefaults.standard.object(forKey: UserDefaultKeys.onlyScanConnectableDevices) as? Bool ?? true
     }
 }
 
@@ -44,7 +35,20 @@ final class PreferencesData: ObservableObject {
 
 private extension PreferencesData {
     
-    enum KeychainKeys: String, RawRepresentable {
+    enum UserDefaultKeys: String, RawRepresentable {
         case onlyScanUARTDevices, onlyScanConnectableDevices
+    }
+}
+
+// MARK: - UserDefaults
+
+extension UserDefaults {
+    
+    public func object<T: RawRepresentable>(forKey key: T) -> Any? where T.RawValue == String {
+        object(forKey: key.rawValue)
+    }
+    
+    public func set<T: RawRepresentable>(_ value: Any?, forKey key: T) where T.RawValue == String {
+        set(value, forKey: key.rawValue)
     }
 }
