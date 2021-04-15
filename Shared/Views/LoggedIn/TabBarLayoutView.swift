@@ -9,11 +9,19 @@ import SwiftUI
 
 struct TabBarLayoutView: View {
     
+    @EnvironmentObject var appData: AppData
+    
+    // MARK: View
+    
     var body: some View {
         TabView {
             ForEach(Tabs.availableCases) { tab in
                 tab.view
                     .setTitle(tab.description)
+                    .toolbar {
+                        ProjectSelectionView()
+                            .toolbarItem()
+                    }
                     .wrapInNavigationViewForiOS()
                     .tabItem {
                         Label(tab.description, systemImage: tab.systemImageName)

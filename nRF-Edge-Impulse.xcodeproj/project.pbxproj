@@ -86,6 +86,8 @@
 		AAEDE6312628459600B96AE9 /* SettingsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE6302628459600B96AE9 /* SettingsContentView.swift */; };
 		AAEDE6332628803500B96AE9 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE6322628803500B96AE9 /* DropdownView.swift */; };
 		AAEDE6342628807B00B96AE9 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE6322628803500B96AE9 /* DropdownView.swift */; };
+		AAEDE636262882BF00B96AE9 /* ProjectSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE635262882BF00B96AE9 /* ProjectSelectionView.swift */; };
+		AAEDE637262882D500B96AE9 /* ProjectSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE635262882BF00B96AE9 /* ProjectSelectionView.swift */; };
 		AAF0C9692609FEBE001B76B9 /* GetCurrentUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C9682609FEBE001B76B9 /* GetCurrentUserRequest.swift */; };
 		AAF0C96A2609FEBE001B76B9 /* GetCurrentUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C9682609FEBE001B76B9 /* GetCurrentUserRequest.swift */; };
 		AAF0C96C260A0210001B76B9 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C96B260A0210001B76B9 /* DashboardView.swift */; };
@@ -223,6 +225,7 @@
 		AAE5B63425F23A4500AA003D /* sample_projects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_projects.json; sourceTree = "<group>"; };
 		AAEDE6302628459600B96AE9 /* SettingsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsContentView.swift; sourceTree = "<group>"; };
 		AAEDE6322628803500B96AE9 /* DropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
+		AAEDE635262882BF00B96AE9 /* ProjectSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSelectionView.swift; sourceTree = "<group>"; };
 		AAF0C9682609FEBE001B76B9 /* GetCurrentUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentUserRequest.swift; sourceTree = "<group>"; };
 		AAF0C96B260A0210001B76B9 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		AAF0C96E260A069F001B76B9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -335,6 +338,7 @@
 				AAEDE62F2628458100B96AE9 /* Settings */,
 				AAFFEB2F25FF6A29002287D6 /* HorizontalTabView.swift */,
 				AAEDE6322628803500B96AE9 /* DropdownView.swift */,
+				AAEDE635262882BF00B96AE9 /* ProjectSelectionView.swift */,
 				AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */,
 				AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */,
 				AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */,
@@ -905,6 +909,7 @@
 				AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */,
 				AA02089625F65A3700FD6B24 /* DeviceList.swift in Sources */,
 				AA92BEFA2612064E00BED04B /* ResourcesRequest.swift in Sources */,
+				AAEDE636262882BF00B96AE9 /* ProjectSelectionView.swift in Sources */,
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AAF4F6C32625C8C600012359 /* ThreePaneLayoutView.swift in Sources */,
 				AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */,
@@ -931,6 +936,7 @@
 				AA02087025F648C200FD6B24 /* View.swift in Sources */,
 				AA14CA76261490CD004F08FE /* Codable.swift in Sources */,
 				AAFFEB3A25FF9554002287D6 /* NordicError.swift in Sources */,
+				AAEDE637262882D500B96AE9 /* ProjectSelectionView.swift in Sources */,
 				AA80989B25EE959B00091AC0 /* Publishers.swift in Sources */,
 				C33C10C22609791E0097EA5A /* SignalParameters.swift in Sources */,
 				AAFEA59D261F0B8C0021B8CF /* CBCentralManager+Ext.swift in Sources */,
