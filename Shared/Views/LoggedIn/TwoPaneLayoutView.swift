@@ -16,7 +16,7 @@ struct TwoPaneLayoutView: View {
             NavigationView {
                 List {
                     Section(header: Text("Tabs")) {
-                        ForEach(Tabs.allCases) { tab in
+                        ForEach(Tabs.availableCases) { tab in
                             HorizontalTabView(tab: tab)
                                 .withoutListRowInsets()
                         }

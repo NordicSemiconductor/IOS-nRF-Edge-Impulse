@@ -12,6 +12,16 @@ enum Tabs: Int, RawRepresentable, CaseIterable {
     case Devices
     case DataAcquisition
     case Deployment
+    case Settings
+    
+    static var availableCases: [Tabs] {
+        #if os(OSX)
+        // Preferences is available via Menu on macOS.
+        return allCases.filter({ $0 != .Settings })
+        #elseif os(iOS)
+        return allCases
+        #endif
+    }
 }
 
 // MARK: - ViewBuilder
@@ -30,6 +40,8 @@ extension Tabs {
             DataAcquisitionView()
         case .Deployment:
             DeploymentView()
+        case .Settings:
+            SettingsContentView()
         }
     }
 }
@@ -50,6 +62,8 @@ extension Tabs: Identifiable, CustomStringConvertible {
             return "cylinder.split.1x2"
         case .Deployment:
             return "shippingbox"
+        case .Settings:
+            return "gear"
         }
     }
     
@@ -63,6 +77,8 @@ extension Tabs: Identifiable, CustomStringConvertible {
             return "Data Acquisition"
         case .Deployment:
             return "Deployment"
+        case .Settings:
+            return "Settings"
         }
     }
 }

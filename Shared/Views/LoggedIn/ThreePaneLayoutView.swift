@@ -13,7 +13,7 @@ struct ThreePaneLayoutView: View {
         NavigationView {
             List {
                 Section(header: Text("Tabs")) {
-                    ForEach(Tabs.allCases) { tab in
+                    ForEach(Tabs.availableCases) { tab in
                         NavigationLink(destination: tab.view,
                             label: {
                                 Label(tab.description, systemImage: tab.systemImageName)

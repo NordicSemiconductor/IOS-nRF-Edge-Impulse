@@ -11,7 +11,7 @@ struct TabBarLayoutView: View {
     
     var body: some View {
         TabView {
-            ForEach(Tabs.allCases) { tab in
+            ForEach(Tabs.availableCases) { tab in
                 tab.view
                     .setTitle(tab.description)
                     .wrapInNavigationViewForiOS()
