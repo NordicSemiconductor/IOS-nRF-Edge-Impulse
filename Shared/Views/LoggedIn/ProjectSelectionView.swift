@@ -16,7 +16,9 @@ struct ProjectSelectionView: View {
     var body: some View {
         Menu {
             ForEach(appData.projects) { project in
-                Button(action: { print("Hello there") }) {
+                Button(action: {    
+                    appData.selectedProject = project
+                }) {
                     Label(project.name, systemImage: "pencil")
                 }
             }
@@ -27,7 +29,7 @@ struct ProjectSelectionView: View {
                 Label("Logout", systemImage: "person.fill.xmark")
             }
         } label: {
-            DropdownView(currentProject: appData.projects.first)
+            DropdownView(currentProject: appData.selectedProject ?? appData.projects.first)
         }
     }
     
