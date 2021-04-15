@@ -40,6 +40,10 @@ struct TwoPaneLayoutView: View {
                         .multilineTextAlignment(.center)
                 }
             }
+            .toolbar {
+                ProjectSelectionView()
+                    .toolbarItem()
+            }
             .wrapInNavigationViewForiOS()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }

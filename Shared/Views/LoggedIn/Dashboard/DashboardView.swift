@@ -25,11 +25,6 @@ struct DashboardView: View {
         }
         .frame(minWidth: 295)
         .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                Button(action: logoutUser, label: {
-                    Image(systemName: "person.fill.xmark")
-                })
-            }
             ToolbarItem(placement: .primaryAction) {
                 Button(action: requestUser, label: {
                     Image(systemName: "arrow.clockwise")
@@ -56,7 +51,7 @@ extension DashboardView {
         appData.dashboardViewState = .loading
         userCancellable = Network.shared.perform(httpRequest, responseType: GetUserResponse.self)
             .onUnauthorisedUserError {
-                logoutUser()
+                appData.logout()
             }
             .sink(receiveCompletion: { completion in
                 guard !Constant.isRunningInPreviewMode else { return }
@@ -73,10 +68,6 @@ extension DashboardView {
                 appData.projects = userResponse.projects
                 appData.dashboardViewState = .showingUser(userResponse.user, userResponse.projects)
             })
-    }
-    
-    func logoutUser() {
-        appData.logout()
     }
     
     func cancelAllRequests() {
