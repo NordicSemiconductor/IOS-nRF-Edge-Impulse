@@ -22,15 +22,15 @@ struct Preview {
     
     static let noDevicesAppData: AppData = {
         let appData = AppData()
-        appData.dashboardViewState = .showingUser(previewUser, [Preview.previewProjects[0]])
+        appData.viewState = .showingUser(previewUser, [Preview.previewProjects[0]])
         appData.scanResults = []
         return appData
     }()
     
-    static func previewAppData(_ viewState: DashboardView.ViewState) -> AppData {
+    static func previewAppData(_ viewState: AppData.ViewState) -> AppData {
         let appData = AppData()
         appData.apiToken = "hello"
-        appData.dashboardViewState = viewState
+        appData.viewState = viewState
         switch viewState {
         case .showingUser(let user, let projects):
             appData.user = user

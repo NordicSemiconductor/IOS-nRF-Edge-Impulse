@@ -1,15 +1,15 @@
 //
-//  DashboardView+ViewState.swift
+//  AppData+ViewState.swift
 //  nRF-Edge-Impulse
 //
-//  Created by Dinesh Harjani on 15/3/21.
+//  Created by Dinesh Harjani on 16/4/21.
 //
 
 import SwiftUI
 
-// MARK: - DashboardView.Status
+// MARK: - AppData.Status
 
-extension DashboardView {
+extension AppData {
     
     enum ViewState {
         case error(_ error: Error)
@@ -21,7 +21,7 @@ extension DashboardView {
 
 // MARK: - ViewBuilder
 
-extension DashboardView.ViewState {
+extension AppData.ViewState {
  
     @ViewBuilder
     func view(onRetry: @escaping () -> Void) -> some View {
@@ -62,3 +62,31 @@ extension DashboardView.ViewState {
         }
     }
 }
+
+// MARK: - Preview
+
+#if DEBUG
+struct AppDataViewState_Previews: PreviewProvider {
+    
+    static let loggedInWithoutUser: AppData = {
+        let appData = AppData()
+        appData.apiToken = "A"
+        appData.user = nil
+        return appData
+    }()
+    
+    static var previews: some View {
+        Group {
+            AppData.ViewState.loading
+                .view(onRetry: {})
+            AppData.ViewState.showingUser(Preview.previewUser, Preview.previewProjects)
+                .view(onRetry: {})
+            AppData.ViewState.empty
+                .view(onRetry: {})
+            AppData.ViewState.error(NordicError(description: "There was en error"))
+                .view(onRetry: {})
+        }
+        .previewLayout(.sizeThatFits)
+    }
+}
+#endif

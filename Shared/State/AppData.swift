@@ -25,7 +25,7 @@ final class AppData: ObservableObject {
     }
     @Published var user: User?
     
-    @Published var dashboardViewState: DashboardView.ViewState = .empty
+    @Published var viewState: AppData.ViewState = .empty
     @Published var projects: [Project] = []
     @Published var scanResults: [ScanResult] = []
     

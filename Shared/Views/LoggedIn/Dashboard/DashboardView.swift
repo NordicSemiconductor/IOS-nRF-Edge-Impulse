@@ -20,7 +20,7 @@ struct DashboardView: View {
     
     var body: some View {
         ZStack {
-            appData.dashboardViewState.view(onRetry: requestUser)
+            appData.viewState.view(onRetry: requestUser)
                 .frame(minWidth: 295)
         }
         .frame(minWidth: 295)
@@ -48,7 +48,7 @@ extension DashboardView {
     func requestUser() {
         guard let token = appData.apiToken,
               let httpRequest = HTTPRequest.getUser(using: token) else { return }
-        appData.dashboardViewState = .loading
+        appData.viewState = .loading
         userCancellable = Network.shared.perform(httpRequest, responseType: GetUserResponse.self)
             .onUnauthorisedUserError {
                 appData.logout()
@@ -58,7 +58,7 @@ extension DashboardView {
                 switch completion {
                 case .failure(let error):
                     appData.projects = []
-                    appData.dashboardViewState = .error(error)
+                    appData.viewState = .error(error)
                 default:
                     break
                 }
@@ -66,7 +66,7 @@ extension DashboardView {
             receiveValue: { userResponse in
                 appData.user = userResponse.user
                 appData.projects = userResponse.projects
-                appData.dashboardViewState = .showingUser(userResponse.user, userResponse.projects)
+                appData.viewState = .showingUser(userResponse.user, userResponse.projects)
             })
     }
     
