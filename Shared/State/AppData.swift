@@ -24,7 +24,7 @@ final class AppData: ObservableObject {
         }
     }
     
-    @Published var viewState: AppData.ViewState = .empty
+    @Published var loginState: AppData.LoginState = .empty
     @Published var projects: [Project] = []
     @Published var scanResults: [ScanResult] = []
     
@@ -48,7 +48,7 @@ final class AppData: ObservableObject {
     
     func logout() {
         apiToken = nil
-        viewState = .empty
+        loginState = .empty
     }
 }
 

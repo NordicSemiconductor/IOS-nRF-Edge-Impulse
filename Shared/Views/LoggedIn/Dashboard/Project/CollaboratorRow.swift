@@ -27,7 +27,7 @@ struct CollaboratorRow: View {
                 .frame(size: .SmallImageSize)
                 .padding(.horizontal, 4)
             
-            switch appData.viewState {
+            switch appData.loginState {
             case .showingUser(let user, _):
                 if user == collaborator {
                     Text("\(collaborator.username) (You)")
@@ -53,7 +53,7 @@ struct CollaboratorRow_Previews: PreviewProvider {
             ForEach(Project.Sample.collaborators) { collaborator in
                 CollaboratorRow(collaborator)
             }
-            switch Preview.projectsPreviewAppData.viewState {
+            switch Preview.projectsPreviewAppData.loginState {
             case .showingUser(let user, _):
                 CollaboratorRow(user)
             default:

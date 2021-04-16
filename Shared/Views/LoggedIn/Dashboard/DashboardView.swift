@@ -20,7 +20,7 @@ struct DashboardView: View {
     
     var body: some View {
         ZStack {
-            appData.viewState.view(onRetry: requestUser)
+            appData.loginState.view(onRetry: requestUser)
                 .frame(minWidth: 295)
         }
         .frame(minWidth: 295)
@@ -48,7 +48,7 @@ extension DashboardView {
     func requestUser() {
         guard let token = appData.apiToken,
               let httpRequest = HTTPRequest.getUser(using: token) else { return }
-        appData.viewState = .loading
+        appData.loginState = .loading
         userCancellable = Network.shared.perform(httpRequest, responseType: GetUserResponse.self)
             .onUnauthorisedUserError {
                 appData.logout()
@@ -58,14 +58,14 @@ extension DashboardView {
                 switch completion {
                 case .failure(let error):
                     appData.projects = []
-                    appData.viewState = .error(error)
+                    appData.loginState = .error(error)
                 default:
                     break
                 }
             },
             receiveValue: { userResponse in
                 appData.projects = userResponse.projects
-                appData.viewState = .showingUser(userResponse.user, userResponse.projects)
+                appData.loginState = .showingUser(userResponse.user, userResponse.projects)
             })
     }
     
@@ -82,7 +82,7 @@ struct DashboardView_Previews: PreviewProvider {
     static let loggedInWithoutUser: AppData = {
         let appData = AppData()
         appData.apiToken = "A"
-        appData.viewState = .empty
+        appData.loginState = .empty
         return appData
     }()
     

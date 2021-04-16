@@ -1,5 +1,5 @@
 //
-//  AppData+ViewState.swift
+//  AppData+LoginState.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Dinesh Harjani on 16/4/21.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-// MARK: - AppData.Status
+// MARK: - AppData.LoginState
 
 extension AppData {
     
-    enum ViewState {
+    enum LoginState {
         case error(_ error: Error)
         case empty
         case loading
@@ -21,7 +21,7 @@ extension AppData {
 
 // MARK: - ViewBuilder
 
-extension AppData.ViewState {
+extension AppData.LoginState {
  
     @ViewBuilder
     func view(onRetry: @escaping () -> Void) -> some View {
@@ -71,19 +71,19 @@ struct AppDataViewState_Previews: PreviewProvider {
     static let loggedInWithoutUser: AppData = {
         let appData = AppData()
         appData.apiToken = "A"
-        appData.viewState = .empty
+        appData.loginState = .empty
         return appData
     }()
     
     static var previews: some View {
         Group {
-            AppData.ViewState.loading
+            AppData.LoginState.loading
                 .view(onRetry: {})
-            AppData.ViewState.showingUser(Preview.previewUser, Preview.previewProjects)
+            AppData.LoginState.showingUser(Preview.previewUser, Preview.previewProjects)
                 .view(onRetry: {})
-            AppData.ViewState.empty
+            AppData.LoginState.empty
                 .view(onRetry: {})
-            AppData.ViewState.error(NordicError(description: "There was en error"))
+            AppData.LoginState.error(NordicError(description: "There was en error"))
                 .view(onRetry: {})
         }
         .previewLayout(.sizeThatFits)

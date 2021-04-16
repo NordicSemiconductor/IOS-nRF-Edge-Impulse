@@ -22,17 +22,17 @@ struct Preview {
     
     static let noDevicesAppData: AppData = {
         let appData = AppData()
-        appData.viewState = .showingUser(previewUser, [Preview.previewProjects[0]])
+        appData.loginState = .showingUser(previewUser, [Preview.previewProjects[0]])
         appData.scanResults = []
         return appData
     }()
     
-    static func previewAppData(_ viewState: AppData.ViewState) -> AppData {
+    static func previewAppData(_ loginState: AppData.LoginState) -> AppData {
         let appData = AppData()
         appData.apiToken = "hello"
-        appData.viewState = viewState
-        switch viewState {
-        case .showingUser(let user, let projects):
+        appData.loginState = loginState
+        switch loginState {
+        case .showingUser(_, let projects):
             appData.projects = projects
         default:
             appData.projects = []

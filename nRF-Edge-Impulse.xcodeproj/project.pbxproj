@@ -110,8 +110,8 @@
 		AAF4F6C72625EB7300012359 /* SettingsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6C62625EB7300012359 /* SettingsContentView.swift */; };
 		AAF4F6CA2625EC4C00012359 /* SettingsDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6C92625EC4C00012359 /* SettingsDevicesView.swift */; };
 		AAF5054725F11E45003AFED7 /* DataAcquisitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */; };
-		AAF7299726298D6D0034B61A /* AppData+ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7299626298D6D0034B61A /* AppData+ViewState.swift */; };
-		AAF7299826298D6D0034B61A /* AppData+ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7299626298D6D0034B61A /* AppData+ViewState.swift */; };
+		AAF7299726298D6D0034B61A /* AppData+LoginState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7299626298D6D0034B61A /* AppData+LoginState.swift */; };
+		AAF7299826298D6D0034B61A /* AppData+LoginState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7299626298D6D0034B61A /* AppData+LoginState.swift */; };
 		AAF936AB260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */; };
 		AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */; };
 		AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AAFAE5E425ED11CA00A45A90 /* KeychainSwift */; };
@@ -238,7 +238,7 @@
 		AAF4F6C62625EB7300012359 /* SettingsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsContentView.swift; sourceTree = "<group>"; };
 		AAF4F6C92625EC4C00012359 /* SettingsDevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDevicesView.swift; sourceTree = "<group>"; };
 		AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
-		AAF7299626298D6D0034B61A /* AppData+ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+ViewState.swift"; sourceTree = "<group>"; };
+		AAF7299626298D6D0034B61A /* AppData+LoginState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+LoginState.swift"; sourceTree = "<group>"; };
 		AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPaneLayoutView.swift; sourceTree = "<group>"; };
 		AAFAE5EA25ED14E500A45A90 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		AAFB8E292626FADD003DAEC5 /* PreferencesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesData.swift; sourceTree = "<group>"; };
@@ -553,7 +553,7 @@
 			isa = PBXGroup;
 			children = (
 				AAFAE5EA25ED14E500A45A90 /* AppData.swift */,
-				AAF7299626298D6D0034B61A /* AppData+ViewState.swift */,
+				AAF7299626298D6D0034B61A /* AppData+LoginState.swift */,
 				AAFB8E292626FADD003DAEC5 /* PreferencesData.swift */,
 				AA92BEF02611F9E400BED04B /* ResourceData.swift */,
 				AAF0C96E260A069F001B76B9 /* User.swift */,
@@ -886,7 +886,7 @@
 				AA43B2A825FA574F00C5B5EE /* TabBarLayoutView.swift in Sources */,
 				AAF4F6BD2625C0A700012359 /* LoginErrorView.swift in Sources */,
 				AA80989A25EE959B00091AC0 /* Publishers.swift in Sources */,
-				AAF7299726298D6D0034B61A /* AppData+ViewState.swift in Sources */,
+				AAF7299726298D6D0034B61A /* AppData+LoginState.swift in Sources */,
 				AAA87AE3261B28F50097EA74 /* URLImage.swift in Sources */,
 				AA0D812C2608F62700AE615A /* DeploymentViewState.swift in Sources */,
 				AAF0C96C260A0210001B76B9 /* DashboardView.swift in Sources */,
@@ -1000,7 +1000,7 @@
 				C301A36A261F12890010717D /* WebSocketManager.swift in Sources */,
 				AAF0C970260A069F001B76B9 /* User.swift in Sources */,
 				AAF0C96A2609FEBE001B76B9 /* GetCurrentUserRequest.swift in Sources */,
-				AAF7299826298D6D0034B61A /* AppData+ViewState.swift in Sources */,
+				AAF7299826298D6D0034B61A /* AppData+LoginState.swift in Sources */,
 				C3A3665A260414BC008D82CC /* DeviceRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

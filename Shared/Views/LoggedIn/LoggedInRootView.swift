@@ -40,7 +40,7 @@ extension LoggedInRootView {
     func requestUser() {
         guard let token = appData.apiToken,
               let httpRequest = HTTPRequest.getUser(using: token) else { return }
-        appData.viewState = .loading
+        appData.loginState = .loading
         userCancellable = Network.shared.perform(httpRequest, responseType: GetUserResponse.self)
             .onUnauthorisedUserError {
                 appData.logout()
@@ -50,14 +50,14 @@ extension LoggedInRootView {
                 switch completion {
                 case .failure(let error):
                     appData.projects = []
-                    appData.viewState = .error(error)
+                    appData.loginState = .error(error)
                 default:
                     break
                 }
             },
             receiveValue: { userResponse in
                 appData.projects = userResponse.projects
-                appData.viewState = .showingUser(userResponse.user, userResponse.projects)
+                appData.loginState = .showingUser(userResponse.user, userResponse.projects)
             })
     }
 }
