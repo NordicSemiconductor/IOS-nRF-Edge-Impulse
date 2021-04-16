@@ -8,7 +8,6 @@
 import SwiftUI
 
 enum Tabs: Int, RawRepresentable, CaseIterable {
-    case Dashboard
     case Devices
     case DataAcquisition
     case Deployment
@@ -31,8 +30,6 @@ extension Tabs {
     @ViewBuilder
     var view: some View {
         switch self {
-        case .Dashboard:
-            DashboardView()
         case .Devices:
              DeviceList()
         case .DataAcquisition:
@@ -54,8 +51,6 @@ extension Tabs: Identifiable, CustomStringConvertible {
     
     var systemImageName: String {
         switch self {
-        case .Dashboard:
-            return "desktopcomputer"
         case .Devices:
             return "cpu"
         case .DataAcquisition:
@@ -69,8 +64,6 @@ extension Tabs: Identifiable, CustomStringConvertible {
     
     var description: String {
         switch self {
-        case .Dashboard:
-            return "Dashboard"
         case .Devices:
             return "Devices"
         case .DataAcquisition:

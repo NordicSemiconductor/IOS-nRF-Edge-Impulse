@@ -12,14 +12,54 @@ struct LoggedInRootView: View {
     
     // MARK: Properties
     
+    @EnvironmentObject var appData: AppData
     #if os(iOS)
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     #endif
+    
+    @State private var userCancellable: Cancellable? = nil
     
     // MARK: View
     
     var body: some View {
         layout.view()
+            .onAppear() {
+                guard !Constant.isRunningInPreviewMode else { return }
+                requestUser()
+            }
+            .onDisappear() {
+                userCancellable?.cancel()
+            }
+    }
+}
+
+// MARK: - Logic
+
+extension LoggedInRootView {
+    
+    func requestUser() {
+        guard let token = appData.apiToken,
+              let httpRequest = HTTPRequest.getUser(using: token) else { return }
+        appData.viewState = .loading
+        userCancellable = Network.shared.perform(httpRequest, responseType: GetUserResponse.self)
+            .onUnauthorisedUserError {
+                appData.logout()
+            }
+            .sink(receiveCompletion: { completion in
+                guard !Constant.isRunningInPreviewMode else { return }
+                switch completion {
+                case .failure(let error):
+                    appData.projects = []
+                    appData.viewState = .error(error)
+                default:
+                    break
+                }
+            },
+            receiveValue: { userResponse in
+                appData.user = userResponse.user
+                appData.projects = userResponse.projects
+                appData.viewState = .showingUser(userResponse.user, userResponse.projects)
+            })
     }
 }
 

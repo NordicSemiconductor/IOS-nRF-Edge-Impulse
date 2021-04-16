@@ -30,7 +30,7 @@ final class AppData: ObservableObject {
     @Published var scanResults: [ScanResult] = []
     
     @Published var selectedProject: Project?
-    @Published var selectedTab: Tabs? = .Dashboard
+    @Published var selectedTab: Tabs? = .Devices
     
     // MARK: - Private Properties
     
