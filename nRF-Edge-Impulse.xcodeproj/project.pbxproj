@@ -90,12 +90,12 @@
 		AAEDE637262882D500B96AE9 /* ProjectSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE635262882BF00B96AE9 /* ProjectSelectionView.swift */; };
 		AAF0C9692609FEBE001B76B9 /* GetCurrentUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C9682609FEBE001B76B9 /* GetCurrentUserRequest.swift */; };
 		AAF0C96A2609FEBE001B76B9 /* GetCurrentUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C9682609FEBE001B76B9 /* GetCurrentUserRequest.swift */; };
-		AAF0C96C260A0210001B76B9 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C96B260A0210001B76B9 /* DashboardView.swift */; };
-		AAF0C96D260A0210001B76B9 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C96B260A0210001B76B9 /* DashboardView.swift */; };
+		AAF0C96C260A0210001B76B9 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C96B260A0210001B76B9 /* UserView.swift */; };
+		AAF0C96D260A0210001B76B9 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C96B260A0210001B76B9 /* UserView.swift */; };
 		AAF0C96F260A069F001B76B9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C96E260A069F001B76B9 /* User.swift */; };
 		AAF0C970260A069F001B76B9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C96E260A069F001B76B9 /* User.swift */; };
-		AAF0C972260A121B001B76B9 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C971260A121B001B76B9 /* UserView.swift */; };
-		AAF0C973260A121B001B76B9 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C971260A121B001B76B9 /* UserView.swift */; };
+		AAF0C972260A121B001B76B9 /* HeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C971260A121B001B76B9 /* HeroView.swift */; };
+		AAF0C973260A121B001B76B9 /* HeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C971260A121B001B76B9 /* HeroView.swift */; };
 		AAF0C975260A1482001B76B9 /* CircleAround.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C974260A1482001B76B9 /* CircleAround.swift */; };
 		AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C974260A1482001B76B9 /* CircleAround.swift */; };
 		AAF4E322261DD193009C387B /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4E321261DD193009C387B /* Cache.swift */; };
@@ -227,9 +227,9 @@
 		AAEDE6322628803500B96AE9 /* DropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
 		AAEDE635262882BF00B96AE9 /* ProjectSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSelectionView.swift; sourceTree = "<group>"; };
 		AAF0C9682609FEBE001B76B9 /* GetCurrentUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentUserRequest.swift; sourceTree = "<group>"; };
-		AAF0C96B260A0210001B76B9 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		AAF0C96B260A0210001B76B9 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		AAF0C96E260A069F001B76B9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		AAF0C971260A121B001B76B9 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
+		AAF0C971260A121B001B76B9 /* HeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroView.swift; sourceTree = "<group>"; };
 		AAF0C974260A1482001B76B9 /* CircleAround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleAround.swift; sourceTree = "<group>"; };
 		AAF4E321261DD193009C387B /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		AAF4F6B92625C02E00012359 /* SignedUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedUpView.swift; sourceTree = "<group>"; };
@@ -295,14 +295,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AA008A7D25EE4BBC00F70F75 /* Dashboard */ = {
+		AA008A7D25EE4BBC00F70F75 /* User */ = {
 			isa = PBXGroup;
 			children = (
 				AA535515261C7FEF007B2C94 /* Project */,
-				AAF0C96B260A0210001B76B9 /* DashboardView.swift */,
-				AAF0C971260A121B001B76B9 /* UserView.swift */,
+				AAF0C971260A121B001B76B9 /* HeroView.swift */,
+				AAF0C96B260A0210001B76B9 /* UserView.swift */,
 			);
-			path = Dashboard;
+			path = User;
 			sourceTree = "<group>";
 		};
 		AA02088125F6515900FD6B24 /* Bluetooth */ = {
@@ -485,7 +485,7 @@
 		AAEDE62F2628458100B96AE9 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				AA008A7D25EE4BBC00F70F75 /* Dashboard */,
+				AA008A7D25EE4BBC00F70F75 /* User */,
 				AAEDE6302628459600B96AE9 /* SettingsContentView.swift */,
 			);
 			path = Settings;
@@ -913,8 +913,8 @@
 				AAF7299726298D6D0034B61A /* AppData+LoginState.swift in Sources */,
 				AAA87AE3261B28F50097EA74 /* URLImage.swift in Sources */,
 				AA0D812C2608F62700AE615A /* DeploymentViewState.swift in Sources */,
-				AAF0C96C260A0210001B76B9 /* DashboardView.swift in Sources */,
-				AAF0C972260A121B001B76B9 /* UserView.swift in Sources */,
+				AAF0C96C260A0210001B76B9 /* UserView.swift in Sources */,
+				AAF0C972260A121B001B76B9 /* HeroView.swift in Sources */,
 				AA02086825F641D900FD6B24 /* Sample.swift in Sources */,
 				AAFB8E2A2626FADD003DAEC5 /* PreferencesData.swift in Sources */,
 				AAFFEB3025FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
@@ -988,8 +988,8 @@
 				AAA87AE4261B28F50097EA74 /* URLImage.swift in Sources */,
 				AA43B2A925FA58B500C5B5EE /* TabBarLayoutView.swift in Sources */,
 				AA0D812D2608F62700AE615A /* DeploymentViewState.swift in Sources */,
-				AAF0C96D260A0210001B76B9 /* DashboardView.swift in Sources */,
-				AAF0C973260A121B001B76B9 /* UserView.swift in Sources */,
+				AAF0C96D260A0210001B76B9 /* UserView.swift in Sources */,
+				AAF0C973260A121B001B76B9 /* HeroView.swift in Sources */,
 				AA10170425E91885006DC88A /* HTTPRequest.swift in Sources */,
 				AAF4F6C72625EB7300012359 /* SettingsContentView.swift in Sources */,
 				AA01F3E025EFDC5000368707 /* Constant.swift in Sources */,

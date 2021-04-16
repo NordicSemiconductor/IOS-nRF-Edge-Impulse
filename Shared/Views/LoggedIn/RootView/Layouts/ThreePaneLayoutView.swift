@@ -30,7 +30,7 @@ struct ThreePaneLayoutView: View {
                 Section(header: Text("User")) {
                     switch appData.loginState {
                     case .showingUser(let user, _):
-                        NavigationLink(destination: DashboardView(), label: {
+                        NavigationLink(destination: UserView(), label: {
                             Label(user.username, systemImage: "person.fill")
                         })
                     default:

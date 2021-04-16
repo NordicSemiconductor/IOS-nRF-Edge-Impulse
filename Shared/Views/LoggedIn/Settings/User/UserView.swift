@@ -1,5 +1,5 @@
 //
-//  DashboardView.swift
+//  UserView.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Dinesh Harjani on 23/3/21.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-struct DashboardView: View {
+struct UserView: View {
     
     @EnvironmentObject var appData: AppData
     
@@ -18,7 +18,7 @@ struct DashboardView: View {
         VStack {
             switch appData.loginState {
             case .showingUser(let user, let projects):
-                UserView(user: user)
+                HeroView(user: user)
                     
                 List {
                     Section(header: Text("Projects")) {
@@ -40,7 +40,7 @@ struct DashboardView: View {
 // MARK: - Preview
 
 #if DEBUG
-struct DashboardView_Previews: PreviewProvider {
+struct UserView_Previews: PreviewProvider {
     
     static let loggedInWithoutUser: AppData = {
         let appData = AppData()
@@ -51,9 +51,9 @@ struct DashboardView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            DashboardView()
+            UserView()
                 .environmentObject(Preview.previewAppData(.loading))
-            DashboardView()
+            UserView()
                 .environmentObject(Preview.projectsPreviewAppData)
         }
     }

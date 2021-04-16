@@ -46,19 +46,9 @@ extension AppData.LoginState {
                     .progressViewStyle(CircularProgressViewStyle())
                 Text("Loading...")
             }
-        case .showingUser(let user, let projects):
-            VStack {
-                UserView(user: user)
-                    
-                List {
-                    Section(header: Text("Projects")) {
-                        ForEach(projects) { project in
-                            ProjectRow(project)
-                        }
-                    }
-                }
-            }
-            .frame(minWidth: 295)
+        case .showingUser(_, _):
+            AppHeaderView(.template)
+                .frame(maxWidth: 120)
         }
     }
 }
