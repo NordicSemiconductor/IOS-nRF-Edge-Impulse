@@ -24,7 +24,9 @@ struct DropdownView: View {
     var body: some View {
         HStack {
             Text(currentProject?.name ?? "Not Available")
+            #if os(iOS)
             Image(systemName: "chevron.down")
+            #endif
         }
         .font(currentProject != nil ? .headline : .callout)
         .foregroundColor(currentProject != nil ? .white : Assets.lightGrey.color)

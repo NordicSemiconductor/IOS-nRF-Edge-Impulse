@@ -56,11 +56,18 @@ fileprivate extension ProjectSelectionView {
 #if DEBUG
 struct DropdownToolbarItem_Previews: PreviewProvider {
     static var previews: some View {
+        #if os(iOS)
         Group {
             TabBarLayoutView()
                 .preferredColorScheme(.light)
                 .environmentObject(Preview.projectsPreviewAppData)
         }
+        #elseif os(OSX)
+        Group {
+            ThreePaneLayoutView()
+                .environmentObject(Preview.projectsPreviewAppData)
+        }
+        #endif
     }
 }
 #endif

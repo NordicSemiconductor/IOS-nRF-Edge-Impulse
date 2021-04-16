@@ -12,7 +12,7 @@ struct ThreePaneLayoutView: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("Tabs")) {
+                Section(header: Text("Menu")) {
                     ForEach(Tabs.availableCases) { tab in
                         NavigationLink(destination: tab.view,
                             label: {
@@ -22,8 +22,6 @@ struct ThreePaneLayoutView: View {
                 }
                 .accentColor(Assets.blue.color)
                 .listStyle(SidebarListStyle())
-                .toolbarPrincipalImage(Image("Nordic"))
-                .setTitle("nRF Edge Impulse")
             }
             .frame(minWidth: 160)
             
@@ -32,7 +30,11 @@ struct ThreePaneLayoutView: View {
             
             AppHeaderView(.template)
                 .frame(maxWidth: 120)
-        }.frame(
+        }.toolbar {
+            ProjectSelectionView()
+                .toolbarItem()
+        }
+        .frame(
             minWidth: 800,
             maxWidth: .infinity,
             minHeight: 400,
