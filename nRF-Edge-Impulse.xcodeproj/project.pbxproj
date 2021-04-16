@@ -299,7 +299,6 @@
 			isa = PBXGroup;
 			children = (
 				AA535515261C7FEF007B2C94 /* Project */,
-				AACCBA872600C32C0042E87B /* ErrorView.swift */,
 				AAF0C96B260A0210001B76B9 /* DashboardView.swift */,
 				AAF0C971260A121B001B76B9 /* UserView.swift */,
 			);
@@ -330,19 +329,11 @@
 		AA0208A725F65E9500FD6B24 /* LoggedIn */ = {
 			isa = PBXGroup;
 			children = (
-				AA008A7D25EE4BBC00F70F75 /* Dashboard */,
+				AAF729992629B4B50034B61A /* RootView */,
 				AA02089425F654C300FD6B24 /* Devices */,
 				AAF5054525F11E15003AFED7 /* Data */,
 				AA0D81272608C00F00AE615A /* Deployment */,
 				AAEDE62F2628458100B96AE9 /* Settings */,
-				AAFFEB2F25FF6A29002287D6 /* HorizontalTabView.swift */,
-				AAEDE6322628803500B96AE9 /* DropdownView.swift */,
-				AAEDE635262882BF00B96AE9 /* ProjectSelectionView.swift */,
-				AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */,
-				AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */,
-				AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */,
-				AAF4F6C22625C8C600012359 /* ThreePaneLayoutView.swift */,
-				AA0208A825F65EB400FD6B24 /* Tabs.swift */,
 			);
 			path = LoggedIn;
 			sourceTree = "<group>";
@@ -494,6 +485,7 @@
 		AAEDE62F2628458100B96AE9 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				AA008A7D25EE4BBC00F70F75 /* Dashboard */,
 				AAEDE6302628459600B96AE9 /* SettingsContentView.swift */,
 			);
 			path = Settings;
@@ -515,6 +507,39 @@
 				AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		AAF729992629B4B50034B61A /* RootView */ = {
+			isa = PBXGroup;
+			children = (
+				AAF7299B2629B5AD0034B61A /* ProjectSelection */,
+				AAF7299A2629B5040034B61A /* Layouts */,
+				AACCBA872600C32C0042E87B /* ErrorView.swift */,
+				AA284058261F4DFC00EB8637 /* AppHeaderView.swift */,
+				AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */,
+				AA0208A825F65EB400FD6B24 /* Tabs.swift */,
+			);
+			path = RootView;
+			sourceTree = "<group>";
+		};
+		AAF7299A2629B5040034B61A /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				AAFFEB2F25FF6A29002287D6 /* HorizontalTabView.swift */,
+				AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */,
+				AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */,
+				AAF4F6C22625C8C600012359 /* ThreePaneLayoutView.swift */,
+			);
+			path = Layouts;
+			sourceTree = "<group>";
+		};
+		AAF7299B2629B5AD0034B61A /* ProjectSelection */ = {
+			isa = PBXGroup;
+			children = (
+				AAEDE6322628803500B96AE9 /* DropdownView.swift */,
+				AAEDE635262882BF00B96AE9 /* ProjectSelectionView.swift */,
+			);
+			path = ProjectSelection;
 			sourceTree = "<group>";
 		};
 		AAFCBE8025E90720001C52B0 /* Requests */ = {
@@ -542,7 +567,6 @@
 			children = (
 				AAFED87525E7F7E800BB7445 /* LoggedOut */,
 				AA0208A725F65E9500FD6B24 /* LoggedIn */,
-				AA284058261F4DFC00EB8637 /* AppHeaderView.swift */,
 				AA03E95A25E3EF12003DA9DA /* ContentView.swift */,
 				AA03E95925E3EF12003DA9DA /* nRF_Edge_ImpulseApp.swift */,
 			);
