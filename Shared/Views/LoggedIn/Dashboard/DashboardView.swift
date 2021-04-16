@@ -64,7 +64,6 @@ extension DashboardView {
                 }
             },
             receiveValue: { userResponse in
-                appData.user = userResponse.user
                 appData.projects = userResponse.projects
                 appData.viewState = .showingUser(userResponse.user, userResponse.projects)
             })
@@ -83,7 +82,7 @@ struct DashboardView_Previews: PreviewProvider {
     static let loggedInWithoutUser: AppData = {
         let appData = AppData()
         appData.apiToken = "A"
-        appData.user = nil
+        appData.viewState = .empty
         return appData
     }()
     

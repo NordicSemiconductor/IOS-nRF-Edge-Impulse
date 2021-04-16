@@ -27,13 +27,18 @@ struct CollaboratorRow: View {
                 .frame(size: .SmallImageSize)
                 .padding(.horizontal, 4)
             
-            if let user = appData.user, user == collaborator {
-                Text("\(collaborator.username) (You)")
-                    .foregroundColor(.secondary)
-                    .fontWeight(.bold)
-            } else {
-                Text(collaborator.username)
-                    .foregroundColor(.secondary)
+            switch appData.viewState {
+            case .showingUser(let user, _):
+                if user == collaborator {
+                    Text("\(collaborator.username) (You)")
+                        .foregroundColor(.secondary)
+                        .fontWeight(.bold)
+                } else {
+                    Text(collaborator.username)
+                        .foregroundColor(.secondary)
+                }
+            default:
+                EmptyView()
             }
         }
     }
@@ -48,7 +53,12 @@ struct CollaboratorRow_Previews: PreviewProvider {
             ForEach(Project.Sample.collaborators) { collaborator in
                 CollaboratorRow(collaborator)
             }
-            CollaboratorRow(Preview.projectsPreviewAppData.user!)
+            switch Preview.projectsPreviewAppData.viewState {
+            case .showingUser(let user, _):
+                CollaboratorRow(user)
+            default:
+                EmptyView()
+            }
         }
         .environmentObject(Preview.projectsPreviewAppData)
         .previewLayout(.sizeThatFits)

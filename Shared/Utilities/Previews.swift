@@ -33,10 +33,8 @@ struct Preview {
         appData.viewState = viewState
         switch viewState {
         case .showingUser(let user, let projects):
-            appData.user = user
             appData.projects = projects
         default:
-            appData.user = nil
             appData.projects = []
         }
         appData.scanResults = [

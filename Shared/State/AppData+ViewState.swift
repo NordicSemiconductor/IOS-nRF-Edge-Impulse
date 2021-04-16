@@ -71,7 +71,7 @@ struct AppDataViewState_Previews: PreviewProvider {
     static let loggedInWithoutUser: AppData = {
         let appData = AppData()
         appData.apiToken = "A"
-        appData.user = nil
+        appData.viewState = .empty
         return appData
     }()
     

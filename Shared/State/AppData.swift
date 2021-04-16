@@ -23,7 +23,6 @@ final class AppData: ObservableObject {
             }
         }
     }
-    @Published var user: User?
     
     @Published var viewState: AppData.ViewState = .empty
     @Published var projects: [Project] = []
@@ -49,7 +48,7 @@ final class AppData: ObservableObject {
     
     func logout() {
         apiToken = nil
-        user = nil
+        viewState = .empty
     }
 }
 
