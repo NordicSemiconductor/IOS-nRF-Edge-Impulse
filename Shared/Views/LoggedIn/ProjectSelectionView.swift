@@ -15,21 +15,26 @@ struct ProjectSelectionView: View {
     
     var body: some View {
         Menu {
-            ForEach(appData.projects) { project in
-                Button(action: {    
-                    appData.selectedProject = project
-                }) {
-                    Label(project.name, systemImage: "pencil")
+            switch appData.loginState {
+            case .showingUser(_, let projects):
+                ForEach(projects) { project in
+                    Button(action: {
+                        appData.selectedProject = project
+                    }) {
+                        Label(project.name, systemImage: "pencil")
+                    }
                 }
+            default:
+                EmptyView()
             }
-
+            
             Divider()
 
             Button(action: logout) {
                 Label("Logout", systemImage: "person.fill.xmark")
             }
         } label: {
-            DropdownView(currentProject: appData.selectedProject ?? appData.projects.first)
+            DropdownView(currentProject: appData.selectedProject ?? appData.projects?.first)
         }
     }
     

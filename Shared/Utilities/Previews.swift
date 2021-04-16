@@ -31,12 +31,6 @@ struct Preview {
         let appData = AppData()
         appData.apiToken = "hello"
         appData.loginState = loginState
-        switch loginState {
-        case .showingUser(_, let projects):
-            appData.projects = projects
-        default:
-            appData.projects = []
-        }
         appData.scanResults = [
             ScanResult(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock),
             ScanResult(name: "Device 2", id: UUID(), rssi: .bad, advertisementData: .mock),

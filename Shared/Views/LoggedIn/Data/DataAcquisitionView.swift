@@ -20,14 +20,15 @@ struct DataAcquisitionView: View {
     var body: some View {
         Form {
             Section(header: Text("Project")) {
-                if appData.projects.count > 0 {
+                switch appData.loginState {
+                case .showingUser(_, let projects):
                     Picker("Selected", selection: $viewState.selectedProject) {
-                        ForEach(appData.projects, id: \.self) { project in
+                        ForEach(projects) { project in
                             Text(project.name).tag(project as Project?)
                         }
                     }
                     .setAsComboBoxStyle()
-                } else {
+                default:
                     Text("No Projects for this User.")
                         .foregroundColor(Assets.middleGrey.color)
                 }

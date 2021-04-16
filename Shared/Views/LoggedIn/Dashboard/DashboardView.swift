@@ -57,14 +57,12 @@ extension DashboardView {
                 guard !Constant.isRunningInPreviewMode else { return }
                 switch completion {
                 case .failure(let error):
-                    appData.projects = []
                     appData.loginState = .error(error)
                 default:
                     break
                 }
             },
             receiveValue: { userResponse in
-                appData.projects = userResponse.projects
                 appData.loginState = .showingUser(userResponse.user, userResponse.projects)
             })
     }

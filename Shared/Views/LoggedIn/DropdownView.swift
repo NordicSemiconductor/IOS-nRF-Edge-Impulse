@@ -40,7 +40,7 @@ struct DropdownView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             DropdownView(currentProject: nil)
-            DropdownView(currentProject: Preview.projectsPreviewAppData.projects.first)
+            DropdownView(currentProject: Preview.previewProjects.first)
         }
         .background(Assets.blue.color)
         .previewLayout(.sizeThatFits)

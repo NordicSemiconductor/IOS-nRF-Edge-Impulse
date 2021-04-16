@@ -25,7 +25,6 @@ final class AppData: ObservableObject {
     }
     
     @Published var loginState: AppData.LoginState = .empty
-    @Published var projects: [Project] = []
     @Published var scanResults: [ScanResult] = []
     
     @Published var selectedProject: Project?
@@ -45,6 +44,15 @@ final class AppData: ObservableObject {
     // MARK: - API
     
     var isLoggedIn: Bool { apiToken != nil }
+    
+    var projects: [Project]? {
+        switch loginState {
+        case .showingUser(_, let projects):
+            return projects
+        default:
+            return nil
+        }
+    }
     
     func logout() {
         apiToken = nil
