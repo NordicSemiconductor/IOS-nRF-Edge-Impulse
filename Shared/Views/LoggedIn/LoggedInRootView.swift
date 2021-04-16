@@ -6,38 +6,53 @@
 //
 
 import SwiftUI
+import Combine
 
 struct LoggedInRootView: View {
     
-    enum LoggedInLayout {
-        case tabs
-        case dualPane
-        case threePane
-    }
+    // MARK: Properties
     
     #if os(iOS)
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     #endif
     
+    // MARK: View
+    
+    var body: some View {
+        layout.view()
+    }
+}
+
+// MARK: - Layout
+
+extension LoggedInRootView {
+    
     var layout: LoggedInLayout {
-        #if os(iOS)
+        #if os(OSX)
+        return .threePane
+        #else
         if horizontalSizeClass == .compact {
             return .tabs
         }
         return .dualPane
-        #else
-        return .threePane
         #endif
     }
     
-    var body: some View {
-        switch layout {
-        case .tabs:
-            TabBarLayoutView()
-        case .dualPane:
-            TwoPaneLayoutView()
-        case .threePane:
-            ThreePaneLayoutView()
+    enum LoggedInLayout {
+        case tabs
+        case dualPane
+        case threePane
+        
+        @ViewBuilder
+        func view() -> some View {
+            switch self {
+            case .tabs:
+                TabBarLayoutView()
+            case .dualPane:
+                TwoPaneLayoutView()
+            case .threePane:
+                ThreePaneLayoutView()
+            }
         }
     }
 }
