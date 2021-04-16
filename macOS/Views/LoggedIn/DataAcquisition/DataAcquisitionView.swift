@@ -21,20 +21,6 @@ struct DataAcquisitionView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
-                Section(header: Text("Project").bold()) {
-                    Picker("Selected", selection: $viewState.selectedProject) {
-                        if appData.projects.count > 0 {
-                            ForEach(appData.projects, id: \.self) { project in
-                                Text(project.name).tag(project as Project?)
-                            }
-                        } else {
-                            Text("--").tag(Constant.unselectedProject as Project?)
-                        }
-                    }
-                }
-                
-                Divider()
-                
                 Section(header: Text("Target").bold()) {
                     Picker("Device", selection: $viewState.selectedDevice) {
                         if appData.scanResults.count > 0 {
@@ -105,9 +91,6 @@ struct DataAcquisitionView: View {
         }
         .frame(width: 320)
         .onAppear {
-            if let project = appData.projects.first {
-                viewState.selectedProject = project
-            }
             if let device = appData.scanResults.first {
                 viewState.selectedDevice = device
             }
@@ -132,7 +115,6 @@ struct DataAcquisitionView_Previews: PreviewProvider {
     static let noProjectsAppData: AppData = {
         let appData = AppData()
         appData.loginState = .showingUser(Preview.previewUser, [])
-        appData.projects = []
         appData.scanResults = []
         return appData
     }()
