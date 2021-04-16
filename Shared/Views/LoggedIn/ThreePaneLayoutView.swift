@@ -9,6 +9,12 @@ import SwiftUI
 
 struct ThreePaneLayoutView: View {
     
+    // MARK: Properties
+    
+    @EnvironmentObject var appData: AppData
+    
+    // MARK: View
+    
     var body: some View {
         NavigationView {
             List {
@@ -20,9 +26,19 @@ struct ThreePaneLayoutView: View {
                             })
                     }
                 }
-                .accentColor(Assets.blue.color)
-                .listStyle(SidebarListStyle())
+                
+                Section(header: Text("User")) {
+                    switch appData.loginState {
+                    case .showingUser(let user, _):
+                        NavigationLink(destination: DashboardView(), label: {
+                            Label(user.username, systemImage: "person.fill")
+                        })
+                    default:
+                        EmptyView()
+                    }
+                }
             }
+            .listStyle(SidebarListStyle())
             .frame(minWidth: 160)
             
             AppHeaderView(.template)
