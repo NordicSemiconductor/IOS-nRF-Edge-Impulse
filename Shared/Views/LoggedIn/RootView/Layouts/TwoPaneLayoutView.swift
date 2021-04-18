@@ -15,8 +15,8 @@ struct TwoPaneLayoutView: View {
         HStack {
             NavigationView {
                 List {
-                    Section(header: Text("Tabs")) {
-                        ForEach(Tabs.allCases) { tab in
+                    Section(header: Text("Menu")) {
+                        ForEach(Tabs.availableCases) { tab in
                             HorizontalTabView(tab: tab)
                                 .withoutListRowInsets()
                         }
@@ -36,9 +36,13 @@ struct TwoPaneLayoutView: View {
                     selectedTab.view
                         .setTitle(selectedTab.description)
                 } else {
-                    Text("Select a Tab from the Sidebar.")
-                        .multilineTextAlignment(.center)
+                    AppHeaderView(.template)
+                        .frame(maxWidth: 120)
                 }
+            }
+            .toolbar {
+                ProjectSelectionView()
+                    .toolbarItem()
             }
             .wrapInNavigationViewForiOS()
             .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -23,12 +23,11 @@ final class AppData: ObservableObject {
             }
         }
     }
-    @Published var user: User?
     
-    @Published var dashboardViewState: DashboardView.ViewState = .empty
-    @Published var projects: [Project] = []
+    @Published var loginState: AppData.LoginState = .empty
     
-    @Published var selectedTab: Tabs? = .Dashboard
+    @Published var selectedProject: Project?
+    @Published var selectedTab: Tabs? = .Devices
     
     // MARK: - Private Properties
     
@@ -45,9 +44,18 @@ final class AppData: ObservableObject {
     
     var isLoggedIn: Bool { apiToken != nil }
     
+    var projects: [Project]? {
+        switch loginState {
+        case .showingUser(_, let projects):
+            return projects
+        default:
+            return nil
+        }
+    }
+    
     func logout() {
         apiToken = nil
-        user = nil
+        loginState = .empty
     }
 }
 

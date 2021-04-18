@@ -20,20 +20,6 @@ struct DataAcquisitionView: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Project")) {
-                if appData.projects.count > 0 {
-                    Picker("Selected", selection: $viewState.selectedProject) {
-                        ForEach(appData.projects, id: \.self) { project in
-                            Text(project.name).tag(project as Project?)
-                        }
-                    }
-                    .setAsComboBoxStyle()
-                } else {
-                    Text("No Projects for this User.")
-                        .foregroundColor(Assets.middleGrey.color)
-                }
-            }
-            
             Section(header: Text("Data Type")) {
                 Picker("Type", selection: $viewState.selectedDataType) {
                     ForEach(Sample.DataType.allCases, id: \.self) { dataType in

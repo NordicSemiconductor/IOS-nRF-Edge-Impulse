@@ -9,28 +9,48 @@ import SwiftUI
 
 struct ThreePaneLayoutView: View {
     
+    // MARK: Properties
+    
+    @EnvironmentObject var appData: AppData
+    
+    // MARK: View
+    
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("Tabs")) {
-                    ForEach(Tabs.allCases) { tab in
+                Section(header: Text("Menu")) {
+                    ForEach(Tabs.availableCases) { tab in
                         NavigationLink(destination: tab.view,
                             label: {
                                 Label(tab.description, systemImage: tab.systemImageName)
                             })
                     }
                 }
-                .accentColor(Assets.blue.color)
-                .listStyle(SidebarListStyle())
-                .toolbarPrincipalImage(Image("Nordic"))
-                .setTitle("nRF Edge Impulse")
+                
+                Section(header: Text("User")) {
+                    switch appData.loginState {
+                    case .showingUser(let user, _):
+                        NavigationLink(destination: UserView(), label: {
+                            Label(user.username, systemImage: "person.fill")
+                        })
+                    default:
+                        EmptyView()
+                    }
+                }
             }
+            .listStyle(SidebarListStyle())
             .frame(minWidth: 160)
             
-            Text("Select Something")
+            AppHeaderView(.template)
+                .frame(maxWidth: 120)
             
-            Text("Select Something Again")
-        }.frame(
+            AppHeaderView(.template)
+                .frame(maxWidth: 120)
+        }.toolbar {
+            ProjectSelectionView()
+                .toolbarItem()
+        }
+        .frame(
             minWidth: 800,
             maxWidth: .infinity,
             minHeight: 400,

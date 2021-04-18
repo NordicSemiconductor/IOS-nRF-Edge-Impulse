@@ -22,31 +22,23 @@ struct Preview {
     
     static let noDevicesAppData: AppData = {
         let appData = AppData()
-        appData.dashboardViewState = .showingUser(previewUser, [Preview.previewProjects[0]])
+        appData.loginState = .showingUser(previewUser, [Preview.previewProjects[0]])
         return appData
     }()
+    
+    static func previewAppData(_ loginState: AppData.LoginState) -> AppData {
+        let appData = AppData()
+        appData.apiToken = "hello"
+        appData.loginState = loginState
+        return appData
+    }
     
     static let noDevicesDeviceData: DeviceData = {
         let deviceData = DeviceData()
         deviceData.scanResults = []
         return deviceData
     }()
-    
-    static func previewAppData(_ viewState: DashboardView.ViewState) -> AppData {
-        let appData = AppData()
-        appData.apiToken = "hello"
-        appData.dashboardViewState = viewState
-        switch viewState {
-        case .showingUser(let user, let projects):
-            appData.user = user
-            appData.projects = projects
-        default:
-            appData.user = nil
-            appData.projects = []
-        }
-        return appData
-    }
-    
+
     static var mockDevicedDeviceData: DeviceData = {
         let deviceData = DeviceData()
         deviceData.scanResults = [

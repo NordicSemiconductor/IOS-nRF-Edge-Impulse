@@ -8,10 +8,19 @@
 import SwiftUI
 
 enum Tabs: Int, RawRepresentable, CaseIterable {
-    case Dashboard
     case Devices
     case DataAcquisition
     case Deployment
+    case Settings
+    
+    static var availableCases: [Tabs] {
+        #if os(OSX)
+        // Preferences is available via Menu on macOS.
+        return allCases.filter({ $0 != .Settings })
+        #elseif os(iOS)
+        return allCases
+        #endif
+    }
 }
 
 // MARK: - ViewBuilder
@@ -21,8 +30,6 @@ extension Tabs {
     @ViewBuilder
     var view: some View {
         switch self {
-        case .Dashboard:
-            DashboardView()
         case .Devices:
              DeviceList()
         case .DataAcquisition:
@@ -30,6 +37,8 @@ extension Tabs {
             DataAcquisitionView()
         case .Deployment:
             DeploymentView()
+        case .Settings:
+            SettingsContentView()
         }
     }
 }
@@ -42,27 +51,27 @@ extension Tabs: Identifiable, CustomStringConvertible {
     
     var systemImageName: String {
         switch self {
-        case .Dashboard:
-            return "desktopcomputer"
         case .Devices:
             return "cpu"
         case .DataAcquisition:
             return "cylinder.split.1x2"
         case .Deployment:
             return "shippingbox"
+        case .Settings:
+            return "gear"
         }
     }
     
     var description: String {
         switch self {
-        case .Dashboard:
-            return "Dashboard"
         case .Devices:
             return "Devices"
         case .DataAcquisition:
             return "Data Acquisition"
         case .Deployment:
             return "Deployment"
+        case .Settings:
+            return "Settings"
         }
     }
 }

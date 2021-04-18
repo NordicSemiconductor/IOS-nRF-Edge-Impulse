@@ -9,8 +9,10 @@ import SwiftUI
 import Combine
 
 struct DeviceList: View {
+    
     @EnvironmentObject var appData: AppData
     @EnvironmentObject var deviceData: DeviceData
+    @EnvironmentObject var preferencesData: PreferencesData
     
     @State private var scannerCancellable: Cancellable? = nil
     
@@ -18,10 +20,15 @@ struct DeviceList: View {
         
         buildRootView()
         .toolbar {
+            ToolbarItem(placement: .destructiveAction) {
+                Button(action: refreshScanner, label: {
+                    Label("Refresh", systemImage: "arrow.clockwise")
+                })
+            }
             ToolbarItem(placement: .confirmationAction) {
-                Button(deviceData.scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
-                    deviceData.scanner.toggle()
-                }
+                Button(action: toggleScanner, label: {
+                    Image(systemName: deviceData.scanner.isScanning ? "stop.fill" : "play.fill")
+                })
             }
         }
         .onDisappear() {
@@ -68,6 +75,21 @@ struct DeviceList: View {
                 }
             }
         }
+    }
+}
+
+// MARK: - Private API
+
+private extension DeviceList {
+    
+    func toggleScanner() {
+        deviceData.scanner.toggle(with: preferencesData)
+    }
+    
+    func refreshScanner() {
+        deviceData.scanResults.removeAll()
+        guard !deviceData.scanner.isScanning else { return }
+        toggleScanner()
     }
 }
 
