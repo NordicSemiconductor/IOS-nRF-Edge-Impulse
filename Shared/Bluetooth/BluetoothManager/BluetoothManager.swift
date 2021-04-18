@@ -30,12 +30,15 @@ final class BluetoothManager: NSObject, ObservableObject {
     let centralManager: CBCentralManager
     
     private let publisher = PassthroughSubject<Data, Error>()
+    
     private let logger = Logger(category: "BluetoothManager")
     
     private var pId: UUID
     private var peripheral: CBPeripheral!
     private var txCharacteristic: CBCharacteristic!
     private var rxCharacteristic: CBCharacteristic!
+    
+    private var connectWhenReady = false
     
     // Throw en error if the peripheral was not connected or required characteristics were not found, or data was not received after timeout.
     private var timer: Timer!
@@ -49,15 +52,36 @@ final class BluetoothManager: NSObject, ObservableObject {
     }
     
     func connect() -> AnyPublisher<Data, Error> {
+        if case .poweredOn = centralManager.state {
+            do {
+                try tryToConnect()
+            } catch let e as Error {
+                return Fail(error: e)
+                    .eraseToAnyPublisher()
+            } catch let e {
+                return Fail(error: Error(localizedDescription: e.localizedDescription))
+                    .eraseToAnyPublisher()
+            }
+        } else {
+            connectWhenReady = true
+        }
+            
+        return publisher.eraseToAnyPublisher()
+    }
+    
+    func disconnect() {
+        centralManager.cancelPeripheralConnection(peripheral)
+        peripheral = nil
+    }
+    
+    private func tryToConnect() throws {
         guard let p = centralManager.retrievePeripherals(withIdentifiers: [pId]).first else {
-            return Result.Publisher(.failure(Error.cantRetreivePeripheral)).eraseToAnyPublisher()
+            throw Error.cantRetreivePeripheral
         }
         
+        connectWhenReady = false
         peripheral = p
-        peripheral.delegate = self
-        centralManager.connect(peripheral, options: nil)
-        
-        return publisher.eraseToAnyPublisher()
+        centralManager.connect(p, options: nil)
     }
 }
 
@@ -130,6 +154,14 @@ extension BluetoothManager: CBPeripheralDelegate {
 extension BluetoothManager: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         logger.info("Central Manager state changed to \(central.state)")
+        
+        if case .poweredOn = central.state, connectWhenReady {
+            do {
+                try tryToConnect()
+            } catch {
+                return publisher.send(completion: .failure(Error.cantRetreivePeripheral))
+            }
+        }
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {

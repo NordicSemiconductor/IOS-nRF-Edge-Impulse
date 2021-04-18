@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct DeviceDetails: View {
-    let device: DeviceRemoteHandler
+    @EnvironmentObject var appData: AppData
+    @EnvironmentObject var deviceData: DeviceData
+    
+    let device: Device
     
     var body: some View {
         VStack(alignment: .center) {
-            HeaderDeviceDetails(deviceHandler: device)
+            HeaderDeviceDetails(device: device)
             Divider()
             Spacer()
         }
@@ -22,7 +25,7 @@ struct DeviceDetails: View {
 #if DEBUG
 struct DeviceDetails_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceDetails(device: DeviceRemoteHandler.mock)
+        DeviceDetails(device: Device.sample)
     }
 }
 #endif

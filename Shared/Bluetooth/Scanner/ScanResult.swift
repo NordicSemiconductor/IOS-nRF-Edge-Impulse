@@ -29,8 +29,24 @@ enum RSSI: Int {
 // MARK: - Device
 
 /// `ScanResult` represents discovered device by Scanner
-struct ScanResult: Identifiable {
-    static func == (lhs: ScanResult, rhs: ScanResult) -> Bool {
+struct Device: Identifiable {
+    enum State {
+        case notConnected
+        case connecting
+        case error(Error)
+        case ready // Connected and ready for use
+        
+        var isReady: Bool {
+            if case .ready = self {
+                return true
+            } else {
+                return false
+            }
+        }
+        
+    }
+    
+    static func == (lhs: Device, rhs: Device) -> Bool {
         lhs.id == rhs.id
     }
     
@@ -38,20 +54,34 @@ struct ScanResult: Identifiable {
     let id: UUID
     let rssi: RSSI
     let advertisementData: AdvertisementData
+    var state: State = .notConnected
 }
 
 // MARK: - DeviceScanResult
-extension ScanResult: Hashable {
-    
+extension Device: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
 }
 
-// MARK: - Sample
+extension Device.State: CustomDebugStringConvertible {
+    var debugDescription: String {
+        switch self {
+        case .notConnected:
+            return "notConnected"
+        case .connecting:
+            return "connecting"
+        case .error(let e):
+            return "error: \(e.localizedDescription)"
+        case .ready:
+            return "ready"
+        }
+    }
+}
 
+// MARK: - Sample
 #if DEBUG
-extension ScanResult {
-    static let sample = ScanResult(name: "Test Device", id: UUID(), rssi: .outOfRange, advertisementData: .mock)
+extension Device {
+    static let sample = Device(name: "Test Device", id: UUID(), rssi: .outOfRange, advertisementData: .mock)
 }
 #endif

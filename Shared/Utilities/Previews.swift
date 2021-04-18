@@ -23,8 +23,13 @@ struct Preview {
     static let noDevicesAppData: AppData = {
         let appData = AppData()
         appData.dashboardViewState = .showingUser(previewUser, [Preview.previewProjects[0]])
-        appData.scanResults = []
         return appData
+    }()
+    
+    static let noDevicesDeviceData: DeviceData = {
+        let deviceData = DeviceData()
+        deviceData.scanResults = []
+        return deviceData
     }()
     
     static func previewAppData(_ viewState: DashboardView.ViewState) -> AppData {
@@ -39,12 +44,17 @@ struct Preview {
             appData.user = nil
             appData.projects = []
         }
-        appData.scanResults = [
-            ScanResult(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock),
-            ScanResult(name: "Device 2", id: UUID(), rssi: .bad, advertisementData: .mock),
-            ScanResult(name: "Device 3", id: UUID(), rssi: .ok, advertisementData: .mock)
-        ].map { DeviceRemoteHandler(scanResult: $0) }
         return appData
     }
+    
+    static var mockDevicedDeviceData: DeviceData = {
+        let deviceData = DeviceData()
+        deviceData.scanResults = [
+            Device(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock),
+            Device(name: "Device 2", id: UUID(), rssi: .bad, advertisementData: .mock),
+            Device(name: "Device 3", id: UUID(), rssi: .ok, advertisementData: .mock)
+        ]
+        return deviceData
+    }()
 }
 #endif

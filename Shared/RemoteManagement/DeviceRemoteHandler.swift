@@ -26,56 +26,13 @@ extension DeviceRemoteHandler {
             }
         }
     }
-    
-    enum State: Equatable, CustomDebugStringConvertible {
-        static func == (lhs: DeviceRemoteHandler.State, rhs: DeviceRemoteHandler.State) -> Bool {
-            switch (lhs, rhs) {
-            case (.notConnected, .notConnected):
-                return true
-            case (.connecting, .connecting):
-                return true
-            case (.error, .error):
-                return true
-            case (.ready, .ready):
-                return true
-            default:
-                return false
-            }
-        }
-        
-        case notConnected
-        case connecting
-        case error(Error)
-        case ready
-        
-        var debugDescription: String {
-            switch self {
-            case .notConnected:
-                return "notConnected"
-            case .connecting:
-                return "connecting"
-            case .error(let e):
-                return "error: \(e.localizedDescription)"
-            case .ready:
-                return "ready"
-            }
-        }
-        
-        var isReady: Bool {
-            if case .ready = self {
-                return true
-            } else {
-                return false 
-            }
-        }
-        
-    }
 }
 
-class DeviceRemoteHandler: ObservableObject {
+class DeviceRemoteHandler {
+    
     private let logger = Logger(category: "DeviceRemoteHandler")
     
-    let scanResult: ScanResult
+    @Published private (set) var device: Device
     private var bluetoothManager: BluetoothManager!
     private var webSocketManager: WebSocketManager!
     private var cancelable = Set<AnyCancellable>()
@@ -83,16 +40,15 @@ class DeviceRemoteHandler: ObservableObject {
     private var btPublisher: AnyPublisher<Data, BluetoothManager.Error>?
     private var wsPublisher: AnyPublisher<Data, WebSocketManager.Error>?
     
-    @Published private (set) var state: State = .notConnected
-    
-    init(scanResult: ScanResult) {
-        self.scanResult = scanResult
-        bluetoothManager = BluetoothManager(peripheralId: scanResult.id)
+    init(device: Device) {
+        self.device = device
+        bluetoothManager = BluetoothManager(peripheralId: device.id)
         webSocketManager = WebSocketManager()
     }
     
     deinit {
         cancelable.forEach { $0.cancel() }
+        cancelable.removeAll()
     }
     
     func connect() {
@@ -103,7 +59,7 @@ class DeviceRemoteHandler: ObservableObject {
             return
         }
         
-        self.state = .connecting
+        self.device.state = .connecting
         
         btPublisher
             .decode(type: ResponseRootObject.self, decoder: JSONDecoder())
@@ -122,7 +78,7 @@ class DeviceRemoteHandler: ObservableObject {
             }
             .decode(type: WSHelloResponse.self, decoder: JSONDecoder())
             .mapError { Error.anyError($0) }
-            .flatMap { (response) -> AnyPublisher<State, Error> in
+            .flatMap { (response) -> AnyPublisher<Device.State, Error> in
                 if let e = response.err {
                     return Fail(error: Error.stringError(e))
                         .eraseToAnyPublisher()
@@ -136,35 +92,45 @@ class DeviceRemoteHandler: ObservableObject {
             .timeout(5, scheduler: DispatchQueue.main, customError: { Error.timeout })
             .sink { [weak self] (completion) in
                 if case .failure(let e) = completion {
-                    self?.state = .error(e)
+                    self?.device.state = .error(e)
                     self?.logger.error("Error: \(e.localizedDescription)")
                 } else {
                     self?.logger.info("Connecting completed")
                 }
             } receiveValue: { [weak self] (state) in
-                self?.state = state
+                self?.device.state = state
                 self?.logger.info("New state: \(state.debugDescription)")
             }
             .store(in: &cancelable)
+    }
+    
+    func disconnect() {
+        btPublisher = nil
+        wsPublisher = nil
+        
+        bluetoothManager.disconnect()
+        webSocketManager.disconnect()
+        
+        device.state = .notConnected
     }
 }
 
 extension DeviceRemoteHandler: Hashable, Identifiable {
     static func == (lhs: DeviceRemoteHandler, rhs: DeviceRemoteHandler) -> Bool {
-        lhs.scanResult == rhs.scanResult
+        lhs.device == rhs.device
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(scanResult)
+        hasher.combine(device)
     }
     
     var id: UUID {
-        scanResult.id
+        device.id
     }
 }
 
 #if DEBUG
 extension DeviceRemoteHandler {
-    static let mock = DeviceRemoteHandler(scanResult: ScanResult.sample)
+    static let mock = DeviceRemoteHandler(device: Device.sample)
 }
 #endif

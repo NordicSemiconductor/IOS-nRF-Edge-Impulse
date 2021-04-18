@@ -21,7 +21,7 @@ enum Constant {
     // MARK: - Unselected
     
     static let unselectedProject = Project.Sample
-    static let unselectedDevice = ScanResult(name: "", id: UUID(), rssi: .outOfRange, advertisementData: AdvertisementData())
+    static let unselectedDevice = Device(name: "", id: UUID(), rssi: .outOfRange, advertisementData: AdvertisementData())
     
     // MARK: - URL(s)
     

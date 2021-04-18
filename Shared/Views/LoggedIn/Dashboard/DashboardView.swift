@@ -100,6 +100,7 @@ struct DashboardView_Previews: PreviewProvider {
         Group {
             DashboardView()
                 .environmentObject(Preview.previewAppData(.loading))
+                .environmentObject(Preview.mockDevicedDeviceData)
             DashboardView()
                 .environmentObject(Preview.projectsPreviewAppData)
             DashboardView()

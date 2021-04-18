@@ -10,6 +10,7 @@ import SwiftUI
 struct DataAcquisitionView: View {
     
     @EnvironmentObject var appData: AppData
+    @EnvironmentObject var deviceData: DeviceData
     
     // MARK: - State
     
@@ -43,9 +44,8 @@ struct DataAcquisitionView: View {
             }
             
             Section(header: Text("Device")) {
-                let connectedDevices = appData.scanResults
+                let connectedDevices = deviceData.scanResults
                     .filter { $0.state.isReady }
-                    .map (\.scanResult)
                 
                 if connectedDevices.count > 0 {
                     Picker("Selected", selection: $viewState.selectedDevice) {
@@ -127,6 +127,7 @@ struct DataAcquisitionView_Previews: PreviewProvider {
             NavigationView {
                 DataAcquisitionView()
                     .environmentObject(Preview.noDevicesAppData)
+                    .environmentObject(Preview.noDevicesDeviceData)
             }
             
             NavigationView {

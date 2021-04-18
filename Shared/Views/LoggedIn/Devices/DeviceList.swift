@@ -10,8 +10,8 @@ import Combine
 
 struct DeviceList: View {
     @EnvironmentObject var appData: AppData
+    @EnvironmentObject var deviceData: DeviceData
     
-    @StateObject var scanner = Scanner()
     @State private var scannerCancellable: Cancellable? = nil
     
     var body: some View {
@@ -19,20 +19,10 @@ struct DeviceList: View {
         buildRootView()
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
-                Button(scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
-                    scanner.toggle()
+                Button(deviceData.scanner.isScanning ? "Stop Scanning" : "Start Scanning") {
+                    deviceData.scanner.toggle()
                 }
             }
-        }
-        .onAppear() {
-            scannerCancellable = scanner.devicePublisher
-                .throttle(for: 1.0, scheduler: RunLoop.main, latest: false)
-                .sink(receiveCompletion: { result in
-                    print(result)
-                }, receiveValue: { device in
-                    guard !appData.scanResults.contains(device) else { return }
-                    appData.scanResults.append(device)
-                })
         }
         .onDisappear() {
             scannerCancellable?.cancel()
@@ -42,7 +32,7 @@ struct DeviceList: View {
     
     @ViewBuilder
     private func buildRootView() -> some View {
-        if appData.scanResults.isEmpty {
+        if deviceData.scanResults.isEmpty {
             Text("No Scanned Devices")
                 .font(.headline)
                 .bold()
@@ -59,20 +49,20 @@ struct DeviceList: View {
 //        let notConnected = appData.allDevices.filter { !$0.state.isReady }
         
         List {
-            if !appData.scanResults.filter { $0.state.isReady }.isEmpty {
+            if !deviceData.scanResults.filter { $0.state.isReady }.isEmpty {
                 Section(header: Text("Connected Devices")) {
-                    ForEach(appData.scanResults.filter { $0.state.isReady }) { device in
+                    ForEach(deviceData.scanResults.filter { $0.state.isReady }) { device in
                         NavigationLink(destination: DeviceDetails(device: device)) {
-                            DeviceRow(scanResult: device.scanResult)
+                            DeviceRow(device: device)
                         }
                     }
                 }
             }
-            if !appData.scanResults.filter { !$0.state.isReady }.isEmpty {
+            if !deviceData.scanResults.filter { !$0.state.isReady }.isEmpty {
                 Section(header: Text("Not Connected Devices")) {
-                    ForEach(appData.scanResults.filter { !$0.state.isReady }) { device in
+                    ForEach(deviceData.scanResults.filter { !$0.state.isReady }) { device in
                         NavigationLink(destination: DeviceDetails(device: device)) {
-                            DeviceRow(scanResult: device.scanResult)
+                            DeviceRow(device: device)
                         }
                     }
                 }

@@ -12,12 +12,14 @@ struct nRF_Edge_ImpulseApp: App {
     
     @StateObject var appData = AppData()
     @StateObject var resourceData = ResourceData()
+    @StateObject var deviceData = DeviceData()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(appData)
                 .environmentObject(resourceData)
+                .environmentObject(deviceData)
         }
     }
 }

@@ -10,14 +10,14 @@ import SwiftUI
 // MARK: - ProjectRow
 
 struct DeviceRow: View {
-    let scanResult: ScanResult
+    let device: Device
     
     var body: some View {
         HStack(alignment: .top) {
-            SignalLevel(rssi: scanResult.rssi)
+            SignalLevel(rssi: device.rssi)
                 .frame(width: 40, height: 30, alignment: .center)
             VStack(alignment: .leading) {
-                Text(scanResult.name)
+                Text(device.name)
                     .font(.headline)
                     .bold()
             }
@@ -31,7 +31,7 @@ struct DeviceRow: View {
 #if DEBUG
 struct DeviceRow_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceRow(scanResult: .sample)
+        DeviceRow(device: .sample)
     }
 }
 #endif
