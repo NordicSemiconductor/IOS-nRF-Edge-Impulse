@@ -34,6 +34,16 @@ final class DeviceData: NSObject, ObservableObject {
 
 extension DeviceData {
     
+    subscript(_ device: Device) -> DeviceRemoteHandler {
+        guard let handler = deviceHandlers[device.id] else {
+            let newHandler = DeviceRemoteHandler(device: device)
+            deviceHandlers[device.id] = newHandler
+            setupHandlerObservers(handler: newHandler)
+            return newHandler
+        }
+        return handler
+    }
+    
     func toggle(with preferences: PreferencesData) {
         self.preferences = preferences
         if cancellables.isEmpty {
@@ -52,18 +62,9 @@ extension DeviceData {
             bluetoothManager.stopScan()
         }
     }
-    
-    func deviceHandler(for device: Device) -> DeviceRemoteHandler {
-        if let handler = deviceHandlers[device.id] {
-            return handler
-        } else {
-            let handler = DeviceRemoteHandler(device: device)
-            deviceHandlers[device.id] = handler
-            setupHandlerObservers(handler: handler)
-            return handler
-        }
-    }
 }
+
+// MARK: - Private API
 
 private extension DeviceData {
     

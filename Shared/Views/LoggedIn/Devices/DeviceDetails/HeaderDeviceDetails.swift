@@ -10,7 +10,16 @@ import os
 
 struct HeaderDeviceDetails: View {
     @EnvironmentObject var deviceData: DeviceData
-    let device: Device
+    
+    private let device: Device
+    
+    // MARK: Init
+    
+    init(_ device: Device) {
+        self.device = device
+    }
+    
+    // MARK: View
     
     var body: some View {
         VStack {
@@ -25,7 +34,7 @@ struct HeaderDeviceDetails: View {
                 Spacer()
             }
             
-            viewForHandler(deviceData.deviceHandler(for: device))
+            viewForHandler(deviceData[device])
         }
     }
         
@@ -49,10 +58,16 @@ struct HeaderDeviceDetails: View {
     }
 }
 
+// MARK: - Preview
+
 #if DEBUG
 struct HeaderDeviceDetails_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderDeviceDetails(device: Device.sample)
+        Group {
+            HeaderDeviceDetails(Device.sample)
+                .environmentObject(Preview.mockDevicedDeviceData)
+        }
+        .previewLayout(.sizeThatFits)
     }
 }
 #endif

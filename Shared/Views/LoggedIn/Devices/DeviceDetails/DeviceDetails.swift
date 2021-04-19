@@ -15,7 +15,7 @@ struct DeviceDetails: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            HeaderDeviceDetails(device: device)
+            HeaderDeviceDetails(device)
             Divider()
             Spacer()
         }
