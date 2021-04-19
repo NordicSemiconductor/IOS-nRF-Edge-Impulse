@@ -13,6 +13,7 @@ import SwiftUI
 struct nRF_Edge_ImpulseApp: App {
     
     @StateObject var appData = AppData()
+    @StateObject var deviceData = DeviceData()
     @StateObject var preferencesData = PreferencesData()
     @StateObject var resourceData = ResourceData()
     
@@ -20,6 +21,7 @@ struct nRF_Edge_ImpulseApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(appData)
+                .environmentObject(deviceData)
                 .environmentObject(preferencesData)
                 .environmentObject(resourceData)
         }

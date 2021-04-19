@@ -11,7 +11,7 @@ struct DataAcquisitionView: View {
     
     // MARK: - State
     
-    @EnvironmentObject var appData: AppData
+    @EnvironmentObject var deviceData: DeviceData
     
     @ObservedObject private var viewState = DataAcquisitionViewState()
     @State private var isSampling = false
@@ -23,8 +23,12 @@ struct DataAcquisitionView: View {
             VStack(alignment: .leading, spacing: 10) {
                 Section(header: Text("Target").bold()) {
                     Picker("Device", selection: $viewState.selectedDevice) {
-                        if appData.scanResults.count > 0 {
-                            ForEach(appData.scanResults, id: \.self) { device in
+                        
+                        let connectedDevices = deviceData.scanResults
+                            .filter { $0.state.isReady }
+                        
+                        if connectedDevices.count > 0 {
+                            ForEach(connectedDevices, id: \.self) { device in
                                 Text(device.id.uuidString).tag(device)
                             }
                         } else {
@@ -91,7 +95,9 @@ struct DataAcquisitionView: View {
         }
         .frame(width: 320)
         .onAppear {
-            if let device = appData.scanResults.first {
+            let connectedDevices = deviceData.scanResults
+                .filter { $0.state.isReady }
+            if let device = connectedDevices.first {
                 viewState.selectedDevice = device
             }
         }
@@ -115,7 +121,6 @@ struct DataAcquisitionView_Previews: PreviewProvider {
     static let noProjectsAppData: AppData = {
         let appData = AppData()
         appData.loginState = .showingUser(Preview.previewUser, [])
-        appData.scanResults = []
         return appData
     }()
     
