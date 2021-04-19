@@ -29,6 +29,7 @@ struct DeviceList: View {
                 Button(action: toggleScanner, label: {
                     Image(systemName: deviceData.isScanning ? "stop.fill" : "play.fill")
                 })
+                .keyboardShortcut(.space, modifiers: [])
             }
         }
         .onDisappear() {
@@ -104,6 +105,7 @@ struct DeviceList_Previews: PreviewProvider {
             DeviceList()
                 .setTitle("Devices")
                 .environmentObject(Preview.projectsPreviewAppData)
+                .environmentObject(Preview.mockDevicedDeviceData)
         }
         #elseif os(iOS)
         Group {
