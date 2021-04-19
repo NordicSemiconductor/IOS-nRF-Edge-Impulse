@@ -19,23 +19,26 @@ struct DeviceList: View {
     var body: some View {
         
         buildRootView()
-        .toolbar {
-            ToolbarItem(placement: .destructiveAction) {
-                Button(action: refreshScanner, label: {
-                    Label("Refresh", systemImage: "arrow.clockwise")
-                })
+            .toolbar {
+                ToolbarItem(placement: .destructiveAction) {
+                    Button(action: refreshScanner, label: {
+                        Label("Refresh", systemImage: "arrow.clockwise")
+                    })
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(action: toggleScanner, label: {
+                        Image(systemName: deviceData.isScanning ? "stop.fill" : "play.fill")
+                    })
+                    .keyboardShortcut(.space, modifiers: [])
+                }
             }
-            ToolbarItem(placement: .confirmationAction) {
-                Button(action: toggleScanner, label: {
-                    Image(systemName: deviceData.isScanning ? "stop.fill" : "play.fill")
-                })
-                .keyboardShortcut(.space, modifiers: [])
+            .onAppear() {
+                deviceData.turnOnBluetoothRadio()
             }
-        }
-        .onDisappear() {
-            scannerCancellable?.cancel()
-        }
-        .accentColor(.white)
+            .onDisappear() {
+                scannerCancellable?.cancel()
+            }
+            .accentColor(.white)
     }
     
     @ViewBuilder

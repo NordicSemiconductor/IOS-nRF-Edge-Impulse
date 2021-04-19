@@ -44,6 +44,15 @@ extension DeviceData {
         return handler
     }
     
+    /**
+     Needs to be called before any attempt to Scan is made.
+     
+     The first call to `CBCentralManager.state` is the one that turns on the BLE Radio if it's available, and successive calls check whether it turned on or not, but they cannot be made one after the other or the second will return an error. This is why we make this first call ahead of time.
+     */
+    func turnOnBluetoothRadio() {
+        _ = bluetoothManager.state
+    }
+    
     func toggle(with preferences: PreferencesData) {
         self.preferences = preferences
         if cancellables.isEmpty {
