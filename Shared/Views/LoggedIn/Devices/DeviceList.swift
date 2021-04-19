@@ -111,6 +111,7 @@ struct DeviceList_Previews: PreviewProvider {
                 DeviceList()
                     .setTitle("Devices")
                     .environmentObject(Preview.projectsPreviewAppData)
+                    .environmentObject(Preview.noDevicesDeviceData)
                     .previewDevice("iPhone 12 mini")
             }
             .setBackgroundColor(Assets.blue)
@@ -120,6 +121,7 @@ struct DeviceList_Previews: PreviewProvider {
                     .setTitle("Devices")
                     .preferredColorScheme(.dark)
                     .environmentObject(Preview.projectsPreviewAppData)
+                    .environmentObject(Preview.mockDevicedDeviceData)
                     .previewDevice("iPad Pro (12.9-inch) (4th generation)")
             }
             .setBackgroundColor(Assets.blue)
