@@ -69,11 +69,11 @@ private extension DeviceData {
     
     private func setupDevicePublisher() {
         devicePublisher
-            .removeDuplicates()
             .throttle(for: 1.0, scheduler: RunLoop.main, latest: false)
             .sink(receiveCompletion: { result in
                 print(result)
-            }, receiveValue: {
+            }, receiveValue: { [weak self] in
+                guard let self = self, !self.scanResults.contains($0) else { return }
                 self.scanResults.append($0)
                 self.logger.info("New Device found: \($0.name), UUID: \($0.id)")
             })
