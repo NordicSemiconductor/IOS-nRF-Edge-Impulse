@@ -27,7 +27,7 @@ struct DeviceList: View {
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button(action: toggleScanner, label: {
-                    Image(systemName: deviceData.scanner.isScanning ? "stop.fill" : "play.fill")
+                    Image(systemName: deviceData.isScanning ? "stop.fill" : "play.fill")
                 })
             }
         }
@@ -83,12 +83,12 @@ struct DeviceList: View {
 private extension DeviceList {
     
     func toggleScanner() {
-        deviceData.scanner.toggle(with: preferencesData)
+        deviceData.toggle(with: preferencesData)
     }
     
     func refreshScanner() {
         deviceData.scanResults.removeAll()
-        guard !deviceData.scanner.isScanning else { return }
+        guard !deviceData.isScanning else { return }
         toggleScanner()
     }
 }
