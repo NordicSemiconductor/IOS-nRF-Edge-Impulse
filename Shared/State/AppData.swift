@@ -25,7 +25,6 @@ final class AppData: ObservableObject {
     }
     
     @Published var loginState: AppData.LoginState = .empty
-    @Published var scanResults: [ScanResult] = []
     
     @Published var selectedProject: Project?
     @Published var selectedTab: Tabs? = .Devices

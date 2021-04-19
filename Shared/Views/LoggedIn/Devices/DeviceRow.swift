@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: - ProjectRow
 
 struct DeviceRow: View {
-    let device: ScanResult
+    let device: Device
     
     var body: some View {
         HStack(alignment: .top) {

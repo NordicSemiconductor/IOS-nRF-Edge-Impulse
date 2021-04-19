@@ -23,7 +23,6 @@ struct Preview {
     static let noDevicesAppData: AppData = {
         let appData = AppData()
         appData.loginState = .showingUser(previewUser, [Preview.previewProjects[0]])
-        appData.scanResults = []
         return appData
     }()
     
@@ -31,12 +30,23 @@ struct Preview {
         let appData = AppData()
         appData.apiToken = "hello"
         appData.loginState = loginState
-        appData.scanResults = [
-            ScanResult(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock),
-            ScanResult(name: "Device 2", id: UUID(), rssi: .bad, advertisementData: .mock),
-            ScanResult(name: "Device 3", id: UUID(), rssi: .ok, advertisementData: .mock)
-        ]
         return appData
     }
+    
+    static let noDevicesDeviceData: DeviceData = {
+        let deviceData = DeviceData()
+        deviceData.scanResults = []
+        return deviceData
+    }()
+
+    static var mockDevicedDeviceData: DeviceData = {
+        let deviceData = DeviceData()
+        deviceData.scanResults = [
+            Device(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock),
+            Device(name: "Device 2", id: UUID(), rssi: .bad, advertisementData: .mock),
+            Device(name: "Device 3", id: UUID(), rssi: .ok, advertisementData: .mock)
+        ]
+        return deviceData
+    }()
 }
 #endif

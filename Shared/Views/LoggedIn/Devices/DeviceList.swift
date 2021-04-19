@@ -11,19 +11,14 @@ import Combine
 struct DeviceList: View {
     
     @EnvironmentObject var appData: AppData
+    @EnvironmentObject var deviceData: DeviceData
     @EnvironmentObject var preferencesData: PreferencesData
     
-    @StateObject var scanner = Scanner()
     @State private var scannerCancellable: Cancellable? = nil
     
     var body: some View {
-        List {
-            ForEach(appData.scanResults) { device in
-                NavigationLink(destination: DeviceDetails(scanResult: device)) {
-                    DeviceRow(device: device)
-                }
-            }
-        }
+        
+        buildRootView()
         .toolbar {
             ToolbarItem(placement: .destructiveAction) {
                 Button(action: refreshScanner, label: {
@@ -32,24 +27,54 @@ struct DeviceList: View {
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button(action: toggleScanner, label: {
-                    Image(systemName: scanner.isScanning ? "stop.fill" : "play.fill")
+                    Image(systemName: deviceData.scanner.isScanning ? "stop.fill" : "play.fill")
                 })
             }
-        }
-        .onAppear() {
-            scannerCancellable = scanner.devicePublisher
-                .throttle(for: 1.0, scheduler: RunLoop.main, latest: false)
-                .sink(receiveCompletion: { result in
-                    print(result)
-                }, receiveValue: { device in
-                    guard !appData.scanResults.contains(device) else { return }
-                    appData.scanResults.append(device)
-                })
         }
         .onDisappear() {
             scannerCancellable?.cancel()
         }
         .accentColor(.white)
+    }
+    
+    @ViewBuilder
+    private func buildRootView() -> some View {
+        if deviceData.scanResults.isEmpty {
+            Text("No Scanned Devices")
+                .font(.headline)
+                .bold()
+        } else {
+            buildDeviceList()
+        }
+    }
+    
+    @ViewBuilder
+    private func buildDeviceList() -> some View {
+//        let splitedDevices = appData.allDevices.split(whereSeparator: { $0.state.isReady })
+//        
+//        let connected = appData.allDevices.filter { $0.state.isReady }
+//        let notConnected = appData.allDevices.filter { !$0.state.isReady }
+        
+        List {
+            if !deviceData.scanResults.filter { $0.state.isReady }.isEmpty {
+                Section(header: Text("Connected Devices")) {
+                    ForEach(deviceData.scanResults.filter { $0.state.isReady }) { device in
+                        NavigationLink(destination: DeviceDetails(device: device)) {
+                            DeviceRow(device: device)
+                        }
+                    }
+                }
+            }
+            if !deviceData.scanResults.filter { !$0.state.isReady }.isEmpty {
+                Section(header: Text("Not Connected Devices")) {
+                    ForEach(deviceData.scanResults.filter { !$0.state.isReady }) { device in
+                        NavigationLink(destination: DeviceDetails(device: device)) {
+                            DeviceRow(device: device)
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -58,12 +83,12 @@ struct DeviceList: View {
 private extension DeviceList {
     
     func toggleScanner() {
-        scanner.toggle(with: preferencesData)
+        deviceData.scanner.toggle(with: preferencesData)
     }
     
     func refreshScanner() {
-        appData.scanResults.removeAll()
-        guard !scanner.isScanning else { return }
+        deviceData.scanResults.removeAll()
+        guard !deviceData.scanner.isScanning else { return }
         toggleScanner()
     }
 }

@@ -13,6 +13,7 @@ struct nRF_Edge_ImpulseApp: App {
     @StateObject var appData = AppData()
     @StateObject var preferencesData = PreferencesData()
     @StateObject var resourceData = ResourceData()
+    @StateObject var deviceData = DeviceData()
     
     var body: some Scene {
         WindowGroup {
@@ -20,6 +21,7 @@ struct nRF_Edge_ImpulseApp: App {
                 .environmentObject(appData)
                 .environmentObject(preferencesData)
                 .environmentObject(resourceData)
+                .environmentObject(deviceData)
         }
     }
 }

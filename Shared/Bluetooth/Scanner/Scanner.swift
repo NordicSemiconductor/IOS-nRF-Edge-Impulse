@@ -23,7 +23,7 @@ final class Scanner: NSObject, ObservableObject {
     
     @Published var isScanning = false
     
-    private(set) var devicePublisher = PassthroughSubject<ScanResult, BluetoothError>()
+    private(set) var devicePublisher = PassthroughSubject<Device, BluetoothError>()
 }
 
 // MARK: - API
@@ -57,14 +57,14 @@ extension Scanner: CBCentralManagerDelegate {
                 ?? peripheral.name
                 ?? "N/A"
         
-        let scanResult = ScanResult(name: name, id: peripheral.identifier, rssi: R(value: RSSI.intValue), advertisementData: AdvertisementData(advertisementData))
+        let device = Device(name: name, id: peripheral.identifier, rssi: R(value: RSSI.intValue), advertisementData: AdvertisementData(advertisementData))
         
         switch preferences.onlyScanConnectableDevices {
         case true:
-            guard scanResult.advertisementData.isConnectable == true else { return }
+            guard device.advertisementData.isConnectable == true else { return }
             fallthrough
         default:
-            devicePublisher.send(scanResult)
+            devicePublisher.send(device)
         }
     }
     

@@ -26,56 +26,42 @@ extension DeviceRemoteHandler {
             }
         }
     }
-    
-    enum State: CustomDebugStringConvertible {
-        case notConnected
-        case connecting
-        case error(Error)
-        case ready
-        
-        var debugDescription: String {
-            switch self {
-            case .notConnected:
-                return "notConnected"
-            case .connecting:
-                return "connecting"
-            case .error(let e):
-                return "error: \(e.localizedDescription)"
-            case .ready:
-                return "ready"
-            }
-        }
-        
-    }
 }
 
 class DeviceRemoteHandler {
+    
     private let logger = Logger(category: "DeviceRemoteHandler")
     
-    let scanResult: ScanResult
+    @Published private (set) var device: Device
     private var bluetoothManager: BluetoothManager!
     private var webSocketManager: WebSocketManager!
     private var cancelable = Set<AnyCancellable>()
     
-    @Published private (set) var state: State = .notConnected
+    private var btPublisher: AnyPublisher<Data, BluetoothManager.Error>?
+    private var wsPublisher: AnyPublisher<Data, WebSocketManager.Error>?
     
-    init(scanResult: ScanResult) {
-        self.scanResult = scanResult
-        bluetoothManager = BluetoothManager(peripheralId: scanResult.id)
+    init(device: Device) {
+        self.device = device
+        bluetoothManager = BluetoothManager(peripheralId: device.id)
         webSocketManager = WebSocketManager()
     }
     
     deinit {
         cancelable.forEach { $0.cancel() }
+        cancelable.removeAll()
     }
     
     func connect() {
-        self.state = .connecting
-
-        let wsPublisher = webSocketManager.connect()
+        wsPublisher = webSocketManager.connect()
+        btPublisher = bluetoothManager.connect()
         
-        bluetoothManager.connect()
-            .mapError { Error.anyError($0) }
+        guard let wsPublisher = self.wsPublisher, let btPublisher = self.btPublisher else {
+            return
+        }
+        
+        self.device.state = .connecting
+        
+        btPublisher
             .decode(type: ResponseRootObject.self, decoder: JSONDecoder())
             .flatMap { [unowned self] data -> AnyPublisher<Data, Swift.Error> in
                 do {
@@ -83,32 +69,68 @@ class DeviceRemoteHandler {
                     let d = try JSONEncoder().encode(hello)
                     self.webSocketManager.send(d)
                 } catch let e {
-                    return Result.Publisher(.failure(e)).eraseToAnyPublisher()
+                    return Fail(error: e)
+                        .eraseToAnyPublisher()
                 }
-                return wsPublisher.mapError({ Error.anyError($0) }).eraseToAnyPublisher()
+                return wsPublisher
+                    .mapError { Error.anyError($0) }
+                    .eraseToAnyPublisher()
             }
             .decode(type: WSHelloResponse.self, decoder: JSONDecoder())
             .mapError { Error.anyError($0) }
-            .flatMap { (response) -> AnyPublisher<State, Error> in
+            .flatMap { (response) -> AnyPublisher<Device.State, Error> in
                 if let e = response.err {
-                    return Result.Publisher(.failure(.stringError(e))).eraseToAnyPublisher()
+                    return Fail(error: Error.stringError(e))
+                        .eraseToAnyPublisher()
                 } else {
-                    return Result.Publisher(.success(.ready)).eraseToAnyPublisher()
+                    return Just(.ready)
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
                 }
             }
             .prefix(1)
             .timeout(5, scheduler: DispatchQueue.main, customError: { Error.timeout })
             .sink { [weak self] (completion) in
                 if case .failure(let e) = completion {
-                    self?.state = .error(e)
+                    self?.device.state = .error(e)
                     self?.logger.error("Error: \(e.localizedDescription)")
                 } else {
                     self?.logger.info("Connecting completed")
                 }
             } receiveValue: { [weak self] (state) in
-                self?.state = state
+                self?.device.state = state
                 self?.logger.info("New state: \(state.debugDescription)")
             }
             .store(in: &cancelable)
     }
+    
+    func disconnect() {
+        btPublisher = nil
+        wsPublisher = nil
+        
+        bluetoothManager.disconnect()
+        webSocketManager.disconnect()
+        
+        device.state = .notConnected
+    }
 }
+
+extension DeviceRemoteHandler: Hashable, Identifiable {
+    static func == (lhs: DeviceRemoteHandler, rhs: DeviceRemoteHandler) -> Bool {
+        lhs.device == rhs.device
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(device)
+    }
+    
+    var id: UUID {
+        device.id
+    }
+}
+
+#if DEBUG
+extension DeviceRemoteHandler {
+    static let mock = DeviceRemoteHandler(device: Device.sample)
+}
+#endif
