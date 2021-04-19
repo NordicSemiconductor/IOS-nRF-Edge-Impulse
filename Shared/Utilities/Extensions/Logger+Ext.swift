@@ -9,9 +9,16 @@ import Foundation
 import os
 
 extension Logger {
-    static let ei = Logger(subsystem: "com.nordicsemi.nRF-Edge-Impulse", category: "Default")
+   
+    static let EdgeImpulseSubsystem = "com.nordicsemi.nRF-Edge-Impulse"
+    
+    // MARK: - Init
+    
+    init(_ clazz: AnyClass) {
+        self.init(category: String(describing: clazz))
+    }
     
     init(category: String) {
-        self.init(subsystem: "com.nordicsemi.nRF-Edge-Impulse", category: category)
+        self.init(subsystem: Logger.EdgeImpulseSubsystem, category: category)
     }
 }
