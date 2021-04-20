@@ -15,8 +15,7 @@ struct ProjectSelectionView: View {
     
     var body: some View {
         Menu {
-            switch appData.loginState {
-            case .showingUser(_, let projects):
+            if let projects = appData.projects {
                 ForEach(projects) { project in
                     Button(action: {
                         appData.selectedProject = project
@@ -24,7 +23,7 @@ struct ProjectSelectionView: View {
                         Label(project.name, systemImage: "pencil")
                     }
                 }
-            default:
+            } else {
                 EmptyView()
             }
             

@@ -21,17 +21,17 @@ struct Preview {
         return try? JSONDecoder().decode([Project].self, from: contentData)
     }()
     
-    static let projectsPreviewAppData = previewAppData(.showingUser(previewUser, previewProjects))
+    static let projectsPreviewAppData = previewAppData(.complete(previewUser, previewProjects))
     
     static let noDevicesAppData: AppData = {
         let appData = AppData()
-        appData.loginState = .showingUser(previewUser, Preview.previewProjects)
+        appData.loginState = .complete(previewUser, Preview.previewProjects)
         return appData
     }()
     
     static let noProjectsAppData: AppData = {
         let appData = AppData()
-        appData.loginState = .showingUser(previewUser, [])
+        appData.loginState = .complete(previewUser, [])
         return appData
     }()
     

@@ -44,9 +44,18 @@ final class AppData: ObservableObject {
     
     var isLoggedIn: Bool { apiToken != nil }
     
+    var user: User? {
+        switch loginState {
+        case .complete(let user, _):
+            return user
+        default:
+            return nil
+        }
+    }
+    
     var projects: [Project]? {
         switch loginState {
-        case .showingUser(_, let projects):
+        case .complete(_, let projects):
             return projects
         default:
             return nil

@@ -56,7 +56,7 @@ extension LoggedInRootView {
             },
             receiveValue: { userResponse in
                 appData.selectedProject = userResponse.projects.first
-                appData.loginState = .showingUser(userResponse.user, userResponse.projects)
+                appData.loginState = .complete(userResponse.user, userResponse.projects)
             })
     }
 }

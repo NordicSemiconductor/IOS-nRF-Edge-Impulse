@@ -27,14 +27,11 @@ struct ThreePaneLayoutView: View {
                     }
                 }
                 
-                Section(header: Text("User")) {
-                    switch appData.loginState {
-                    case .showingUser(let user, _):
+                if let user = appData.user {
+                    Section(header: Text("User")) {
                         NavigationLink(destination: UserView(), label: {
                             Label(user.username, systemImage: "person.fill")
                         })
-                    default:
-                        EmptyView()
                     }
                 }
             }

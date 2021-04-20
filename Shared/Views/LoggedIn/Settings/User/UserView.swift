@@ -17,7 +17,7 @@ struct UserView: View {
     var body: some View {
         VStack {
             switch appData.loginState {
-            case .showingUser(let user, let projects):
+            case .complete(let user, let projects):
                 List {
                     HeroView(user: user)
                     
