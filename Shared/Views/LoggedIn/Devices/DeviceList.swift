@@ -75,7 +75,7 @@ struct DeviceList: View {
 //        let notConnected = appData.allDevices.filter { !$0.state.isReady }
         
         List {
-            if !deviceData.scanResults.filter { $0.state.isReady }.isEmpty {
+            if deviceData.scanResults.filter { $0.state.isReady }.hasItems {
                 Section(header: Text("Connected Devices")) {
                     ForEach(deviceData.scanResults.filter { $0.state.isReady }) { device in
                         NavigationLink(destination: DeviceDetails(device: device)) {
@@ -84,7 +84,7 @@ struct DeviceList: View {
                     }
                 }
             }
-            if !deviceData.scanResults.filter { !$0.state.isReady }.isEmpty {
+            if deviceData.scanResults.filter { !$0.state.isReady }.hasItems {
                 Section(header: Text("Not Connected Devices")) {
                     ForEach(deviceData.scanResults.filter { !$0.state.isReady }) { device in
                         NavigationLink(destination: DeviceDetails(device: device)) {
