@@ -10,14 +10,16 @@ import Combine
 
 struct DeviceList: View {
     
-    @EnvironmentObject var appData: AppData
+    // MARK: Properties
+    
     @EnvironmentObject var deviceData: DeviceData
     @EnvironmentObject var preferencesData: PreferencesData
     
     @State private var scannerCancellable: Cancellable? = nil
     
+    // MARK: View
+    
     var body: some View {
-        
         buildRootView()
             .toolbar {
                 ToolbarItem(placement: .destructiveAction) {
@@ -33,6 +35,7 @@ struct DeviceList: View {
                 }
             }
             .onAppear() {
+                guard !Constant.isRunningInPreviewMode else { return }
                 deviceData.turnOnBluetoothRadio()
             }
             .onDisappear() {
@@ -44,9 +47,21 @@ struct DeviceList: View {
     @ViewBuilder
     private func buildRootView() -> some View {
         if deviceData.scanResults.isEmpty {
-            Text("No Scanned Devices")
-                .font(.headline)
-                .bold()
+            VStack(spacing: 8) {
+                if deviceData.isScanning {
+                    ProgressView()
+                        .foregroundColor(.accentColor)
+                        .progressViewStyle(CircularProgressViewStyle())
+                    
+                    Text("Not finding what you're looking for? Check your Settings.")
+                        .font(.caption)
+                } else {
+                    Text("No Scanned Devices")
+                        .font(.headline)
+                        .bold()
+                }
+            }
+            
         } else {
             buildDeviceList()
         }
@@ -107,16 +122,25 @@ struct DeviceList_Previews: PreviewProvider {
         Group {
             DeviceList()
                 .setTitle("Devices")
-                .environmentObject(Preview.projectsPreviewAppData)
                 .environmentObject(Preview.mockDevicedDeviceData)
+                .environmentObject(PreferencesData())
         }
         #elseif os(iOS)
         Group {
             NavigationView {
                 DeviceList()
                     .setTitle("Devices")
-                    .environmentObject(Preview.projectsPreviewAppData)
                     .environmentObject(Preview.noDevicesDeviceData)
+                    .environmentObject(PreferencesData())
+                    .previewDevice("iPhone 12 mini")
+            }
+            .setBackgroundColor(Assets.blue)
+            
+            NavigationView {
+                DeviceList()
+                    .setTitle("Devices")
+                    .environmentObject(Preview.isScanningButNoDevicesDeviceData)
+                    .environmentObject(PreferencesData())
                     .previewDevice("iPhone 12 mini")
             }
             .setBackgroundColor(Assets.blue)
@@ -125,8 +149,8 @@ struct DeviceList_Previews: PreviewProvider {
                 DeviceList()
                     .setTitle("Devices")
                     .preferredColorScheme(.dark)
-                    .environmentObject(Preview.projectsPreviewAppData)
                     .environmentObject(Preview.mockDevicedDeviceData)
+                    .environmentObject(PreferencesData())
                     .previewDevice("iPad Pro (12.9-inch) (4th generation)")
             }
             .setBackgroundColor(Assets.blue)

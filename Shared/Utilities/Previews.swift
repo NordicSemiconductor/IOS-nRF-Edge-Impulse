@@ -9,6 +9,9 @@ import Foundation
 
 #if DEBUG
 struct Preview {
+    
+    // MARK: - AppData
+    
     static var previewUser = User(id: 3, username: "independence.day", created: Date())
     
     static var previewProjects: [Project]! = {
@@ -33,14 +36,25 @@ struct Preview {
         return appData
     }
     
+    // MARK: - DeviceData
+    
     static let noDevicesDeviceData: DeviceData = {
         let deviceData = DeviceData()
+        deviceData.isScanning = false
+        deviceData.scanResults = []
+        return deviceData
+    }()
+    
+    static let isScanningButNoDevicesDeviceData: DeviceData = {
+        let deviceData = DeviceData()
+        deviceData.isScanning = true
         deviceData.scanResults = []
         return deviceData
     }()
 
     static var mockDevicedDeviceData: DeviceData = {
         let deviceData = DeviceData()
+        deviceData.isScanning = false
         deviceData.scanResults = [
             Device(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock),
             Device(name: "Device 2", id: UUID(), rssi: .bad, advertisementData: .mock),
