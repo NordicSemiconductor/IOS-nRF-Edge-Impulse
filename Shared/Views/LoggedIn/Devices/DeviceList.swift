@@ -66,32 +66,50 @@ struct DeviceList: View {
             buildDeviceList()
         }
     }
+}
+
+// MARK: - List
+
+private extension DeviceList {
     
     @ViewBuilder
     private func buildDeviceList() -> some View {
-//        let splitedDevices = appData.allDevices.split(whereSeparator: { $0.state.isReady })
-//        
-//        let connected = appData.allDevices.filter { $0.state.isReady }
-//        let notConnected = appData.allDevices.filter { !$0.state.isReady }
-        
         List {
-            if deviceData.scanResults.filter { $0.state.isReady }.hasItems {
-                Section(header: Text("Connected Devices")) {
-                    ForEach(deviceData.scanResults.filter { $0.state.isReady }) { device in
-                        NavigationLink(destination: DeviceDetails(device: device)) {
-                            DeviceRow(device: device)
+            ForEach(ListSection.allCases) { listSection in
+                let sectionDevices = listSection.devices(from: deviceData)
+                if sectionDevices.hasItems {
+                    Section(header: Text(listSection.string)) {
+                        ForEach(sectionDevices) { device in
+                            NavigationLink(destination: DeviceDetails(device: device)) {
+                                DeviceRow(device: device)
+                            }
                         }
                     }
                 }
             }
-            if deviceData.scanResults.filter { !$0.state.isReady }.hasItems {
-                Section(header: Text("Not Connected Devices")) {
-                    ForEach(deviceData.scanResults.filter { !$0.state.isReady }) { device in
-                        NavigationLink(destination: DeviceDetails(device: device)) {
-                            DeviceRow(device: device)
-                        }
-                    }
-                }
+        }
+    }
+    
+    enum ListSection: Int, Identifiable, CaseIterable {
+        case connectedDevices, notConnectedDevices
+        
+        var id: RawValue { rawValue }
+        
+        var string: String {
+            switch self {
+            case .connectedDevices:
+                return "Connected Devices"
+            case .notConnectedDevices:
+                return "Not Connected Devices"
+            }
+        }
+        
+        func devices(from deviceData: DeviceData) -> [Device] {
+            switch self {
+            case .connectedDevices:
+                return deviceData.allConnectedAndReadyToUseDevices()
+            case .notConnectedDevices:
+                return deviceData.allOtherDevices()
             }
         }
     }

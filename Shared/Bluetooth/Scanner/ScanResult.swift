@@ -46,15 +46,24 @@ struct Device: Identifiable {
         
     }
     
-    static func == (lhs: Device, rhs: Device) -> Bool {
-        lhs.id == rhs.id
-    }
-    
     let name: String
     let id: UUID
     let rssi: RSSI
     let advertisementData: AdvertisementData
     var state: State = .notConnected
+    
+    var isConnectedAndReadyForUse: Bool {
+        switch state {
+        case .ready:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    static func == (lhs: Device, rhs: Device) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 // MARK: - DeviceScanResult

@@ -44,6 +44,14 @@ extension DeviceData {
         return handler
     }
     
+    func allConnectedAndReadyToUseDevices() -> [Device] {
+        scanResults.filter(\.isConnectedAndReadyForUse)
+    }
+    
+    func allOtherDevices() -> [Device] {
+        scanResults.inverseFilter(\.isConnectedAndReadyForUse)
+    }
+    
     /**
      Needs to be called before any attempt to Scan is made.
      
