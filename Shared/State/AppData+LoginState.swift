@@ -32,21 +32,13 @@ extension AppData.LoginState {
                 Button("Retry", action: onRetry)
                     .circularButtonShape(backgroundAsset: .blue)
             }
-        case .empty:
-            VStack(alignment: .center, spacing: 16) {
-                Image(systemName: "moon.stars.fill")
-                    .resizable()
-                    .frame(width: 90, height: 90, alignment: .center)
-                    .foregroundColor(Assets.blueslate.color)
-                Text("Your Project List is empty.")
-            }
         case .loading:
             VStack(alignment: .center, spacing: 8) {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
                 Text("Loading...")
             }
-        case .showingUser(_, _):
+        default:
             AppHeaderView(.template)
                 .frame(maxWidth: 120)
         }

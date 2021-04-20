@@ -25,7 +25,13 @@ struct Preview {
     
     static let noDevicesAppData: AppData = {
         let appData = AppData()
-        appData.loginState = .showingUser(previewUser, [Preview.previewProjects[0]])
+        appData.loginState = .showingUser(previewUser, Preview.previewProjects)
+        return appData
+    }()
+    
+    static let noProjectsAppData: AppData = {
+        let appData = AppData()
+        appData.loginState = .showingUser(previewUser, [])
         return appData
     }()
     

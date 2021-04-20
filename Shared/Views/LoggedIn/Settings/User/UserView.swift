@@ -12,16 +12,27 @@ struct UserView: View {
     
     @EnvironmentObject var appData: AppData
     
-    // MARK: - @viewBuilder
+    // MARK: - View
     
     var body: some View {
         VStack {
             switch appData.loginState {
             case .showingUser(let user, let projects):
-                HeroView(user: user)
-                    
                 List {
+                    HeroView(user: user)
+                    
                     Section(header: Text("Projects")) {
+                        if projects.isEmpty {
+                            VStack(alignment: .center, spacing: 16) {
+                                Image(systemName: "moon.stars.fill")
+                                    .resizable()
+                                    .frame(width: 90, height: 90, alignment: .center)
+                                    .foregroundColor(Assets.blueslate.color)
+                                Text("Your Project List is empty.")
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                        
                         ForEach(projects) { project in
                             ProjectRow(project)
                         }
@@ -52,7 +63,7 @@ struct UserView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             UserView()
-                .environmentObject(Preview.previewAppData(.loading))
+                .environmentObject(Preview.noProjectsAppData)
             UserView()
                 .environmentObject(Preview.projectsPreviewAppData)
         }
