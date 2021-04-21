@@ -15,7 +15,13 @@ struct SettingsContentView: View {
                 .tabItem {
                     Label(Tabs.Devices.description, systemImage: Tabs.Devices.systemImageName)
                 }
-                .tag(Tabs.Devices)
+                .tag(0)
+            
+            SettingsSyncView()
+                .tabItem {
+                    Label("Sync", systemImage: "arrow.triangle.2.circlepath")
+                }
+                .tag(1)
         }
         .padding(20)
         .frame(width: 375, height: 150)
@@ -28,6 +34,8 @@ struct SettingsContentView: View {
 struct SettingsContentView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsContentView()
+            .environmentObject(PreferencesData())
+            .environmentObject(ResourceData())
     }
 }
 #endif

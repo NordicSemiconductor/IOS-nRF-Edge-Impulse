@@ -29,6 +29,7 @@ struct nRF_Edge_ImpulseApp: App {
         Settings {
             SettingsContentView()
                 .environmentObject(preferencesData)
+                .environmentObject(resourceData)
         }
     }
 }
