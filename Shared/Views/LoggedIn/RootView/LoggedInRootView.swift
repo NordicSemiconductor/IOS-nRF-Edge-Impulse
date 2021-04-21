@@ -17,6 +17,7 @@ struct LoggedInRootView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     #endif
     
+    @State private var hasMadeUserRequest = false
     @State private var userCancellable: Cancellable? = nil
     
     // MARK: View
@@ -24,7 +25,7 @@ struct LoggedInRootView: View {
     var body: some View {
         layout.view()
             .onAppear() {
-                guard !Constant.isRunningInPreviewMode else { return }
+                guard !hasMadeUserRequest, !Constant.isRunningInPreviewMode else { return }
                 requestUser()
             }
             .onDisappear() {
@@ -55,6 +56,7 @@ extension LoggedInRootView {
                 }
             },
             receiveValue: { userResponse in
+                hasMadeUserRequest = true
                 appData.selectedProject = userResponse.projects.first
                 appData.loginState = .complete(userResponse.user, userResponse.projects)
             })
