@@ -25,6 +25,11 @@ final class ResourceData: ObservableObject {
     // MARK: - Keychain
     
     private var keychain = KeychainSwift()
+    @Published private(set) var status: Status {
+        didSet {
+            keychain.set(status.rawValue, forKey: KeychainKeys.status.rawValue)
+        }
+    }
     private(set) var lastSavedSHA: String? {
         didSet {
             guard let newSHA = lastSavedSHA else { return }
@@ -45,6 +50,7 @@ final class ResourceData: ObservableObject {
     // MARK: - Init
     
     init() {
+        self.status = Status(rawValue: keychain.get(KeychainKeys.status.rawValue) ?? "") ?? .notAvailable
         self.lastSavedSHA = keychain.get(KeychainKeys.lastSavedSHA.rawValue)
         self.lastUpdateDateString = keychain.get(KeychainKeys.lastUpdateDateString.rawValue)
         
@@ -92,6 +98,26 @@ final class ResourceData: ObservableObject {
             }
             .store(in: &cancellables)
     }
+    
+    func forceUpdate() {
+        status = .loading
+        guard let statusRequest = HTTPRequest.getResourceStatus() else { return }
+        Network.shared.perform(statusRequest, responseType: GitHubStatusResponse.self)
+            .sink { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    print("Error requesting Resources SHA: \(error.localizedDescription)")
+                    if let resourcesOnDiskStatus = self?.areResourcesAvailableOnDisk() {
+                        self?.status = resourcesOnDiskStatus
+                    }
+                default:
+                    break
+                }
+            } receiveValue: { [weak self] response in
+                self?.downloadFreshResources(withSHA: response.sha)
+            }
+            .store(in: &cancellables)
+    }
 }
 
 // MARK: - Private API
@@ -103,12 +129,15 @@ fileprivate extension ResourceData {
             for resource in Resource.allCases {
                 _ = try [UUIDMapping].readFromDocumentsDirectory(fileName: resource.rawValue, andExtension: "json")
             }
+            status = .available
         } catch {
+            status = .notAvailable
             lastSavedSHA = nil
         }
     }
     
     private func downloadFreshResources(withSHA sha: String) {
+        self.status = .loading
         let requestPublishers = Resource.allCases.compactMap { (resource) -> AnyPublisher<(Resource, [UUIDMapping]), Error>? in
             guard let request = HTTPRequest.getResource(resource) else { return nil }
             return Network.shared.perform(request, responseType: [UUIDMapping].self)
@@ -118,10 +147,13 @@ fileprivate extension ResourceData {
         
         Publishers.MergeMany(requestPublishers)
             .collect()
-            .sink { completion in
+            .sink { [weak self] completion in
                 switch completion {
                 case .failure(let error):
                     print("There was an error downloading all Resources: \(error.localizedDescription)")
+                    if let resourcesOnDiskStatus = self?.areResourcesAvailableOnDisk() {
+                        self?.status = resourcesOnDiskStatus
+                    }
                 default:
                     break
                 }
@@ -140,12 +172,24 @@ fileprivate extension ResourceData {
                     }
                 }
                 guard !encounteredError else { return }
+                self.status = .upToDate
                 self.lastSavedSHA = sha
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateStyle = .short
+                dateFormatter.dateStyle = .medium
+                dateFormatter.timeStyle = .short
                 self.lastUpdateDateString = dateFormatter.string(from: Date())
             }
             .store(in: &cancellables)
+    }
+    
+    func areResourcesAvailableOnDisk() -> Status {
+        for resource in Resource.allCases {
+            guard let resourceKeypath = resourcesToArrayKeyPaths[resource],
+                  self[keyPath: resourceKeypath].hasItems else {
+                return .notAvailable
+            }
+        }
+        return .available
     }
 }
 
@@ -154,11 +198,11 @@ fileprivate extension ResourceData {
 private extension ResourceData {
     
     enum KeychainKeys: String, Codable {
+        case status
         case lastSavedSHA
         case lastUpdateDateString
     }
 }
-
 // MARK: - Resource
 
 enum Resource: String, Codable, CaseIterable {

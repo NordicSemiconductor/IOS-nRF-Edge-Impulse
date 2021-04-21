@@ -30,11 +30,11 @@ struct SettingsSyncView: View {
             LazyVGrid(columns: columns, alignment: .leading, spacing: 8, pinnedViews: []) {
                 Text("Status:")
                     .frame(maxWidth: .infinity, alignment: .trailing)
-                Text("Up To Date")
+                resourceData.status.label()
             }
             
             Button("Trigger Update") {
-                
+                resourceData.forceUpdate()
             }.padding(.top, 8)
         }
         .lineLimit(1)
