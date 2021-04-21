@@ -31,6 +31,14 @@ final class ResourceData: ObservableObject {
             keychain.set(newSHA, forKey: KeychainKeys.lastSavedSHA.rawValue)
         }
     }
+    private var lastUpdateDate: Date? {
+        didSet {
+            guard let newValue = lastUpdateDate else { return }
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .short
+            keychain.set(dateFormatter.string(from: newValue), forKey: KeychainKeys.lastUpdateDate.rawValue)
+        }
+    }
     
     // MARK: - Combine
     
@@ -40,6 +48,12 @@ final class ResourceData: ObservableObject {
     
     init() {
         self.lastSavedSHA = keychain.get(KeychainKeys.lastSavedSHA.rawValue)
+        if let dateStringValue = keychain.get(KeychainKeys.lastUpdateDate.rawValue) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .short
+            self.lastUpdateDate = dateFormatter.date(from: dateStringValue)
+        }
+        
         self.serviceUUIDs = [UUIDMapping]()
         self.characteristicUUIDs = [UUIDMapping]()
         self.descriptorUUIDs = [UUIDMapping]()
@@ -133,6 +147,7 @@ fileprivate extension ResourceData {
                 }
                 guard !encounteredError else { return }
                 self.lastSavedSHA = sha
+                self.lastUpdateDate = Date()
             }
             .store(in: &cancellables)
     }
@@ -144,6 +159,7 @@ private extension ResourceData {
     
     enum KeychainKeys: String, Codable {
         case lastSavedSHA
+        case lastUpdateDate
     }
 }
 
