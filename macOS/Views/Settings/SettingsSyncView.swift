@@ -16,13 +16,13 @@ struct SettingsSyncView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, alignment: .leading, spacing: 8, pinnedViews: []) {
-                Text("Last SHA:")
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                Text(resourceData.lastSavedSHA ?? "Not Available")
-                
                 Text("Last Update:")
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 Text(resourceData.lastUpdateDateString ?? "Not Available")
+                
+                Text("Last SHA:")
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                Text(resourceData.lastSavedSHA ?? "Not Available")
             }
             
             Divider()
@@ -45,7 +45,7 @@ struct SettingsSyncView: View {
     
     private var columns: [GridItem] = [
         GridItem(.fixed(100), spacing: 16),
-        GridItem(.flexible(minimum: 100, maximum: .infinity), spacing: 16)
+        GridItem(.flexible(minimum: 200, maximum: .infinity), spacing: 16)
     ]
 }
 

@@ -31,9 +31,9 @@ extension ResourceData {
         var systemImageName: String {
             switch self {
             case .notAvailable:
-                return "xmark.octagon.fill"
+                return "exclamationmark.circle.fill"
             case .available:
-                return "checkmark.cicle.fill"
+                return "checkmark.circle.fill"
             case .loading:
                 return "clock.fill"
             case .upToDate:
@@ -59,7 +59,6 @@ extension ResourceData {
             HStack {
                 Text(string)
                 Image(systemName: systemImageName)
-                    .frame(size: .SmallImageSize)
                     .foregroundColor(systemImageColor)
             }
         }
