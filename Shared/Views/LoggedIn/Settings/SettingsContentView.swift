@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsContentView: View {
     
     @EnvironmentObject var preferencesData: PreferencesData
+    @EnvironmentObject var resourceData: ResourceData
     
     // MARK: - View
     
@@ -24,8 +25,35 @@ struct SettingsContentView: View {
                        isOn: $preferencesData.onlyScanConnectableDevices)
                     .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
             }
-            .accentColor(Assets.blue.color)
+            .padding(.top, 8)
+            
+            Section(header: Text("UUID Database")) {
+                HStack {
+                    Text("Status")
+                    Spacer()
+                    resourceData.status.label()
+                }
+                
+                HStack {
+                    Text("Last Check")
+                    Spacer()
+                    Text(resourceData.lastCheckDateString ?? "N/A")
+                        .foregroundColor(.gray)
+                }
+                
+                HStack {
+                    Text("Last SHA")
+                    Spacer()
+                    Text(resourceData.lastSavedSHA?.prefix(7) ?? "N/A")
+                        .foregroundColor(.gray)
+                }
+                
+                Button("Trigger Update", action: resourceData.forceUpdate)
+                    .frame(maxWidth: .infinity, alignment: .center)
+            }
+            .lineLimit(1)
         }
+        .accentColor(Assets.blue.color)
     }
 }
 
@@ -34,8 +62,16 @@ struct SettingsContentView: View {
 #if DEBUG
 struct SettingsContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsContentView()
-            .environmentObject(PreferencesData())
+        Group {
+            NavigationView {
+                SettingsContentView()
+                    .setTitle("Settings")
+            }
+            .setBackgroundColor(.blue)
+        }
+        .previewDevice("iPhone 12 mini")
+        .environmentObject(PreferencesData())
+        .environmentObject(ResourceData())
     }
 }
 #endif
