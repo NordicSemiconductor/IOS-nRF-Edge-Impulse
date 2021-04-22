@@ -10,39 +10,33 @@ import Combine
 
 struct UserView: View {
     
+    static let ImageSize = CGSize(width: 40, height: 40)
+    
+    // MARK: - Properties
+    
+    let user: User
     @EnvironmentObject var appData: AppData
     
     // MARK: - View
     
     var body: some View {
-        VStack {
-            switch appData.loginState {
-            case .complete(let user, let projects):
-                List {
-                    HeroView(user: user)
-                    
-                    Section(header: Text("Projects")) {
-                        if projects.isEmpty {
-                            VStack(alignment: .center, spacing: 16) {
-                                Image(systemName: "moon.stars.fill")
-                                    .resizable()
-                                    .frame(width: 90, height: 90, alignment: .center)
-                                    .foregroundColor(Assets.blueslate.color)
-                                Text("Your Project List is empty.")
-                            }
-                            .frame(maxWidth: .infinity)
-                        }
-                        
-                        ForEach(projects) { project in
-                            ProjectRow(project)
-                        }
-                    }
-                }
-            default:
-                EmptyView()
+        HStack(spacing: 16) {
+            CircleAround(URLImage(url: user.photo, placeholderImage: Image("EdgeImpulse")))
+                .frame(width: UserView.ImageSize.width,
+                       height: UserView.ImageSize.width)
+
+            VStack(alignment: .leading) {
+                Text(user.username)
+                    .font(.headline)
+                    .bold()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Text("Joined \(user.createdSince)")
+                    .font(.subheadline)
+                    .fontWeight(.light)
+                    .foregroundColor(.gray)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
-        .frame(minWidth: 295)
     }
 }
 
@@ -62,11 +56,9 @@ struct UserView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            UserView()
-                .environmentObject(Preview.noProjectsAppData)
-            UserView()
-                .environmentObject(Preview.projectsPreviewAppData)
+            UserView(user: Preview.previewUser)
         }
+        .previewLayout(.sizeThatFits)
     }
 }
 #endif

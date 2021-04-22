@@ -58,6 +58,8 @@
 		AA43B2A825FA574F00C5B5EE /* TabBarLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */; };
 		AA43B2A925FA58B500C5B5EE /* TabBarLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */; };
 		AA482F7F26318B11007B8B64 /* View+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F7E26318B11007B8B64 /* View+macOS.swift */; };
+		AA482F812631A213007B8B64 /* UserContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F802631A213007B8B64 /* UserContentView.swift */; };
+		AA482F822631A213007B8B64 /* UserContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F802631A213007B8B64 /* UserContentView.swift */; };
 		AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */; };
 		AA535511261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */; };
 		AA535513261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA535512261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift */; };
@@ -216,6 +218,7 @@
 		AA386B08260CEDD60079F12D /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
 		AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarLayoutView.swift; sourceTree = "<group>"; };
 		AA482F7E26318B11007B8B64 /* View+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+macOS.swift"; sourceTree = "<group>"; };
+		AA482F802631A213007B8B64 /* UserContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContentView.swift; sourceTree = "<group>"; };
 		AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorRow.swift; sourceTree = "<group>"; };
 		AA535512261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorsDisclosureView.swift; sourceTree = "<group>"; };
 		AA535518261C896B007B2C94 /* CollaboratorsDisclosureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorsDisclosureView.swift; sourceTree = "<group>"; };
@@ -309,8 +312,9 @@
 			isa = PBXGroup;
 			children = (
 				AA535515261C7FEF007B2C94 /* Project */,
-				AAF0C971260A121B001B76B9 /* HeroView.swift */,
 				AAF0C96B260A0210001B76B9 /* UserView.swift */,
+				AAF0C971260A121B001B76B9 /* HeroView.swift */,
+				AA482F802631A213007B8B64 /* UserContentView.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -967,6 +971,7 @@
 				AAEDE636262882BF00B96AE9 /* ProjectSelectionView.swift in Sources */,
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AAF4F6C32625C8C600012359 /* ThreePaneLayoutView.swift in Sources */,
+				AA482F812631A213007B8B64 /* UserContentView.swift in Sources */,
 				AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */,
 				AA8EC8B4261F30A900FBE990 /* Modifiers.swift in Sources */,
 				AA28405F261F537C00EB8637 /* PasswordField.swift in Sources */,
@@ -1042,6 +1047,7 @@
 				AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */,
 				AAF4F6C42625C8C600012359 /* ThreePaneLayoutView.swift in Sources */,
 				AA535511261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */,
+				AA482F822631A213007B8B64 /* UserContentView.swift in Sources */,
 				AA8EC8B5261F30A900FBE990 /* Modifiers.swift in Sources */,
 				AAFB8E2B2626FADD003DAEC5 /* PreferencesData.swift in Sources */,
 				AACECAE526303AF600285F94 /* SettingsSyncView.swift in Sources */,

@@ -9,8 +9,6 @@ import SwiftUI
 
 struct HeroView: View {
     
-    static let ImageSize = CGSize(width: 60, height: 60)
-    
     let user: User
     
     var body: some View {
@@ -20,25 +18,10 @@ struct HeroView: View {
                 .scaledToFit()
                 .brightness(-1.0)
                 .blur(radius: 25)
-            HStack {
-                CircleAround(URLImage(url: user.photo, placeholderImage: Image("EdgeImpulse")))
-                    .frame(width: HeroView.ImageSize.width,
-                           height: HeroView.ImageSize.height)
-                    .padding()
-
-                VStack(alignment: .leading) {
-                    Text(user.username)
-                        .font(.title)
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Text("Joined \(user.createdSince)")
-                        .font(.callout)
-                        .fontWeight(.light)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-            }
+            
+            UserView(user: user)
         }
-        .frame(height: 2 * HeroView.ImageSize.height)
+        .frame(height: 2 * UserView.ImageSize.height)
     }
 }
 
