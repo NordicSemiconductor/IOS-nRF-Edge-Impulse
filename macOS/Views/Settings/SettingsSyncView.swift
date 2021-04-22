@@ -16,9 +16,9 @@ struct SettingsSyncView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, alignment: .leading, spacing: 8, pinnedViews: []) {
-                Text("Last Update:")
+                Text("Last Check:")
                     .frame(maxWidth: .infinity, alignment: .trailing)
-                Text(resourceData.lastUpdateDateString ?? "Not Available")
+                Text(resourceData.lastCheckDateString ?? "Not Available")
                 
                 Text("Last SHA:")
                     .frame(maxWidth: .infinity, alignment: .trailing)

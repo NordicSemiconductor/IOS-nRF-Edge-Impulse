@@ -36,9 +36,9 @@ final class ResourceData: ObservableObject {
             keychain.set(newSHA, forKey: KeychainKeys.lastSavedSHA.rawValue)
         }
     }
-    private(set) var lastUpdateDateString: String? {
+    private(set) var lastCheckDateString: String? {
         didSet {
-            guard let newValue = lastUpdateDateString else { return }
+            guard let newValue = lastCheckDateString else { return }
             keychain.set(newValue, forKey: KeychainKeys.lastUpdateDateString.rawValue)
         }
     }
@@ -52,7 +52,7 @@ final class ResourceData: ObservableObject {
     init() {
         self.status = Status(rawValue: keychain.get(KeychainKeys.status.rawValue) ?? "") ?? .notAvailable
         self.lastSavedSHA = keychain.get(KeychainKeys.lastSavedSHA.rawValue)
-        self.lastUpdateDateString = keychain.get(KeychainKeys.lastUpdateDateString.rawValue)
+        self.lastCheckDateString = keychain.get(KeychainKeys.lastUpdateDateString.rawValue)
         
         self.serviceUUIDs = [UUIDMapping]()
         self.characteristicUUIDs = [UUIDMapping]()
@@ -83,17 +83,13 @@ final class ResourceData: ObservableObject {
         
         guard let statusRequest = HTTPRequest.getResourceStatus() else { return }
         Network.shared.perform(statusRequest, responseType: GitHubStatusResponse.self)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print("Error requesting Resources SHA: \(error.localizedDescription)")
-                default:
-                    break
-                }
-            } receiveValue: { [weak self] response in
+            .sink(receiveCompletion: completionHandler(_:)) { [weak self] response in
                 guard let self = self else { return }
                 if response.sha != self.lastSavedSHA {
                     self.downloadFreshResources(withSHA: response.sha)
+                } else {
+                    self.status = .upToDate
+                    self.lastCheckDateString = self.newLastCheckDateString()
                 }
             }
             .store(in: &cancellables)
@@ -103,39 +99,16 @@ final class ResourceData: ObservableObject {
         status = .loading
         guard let statusRequest = HTTPRequest.getResourceStatus() else { return }
         Network.shared.perform(statusRequest, responseType: GitHubStatusResponse.self)
-            .sink { [weak self] completion in
-                switch completion {
-                case .failure(let error):
-                    print("Error requesting Resources SHA: \(error.localizedDescription)")
-                    if let resourcesOnDiskStatus = self?.areResourcesAvailableOnDisk() {
-                        self?.status = resourcesOnDiskStatus
-                    }
-                default:
-                    break
-                }
-            } receiveValue: { [weak self] response in
+            .sink(receiveCompletion: completionHandler(_:)) { [weak self] response in
                 self?.downloadFreshResources(withSHA: response.sha)
             }
             .store(in: &cancellables)
     }
 }
 
-// MARK: - Private API
+// MARK: - Private Network API
 
 fileprivate extension ResourceData {
-    
-    private func readResourcesFromDisk() {
-        do {
-            for resource in Resource.allCases {
-                let arrayKeypath: ReferenceWritableKeyPath<ResourceData, [UUIDMapping]>! = resourcesToArrayKeyPaths[resource]
-                self[keyPath: arrayKeypath] = try [UUIDMapping].readFromDocumentsDirectory(fileName: resource.rawValue, andExtension: "json")
-            }
-            status = .available
-        } catch {
-            status = .notAvailable
-            lastSavedSHA = nil
-        }
-    }
     
     private func downloadFreshResources(withSHA sha: String) {
         self.status = .loading
@@ -148,17 +121,7 @@ fileprivate extension ResourceData {
         
         Publishers.MergeMany(requestPublishers)
             .collect()
-            .sink { [weak self] completion in
-                switch completion {
-                case .failure(let error):
-                    print("There was an error downloading all Resources: \(error.localizedDescription)")
-                    if let resourcesOnDiskStatus = self?.areResourcesAvailableOnDisk() {
-                        self?.status = resourcesOnDiskStatus
-                    }
-                default:
-                    break
-                }
-            } receiveValue: { [weak self] result in
+            .sink(receiveCompletion: completionHandler(_:)) { [weak self] result in
                 guard let self = self else { return }
                 var encounteredError = false
                 for mapping in result {
@@ -175,12 +138,44 @@ fileprivate extension ResourceData {
                 guard !encounteredError else { return }
                 self.status = .upToDate
                 self.lastSavedSHA = sha
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateStyle = .medium
-                dateFormatter.timeStyle = .short
-                self.lastUpdateDateString = dateFormatter.string(from: Date())
+                self.lastCheckDateString = self.newLastCheckDateString()
             }
             .store(in: &cancellables)
+    }
+    
+    func completionHandler(_ completion:  Subscribers.Completion<Error>) {
+        switch completion {
+        case .failure(let error):
+            print("Error requesting Resources SHA: \(error.localizedDescription)")
+            status = areResourcesAvailableOnDisk()
+        default:
+            break
+        }
+    }
+    
+    func newLastCheckDateString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        return dateFormatter.string(from: Date())
+    }
+}
+
+// MARK: Disk
+
+private extension ResourceData {
+    
+    private func readResourcesFromDisk() {
+        do {
+            for resource in Resource.allCases {
+                let arrayKeypath: ReferenceWritableKeyPath<ResourceData, [UUIDMapping]>! = resourcesToArrayKeyPaths[resource]
+                self[keyPath: arrayKeypath] = try [UUIDMapping].readFromDocumentsDirectory(fileName: resource.rawValue, andExtension: "json")
+            }
+            status = .available
+        } catch {
+            status = .notAvailable
+            lastSavedSHA = nil
+        }
     }
     
     func areResourcesAvailableOnDisk() -> Status {
