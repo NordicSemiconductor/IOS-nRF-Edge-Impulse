@@ -12,17 +12,15 @@ struct SettingsDevicesView: View {
     @EnvironmentObject var preferencesData: PreferencesData
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 10) {
-                
-                Toggle("Only Scan Devices Advertising 'UART' Service",
-                       isOn: $preferencesData.onlyScanUARTDevices)
-                
-                Toggle("Only Scan Connectable Devices",
-                       isOn: $preferencesData.onlyScanConnectableDevices)
-            }
-            .frame(width: 300)
+        VStack(alignment: .leading, spacing: 10) {
+            
+            Toggle("Only Scan Devices Advertising 'UART' Service",
+                   isOn: $preferencesData.onlyScanUARTDevices)
+            
+            Toggle("Only Scan Connectable Devices",
+                   isOn: $preferencesData.onlyScanConnectableDevices)
         }
+        .frame(width: 300)
     }
 }
 

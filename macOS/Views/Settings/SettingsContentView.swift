@@ -12,12 +12,14 @@ struct SettingsContentView: View {
     var body: some View {
         TabView {
             SettingsDevicesView()
+                .withTabBarStyle()
                 .tabItem {
                     Label(Tabs.Devices.description, systemImage: Tabs.Devices.systemImageName)
                 }
                 .tag(0)
             
             SettingsSyncView()
+                .withTabBarStyle()
                 .tabItem {
                     Label("Sync", systemImage: "arrow.triangle.2.circlepath")
                 }

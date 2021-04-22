@@ -57,6 +57,7 @@
 		AA386B0A260CEDD60079F12D /* Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA386B08260CEDD60079F12D /* Previews.swift */; };
 		AA43B2A825FA574F00C5B5EE /* TabBarLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */; };
 		AA43B2A925FA58B500C5B5EE /* TabBarLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */; };
+		AA482F7F26318B11007B8B64 /* Modifiers+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F7E26318B11007B8B64 /* Modifiers+macOS.swift */; };
 		AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */; };
 		AA535511261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */; };
 		AA535513261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA535512261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift */; };
@@ -214,6 +215,7 @@
 		AA28405E261F537C00EB8637 /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
 		AA386B08260CEDD60079F12D /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
 		AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarLayoutView.swift; sourceTree = "<group>"; };
+		AA482F7E26318B11007B8B64 /* Modifiers+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Modifiers+macOS.swift"; sourceTree = "<group>"; };
 		AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorRow.swift; sourceTree = "<group>"; };
 		AA535512261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorsDisclosureView.swift; sourceTree = "<group>"; };
 		AA535518261C896B007B2C94 /* CollaboratorsDisclosureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorsDisclosureView.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 			isa = PBXGroup;
 			children = (
 				AA263F022603854D0018CF5B /* Views */,
+				AA482F7D26318AF6007B8B64 /* Utilities */,
 				AA03E96A25E3EF13003DA9DA /* Info.plist */,
 				AA03E96B25E3EF13003DA9DA /* macOS.entitlements */,
 				AA0D90AD260E1F1100A455B7 /* nRF_Edge_ImpulseApp.swift */,
@@ -454,6 +457,14 @@
 				AA263F05260385690018CF5B /* DataAcquisitionView.swift */,
 			);
 			path = DataAcquisition;
+			sourceTree = "<group>";
+		};
+		AA482F7D26318AF6007B8B64 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				AA482F7E26318B11007B8B64 /* Modifiers+macOS.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		AA535515261C7FEF007B2C94 /* Project */ = {
@@ -1046,6 +1057,7 @@
 				C37DD4AA260C991900D667EA /* DeviceDetails.swift in Sources */,
 				C301A36A261F12890010717D /* WebSocketManager.swift in Sources */,
 				AAF0C970260A069F001B76B9 /* User.swift in Sources */,
+				AA482F7F26318B11007B8B64 /* Modifiers+macOS.swift in Sources */,
 				AAF0C96A2609FEBE001B76B9 /* GetCurrentUserRequest.swift in Sources */,
 				AAF7299826298D6D0034B61A /* AppData+LoginState.swift in Sources */,
 				C3A3665A260414BC008D82CC /* DeviceRow.swift in Sources */,

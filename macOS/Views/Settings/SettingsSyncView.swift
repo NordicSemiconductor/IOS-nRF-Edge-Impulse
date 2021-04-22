@@ -14,7 +14,7 @@ struct SettingsSyncView: View {
     // MARK: View
     
     var body: some View {
-        ScrollView {
+        VStack {
             LazyVGrid(columns: columns, alignment: .leading, spacing: 8, pinnedViews: []) {
                 Text("Last Check:")
                     .frame(maxWidth: .infinity, alignment: .trailing)
