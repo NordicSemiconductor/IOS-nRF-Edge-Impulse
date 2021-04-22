@@ -127,7 +127,8 @@ fileprivate extension ResourceData {
     private func readResourcesFromDisk() {
         do {
             for resource in Resource.allCases {
-                _ = try [UUIDMapping].readFromDocumentsDirectory(fileName: resource.rawValue, andExtension: "json")
+                let arrayKeypath: ReferenceWritableKeyPath<ResourceData, [UUIDMapping]>! = resourcesToArrayKeyPaths[resource]
+                self[keyPath: arrayKeypath] = try [UUIDMapping].readFromDocumentsDirectory(fileName: resource.rawValue, andExtension: "json")
             }
             status = .available
         } catch {
