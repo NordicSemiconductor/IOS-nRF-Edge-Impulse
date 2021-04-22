@@ -36,7 +36,11 @@ struct UserContentView: View {
                     }
                 }
                 
-                
+                Section(header: Text("Account")) {
+                    Button("Logout", action: appData.logout)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .accentColor(Assets.red.color)
+                }
             }
             .frame(minWidth: 295)
         default:
