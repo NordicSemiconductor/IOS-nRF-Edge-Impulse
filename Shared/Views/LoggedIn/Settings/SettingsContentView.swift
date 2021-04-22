@@ -19,23 +19,10 @@ struct SettingsContentView: View {
         Form {
             Section {
                 if let user = appData.user {
-                    HStack(spacing: 16) {
-                        CircleAround(URLImage(url: user.photo, placeholderImage: Image("EdgeImpulse")))
-                            .frame(width: 40,
-                                   height: 40)
-
-                        VStack(alignment: .leading) {
-                            Text(user.username)
-                                .font(.headline)
-                                .bold()
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            Text("Joined \(user.createdSince)")
-                                .font(.subheadline)
-                                .fontWeight(.light)
-                                .foregroundColor(.gray)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                    }.padding(.vertical, 8)
+                    NavigationLink(destination: UserContentView()) {
+                        UserView(user: user)
+                            .padding(.vertical, 8)
+                    }
                 } else {
                     Text("User Data Unavailable")
                         .foregroundColor(.gray)

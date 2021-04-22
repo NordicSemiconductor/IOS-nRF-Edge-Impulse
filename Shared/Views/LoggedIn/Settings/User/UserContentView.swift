@@ -14,34 +14,34 @@ struct UserContentView: View {
     // MARK: - View
     
     var body: some View {
-        VStack {
-            switch appData.loginState {
-            case .complete(let user, let projects):
-                List {
-                    HeroView(user: user)
+        switch appData.loginState {
+        case .complete(let user, let projects):
+            List {
+                HeroView(user: user)
+                
+                Section(header: Text("Projects")) {
+                    if projects.isEmpty {
+                        VStack(alignment: .center, spacing: 16) {
+                            Image(systemName: "moon.stars.fill")
+                                .resizable()
+                                .frame(width: 90, height: 90, alignment: .center)
+                                .foregroundColor(Assets.blueslate.color)
+                            Text("Your Project List is empty.")
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
                     
-                    Section(header: Text("Projects")) {
-                        if projects.isEmpty {
-                            VStack(alignment: .center, spacing: 16) {
-                                Image(systemName: "moon.stars.fill")
-                                    .resizable()
-                                    .frame(width: 90, height: 90, alignment: .center)
-                                    .foregroundColor(Assets.blueslate.color)
-                                Text("Your Project List is empty.")
-                            }
-                            .frame(maxWidth: .infinity)
-                        }
-                        
-                        ForEach(projects) { project in
-                            ProjectRow(project)
-                        }
+                    ForEach(projects) { project in
+                        ProjectRow(project)
                     }
                 }
-            default:
-                EmptyView()
+                
+                
             }
+            .frame(minWidth: 295)
+        default:
+            EmptyView()
         }
-        .frame(minWidth: 295)
     }
 }
 
