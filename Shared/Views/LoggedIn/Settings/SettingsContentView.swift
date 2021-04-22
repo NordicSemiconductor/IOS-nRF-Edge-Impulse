@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsContentView: View {
     
+    @EnvironmentObject var appData: AppData
     @EnvironmentObject var preferencesData: PreferencesData
     @EnvironmentObject var resourceData: ResourceData
     
@@ -16,6 +17,31 @@ struct SettingsContentView: View {
     
     var body: some View {
         Form {
+            Section {
+                if let user = appData.user {
+                    HStack(spacing: 16) {
+                        CircleAround(URLImage(url: user.photo, placeholderImage: Image("EdgeImpulse")))
+                            .frame(width: 40,
+                                   height: 40)
+
+                        VStack(alignment: .leading) {
+                            Text(user.username)
+                                .font(.headline)
+                                .bold()
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            Text("Joined \(user.createdSince)")
+                                .font(.subheadline)
+                                .fontWeight(.light)
+                                .foregroundColor(.gray)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                    }.padding(.vertical, 8)
+                } else {
+                    Text("User Data Unavailable")
+                        .foregroundColor(.gray)
+                }
+            }
+            
             Section(header: Text("Devices")) {
                 Toggle("Only Scan Devices Advertising 'UART' Service",
                        isOn: $preferencesData.onlyScanUARTDevices)
@@ -66,6 +92,14 @@ struct SettingsContentView_Previews: PreviewProvider {
             NavigationView {
                 SettingsContentView()
                     .setTitle("Settings")
+                    .environmentObject(AppData())
+            }
+            .setBackgroundColor(.blue)
+            
+            NavigationView {
+                SettingsContentView()
+                    .setTitle("Settings")
+                    .environmentObject(Preview.noDevicesAppData)
             }
             .setBackgroundColor(.blue)
         }
