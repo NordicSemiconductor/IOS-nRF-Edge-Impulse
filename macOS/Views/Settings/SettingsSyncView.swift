@@ -33,9 +33,8 @@ struct SettingsSyncView: View {
                 resourceData.status.label()
             }
             
-            Button("Trigger Update") {
-                resourceData.forceUpdate()
-            }.padding(.top, 8)
+            Button("Trigger Update", action: resourceData.forceUpdate)
+                .padding(.top, 4)
         }
         .lineLimit(1)
         .frame(width: 300)

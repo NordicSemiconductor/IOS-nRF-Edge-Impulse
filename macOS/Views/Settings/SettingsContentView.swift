@@ -21,7 +21,7 @@ struct SettingsContentView: View {
             SettingsSyncView()
                 .withTabBarStyle()
                 .tabItem {
-                    Label("Sync", systemImage: "arrow.triangle.2.circlepath")
+                    Label("UUID Sync", systemImage: "arrow.triangle.2.circlepath")
                 }
                 .tag(1)
         }
