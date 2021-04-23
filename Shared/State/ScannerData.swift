@@ -74,7 +74,8 @@ extension ScannerData {
         case true:
             guard bluetoothManager.state == .poweredOn else { break }
             let scanServices: [CBUUID]? = preferences.onlyScanUARTDevices ? [BluetoothManager.uartServiceId] : nil
-            bluetoothManager.scanForPeripherals(withServices: scanServices, options: nil)
+            bluetoothManager.scanForPeripherals(withServices: scanServices,
+                                                options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
         case false:
             bluetoothManager.stopScan()
         }
