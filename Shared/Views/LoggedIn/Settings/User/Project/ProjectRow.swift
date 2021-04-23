@@ -42,8 +42,8 @@ struct ProjectRow: View {
                     .font(.caption)
                     .lineLimit(1)
             }
+            .padding(.leading, 8)
         }
-        .padding()
     }
 }
 
