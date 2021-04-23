@@ -9,7 +9,7 @@ import SwiftUI
 import os
 
 struct HeaderDeviceDetails: View {
-    @EnvironmentObject var deviceData: DeviceData
+    @EnvironmentObject var scannerData: ScannerData
     
     private let device: Device
     
@@ -34,7 +34,7 @@ struct HeaderDeviceDetails: View {
                 Spacer()
             }
             
-            viewForHandler(deviceData[device])
+            viewForHandler(scannerData[device])
         }
     }
         
@@ -65,7 +65,7 @@ struct HeaderDeviceDetails_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             HeaderDeviceDetails(Device.sample)
-                .environmentObject(Preview.mockDevicedDeviceData)
+                .environmentObject(Preview.mockScannerData)
         }
         .previewLayout(.sizeThatFits)
     }

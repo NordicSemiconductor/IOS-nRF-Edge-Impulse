@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DeviceDetails: View {
     @EnvironmentObject var appData: AppData
-    @EnvironmentObject var deviceData: DeviceData
+    @EnvironmentObject var scannerData: ScannerData
     
     let device: Device
     

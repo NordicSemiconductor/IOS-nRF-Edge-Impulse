@@ -11,7 +11,7 @@ struct DataAcquisitionView: View {
     
     // MARK: - State
     
-    @EnvironmentObject var deviceData: DeviceData
+    @EnvironmentObject var scannerData: ScannerData
     
     @ObservedObject private var viewState = DataAcquisitionViewState()
     @State private var isSampling = false
@@ -23,11 +23,8 @@ struct DataAcquisitionView: View {
             VStack(alignment: .leading, spacing: 10) {
                 Section(header: Text("Target").bold()) {
                     Picker("Device", selection: $viewState.selectedDevice) {
-                        
-                        let connectedDevices = deviceData.scanResults
-                            .filter { $0.state.isReady }
-                        
-                        if connectedDevices.count > 0 {
+                        let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
+                        if connectedDevices.hasItems {
                             ForEach(connectedDevices, id: \.self) { device in
                                 Text(device.id.uuidString).tag(device)
                             }
@@ -95,8 +92,7 @@ struct DataAcquisitionView: View {
         }
         .frame(width: 320)
         .onAppear {
-            let connectedDevices = deviceData.scanResults
-                .filter { $0.state.isReady }
+            let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
             if let device = connectedDevices.first {
                 viewState.selectedDevice = device
             }

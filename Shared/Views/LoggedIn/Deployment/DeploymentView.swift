@@ -10,7 +10,7 @@ import SwiftUI
 struct DeploymentView: View {
     
     @EnvironmentObject var appData: AppData
-    @EnvironmentObject var deviceData: DeviceData
+    @EnvironmentObject var scannerData: ScannerData
     
     // MARK: - State
     
@@ -21,10 +21,8 @@ struct DeploymentView: View {
     var body: some View {
         Form {
             Section(header: Text("Device")) {
-                let connectedDevices = deviceData.scanResults
-                    .filter { $0.state.isReady }
-                
-                if connectedDevices.count > 0 {
+                let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
+                if connectedDevices.hasItems {
                     Picker("Selected", selection: $viewState.selectedDevice) {
                         ForEach(connectedDevices, id: \.self) { device in
                             Text(device.name)
@@ -79,7 +77,7 @@ struct DeploymentView_Previews: PreviewProvider {
         NavigationView {
             DeploymentView()
                 .environmentObject(Preview.noDevicesAppData)
-                .environmentObject(Preview.noDevicesDeviceData)
+                .environmentObject(Preview.noDevicesScannerData)
         }
         .setBackgroundColor(.blue)
     }

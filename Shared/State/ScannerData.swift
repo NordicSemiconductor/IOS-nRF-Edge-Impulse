@@ -1,5 +1,5 @@
 //
-//  DeviceData.swift
+//  ScannerData.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Nick Kibysh on 15/04/2021.
@@ -10,7 +10,7 @@ import Combine
 import os
 import CoreBluetooth
 
-final class DeviceData: NSObject, ObservableObject {
+final class ScannerData: NSObject, ObservableObject {
     
     // MARK: - API Properties
     
@@ -20,7 +20,7 @@ final class DeviceData: NSObject, ObservableObject {
     
     // MARK: - Private Properties
     
-    private let logger = Logger(category: "DeviceData")
+    private lazy var logger = Logger(Self.self)
     
     private var deviceHandlers: [UUID: DeviceRemoteHandler] = [:]
     private lazy var bluetoothManager = CBCentralManager(delegate: self, queue: nil)
@@ -32,7 +32,7 @@ final class DeviceData: NSObject, ObservableObject {
 
 // MARK: - API
 
-extension DeviceData {
+extension ScannerData {
     
     subscript(_ device: Device) -> DeviceRemoteHandler {
         guard let handler = deviceHandlers[device.id] else {
@@ -83,7 +83,7 @@ extension DeviceData {
 
 // MARK: - Private API
 
-private extension DeviceData {
+private extension ScannerData {
     
     private func setupDevicePublisher() {
         devicePublisher
@@ -118,7 +118,7 @@ private extension DeviceData {
 
 // MARK: - CBCentralManagerDelegate
 
-extension DeviceData: CBCentralManagerDelegate {
+extension ScannerData: CBCentralManagerDelegate {
     private typealias R = RSSI
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral,
@@ -145,7 +145,7 @@ extension DeviceData: CBCentralManagerDelegate {
 
 // MARK: - Private
 
-private extension DeviceData {
+private extension ScannerData {
     
     func checkForBluetoothManagerErrors(in central: CBCentralManager) {
         switch central.state {

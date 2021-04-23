@@ -12,7 +12,7 @@ struct DeviceList: View {
     
     // MARK: Properties
     
-    @EnvironmentObject var deviceData: DeviceData
+    @EnvironmentObject var scannerData: ScannerData
     @EnvironmentObject var preferencesData: PreferencesData
     
     @State private var scannerCancellable: Cancellable? = nil
@@ -29,14 +29,14 @@ struct DeviceList: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button(action: toggleScanner, label: {
-                        Image(systemName: deviceData.isScanning ? "stop.fill" : "play.fill")
+                        Image(systemName: scannerData.isScanning ? "stop.fill" : "play.fill")
                     })
                     .keyboardShortcut(.space, modifiers: [])
                 }
             }
             .onAppear() {
                 guard !Constant.isRunningInPreviewMode else { return }
-                deviceData.turnOnBluetoothRadio()
+                scannerData.turnOnBluetoothRadio()
             }
             .onDisappear() {
                 scannerCancellable?.cancel()
@@ -46,9 +46,9 @@ struct DeviceList: View {
     
     @ViewBuilder
     private func buildRootView() -> some View {
-        if deviceData.scanResults.isEmpty {
+        if scannerData.scanResults.isEmpty {
             VStack(spacing: 8) {
-                if deviceData.isScanning {
+                if scannerData.isScanning {
                     ProgressView()
                         .foregroundColor(.accentColor)
                         .progressViewStyle(CircularProgressViewStyle())
@@ -76,7 +76,7 @@ private extension DeviceList {
     private func buildDeviceList() -> some View {
         List {
             ForEach(ListSection.allCases) { listSection in
-                let sectionDevices = listSection.devices(from: deviceData)
+                let sectionDevices = listSection.devices(from: scannerData)
                 if sectionDevices.hasItems {
                     Section(header: Text(listSection.string)) {
                         ForEach(sectionDevices) { device in
@@ -104,7 +104,7 @@ private extension DeviceList {
             }
         }
         
-        func devices(from deviceData: DeviceData) -> [Device] {
+        func devices(from deviceData: ScannerData) -> [Device] {
             switch self {
             case .connectedDevices:
                 return deviceData.allConnectedAndReadyToUseDevices()
@@ -120,12 +120,12 @@ private extension DeviceList {
 private extension DeviceList {
     
     func toggleScanner() {
-        deviceData.toggle(with: preferencesData)
+        scannerData.toggle(with: preferencesData)
     }
     
     func refreshScanner() {
-        deviceData.scanResults.removeAll()
-        guard !deviceData.isScanning else { return }
+        scannerData.scanResults.removeAll()
+        guard !scannerData.isScanning else { return }
         toggleScanner()
     }
 }
@@ -140,7 +140,7 @@ struct DeviceList_Previews: PreviewProvider {
         Group {
             DeviceList()
                 .setTitle("Devices")
-                .environmentObject(Preview.mockDevicedDeviceData)
+                .environmentObject(Preview.mockScannerData)
                 .environmentObject(PreferencesData())
         }
         #elseif os(iOS)
@@ -148,7 +148,7 @@ struct DeviceList_Previews: PreviewProvider {
             NavigationView {
                 DeviceList()
                     .setTitle("Devices")
-                    .environmentObject(Preview.noDevicesDeviceData)
+                    .environmentObject(Preview.noDevicesScannerData)
                     .environmentObject(PreferencesData())
                     .previewDevice("iPhone 12 mini")
             }
@@ -157,7 +157,7 @@ struct DeviceList_Previews: PreviewProvider {
             NavigationView {
                 DeviceList()
                     .setTitle("Devices")
-                    .environmentObject(Preview.isScanningButNoDevicesDeviceData)
+                    .environmentObject(Preview.isScanningButNoDevicesScannerData)
                     .environmentObject(PreferencesData())
                     .previewDevice("iPhone 12 mini")
             }
@@ -167,7 +167,7 @@ struct DeviceList_Previews: PreviewProvider {
                 DeviceList()
                     .setTitle("Devices")
                     .preferredColorScheme(.dark)
-                    .environmentObject(Preview.mockDevicedDeviceData)
+                    .environmentObject(Preview.mockScannerData)
                     .environmentObject(PreferencesData())
                     .previewDevice("iPad Pro (12.9-inch) (4th generation)")
             }
