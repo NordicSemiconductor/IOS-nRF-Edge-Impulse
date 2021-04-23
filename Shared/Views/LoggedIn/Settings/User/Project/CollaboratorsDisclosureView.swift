@@ -42,11 +42,16 @@ struct CollaboratorsDisclosureView: View {
                 )
                 
                 if !isShowingListOfCollaborators {
-                    ForEach(collaborators) { collaborator in
-                        CircleAround(URLImage(url: collaborator.photo, placeholderImage: Image("EdgeImpulse")))
-                            .frame(size: .SmallImageSize)
-                            .padding(.leading, 4)
+                    ZStack {
+                        ForEach(0..<collaborators.count) { i in
+                            ZStack(alignment: .leading) {
+                                CircleAround(URLImage(url: collaborators[i].photo, placeholderImage: Image("EdgeImpulse")))
+                                    .frame(size: .SmallImageSize)
+                            }
+                            .offset(x: CGFloat(i) * 12)
+                        }
                     }
+                    .padding(.trailing, CGFloat(collaborators.count) * 9)
                 }
             }
         })
