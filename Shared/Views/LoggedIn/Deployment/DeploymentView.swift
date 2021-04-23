@@ -27,7 +27,8 @@ struct DeploymentView: View {
                 if connectedDevices.count > 0 {
                     Picker("Selected", selection: $viewState.selectedDevice) {
                         ForEach(connectedDevices, id: \.self) { device in
-                            Text(device.name).tag(device)
+                            Text(device.name)
+                                .tag(device)
                         }
                     }
                     .setAsComboBoxStyle()
@@ -38,30 +39,10 @@ struct DeploymentView: View {
                 }
             }
             
-            Section(header: Text("Compiler")) {
-                Picker("Selected", selection: $viewState.compiler) {
-                    ForEach(DeploymentViewState.Compiler.allCases, id: \.self) { compiler in
-                        Text(compiler.rawValue).tag(compiler)
-                    }
-                }
-                .pickerStyle(SegmentedPickerStyle())
-            }
-            
-            Section(header: Text("Optimization")) {
-                Picker("Selected", selection: $viewState.optimizationLevel) {
-                    ForEach(DeploymentViewState.Optimization.allCases, id: \.self) { optimization in
-                        Text(optimization.rawValue).tag(optimization)
-                    }
-                }
-                .pickerStyle(SegmentedPickerStyle())
-            }
-            
             ProgressView(value: viewState.progress, total: 100.0)
             
-            Button("Deploy") {
-                deploy()
-            }
-            .centerTextInsideForm()
+            Button("Deploy", action: deploy)
+                .centerTextInsideForm()
             
             Section(header: Text("Mode")) {
                 Picker("Selected", selection: $viewState.duration) {
@@ -72,10 +53,8 @@ struct DeploymentView: View {
                 .pickerStyle(SegmentedPickerStyle())
             }
             
-            Button("Run Impulse") {
-                runImpulse()
-            }
-            .centerTextInsideForm()
+            Button("Run Impulse", action: runImpulse)
+                .centerTextInsideForm()
         }
     }
 }
