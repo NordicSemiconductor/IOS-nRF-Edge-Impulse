@@ -17,10 +17,8 @@ struct ProjectSelectionView: View {
         Menu {
             if let projects = appData.projects {
                 ForEach(projects) { project in
-                    Button(action: {
+                    Button(project.name) {
                         appData.selectedProject = project
-                    }) {
-                        Label(project.name, systemImage: "pencil")
                     }
                 }
             } else {
@@ -65,11 +63,13 @@ struct DropdownToolbarItem_Previews: PreviewProvider {
             TabBarLayoutView()
                 .preferredColorScheme(.light)
                 .environmentObject(Preview.projectsPreviewAppData)
+                .environmentObject(DeviceData())
         }
         #elseif os(OSX)
         Group {
             ThreePaneLayoutView()
                 .environmentObject(Preview.projectsPreviewAppData)
+                .environmentObject(DeviceData())
         }
         #endif
     }
