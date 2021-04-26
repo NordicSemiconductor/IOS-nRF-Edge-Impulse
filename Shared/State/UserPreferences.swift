@@ -1,5 +1,5 @@
 //
-//  PreferencesData.swift
+//  UserPreferences.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Dinesh Harjani on 14/4/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class PreferencesData: ObservableObject {
+final class UserPreferences: ObservableObject {
     
     // MARK: - Preferences
     
@@ -25,15 +25,17 @@ final class PreferencesData: ObservableObject {
     
     // MARK: - Init
     
-    init() {
+    static let shared = UserPreferences()
+    
+    private init() {
         onlyScanUARTDevices = UserDefaults.standard.object(forKey: UserDefaultKeys.onlyScanUARTDevices) as? Bool ?? true
         onlyScanConnectableDevices = UserDefaults.standard.object(forKey: UserDefaultKeys.onlyScanConnectableDevices) as? Bool ?? true
     }
 }
 
-// MARK: - KeychainKeys
+// MARK: - UserDefaultKeys
 
-private extension PreferencesData {
+private extension UserPreferences {
     
     enum UserDefaultKeys: String, RawRepresentable {
         case onlyScanUARTDevices, onlyScanConnectableDevices

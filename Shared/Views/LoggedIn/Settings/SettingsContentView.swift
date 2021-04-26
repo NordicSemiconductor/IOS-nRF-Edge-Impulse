@@ -10,8 +10,9 @@ import SwiftUI
 struct SettingsContentView: View {
     
     @EnvironmentObject var appData: AppData
-    @EnvironmentObject var preferencesData: PreferencesData
     @EnvironmentObject var resourceData: ResourceData
+    
+    @ObservedObject var preferences = UserPreferences.shared
     
     // MARK: - View
     
@@ -31,11 +32,11 @@ struct SettingsContentView: View {
             
             Section(header: Text("Devices")) {
                 Toggle("Only Scan Devices Advertising 'UART' Service",
-                       isOn: $preferencesData.onlyScanUARTDevices)
+                       isOn: $preferences.onlyScanUARTDevices)
                     .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
                 
                 Toggle("Only Scan Connectable Devices",
-                       isOn: $preferencesData.onlyScanConnectableDevices)
+                       isOn: $preferences.onlyScanConnectableDevices)
                     .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
             }
             .padding(.top, 8)
@@ -91,7 +92,6 @@ struct SettingsContentView_Previews: PreviewProvider {
             .setBackgroundColor(.blue)
         }
         .previewDevice("iPhone 12 mini")
-        .environmentObject(PreferencesData())
         .environmentObject(ResourceData())
     }
 }

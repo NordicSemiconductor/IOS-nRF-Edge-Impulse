@@ -9,16 +9,16 @@ import SwiftUI
 
 struct SettingsDevicesView: View {
     
-    @EnvironmentObject var preferencesData: PreferencesData
+    @ObservedObject var preferences = UserPreferences.shared
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             
             Toggle("Only Scan Devices Advertising 'UART' Service",
-                   isOn: $preferencesData.onlyScanUARTDevices)
+                   isOn: $preferences.onlyScanUARTDevices)
             
             Toggle("Only Scan Connectable Devices",
-                   isOn: $preferencesData.onlyScanConnectableDevices)
+                   isOn: $preferences.onlyScanConnectableDevices)
         }
         .frame(width: 300)
     }
@@ -31,7 +31,6 @@ struct SettingsDevicesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             SettingsDevicesView()
-                .environmentObject(PreferencesData())
                 .previewLayout(.sizeThatFits)
         }
     }

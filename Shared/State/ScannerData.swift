@@ -5,7 +5,7 @@
 //  Created by Nick Kibysh on 15/04/2021.
 //
 
-import Foundation
+import SwiftUI
 import Combine
 import os
 import CoreBluetooth
@@ -18,14 +18,14 @@ final class ScannerData: NSObject, ObservableObject {
     @Published var scanResults: [Device] = []
     @Published var connectedDevices: [DeviceRemoteHandler] = []
     
+    @ObservedObject var preferences = UserPreferences.shared
+    
     // MARK: - Private Properties
     
     private lazy var logger = Logger(Self.self)
     
     private var deviceHandlers: [UUID: DeviceRemoteHandler] = [:]
     private lazy var bluetoothManager = CBCentralManager(delegate: self, queue: nil)
-    private var preferences = PreferencesData()
-    
     private lazy var devicePublisher = PassthroughSubject<Device, BluetoothError>()
     private lazy var cancellables = Set<AnyCancellable>()
 }
@@ -61,8 +61,7 @@ extension ScannerData {
         _ = bluetoothManager.state
     }
     
-    func toggle(with preferences: PreferencesData) {
-        self.preferences = preferences
+    func toggle() {
         if cancellables.isEmpty {
             setupDevicePublisher()
         }

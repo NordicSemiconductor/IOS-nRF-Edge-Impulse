@@ -13,7 +13,6 @@ struct DeviceList: View {
     // MARK: Properties
     
     @EnvironmentObject var scannerData: ScannerData
-    @EnvironmentObject var preferencesData: PreferencesData
     
     @State private var scannerCancellable: Cancellable? = nil
     
@@ -53,7 +52,7 @@ struct DeviceList: View {
                         .foregroundColor(.accentColor)
                         .progressViewStyle(CircularProgressViewStyle())
                     
-                    Text("Not finding what you're looking for? Check your Settings.")
+                    Text("Can't Find What you're Looking For? Check your Settings.")
                         .font(.caption)
                 } else {
                     Text("No Scanned Devices")
@@ -120,7 +119,7 @@ private extension DeviceList {
 private extension DeviceList {
     
     func toggleScanner() {
-        scannerData.toggle(with: preferencesData)
+        scannerData.toggle()
     }
     
     func refreshScanner() {
@@ -141,7 +140,6 @@ struct DeviceList_Previews: PreviewProvider {
             DeviceList()
                 .setTitle("Devices")
                 .environmentObject(Preview.mockScannerData)
-                .environmentObject(PreferencesData())
         }
         #elseif os(iOS)
         Group {
@@ -149,7 +147,6 @@ struct DeviceList_Previews: PreviewProvider {
                 DeviceList()
                     .setTitle("Devices")
                     .environmentObject(Preview.noDevicesScannerData)
-                    .environmentObject(PreferencesData())
                     .previewDevice("iPhone 12 mini")
             }
             .setBackgroundColor(Assets.blue)
@@ -158,7 +155,6 @@ struct DeviceList_Previews: PreviewProvider {
                 DeviceList()
                     .setTitle("Devices")
                     .environmentObject(Preview.isScanningButNoDevicesScannerData)
-                    .environmentObject(PreferencesData())
                     .previewDevice("iPhone 12 mini")
             }
             .setBackgroundColor(Assets.blue)
@@ -168,7 +164,6 @@ struct DeviceList_Previews: PreviewProvider {
                     .setTitle("Devices")
                     .preferredColorScheme(.dark)
                     .environmentObject(Preview.mockScannerData)
-                    .environmentObject(PreferencesData())
                     .previewDevice("iPad Pro (12.9-inch) (4th generation)")
             }
             .setBackgroundColor(Assets.blue)

@@ -36,7 +36,6 @@ struct SettingsContentView: View {
 struct SettingsContentView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsContentView()
-            .environmentObject(PreferencesData())
             .environmentObject(ResourceData())
     }
 }
