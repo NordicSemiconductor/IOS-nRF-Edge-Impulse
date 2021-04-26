@@ -19,6 +19,7 @@ struct LoggedInRootView: View {
     
     @State private var hasMadeUserRequest = false
     @State private var userCancellable: Cancellable? = nil
+    @ObservedObject private var appEvents = AppEvents.shared
     
     // MARK: View
     
@@ -30,6 +31,9 @@ struct LoggedInRootView: View {
             }
             .onDisappear() {
                 userCancellable?.cancel()
+            }
+            .alert(item: $appEvents.error) { error in
+                Alert(title: Text(error.title))
             }
     }
 }
@@ -43,9 +47,7 @@ extension LoggedInRootView {
               let httpRequest = HTTPRequest.getUser(using: token) else { return }
         appData.loginState = .loading
         userCancellable = Network.shared.perform(httpRequest, responseType: GetUserResponse.self)
-            .onUnauthorisedUserError {
-                appData.logout()
-            }
+            .onUnauthorisedUserError(appData.logout)
             .sink(receiveCompletion: { completion in
                 guard !Constant.isRunningInPreviewMode else { return }
                 switch completion {

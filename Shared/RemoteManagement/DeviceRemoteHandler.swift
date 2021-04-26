@@ -94,6 +94,7 @@ class DeviceRemoteHandler {
                 if case .failure(let e) = completion {
                     self?.device.state = .error(e)
                     self?.logger.error("Error: \(e.localizedDescription)")
+                    AppEvents.shared.error = ErrorEvent(e)
                 } else {
                     self?.logger.info("Connecting completed")
                 }

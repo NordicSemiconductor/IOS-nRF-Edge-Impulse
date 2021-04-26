@@ -74,6 +74,7 @@ extension Device: Hashable {
 }
 
 extension Device.State: CustomDebugStringConvertible {
+    
     var debugDescription: String {
         switch self {
         case .notConnected:

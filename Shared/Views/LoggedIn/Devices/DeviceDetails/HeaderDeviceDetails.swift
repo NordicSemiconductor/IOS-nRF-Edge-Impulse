@@ -9,6 +9,7 @@ import SwiftUI
 import os
 
 struct HeaderDeviceDetails: View {
+    
     @EnvironmentObject var scannerData: ScannerData
     
     private let device: Device
@@ -42,15 +43,11 @@ struct HeaderDeviceDetails: View {
     private func viewForHandler(_ handler: DeviceRemoteHandler) -> some View {
         switch handler.device.state {
         case .notConnected:
-            Button("Connect") {
-                handler.connect()
-            }
+            Button("Connect", action: handler.connect)
         case .connecting:
             ProgressView()
         case .ready:
-            Button("Disconnect") {
-                handler.disconnect()
-            }
+            Button("Disconnect", action: handler.disconnect)
         case .error:
             // TODO: Add error handler
             Text("Error")
