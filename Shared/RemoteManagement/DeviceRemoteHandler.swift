@@ -91,11 +91,13 @@ class DeviceRemoteHandler {
             .prefix(1)
             .timeout(5, scheduler: DispatchQueue.main, customError: { Error.timeout })
             .sink { [weak self] (completion) in
-                if case .failure(let e) = completion {
-                    AppEvents.shared.error = ErrorEvent(e)
-                    self?.logger.error("Error: \(e.localizedDescription)")
+                guard let self = self else { return }
+                if case .failure(let error) = completion {
+                    AppEvents.shared.error = ErrorEvent(error)
+                    self.logger.error("Error: \(error.localizedDescription)")
+                    self.disconnect()
                 } else {
-                    self?.logger.info("Connecting completed")
+                    self.logger.info("Connecting completed")
                 }
             } receiveValue: { [weak self] (state) in
                 self?.device.state = state
@@ -112,6 +114,8 @@ class DeviceRemoteHandler {
         webSocketManager.disconnect()
         
         device.state = .notConnected
+        let deviceName = device.name
+        logger.info("\(deviceName) Disconnected.")
     }
 }
 
