@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import KeychainSwift
 import Combine
 
 final class ResourceData: ObservableObject {
@@ -24,22 +23,21 @@ final class ResourceData: ObservableObject {
     
     // MARK: - Keychain
     
-    private var keychain = KeychainSwift()
     @Published private(set) var status: Status {
         didSet {
-            keychain.set(status.rawValue, forKey: KeychainKeys.status.rawValue)
+            UserDefaults.standard.set(status.rawValue, forKey: UserDefaultKeys.status)
         }
     }
     private(set) var lastSavedSHA: String? {
         didSet {
             guard let newSHA = lastSavedSHA else { return }
-            keychain.set(newSHA, forKey: KeychainKeys.lastSavedSHA.rawValue)
+            UserDefaults.standard.set(newSHA, forKey: UserDefaultKeys.lastSavedSHA)
         }
     }
     private(set) var lastCheckDateString: String? {
         didSet {
             guard let newValue = lastCheckDateString else { return }
-            keychain.set(newValue, forKey: KeychainKeys.lastUpdateDateString.rawValue)
+            UserDefaults.standard.set(newValue, forKey: UserDefaultKeys.lastUpdateDateString)
         }
     }
     
@@ -50,9 +48,10 @@ final class ResourceData: ObservableObject {
     // MARK: - Init
     
     init() {
-        self.status = Status(rawValue: keychain.get(KeychainKeys.status.rawValue) ?? "") ?? .notAvailable
-        self.lastSavedSHA = keychain.get(KeychainKeys.lastSavedSHA.rawValue)
-        self.lastCheckDateString = keychain.get(KeychainKeys.lastUpdateDateString.rawValue)
+        self.status = Status(rawValue: UserDefaults.standard.object(forKey: UserDefaultKeys.status) as? String ?? "")
+            ?? .notAvailable
+        self.lastSavedSHA = UserDefaults.standard.object(forKey: UserDefaultKeys.lastSavedSHA) as? String
+        self.lastCheckDateString = UserDefaults.standard.object(forKey: UserDefaultKeys.lastUpdateDateString) as? String
         
         self.serviceUUIDs = [UUIDMapping]()
         self.characteristicUUIDs = [UUIDMapping]()
@@ -189,16 +188,15 @@ private extension ResourceData {
     }
 }
 
-// MARK: - KeychainKeys
+// MARK: - UserDefaultKeys
 
 private extension ResourceData {
     
-    enum KeychainKeys: String, Codable {
-        case status
-        case lastSavedSHA
-        case lastUpdateDateString
+    enum UserDefaultKeys: String, RawRepresentable {
+        case status, lastSavedSHA, lastUpdateDateString
     }
 }
+
 // MARK: - Resource
 
 enum Resource: String, Codable, CaseIterable {
