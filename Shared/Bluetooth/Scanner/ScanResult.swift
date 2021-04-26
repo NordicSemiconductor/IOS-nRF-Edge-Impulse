@@ -33,7 +33,6 @@ struct Device: Identifiable {
     enum State {
         case notConnected
         case connecting
-        case error(Error)
         case ready // Connected and ready for use
         
         var isReady: Bool {
@@ -81,8 +80,6 @@ extension Device.State: CustomDebugStringConvertible {
             return "notConnected"
         case .connecting:
             return "connecting"
-        case .error(let e):
-            return "error: \(e.localizedDescription)"
         case .ready:
             return "ready"
         }

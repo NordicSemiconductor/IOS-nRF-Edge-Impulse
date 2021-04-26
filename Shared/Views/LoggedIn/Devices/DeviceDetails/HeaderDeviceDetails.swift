@@ -48,9 +48,6 @@ struct HeaderDeviceDetails: View {
             ProgressView()
         case .ready:
             Button("Disconnect", action: handler.disconnect)
-        case .error:
-            // TODO: Add error handler
-            Text("Error")
         }
     }
 }
