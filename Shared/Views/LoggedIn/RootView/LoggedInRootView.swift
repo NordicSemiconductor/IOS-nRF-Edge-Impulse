@@ -33,7 +33,8 @@ struct LoggedInRootView: View {
                 userCancellable?.cancel()
             }
             .alert(item: $appEvents.error) { error in
-                Alert(title: Text(error.title))
+                Alert(title: Text(error.title),
+                      message: Text(error.localizedDescription))
             }
     }
 }
