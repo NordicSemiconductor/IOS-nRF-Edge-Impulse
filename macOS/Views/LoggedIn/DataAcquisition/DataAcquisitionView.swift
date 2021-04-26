@@ -20,9 +20,10 @@ struct DataAcquisitionView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 10) {
-                Section(header: Text("Target").bold()) {
-                    Picker("Device", selection: $viewState.selectedDevice) {
+            Section(header: Text("Target").bold()) {
+                LazyVGrid(columns: columns, alignment: .leading, spacing: 0, pinnedViews: []) {
+                    Text("Connected Device")
+                    Picker(selection: $viewState.selectedDevice, label: EmptyView()) {
                         let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
                         if connectedDevices.hasItems {
                             ForEach(connectedDevices, id: \.self) { device in
@@ -33,56 +34,55 @@ struct DataAcquisitionView: View {
                         }
                     }
                 }
-                
-                Divider()
-                
-                Section(header: Text("Data Collection").bold()) {
-                    HStack {
-                        Text("Sample Name")
-                        TextField("Label", text: $viewState.label)
+            }
+            
+            Divider()
+            
+            Section(header: Text("Data Collection").bold()) {
+                LazyVGrid(columns: columns, alignment: .leading, spacing: 8, pinnedViews: []) {
+                    Text("Sample Name")
+                    TextField("Label", text: $viewState.label)
+                    
+                    Text("Sample Length")
+                    if viewState.canSelectSampleLengthAndFrequency {
+                        HStack {
+                            Slider(value: $viewState.sampleLength, in: 0...100000)
+                            Text("\(viewState.sampleLength, specifier: "%2.f") ms")
+                        }
+                    } else {
+                        Text("Unavailable")
+                            .foregroundColor(Assets.middleGrey.color)
                     }
                     
-                    Picker("Data Type", selection: $viewState.selectedDataType) {
+                    Text("Data Type")
+                    Picker(selection: $viewState.selectedDataType, label: EmptyView()) {
                         ForEach(Sample.DataType.allCases, id: \.self) { dataType in
                             Text(dataType.rawValue).tag(dataType)
                         }
-                        .frame(width: 70)
                     }.pickerStyle(RadioGroupPickerStyle())
                     
-                    Picker("Sensor", selection: $viewState.selectedSensor) {
+                    Text("Sensor")
+                    Picker(selection: $viewState.selectedSensor, label: EmptyView()) {
                         ForEach(Sample.Sensor.allCases, id: \.self) { sensor in
                             Text(sensor.rawValue).tag(sensor)
                         }
                     }
                     
-                    HStack {
-                        Text("Sample Length")
-                        if viewState.canSelectSampleLengthAndFrequency {
-                            Slider(value: $viewState.sampleLength, in: 0...100000)
-                            Text("\(viewState.sampleLength, specifier: "%2.f") ms")
-                        } else {
-                            Text("Unavailable")
-                                .foregroundColor(Assets.middleGrey.color)
-                        }
-                    }
-                    
-                    HStack {
-                        Text("Frequency")
-                        if viewState.canSelectSampleLengthAndFrequency {
-                            Picker("Value", selection: $viewState.selectedFrequency) {
-                                ForEach(Sample.Frequency.allCases, id: \.self) { frequency in
-                                    Text(frequency.description).tag(frequency)
-                                }
+                    Text("Frequency")
+                    if viewState.canSelectSampleLengthAndFrequency {
+                        Picker(selection: $viewState.selectedFrequency, label: EmptyView()) {
+                            ForEach(Sample.Frequency.allCases, id: \.self) { frequency in
+                                Text(frequency.description).tag(frequency)
                             }
-                        } else {
-                            Text("Unavailable")
-                                .foregroundColor(Assets.middleGrey.color)
                         }
+                    } else {
+                        Text("Unavailable")
+                            .foregroundColor(Assets.middleGrey.color)
                     }
                 }
             }
-            .padding()
         }
+        .padding(16)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: startSampling, label: {
@@ -90,7 +90,7 @@ struct DataAcquisitionView: View {
                 }).disabled(!viewState.canStartSampling)
             }
         }
-        .frame(width: 320)
+        .frame(minWidth: 360)
         .onAppear {
             let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
             if let device = connectedDevices.first {
@@ -98,6 +98,13 @@ struct DataAcquisitionView: View {
             }
         }
     }
+    
+    // MARK: Column Setup
+    
+    private var columns: [GridItem] = [
+        GridItem(.fixed(120), spacing: 0),
+        GridItem(.flexible(minimum: 200, maximum: .infinity), spacing: 0)
+    ]
 }
 
 // MARK: - startSampling()
@@ -124,8 +131,10 @@ struct DataAcquisitionView_Previews: PreviewProvider {
         Group {
             DataAcquisitionView()
                 .environmentObject(Self.noProjectsAppData)
+                .environmentObject(Preview.noDevicesScannerData)
             DataAcquisitionView()
                 .environmentObject(Preview.projectsPreviewAppData)
+                .environmentObject(Preview.mockScannerData)
         }
     }
 }
