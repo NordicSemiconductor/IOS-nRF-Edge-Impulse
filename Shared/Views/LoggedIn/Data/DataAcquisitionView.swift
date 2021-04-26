@@ -40,7 +40,7 @@ struct DataAcquisitionView: View {
                     }
                     .setAsComboBoxStyle()
                 } else {
-                    Text("No Devices Scanned.")
+                    Text("No Connected Devices")
                         .foregroundColor(Assets.middleGrey.color)
                         .multilineTextAlignment(.leading)
                 }
@@ -84,12 +84,10 @@ struct DataAcquisitionView: View {
                 }
             }
             
-            Button("Start Sampling") {
-                startSampling()
-            }
-            .centerTextInsideForm()
-            .disabled(!viewState.canStartSampling)
-            .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
+            Button("Start Sampling", action: startSampling)
+                .centerTextInsideForm()
+                .disabled(!viewState.canStartSampling)
+                .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
         }
     }
 }
@@ -117,6 +115,7 @@ struct DataAcquisitionView_Previews: PreviewProvider {
             NavigationView {
                 DataAcquisitionView()
                     .environmentObject(Preview.projectsPreviewAppData)
+                    .environmentObject(Preview.mockScannerData)
             }
             .setBackgroundColor(.blue)
         }
