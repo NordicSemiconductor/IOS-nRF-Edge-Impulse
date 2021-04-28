@@ -18,11 +18,12 @@ struct SettingsContentView: View {
     
     var body: some View {
         Form {
-            Section {
+            Section(header: VStack(alignment: .center, spacing: 0) {
+                EmptyView()
+            }) {
                 if let user = appData.user {
                     NavigationLink(destination: UserContentView()) {
                         UserView(user: user)
-                            .padding(.vertical, 8)
                     }
                 } else {
                     Text("User Data Unavailable")
@@ -39,7 +40,6 @@ struct SettingsContentView: View {
                        isOn: $preferences.onlyScanConnectableDevices)
                     .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
             }
-            .padding(.top, 8)
             
             Section(header: Text("UUID Database")) {
                 HStack {
