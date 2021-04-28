@@ -43,6 +43,7 @@ struct UserContentView: View {
                 }
             }
             .frame(minWidth: 295)
+            .setTitle("User")
         default:
             EmptyView()
         }
