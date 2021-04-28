@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import VisualEffects
 
 struct HeroView: View {
     
@@ -13,13 +14,21 @@ struct HeroView: View {
     
     var body: some View {
         ZStack {
-            Image("EdgeImpulseFull")
-                .resizable()
-                .scaledToFit()
-                .brightness(-1.0)
-                .blur(radius: 25)
-            
+            LinearGradient(gradient: Gradient(colors: [Assets.blue.color, Assets.grass.color, .yellow, Assets.red.color]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+
+            #if os(OSX)
+            VisualEffectBlur()
             UserView(user: user)
+                .padding(.horizontal)
+            #else
+            VisualEffectBlur(blurStyle: .systemThickMaterial, vibrancyStyle: .none) {
+                UserView(user: user)
+                    .padding(.horizontal)
+            }
+            #endif
         }
         .frame(height: 2 * UserView.ImageSize.height)
     }

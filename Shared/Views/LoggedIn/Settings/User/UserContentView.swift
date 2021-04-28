@@ -18,6 +18,7 @@ struct UserContentView: View {
         case .complete(let user, let projects):
             List {
                 HeroView(user: user)
+                    .listRowInsets(EdgeInsets())
                 
                 Section(header: Text("Projects")) {
                     if projects.isEmpty {
