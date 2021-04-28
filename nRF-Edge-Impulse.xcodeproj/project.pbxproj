@@ -68,6 +68,8 @@
 		AA535511261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */; };
 		AA535513261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA535512261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift */; };
 		AA535519261C896B007B2C94 /* CollaboratorsDisclosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA535518261C896B007B2C94 /* CollaboratorsDisclosureView.swift */; };
+		AA69E2C5263973F000BC44D3 /* VisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = AA69E2C4263973F000BC44D3 /* VisualEffects */; };
+		AA69E2C7263973FB00BC44D3 /* VisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = AA69E2C6263973FB00BC44D3 /* VisualEffects */; };
 		AA710DB5260391D800A4935F /* DataAcquisitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA263F05260385690018CF5B /* DataAcquisitionView.swift */; };
 		AA7F5DE325F8F57D00185328 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AA7F5DE225F8F57D00185328 /* KeychainSwift */; };
 		AA7F5DE425F8F6C900185328 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCBE8125E90734001C52B0 /* LoginRequest.swift */; };
@@ -286,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */,
+				AA69E2C5263973F000BC44D3 /* VisualEffects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA7F5DE325F8F57D00185328 /* KeychainSwift in Frameworks */,
+				AA69E2C7263973FB00BC44D3 /* VisualEffects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,6 +757,7 @@
 			name = "nRF-Edge-Impulse (iOS)";
 			packageProductDependencies = (
 				AAFAE5E425ED11CA00A45A90 /* KeychainSwift */,
+				AA69E2C4263973F000BC44D3 /* VisualEffects */,
 			);
 			productName = "nRF-Edge-Impulse (iOS)";
 			productReference = AA03E96025E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -773,6 +778,7 @@
 			name = "nRF-Edge-Impulse (macOS)";
 			packageProductDependencies = (
 				AA7F5DE225F8F57D00185328 /* KeychainSwift */,
+				AA69E2C6263973FB00BC44D3 /* VisualEffects */,
 			);
 			productName = "nRF-Edge-Impulse (macOS)";
 			productReference = AA03E96825E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -850,6 +856,7 @@
 			mainGroup = AA03E95325E3EF12003DA9DA;
 			packageReferences = (
 				AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */,
 			);
 			productRefGroup = AA03E96125E3EF13003DA9DA /* Products */;
 			projectDirPath = "";
@@ -1471,6 +1478,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/VisualEffects.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.3;
+			};
+		};
 		AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -1482,6 +1497,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		AA69E2C4263973F000BC44D3 /* VisualEffects */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */;
+			productName = VisualEffects;
+		};
+		AA69E2C6263973FB00BC44D3 /* VisualEffects */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */;
+			productName = VisualEffects;
+		};
 		AA7F5DE225F8F57D00185328 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */;
