@@ -27,6 +27,21 @@ enum Constant {
     
     static let signupURL: URL! = URL(string: "https://studio.edgeimpulse.com/signup")
     static let forgottenPasswordURL: URL! = URL(string: "https://studio.edgeimpulse.com/forgot-password")
+    
+    // MARK: - App
+    
+    static let appName: String = {
+        return Bundle(for: AppData.self).object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
+            ?? "nRF Edge Impulse"
+    }()
+    
+    static let aboutEdgeImpulse: String = {
+       return "We are easy to reach!\n\nTo contact us, holler us on Twitter @NordicTweets. You can also use our DevZone forums (devzone.nordicsemi.com) where you will receive quick support for your inquiries."
+    }()
+    
+    static let copyright: String = {
+        return "Copyright © \(Date.currentYear()) Nordic Semiconductor ASA"
+    }()
 }
 
 // MARK: - Size(s)

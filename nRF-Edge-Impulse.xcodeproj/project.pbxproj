@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AA008A7725EE422C00F70F75 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA008A7625EE422C00F70F75 /* Project.swift */; };
 		AA008A7825EE422C00F70F75 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA008A7625EE422C00F70F75 /* Project.swift */; };
+		AA01DA6026395E6000F6DD44 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01DA5F26395E6000F6DD44 /* Date.swift */; };
+		AA01DA6126395E6000F6DD44 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01DA5F26395E6000F6DD44 /* Date.swift */; };
 		AA01F3D025EFACB000368707 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01F3CF25EFACB000368707 /* Assets.swift */; };
 		AA01F3D125EFACB000368707 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01F3CF25EFACB000368707 /* Assets.swift */; };
 		AA01F3DF25EFDC5000368707 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01F3DE25EFDC5000368707 /* Constant.swift */; };
@@ -183,6 +185,7 @@
 
 /* Begin PBXFileReference section */
 		AA008A7625EE422C00F70F75 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		AA01DA5F26395E6000F6DD44 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		AA01F3CF25EFACB000368707 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		AA01F3DE25EFDC5000368707 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		AA02086725F641D900FD6B24 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
@@ -194,9 +197,9 @@
 		AA03E95925E3EF12003DA9DA /* nRF_Edge_ImpulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF_Edge_ImpulseApp.swift; sourceTree = "<group>"; };
 		AA03E95A25E3EF12003DA9DA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AA03E95B25E3EF13003DA9DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AA03E96025E3EF13003DA9DA /* nRF-Edge-Impulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "nRF-Edge-Impulse.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA03E96025E3EF13003DA9DA /* nRF Edge Impulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "nRF Edge Impulse.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA03E96325E3EF13003DA9DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AA03E96825E3EF13003DA9DA /* nRF-Edge-Impulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "nRF-Edge-Impulse.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA03E96825E3EF13003DA9DA /* nRF Edge Impulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "nRF Edge Impulse.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA03E96A25E3EF13003DA9DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA03E96B25E3EF13003DA9DA /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		AA03E97025E3EF13003DA9DA /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -385,8 +388,8 @@
 		AA03E96125E3EF13003DA9DA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AA03E96025E3EF13003DA9DA /* nRF-Edge-Impulse.app */,
-				AA03E96825E3EF13003DA9DA /* nRF-Edge-Impulse.app */,
+				AA03E96025E3EF13003DA9DA /* nRF Edge Impulse.app */,
+				AA03E96825E3EF13003DA9DA /* nRF Edge Impulse.app */,
 				AA03E97025E3EF13003DA9DA /* Tests iOS.xctest */,
 				AA03E97B25E3EF13003DA9DA /* Tests macOS.xctest */,
 			);
@@ -664,6 +667,7 @@
 				AA09C79B262EEED400B039F1 /* Collection.swift */,
 				AA80989925EE959B00091AC0 /* Publishers.swift */,
 				AA02086E25F648C200FD6B24 /* View.swift */,
+				AA01DA5F26395E6000F6DD44 /* Date.swift */,
 				AAA87ADC261B143B0097EA74 /* String.swift */,
 			);
 			path = Extensions;
@@ -751,7 +755,7 @@
 				AAFAE5E425ED11CA00A45A90 /* KeychainSwift */,
 			);
 			productName = "nRF-Edge-Impulse (iOS)";
-			productReference = AA03E96025E3EF13003DA9DA /* nRF-Edge-Impulse.app */;
+			productReference = AA03E96025E3EF13003DA9DA /* nRF Edge Impulse.app */;
 			productType = "com.apple.product-type.application";
 		};
 		AA03E96725E3EF13003DA9DA /* nRF-Edge-Impulse (macOS) */ = {
@@ -771,7 +775,7 @@
 				AA7F5DE225F8F57D00185328 /* KeychainSwift */,
 			);
 			productName = "nRF-Edge-Impulse (macOS)";
-			productReference = AA03E96825E3EF13003DA9DA /* nRF-Edge-Impulse.app */;
+			productReference = AA03E96825E3EF13003DA9DA /* nRF Edge Impulse.app */;
 			productType = "com.apple.product-type.application";
 		};
 		AA03E96F25E3EF13003DA9DA /* Tests iOS */ = {
@@ -923,6 +927,7 @@
 				AAF5054725F11E45003AFED7 /* DataAcquisitionView.swift in Sources */,
 				AA14CA75261490CD004F08FE /* Codable.swift in Sources */,
 				AAFFEB3925FF9554002287D6 /* NordicError.swift in Sources */,
+				AA01DA6026395E6000F6DD44 /* Date.swift in Sources */,
 				AA10170325E91885006DC88A /* HTTPRequest.swift in Sources */,
 				C301A35B261DE9280010717D /* DeviceRemoteHandler.swift in Sources */,
 				C33C10C12609791E0097EA5A /* SignalParameters.swift in Sources */,
@@ -1034,6 +1039,7 @@
 				AAF0C96D260A0210001B76B9 /* UserView.swift in Sources */,
 				AAF0C973260A121B001B76B9 /* HeroView.swift in Sources */,
 				AA10170425E91885006DC88A /* HTTPRequest.swift in Sources */,
+				AA01DA6126395E6000F6DD44 /* Date.swift in Sources */,
 				AAF4F6C72625EB7300012359 /* SettingsContentView.swift in Sources */,
 				AA01F3E025EFDC5000368707 /* Constant.swift in Sources */,
 				AAFFEB3125FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
@@ -1239,7 +1245,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.nRF-Edge-Impulse";
-				PRODUCT_NAME = "nRF-Edge-Impulse";
+				PRODUCT_NAME = "nRF Edge Impulse";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -1264,7 +1270,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.nRF-Edge-Impulse";
-				PRODUCT_NAME = "nRF-Edge-Impulse";
+				PRODUCT_NAME = "nRF Edge Impulse";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -1292,7 +1298,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.nRF-Edge-Impulse";
-				PRODUCT_NAME = "nRF-Edge-Impulse";
+				PRODUCT_NAME = "nRF Edge Impulse";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -1318,7 +1324,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.nRF-Edge-Impulse";
-				PRODUCT_NAME = "nRF-Edge-Impulse";
+				PRODUCT_NAME = "nRF Edge Impulse";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;

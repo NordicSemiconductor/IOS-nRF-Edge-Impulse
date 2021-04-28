@@ -22,6 +22,21 @@ struct nRF_Edge_ImpulseApp: App {
                 .environmentObject(appData)
                 .environmentObject(scannerData)
                 .environmentObject(resourceData)
+        }.commands {
+            CommandGroup(replacing: .appInfo) {
+                Button("About \(Constant.appName)") {
+                    NSApplication.shared.orderFrontStandardAboutPanel(
+                        options: [
+                            NSApplication.AboutPanelOptionKey.credits: NSAttributedString(
+                                string: Constant.aboutEdgeImpulse,
+                                attributes: [
+                                    NSAttributedString.Key.font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
+                                ]
+                            ),
+                            NSApplication.AboutPanelOptionKey(rawValue: "Copyright"): Constant.copyright]
+                    )
+                }
+            }
         }
         
         Settings {
