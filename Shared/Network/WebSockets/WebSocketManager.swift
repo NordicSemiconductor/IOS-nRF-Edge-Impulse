@@ -63,7 +63,9 @@ class WebSocketManager {
             } 
             
             #warning("remove test code")
+            #if DEBUG
             self?.publisher.send(WSHelloResponse.success.data)
+            #endif
         }
     }
 }

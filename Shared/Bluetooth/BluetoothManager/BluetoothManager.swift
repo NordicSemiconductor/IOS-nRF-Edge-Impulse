@@ -119,11 +119,14 @@ extension BluetoothManager: CBPeripheralDelegate {
                     logger.info("RX Characteristic discovered")
                 }
                 
+                #warning("remove test code")
+                #if DEBUG
                 if case .some = txCharacteristic, case .some = rxCharacteristic {
                     let mockMsh = ResponseRootObject.mock
                     let data = try! JSONEncoder().encode(mockMsh)
                     publisher.send(data)
                 }
+                #endif
             }
         
     }
