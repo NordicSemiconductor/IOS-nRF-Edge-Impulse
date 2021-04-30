@@ -22,8 +22,9 @@ struct DataAcquisitionView: View {
         Form {
             Section(header: Text("Data Type")) {
                 Picker("Type", selection: $viewState.selectedDataType) {
-                    ForEach(Sample.DataType.allCases, id: \.self) { dataType in
-                        Text(dataType.rawValue).tag(dataType)
+                    ForEach(Sample.DataType.allCases) { dataType in
+                        Text(dataType.rawValue)
+                            .tag(dataType)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
@@ -33,7 +34,6 @@ struct DataAcquisitionView: View {
                 let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
                 if connectedDevices.hasItems {
                     Picker("Selected", selection: $viewState.selectedDevice) {
-                        
                         ForEach(connectedDevices, id: \.self) { device in
                             Text(device.name).tag(device)
                         }
@@ -52,8 +52,9 @@ struct DataAcquisitionView: View {
 
             Section(header: Text("Sensor")) {
                 Picker("Type", selection: $viewState.selectedSensor) {
-                    ForEach(Sample.Sensor.allCases, id: \.self) { sensor in
-                        Text(sensor.rawValue).tag(sensor)
+                    ForEach(Sample.Sensor.allCases) { sensor in
+                        Text(sensor.rawValue)
+                            .tag(sensor)
                     }
                 }
                 .setAsComboBoxStyle()
@@ -73,8 +74,9 @@ struct DataAcquisitionView: View {
             Section(header: Text("Frequency")) {
                 if viewState.canSelectSampleLengthAndFrequency {
                     Picker("Value", selection: $viewState.selectedFrequency) {
-                        ForEach(Sample.Frequency.allCases, id: \.self) { frequency in
-                            Text(frequency.description).tag(frequency)
+                        ForEach(Sample.Frequency.allCases) { frequency in
+                            Text(frequency.description)
+                                .tag(frequency)
                         }
                     }
                     .setAsComboBoxStyle()

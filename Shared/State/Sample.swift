@@ -20,9 +20,13 @@ struct Sample {
 
 extension Sample {
     
-    enum DataType: String, RawRepresentable, CaseIterable {
+    enum DataType: String, RawRepresentable, Identifiable, CaseIterable {
         case Test
         case Training
+        
+        var id: Int {
+            rawValue.hashValue
+        }
         
         var description: String {
             switch self {
@@ -39,10 +43,14 @@ extension Sample {
 
 extension Sample {
     
-    enum Sensor: String, RawRepresentable, CaseIterable {
+    enum Sensor: String, RawRepresentable, Identifiable, CaseIterable {
         case Accelerometer
         case Microphone
         case Camera
+        
+        var id: Int {
+            rawValue.hash
+        }
     }
 }
 
@@ -50,13 +58,17 @@ extension Sample {
 
 extension Sample {
 
-    enum Frequency: Int, RawRepresentable, CaseIterable, CustomStringConvertible {
+    enum Frequency: Int, RawRepresentable, Identifiable, CaseIterable, CustomStringConvertible {
         case _8000Hz = 8000
         case _11000Hz = 11000
         case _16000Hz = 16000
         case _32000Hz = 32000
         case _44100Hz = 44100
         case _48000Hz = 48000
+        
+        var id: Int {
+            rawValue
+        }
         
         var description: String {
             "\(rawValue) Hz"
