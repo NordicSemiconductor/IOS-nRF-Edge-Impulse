@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct DataSample: Identifiable {
+struct DataSample: Identifiable, Codable {
     
     let id: Int
+    let filename: String
 }

@@ -33,8 +33,7 @@ extension Tabs {
         case .Devices:
              DeviceList()
         case .DataAcquisition:
-            // Note: There's one for iOS and one for macOS.
-            DataAcquisitionView()
+            DataSamplesView()
         case .Deployment:
             DeploymentView()
         case .Settings:
