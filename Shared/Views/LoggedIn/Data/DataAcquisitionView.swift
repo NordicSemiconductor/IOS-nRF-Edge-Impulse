@@ -22,7 +22,7 @@ struct DataAcquisitionView: View {
         Form {
             Section(header: Text("Data Type")) {
                 Picker("Type", selection: $viewState.selectedDataType) {
-                    ForEach(Sample.DataType.allCases) { dataType in
+                    ForEach(NewDataSample.DataType.allCases) { dataType in
                         Text(dataType.rawValue)
                             .tag(dataType)
                     }
@@ -52,7 +52,7 @@ struct DataAcquisitionView: View {
 
             Section(header: Text("Sensor")) {
                 Picker("Type", selection: $viewState.selectedSensor) {
-                    ForEach(Sample.Sensor.allCases) { sensor in
+                    ForEach(NewDataSample.Sensor.allCases) { sensor in
                         Text(sensor.rawValue)
                             .tag(sensor)
                     }
@@ -66,7 +66,7 @@ struct DataAcquisitionView: View {
                         Text("\(viewState.sampleLength, specifier: "%.0f") ms")
                     }
                 } else {
-                    Text("Unavailable for \(Sample.Sensor.Camera.rawValue) Sensor")
+                    Text("Unavailable for \(NewDataSample.Sensor.Camera.rawValue) Sensor")
                         .foregroundColor(Assets.middleGrey.color)
                 }
             }
@@ -74,14 +74,14 @@ struct DataAcquisitionView: View {
             Section(header: Text("Frequency")) {
                 if viewState.canSelectSampleLengthAndFrequency {
                     Picker("Value", selection: $viewState.selectedFrequency) {
-                        ForEach(Sample.Frequency.allCases) { frequency in
+                        ForEach(NewDataSample.Frequency.allCases) { frequency in
                             Text(frequency.description)
                                 .tag(frequency)
                         }
                     }
                     .setAsComboBoxStyle()
                 } else {
-                    Text("Unavailable for \(Sample.Sensor.Camera.rawValue) Sensor")
+                    Text("Unavailable for \(NewDataSample.Sensor.Camera.rawValue) Sensor")
                         .foregroundColor(Assets.middleGrey.color)
                 }
             }

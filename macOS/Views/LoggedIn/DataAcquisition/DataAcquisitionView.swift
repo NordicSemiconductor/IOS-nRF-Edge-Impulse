@@ -56,14 +56,14 @@ struct DataAcquisitionView: View {
                     
                     Text("Data Type")
                     Picker(selection: $viewState.selectedDataType, label: EmptyView()) {
-                        ForEach(Sample.DataType.allCases, id: \.self) { dataType in
+                        ForEach(NewDataSample.DataType.allCases, id: \.self) { dataType in
                             Text(dataType.rawValue).tag(dataType)
                         }
                     }.pickerStyle(RadioGroupPickerStyle())
                     
                     Text("Sensor")
                     Picker(selection: $viewState.selectedSensor, label: EmptyView()) {
-                        ForEach(Sample.Sensor.allCases, id: \.self) { sensor in
+                        ForEach(NewDataSample.Sensor.allCases, id: \.self) { sensor in
                             Text(sensor.rawValue).tag(sensor)
                         }
                     }
@@ -71,7 +71,7 @@ struct DataAcquisitionView: View {
                     Text("Frequency")
                     if viewState.canSelectSampleLengthAndFrequency {
                         Picker(selection: $viewState.selectedFrequency, label: EmptyView()) {
-                            ForEach(Sample.Frequency.allCases, id: \.self) { frequency in
+                            ForEach(NewDataSample.Frequency.allCases, id: \.self) { frequency in
                                 Text(frequency.description).tag(frequency)
                             }
                         }

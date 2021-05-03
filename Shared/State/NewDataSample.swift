@@ -1,5 +1,5 @@
 //
-//  Sample.swift
+//  NewDataSample.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Dinesh Harjani on 8/3/21.
@@ -7,18 +7,18 @@
 
 import Foundation
 
-// MARK: - Sample
+// MARK: - NewDataSample
 
-struct Sample {
+struct NewDataSample {
     
     let label: String
     let sensor: Sensor
     let frequency: Frequency
 }
 
-// MARK: - Sample.DataType
+// MARK: - NewDataSample.DataType
 
-extension Sample {
+extension NewDataSample {
     
     enum DataType: String, RawRepresentable, Identifiable, CaseIterable {
         case Test
@@ -39,9 +39,9 @@ extension Sample {
     }
 }
     
-// MARK: - Sample.Sensor
+// MARK: - NewDataSample.Sensor
 
-extension Sample {
+extension NewDataSample {
     
     enum Sensor: String, RawRepresentable, Identifiable, CaseIterable {
         case Accelerometer
@@ -54,9 +54,9 @@ extension Sample {
     }
 }
 
-// MARK: - Sample.Frequency
+// MARK: - NewDataSample.Frequency
 
-extension Sample {
+extension NewDataSample {
 
     enum Frequency: Int, RawRepresentable, Identifiable, CaseIterable, CustomStringConvertible {
         case _8000Hz = 8000
