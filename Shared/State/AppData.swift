@@ -27,6 +27,7 @@ final class AppData: ObservableObject {
     @Published var loginState: AppData.LoginState = .empty
     
     @Published var selectedProject: Project?
+    @Published var projectDevelopmentKeys: [Project: ProjectDevelopmentKeysResponse]
     @Published var selectedTab: Tabs? = .Devices
     
     // MARK: - Private Properties
@@ -37,6 +38,7 @@ final class AppData: ObservableObject {
     // MARK: - Init
     
     init() {
+        self.projectDevelopmentKeys = [Project: ProjectDevelopmentKeysResponse]()
         self.apiToken = keychain.get(KeychainKeys.apiToken.rawValue)
     }
     
@@ -64,6 +66,7 @@ final class AppData: ObservableObject {
     
     func logout() {
         apiToken = nil
+        projectDevelopmentKeys = [Project: ProjectDevelopmentKeysResponse]()
         loginState = .empty
     }
 }

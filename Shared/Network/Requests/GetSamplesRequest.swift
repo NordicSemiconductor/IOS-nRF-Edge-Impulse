@@ -14,7 +14,7 @@ extension HTTPRequest {
     static func getSamples(for project: Project, in category: GetSamplesResponse.Category, using apiToken: String) -> HTTPRequest? {
         guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/raw-data") else { return nil }
         let jwtValue = "jwt=" + apiToken
-        httpRequest.setMethod(.GET(header: ["cookie": jwtValue, "category": category.rawValue, ]))
+        httpRequest.setMethod(.GET(header: ["cookie": jwtValue, "category": category.rawValue]))
         return httpRequest
     }
 }
