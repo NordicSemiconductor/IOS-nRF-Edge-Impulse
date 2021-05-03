@@ -124,6 +124,8 @@ extension View {
 extension Picker {
     
     func setAsComboBoxStyle() -> AnyView {
+        // Can cause crashes in iOS 14.1 with changeable Sections / Cells.
+        guard #available(iOS 14.4, *) else { return AnyView(self) }
         let anyView: AnyView
         #if os(iOS)
         anyView = AnyView(pickerStyle(InlinePickerStyle())
