@@ -52,6 +52,7 @@ struct DataSamplesView: View {
 struct DataSamplesView_Previews: PreviewProvider {
     static var previews: some View {
         DataSamplesView()
+            .environmentObject(Preview.projectsPreviewAppData)
     }
 }
 #endif

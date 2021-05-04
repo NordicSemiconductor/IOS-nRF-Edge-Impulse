@@ -21,6 +21,13 @@ struct Preview {
         return try? JSONDecoder().decode([Project].self, from: contentData)
     }()
     
+    static let previewDataSamples: [DataSample]! = {
+        let path: String! = Bundle.main.path(forResource: "sample_datasamples", ofType: "json")
+        let content: String! = try? String(contentsOfFile: path)
+        let contentData: Data! = content.data(using: .utf8)
+        return try? JSONDecoder().decode([DataSample].self, from: contentData)
+    }()
+    
     static let projectsPreviewAppData = previewAppData(.complete(previewUser, previewProjects))
     
     static let noDevicesAppData: AppData = {
@@ -39,6 +46,7 @@ struct Preview {
         let appData = AppData()
         appData.apiToken = "hello"
         appData.loginState = loginState
+        appData.samplesForCategory[.training] = previewDataSamples
         return appData
     }
     

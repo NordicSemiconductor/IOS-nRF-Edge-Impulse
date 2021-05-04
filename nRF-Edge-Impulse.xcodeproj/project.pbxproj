@@ -124,6 +124,8 @@
 		AAF5054725F11E45003AFED7 /* DataAcquisitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */; };
 		AAF5531D2641614B00252345 /* AppData+DataSamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5531C2641614B00252345 /* AppData+DataSamples.swift */; };
 		AAF5531E2641614B00252345 /* AppData+DataSamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5531C2641614B00252345 /* AppData+DataSamples.swift */; };
+		AAF5532026416EB300252345 /* sample_datasamples.json in Resources */ = {isa = PBXBuildFile; fileRef = AAF5531F26416EB300252345 /* sample_datasamples.json */; };
+		AAF5532126416EB300252345 /* sample_datasamples.json in Resources */ = {isa = PBXBuildFile; fileRef = AAF5531F26416EB300252345 /* sample_datasamples.json */; };
 		AAF5E75326400A3A00AC3271 /* DataSamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */; };
 		AAF5E75426400A3A00AC3271 /* DataSamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */; };
 		AAF5E75626400F7300AC3271 /* GetSamplesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5E75526400F7300AC3271 /* GetSamplesRequest.swift */; };
@@ -269,6 +271,7 @@
 		AAF4F6C92625EC4C00012359 /* SettingsDevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDevicesView.swift; sourceTree = "<group>"; };
 		AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
 		AAF5531C2641614B00252345 /* AppData+DataSamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+DataSamples.swift"; sourceTree = "<group>"; };
+		AAF5531F26416EB300252345 /* sample_datasamples.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_datasamples.json; sourceTree = "<group>"; };
 		AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSamplesView.swift; sourceTree = "<group>"; };
 		AAF5E75526400F7300AC3271 /* GetSamplesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSamplesRequest.swift; sourceTree = "<group>"; };
 		AAF5E7582640106700AC3271 /* DataSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSample.swift; sourceTree = "<group>"; };
@@ -609,6 +612,7 @@
 			children = (
 				AA03E95B25E3EF13003DA9DA /* Assets.xcassets */,
 				AAE5B63425F23A4500AA003D /* sample_projects.json */,
+				AAF5531F26416EB300252345 /* sample_datasamples.json */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -898,6 +902,7 @@
 			files = (
 				AA03E98625E3EF13003DA9DA /* Assets.xcassets in Resources */,
 				AAE5B63525F23A4500AA003D /* sample_projects.json in Resources */,
+				AAF5532026416EB300252345 /* sample_datasamples.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -907,6 +912,7 @@
 			files = (
 				AA03E98725E3EF13003DA9DA /* Assets.xcassets in Resources */,
 				AAE5B63625F23A4500AA003D /* sample_projects.json in Resources */,
+				AAF5532126416EB300252345 /* sample_datasamples.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
