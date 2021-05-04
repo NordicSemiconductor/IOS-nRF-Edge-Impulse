@@ -11,7 +11,7 @@ import Foundation
 
 extension HTTPRequest {
     
-    static func getSamples(for project: Project, in category: GetSamplesResponse.Category, using apiToken: String) -> HTTPRequest? {
+    static func getSamples(for project: Project, in category: DataSample.Category, using apiToken: String) -> HTTPRequest? {
         let parameters = ["category": category.rawValue]
         guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/raw-data",
                                             parameters: parameters) else { return nil }
@@ -28,13 +28,4 @@ struct GetSamplesResponse: APIResponse {
     let error: String?
     
     let samples: [DataSample]
-}
-
-// MARK: - GetSamplesResponse.Category
-
-extension GetSamplesResponse {
-    
-    enum Category: String, RawRepresentable {
-        case training, testing, anomaly
-    }
 }

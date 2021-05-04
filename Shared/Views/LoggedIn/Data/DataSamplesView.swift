@@ -12,33 +12,54 @@ struct DataSamplesView: View {
     
     @EnvironmentObject var appData: AppData
     
-    @State private var samples = [DataSample]()
+    @ObservedObject var viewState = DataSamplesViewState()
+    
     @State private var cancellables = Set<AnyCancellable>()
     
     // MARK: View
     
     var body: some View {
-        Text("Hello, World!")
-            .onAppear() {
-                guard !Constant.isRunningInPreviewMode else { return }
-                // User might change the Project, so onAppear is a good bet.
-                requestDataSamples()
-            }
-            .onDisappear() {
-                cancellables.forEach {
-                    $0.cancel()
+        VStack {
+            Section(header: Text("Category")) {
+                Picker("Selected", selection: $viewState.selectedCategory) {
+                    ForEach(DataSample.Category.allCases) { dataType in
+                        Text(dataType.rawValue)
+                            .tag(dataType)
+                    }
                 }
-                cancellables.removeAll()
+                .pickerStyle(SegmentedPickerStyle())
             }
+            
+            Section(header: Text("Collected Samples")) {
+                List {
+                    ForEach(viewState.samples) { sample in
+                        Text(sample.filename)
+                    }
+                }
+            }
+        }
+        .padding(.vertical)
+        .onAppear() {
+            guard !Constant.isRunningInPreviewMode else { return }
+            // User might change the Project, so onAppear is a good bet.
+            requestDataSamples(for: viewState.selectedCategory)
+        }
+        .onDisappear() {
+            cancellables.forEach {
+                $0.cancel()
+            }
+            cancellables.removeAll()
+        }
     }
 }
 
 extension DataSamplesView {
     
-    func requestDataSamples() {
+    func requestDataSamples(for category: DataSample.Category) {
+        viewState.samples = []
         guard let currentProject = appData.selectedProject,
               let projectApiKey = appData.projectDevelopmentKeys[currentProject]?.apiKey,
-              let httpRequest = HTTPRequest.getSamples(for: currentProject, in: .training, using: projectApiKey) else {
+              let httpRequest = HTTPRequest.getSamples(for: currentProject, in: category, using: projectApiKey) else {
             requestProjectDevelopmentKeys()
             return
         }
@@ -46,7 +67,7 @@ extension DataSamplesView {
         Network.shared.perform(httpRequest, responseType: GetSamplesResponse.self)
             .onUnauthorisedUserError(appData.logout)
             .sinkOrRaiseAppEventError { samplesResponse in
-                samples = samplesResponse.samples
+                viewState.samples = samplesResponse.samples
             }
             .store(in: &cancellables)
     }
@@ -66,7 +87,7 @@ extension DataSamplesView {
                     return
                 }
                 appData.projectDevelopmentKeys[currentProject] = projectKeysResponse
-                requestDataSamples()
+                requestDataSamples(for: viewState.selectedCategory)
             }
             .store(in: &cancellables)
     }

@@ -122,6 +122,8 @@
 		AAF4F6C72625EB7300012359 /* SettingsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6C62625EB7300012359 /* SettingsContentView.swift */; };
 		AAF4F6CA2625EC4C00012359 /* SettingsDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6C92625EC4C00012359 /* SettingsDevicesView.swift */; };
 		AAF5054725F11E45003AFED7 /* DataAcquisitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */; };
+		AAF5531A26415A2100252345 /* DataSamplesViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5531926415A2100252345 /* DataSamplesViewState.swift */; };
+		AAF5531B26415A2100252345 /* DataSamplesViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5531926415A2100252345 /* DataSamplesViewState.swift */; };
 		AAF5E75326400A3A00AC3271 /* DataSamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */; };
 		AAF5E75426400A3A00AC3271 /* DataSamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */; };
 		AAF5E75626400F7300AC3271 /* GetSamplesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5E75526400F7300AC3271 /* GetSamplesRequest.swift */; };
@@ -266,6 +268,7 @@
 		AAF4F6C62625EB7300012359 /* SettingsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsContentView.swift; sourceTree = "<group>"; };
 		AAF4F6C92625EC4C00012359 /* SettingsDevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDevicesView.swift; sourceTree = "<group>"; };
 		AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
+		AAF5531926415A2100252345 /* DataSamplesViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSamplesViewState.swift; sourceTree = "<group>"; };
 		AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSamplesView.swift; sourceTree = "<group>"; };
 		AAF5E75526400F7300AC3271 /* GetSamplesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSamplesRequest.swift; sourceTree = "<group>"; };
 		AAF5E7582640106700AC3271 /* DataSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSample.swift; sourceTree = "<group>"; };
@@ -549,6 +552,7 @@
 			isa = PBXGroup;
 			children = (
 				AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */,
+				AAF5531926415A2100252345 /* DataSamplesViewState.swift */,
 				AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */,
 				AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */,
 			);
@@ -1026,6 +1030,7 @@
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AAF4F6C32625C8C600012359 /* ThreePaneLayoutView.swift in Sources */,
 				AA482F812631A213007B8B64 /* UserContentView.swift in Sources */,
+				AAF5531A26415A2100252345 /* DataSamplesViewState.swift in Sources */,
 				AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */,
 				AAF5E75326400A3A00AC3271 /* DataSamplesView.swift in Sources */,
 				AA8EC8B4261F30A900FBE990 /* Modifiers.swift in Sources */,
@@ -1089,6 +1094,7 @@
 				AA10170425E91885006DC88A /* HTTPRequest.swift in Sources */,
 				AA01DA6126395E6000F6DD44 /* Date.swift in Sources */,
 				AAF4F6C72625EB7300012359 /* SettingsContentView.swift in Sources */,
+				AAF5531B26415A2100252345 /* DataSamplesViewState.swift in Sources */,
 				AA01F3E025EFDC5000368707 /* Constant.swift in Sources */,
 				AAFFEB3125FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
 				C33C10C42609791E0097EA5A /* SignalLevel.swift in Sources */,
