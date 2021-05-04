@@ -15,11 +15,14 @@ extension HTTPRequest {
     
     // MARK: - Init
     
-    init?(host: HTTPHost, path: String) {
+    init?(host: HTTPHost, path: String, parameters: [String: String]? = nil) {
         var components = URLComponents()
         components.scheme = "https"
         components.host = host.rawValue
         components.path = path
+        components.queryItems = parameters?.map { key, value in
+            URLQueryItem(name: key, value: value)
+        }
         
         guard let url = components.url else { return nil }
         self.init(url: url)
