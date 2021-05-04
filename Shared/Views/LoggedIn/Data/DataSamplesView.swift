@@ -19,17 +19,15 @@ struct DataSamplesView: View {
     // MARK: View
     
     var body: some View {
-        VStack {
-            Section(header: Text("Category")) {
-                Picker("Selected", selection: $selectedCategory) {
-                    ForEach(DataSample.Category.allCases) { dataType in
-                        Text(dataType.rawValue)
-                            .tag(dataType)
-                    }
+        VStack(spacing: 8) {
+            Picker("Selected", selection: $selectedCategory) {
+                ForEach(DataSample.Category.allCases) { dataType in
+                    Text(dataType.rawValue.uppercasingFirst)
+                        .tag(dataType)
                 }
-                .pickerStyle(SegmentedPickerStyle())
             }
-
+            .pickerStyle(SegmentedPickerStyle())
+            
             Section(header: Text("Collected Samples")) {
                 List {
                     ForEach(appData.samplesForCategory[selectedCategory] ?? []) { sample in
@@ -39,10 +37,6 @@ struct DataSamplesView: View {
             }
         }
         .padding(.vertical)
-        .onAppear() {
-            guard !Constant.isRunningInPreviewMode else { return }
-            appData.requestDataSamples()
-        }
     }
 }
 
