@@ -126,6 +126,8 @@
 		AAF5531E2641614B00252345 /* AppData+DataSamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5531C2641614B00252345 /* AppData+DataSamples.swift */; };
 		AAF5532026416EB300252345 /* sample_datasamples.json in Resources */ = {isa = PBXBuildFile; fileRef = AAF5531F26416EB300252345 /* sample_datasamples.json */; };
 		AAF5532126416EB300252345 /* sample_datasamples.json in Resources */ = {isa = PBXBuildFile; fileRef = AAF5531F26416EB300252345 /* sample_datasamples.json */; };
+		AAF55323264171AB00252345 /* DataSampleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF55322264171AB00252345 /* DataSampleRow.swift */; };
+		AAF55324264171AB00252345 /* DataSampleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF55322264171AB00252345 /* DataSampleRow.swift */; };
 		AAF5E75326400A3A00AC3271 /* DataSamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */; };
 		AAF5E75426400A3A00AC3271 /* DataSamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */; };
 		AAF5E75626400F7300AC3271 /* GetSamplesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5E75526400F7300AC3271 /* GetSamplesRequest.swift */; };
@@ -272,6 +274,7 @@
 		AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
 		AAF5531C2641614B00252345 /* AppData+DataSamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+DataSamples.swift"; sourceTree = "<group>"; };
 		AAF5531F26416EB300252345 /* sample_datasamples.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_datasamples.json; sourceTree = "<group>"; };
+		AAF55322264171AB00252345 /* DataSampleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSampleRow.swift; sourceTree = "<group>"; };
 		AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSamplesView.swift; sourceTree = "<group>"; };
 		AAF5E75526400F7300AC3271 /* GetSamplesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSamplesRequest.swift; sourceTree = "<group>"; };
 		AAF5E7582640106700AC3271 /* DataSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSample.swift; sourceTree = "<group>"; };
@@ -554,6 +557,7 @@
 		AAF5054525F11E15003AFED7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				AAF55322264171AB00252345 /* DataSampleRow.swift */,
 				AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */,
 				AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */,
 				AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */,
@@ -1012,6 +1016,7 @@
 				AAA87AE3261B28F50097EA74 /* URLImage.swift in Sources */,
 				AA0D812C2608F62700AE615A /* DeploymentViewState.swift in Sources */,
 				AAF0C96C260A0210001B76B9 /* UserView.swift in Sources */,
+				AAF55323264171AB00252345 /* DataSampleRow.swift in Sources */,
 				AAF0C972260A121B001B76B9 /* HeroView.swift in Sources */,
 				AA02086825F641D900FD6B24 /* NewDataSample.swift in Sources */,
 				AAFB8E2A2626FADD003DAEC5 /* UserPreferences.swift in Sources */,
@@ -1067,6 +1072,7 @@
 				AAFFEB3A25FF9554002287D6 /* NordicError.swift in Sources */,
 				AAEDE637262882D500B96AE9 /* ProjectSelectionView.swift in Sources */,
 				AA80989B25EE959B00091AC0 /* Publishers.swift in Sources */,
+				AAF55324264171AB00252345 /* DataSampleRow.swift in Sources */,
 				C33C10C22609791E0097EA5A /* SignalParameters.swift in Sources */,
 				AAFEA59D261F0B8C0021B8CF /* CBCentralManager+Ext.swift in Sources */,
 				AA0D90AE260E1F1100A455B7 /* nRF_Edge_ImpulseApp.swift in Sources */,

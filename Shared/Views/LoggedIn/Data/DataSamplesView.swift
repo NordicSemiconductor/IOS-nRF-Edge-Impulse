@@ -31,7 +31,7 @@ struct DataSamplesView: View {
             Section(header: Text("Collected Samples")) {
                 List {
                     ForEach(appData.samplesForCategory[selectedCategory] ?? []) { sample in
-                        Text(sample.filename)
+                        DataSampleRow(sample)
                     }
                 }
             }
