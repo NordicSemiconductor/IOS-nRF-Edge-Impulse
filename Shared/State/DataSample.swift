@@ -13,10 +13,10 @@ struct DataSample: Identifiable, Codable {
     let filename: String
     let category: Category
     let label: String
-    let totalLengthMs: Int
+    let totalLengthMs: Double
     
     func totalLengthInSeconds() -> String {
-        let double = Measurement(value: Double(totalLengthMs), unit: UnitDuration.milliseconds)
+        let double = Measurement(value: totalLengthMs, unit: UnitDuration.milliseconds)
             .converted(to: .seconds).value
         return String(format: "%.2fs", double)
     }
