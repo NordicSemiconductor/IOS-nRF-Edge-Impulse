@@ -18,6 +18,13 @@ struct DataSamplesView: View {
     
     // MARK: View
     
+    static let Columns = [
+        GridItem(.fixed(40)),
+        GridItem(.flexible()),
+        GridItem(.fixed(90)),
+        GridItem(.fixed(55))
+    ]
+    
     var body: some View {
         VStack(spacing: 8) {
             Picker("Selected", selection: $selectedCategory) {
@@ -26,8 +33,20 @@ struct DataSamplesView: View {
                         .tag(dataType)
                 }
             }
-            .pickerStyle(SegmentedPickerStyle())
+            .setAsSegmentedControlStyle()
             .padding(.horizontal)
+            
+            LazyVGrid(columns: DataSamplesView.Columns, alignment: .leading) {
+                Text("")
+                Text("Filename")
+                    .bold()
+                Text("Label")
+                    .foregroundColor(Assets.middleGrey.color)
+                Text("Length")
+                    .fontWeight(.light)
+            }
+            .padding(.horizontal)
+            .padding(.top, 8)
             
             List {
                 ForEach(appData.samplesForCategory[selectedCategory] ?? []) { sample in
