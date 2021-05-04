@@ -27,7 +27,7 @@ struct GetSamplesResponse: APIResponse {
     let success: Bool
     let error: String?
     
-//    let samples: [DataSample]
+    let samples: [DataSample]
 }
 
 // MARK: - GetSamplesResponse.Category

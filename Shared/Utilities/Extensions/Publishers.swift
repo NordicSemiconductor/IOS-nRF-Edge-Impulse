@@ -24,6 +24,24 @@ extension Publisher {
             root[keyPath: keyPath] = result
         }
     }
+    
+    func sinkOrRaiseAppEventError(receiveValue: @escaping ((Self.Output) -> Void)) -> AnyCancellable {
+        self.sink(receiveCompletion: { completion in
+            switch completion {
+            case .failure(let error):
+                AppEvents.shared.error = ErrorEvent(error)
+            default:
+                break
+            }
+        }) { result in
+            if let apiResponse = result as? APIResponse, !apiResponse.success {
+                let errorMessage = apiResponse.error ?? "Server returned 'request was not a success' response."
+                AppEvents.shared.error = ErrorEvent(title: "Error", localizedDescription: errorMessage)
+                return
+            }
+            receiveValue(result)
+        }
+    }
 }
 
 // MARK: - OnUnauthorisedUserError

@@ -11,6 +11,8 @@ import Combine
 struct DataSamplesView: View {
     
     @EnvironmentObject var appData: AppData
+    
+    @State private var samples = [DataSample]()
     @State private var cancellables = Set<AnyCancellable>()
     
     // MARK: View
@@ -43,29 +45,14 @@ extension DataSamplesView {
         
         Network.shared.perform(httpRequest, responseType: GetSamplesResponse.self)
             .onUnauthorisedUserError(appData.logout)
-            .sink(receiveCompletion: { completion in
-                guard !Constant.isRunningInPreviewMode else { return }
-                switch completion {
-                case .failure(let error):
-                    AppEvents.shared.error = ErrorEvent(error)
-                default:
-                    break
-                }
-            },
-            receiveValue: { samplesResponse in
-                guard samplesResponse.success else {
-                    let errorMessage = samplesResponse.error ?? "Error"
-                    AppEvents.shared.error = ErrorEvent(title: "Data Samples", localizedDescription: errorMessage)
-                    return
-                }
-                print(samplesResponse)
-            })
+            .sinkOrRaiseAppEventError { samplesResponse in
+                samples = samplesResponse.samples
+            }
             .store(in: &cancellables)
     }
     
     func requestProjectDevelopmentKeys() {
-        guard let currentProject = appData.selectedProject,
-              let token = appData.apiToken,
+        guard let currentProject = appData.selectedProject, let token = appData.apiToken,
               let httpRequest = HTTPRequest.getProjectDevelopmentKeys(for: currentProject, using: token) else {
             // TODO: Error
             return
@@ -73,26 +60,14 @@ extension DataSamplesView {
         
         Network.shared.perform(httpRequest, responseType: ProjectDevelopmentKeysResponse.self)
             .onUnauthorisedUserError(appData.logout)
-            .sink(receiveCompletion: { completion in
-                guard !Constant.isRunningInPreviewMode else { return }
-                switch completion {
-                case .failure(let error):
-                    AppEvents.shared.error = ErrorEvent(error)
-                default:
-                    break
-                }
-            },
-            receiveValue: { projectKeysResponse in
-                guard projectKeysResponse.success else {
-                    let errorMessage = projectKeysResponse.error ?? "Hello"
-                    AppEvents.shared.error = ErrorEvent(title: "Samples Request", localizedDescription: errorMessage)
+            .sinkOrRaiseAppEventError { projectKeysResponse in
+                guard let currentProject = appData.selectedProject else {
+                    // TODO: No Selected Project Error.
                     return
                 }
-                
-                guard let currentProject = appData.selectedProject else { return }
                 appData.projectDevelopmentKeys[currentProject] = projectKeysResponse
                 requestDataSamples()
-            })
+            }
             .store(in: &cancellables)
     }
 }
