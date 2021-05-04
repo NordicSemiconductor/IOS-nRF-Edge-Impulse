@@ -26,19 +26,26 @@ final class AppData: ObservableObject {
     
     @Published var loginState: AppData.LoginState = .empty
     
-    @Published var selectedProject: Project?
-    @Published var projectDevelopmentKeys: [Project: ProjectDevelopmentKeysResponse]
+    @Published var selectedProject: Project? {
+        didSet {
+            selectedProjectDidChange()
+        }
+    }
     @Published var selectedTab: Tabs? = .Devices
+    
+    @Published var projectDevelopmentKeys: [Project: ProjectDevelopmentKeysResponse]
+    @Published var samplesForCategory: [DataSample.Category: [DataSample]]
     
     // MARK: - Private Properties
     
     private lazy var keychain = KeychainSwift()
-    private var cancellables = Set<AnyCancellable>()
+    internal var cancellables = Set<AnyCancellable>()
     
     // MARK: - Init
     
     init() {
         self.projectDevelopmentKeys = [Project: ProjectDevelopmentKeysResponse]()
+        self.samplesForCategory = [DataSample.Category: [DataSample]]()
         self.apiToken = keychain.get(KeychainKeys.apiToken.rawValue)
     }
     
@@ -66,8 +73,17 @@ final class AppData: ObservableObject {
     
     func logout() {
         apiToken = nil
-        projectDevelopmentKeys = [Project: ProjectDevelopmentKeysResponse]()
         loginState = .empty
+        selectedProjectDidChange()
+    }
+}
+
+private extension AppData {
+    
+    func selectedProjectDidChange() {
+        projectDevelopmentKeys = [Project: ProjectDevelopmentKeysResponse]()
+        samplesForCategory = [:]
+        requestDataSamples()
     }
 }
 

@@ -122,8 +122,8 @@
 		AAF4F6C72625EB7300012359 /* SettingsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6C62625EB7300012359 /* SettingsContentView.swift */; };
 		AAF4F6CA2625EC4C00012359 /* SettingsDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6C92625EC4C00012359 /* SettingsDevicesView.swift */; };
 		AAF5054725F11E45003AFED7 /* DataAcquisitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */; };
-		AAF5531A26415A2100252345 /* DataSamplesViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5531926415A2100252345 /* DataSamplesViewState.swift */; };
-		AAF5531B26415A2100252345 /* DataSamplesViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5531926415A2100252345 /* DataSamplesViewState.swift */; };
+		AAF5531D2641614B00252345 /* AppData+DataSamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5531C2641614B00252345 /* AppData+DataSamples.swift */; };
+		AAF5531E2641614B00252345 /* AppData+DataSamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5531C2641614B00252345 /* AppData+DataSamples.swift */; };
 		AAF5E75326400A3A00AC3271 /* DataSamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */; };
 		AAF5E75426400A3A00AC3271 /* DataSamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */; };
 		AAF5E75626400F7300AC3271 /* GetSamplesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5E75526400F7300AC3271 /* GetSamplesRequest.swift */; };
@@ -268,7 +268,7 @@
 		AAF4F6C62625EB7300012359 /* SettingsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsContentView.swift; sourceTree = "<group>"; };
 		AAF4F6C92625EC4C00012359 /* SettingsDevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDevicesView.swift; sourceTree = "<group>"; };
 		AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
-		AAF5531926415A2100252345 /* DataSamplesViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSamplesViewState.swift; sourceTree = "<group>"; };
+		AAF5531C2641614B00252345 /* AppData+DataSamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+DataSamples.swift"; sourceTree = "<group>"; };
 		AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSamplesView.swift; sourceTree = "<group>"; };
 		AAF5E75526400F7300AC3271 /* GetSamplesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSamplesRequest.swift; sourceTree = "<group>"; };
 		AAF5E7582640106700AC3271 /* DataSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSample.swift; sourceTree = "<group>"; };
@@ -552,7 +552,6 @@
 			isa = PBXGroup;
 			children = (
 				AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */,
-				AAF5531926415A2100252345 /* DataSamplesViewState.swift */,
 				AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */,
 				AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */,
 			);
@@ -630,6 +629,7 @@
 			children = (
 				AAFAE5EA25ED14E500A45A90 /* AppData.swift */,
 				AAF7299626298D6D0034B61A /* AppData+LoginState.swift */,
+				AAF5531C2641614B00252345 /* AppData+DataSamples.swift */,
 				C37E5EC8262842AA00B9E361 /* ScannerData.swift */,
 				AA92BEF02611F9E400BED04B /* ResourceData.swift */,
 				AACECAE62630723B00285F94 /* ResourceData+Status.swift */,
@@ -979,6 +979,7 @@
 				C33C10C12609791E0097EA5A /* SignalParameters.swift in Sources */,
 				AAF4E322261DD193009C387B /* Cache.swift in Sources */,
 				AA03E98425E3EF13003DA9DA /* ContentView.swift in Sources */,
+				AAF5531D2641614B00252345 /* AppData+DataSamples.swift in Sources */,
 				AACCBA882600C32C0042E87B /* ErrorView.swift in Sources */,
 				AA01F3D025EFACB000368707 /* Assets.swift in Sources */,
 				AAF5E75C26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift in Sources */,
@@ -1030,7 +1031,6 @@
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AAF4F6C32625C8C600012359 /* ThreePaneLayoutView.swift in Sources */,
 				AA482F812631A213007B8B64 /* UserContentView.swift in Sources */,
-				AAF5531A26415A2100252345 /* DataSamplesViewState.swift in Sources */,
 				AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */,
 				AAF5E75326400A3A00AC3271 /* DataSamplesView.swift in Sources */,
 				AA8EC8B4261F30A900FBE990 /* Modifiers.swift in Sources */,
@@ -1094,7 +1094,6 @@
 				AA10170425E91885006DC88A /* HTTPRequest.swift in Sources */,
 				AA01DA6126395E6000F6DD44 /* Date.swift in Sources */,
 				AAF4F6C72625EB7300012359 /* SettingsContentView.swift in Sources */,
-				AAF5531B26415A2100252345 /* DataSamplesViewState.swift in Sources */,
 				AA01F3E025EFDC5000368707 /* Constant.swift in Sources */,
 				AAFFEB3125FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
 				C33C10C42609791E0097EA5A /* SignalLevel.swift in Sources */,
@@ -1126,6 +1125,7 @@
 				AA28405D261F4F3D00EB8637 /* UsernameField.swift in Sources */,
 				AAF4F6CA2625EC4C00012359 /* SettingsDevicesView.swift in Sources */,
 				AA09C79D262EEED400B039F1 /* Collection.swift in Sources */,
+				AAF5531E2641614B00252345 /* AppData+DataSamples.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				C37DD4AA260C991900D667EA /* DeviceDetails.swift in Sources */,
 				C301A36A261F12890010717D /* WebSocketManager.swift in Sources */,
