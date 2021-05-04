@@ -135,6 +135,16 @@ extension Picker {
         #endif
         return anyView
     }
+    
+    func setAsSegmentedControlStyle() -> AnyView {
+        let anyView: AnyView
+        #if os(iOS)
+        anyView = AnyView(pickerStyle(SegmentedPickerStyle()))
+        #else
+        anyView = AnyView(self)
+        #endif
+        return anyView
+    }
 }
 
 // MARK: - NavigationView
