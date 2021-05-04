@@ -12,9 +12,10 @@ import Foundation
 extension HTTPRequest {
     
     static func getSamples(for project: Project, in category: GetSamplesResponse.Category, using apiToken: String) -> HTTPRequest? {
-        guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/raw-data") else { return nil }
-        let jwtValue = "jwt=" + apiToken
-        httpRequest.setMethod(.GET(header: ["cookie": jwtValue, "category": category.rawValue]))
+        let parameters = ["category": category.rawValue]
+        guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/raw-data",
+                                            parameters: parameters) else { return nil }
+        httpRequest.setMethod(.GET(header: ["x-api-key": apiToken]))
         return httpRequest
     }
 }

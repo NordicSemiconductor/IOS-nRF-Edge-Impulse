@@ -54,10 +54,11 @@ extension DataSamplesView {
             },
             receiveValue: { samplesResponse in
                 guard samplesResponse.success else {
-                    let errorMessage = samplesResponse.error ?? "Hello"
-                    AppEvents.shared.error = ErrorEvent(title: "Samples Request", localizedDescription: errorMessage)
+                    let errorMessage = samplesResponse.error ?? "Error"
+                    AppEvents.shared.error = ErrorEvent(title: "Data Samples", localizedDescription: errorMessage)
                     return
                 }
+                print(samplesResponse)
             })
             .store(in: &cancellables)
     }
