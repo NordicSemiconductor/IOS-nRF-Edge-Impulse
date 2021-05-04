@@ -19,10 +19,22 @@ struct DataSampleRow: View {
     
     // MARK: View
     
+    let columns = [
+        GridItem(.fixed(40)),
+        GridItem(.flexible()),
+        GridItem(.fixed(90)),
+        GridItem(.fixed(55))
+    ]
+    
     var body: some View {
-        HStack {
+        LazyVGrid(columns: columns, alignment: .leading) {
             Image(systemName: sample.category.symbolName)
             Text(sample.filename)
+                .bold()
+            Text(sample.label)
+                .foregroundColor(Assets.middleGrey.color)
+            Text(sample.totalLengthInSeconds())
+                .fontWeight(.light)
         }
     }
 }

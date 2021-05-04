@@ -27,12 +27,11 @@ struct DataSamplesView: View {
                 }
             }
             .pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal)
             
-            Section(header: Text("Collected Samples")) {
-                List {
-                    ForEach(appData.samplesForCategory[selectedCategory] ?? []) { sample in
-                        DataSampleRow(sample)
-                    }
+            List {
+                ForEach(appData.samplesForCategory[selectedCategory] ?? []) { sample in
+                    DataSampleRow(sample)
                 }
             }
         }
