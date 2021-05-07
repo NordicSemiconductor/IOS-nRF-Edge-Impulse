@@ -25,10 +25,14 @@ struct DataSamplesView: View {
         GridItem(.fixed(55))
     ]
     
+    static let Categories: [DataSample.Category] = [
+        .training, .testing
+    ]
+    
     var body: some View {
         VStack(spacing: 8) {
-            Picker("Selected", selection: $selectedCategory) {
-                ForEach(DataSample.Category.allCases) { dataType in
+            Picker("Category", selection: $selectedCategory) {
+                ForEach(Self.Categories) { dataType in
                     Text(dataType.rawValue.uppercasingFirst)
                         .tag(dataType)
                 }
