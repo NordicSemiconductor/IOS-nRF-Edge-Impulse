@@ -54,7 +54,7 @@ struct DataAcquisitionView: View {
                             .foregroundColor(Assets.middleGrey.color)
                     }
                     
-                    Text("Data Type")
+                    Text("Category")
                     Picker(selection: $viewState.selectedDataType, label: EmptyView()) {
                         ForEach(NewDataSample.DataType.allCases, id: \.self) { dataType in
                             Text(dataType.rawValue).tag(dataType)
@@ -82,6 +82,7 @@ struct DataAcquisitionView: View {
                 }
             }
         }
+        .setTitle("New Sample")
         .padding(16)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {

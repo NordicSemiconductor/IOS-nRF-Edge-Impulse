@@ -21,8 +21,8 @@ struct NewDataSample {
 extension NewDataSample {
     
     enum DataType: String, RawRepresentable, Identifiable, CaseIterable {
-        case Test
         case Training
+        case Test
         
         var id: Int {
             rawValue.hashValue

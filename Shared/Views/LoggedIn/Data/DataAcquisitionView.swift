@@ -91,6 +91,7 @@ struct DataAcquisitionView: View {
                 .disabled(!viewState.canStartSampling)
                 .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
         }
+        .setTitle("New Sample")
     }
 }
 

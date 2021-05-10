@@ -59,6 +59,14 @@ struct DataSamplesView: View {
             }
         }
         .padding(.vertical)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                NavigationLink(destination: DataAcquisitionView(),
+                    label: {
+                        Label("New Sample", systemImage: "plus")
+                    })
+            }
+        }
     }
 }
 
