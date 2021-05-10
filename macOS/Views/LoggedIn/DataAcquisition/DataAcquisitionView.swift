@@ -116,6 +116,15 @@ extension DataAcquisitionView {
     
     func startSampling() {
         isSampling.toggle()
+        
+        do {
+            let deviceHandler = scannerData[viewState.selectedDevice]
+            try deviceHandler.sendSampleRequest(viewState.newSampleMessage())
+        }
+        catch (let error) {
+            isSampling = false
+            AppEvents.shared.error = ErrorEvent(error)
+        }
     }
 }
 

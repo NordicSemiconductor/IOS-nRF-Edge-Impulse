@@ -93,6 +93,8 @@
 		AACECAE526303AF600285F94 /* SettingsSyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACECAE426303AF600285F94 /* SettingsSyncView.swift */; };
 		AACECAE72630723B00285F94 /* ResourceData+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACECAE62630723B00285F94 /* ResourceData+Status.swift */; };
 		AACECAE82630723B00285F94 /* ResourceData+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACECAE62630723B00285F94 /* ResourceData+Status.swift */; };
+		AAE05F202649554F005BBF98 /* SampleRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE05F1F2649554F005BBF98 /* SampleRequestMessage.swift */; };
+		AAE05F212649554F005BBF98 /* SampleRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE05F1F2649554F005BBF98 /* SampleRequestMessage.swift */; };
 		AAE5B63525F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAE5B63625F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAEDE6312628459600B96AE9 /* SettingsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE6302628459600B96AE9 /* SettingsContentView.swift */; };
@@ -256,6 +258,7 @@
 		AACCBA872600C32C0042E87B /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		AACECAE426303AF600285F94 /* SettingsSyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSyncView.swift; sourceTree = "<group>"; };
 		AACECAE62630723B00285F94 /* ResourceData+Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ResourceData+Status.swift"; sourceTree = "<group>"; };
+		AAE05F1F2649554F005BBF98 /* SampleRequestMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleRequestMessage.swift; sourceTree = "<group>"; };
 		AAE5B63425F23A4500AA003D /* sample_projects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_projects.json; sourceTree = "<group>"; };
 		AAEDE6302628459600B96AE9 /* SettingsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsContentView.swift; sourceTree = "<group>"; };
 		AAEDE6322628803500B96AE9 /* DropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
@@ -726,6 +729,7 @@
 			isa = PBXGroup;
 			children = (
 				C301A378261F36250010717D /* HelloMessage.swift */,
+				AAE05F1F2649554F005BBF98 /* SampleRequestMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1033,6 +1037,7 @@
 				AAF5E7592640106700AC3271 /* DataSample.swift in Sources */,
 				AA0208A925F65EB400FD6B24 /* Tabs.swift in Sources */,
 				C301A379261F36250010717D /* HelloMessage.swift in Sources */,
+				AAE05F202649554F005BBF98 /* SampleRequestMessage.swift in Sources */,
 				AA0D81292608C03A00AE615A /* DeploymentView.swift in Sources */,
 				AA008A7725EE422C00F70F75 /* Project.swift in Sources */,
 				AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */,
@@ -1087,6 +1092,7 @@
 				AAF4F6C52625E07900012359 /* DeviceList.swift in Sources */,
 				AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */,
 				AA386B0A260CEDD60079F12D /* Previews.swift in Sources */,
+				AAE05F212649554F005BBF98 /* SampleRequestMessage.swift in Sources */,
 				AA008A7825EE422C00F70F75 /* Project.swift in Sources */,
 				AAFFEB3425FF7A06002287D6 /* ButtonStyles.swift in Sources */,
 				C37DD4B1260CAA1500D667EA /* HeaderDeviceDetails.swift in Sources */,

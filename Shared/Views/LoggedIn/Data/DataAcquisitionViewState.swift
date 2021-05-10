@@ -24,4 +24,10 @@ final class DataAcquisitionViewState: ObservableObject {
     var canStartSampling: Bool {
         selectedDevice != Constant.unselectedDevice && label.hasItems
     }
+    
+    func newSampleMessage() -> SampleRequestMessageContainer {
+        let message = SampleRequestMessage(label: label, length: Int(sampleLength), interval: selectedFrequency.rawValue, sensor: selectedSensor.rawValue)
+        let container = SampleRequestMessageContainer(sample: message)
+        return container
+    }
 }

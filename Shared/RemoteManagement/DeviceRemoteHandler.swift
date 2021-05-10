@@ -35,7 +35,7 @@ class DeviceRemoteHandler {
     @Published private (set) var device: Device
     private var bluetoothManager: BluetoothManager!
     private var webSocketManager: WebSocketManager!
-    private var cancelable = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
     private var btPublisher: AnyPublisher<Data, BluetoothManager.Error>?
     private var wsPublisher: AnyPublisher<Data, WebSocketManager.Error>?
@@ -47,8 +47,8 @@ class DeviceRemoteHandler {
     }
     
     deinit {
-        cancelable.forEach { $0.cancel() }
-        cancelable.removeAll()
+        cancellables.forEach { $0.cancel() }
+        cancellables.removeAll()
     }
     
     func connect() {
@@ -103,7 +103,19 @@ class DeviceRemoteHandler {
                 self?.device.state = state
                 self?.logger.info("New state: \(state.debugDescription)")
             }
-            .store(in: &cancelable)
+            .store(in: &cancellables)
+        
+        btPublisher
+            .decode(type: SampleRequestMessageResponse.self, decoder: JSONDecoder())
+            .sinkOrRaiseAppEventError { response in
+                print(response)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func sendSampleRequest(_ container: SampleRequestMessageContainer) throws {
+        guard let messageData = try? JSONEncoder().encode(container) else { return }
+        // TODO: Send.
     }
     
     func disconnect() {
