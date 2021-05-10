@@ -26,8 +26,8 @@ struct DataAcquisitionView: View {
                     Picker(selection: $viewState.selectedDevice, label: EmptyView()) {
                         let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
                         if connectedDevices.hasItems {
-                            ForEach(connectedDevices, id: \.self) { device in
-                                Text(device.id.uuidString).tag(device)
+                            ForEach(connectedDevices) { device in
+                                Text(device.name).tag(device)
                             }
                         } else {
                             Text("--").tag(Constant.unselectedDevice)
