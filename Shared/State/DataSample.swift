@@ -43,5 +43,9 @@ extension DataSample {
                 return "lasso"
             }
         }
+        
+        static let userVisible: [DataSample.Category] = [
+            .training, .testing
+        ]
     }
 }

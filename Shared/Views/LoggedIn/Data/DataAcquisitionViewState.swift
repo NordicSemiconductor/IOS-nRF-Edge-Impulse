@@ -13,7 +13,7 @@ final class DataAcquisitionViewState: ObservableObject {
     @Published var selectedProject = Constant.unselectedProject
     @Published var label = ""
     @Published var selectedDevice = Constant.unselectedDevice
-    @Published var selectedDataType = NewDataSample.DataType.Test
+    @Published var selectedDataType = DataSample.Category.training
     @Published var selectedSensor = NewDataSample.Sensor.Accelerometer
     @Published var sampleLength = 10000.0
     @Published var selectedFrequency = NewDataSample.Frequency._11000Hz

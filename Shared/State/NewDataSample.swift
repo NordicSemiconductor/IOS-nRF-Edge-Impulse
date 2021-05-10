@@ -13,30 +13,8 @@ struct NewDataSample {
     
     let label: String
     let sensor: Sensor
+    let category: DataSample.Category
     let frequency: Frequency
-}
-
-// MARK: - NewDataSample.DataType
-
-extension NewDataSample {
-    
-    enum DataType: String, RawRepresentable, Identifiable, CaseIterable {
-        case Training
-        case Test
-        
-        var id: Int {
-            rawValue.hashValue
-        }
-        
-        var description: String {
-            switch self {
-            case .Test:
-                return "Test Data"
-            case .Training:
-                return "Training Data"
-            }
-        }
-    }
 }
     
 // MARK: - NewDataSample.Sensor

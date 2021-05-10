@@ -20,10 +20,10 @@ struct DataAcquisitionView: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Data Type")) {
-                Picker("Type", selection: $viewState.selectedDataType) {
-                    ForEach(NewDataSample.DataType.allCases) { dataType in
-                        Text(dataType.rawValue)
+            Section(header: Text("Category")) {
+                Picker("Selected", selection: $viewState.selectedDataType) {
+                    ForEach(DataSample.Category.userVisible) { dataType in
+                        Text(dataType.rawValue.uppercasingFirst)
                             .tag(dataType)
                     }
                 }
