@@ -33,6 +33,7 @@ struct DataAcquisitionView: View {
                             Text("--").tag(Constant.unselectedDevice)
                         }
                     }
+                    .disabled(isSampling)
                 }
             }
             
@@ -80,6 +81,7 @@ struct DataAcquisitionView: View {
                             .foregroundColor(Assets.middleGrey.color)
                     }
                 }
+                .disabled(isSampling)
             }
         }
         .setTitle("New Sample")
