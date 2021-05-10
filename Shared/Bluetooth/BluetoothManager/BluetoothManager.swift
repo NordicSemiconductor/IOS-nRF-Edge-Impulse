@@ -69,6 +69,10 @@ final class BluetoothManager: NSObject, ObservableObject {
         return publisher.eraseToAnyPublisher()
     }
     
+    func received(_ data: Data) {
+        publisher.send(data)
+    }
+    
     func disconnect() {
         centralManager.cancelPeripheralConnection(peripheral)
         peripheral = nil
@@ -124,7 +128,7 @@ extension BluetoothManager: CBPeripheralDelegate {
                 if case .some = txCharacteristic, case .some = rxCharacteristic {
                     let mockMsh = ResponseRootObject.mock
                     let data = try! JSONEncoder().encode(mockMsh)
-                    publisher.send(data)
+                    received(data)
                 }
                 #endif
             }
@@ -144,7 +148,7 @@ extension BluetoothManager: CBPeripheralDelegate {
             return
         }
         
-        publisher.send(bytesReceived)
+        received(bytesReceived)
         
         if let validUTF8String = String(data: bytesReceived, encoding: .utf8) {
             logger.debug("Received new data: \(validUTF8String)")
