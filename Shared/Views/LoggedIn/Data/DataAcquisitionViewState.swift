@@ -10,7 +10,6 @@ import Combine
 
 final class DataAcquisitionViewState: ObservableObject {
     
-    @Published var selectedProject = Constant.unselectedProject
     @Published var label = ""
     @Published var selectedDevice = Constant.unselectedDevice
     @Published var selectedDataType = DataSample.Category.training
@@ -23,6 +22,6 @@ final class DataAcquisitionViewState: ObservableObject {
     }
     
     var canStartSampling: Bool {
-        selectedProject != Constant.unselectedProject && selectedDevice != Constant.unselectedDevice && label.count > 0
+        selectedDevice != Constant.unselectedDevice && label.hasItems
     }
 }

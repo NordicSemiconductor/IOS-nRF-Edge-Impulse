@@ -92,6 +92,12 @@ struct DataAcquisitionView: View {
                 .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
         }
         .setTitle("New Sample")
+        .onAppear() {
+            guard let device = scannerData.allConnectedAndReadyToUseDevices().first else {
+                return
+            }
+            viewState.selectedDevice = device
+        }
     }
 }
 
