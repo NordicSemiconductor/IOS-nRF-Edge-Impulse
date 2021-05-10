@@ -79,6 +79,18 @@ extension ScannerData {
             bluetoothManager.stopScan()
         }
     }
+    
+    func startSampling(_ viewState: DataAcquisitionViewState) {
+        viewState.isSampling = true
+        do {
+            let deviceHandler = self[viewState.selectedDevice]
+            try deviceHandler.sendSampleRequest(viewState.newSampleMessage())
+        }
+        catch (let error) {
+            viewState.isSampling = false
+            AppEvents.shared.error = ErrorEvent(error)
+        }
+    }
 }
 
 // MARK: - Private API

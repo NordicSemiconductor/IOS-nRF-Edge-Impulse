@@ -105,12 +105,12 @@ class DeviceRemoteHandler {
             }
             .store(in: &cancellables)
         
-        btPublisher
-            .decode(type: SampleRequestMessageResponse.self, decoder: JSONDecoder())
-            .sinkOrRaiseAppEventError { response in
-                print(response)
-            }
-            .store(in: &cancellables)
+//        btPublisher
+//            .decode(type: SampleRequestMessageResponse.self, decoder: JSONDecoder())
+//            .sinkOrRaiseAppEventError { response in
+//                print(response)
+//            }
+//            .store(in: &cancellables)
     }
     
     func sendSampleRequest(_ container: SampleRequestMessageContainer) throws {

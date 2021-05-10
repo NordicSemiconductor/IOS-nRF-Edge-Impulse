@@ -14,7 +14,6 @@ struct DataAcquisitionView: View {
     @EnvironmentObject var scannerData: ScannerData
     
     @ObservedObject private var viewState = DataAcquisitionViewState()
-    @State private var isSampling = false
     
     // MARK: - View
     
@@ -33,7 +32,7 @@ struct DataAcquisitionView: View {
                             Text("--").tag(Constant.unselectedDevice)
                         }
                     }
-                    .disabled(isSampling)
+                    .disabled(viewState.isSampling)
                 }
             }
             
@@ -81,7 +80,7 @@ struct DataAcquisitionView: View {
                             .foregroundColor(Assets.middleGrey.color)
                     }
                 }
-                .disabled(isSampling)
+                .disabled(viewState.isSampling)
             }
         }
         .setTitle("New Sample")
@@ -89,7 +88,7 @@ struct DataAcquisitionView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: startSampling, label: {
-                    Image(systemName: isSampling ? "stop.fill" : "play.fill")
+                    Image(systemName: viewState.isSampling ? "stop.fill" : "play.fill")
                 }).disabled(!viewState.canStartSampling)
             }
         }
@@ -115,16 +114,7 @@ struct DataAcquisitionView: View {
 extension DataAcquisitionView {
     
     func startSampling() {
-        isSampling.toggle()
-        
-        do {
-            let deviceHandler = scannerData[viewState.selectedDevice]
-            try deviceHandler.sendSampleRequest(viewState.newSampleMessage())
-        }
-        catch (let error) {
-            isSampling = false
-            AppEvents.shared.error = ErrorEvent(error)
-        }
+        scannerData.startSampling(viewState)
     }
 }
 

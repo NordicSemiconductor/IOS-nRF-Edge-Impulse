@@ -28,6 +28,7 @@ struct DataAcquisitionView: View {
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
+                .disabled(viewState.isSampling)
             }
             
             Section(header: Text("Device")) {
@@ -39,6 +40,7 @@ struct DataAcquisitionView: View {
                         }
                     }
                     .setAsComboBoxStyle()
+                    .disabled(viewState.isSampling)
                 } else {
                     Text("No Connected Devices")
                         .foregroundColor(Assets.middleGrey.color)
@@ -48,6 +50,7 @@ struct DataAcquisitionView: View {
             
             Section(header: Text("Label")) {
                 TextField("Label", text: $viewState.label)
+                    .disabled(viewState.isSampling)
             }
 
             Section(header: Text("Sensor")) {
@@ -58,6 +61,7 @@ struct DataAcquisitionView: View {
                     }
                 }
                 .setAsComboBoxStyle()
+                .disabled(viewState.isSampling)
             }
             
             Section(header: Text("Sample Length")) {
@@ -65,6 +69,7 @@ struct DataAcquisitionView: View {
                     Stepper(value: $viewState.sampleLength, in: 0...100000, step: 10) {
                         Text("\(viewState.sampleLength, specifier: "%.0f") ms")
                     }
+                    .disabled(viewState.isSampling)
                 } else {
                     Text("Unavailable for \(NewDataSample.Sensor.Camera.rawValue) Sensor")
                         .foregroundColor(Assets.middleGrey.color)
@@ -80,6 +85,7 @@ struct DataAcquisitionView: View {
                         }
                     }
                     .setAsComboBoxStyle()
+                    .disabled(viewState.isSampling)
                 } else {
                     Text("Unavailable for \(NewDataSample.Sensor.Camera.rawValue) Sensor")
                         .foregroundColor(Assets.middleGrey.color)
@@ -88,7 +94,7 @@ struct DataAcquisitionView: View {
             
             Button("Start Sampling", action: startSampling)
                 .centerTextInsideForm()
-                .disabled(!viewState.canStartSampling)
+                .disabled(!viewState.canStartSampling || viewState.isSampling)
                 .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
         }
         .setTitle("New Sample")
@@ -104,7 +110,7 @@ struct DataAcquisitionView: View {
 private extension DataAcquisitionView {
     
     func startSampling() {
-        
+        scannerData.startSampling(viewState)
     }
 }
 
