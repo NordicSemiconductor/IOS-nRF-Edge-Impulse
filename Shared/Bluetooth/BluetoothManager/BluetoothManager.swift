@@ -27,7 +27,7 @@ extension BluetoothManager {
 /// Each `BluetoothManager` can handle only one peripheral
 final class BluetoothManager: NSObject, ObservableObject {
     
-    let centralManager: CBCentralManager
+    private let centralManager: CBCentralManager
     
     private let publisher = PassthroughSubject<Data, Error>()
     
@@ -85,6 +85,7 @@ final class BluetoothManager: NSObject, ObservableObject {
         
         connectWhenReady = false
         peripheral = p
+        peripheral.delegate = self
         centralManager.connect(p, options: nil)
     }
 }
@@ -123,16 +124,23 @@ extension BluetoothManager: CBPeripheralDelegate {
                     logger.info("RX Characteristic discovered")
                 }
                 
-                #warning("remove test code")
-                #if DEBUG
-                if case .some = txCharacteristic, case .some = rxCharacteristic {
-                    let mockMsh = ResponseRootObject.mock
-                    let data = try! JSONEncoder().encode(mockMsh)
-                    received(data)
-                }
-                #endif
+//                #warning("remove test code")
+//                #if DEBUG
+//                if case .some = txCharacteristic, case .some = rxCharacteristic {
+//                    let mockMsh = ResponseRootObject.mock
+//                    let data = try! JSONEncoder().encode(mockMsh)
+//                    received(data)
+//                }
+//                #endif
             }
         
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Swift.Error?) {
+        logger.info("Notification status has been updated: \(characteristic.isNotifying) for characteristic: \(characteristic)")
+        if let e = error {
+            logger.error("Error: \(e.localizedDescription)")
+        }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Swift.Error?) {
@@ -148,7 +156,7 @@ extension BluetoothManager: CBPeripheralDelegate {
             return
         }
         
-        received(bytesReceived)
+//        received(bytesReceived)
         
         if let validUTF8String = String(data: bytesReceived, encoding: .utf8) {
             logger.debug("Received new data: \(validUTF8String)")
@@ -174,8 +182,8 @@ extension BluetoothManager: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         logger.info("Connected the peripheral: \(peripheral.identifier.uuidString)")
         
-        self.peripheral = peripheral
-        self.peripheral.delegate = self
+//        self.peripheral = peripheral
+//        self.peripheral.delegate = self
         self.peripheral.discoverServices([Self.uartServiceId])
     }
     

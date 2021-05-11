@@ -89,7 +89,7 @@ class DeviceRemoteHandler {
                 }
             }
             .prefix(1)
-            .timeout(5, scheduler: DispatchQueue.main, customError: { Error.timeout })
+//            .timeout(5, scheduler: DispatchQueue.main, customError: { Error.timeout })
             .sink { [weak self] (completion) in
                 guard let self = self else { return }
                 if case .failure(let error) = completion {
