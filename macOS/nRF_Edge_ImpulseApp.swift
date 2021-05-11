@@ -22,7 +22,9 @@ struct nRF_Edge_ImpulseApp: App {
                 .environmentObject(appData)
                 .environmentObject(scannerData)
                 .environmentObject(resourceData)
-        }.commands {
+        }
+        .windowToolbarStyle(UnifiedWindowToolbarStyle(showsTitle: false))
+        .commands {
             CommandGroup(replacing: .appInfo) {
                 Button("About \(Constant.appName)") {
                     NSApplication.shared.orderFrontStandardAboutPanel(

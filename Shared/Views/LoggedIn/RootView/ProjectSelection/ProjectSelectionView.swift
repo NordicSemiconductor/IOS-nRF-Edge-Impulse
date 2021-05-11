@@ -15,14 +15,10 @@ struct ProjectSelectionView: View {
     
     var body: some View {
         Menu {
-            if let projects = appData.projects {
-                ForEach(projects) { project in
-                    Button(project.name) {
-                        appData.selectedProject = project
-                    }
+            ForEach(appData.projects ?? []) { project in
+                Button(project.name) {
+                    appData.selectedProject = project
                 }
-            } else {
-                EmptyView()
             }
             
             Divider()
@@ -40,7 +36,18 @@ struct ProjectSelectionView: View {
     func toolbarItem() -> some ToolbarContent {
         ToolbarItem(placement: .principal) {
             self
+                .styleForMacOS()
         }
+    }
+    
+    private func styleForMacOS() -> some View {
+        #if os(OSX)
+        return self
+            .background(Color.black.opacity(0.3))
+            .cornerRadius(8)
+        #else
+        return self
+        #endif
     }
 }
 

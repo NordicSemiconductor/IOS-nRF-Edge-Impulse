@@ -23,6 +23,9 @@ struct DropdownView: View {
     
     var body: some View {
         HStack {
+            #if os(OSX)
+            Image(systemName: currentProject != nil ? "network" : "bolt.horizontal.fill")
+            #endif
             Text(currentProject?.name ?? "Not Available")
             #if os(iOS)
             Image(systemName: "chevron.down")
