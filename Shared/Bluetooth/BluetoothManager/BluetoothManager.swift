@@ -123,15 +123,6 @@ extension BluetoothManager: CBPeripheralDelegate {
                     rxCharacteristic = $0
                     logger.info("RX Characteristic discovered")
                 }
-                
-//                #warning("remove test code")
-//                #if DEBUG
-//                if case .some = txCharacteristic, case .some = rxCharacteristic {
-//                    let mockMsh = ResponseRootObject.mock
-//                    let data = try! JSONEncoder().encode(mockMsh)
-//                    received(data)
-//                }
-//                #endif
             }
         
     }
@@ -156,7 +147,7 @@ extension BluetoothManager: CBPeripheralDelegate {
             return
         }
         
-//        received(bytesReceived)
+        received(bytesReceived)
         
         if let validUTF8String = String(data: bytesReceived, encoding: .utf8) {
             logger.debug("Received new data: \(validUTF8String)")
@@ -181,9 +172,6 @@ extension BluetoothManager: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         logger.info("Connected the peripheral: \(peripheral.identifier.uuidString)")
-        
-//        self.peripheral = peripheral
-//        self.peripheral.delegate = self
         self.peripheral.discoverServices([Self.uartServiceId])
     }
     

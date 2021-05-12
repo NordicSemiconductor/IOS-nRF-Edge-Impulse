@@ -62,10 +62,18 @@ class DeviceRemoteHandler {
         self.device.state = .connecting
         
         btPublisher
-            .decode(type: ResponseRootObject.self, decoder: JSONDecoder())
-            .flatMap { [unowned self] data -> AnyPublisher<Data, Swift.Error> in
+            .scan(Data(), { accum, next -> Data in
+                if case .some = try? JSONDecoder().decode(ResponseRootObject.self, from: accum) {
+                    return Data()
+                } else {
+                    return accum + next
+                }
+            })
+            .compactMap { try? JSONDecoder().decode(ResponseRootObject.self, from: $0) }
+            .mapError { Error.anyError($0) }
+            .flatMap { [unowned self] (data) -> AnyPublisher<Data, Swift.Error> in
                 do {
-                    let hello = data.hello
+                    let hello = (data.message?.hello)!
                     let d = try JSONEncoder().encode(hello)
                     self.webSocketManager.send(d)
                 } catch let e {
@@ -89,7 +97,7 @@ class DeviceRemoteHandler {
                 }
             }
             .prefix(1)
-//            .timeout(5, scheduler: DispatchQueue.main, customError: { Error.timeout })
+            .timeout(5, scheduler: DispatchQueue.main, customError: { Error.timeout })
             .sink { [weak self] (completion) in
                 guard let self = self else { return }
                 if case .failure(let error) = completion {
