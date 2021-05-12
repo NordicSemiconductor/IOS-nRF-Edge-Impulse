@@ -41,6 +41,7 @@ struct DeploymentView: View {
             
             Button("Deploy", action: deploy)
                 .centerTextInsideForm()
+                .foregroundColor(.primary)
             
             Section(header: Text("Mode")) {
                 Picker("Selected", selection: $viewState.duration) {
@@ -53,6 +54,7 @@ struct DeploymentView: View {
             
             Button("Run Impulse", action: runImpulse)
                 .centerTextInsideForm()
+                .foregroundColor(.primary)
         }
     }
 }
