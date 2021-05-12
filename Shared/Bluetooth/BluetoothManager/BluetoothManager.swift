@@ -40,9 +40,6 @@ final class BluetoothManager: NSObject, ObservableObject {
     
     private var connectWhenReady = false
     
-    // Throw en error if the peripheral was not connected or required characteristics were not found, or data was not received after timeout.
-    private var timer: Timer!
-    
     init(peripheralId: UUID) {
         self.centralManager = CBCentralManager()
         self.pId = peripheralId
@@ -75,7 +72,6 @@ final class BluetoothManager: NSObject, ObservableObject {
     
     func disconnect() {
         centralManager.cancelPeripheralConnection(peripheral)
-        peripheral = nil
     }
     
     private func tryToConnect() throws {
@@ -181,4 +177,9 @@ extension BluetoothManager: CBCentralManagerDelegate {
         
     }
     
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Swift.Error?) {
+        logger.info("Did disconnect peripheral: \(peripheral)")
+        error.map { logger.error("Did disconnect error: \($0.localizedDescription)") }
+        self.peripheral = nil
+    }
 }

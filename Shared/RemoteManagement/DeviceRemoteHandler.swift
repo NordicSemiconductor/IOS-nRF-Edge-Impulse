@@ -64,7 +64,7 @@ class DeviceRemoteHandler {
         btPublisher
             .scan(Data(), { accum, next -> Data in
                 if case .some = try? JSONDecoder().decode(ResponseRootObject.self, from: accum) {
-                    return Data()
+                    return next
                 } else {
                     return accum + next
                 }
