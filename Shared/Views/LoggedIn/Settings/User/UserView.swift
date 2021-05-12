@@ -26,7 +26,7 @@ struct UserView: View {
                        height: UserView.ImageSize.width)
 
             VStack(alignment: .leading) {
-                Text(user.username)
+                Text(user.name)
                     .font(.headline)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)

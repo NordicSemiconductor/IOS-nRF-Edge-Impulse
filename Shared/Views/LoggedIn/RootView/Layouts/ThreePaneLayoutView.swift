@@ -30,7 +30,7 @@ struct ThreePaneLayoutView: View {
                 if let user = appData.user {
                     Section(header: Text("User")) {
                         NavigationLink(destination: UserContentView(), label: {
-                            Label(user.username, systemImage: "person.fill")
+                            Label(user.name, systemImage: "person.fill")
                         })
                     }
                 }

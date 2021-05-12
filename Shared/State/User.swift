@@ -16,6 +16,7 @@ struct User: Identifiable, Codable {
     
     let id: Int
     let username: String
+    let name: String
     let created: Date
     let createdSince: String
     let photo: URL
@@ -26,6 +27,7 @@ struct User: Identifiable, Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let id = try container.decode(Int.self, forKey: .id)
         let username = try container.decode(String.self, forKey: .username)
+        let name = try container.decode(String.self, forKey: .name)
         let photo = try container.decode(String.self, forKey: .photo)
         
         let createdString = try container.decode(String.self, forKey: .created)
@@ -33,12 +35,13 @@ struct User: Identifiable, Codable {
             throw DecodingError.dataCorruptedError(forKey: .created, in: container,
                                                    debugDescription: "`Created` Date String does not match expected format.")
         }
-        self.init(id: id, username: username, created: created, photo: photo)
+        self.init(id: id, username: username, name: name, created: created, photo: photo)
     }
     
-    init(id: Int, username: String, created: Date, photo: String = NoImage) {
+    init(id: Int, username: String, name: String, created: Date, photo: String = NoImage) {
         self.id = id
         self.username = username
+        self.name = name
         self.created = created
         self.photo = URL(string: photo == User.NoImage ? User.PlaceholderImage : photo)!
         
