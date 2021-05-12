@@ -82,3 +82,42 @@ extension Publishers {
         }
     }
 }
+
+// MARK: - GatherData
+
+extension Publisher {
+    
+    func gatherData<T: Codable>(ofType type: T.Type) -> Publishers.GatherData<Self, T> {
+        return .init(upstream: self)
+    }
+}
+
+extension Publishers {
+    
+    struct GatherData<Upstream: Publisher, DecodedOutput: Codable>: Publisher where Upstream.Output == Data {
+        
+        typealias Output = DecodedOutput
+        typealias Failure = Upstream.Failure
+        
+        private let upstream: Upstream
+        private let decoder: JSONDecoder
+        
+        init(upstream: Upstream) {
+            self.upstream = upstream
+            self.decoder = JSONDecoder()
+        }
+        
+        func receive<S>(subscriber: S) where S : Subscriber, Upstream.Failure == S.Failure, DecodedOutput == S.Input {
+            self.upstream
+                .scan(Data(), { accum, next -> Data in
+                    if case .some = try? decoder.decode(DecodedOutput.self, from: accum) {
+                        return next
+                    } else {
+                        return accum + next
+                    }
+                })
+                .compactMap { try? decoder.decode(DecodedOutput.self, from: $0) }
+                .subscribe(subscriber)
+        }
+    }
+}

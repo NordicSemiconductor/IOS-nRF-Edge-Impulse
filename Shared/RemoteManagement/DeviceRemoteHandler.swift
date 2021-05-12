@@ -62,14 +62,7 @@ class DeviceRemoteHandler {
         self.device.state = .connecting
         
         btPublisher
-            .scan(Data(), { accum, next -> Data in
-                if case .some = try? JSONDecoder().decode(ResponseRootObject.self, from: accum) {
-                    return next
-                } else {
-                    return accum + next
-                }
-            })
-            .compactMap { try? JSONDecoder().decode(ResponseRootObject.self, from: $0) }
+            .gatherData(ofType: ResponseRootObject.self)
             .mapError { Error.anyError($0) }
             .flatMap { [unowned self] (data) -> AnyPublisher<Data, Swift.Error> in
                 do {
