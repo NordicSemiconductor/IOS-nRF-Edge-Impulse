@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct DeviceDetails: View {
-    @EnvironmentObject var appData: AppData
-    @EnvironmentObject var scannerData: ScannerData
     
     let device: Device
     
@@ -19,6 +17,7 @@ struct DeviceDetails: View {
             Divider()
             Spacer()
         }
+        .frame(minWidth: Tabs.minTabWidth)
     }
 }
 

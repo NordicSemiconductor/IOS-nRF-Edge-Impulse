@@ -60,7 +60,6 @@ struct DeviceList: View {
                         .bold()
                 }
             }
-            
         } else {
             buildDeviceList()
         }

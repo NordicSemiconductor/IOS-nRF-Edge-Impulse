@@ -27,17 +27,31 @@ enum Tabs: Int, RawRepresentable, CaseIterable {
 
 extension Tabs {
     
+    static let minTabWidth: CGFloat = {
+        let value: CGFloat
+        #if os(OSX)
+        value = 400
+        #else
+        value = 320
+        #endif
+        return value
+    }()
+    
     @ViewBuilder
     var view: some View {
         switch self {
         case .Devices:
              DeviceList()
+                .frame(minWidth: Self.minTabWidth)
         case .DataAcquisition:
             DataSamplesView()
+                .frame(minWidth: Self.minTabWidth)
         case .Deployment:
             DeploymentView()
+                .frame(minWidth: Self.minTabWidth)
         case .Settings:
             SettingsContentView()
+                .frame(minWidth: Self.minTabWidth)
         }
     }
 }

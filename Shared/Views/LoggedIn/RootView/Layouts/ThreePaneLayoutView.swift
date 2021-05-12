@@ -29,14 +29,14 @@ struct ThreePaneLayoutView: View {
                 
                 if let user = appData.user {
                     Section(header: Text("User")) {
-                        NavigationLink(destination: UserContentView(), label: {
+                        NavigationLink(destination: UserContentView().frame(width: Tabs.minTabWidth), label: {
                             Label(user.name, systemImage: "person.fill")
                         })
                     }
                 }
             }
             .listStyle(SidebarListStyle())
-            .frame(minWidth: 160)
+            .frame(minWidth: Self.sidebarWidth)
             
             AppHeaderView(.template)
                 .frame(maxWidth: 120)
@@ -48,13 +48,15 @@ struct ThreePaneLayoutView: View {
                 .toolbarItem()
         }
         .frame(
-            minWidth: 800,
-            maxWidth: .infinity,
+            minWidth: Self.sidebarWidth + Tabs.minTabWidth * 2,
+            maxWidth: Self.sidebarWidth + Tabs.minTabWidth * 2,
             minHeight: 400,
             maxHeight: .infinity,
             alignment: .leading
         )
     }
+    
+    private static let sidebarWidth: CGFloat = 160
 }
 
 // MARK: - Preview

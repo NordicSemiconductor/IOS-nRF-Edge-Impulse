@@ -43,7 +43,6 @@ struct UserContentView: View {
                         .foregroundColor(Assets.red.color)
                 }
             }
-            .frame(minWidth: 295)
             .setTitle("User")
         default:
             EmptyView()
