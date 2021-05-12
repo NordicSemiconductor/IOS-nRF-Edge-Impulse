@@ -39,8 +39,8 @@ struct HeroView: View {
 #if DEBUG
 struct HeroView_Previews: PreviewProvider {
     
-    static let userWithoutImage = User(id: 8, username: "dinesh.harjani", created: Date())
-    static let userWithImage = User(id: 5, username: "taylor.swift", created: Date(),
+    static let userWithoutImage = User(id: 8, username: "dinesh.harjani", name: "Dinesh Harjani", created: Date())
+    static let userWithImage = User(id: 5, username: "taylor.swift", name: "Taylor Swift", created: Date(),
                                     photo: "https://avatarfiles.alphacoders.com/169/169651.jpg")
     
     static var previews: some View {

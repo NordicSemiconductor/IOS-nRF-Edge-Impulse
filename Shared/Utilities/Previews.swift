@@ -12,7 +12,7 @@ struct Preview {
     
     // MARK: - AppData
     
-    static var previewUser = User(id: 3, username: "independence.day", created: Date())
+    static var previewUser = User(id: 3, username: "independence.day", name: "ID4", created: Date())
     
     static var previewProjects: [Project]! = {
         let path: String! = Bundle.main.path(forResource: "sample_projects", ofType: "json")
