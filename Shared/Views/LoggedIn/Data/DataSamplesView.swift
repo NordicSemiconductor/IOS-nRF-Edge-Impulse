@@ -39,7 +39,7 @@ struct DataSamplesView: View {
             .setAsSegmentedControlStyle()
             .padding(.horizontal)
             
-            LazyVGrid(columns: DataSamplesView.Columns, alignment: .leading) {
+            MultiColumnView(columns: DataSamplesView.Columns) {
                 Text("")
                 Text("Filename")
                     .bold()

@@ -20,7 +20,7 @@ struct DataSampleRow: View {
     // MARK: View
     
     var body: some View {
-        LazyVGrid(columns: DataSamplesView.Columns, alignment: .leading) {
+        MultiColumnView(columns: DataSamplesView.Columns) {
             Image(systemName: sample.category.symbolName)
             Text(sample.filename)
                 .bold()

@@ -1,6 +1,6 @@
 //
 //  MultiColumnView.swift
-//  nRF-Edge-Impulse (macOS)
+//  nRF-Edge-Impulse
 //
 //  Created by Dinesh Harjani on 13/5/21.
 //
@@ -24,7 +24,7 @@ struct MultiColumnView<Content: View>: View {
     // MARK: View
     
     var body: some View {
-        LazyVGrid(columns: columns, alignment: .leading, spacing: 8, pinnedViews: []) {
+        LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
             content()
         }
     }
@@ -40,9 +40,9 @@ var TwoColumns: [GridItem] = [
 // MARK: - Preview
 
 #if DEBUG
-struct TwoColumnView_Previews: PreviewProvider {
+struct MultiColumnView_Previews: PreviewProvider {
     static var previews: some View {
-        MultiColumnView {
+        MultiColumnView(columns: TwoColumns) {
             Text("Hello")
             Text("Hello, too")
         }

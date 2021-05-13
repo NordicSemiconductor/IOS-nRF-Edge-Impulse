@@ -148,7 +148,8 @@
 		AAFB8E2A2626FADD003DAEC5 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFB8E292626FADD003DAEC5 /* UserPreferences.swift */; };
 		AAFB8E2B2626FADD003DAEC5 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFB8E292626FADD003DAEC5 /* UserPreferences.swift */; };
 		AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCBE8125E90734001C52B0 /* LoginRequest.swift */; };
-		AAFDB469264D54D400F0CD02 /* MultiColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */; };
+		AAFDB46B264D5F5600F0CD02 /* MultiColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */; };
+		AAFDB46C264D5F5700F0CD02 /* MultiColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */; };
 		AAFEA59D261F0B8C0021B8CF /* CBCentralManager+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C301A34F261DC0B80010717D /* CBCentralManager+Ext.swift */; };
 		AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */; };
 		AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */; };
@@ -505,7 +506,6 @@
 			isa = PBXGroup;
 			children = (
 				AA482F7E26318B11007B8B64 /* View+macOS.swift */,
-				AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -588,6 +588,7 @@
 				AAF7299A2629B5040034B61A /* Layouts */,
 				AACCBA872600C32C0042E87B /* ErrorView.swift */,
 				AA284058261F4DFC00EB8637 /* AppHeaderView.swift */,
+				AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */,
 				AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */,
 				AA0208A825F65EB400FD6B24 /* Tabs.swift */,
 			);
@@ -1064,6 +1065,7 @@
 				AAF5E75326400A3A00AC3271 /* DataSamplesView.swift in Sources */,
 				AA8EC8B4261F30A900FBE990 /* Modifiers.swift in Sources */,
 				AA28405F261F537C00EB8637 /* PasswordField.swift in Sources */,
+				AAFDB46B264D5F5600F0CD02 /* MultiColumnView.swift in Sources */,
 				AA01F3DF25EFDC5000368707 /* Constant.swift in Sources */,
 				AA92BEF12611F9E400BED04B /* ResourceData.swift in Sources */,
 				AAF4F6BA2625C02E00012359 /* SignedUpView.swift in Sources */,
@@ -1112,6 +1114,7 @@
 				C37DD4B1260CAA1500D667EA /* HeaderDeviceDetails.swift in Sources */,
 				C37DD49A260C89D800D667EA /* AdvertisementData.swift in Sources */,
 				AA535519261C896B007B2C94 /* CollaboratorsDisclosureView.swift in Sources */,
+				AAFDB46C264D5F5700F0CD02 /* MultiColumnView.swift in Sources */,
 				AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */,
 				AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AAF4F6BE2625C0A700012359 /* LoginErrorView.swift in Sources */,
@@ -1157,7 +1160,6 @@
 				AAF4F6CA2625EC4C00012359 /* SettingsDevicesView.swift in Sources */,
 				AA09C79D262EEED400B039F1 /* Collection.swift in Sources */,
 				AAF5531E2641614B00252345 /* AppData+DataSamples.swift in Sources */,
-				AAFDB469264D54D400F0CD02 /* MultiColumnView.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				C37DD4AA260C991900D667EA /* DeviceDetails.swift in Sources */,
 				C301A36A261F12890010717D /* WebSocketManager.swift in Sources */,
