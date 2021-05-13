@@ -21,7 +21,7 @@ struct DeploymentView: View {
     var body: some View {
         ScrollView {
             Section(header: Text("Target").bold()) {
-                LazyVGrid(columns: columns, alignment: .leading, spacing: 0, pinnedViews: []) {
+                TwoColumnView {
                     Text("Connected Device: ")
                     Picker(selection: $viewState.selectedDevice, label: EmptyView()) {
                         let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
@@ -45,7 +45,7 @@ struct DeploymentView: View {
                 .padding(.vertical)
             
             Section(header: Text("Mode").bold()) {
-                LazyVGrid(columns: columns, alignment: .leading, spacing: 0, pinnedViews: []) {
+                TwoColumnView {
                     Text("Selected: ")
                     Picker(selection: $viewState.duration, label: EmptyView()) {
                         ForEach(DeploymentViewState.Duration.allCases, id: \.self) { continuous in
@@ -62,14 +62,8 @@ struct DeploymentView: View {
             }
         }
         .padding(16)
+        .frame(maxWidth: 320)
     }
-    
-    // MARK: Column Setup
-    
-    private var columns: [GridItem] = [
-        GridItem(.fixed(120), spacing: 0),
-        GridItem(.flexible(minimum: 200, maximum: .infinity), spacing: 0)
-    ]
 }
 
 // MARK: - Preview

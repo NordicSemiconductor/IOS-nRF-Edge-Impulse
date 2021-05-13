@@ -20,7 +20,7 @@ struct DataAcquisitionView: View {
     var body: some View {
         ScrollView {
             Section(header: Text("Target").bold()) {
-                LazyVGrid(columns: columns, alignment: .leading, spacing: 0, pinnedViews: []) {
+                TwoColumnView {
                     Text("Connected Device")
                     Picker(selection: $viewState.selectedDevice, label: EmptyView()) {
                         let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
@@ -39,7 +39,7 @@ struct DataAcquisitionView: View {
             Divider()
             
             Section(header: Text("Data Collection").bold()) {
-                LazyVGrid(columns: columns, alignment: .leading, spacing: 8, pinnedViews: []) {
+                TwoColumnView {
                     Text("Sample Name")
                     TextField("Label", text: $viewState.label)
                     
@@ -99,13 +99,6 @@ struct DataAcquisitionView: View {
             }
         }
     }
-    
-    // MARK: Column Setup
-    
-    private var columns: [GridItem] = [
-        GridItem(.fixed(120), spacing: 0),
-        GridItem(.flexible(minimum: 200, maximum: .infinity), spacing: 0)
-    ]
 }
 
 // MARK: - startSampling()
