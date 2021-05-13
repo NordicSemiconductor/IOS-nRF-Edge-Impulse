@@ -29,6 +29,7 @@ struct DataSampleRow: View {
             Text(sample.totalLengthInSeconds())
                 .fontWeight(.light)
         }
+        .lineLimit(1)
     }
 }
 
