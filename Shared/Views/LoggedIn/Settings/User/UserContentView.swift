@@ -33,7 +33,9 @@ struct UserContentView: View {
                     }
                     
                     ForEach(projects) { project in
-                        ProjectRow(project)
+                        NavigationLink(destination: ProjectView(project)) {
+                            ProjectRow(project)
+                        }
                     }
                 }
                 

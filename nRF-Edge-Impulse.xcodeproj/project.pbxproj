@@ -150,6 +150,8 @@
 		AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCBE8125E90734001C52B0 /* LoginRequest.swift */; };
 		AAFDB46B264D5F5600F0CD02 /* MultiColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */; };
 		AAFDB46C264D5F5700F0CD02 /* MultiColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */; };
+		AAFDB46E264D73A800F0CD02 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDB46D264D73A800F0CD02 /* ProjectView.swift */; };
+		AAFDB46F264D73A800F0CD02 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDB46D264D73A800F0CD02 /* ProjectView.swift */; };
 		AAFEA59D261F0B8C0021B8CF /* CBCentralManager+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C301A34F261DC0B80010717D /* CBCentralManager+Ext.swift */; };
 		AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */; };
 		AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */; };
@@ -291,6 +293,7 @@
 		AAFB8E292626FADD003DAEC5 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		AAFCBE8125E90734001C52B0 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiColumnView.swift; sourceTree = "<group>"; };
+		AAFDB46D264D73A800F0CD02 /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeLoginView.swift; sourceTree = "<group>"; };
 		AAFFEB2F25FF6A29002287D6 /* HorizontalTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTabView.swift; sourceTree = "<group>"; };
 		AAFFEB3225FF7A06002287D6 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
@@ -516,6 +519,7 @@
 				AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */,
 				AA535512261C7DA1007B2C94 /* CollaboratorsDisclosureView.swift */,
 				AA80988325EE518F00091AC0 /* ProjectRow.swift */,
+				AAFDB46D264D73A800F0CD02 /* ProjectView.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -1038,6 +1042,7 @@
 				AAF0C972260A121B001B76B9 /* HeroView.swift in Sources */,
 				AA02086825F641D900FD6B24 /* NewDataSample.swift in Sources */,
 				AAFB8E2A2626FADD003DAEC5 /* UserPreferences.swift in Sources */,
+				AAFDB46E264D73A800F0CD02 /* ProjectView.swift in Sources */,
 				AAFFEB3025FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
 				AA03E98225E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				C33C10C32609791E0097EA5A /* SignalLevel.swift in Sources */,
@@ -1158,6 +1163,7 @@
 				AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
 				AA28405D261F4F3D00EB8637 /* UsernameField.swift in Sources */,
 				AAF4F6CA2625EC4C00012359 /* SettingsDevicesView.swift in Sources */,
+				AAFDB46F264D73A800F0CD02 /* ProjectView.swift in Sources */,
 				AA09C79D262EEED400B039F1 /* Collection.swift in Sources */,
 				AAF5531E2641614B00252345 /* AppData+DataSamples.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
