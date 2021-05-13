@@ -69,6 +69,7 @@ extension Project {
             }
     """
     
+    #if DEBUG
     static let Sample: Project! = try? JSONDecoder().decode(Project.self, from: SampleJSON.data(using: .utf8)!)
     static let SampleJSON = """
         {
@@ -95,4 +96,5 @@ extension Project {
             ]
         }
     """
+    #endif
 }
