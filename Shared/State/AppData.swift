@@ -26,7 +26,7 @@ final class AppData: ObservableObject {
     
     @Published var loginState: AppData.LoginState = .empty
     
-    @Published var selectedProject: Project? {
+    @Published var selectedProject: Project? = Project.Unselected {
         didSet {
             selectedProjectDidChange()
         }
@@ -72,6 +72,7 @@ final class AppData: ObservableObject {
     }
     
     func logout() {
+        selectedProject = Project.Unselected
         apiToken = nil
         loginState = .empty
         selectedProjectDidChange()
