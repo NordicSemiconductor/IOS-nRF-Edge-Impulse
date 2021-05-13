@@ -20,7 +20,7 @@ struct DataAcquisitionView: View {
     var body: some View {
         ScrollView {
             Section(header: Text("Target").bold()) {
-                TwoColumnView {
+                MultiColumnView {
                     Text("Connected Device")
                     Picker(selection: $viewState.selectedDevice, label: EmptyView()) {
                         let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
@@ -39,7 +39,7 @@ struct DataAcquisitionView: View {
             Divider()
             
             Section(header: Text("Data Collection").bold()) {
-                TwoColumnView {
+                MultiColumnView {
                     Text("Sample Name")
                     TextField("Label", text: $viewState.label)
                     

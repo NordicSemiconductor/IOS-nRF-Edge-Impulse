@@ -1,5 +1,5 @@
 //
-//  TwoColumnView.swift
+//  MultiColumnView.swift
 //  nRF-Edge-Impulse (macOS)
 //
 //  Created by Dinesh Harjani on 13/5/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TwoColumnView<Content: View>: View {
+struct MultiColumnView<Content: View>: View {
     
     // MARK: Private Properties
     
@@ -16,7 +16,7 @@ struct TwoColumnView<Content: View>: View {
     
     // MARK: Init
     
-    init(columns: [GridItem] = DefaultColumns, @ViewBuilder content: @escaping () -> Content) {
+    init(columns: [GridItem] = TwoColumns, @ViewBuilder content: @escaping () -> Content) {
         self.content = content
         self.columns = columns
     }
@@ -32,7 +32,7 @@ struct TwoColumnView<Content: View>: View {
 
 // MARK: Default Columns
 
-fileprivate var DefaultColumns: [GridItem] = [
+var TwoColumns: [GridItem] = [
     GridItem(.fixed(120), spacing: 0),
     GridItem(.flexible(minimum: 200, maximum: .infinity), spacing: 0)
 ]
@@ -42,7 +42,7 @@ fileprivate var DefaultColumns: [GridItem] = [
 #if DEBUG
 struct TwoColumnView_Previews: PreviewProvider {
     static var previews: some View {
-        TwoColumnView {
+        MultiColumnView {
             Text("Hello")
             Text("Hello, too")
         }

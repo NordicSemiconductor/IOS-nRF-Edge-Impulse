@@ -21,7 +21,7 @@ struct DeploymentView: View {
     var body: some View {
         ScrollView {
             Section(header: Text("Target").bold()) {
-                TwoColumnView {
+                MultiColumnView {
                     Text("Connected Device: ")
                     Picker(selection: $viewState.selectedDevice, label: EmptyView()) {
                         let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
@@ -45,7 +45,7 @@ struct DeploymentView: View {
                 .padding(.vertical)
             
             Section(header: Text("Mode").bold()) {
-                TwoColumnView {
+                MultiColumnView {
                     Text("Selected: ")
                     Picker(selection: $viewState.duration, label: EmptyView()) {
                         ForEach(DeploymentViewState.Duration.allCases, id: \.self) { continuous in
