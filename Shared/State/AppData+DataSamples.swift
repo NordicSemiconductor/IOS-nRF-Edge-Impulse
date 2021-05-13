@@ -12,6 +12,7 @@ import Foundation
 extension AppData {
     
     func requestDataSamples() {
+        guard let selectedProject = selectedProject, selectedProject != Project.Unselected else { return }
         for category in DataSample.Category.allCases {
             requestDataSamples(for: category)
         }
