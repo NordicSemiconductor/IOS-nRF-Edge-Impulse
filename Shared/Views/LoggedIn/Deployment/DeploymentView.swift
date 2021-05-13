@@ -39,7 +39,7 @@ struct DeploymentView: View {
             
             ProgressView(value: viewState.progress, total: 100.0)
             
-            Button("Deploy", action: deploy)
+            Button("Deploy", action: viewState.deploy)
                 .centerTextInsideForm()
                 .foregroundColor(.primary)
             
@@ -52,21 +52,10 @@ struct DeploymentView: View {
                 .pickerStyle(SegmentedPickerStyle())
             }
             
-            Button("Run Impulse", action: runImpulse)
+            Button("Run Impulse", action: viewState.runImpulse)
                 .centerTextInsideForm()
                 .foregroundColor(.primary)
         }
-    }
-}
-
-extension DeploymentView {
-    
-    func deploy() {
-        
-    }
-    
-    func runImpulse() {
-        
     }
 }
 

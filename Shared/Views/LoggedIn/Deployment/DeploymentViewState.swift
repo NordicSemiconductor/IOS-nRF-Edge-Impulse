@@ -14,6 +14,19 @@ final class DeploymentViewState: ObservableObject {
     @Published var duration: Duration = .OneShot
 }
 
+// MARK: - API
+
+extension DeploymentViewState {
+    
+    func deploy() {
+        
+    }
+    
+    func runImpulse() {
+        
+    }
+}
+
 // MARK: - DeploymentViewState.Duration
 
 extension DeploymentViewState {

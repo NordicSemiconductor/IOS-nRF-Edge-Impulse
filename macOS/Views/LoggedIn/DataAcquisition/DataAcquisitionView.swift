@@ -92,7 +92,6 @@ struct DataAcquisitionView: View {
                 }).disabled(!viewState.canStartSampling)
             }
         }
-        .frame(minWidth: 360)
         .onAppear {
             let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
             if let device = connectedDevices.first {
