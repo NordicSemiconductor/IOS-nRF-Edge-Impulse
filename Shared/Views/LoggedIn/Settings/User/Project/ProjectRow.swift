@@ -30,11 +30,8 @@ struct ProjectRow: View {
                 Text(project.name)
                     .font(.headline)
                     .bold()
-                Text(project.description)
-                    .font(.body)
-                    .lineLimit(3)
                 
-                CollaboratorsDisclosureView(project.collaborators)
+                CollaboratorsHStackView(project.collaborators)
                 
                 Text(project.created, style: .date)
                     .frame(maxWidth: .infinity, alignment: .trailing)
