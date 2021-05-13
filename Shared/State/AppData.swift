@@ -38,7 +38,7 @@ final class AppData: ObservableObject {
     
     // MARK: - Private Properties
     
-    private lazy var keychain = KeychainSwift()
+    private lazy var keychain = KeychainSwift(keyPrefix: Constant.appName)
     internal var cancellables = Set<AnyCancellable>()
     
     // MARK: - Init
