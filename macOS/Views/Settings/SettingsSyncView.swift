@@ -15,7 +15,7 @@ struct SettingsSyncView: View {
     
     var body: some View {
         VStack {
-            LazyVGrid(columns: columns, alignment: .leading, spacing: 8, pinnedViews: []) {
+            TwoColumnView(columns: columns) {
                 Text("Last Check:")
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 Text(resourceData.lastCheckDateString ?? "Not Available")
@@ -27,7 +27,7 @@ struct SettingsSyncView: View {
             
             Divider()
             
-            LazyVGrid(columns: columns, alignment: .leading, spacing: 8, pinnedViews: []) {
+            TwoColumnView(columns: columns) {
                 Text("Status:")
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 resourceData.status.label()

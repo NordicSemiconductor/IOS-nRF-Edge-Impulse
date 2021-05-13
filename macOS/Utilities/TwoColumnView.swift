@@ -12,11 +12,13 @@ struct TwoColumnView<Content: View>: View {
     // MARK: Private Properties
     
     private var content: () -> Content
+    private let columns: [GridItem]
     
     // MARK: Init
     
-    init(@ViewBuilder content: @escaping () -> Content) {
+    init(columns: [GridItem] = DefaultColumns, @ViewBuilder content: @escaping () -> Content) {
         self.content = content
+        self.columns = columns
     }
     
     // MARK: View
@@ -26,14 +28,14 @@ struct TwoColumnView<Content: View>: View {
             content()
         }
     }
-    
-    // MARK: Column Setup
-    
-    private var columns: [GridItem] = [
-        GridItem(.fixed(120), spacing: 0),
-        GridItem(.flexible(minimum: 200, maximum: .infinity), spacing: 0)
-    ]
 }
+
+// MARK: Default Columns
+
+fileprivate var DefaultColumns: [GridItem] = [
+    GridItem(.fixed(120), spacing: 0),
+    GridItem(.flexible(minimum: 200, maximum: .infinity), spacing: 0)
+]
 
 // MARK: - Preview
 
