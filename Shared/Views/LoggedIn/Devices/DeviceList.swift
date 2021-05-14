@@ -74,14 +74,19 @@ private extension DeviceList {
     private func buildDeviceList() -> some View {
         List {
             ForEach(ListSection.allCases) { listSection in
-                let sectionDevices = listSection.devices(from: scannerData)
-                if sectionDevices.hasItems {
-                    Section(header: Text(listSection.string)) {
-                        ForEach(sectionDevices) { device in
+                Section(header: Text(listSection.string).bold()) {
+                    let devices = listSection.devices(from: scannerData)
+                    if devices.hasItems {
+                        ForEach(devices) { device in
                             NavigationLink(destination: DeviceDetails(device: device)) {
                                 DeviceRow(device)
                             }
                         }
+                    } else {
+                        Text("No Devices")
+                            .font(.callout)
+                            .foregroundColor(Assets.middleGrey.color)
+                            .centerTextInsideForm()
                     }
                 }
             }
