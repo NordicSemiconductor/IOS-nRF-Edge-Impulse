@@ -79,7 +79,7 @@ private extension DeviceList {
                     Section(header: Text(listSection.string)) {
                         ForEach(sectionDevices) { device in
                             NavigationLink(destination: DeviceDetails(device: device)) {
-                                DeviceRow(device: device)
+                                DeviceRow(device)
                             }
                         }
                     }

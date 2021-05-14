@@ -10,19 +10,37 @@ import SwiftUI
 // MARK: - ProjectRow
 
 struct DeviceRow: View {
-    let device: Device
+    
+    // MARK: Private Properties
+    
+    private let device: Device
+    
+    // MARK: Init
+    
+    init(_ device: Device) {
+        self.device = device
+    }
+    
+    // MARK: View
     
     var body: some View {
         HStack(alignment: .top) {
-            SignalLevel(rssi: device.rssi)
-                .frame(width: 40, height: 30, alignment: .center)
+            Image(systemName: "candybarphone")
+            
             VStack(alignment: .leading) {
                 Text(device.name)
                     .font(.headline)
                     .bold()
+                
+                HStack {
+                    SignalLevel(rssi: device.rssi)
+                        .frame(width: 20, height: 15, alignment: .center)
+                    
+                    Text("\(device.rssi.rawValue) dB")
+                }
             }
         }
-        .padding(16)
+        .padding(8)
     }
 }
 
@@ -31,7 +49,8 @@ struct DeviceRow: View {
 #if DEBUG
 struct DeviceRow_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceRow(device: .sample)
+        DeviceRow(.sample)
+            .previewLayout(.sizeThatFits)
     }
 }
 #endif
