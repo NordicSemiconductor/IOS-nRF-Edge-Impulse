@@ -103,9 +103,13 @@ private extension ScannerData {
             .sink(receiveCompletion: { result in
                 print(result)
             }, receiveValue: { [weak self] in
-                guard let self = self, !self.scanResults.contains($0) else { return }
-                self.scanResults.append($0)
-                self.logger.info("New Device found: \($0.name), UUID: \($0.id)")
+                guard let self = self else { return }
+                if let index = self.scanResults.firstIndex(of: $0) {
+                    self.scanResults[index] = $0
+                } else {
+                    self.scanResults.append($0)
+                    self.logger.info("New Device found: \($0.name), UUID: \($0.id)")
+                }
             })
             .store(in: &cancellables)
     }
