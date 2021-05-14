@@ -122,7 +122,9 @@ private extension DeviceList {
     }
     
     func refreshScanner() {
-        scannerData.scanResults.removeAll()
+        scannerData.scanResults = scannerData.scanResults.filter {
+            $0.state != .notConnected
+        }
         guard !scannerData.isScanning else { return }
         toggleScanner()
     }
