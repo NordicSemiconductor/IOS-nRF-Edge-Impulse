@@ -71,6 +71,10 @@ final class BluetoothManager: NSObject, ObservableObject {
     }
     
     func disconnect() {
+        guard let peripheral = peripheral else {
+            logger.debug("Peripheral for Device \(self.pId.uuidString) is nil.")
+            return
+        }
         centralManager.cancelPeripheralConnection(peripheral)
     }
     
