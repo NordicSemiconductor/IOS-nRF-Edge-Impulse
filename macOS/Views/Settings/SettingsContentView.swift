@@ -24,6 +24,15 @@ struct SettingsContentView: View {
                     Label("UUID Sync", systemImage: "arrow.triangle.2.circlepath")
                 }
                 .tag(1)
+            
+            #if DEBUG
+            SettingsDebugView()
+                .withTabBarStyle()
+                .tabItem {
+                    Label("Debug", systemImage: "ladybug.fill")
+                }
+                .tag(99)
+            #endif
         }
         .padding(20)
         .frame(width: 375, height: 150)
@@ -36,6 +45,7 @@ struct SettingsContentView: View {
 struct SettingsContentView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsContentView()
+            .environmentObject(Preview.noDevicesAppData)
             .environmentObject(ResourceData())
     }
 }

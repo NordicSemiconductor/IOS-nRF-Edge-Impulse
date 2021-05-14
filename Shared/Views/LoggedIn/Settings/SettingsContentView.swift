@@ -66,6 +66,13 @@ struct SettingsContentView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
             }
             .lineLimit(1)
+            
+            #if DEBUG
+            Section(header: Text("Debug")) {
+                Button("Test Error", action: appData.raiseTestError)
+                    .frame(maxWidth: .infinity, alignment: .center)
+            }
+            #endif
         }
         .accentColor(Assets.blue.color)
     }
