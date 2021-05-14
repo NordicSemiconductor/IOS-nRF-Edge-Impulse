@@ -22,8 +22,32 @@ struct ProjectView: View {
     // MARK: View
     
     var body: some View {
-        Text("Hello, World!")
-            .setTitle(project.name)
+        List {
+            #if os(OSX)
+            Section(header: Text("Name")) {
+                Label(project.name, systemImage: "character.book.closed.fill")
+                    .font(.headline)
+            }
+            #endif
+            
+            Section(header: Text("Description")) {
+                Label(project.description, systemImage: "doc.text.fill")
+            }
+            
+            Section(header: Text("Creation Date")) {
+                Label(
+                    title: { Text(project.created, style: .date) },
+                    icon: { Image(systemName: "clock.fill") }
+                )
+            }
+            
+            Section(header: Text("Collaborators")) {
+                ForEach(project.collaborators) { collaborator in
+                    CollaboratorRow(collaborator)
+                }
+            }
+        }
+        .setTitle(project.name)
     }
 }
 
@@ -32,7 +56,8 @@ struct ProjectView: View {
 #if DEBUG
 struct ProjectView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectView(.Unselected)
+        ProjectView(Project.Sample)
+            .environmentObject(Preview.projectsPreviewAppData)
             .previewLayout(.sizeThatFits)
     }
 }

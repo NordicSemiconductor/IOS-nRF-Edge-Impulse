@@ -32,15 +32,9 @@ struct ProjectRow: View {
                     .bold()
                 
                 CollaboratorsHStackView(project.collaborators)
-                
-                Text(project.created, style: .date)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .foregroundColor(.secondary)
-                    .font(.caption)
-                    .lineLimit(1)
             }
-            .padding(.leading, 8)
         }
+        .padding(8)
     }
 }
 
