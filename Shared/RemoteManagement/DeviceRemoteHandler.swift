@@ -51,7 +51,7 @@ class DeviceRemoteHandler {
         cancellables.removeAll()
     }
     
-    func connect() {
+    func connect(apiKey: String) {
         wsPublisher = webSocketManager.connect()
         btPublisher = bluetoothManager.connect()
         
@@ -66,8 +66,12 @@ class DeviceRemoteHandler {
             .mapError { Error.anyError($0) }
             .flatMap { [unowned self] (data) -> AnyPublisher<Data, Swift.Error> in
                 do {
-                    let hello = (data.message?.hello)!
+                    var hello = (data.message)!
+                    hello.hello?.apiKey = apiKey
                     let d = try JSONEncoder().encode(hello)
+                    
+                    logger.info("Encoded 'Hello Message': \(String(data: d, encoding: .utf8)!)")
+                    
                     self.webSocketManager.send(d)
                 } catch let e {
                     return Fail(error: e)
@@ -90,7 +94,7 @@ class DeviceRemoteHandler {
                 }
             }
             .prefix(1)
-            .timeout(5, scheduler: DispatchQueue.main, customError: { Error.timeout })
+            .timeout(10, scheduler: DispatchQueue.main, customError: { Error.timeout })
             .sink { [weak self] (completion) in
                 guard let self = self else { return }
                 if case .failure(let error) = completion {
@@ -105,13 +109,6 @@ class DeviceRemoteHandler {
                 self?.logger.info("New state: \(state.debugDescription)")
             }
             .store(in: &cancellables)
-        
-//        btPublisher
-//            .decode(type: SampleRequestMessageResponse.self, decoder: JSONDecoder())
-//            .sinkOrRaiseAppEventError { response in
-//                print(response)
-//            }
-//            .store(in: &cancellables)
     }
     
     func sendSampleRequest(_ container: SampleRequestMessageContainer) throws {

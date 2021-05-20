@@ -7,14 +7,18 @@
 
 import SwiftUI
 import Combine
+import os
 
 struct DeviceList: View {
     
     // MARK: Properties
     
     @EnvironmentObject var scannerData: ScannerData
+    @EnvironmentObject var appData: AppData
     
     @State private var scannerCancellable: Cancellable? = nil
+    
+    private let logger = Logger(category: "DeviceList")
     
     // MARK: View
     
@@ -73,21 +77,29 @@ private extension DeviceList {
     @ViewBuilder
     private func buildDeviceList() -> some View {
         List {
-            ForEach(ListSection.allCases) { listSection in
-                Section(header: Text(listSection.string).bold()) {
-                    let devices = listSection.devices(from: scannerData)
-                    if devices.hasItems {
-                        ForEach(devices) { device in
-                            NavigationLink(destination: DeviceDetails(device: device)) {
-                                DeviceRow(device)
+            Section(header: Text("Devices")) {
+                
+            }
+            Section(header: Text("Scan Results")) {
+                let devices = ListSection.notConnectedDevices.devices(from: scannerData)
+                if devices.hasItems {
+                    ForEach(devices) { device in
+                        
+                        DeviceRow(device, connectionType: .scanResult)
+                            .onTapGesture {
+                                appData.selectedProject
+                                    .flatMap { appData.projectDevelopmentKeys[$0]?.apiKey }
+                                    .flatMap { scannerData[device].connect(apiKey: $0) }
+                                self.logger.info("Device ID: \(device.id))")
+                                
+                                // TODO: change row state
                             }
-                        }
-                    } else {
-                        Text("No Devices")
-                            .font(.callout)
-                            .foregroundColor(Assets.middleGrey.color)
-                            .centerTextInsideForm()
                     }
+                } else {
+                    Text("No Devices")
+                        .font(.callout)
+                        .foregroundColor(Assets.middleGrey.color)
+                        .centerTextInsideForm()
                 }
             }
         }
@@ -101,9 +113,9 @@ private extension DeviceList {
         var string: String {
             switch self {
             case .connectedDevices:
-                return "Connected Devices"
+                return "Devices"
             case .notConnectedDevices:
-                return "Not Connected Devices"
+                return "Scanner"
             }
         }
         

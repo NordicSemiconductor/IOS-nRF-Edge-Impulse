@@ -9,6 +9,18 @@ import Foundation
 import Combine
 import os
 
+extension Data {
+    struct HexEncodingOptions: OptionSet {
+        let rawValue: Int
+        static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
+    }
+
+    func hexEncodedString(options: HexEncodingOptions = []) -> String {
+        let format = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
+        return self.map { String(format: format, $0) }.joined()
+    }
+}
+
 /// Static constants and structures
 extension WebSocketManager {
     enum Error: Swift.Error {
@@ -56,7 +68,8 @@ class WebSocketManager {
     }
     
     func send(_ data: Data) {
-        task.send(.data(data)) { [weak self] (error) in
+        let s = String(data: data, encoding: .utf8)!
+        task.send(.string(s)) { [weak self] (error) in
             if let e = error {
                 self?.publisher.send(completion: .failure(.wsError(e)))
                 self?.logger.error("Send error: \(e.localizedDescription)")
@@ -64,7 +77,7 @@ class WebSocketManager {
             
             #warning("remove test code")
             #if DEBUG
-            self?.publisher.send(WSHelloResponse.success.data)
+//            self?.publisher.send(WSHelloResponse.success.data)
             #endif
         }
     }
@@ -82,7 +95,7 @@ extension WebSocketManager {
                 switch msg {
                 case .data(let d):
                     self?.publisher.send(d)
-                    self?.logger.info("Data received: \(d)")
+                    self?.logger.info("Data received: \(String(data: d, encoding: .utf8) ?? d.hexEncodedString())")
                 case .string(let s):
                     self?.publisher.send(s.data(using: .utf8)!)
                     self?.logger.info("Message received: \(s)")

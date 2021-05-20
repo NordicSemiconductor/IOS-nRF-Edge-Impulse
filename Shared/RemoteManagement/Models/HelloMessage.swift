@@ -8,30 +8,30 @@
 import Foundation
 
 struct ResponseRootObject: Codable {
-    let type, direction, address: String?
-    let message: Message?
+    var type, direction, address: String?
+    var message: Message?
 }
 
 struct Message: Codable {
-    let hello: HelloMessage?
+    var hello: HelloMessage?
 }
 
 struct HelloMessage: Codable {
-    let version: Int?
-    let apiKey, deviceID, deviceType, connection: String?
-    let sensors: [Sensor]?
-    let supportsSnapshotStreaming: Bool?
+    var version: Int?
+    var apiKey, deviceId, deviceType, connection: String?
+    var sensors: [Sensor]?
+    var supportsSnapshotStreaming: Bool?
 }
 
 struct Sensor: Codable {
-    let name: String?
-    let maxSampleLengthS: Int?
-    let frequencies: [Double]?
+    var name: String?
+    var maxSampleLengthS: Int?
+    var frequencies: [Double]?
 }
 
 struct WSHelloResponse: Codable {
-    let hello: Bool
-    let err: String?
+    var hello: Bool
+    var err: String?
 }
 
 #if DEBUG
@@ -44,7 +44,7 @@ extension ResponseRootObject {
             hello: HelloMessage(
                 version: 1,
                 apiKey: "ei_8dd502530a5232ff64374815fddc229151e0a82c1d4f23e86097d8acdf882295",
-                deviceID: "15:FE:90:11:1D:18",
+                deviceId: "15:FE:90:11:1D:18",
                 deviceType: "PORTENTA_H7_M7",
                 connection: "daemon",
                 sensors: [

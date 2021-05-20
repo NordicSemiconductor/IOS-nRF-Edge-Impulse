@@ -11,6 +11,7 @@ import os
 struct HeaderDeviceDetails: View {
     
     @EnvironmentObject var scannerData: ScannerData
+    @EnvironmentObject var appData: AppData
     
     private let device: Device
     
@@ -43,7 +44,13 @@ struct HeaderDeviceDetails: View {
     private func viewForHandler(_ handler: DeviceRemoteHandler) -> some View {
         switch handler.device.state {
         case .notConnected:
-            Button("Connect", action: handler.connect)
+            Button("Connect", action: {
+                appData.selectedProject
+//                    .flatMap {
+//                        appData.hand
+//                    }
+//                    handler.connect(apiKey: appData.apiToken)
+            })
         case .connecting:
             ProgressView()
         case .ready:
