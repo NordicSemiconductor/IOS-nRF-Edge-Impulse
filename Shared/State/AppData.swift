@@ -32,6 +32,7 @@ final class AppData: ObservableObject {
         }
     }
     @Published var selectedTab: Tabs? = .Devices
+    @Published var showDataAcquisitionView = false
     
     @Published var projectDevelopmentKeys: [Project: ProjectDevelopmentKeysResponse]
     @Published var samplesForCategory: [DataSample.Category: [DataSample]]
