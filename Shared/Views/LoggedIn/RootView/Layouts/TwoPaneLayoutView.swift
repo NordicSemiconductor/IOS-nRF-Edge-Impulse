@@ -57,10 +57,12 @@ struct TwoPaneLayoutView_Previews: PreviewProvider {
     static var previews: some View {
         #if os(OSX)
         TwoPaneLayoutView()
+            .environmentObject(Preview.mockScannerData)
             .environmentObject(Preview.projectsPreviewAppData)
         #elseif os(iOS)
         TwoPaneLayoutView()
             .previewDevice("iPad Pro (11-inch) (2nd generation)")
+            .environmentObject(Preview.mockScannerData)
             .environmentObject(Preview.projectsPreviewAppData)
         #endif
     }
