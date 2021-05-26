@@ -48,6 +48,20 @@ extension LoggedInRootView {
               let httpRequest = HTTPRequest.getUser(using: token) else { return }
         appData.loginState = .loading
         userCancellable = Network.shared.perform(httpRequest, responseType: GetUserResponse.self)
+            .flatMap({ response -> AnyPublisher<GetDeviceListResponse, Error> in
+                hasMadeUserRequest = true
+                appData.selectedProject = response.projects.first
+                appData.loginState = .complete(response.user, response.projects)
+
+                guard let project = appData.selectedProject, let request = HTTPRequest.getDevices(for: project, using: token) else {
+                    #warning("Change it")
+                    return Just(GetDeviceListResponse(success: true, error: nil, devices: []))
+                        .mapError({_ in BluetoothError.bluetoothPoweredOff})
+                        .eraseToAnyPublisher()
+                }
+                
+                return Network.shared.perform(request, responseType: GetDeviceListResponse.self)
+            })
             .onUnauthorisedUserError(appData.logout)
             .sink(receiveCompletion: { completion in
                 guard !Constant.isRunningInPreviewMode else { return }
@@ -59,9 +73,7 @@ extension LoggedInRootView {
                 }
             },
             receiveValue: { userResponse in
-                hasMadeUserRequest = true
-                appData.selectedProject = userResponse.projects.first
-                appData.loginState = .complete(userResponse.user, userResponse.projects)
+                appData.currentProjectDevices = userResponse.devices
             })
     }
 }

@@ -77,9 +77,9 @@ private extension DeviceList {
     @ViewBuilder
     private func buildDeviceList() -> some View {
         List {
-            Section(header: Text("Devices")) {
-                
-            }
+            let items = appData.currentProjectDevices
+            buildRegisteredDevicesList(devices: items)
+            
             Section(header: Text("Scan Results")) {
                 let devices = ListSection.notConnectedDevices.devices(from: scannerData)
                 if devices.hasItems {
@@ -101,6 +101,29 @@ private extension DeviceList {
                         .foregroundColor(Assets.middleGrey.color)
                         .centerTextInsideForm()
                 }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func buildRegisteredDevicesList(devices: [RegisteredDevice]) -> some View {
+        Section(header: Text("Devices")) {
+            if devices.hasItems {
+                ForEach(devices) { _ in
+                    Text("t")
+                }
+//                    ForEach(appData.cuntProjectDevices) { d in
+//                        Text(d.name)
+//                    }
+//                    ForEach(devices) { regDevice in
+//                        let d = Device(name: regDevice.name, id: UUID(), rssi: .good, advertisementData: .mock)
+//                        DeviceRow(d, connectionType: .scanResult)
+//                    }
+            } else {
+                Text("No Devices")
+                    .font(.callout)
+                    .foregroundColor(Assets.middleGrey.color)
+                    .centerTextInsideForm()
             }
         }
     }

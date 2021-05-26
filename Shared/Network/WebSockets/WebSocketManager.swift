@@ -73,12 +73,7 @@ class WebSocketManager {
             if let e = error {
                 self?.publisher.send(completion: .failure(.wsError(e)))
                 self?.logger.error("Send error: \(e.localizedDescription)")
-            } 
-            
-            #warning("remove test code")
-            #if DEBUG
-//            self?.publisher.send(WSHelloResponse.success.data)
-            #endif
+            }
         }
     }
 }

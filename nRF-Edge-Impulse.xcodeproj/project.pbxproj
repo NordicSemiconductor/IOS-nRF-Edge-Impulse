@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		015AB1612653D5E700C09196 /* DeviceAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015AB1602653D5E700C09196 /* DeviceAccessoryView.swift */; };
 		015AB1622653D5E700C09196 /* DeviceAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015AB1602653D5E700C09196 /* DeviceAccessoryView.swift */; };
+		01D853EC265CF67100D96592 /* GetDevicesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D853EB265CF67100D96592 /* GetDevicesRequest.swift */; };
+		01D853ED265CF67100D96592 /* GetDevicesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D853EB265CF67100D96592 /* GetDevicesRequest.swift */; };
+		01D853EF265D0B8D00D96592 /* RegisteredDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D853EE265D0B8D00D96592 /* RegisteredDevice.swift */; };
+		01D853F0265D0B8D00D96592 /* RegisteredDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D853EE265D0B8D00D96592 /* RegisteredDevice.swift */; };
 		AA008A7725EE422C00F70F75 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA008A7625EE422C00F70F75 /* Project.swift */; };
 		AA008A7825EE422C00F70F75 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA008A7625EE422C00F70F75 /* Project.swift */; };
 		AA01DA6026395E6000F6DD44 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01DA5F26395E6000F6DD44 /* Date.swift */; };
@@ -212,6 +216,8 @@
 
 /* Begin PBXFileReference section */
 		015AB1602653D5E700C09196 /* DeviceAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAccessoryView.swift; sourceTree = "<group>"; };
+		01D853EB265CF67100D96592 /* GetDevicesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDevicesRequest.swift; sourceTree = "<group>"; };
+		01D853EE265D0B8D00D96592 /* RegisteredDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredDevice.swift; sourceTree = "<group>"; };
 		AA008A7625EE422C00F70F75 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		AA01DA5F26395E6000F6DD44 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		AA01F3CF25EFACB000368707 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
@@ -620,6 +626,7 @@
 				AA92BEF92612064E00BED04B /* ResourcesRequest.swift */,
 				AAF5E75B26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift */,
 				AAF5E75526400F7300AC3271 /* GetSamplesRequest.swift */,
+				01D853EB265CF67100D96592 /* GetDevicesRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -741,6 +748,7 @@
 			children = (
 				C301A378261F36250010717D /* HelloMessage.swift */,
 				AAE05F1F2649554F005BBF98 /* SampleRequestMessage.swift */,
+				01D853EE265D0B8D00D96592 /* RegisteredDevice.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1010,6 +1018,7 @@
 				AACCBA882600C32C0042E87B /* ErrorView.swift in Sources */,
 				AA01F3D025EFACB000368707 /* Assets.swift in Sources */,
 				AAF5E75C26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift in Sources */,
+				01D853EF265D0B8D00D96592 /* RegisteredDevice.swift in Sources */,
 				AA02086F25F648C200FD6B24 /* View.swift in Sources */,
 				AACECAE72630723B00285F94 /* ResourceData+Status.swift in Sources */,
 				C3846EE5260B4386005AEF67 /* BluetoothManager.swift in Sources */,
@@ -1026,6 +1035,7 @@
 				AA80988425EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA43B2A825FA574F00C5B5EE /* TabBarLayoutView.swift in Sources */,
 				AAF4F6BD2625C0A700012359 /* LoginErrorView.swift in Sources */,
+				01D853EC265CF67100D96592 /* GetDevicesRequest.swift in Sources */,
 				AAFDB471264D78AF00F0CD02 /* CollaboratorsHStackView.swift in Sources */,
 				AA80989A25EE959B00091AC0 /* Publishers.swift in Sources */,
 				AAF5E75626400F7300AC3271 /* GetSamplesRequest.swift in Sources */,
@@ -1143,6 +1153,7 @@
 				AA0208AA25F65EB400FD6B24 /* Tabs.swift in Sources */,
 				AA2CDEB72636FF3900A4950E /* AppEvents.swift in Sources */,
 				AA02086925F641D900FD6B24 /* NewDataSample.swift in Sources */,
+				01D853F0265D0B8D00D96592 /* RegisteredDevice.swift in Sources */,
 				AA32792D2604C66B00A0CA6A /* DataAcquisitionViewState.swift in Sources */,
 				AA92BEFB2612064E00BED04B /* ResourcesRequest.swift in Sources */,
 				AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */,
@@ -1167,6 +1178,7 @@
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				C37DD4AA260C991900D667EA /* DeviceDetails.swift in Sources */,
 				C301A36A261F12890010717D /* WebSocketManager.swift in Sources */,
+				01D853ED265CF67100D96592 /* GetDevicesRequest.swift in Sources */,
 				AAF0C970260A069F001B76B9 /* User.swift in Sources */,
 				AA482F7F26318B11007B8B64 /* View+macOS.swift in Sources */,
 				AAF0C96A2609FEBE001B76B9 /* GetCurrentUserRequest.swift in Sources */,
