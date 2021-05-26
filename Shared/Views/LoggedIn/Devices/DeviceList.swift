@@ -156,6 +156,7 @@ struct DeviceList_Previews: PreviewProvider {
                     .previewDevice("iPhone 12 mini")
             }
             .setBackgroundColor(Assets.blue)
+            .setSingleColumnNavigationViewStyle()
             
             NavigationView {
                 DeviceList()
@@ -164,6 +165,7 @@ struct DeviceList_Previews: PreviewProvider {
                     .previewDevice("iPhone 12 mini")
             }
             .setBackgroundColor(Assets.blue)
+            .setSingleColumnNavigationViewStyle()
             
             NavigationView {
                 DeviceList()
@@ -173,6 +175,7 @@ struct DeviceList_Previews: PreviewProvider {
                     .previewDevice("iPad Pro (12.9-inch) (4th generation)")
             }
             .setBackgroundColor(Assets.blue)
+            .setSingleColumnNavigationViewStyle()
         }
         #endif
     }
