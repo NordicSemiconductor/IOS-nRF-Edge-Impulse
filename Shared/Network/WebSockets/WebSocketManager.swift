@@ -9,11 +9,24 @@ import Foundation
 import Combine
 import os
 
+extension Data {
+    struct HexEncodingOptions: OptionSet {
+        let rawValue: Int
+        static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
+    }
+
+    func hexEncodedString(options: HexEncodingOptions = []) -> String {
+        let format = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
+        return self.map { String(format: format, $0) }.joined()
+    }
+}
+
 /// Static constants and structures
 extension WebSocketManager {
     enum Error: Swift.Error {
         // TODO: Add code and message to error
         case wrongUrl
+        case unableToEncodeAsUTF8
         case wsError(Swift.Error)
     }
     
@@ -55,8 +68,12 @@ class WebSocketManager {
         task.cancel(with: .normalClosure, reason: nil)
     }
     
-    func send(_ data: Data) {
-        task.send(.data(data)) { [weak self] (error) in
+    func send(_ data: Data) throws {
+        guard let s = String(data: data, encoding: .utf8) else {
+            throw Error.unableToEncodeAsUTF8
+        }
+        
+        task.send(.string(s)) { [weak self] (error) in
             if let e = error {
                 self?.publisher.send(completion: .failure(.wsError(e)))
                 self?.logger.error("Send error: \(e.localizedDescription)")

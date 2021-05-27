@@ -68,7 +68,7 @@ class DeviceRemoteHandler {
                 do {
                     let hello = (data.message?.hello)!
                     let d = try JSONEncoder().encode(hello)
-                    self.webSocketManager.send(d)
+                    try self.webSocketManager.send(d)
                 } catch let e {
                     return Fail(error: e)
                         .eraseToAnyPublisher()
