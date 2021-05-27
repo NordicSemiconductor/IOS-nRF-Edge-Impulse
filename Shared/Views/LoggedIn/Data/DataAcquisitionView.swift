@@ -104,7 +104,7 @@ struct DataAcquisitionView: View {
             }
             viewState.selectedDevice = device
         }
-        .frame(minWidth: Tabs.minTabWidth)
+        .frame(minWidth: .minTabWidth)
     }
 }
 

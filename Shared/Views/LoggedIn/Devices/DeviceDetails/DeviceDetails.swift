@@ -17,7 +17,7 @@ struct DeviceDetails: View {
             Divider()
             Spacer()
         }
-        .frame(minWidth: Tabs.minTabWidth)
+        .frame(minWidth: .minTabWidth)
     }
 }
 

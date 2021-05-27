@@ -44,6 +44,23 @@ enum Constant {
     }()
 }
 
+// MARK: - CGFloat
+
+extension CGFloat {
+    
+    static let minTabWidth: CGFloat = {
+        let value: CGFloat
+        #if os(OSX)
+        value = 400
+        #else
+        value = 320
+        #endif
+        return value
+    }()
+    
+    static let sidebarWidth: CGFloat = 160
+}
+
 // MARK: - Size(s)
 
 extension CGSize {
