@@ -7,8 +7,16 @@
 
 import SwiftUI
 import Combine
+import os
 
 struct LoggedInRootView: View {
+    
+    private let logger = Logger(category: "LoggedInRootView")
+    
+    enum Error: Swift.Error {
+        case anyError(Swift.Error)
+        case describedError(String)
+    }
     
     // MARK: Properties
     
@@ -48,25 +56,31 @@ extension LoggedInRootView {
               let httpRequest = HTTPRequest.getUser(using: token) else { return }
         appData.loginState = .loading
         userCancellable = Network.shared.perform(httpRequest, responseType: GetUserResponse.self)
-            .flatMap({ response -> AnyPublisher<GetDeviceListResponse, Error> in
+            .compactMap { response -> Project? in
                 hasMadeUserRequest = true
                 appData.selectedProject = response.projects.first
                 appData.loginState = .complete(response.user, response.projects)
-
-                guard let project = appData.selectedProject, let request = HTTPRequest.getDevices(for: project, using: token) else {
-                    #warning("Change it")
+                
+                return appData.selectedProject
+            }
+            .flatMap { project -> AnyPublisher<GetDeviceListResponse, Swift.Error> in
+                #warning("@Dinesh: Maybe you have suggestions how to improve this part of code")
+                guard let request = HTTPRequest.getDevices(for: project, using: token) else {
                     return Just(GetDeviceListResponse(success: true, error: nil, devices: []))
-                        .mapError({_ in BluetoothError.bluetoothPoweredOff})
+                        .mapError { _ in Error.describedError("Could not create request") }
                         .eraseToAnyPublisher()
                 }
                 
-                return Network.shared.perform(request, responseType: GetDeviceListResponse.self)
-            })
+                return Network.shared.perform(request)
+                    .mapError { Error.anyError($0) }
+                    .eraseToAnyPublisher()
+            }
             .onUnauthorisedUserError(appData.logout)
             .sink(receiveCompletion: { completion in
                 guard !Constant.isRunningInPreviewMode else { return }
                 switch completion {
                 case .failure(let error):
+                    logger.error("Error: \(error.localizedDescription)")
                     appData.loginState = .error(error)
                 default:
                     break

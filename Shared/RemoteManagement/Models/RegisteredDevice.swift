@@ -16,12 +16,12 @@ struct RegisteredDevice: Codable {
     
     var id: Int
     var deviceId: String
-    var created: Date
-    var lastSeen: Date
+    var created: String // Date
+    var lastSeen: String // Date
     var deviceType: String
     var sensors: [Sensor]
     var remoteMgmtConnected: Bool
-    var remoteMgmtHost: String
+    var remoteMgmtHost: String?
     var supportsSnapshotStreaming: Bool
     var name: String
 }
