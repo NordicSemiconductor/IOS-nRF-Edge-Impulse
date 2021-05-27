@@ -18,7 +18,6 @@ struct HorizontalTabView: View {
                 appData.selectedTab = nil
                 return
             }
-            appData.showDataAcquisitionView = false
             appData.selectedTab = tab
         }, label: {
             Label(tab.description, systemImage: tab.systemImageName)

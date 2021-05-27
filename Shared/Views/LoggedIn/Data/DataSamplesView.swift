@@ -67,7 +67,7 @@ struct DataSamplesView: View {
 private extension DataSamplesView {
     
     func addHiddenDataAcqisitionNavigationLink() -> some View {
-        NavigationLink(destination: DataAcquisitionView(), isActive: $appData.showDataAcquisitionView) {
+        NavigationLink(destination: DataAcquisitionView(), isActive: $appData.isShowingDetailsView) {
             EmptyView()
         }
         .hidden()
@@ -75,7 +75,7 @@ private extension DataSamplesView {
     
     func dataAcquisitionToolbarItem() -> some View {
         Button(action: {
-            appData.showDataAcquisitionView = true
+            appData.isShowingDetailsView = true
         }) {
             Label("New Sample", systemImage: "plus")
         }
