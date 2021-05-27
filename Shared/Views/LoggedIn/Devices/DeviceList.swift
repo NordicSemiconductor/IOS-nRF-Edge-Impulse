@@ -12,6 +12,7 @@ struct DeviceList: View {
     
     // MARK: Properties
     
+    @EnvironmentObject var appData: AppData
     @EnvironmentObject var scannerData: ScannerData
     
     @State private var scannerCancellable: Cancellable? = nil
@@ -78,9 +79,16 @@ private extension DeviceList {
                     let devices = listSection.devices(from: scannerData)
                     if devices.hasItems {
                         ForEach(devices) { device in
+                            #if os(OSX)
                             NavigationLink(destination: DeviceDetails(device: device)) {
                                 DeviceRow(device)
                             }
+                            #else
+                            NavigationLink(destination: DeviceDetails(device: device), isActive: $appData.isShowingDetailsView) {
+                                DeviceRow(device)
+                            }
+                            .isDetailLink(false)
+                            #endif
                         }
                     } else {
                         Text("No Devices")
@@ -145,6 +153,7 @@ struct DeviceList_Previews: PreviewProvider {
         Group {
             DeviceList()
                 .setTitle("Devices")
+                .environmentObject(Preview.projectsPreviewAppData)
                 .environmentObject(Preview.mockScannerData)
         }
         #elseif os(iOS)
@@ -152,6 +161,7 @@ struct DeviceList_Previews: PreviewProvider {
             NavigationView {
                 DeviceList()
                     .setTitle("Devices")
+                    .environmentObject(Preview.projectsPreviewAppData)
                     .environmentObject(Preview.noDevicesScannerData)
                     .previewDevice("iPhone 12 mini")
             }
@@ -161,6 +171,7 @@ struct DeviceList_Previews: PreviewProvider {
             NavigationView {
                 DeviceList()
                     .setTitle("Devices")
+                    .environmentObject(Preview.projectsPreviewAppData)
                     .environmentObject(Preview.isScanningButNoDevicesScannerData)
                     .previewDevice("iPhone 12 mini")
             }
@@ -171,6 +182,7 @@ struct DeviceList_Previews: PreviewProvider {
                 DeviceList()
                     .setTitle("Devices")
                     .preferredColorScheme(.dark)
+                    .environmentObject(Preview.projectsPreviewAppData)
                     .environmentObject(Preview.mockScannerData)
                     .previewDevice("iPad Pro (12.9-inch) (4th generation)")
             }
