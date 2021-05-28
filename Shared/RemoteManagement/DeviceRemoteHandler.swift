@@ -33,6 +33,7 @@ class DeviceRemoteHandler {
     private let logger = Logger(category: "DeviceRemoteHandler")
     
     @Published private (set) var device: Device
+    @Published private (set) var samplingState: SamplingState
     private var bluetoothManager: BluetoothManager!
     private var webSocketManager: WebSocketManager!
     private var cancellables = Set<AnyCancellable>()
@@ -42,6 +43,7 @@ class DeviceRemoteHandler {
     
     init(device: Device) {
         self.device = device
+        self.samplingState = .standby
         bluetoothManager = BluetoothManager(peripheralId: device.id)
         webSocketManager = WebSocketManager()
     }
@@ -113,8 +115,25 @@ class DeviceRemoteHandler {
         
         btPublisher
             .decode(type: NewDataAcquisitionResponse.self, decoder: JSONDecoder())
-            .sinkOrRaiseAppEventError { response in
-                print(response)
+            .sinkOrRaiseAppEventError { [weak self] response in
+                guard response.success else {
+                    self?.samplingState = .error(.stringError("Returned Not Successful."))
+                    return
+                }
+                self?.samplingState = .inProgress
+                
+                #warning("remove test code")
+                #if DEBUG
+                DispatchQueue.main.asyncAfter(deadline: .now() + request.intervalS) {
+                    guard let fullResponse = Preview.previewFullDataSampleResponse else { return }
+                    do {
+                        try self?.webSocketManager.send(fullResponse)
+                        self?.samplingState = .completed
+                    } catch (let error) {
+                        self?.samplingState = .error(.stringError(error.localizedDescription))
+                    }
+                }
+                #endif
             }
             .store(in: &cancellables)
         
@@ -133,6 +152,20 @@ class DeviceRemoteHandler {
         logger.info("\(deviceName) Disconnected.")
     }
 }
+
+// MARK: - DeviceRemoteHandler.SamplingState
+
+extension DeviceRemoteHandler {
+    
+    enum SamplingState {
+        case standby
+        case inProgress
+        case completed
+        case error(_ error: Error)
+    }
+}
+
+// MARK: - Hashable, Equatable
 
 extension DeviceRemoteHandler: Hashable, Identifiable {
     static func == (lhs: DeviceRemoteHandler, rhs: DeviceRemoteHandler) -> Bool {

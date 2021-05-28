@@ -14,6 +14,10 @@ struct SampleRequestMessage: Codable {
     let label: String
     let lengthMs: Int
     let sensor: NewDataSample.Sensor
+    
+    var intervalS: Double {
+        ceil(Double(lengthMs) / 1000.0)
+    }
 }
 
 struct NewDataAcquisitionResponse: Codable {
@@ -22,8 +26,33 @@ struct NewDataAcquisitionResponse: Codable {
     let id: Int
 }
 
-struct SampleRequestMessageResponse: Codable {
+struct DataAcquisitionSample: Codable {
     
-    let sample: Bool
-    let error: String?
+    let id: Int
+    let filename: String
+    let category: DataSample.Category
+    let label: String
+    let intervalMs: Double
+    let frequency: Int
+    let deviceName: String
+    let deviceType: String
+    let valuesCount: Int
+    let totalLengthMs: Int
+}
+
+struct DataAcquisitionPayload: Codable {
+    
+    let device_name: String
+    let device_type: String
+    let interval_ms: Double
+    let frequency: Int
+    let values: [[Int]]
+}
+
+struct FullDataAcquisitionData: Codable {
+    
+    let success: Bool
+    let sample: DataAcquisitionSample
+    let payload: DataAcquisitionPayload
+    let totalPayloadLength: Int
 }

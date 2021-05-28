@@ -28,6 +28,13 @@ struct Preview {
         return try? JSONDecoder().decode([DataSample].self, from: contentData)
     }()
     
+    static let previewFullDataSampleResponse: FullDataAcquisitionData! = {
+        let path: String! = Bundle.main.path(forResource: "sample_full_microphone_data_response", ofType: "json")
+        let content: String! = try? String(contentsOfFile: path)
+        let contentData: Data! = content.data(using: .utf8)
+        return try? JSONDecoder().decode(FullDataAcquisitionData.self, from: contentData)
+    }()
+    
     static let projectsPreviewAppData = previewAppData(.complete(previewUser, previewProjects))
     
     static let noDevicesAppData: AppData = {

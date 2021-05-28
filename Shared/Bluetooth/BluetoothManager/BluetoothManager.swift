@@ -54,6 +54,13 @@ final class BluetoothManager: NSObject, ObservableObject {
         transmissionSubject.sinkOrRaiseAppEventError { [weak self] data in
             guard let self = self else { return }
             self.peripheral.writeValue(data, for: self.txCharacteristic, type: .withResponse)
+            
+            #warning("remove test code")
+            #if DEBUG
+            let response = NewDataAcquisitionResponse(success: true, id: Preview.previewFullDataSampleResponse.sample.id)
+            let responseData: Data! = try? JSONEncoder().encode(response)
+            self.received(responseData)
+            #endif
         }
         .store(in: &cancellables)
     }

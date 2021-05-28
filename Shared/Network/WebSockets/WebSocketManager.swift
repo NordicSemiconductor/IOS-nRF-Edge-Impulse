@@ -68,6 +68,11 @@ class WebSocketManager {
         task.cancel(with: .normalClosure, reason: nil)
     }
     
+    func send<T: Codable>(_ data: T) throws {
+        guard let encodedData = try? JSONEncoder().encode(data) else { return }
+        try send(encodedData)
+    }
+    
     func send(_ data: Data) throws {
         guard let s = String(data: data, encoding: .utf8) else {
             throw Error.unableToEncodeAsUTF8
