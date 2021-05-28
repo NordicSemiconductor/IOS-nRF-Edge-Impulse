@@ -27,9 +27,13 @@ extension BluetoothManager {
 /// Each `BluetoothManager` can handle only one peripheral
 final class BluetoothManager: NSObject, ObservableObject {
     
+    // MARK: - Private Properties
+    
     private let centralManager: CBCentralManager
     
-    private let publisher = PassthroughSubject<Data, Error>()
+    private let transmissionSubject: PassthroughSubject<Data, Error>
+    private lazy var receptionSubject = PassthroughSubject<Data, Error>()
+    private lazy var cancellables = Set<AnyCancellable>()
     
     private let logger = Logger(category: "BluetoothManager")
     
@@ -43,9 +47,15 @@ final class BluetoothManager: NSObject, ObservableObject {
     init(peripheralId: UUID) {
         self.centralManager = CBCentralManager()
         self.pId = peripheralId
+        self.transmissionSubject = PassthroughSubject<Data, Error>()
         super.init()
         
         centralManager.delegate = self
+        transmissionSubject.sinkOrRaiseAppEventError { [weak self] data in
+            guard let self = self else { return }
+            self.peripheral.writeValue(data, for: self.txCharacteristic, type: .withResponse)
+        }
+        .store(in: &cancellables)
     }
     
     func connect() -> AnyPublisher<Data, Error> {
@@ -63,11 +73,12 @@ final class BluetoothManager: NSObject, ObservableObject {
             connectWhenReady = true
         }
             
-        return publisher.eraseToAnyPublisher()
+        return receptionSubject.eraseToAnyPublisher()
     }
     
-    func received(_ data: Data) {
-        publisher.send(data)
+    func write<T: Codable>(_ data: T) throws {
+        guard let encodedData = try? JSONEncoder().encode(data) else { return }
+        transmissionSubject.send(encodedData)
     }
     
     func disconnect() {
@@ -87,6 +98,10 @@ final class BluetoothManager: NSObject, ObservableObject {
         peripheral = p
         peripheral.delegate = self
         centralManager.connect(p, options: nil)
+    }
+    
+    private func received(_ data: Data) {
+        receptionSubject.send(data)
     }
 }
 
@@ -165,7 +180,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
             do {
                 try tryToConnect()
             } catch {
-                return publisher.send(completion: .failure(Error.cantRetreivePeripheral))
+                return receptionSubject.send(completion: .failure(Error.cantRetreivePeripheral))
             }
         }
     }
