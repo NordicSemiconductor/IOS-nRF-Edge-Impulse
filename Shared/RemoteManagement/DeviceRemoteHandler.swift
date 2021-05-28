@@ -105,18 +105,20 @@ class DeviceRemoteHandler {
                 self?.logger.info("New state: \(state.debugDescription)")
             }
             .store(in: &cancellables)
-        
-//        btPublisher
-//            .decode(type: SampleRequestMessageResponse.self, decoder: JSONDecoder())
-//            .sinkOrRaiseAppEventError { response in
-//                print(response)
-//            }
-//            .store(in: &cancellables)
     }
     
-    func sendSampleRequest(_ container: SampleRequestMessageContainer) throws {
-        guard let messageData = try? JSONEncoder().encode(container) else { return }
-        // TODO: Send.
+    func sendSampleRequest(_ request: SampleRequestMessage) throws {
+        guard let btPublisher = btPublisher,
+              let messageData = try? JSONEncoder().encode(request) else { return }
+        
+        btPublisher
+            .decode(type: NewDataAcquisitionResponse.self, decoder: JSONDecoder())
+            .sinkOrRaiseAppEventError { response in
+                print(response)
+            }
+            .store(in: &cancellables)
+        
+        try bluetoothManager.write(messageData)
     }
     
     func disconnect() {

@@ -21,7 +21,7 @@ struct NewDataSample {
 
 extension NewDataSample {
     
-    enum Sensor: String, RawRepresentable, Identifiable, CaseIterable {
+    enum Sensor: String, RawRepresentable, Codable, Identifiable, CaseIterable {
         case Accelerometer
         case Microphone
         case Camera

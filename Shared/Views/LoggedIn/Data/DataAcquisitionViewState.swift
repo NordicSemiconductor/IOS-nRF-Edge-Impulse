@@ -10,6 +10,8 @@ import Combine
 
 final class DataAcquisitionViewState: ObservableObject {
     
+    // MARK: Properties
+    
     @Published var label = ""
     @Published var selectedDevice = Constant.unselectedDevice
     @Published var selectedDataType = DataSample.Category.training
@@ -26,9 +28,11 @@ final class DataAcquisitionViewState: ObservableObject {
         selectedDevice != Constant.unselectedDevice && label.hasItems
     }
     
-    func newSampleMessage() -> SampleRequestMessageContainer {
-        let message = SampleRequestMessage(label: label, length: Int(sampleLength), interval: selectedFrequency.rawValue, sensor: selectedSensor.rawValue)
-        let container = SampleRequestMessageContainer(sample: message)
-        return container
+    // MARK: API
+    
+    func newSampleMessage() -> SampleRequestMessage {
+        let interval = sampleLength / Double(selectedFrequency.rawValue)
+        let message = SampleRequestMessage(category: selectedDataType, intervalMs: interval, label: label, lengthMs: Int(sampleLength), sensor: selectedSensor)
+        return message
     }
 }

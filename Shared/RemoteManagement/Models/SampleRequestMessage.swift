@@ -9,15 +9,17 @@ import Foundation
 
 struct SampleRequestMessage: Codable {
     
+    let category: DataSample.Category
+    let intervalMs: Double
     let label: String
-    let length: Int
-    let interval: Int
-    let sensor: String
+    let lengthMs: Int
+    let sensor: NewDataSample.Sensor
 }
 
-struct SampleRequestMessageContainer: Codable {
+struct NewDataAcquisitionResponse: Codable {
     
-    let sample: SampleRequestMessage
+    let success: Bool
+    let id: Int
 }
 
 struct SampleRequestMessageResponse: Codable {
