@@ -27,17 +27,22 @@ struct ProjectView: View {
             Section(header: Text("Name")) {
                 Label(project.name, systemImage: "character.book.closed.fill")
                     .font(.headline)
+                    .foregroundColor(.primary)
             }
             #endif
             
             Section(header: Text("Description")) {
                 Label(project.description, systemImage: "doc.text.fill")
+                    .foregroundColor(.primary)
             }
             
             Section(header: Text("Creation Date")) {
                 Label(
                     title: { Text(project.created, style: .date) },
-                    icon: { Image(systemName: "clock.fill") }
+                    icon: {
+                        Image(systemName: "clock.fill")
+                            .foregroundColor(.primary)
+                    }
                 )
             }
             
