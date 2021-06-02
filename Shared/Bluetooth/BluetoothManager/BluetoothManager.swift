@@ -57,7 +57,7 @@ final class BluetoothManager: NSObject, ObservableObject {
             
             #warning("remove test code")
             #if DEBUG
-            let response = NewDataAcquisitionResponse(success: true, id: Preview.previewFullAccelerometerDataSampleResponse.sample.id)
+            let response = NewDataAcquisitionResponse(success: true, id: Preview.previewFullCameraDataSampleResponse.sample.id)
             let responseData: Data! = try? JSONEncoder().encode(response)
             self.received(responseData)
             #endif

@@ -35,6 +35,8 @@
 		AA03E98725E3EF13003DA9DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA03E95B25E3EF13003DA9DA /* Assets.xcassets */; };
 		AA05BC412667B00B003AEE50 /* sample_full_accelerometer_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA05BC402667B00B003AEE50 /* sample_full_accelerometer_data_response.json */; };
 		AA05BC422667B00B003AEE50 /* sample_full_accelerometer_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA05BC402667B00B003AEE50 /* sample_full_accelerometer_data_response.json */; };
+		AA05BC442667CB1F003AEE50 /* sample_full_camera_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA05BC432667CB1F003AEE50 /* sample_full_camera_data_response.json */; };
+		AA05BC452667CB1F003AEE50 /* sample_full_camera_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA05BC432667CB1F003AEE50 /* sample_full_camera_data_response.json */; };
 		AA09C79C262EEED400B039F1 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09C79B262EEED400B039F1 /* Collection.swift */; };
 		AA09C79D262EEED400B039F1 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09C79B262EEED400B039F1 /* Collection.swift */; };
 		AA0D81292608C03A00AE615A /* DeploymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D81282608C03A00AE615A /* DeploymentView.swift */; };
@@ -238,6 +240,7 @@
 		AA03E97F25E3EF13003DA9DA /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		AA03E98125E3EF13003DA9DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA05BC402667B00B003AEE50 /* sample_full_accelerometer_data_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_full_accelerometer_data_response.json; sourceTree = "<group>"; };
+		AA05BC432667CB1F003AEE50 /* sample_full_camera_data_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_full_camera_data_response.json; sourceTree = "<group>"; };
 		AA09C79B262EEED400B039F1 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		AA0D81282608C03A00AE615A /* DeploymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentView.swift; sourceTree = "<group>"; };
 		AA0D812B2608F62700AE615A /* DeploymentViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentViewState.swift; sourceTree = "<group>"; };
@@ -634,6 +637,7 @@
 				AAF5531F26416EB300252345 /* sample_datasamples.json */,
 				AA9CFCCE26610C76001B7751 /* sample_full_microphone_data_response.json */,
 				AA05BC402667B00B003AEE50 /* sample_full_accelerometer_data_response.json */,
+				AA05BC432667CB1F003AEE50 /* sample_full_camera_data_response.json */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -927,6 +931,7 @@
 				AAE5B63525F23A4500AA003D /* sample_projects.json in Resources */,
 				AAF5532026416EB300252345 /* sample_datasamples.json in Resources */,
 				AA9CFCCF26610C76001B7751 /* sample_full_microphone_data_response.json in Resources */,
+				AA05BC442667CB1F003AEE50 /* sample_full_camera_data_response.json in Resources */,
 				AA05BC412667B00B003AEE50 /* sample_full_accelerometer_data_response.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -939,6 +944,7 @@
 				AAE5B63625F23A4500AA003D /* sample_projects.json in Resources */,
 				AAF5532126416EB300252345 /* sample_datasamples.json in Resources */,
 				AA9CFCD026610C76001B7751 /* sample_full_microphone_data_response.json in Resources */,
+				AA05BC452667CB1F003AEE50 /* sample_full_camera_data_response.json in Resources */,
 				AA05BC422667B00B003AEE50 /* sample_full_accelerometer_data_response.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

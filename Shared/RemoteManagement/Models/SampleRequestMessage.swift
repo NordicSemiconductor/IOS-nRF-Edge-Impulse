@@ -37,7 +37,7 @@ struct DataAcquisitionSample: Codable {
     let coldstorageFilename: String
     let label: String
     let intervalMs: Double
-    let frequency: Double
+    let frequency: Double?
     let deviceName: String
     let deviceType: String
     let sensors: [Sensor]
@@ -60,8 +60,9 @@ struct DataAcquisitionPayload: Codable {
     let device_name: String
     let device_type: String
     let interval_ms: Double
-    let frequency: Double
+    let frequency: Double?
     let values: [[Double]]
+    let sensors: [DataAcquisitionSample.Sensor]
 }
 
 struct FullDataAcquisitionData: Codable {

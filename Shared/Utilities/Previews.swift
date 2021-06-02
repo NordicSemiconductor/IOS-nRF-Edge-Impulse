@@ -30,6 +30,10 @@ struct Preview {
         return try? decode(filename: "sample_full_accelerometer_data_response")
     }()
     
+    static let previewFullCameraDataSampleResponse: FullDataAcquisitionData! = {
+        return try? decode(filename: "sample_full_camera_data_response")
+    }()
+    
     static let projectsPreviewAppData = previewAppData(.complete(previewUser, previewProjects))
     
     static let noDevicesAppData: AppData = {
