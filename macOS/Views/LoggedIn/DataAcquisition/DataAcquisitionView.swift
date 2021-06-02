@@ -37,11 +37,28 @@ struct DataAcquisitionView: View {
             }
             
             Divider()
+                .padding(.vertical)
             
             Section(header: Text("Data Collection").bold()) {
                 MultiColumnView {
                     Text("Sample Name")
                     TextField("Label", text: $viewState.label)
+                    
+                    Text("Category")
+                    Picker(selection: $viewState.selectedDataType, label: EmptyView()) {
+                        ForEach(DataSample.Category.userVisible, id: \.self) { dataType in
+                            Text(dataType.rawValue.uppercasingFirst).tag(dataType)
+                        }
+                    }.pickerStyle(RadioGroupPickerStyle())
+                    .horizontalRadioGroupLayout()
+                    .padding(.vertical, 6)
+                    
+                    Text("Sensor")
+                    Picker(selection: $viewState.selectedSensor, label: EmptyView()) {
+                        ForEach(NewDataSample.Sensor.allCases, id: \.self) { sensor in
+                            Text(sensor.rawValue).tag(sensor)
+                        }
+                    }
                     
                     Text("Sample Length")
                     if viewState.canSelectSampleLengthAndFrequency {
@@ -52,20 +69,6 @@ struct DataAcquisitionView: View {
                     } else {
                         Text("Unavailable")
                             .foregroundColor(Assets.middleGrey.color)
-                    }
-                    
-                    Text("Category")
-                    Picker(selection: $viewState.selectedDataType, label: EmptyView()) {
-                        ForEach(DataSample.Category.userVisible, id: \.self) { dataType in
-                            Text(dataType.rawValue).tag(dataType)
-                        }
-                    }.pickerStyle(RadioGroupPickerStyle())
-                    
-                    Text("Sensor")
-                    Picker(selection: $viewState.selectedSensor, label: EmptyView()) {
-                        ForEach(NewDataSample.Sensor.allCases, id: \.self) { sensor in
-                            Text(sensor.rawValue).tag(sensor)
-                        }
                     }
                     
                     Text("Frequency")
@@ -85,13 +88,6 @@ struct DataAcquisitionView: View {
         }
         .setTitle("New Sample")
         .padding(16)
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: startSampling, label: {
-                    Image(systemName: viewState.isSampling ? "stop.fill" : "play.fill")
-                }).disabled(!viewState.canStartSampling)
-            }
-        }
         .onAppear {
             let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
             if let device = connectedDevices.first {
