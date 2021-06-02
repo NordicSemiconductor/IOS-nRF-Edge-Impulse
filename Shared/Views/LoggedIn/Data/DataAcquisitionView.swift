@@ -92,10 +92,14 @@ struct DataAcquisitionView: View {
                 }
             }
             
-            Button("Start Sampling", action: startSampling)
-                .centerTextInsideForm()
-                .disabled(!viewState.canStartSampling || viewState.isSampling)
-                .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
+            Section(header: Text("Progress")) {
+                ProgressView(value: viewState.progress, total: 100.0)
+                
+                Button("Start Sampling", action: startSampling)
+                    .centerTextInsideForm()
+                    .disabled(!viewState.canStartSampling || viewState.isSampling)
+                    .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
+            }
         }
         .setTitle("New Sample")
         .onAppear() {

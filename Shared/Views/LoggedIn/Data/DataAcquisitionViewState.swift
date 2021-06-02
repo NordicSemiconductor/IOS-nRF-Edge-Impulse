@@ -19,6 +19,7 @@ final class DataAcquisitionViewState: ObservableObject {
     @Published var sampleLength = 10000.0
     @Published var selectedFrequency = NewDataSample.Frequency._11000Hz
     @Published var isSampling = false
+    @Published var progress = 0.0
     
     var canSelectSampleLengthAndFrequency: Bool {
         selectedSensor != .Camera
