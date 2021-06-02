@@ -15,14 +15,13 @@ struct HeroView: View {
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [Assets.blue.color, Assets.grass.color, .yellow, Assets.red.color]),
-                startPoint: .top,
-                endPoint: .bottom
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
             )
 
             #if os(OSX)
             VisualEffectBlur()
             UserView(user: user)
-                .padding(.horizontal)
             #else
             VisualEffectBlur(blurStyle: .systemThickMaterial, vibrancyStyle: .none) {
                 UserView(user: user)
