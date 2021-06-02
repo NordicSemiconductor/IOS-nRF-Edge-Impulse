@@ -125,7 +125,7 @@ class DeviceRemoteHandler {
                 #warning("remove test code")
                 #if DEBUG
                 DispatchQueue.main.asyncAfter(deadline: .now() + request.intervalS) {
-                    guard let fullResponse = Preview.previewFullDataSampleResponse else { return }
+                    guard let fullResponse = Preview.previewFullMicrophoneDataSampleResponse else { return }
                     do {
                         try self?.webSocketManager.send(fullResponse)
                         self?.samplingState = .completed

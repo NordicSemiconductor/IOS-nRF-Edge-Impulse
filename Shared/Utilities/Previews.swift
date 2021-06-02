@@ -22,8 +22,12 @@ struct Preview {
         return try? decode(filename: "sample_datasamples")
     }()
     
-    static let previewFullDataSampleResponse: FullDataAcquisitionData! = {
+    static let previewFullMicrophoneDataSampleResponse: FullDataAcquisitionData! = {
         return try? decode(filename: "sample_full_microphone_data_response")
+    }()
+    
+    static let previewFullAccelerometerDataSampleResponse: FullDataAcquisitionData! = {
+        return try? decode(filename: "sample_full_accelerometer_data_response")
     }()
     
     static let projectsPreviewAppData = previewAppData(.complete(previewUser, previewProjects))

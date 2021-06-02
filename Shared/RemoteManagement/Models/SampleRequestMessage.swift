@@ -33,7 +33,7 @@ struct DataAcquisitionSample: Codable {
     let category: DataSample.Category
     let label: String
     let intervalMs: Double
-    let frequency: Int
+    let frequency: Double
     let deviceName: String
     let deviceType: String
     let valuesCount: Int
@@ -45,8 +45,8 @@ struct DataAcquisitionPayload: Codable {
     let device_name: String
     let device_type: String
     let interval_ms: Double
-    let frequency: Int
-    let values: [[Int]]
+    let frequency: Double
+    let values: [[Double]]
 }
 
 struct FullDataAcquisitionData: Codable {
