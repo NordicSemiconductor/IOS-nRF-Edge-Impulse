@@ -84,7 +84,7 @@ private extension DeviceList {
                                 DeviceRow(device)
                             }
                             #else
-                            NavigationLink(destination: DeviceDetails(device: device), isActive: $appData.isShowingDetailsView) {
+                            NavigationLink(destination: DeviceDetails(device: device)) {
                                 DeviceRow(device)
                             }
                             .isDetailLink(false)
