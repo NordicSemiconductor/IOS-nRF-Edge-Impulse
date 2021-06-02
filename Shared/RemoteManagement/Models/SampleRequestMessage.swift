@@ -30,14 +30,29 @@ struct DataAcquisitionSample: Codable {
     
     let id: Int
     let filename: String
+    let signatureValidate: Bool
+    let signatureMethod: String
+    let signatureKey: String
     let category: DataSample.Category
+    let coldstorageFilename: String
     let label: String
     let intervalMs: Double
     let frequency: Double
     let deviceName: String
     let deviceType: String
+    let sensors: [Sensor]
     let valuesCount: Int
     let totalLengthMs: Int
+}
+
+// MARK: - DataAcquisitionSample.Sensor
+
+extension DataAcquisitionSample {
+    
+    struct Sensor: Codable {
+        let name: String
+        let units: String
+    }
 }
 
 struct DataAcquisitionPayload: Codable {
