@@ -108,6 +108,13 @@ struct DataAcquisitionView: View {
             }
             viewState.selectedDevice = device
         }
+        .onReceive(viewState.countdownTimer, perform: { _ in
+            guard viewState.isSampling else { return }
+            
+            let increment = viewState.sampleLength / 1000.0
+            let newValue = viewState.progress + increment
+            viewState.progress = min(newValue, 100.0)
+        })
         .frame(minWidth: .minTabWidth)
     }
 }

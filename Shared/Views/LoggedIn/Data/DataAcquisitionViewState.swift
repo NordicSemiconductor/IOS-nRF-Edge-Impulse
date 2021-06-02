@@ -18,8 +18,21 @@ final class DataAcquisitionViewState: ObservableObject {
     @Published var selectedSensor = NewDataSample.Sensor.Accelerometer
     @Published var sampleLength = 10000.0
     @Published var selectedFrequency = NewDataSample.Frequency._11000Hz
-    @Published var isSampling = false
     @Published var progress = 0.0
+    @Published var isSampling = false {
+        didSet {
+            if isSampling {
+                countdownTimer.connect()
+                    .store(in: &cancellables)
+            } else {
+                cancellables.forEach { $0.cancel() }
+                cancellables.removeAll()
+            }
+        }
+    }
+    
+    private(set) lazy var countdownTimer = Timer.publish(every: 1, on: .main, in: .common)
+    private lazy var cancellables = Set<AnyCancellable>()
     
     var canSelectSampleLengthAndFrequency: Bool {
         selectedSensor != .Camera
