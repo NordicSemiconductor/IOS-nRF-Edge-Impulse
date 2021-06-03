@@ -48,7 +48,22 @@ extension Network {
                 }
                 return element.data
             }
-            .decode(type: T.self, decoder: JSONDecoder())
+            .flatMap { data -> AnyPublisher<T, Error> in
+                let decoder = JSONDecoder()
+                if let response = try? decoder.decode(T.self, from: data) {
+                    return Just(response).setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
+                }
+
+                do {
+                    let errorResponse = try decoder.decode(EdgeImpulseErrorResponse.self, from: data)
+                    return Fail(error: errorResponse)
+                        .eraseToAnyPublisher()
+                } catch (let error) {
+                    return Fail(error: error)
+                        .eraseToAnyPublisher()
+                }
+            }
             .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
@@ -82,4 +97,16 @@ extension Network {
             }
             .eraseToAnyPublisher()
     }
+}
+
+// MARK: - EdgeImpulseErrorResponse
+
+struct EdgeImpulseErrorResponse: APIResponse, LocalizedError {
+    
+    let success: Bool
+    let error: String?
+    
+    var errorDescription: String? { error }
+    var recoverySuggestion: String? { error }
+    var helpAnchor: String? { "Try Postman or ask Roshee for help." }
 }
