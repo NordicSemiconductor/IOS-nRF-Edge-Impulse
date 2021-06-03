@@ -95,6 +95,10 @@ struct DataAcquisitionView: View {
             Section(header: Text("Progress")) {
                 ProgressView(value: viewState.progress, total: 100.0)
                 
+                Text(viewState.progressString)
+                    .foregroundColor(.primary)
+                    .centerTextInsideForm()
+                
                 Button("Start Sampling", action: startSampling)
                     .centerTextInsideForm()
                     .disabled(!viewState.canStartSampling || viewState.isSampling)
@@ -122,7 +126,19 @@ struct DataAcquisitionView: View {
 private extension DataAcquisitionView {
     
     func startSampling() {
-        scannerData.startSampling(viewState)
+        guard let project = appData.selectedProject else { return }
+        viewState.progressString = "Requesting Sample ID..."
+        appData.requestNewSampleID(project: project, configuration: viewState) { response, error in
+            guard let response = response else {
+                let error: Error! = error
+                viewState.isSampling = false
+                viewState.progressString = error.localizedDescription
+                return
+            }
+        
+            viewState.progressString = "Obtained Sample ID."
+            scannerData.startSampling(viewState)
+        }
     }
 }
 
