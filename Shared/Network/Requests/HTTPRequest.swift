@@ -31,17 +31,18 @@ extension HTTPRequest {
     // MARK: - API
     
     mutating func setMethod(_ httpMethod: HTTPMethod) {
-        switch httpMethod {
-        case .GET(let headers):
-            self.httpMethod = "GET"
-            for (field, value) in headers {
-                addValue(value, forHTTPHeaderField: field)
-            }
-        case .POST(let body):
-            self.httpMethod = "POST"
-            addValue("application/json", forHTTPHeaderField: "Content-Type")
-            httpBody = body.data(using: .utf8)
+        self.httpMethod = httpMethod.rawValue
+    }
+    
+    mutating func setHeaders(_ headers: [String : String]) {
+        for (field, value) in headers {
+            addValue(value, forHTTPHeaderField: field)
         }
+    }
+    
+    mutating func setBody(_ data: Data) {
+        addValue("application/json", forHTTPHeaderField: "Content-Type")
+        httpBody = data
     }
 }
 
@@ -67,12 +68,9 @@ enum HTTPHost: String, RawRepresentable {
 
 // MARK: - Method
 
-enum HTTPMethod {
+enum HTTPMethod: String, RawRepresentable {
     
-    static let emptyHeader = [String:String]()
-    
-    case GET(header: [String: String])
-    case POST(body: String)
+    case GET, POST
 }
 
 // MARK: - APIResponse

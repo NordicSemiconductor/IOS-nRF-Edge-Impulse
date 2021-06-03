@@ -14,7 +14,8 @@ extension HTTPRequest {
     static func getUser(using apiToken: String) -> HTTPRequest? {
         guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/user") else { return nil }
         let jwtValue = "jwt=" + apiToken
-        httpRequest.setMethod(.GET(header: ["cookie": jwtValue]))
+        httpRequest.setMethod(.GET)
+        httpRequest.setHeaders(["cookie": jwtValue])
         return httpRequest
     }
 }
