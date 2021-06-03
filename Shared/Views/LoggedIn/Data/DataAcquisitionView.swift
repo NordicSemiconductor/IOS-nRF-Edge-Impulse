@@ -96,6 +96,7 @@ struct DataAcquisitionView: View {
                 ProgressView(value: viewState.progress, total: 100.0)
                 
                 Text(viewState.progressString)
+                    .lineLimit(0)
                     .foregroundColor(.primary)
                     .centerTextInsideForm()
                 
@@ -126,9 +127,8 @@ struct DataAcquisitionView: View {
 private extension DataAcquisitionView {
     
     func startSampling() {
-        guard let project = appData.selectedProject else { return }
         viewState.progressString = "Requesting Sample ID..."
-        appData.requestNewSampleID(project: project, configuration: viewState) { response, error in
+        appData.requestNewSampleID(viewState) { response, error in
             guard let response = response else {
                 let error: Error! = error
                 viewState.isSampling = false
