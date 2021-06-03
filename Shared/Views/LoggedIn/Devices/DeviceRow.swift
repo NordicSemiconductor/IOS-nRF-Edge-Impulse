@@ -16,13 +16,11 @@ struct DeviceRow: View {
     // MARK: Private Properties
     
     private let device: Device
-    private let connectionType: DeviceAccessoryView.DeviceType
     
     // MARK: Init
     
-    init(_ device: Device, connectionType: DeviceAccessoryView.DeviceType) {
+    init(_ device: Device) {
         self.device = device
-        self.connectionType = connectionType
     }
     
     // MARK: View
@@ -50,7 +48,6 @@ struct DeviceRow: View {
             }
             .padding(8)
             Spacer()
-            DeviceAccessoryView(deviceType: connectionType)
         }
         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 12))
         
@@ -60,7 +57,7 @@ struct DeviceRow: View {
         guard device.state == .notConnected else {
             return Assets.blue.color
         }
-        return scannerData.isScanning ? .primary : Assets.middleGrey.color
+        return .primary // scannerData.isScanning ? .primary : Assets.middleGrey.color
     }
 }
 
@@ -69,7 +66,7 @@ struct DeviceRow: View {
 #if DEBUG
 struct DeviceRow_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceRow(.sample, connectionType: .connected)
+        DeviceRow(.sample)
             .environmentObject(Preview.mockScannerData)
             .previewLayout(.sizeThatFits)
     }

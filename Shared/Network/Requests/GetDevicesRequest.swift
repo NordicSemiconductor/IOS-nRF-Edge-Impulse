@@ -17,8 +17,8 @@ extension HTTPRequest {
         return request
     }
     
-    static func getDevice(for project: Project, device: Device, using apiToken: String) -> HTTPRequest? {
-        var request = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/device/\(device.id)")
+    static func getDevice(for project: Project, deviceId: String, using apiToken: String) -> HTTPRequest? {
+        var request = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/device/\(deviceId)")
         let jwtValue = "jwt=" + apiToken
         request?.setMethod(.GET(header: ["cookie": jwtValue]))
         return request

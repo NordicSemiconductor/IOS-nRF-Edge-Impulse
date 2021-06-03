@@ -16,8 +16,7 @@ final class ScannerData: NSObject, ObservableObject {
     
     @Published var isScanning = false
     @Published var scanResults: [Device] = []
-    @Published var connectedDevices: [DeviceRemoteHandler] = []
-    
+        
     @ObservedObject var preferences = UserPreferences.shared
     
     // MARK: - Private Properties
@@ -28,6 +27,11 @@ final class ScannerData: NSObject, ObservableObject {
     private lazy var bluetoothManager = CBCentralManager(delegate: self, queue: nil)
     private lazy var devicePublisher = PassthroughSubject<Device, BluetoothError>()
     private lazy var cancellables = Set<AnyCancellable>()
+    
+    override init() {
+        super.init()
+        toggle()
+    }
 }
 
 // MARK: - API
@@ -72,9 +76,7 @@ extension ScannerData {
         switch isScanning {
         case true:
             guard bluetoothManager.state == .poweredOn else { break }
-            let scanServices: [CBUUID]? = preferences.onlyScanUARTDevices ? [BluetoothManager.uartServiceId] : nil
-            bluetoothManager.scanForPeripherals(withServices: scanServices,
-                                                options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
+            startScanning()
         case false:
             bluetoothManager.stopScan()
         }
@@ -90,6 +92,12 @@ extension ScannerData {
             viewState.isSampling = false
             AppEvents.shared.error = ErrorEvent(error)
         }
+    }
+    
+    private func startScanning() {
+        let scanServices: [CBUUID]? = preferences.onlyScanUARTDevices ? [BluetoothManager.uartServiceId] : nil
+        bluetoothManager.scanForPeripherals(withServices: scanServices,
+                                            options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
     }
 }
 
@@ -139,11 +147,7 @@ extension ScannerData: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral,
                         advertisementData: [String : Any], rssi RSSI: NSNumber) {
-            let name = advertisementData[CBAdvertisementDataLocalNameKey] as? String
-                ?? peripheral.name
-                ?? "N/A"
-        
-        let device = Device(name: name, id: peripheral.identifier, rssi: R(value: RSSI.intValue), advertisementData: AdvertisementData(advertisementData))
+        let device = Device(peripheral: peripheral, advertisementData: advertisementData, rssi: RSSI)
         
         switch preferences.onlyScanConnectableDevices {
         case true:
@@ -166,7 +170,9 @@ private extension ScannerData {
     func checkForBluetoothManagerErrors(in central: CBCentralManager) {
         switch central.state {
         case .poweredOn:
-            break
+            if !bluetoothManager.isScanning {
+                startScanning()
+            }
         default:
             guard isScanning else { return }
             isScanning = false

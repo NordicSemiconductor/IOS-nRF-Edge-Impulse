@@ -121,3 +121,31 @@ extension Publishers {
         }
     }
 }
+
+extension Publisher {
+    func justDoIt(_ action: @escaping (Self.Output) -> Void) -> Publishers.JustDoIt<Self> {
+        return .init(action: action, upstream: self)
+    }
+}
+
+extension Publishers {
+    struct JustDoIt<Upstream: Publisher>: Publisher {
+        let action: (Output) -> Void
+        let upstream: Upstream
+        
+        func receive<S>(subscriber: S) where S : Subscriber, Upstream.Failure == S.Failure, Upstream.Output == S.Input {
+            upstream
+                .map { output in
+                    action(output)
+                    return output
+                }
+                .subscribe(subscriber)
+        }
+        
+        typealias Output = Upstream.Output
+        typealias Failure = Upstream.Failure
+        
+        
+        
+    }
+}

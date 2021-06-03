@@ -38,6 +38,7 @@ struct WSHelloResponse: Codable {
 extension ResponseRootObject {
     static let moc = ResponseRootObject(
         type: "",
+
         direction: "",
         address: "",
         message: Message(
@@ -54,6 +55,10 @@ extension ResponseRootObject {
             )
         )
     )
+}
+
+extension Sensor {
+    static let mock = Sensor(name: "Camera (320x240)", maxSampleLengthS: 1, frequencies: [1.0])
 }
 
 extension WSHelloResponse {

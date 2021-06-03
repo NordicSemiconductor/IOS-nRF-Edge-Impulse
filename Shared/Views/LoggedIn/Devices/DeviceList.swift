@@ -30,12 +30,6 @@ struct DeviceList: View {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     })
                 }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(action: toggleScanner, label: {
-                        Image(systemName: scannerData.isScanning ? "stop.fill" : "play.fill")
-                    })
-                    .keyboardShortcut(.space, modifiers: [])
-                }
             }
             .onAppear() {
                 guard !Constant.isRunningInPreviewMode else { return }
@@ -49,24 +43,24 @@ struct DeviceList: View {
     
     @ViewBuilder
     private func buildRootView() -> some View {
-        if scannerData.scanResults.isEmpty {
-            VStack(spacing: 8) {
-                if scannerData.isScanning {
-                    ProgressView()
-                        .foregroundColor(.accentColor)
-                        .progressViewStyle(CircularProgressViewStyle())
-                    
-                    Text("Can't Find What you're Looking For? Check your Settings.")
-                        .font(.caption)
-                } else {
-                    Text("No Scanned Devices")
-                        .font(.headline)
-                        .bold()
-                }
-            }
-        } else {
+//        if scannerData.scanResults.isEmpty {
+//            VStack(spacing: 8) {
+//                if scannerData.isScanning {
+//                    ProgressView()
+//                        .foregroundColor(.accentColor)
+//                        .progressViewStyle(CircularProgressViewStyle())
+//
+//                    Text("Can't Find What you're Looking For? Check your Settings.")
+//                        .font(.caption)
+//                } else {
+//                    Text("No Scanned Devices")
+//                        .font(.headline)
+//                        .bold()
+//                }
+//            }
+//        } else {
             buildDeviceList()
-        }
+//        }
     }
 }
 
@@ -84,8 +78,7 @@ private extension DeviceList {
                 let devices = ListSection.notConnectedDevices.devices(from: scannerData)
                 if devices.hasItems {
                     ForEach(devices) { device in
-                        
-                        DeviceRow(device, connectionType: .scanResult)
+                        DeviceRow(device)
                             .onTapGesture {
                                 appData.selectedProject
                                     .flatMap { appData.projectDevelopmentKeys[$0]?.apiKey }
@@ -109,16 +102,9 @@ private extension DeviceList {
     private func buildRegisteredDevicesList(devices: [RegisteredDevice]) -> some View {
         Section(header: Text("Devices")) {
             if devices.hasItems {
-                ForEach(devices) { _ in
-                    Text("t")
+                ForEach(devices) { d in
+                    RegisteredDeviceView(device: d, expanded: false)
                 }
-//                    ForEach(appData.cuntProjectDevices) { d in
-//                        Text(d.name)
-//                    }
-//                    ForEach(devices) { regDevice in
-//                        let d = Device(name: regDevice.name, id: UUID(), rssi: .good, advertisementData: .mock)
-//                        DeviceRow(d, connectionType: .scanResult)
-//                    }
             } else {
                 Text("No Devices")
                     .font(.callout)

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreBluetooth.CBPeripheral
 
 // MARK: - RSSI
 
@@ -50,6 +51,20 @@ struct Device: Identifiable {
     let rssi: RSSI
     let advertisementData: AdvertisementData
     var state: State = .notConnected
+    
+    init(name: String, id: UUID, rssi: RSSI, advertisementData: AdvertisementData) {
+        self.name = name
+        self.id = id
+        self.rssi = rssi
+        self.advertisementData = advertisementData
+    }
+    
+    init(peripheral: CBPeripheral, advertisementData: [String: Any], rssi: NSNumber) {
+        self.advertisementData = AdvertisementData(advertisementData)
+        self.rssi = RSSI(value: rssi.intValue)
+        self.name = advertisementData[CBAdvertisementDataLocalNameKey] as? String ?? "N/A"
+        self.id = peripheral.identifier
+    }
     
     var isConnectedAndReadyForUse: Bool {
         switch state {

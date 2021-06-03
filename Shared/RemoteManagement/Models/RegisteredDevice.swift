@@ -29,3 +29,20 @@ struct RegisteredDevice: Codable {
 extension RegisteredDevice: Identifiable {
     
 }
+
+#if DEBUG
+extension RegisteredDevice {
+    static let mock = RegisteredDevice(
+        id: 1,
+        deviceId: "ff:ff:ff:ff",
+        created: "01.01.2020",
+        lastSeen: "",
+        deviceType: "Nordic Thingy:53",
+        sensors: [ Sensor.mock ],
+        remoteMgmtConnected: true,
+        remoteMgmtHost: nil,
+        supportsSnapshotStreaming: true,
+        name: "Thingy:53"
+    )
+}
+#endif
