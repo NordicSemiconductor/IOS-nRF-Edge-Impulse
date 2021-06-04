@@ -13,13 +13,13 @@ struct ResponseRootObject: Codable {
 }
 
 struct Message: Codable {
-    let hello: HelloMessage?
+    var hello: HelloMessage?
 }
 
 struct HelloMessage: Codable {
     let version: Int?
     var apiKey: String?
-    let deviceID, deviceType, connection: String?
+    var deviceId, deviceType, connection: String?
     let sensors: [Sensor]?
     let supportsSnapshotStreaming: Bool?
 }
@@ -45,7 +45,7 @@ extension ResponseRootObject {
             hello: HelloMessage(
                 version: 1,
                 apiKey: "ei_8dd502530a5232ff64374815fddc229151e0a82c1d4f23e86097d8acdf882295",
-                deviceID: "15:FE:90:11:1D:18",
+                deviceId: "15:FE:90:11:1D:18",
                 deviceType: "PORTENTA_H7_M7",
                 connection: "daemon",
                 sensors: [
