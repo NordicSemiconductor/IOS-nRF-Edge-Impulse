@@ -11,6 +11,7 @@ struct DataAcquisitionView: View {
     
     // MARK: - State
     
+    @EnvironmentObject var appData: AppData
     @EnvironmentObject var scannerData: ScannerData
     
     @ObservedObject private var viewState = DataAcquisitionViewState()
@@ -84,6 +85,24 @@ struct DataAcquisitionView: View {
                     }
                 }
                 .disabled(viewState.isSampling)
+                
+                Divider()
+                    .padding(.vertical)
+                
+                Section(header: Text("Progress").bold()) {
+                    ProgressView(value: viewState.progress, total: 100.0)
+                        .frame(maxWidth: 250)
+                    
+                    Text(viewState.progressString)
+                        .lineLimit(0)
+                        .foregroundColor(.primary)
+                        .centerTextInsideForm()
+                    
+                    Button("Start Sampling", action: startSampling)
+                        .centerTextInsideForm()
+                        .disabled(!viewState.canStartSampling || viewState.isSampling)
+                        .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
+                }
             }
         }
         .setTitle("New Sample")
@@ -102,7 +121,18 @@ struct DataAcquisitionView: View {
 extension DataAcquisitionView {
     
     func startSampling() {
-        scannerData.startSampling(viewState)
+        viewState.progressString = "Requesting Sample ID..."
+        appData.requestNewSampleID(viewState) { response, error in
+            guard let response = response else {
+                let error: Error! = error
+                viewState.isSampling = false
+                viewState.progressString = error.localizedDescription
+                return
+            }
+        
+            viewState.progressString = "Obtained Sample ID."
+            scannerData.startSampling(viewState)
+        }
     }
 }
 
