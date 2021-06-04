@@ -18,13 +18,9 @@ extension HTTPRequest {
             return nil
         }
         
-//        httpRequest.setMethod(.GET(header: ["x-api-key": apiToken]))
-        let jwtValue = "jwt=" + apiToken
-        httpRequest.setHeaders(["cookie": jwtValue])
-        let body = """
-            {"category":"training","intervalMs":16,"label":"WednesdayBeforeLunch","lengthMs":10000,"sensor":"Accelerometer"}
-            """
         httpRequest.setMethod(.POST)
+        let jwtValue = "jwt=" + apiToken
+        httpRequest.setHeaders(["cookie": jwtValue, "Accept": "application/json"])
         httpRequest.setBody(bodyData)
         return httpRequest
     }
