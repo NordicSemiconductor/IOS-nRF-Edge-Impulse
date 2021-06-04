@@ -68,10 +68,12 @@ class DeviceRemoteHandler {
             .mapError { Error.anyError($0) }
             .flatMap { [unowned self] (data) -> AnyPublisher<Data, Swift.Error> in
                 do {
-                    // TODO: Rid off force unwrap
-                    var msg = (data.message)!
-                    msg.hello!.apiKey = apiKey
-                    let d = try JSONEncoder().encode(msg)
+                    guard var message = data.message else {
+                        throw Error.stringError("Data contains no message.")
+                    }
+                    message.hello?.apiKey = apiKey
+                    message.hello?.deviceId = device.id.uuidString
+                    let d = try JSONEncoder().encode(message)
                     try self.webSocketManager.send(d)
                 } catch let e {
                     return Fail(error: e)

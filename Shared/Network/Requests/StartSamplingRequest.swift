@@ -12,7 +12,7 @@ extension HTTPRequest {
     static func startSampling(_ sampleMessage: SampleRequestMessage, project: Project, device: Device,
                               using apiToken: String) -> HTTPRequest? {
         #warning("Use RegisteredDevice here.")
-        let deviceId = "phone_kp6z2nxu"
+        let deviceId = device.id.uuidString
         guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/device/\(deviceId)/start-sampling"),
               let bodyData = try? JSONEncoder().encode(sampleMessage) else {
             return nil
