@@ -13,7 +13,7 @@ struct SampleRequestMessage: Codable {
     let intervalMs: Double
     let label: String
     let lengthMs: Int
-    let sensor: NewDataSample.Sensor
+    let sensor: String
     
     var intervalS: Double {
         ceil(Double(lengthMs) / 1000.0)

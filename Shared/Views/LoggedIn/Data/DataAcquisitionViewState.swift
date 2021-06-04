@@ -15,7 +15,7 @@ final class DataAcquisitionViewState: ObservableObject {
     @Published var label = ""
     @Published var selectedDevice = Constant.unselectedDevice
     @Published var selectedDataType = DataSample.Category.training
-    @Published var selectedSensor = NewDataSample.Sensor.Accelerometer
+    @Published var selectedSensor: Sensor?
     @Published var sampleLength = 10000.0
     @Published var selectedFrequency = NewDataSample.Frequency._11000Hz
     @Published var progress = 0.0
@@ -36,7 +36,8 @@ final class DataAcquisitionViewState: ObservableObject {
     private lazy var cancellables = Set<AnyCancellable>()
     
     var canSelectSampleLengthAndFrequency: Bool {
-        selectedSensor != .Camera
+        guard let sensor = selectedSensor else { return false }
+        return sensor.maxSampleLengthS != nil && sensor.frequencies != nil
     }
     
     var canStartSampling: Bool {
@@ -45,9 +46,10 @@ final class DataAcquisitionViewState: ObservableObject {
     
     // MARK: API
     
-    func newSampleMessage() -> SampleRequestMessage {
+    func newSampleMessage() -> SampleRequestMessage? {
+        guard let sensor = selectedSensor else { return nil }
         let interval = sampleLength / Double(selectedFrequency.rawValue)
-        let message = SampleRequestMessage(category: selectedDataType, intervalMs: interval, label: label, lengthMs: Int(sampleLength), sensor: selectedSensor)
+        let message = SampleRequestMessage(category: selectedDataType, intervalMs: interval, label: label, lengthMs: Int(sampleLength), sensor: sensor.name)
         return message
     }
 }

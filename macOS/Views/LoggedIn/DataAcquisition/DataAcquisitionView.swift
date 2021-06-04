@@ -55,10 +55,15 @@ struct DataAcquisitionView: View {
                     .padding(.vertical, 6)
                     
                     Text("Sensor")
-                    Picker(selection: $viewState.selectedSensor, label: EmptyView()) {
-                        ForEach(NewDataSample.Sensor.allCases, id: \.self) { sensor in
-                            Text(sensor.rawValue).tag(sensor)
+                    if let device = viewState.selectedDevice {
+                        Picker(selection: $viewState.selectedSensor, label: EmptyView()) {
+                            ForEach(device.sensors, id: \.self) { sensor in
+                                Text(sensor.name).tag(sensor)
+                            }
                         }
+                    } else {
+                        Text("Unavailable")
+                            .foregroundColor(Assets.middleGrey.color)
                     }
                     
                     Text("Sample Length")
@@ -73,16 +78,16 @@ struct DataAcquisitionView: View {
                     }
                     
                     Text("Frequency")
-                    if viewState.canSelectSampleLengthAndFrequency {
-                        Picker(selection: $viewState.selectedFrequency, label: EmptyView()) {
-                            ForEach(NewDataSample.Frequency.allCases, id: \.self) { frequency in
-                                Text(frequency.description).tag(frequency)
-                            }
-                        }
-                    } else {
-                        Text("Unavailable")
-                            .foregroundColor(Assets.middleGrey.color)
-                    }
+//                    if let device = viewState.selectedDevice, viewState.canSelectSampleLengthAndFrequency {
+//                        Picker(selection: $viewState.selectedFrequency, label: EmptyView()) {
+//                            ForEach(device.sensors, id: \.self) { sensor in
+//                                Text(sensor.name).tag(sensor)
+//                            }
+//                        }
+//                    } else {
+//                        Text("Unavailable")
+//                            .foregroundColor(Assets.middleGrey.color)
+//                    }
                 }
                 .disabled(viewState.isSampling)
                 

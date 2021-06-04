@@ -81,10 +81,11 @@ extension ScannerData {
     }
     
     func startSampling(_ viewState: DataAcquisitionViewState) {
+        guard let newSampleMessage = viewState.newSampleMessage() else { return }
         viewState.isSampling = true
         do {
             let deviceHandler = self[viewState.selectedDevice]
-            try deviceHandler.sendSampleRequest(viewState.newSampleMessage())
+            try deviceHandler.sendSampleRequest(newSampleMessage)
         }
         catch (let error) {
             viewState.isSampling = false

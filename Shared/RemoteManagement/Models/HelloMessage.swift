@@ -24,7 +24,10 @@ struct HelloMessage: Codable {
     let supportsSnapshotStreaming: Bool?
 }
 
-struct Sensor: Codable {
+struct Sensor: Codable, Identifiable, Hashable {
+    
+    var id: Int { name.hash }
+    
     let name: String
     let maxSampleLengthS: Int?
     let frequencies: [Double]?

@@ -20,9 +20,8 @@ extension AppData {
     
     func requestNewSampleID(_ configuration: DataAcquisitionViewState,
                             deliveryBlock: @escaping (StartSamplingResponse?, Error?) -> Void) {
-        let sampleMessage = configuration.newSampleMessage()
-        guard let currentProject = selectedProject,
-              let apiKey = apiToken,
+        guard let sampleMessage = configuration.newSampleMessage(),
+              let currentProject = selectedProject, let apiKey = apiToken,
               let startRequest = HTTPRequest.startSampling(sampleMessage, project: currentProject, device: configuration.selectedDevice, using: apiKey) else { return }
         
         Network.shared.perform(startRequest, responseType: StartSamplingResponse.self)

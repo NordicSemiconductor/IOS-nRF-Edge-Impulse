@@ -34,6 +34,10 @@ struct Preview {
         return try? decode(filename: "sample_full_camera_data_response")
     }()
     
+    static let previewHelloMessage: Message! = {
+        return try? decode(filename: "sample_hello_message")
+    }()
+    
     static let projectsPreviewAppData = previewAppData(.complete(previewUser, previewProjects))
     
     static let noDevicesAppData: AppData = {
@@ -75,10 +79,13 @@ struct Preview {
     static var mockScannerData: ScannerData = {
         let scannerData = ScannerData()
         scannerData.isScanning = false
+        
+        let response = previewHelloMessage
+        let sensors = response?.hello?.sensors ?? []
         scannerData.scanResults = [
-            Device(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock),
-            Device(name: "Device 2", id: UUID(), rssi: .bad, advertisementData: .mock),
-            Device(name: "Device 3", id: UUID(), rssi: .ok, advertisementData: .mock)
+            Device(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock, sensors: sensors),
+            Device(name: "Device 2", id: UUID(), rssi: .bad, advertisementData: .mock, sensors: sensors),
+            Device(name: "Device 3", id: UUID(), rssi: .ok, advertisementData: .mock, sensors: sensors)
         ]
         return scannerData
     }()
