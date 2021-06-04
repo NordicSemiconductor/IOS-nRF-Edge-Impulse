@@ -50,6 +50,7 @@ struct Device: Identifiable {
     let rssi: RSSI
     let advertisementData: AdvertisementData
     var state: State = .notConnected
+    var sensors: [Sensor] = []
     
     var isConnectedAndReadyForUse: Bool {
         switch state {

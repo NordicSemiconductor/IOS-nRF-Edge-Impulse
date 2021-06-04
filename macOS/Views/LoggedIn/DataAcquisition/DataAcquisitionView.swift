@@ -93,11 +93,6 @@ struct DataAcquisitionView: View {
                     ProgressView(value: viewState.progress, total: 100.0)
                         .frame(maxWidth: 250)
                     
-                    Text(viewState.progressString)
-                        .lineLimit(0)
-                        .foregroundColor(.primary)
-                        .centerTextInsideForm()
-                    
                     Button("Start Sampling", action: startSampling)
                         .centerTextInsideForm()
                         .disabled(!viewState.canStartSampling || viewState.isSampling)
@@ -126,7 +121,7 @@ extension DataAcquisitionView {
             guard let response = response else {
                 let error: Error! = error
                 viewState.isSampling = false
-                viewState.progressString = error.localizedDescription
+                AppEvents.shared.error = ErrorEvent(error)
                 return
             }
         

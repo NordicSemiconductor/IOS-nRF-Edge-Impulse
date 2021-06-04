@@ -25,7 +25,7 @@ struct HelloMessage: Codable {
 }
 
 struct Sensor: Codable {
-    let name: String?
+    let name: String
     let maxSampleLengthS: Int?
     let frequencies: [Double]?
 }

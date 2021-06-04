@@ -71,6 +71,7 @@ class DeviceRemoteHandler {
                     guard var message = data.message else {
                         throw Error.stringError("Data contains no message.")
                     }
+                    device.sensors = data.message?.hello?.sensors ?? []
                     message.hello?.apiKey = apiKey
                     message.hello?.deviceId = device.id.uuidString
                     let d = try JSONEncoder().encode(message)
