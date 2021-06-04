@@ -33,6 +33,7 @@ class DeviceRemoteHandler {
     private let logger = Logger(category: "DeviceRemoteHandler")
     
     @Published private (set) var device: Device
+    private (set) var registeredDevice: RegisteredDevice?
     private var bluetoothManager: BluetoothManager!
     private var webSocketManager: WebSocketManager!
     private var cancellables = Set<AnyCancellable>()
