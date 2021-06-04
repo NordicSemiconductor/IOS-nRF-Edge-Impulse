@@ -10,6 +10,7 @@ import os
 
 struct HeaderDeviceDetails: View {
     
+    @EnvironmentObject var appData: AppData
     @EnvironmentObject var scannerData: ScannerData
     
     private let device: Device
@@ -43,7 +44,14 @@ struct HeaderDeviceDetails: View {
     private func viewForHandler(_ handler: DeviceRemoteHandler) -> some View {
         switch handler.device.state {
         case .notConnected:
-            Button("Connect", action: handler.connect)
+            Button("Connect") {
+                guard let project = appData.selectedProject,
+                      let apiKey = appData.projectDevelopmentKeys[project]?.apiKey else {
+//                    appData.
+                    return
+                }
+                handler.connect(using: apiKey)
+            }
         case .connecting:
             ProgressView()
         case .ready:
@@ -59,6 +67,7 @@ struct HeaderDeviceDetails_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             HeaderDeviceDetails(Device.sample)
+                .environmentObject(Preview.projectsPreviewAppData)
                 .environmentObject(Preview.mockScannerData)
         }
         .previewLayout(.sizeThatFits)

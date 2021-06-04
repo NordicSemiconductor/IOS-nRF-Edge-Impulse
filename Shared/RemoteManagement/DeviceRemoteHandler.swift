@@ -53,7 +53,7 @@ class DeviceRemoteHandler {
         cancellables.removeAll()
     }
     
-    func connect() {
+    func connect(using apiKey: String) {
         wsPublisher = webSocketManager.connect()
         btPublisher = bluetoothManager.connect()
         
@@ -68,7 +68,8 @@ class DeviceRemoteHandler {
             .mapError { Error.anyError($0) }
             .flatMap { [unowned self] (data) -> AnyPublisher<Data, Swift.Error> in
                 do {
-                    let hello = (data.message?.hello)!
+                    var hello = (data.message?.hello)!
+                    hello.apiKey = apiKey
                     let d = try JSONEncoder().encode(hello)
                     try self.webSocketManager.send(d)
                 } catch let e {

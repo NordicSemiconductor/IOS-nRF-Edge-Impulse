@@ -18,7 +18,8 @@ struct Message: Codable {
 
 struct HelloMessage: Codable {
     let version: Int?
-    let apiKey, deviceID, deviceType, connection: String?
+    var apiKey: String?
+    let deviceID, deviceType, connection: String?
     let sensors: [Sensor]?
     let supportsSnapshotStreaming: Bool?
 }
