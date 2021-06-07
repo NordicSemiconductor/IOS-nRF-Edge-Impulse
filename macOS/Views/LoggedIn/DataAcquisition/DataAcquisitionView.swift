@@ -78,16 +78,16 @@ struct DataAcquisitionView: View {
                     }
                     
                     Text("Frequency")
-//                    if let device = viewState.selectedDevice, viewState.canSelectSampleLengthAndFrequency {
-//                        Picker(selection: $viewState.selectedFrequency, label: EmptyView()) {
-//                            ForEach(device.sensors, id: \.self) { sensor in
-//                                Text(sensor.name).tag(sensor)
-//                            }
-//                        }
-//                    } else {
-//                        Text("Unavailable")
-//                            .foregroundColor(Assets.middleGrey.color)
-//                    }
+                    if let sensor = viewState.selectedSensor, sensor != Constant.unselectedSensor, let frequencies = sensor.frequencies {
+                        Picker(selection: $viewState.selectedFrequency, label: EmptyView()) {
+                            ForEach(frequencies, id: \.self) { frequency in
+                                Text("\(frequency) Hz").tag(frequency)
+                            }
+                        }
+                    } else {
+                        Text("Unavailable")
+                            .foregroundColor(Assets.middleGrey.color)
+                    }
                 }
                 .disabled(viewState.isSampling)
                 
@@ -112,6 +112,7 @@ struct DataAcquisitionView: View {
             guard let device = connectedDevices.first else { return }
             viewState.selectedDevice = device
             viewState.selectedSensor = device.sensors.first ?? Constant.unselectedSensor
+            viewState.selectedFrequency = viewState.selectedSensor.frequencies?.first ?? Constant.unselectedFrequency
         }
     }
 }

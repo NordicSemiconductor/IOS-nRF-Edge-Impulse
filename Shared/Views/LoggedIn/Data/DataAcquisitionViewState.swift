@@ -17,7 +17,7 @@ final class DataAcquisitionViewState: ObservableObject {
     @Published var selectedDataType = DataSample.Category.training
     @Published var selectedSensor = Constant.unselectedSensor
     @Published var sampleLength = 10000.0
-    @Published var selectedFrequency = NewDataSample.Frequency._11000Hz
+    @Published var selectedFrequency = Constant.unselectedFrequency
     @Published var progress = 0.0
     @Published var progressString = ""
     @Published var isSampling = false {
@@ -48,7 +48,7 @@ final class DataAcquisitionViewState: ObservableObject {
     
     func newSampleMessage() -> SampleRequestMessage? {
         guard selectedSensor != Constant.unselectedSensor else { return nil }
-        let interval = sampleLength / Double(selectedFrequency.rawValue)
+        let interval = sampleLength / selectedFrequency
         let message = SampleRequestMessage(category: selectedDataType, intervalMs: interval, label: label, lengthMs: Int(sampleLength), sensor: selectedSensor.name)
         return message
     }
