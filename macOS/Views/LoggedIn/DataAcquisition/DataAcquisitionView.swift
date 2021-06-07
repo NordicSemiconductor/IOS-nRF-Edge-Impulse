@@ -67,10 +67,11 @@ struct DataAcquisitionView: View {
                     }
                     
                     Text("Sample Length")
-                    if viewState.canSelectSampleLengthAndFrequency {
+                    if viewState.selectedSensor != Constant.unselectedSensor,
+                       let maxSampleLength = viewState.selectedSensor.maxSampleLengthS {
                         HStack {
-                            Slider(value: $viewState.sampleLength, in: 0...100000)
-                            Text("\(viewState.sampleLength, specifier: "%2.f") ms")
+                            Slider(value: $viewState.sampleLength, in: 0...Double(maxSampleLength))
+                            Text("\(viewState.sampleLength, specifier: "%.2f") ms")
                         }
                     } else {
                         Text("Unavailable")
@@ -81,7 +82,7 @@ struct DataAcquisitionView: View {
                     if let sensor = viewState.selectedSensor, sensor != Constant.unselectedSensor, let frequencies = sensor.frequencies {
                         Picker(selection: $viewState.selectedFrequency, label: EmptyView()) {
                             ForEach(frequencies, id: \.self) { frequency in
-                                Text("\(frequency) Hz").tag(frequency)
+                                Text("\(frequency, specifier: "%.2f") Hz").tag(frequency)
                             }
                         }
                     } else {
