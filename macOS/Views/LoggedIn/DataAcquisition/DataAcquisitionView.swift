@@ -55,9 +55,9 @@ struct DataAcquisitionView: View {
                     .padding(.vertical, 6)
                     
                     Text("Sensor")
-                    if let device = viewState.selectedDevice {
+                    if let device = viewState.selectedDevice, device.sensors.hasItems {
                         Picker(selection: $viewState.selectedSensor, label: EmptyView()) {
-                            ForEach(device.sensors, id: \.self) { sensor in
+                            ForEach(device.sensors) { sensor in
                                 Text(sensor.name).tag(sensor)
                             }
                         }
@@ -109,9 +109,9 @@ struct DataAcquisitionView: View {
         .padding(16)
         .onAppear {
             let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
-            if let device = connectedDevices.first {
-                viewState.selectedDevice = device
-            }
+            guard let device = connectedDevices.first else { return }
+            viewState.selectedDevice = device
+            viewState.selectedSensor = device.sensors.first ?? Constant.unselectedSensor
         }
     }
 }

@@ -22,6 +22,7 @@ enum Constant {
     
     static let unselectedProject = Project.Unselected
     static let unselectedDevice = Device(name: "", id: UUID(), rssi: .outOfRange, advertisementData: AdvertisementData())
+    static let unselectedSensor = Sensor(name: "Unselected", maxSampleLengthS: 0, frequencies: [])
     
     // MARK: - URL(s)
     
