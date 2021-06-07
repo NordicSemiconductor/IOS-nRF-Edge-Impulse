@@ -15,7 +15,12 @@ final class DataAcquisitionViewState: ObservableObject {
     @Published var label = ""
     @Published var selectedDevice = Constant.unselectedDevice
     @Published var selectedDataType = DataSample.Category.training
-    @Published var selectedSensor = Constant.unselectedSensor
+    @Published var selectedSensor = Constant.unselectedSensor {
+        didSet {
+            guard selectedSensor != Constant.unselectedSensor else { return }
+            selectedFrequency = selectedSensor.frequencies?.first ?? Constant.unselectedFrequency
+        }
+    }
     @Published var sampleLength = 10000.0
     @Published var selectedFrequency = Constant.unselectedFrequency
     @Published var progress = 0.0

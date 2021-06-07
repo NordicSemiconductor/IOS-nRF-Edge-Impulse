@@ -112,7 +112,6 @@ struct DataAcquisitionView: View {
             guard let device = connectedDevices.first else { return }
             viewState.selectedDevice = device
             viewState.selectedSensor = device.sensors.first ?? Constant.unselectedSensor
-            viewState.selectedFrequency = viewState.selectedSensor.frequencies?.first ?? Constant.unselectedFrequency
         }
     }
 }
