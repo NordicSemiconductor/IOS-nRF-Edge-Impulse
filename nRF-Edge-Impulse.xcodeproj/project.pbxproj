@@ -53,6 +53,8 @@
 		AA14CA76261490CD004F08FE /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14CA74261490CD004F08FE /* Codable.swift */; };
 		AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
+		AA27C2B3266E48F4002D1652 /* DataAcquisitionDevicePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27C2B2266E48F4002D1652 /* DataAcquisitionDevicePicker.swift */; };
+		AA27C2B4266E48F4002D1652 /* DataAcquisitionDevicePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27C2B2266E48F4002D1652 /* DataAcquisitionDevicePicker.swift */; };
 		AA284059261F4DFC00EB8637 /* AppHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA284058261F4DFC00EB8637 /* AppHeaderView.swift */; };
 		AA28405A261F4DFC00EB8637 /* AppHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA284058261F4DFC00EB8637 /* AppHeaderView.swift */; };
 		AA28405C261F4F3D00EB8637 /* UsernameField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA28405B261F4F3D00EB8637 /* UsernameField.swift */; };
@@ -253,6 +255,7 @@
 		AA14CA74261490CD004F08FE /* Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
 		AA1F07A325F7989400CC41A9 /* BluetoothError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothError.swift; sourceTree = "<group>"; };
 		AA263F05260385690018CF5B /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
+		AA27C2B2266E48F4002D1652 /* DataAcquisitionDevicePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionDevicePicker.swift; sourceTree = "<group>"; };
 		AA284058261F4DFC00EB8637 /* AppHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderView.swift; sourceTree = "<group>"; };
 		AA28405B261F4F3D00EB8637 /* UsernameField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameField.swift; sourceTree = "<group>"; };
 		AA28405E261F537C00EB8637 /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
@@ -581,6 +584,7 @@
 				AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */,
 				AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */,
 				AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */,
+				AA27C2B2266E48F4002D1652 /* DataAcquisitionDevicePicker.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1073,6 +1077,7 @@
 				AA0D81292608C03A00AE615A /* DeploymentView.swift in Sources */,
 				AA008A7725EE422C00F70F75 /* Project.swift in Sources */,
 				AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */,
+				AA27C2B3266E48F4002D1652 /* DataAcquisitionDevicePicker.swift in Sources */,
 				AA02089625F65A3700FD6B24 /* DeviceList.swift in Sources */,
 				AA92BEFA2612064E00BED04B /* ResourcesRequest.swift in Sources */,
 				AAEDE636262882BF00B96AE9 /* ProjectSelectionView.swift in Sources */,
@@ -1171,6 +1176,7 @@
 				AA8EC8B5261F30A900FBE990 /* Modifiers.swift in Sources */,
 				AAFB8E2B2626FADD003DAEC5 /* UserPreferences.swift in Sources */,
 				AACECAE526303AF600285F94 /* SettingsSyncView.swift in Sources */,
+				AA27C2B4266E48F4002D1652 /* DataAcquisitionDevicePicker.swift in Sources */,
 				AA284060261F537C00EB8637 /* PasswordField.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
 				AA92BEF22611F9E400BED04B /* ResourceData.swift in Sources */,

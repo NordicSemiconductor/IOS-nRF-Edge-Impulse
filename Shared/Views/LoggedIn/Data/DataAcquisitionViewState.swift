@@ -13,7 +13,12 @@ final class DataAcquisitionViewState: ObservableObject {
     // MARK: Properties
     
     @Published var label = ""
-    @Published var selectedDevice = Constant.unselectedDevice
+    @Published var selectedDevice = Constant.unselectedDevice {
+        didSet {
+            guard selectedDevice != Constant.unselectedDevice else { return }
+            selectedSensor = selectedDevice.sensors.first ?? Constant.unselectedSensor
+        }
+    }
     @Published var selectedDataType = DataSample.Category.training
     @Published var selectedSensor = Constant.unselectedSensor {
         didSet {
@@ -39,11 +44,6 @@ final class DataAcquisitionViewState: ObservableObject {
     
     private(set) lazy var countdownTimer = Timer.publish(every: 1, on: .main, in: .common)
     private lazy var cancellables = Set<AnyCancellable>()
-    
-    var canSelectSampleLengthAndFrequency: Bool {
-        guard selectedSensor != Constant.unselectedSensor else { return false }
-        return selectedSensor.maxSampleLengthS != nil && selectedSensor.frequencies != nil
-    }
     
     var canStartSampling: Bool {
         selectedDevice != Constant.unselectedDevice && label.hasItems

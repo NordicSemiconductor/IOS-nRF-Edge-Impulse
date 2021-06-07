@@ -55,16 +55,7 @@ struct DataAcquisitionView: View {
                     .padding(.vertical, 6)
                     
                     Text("Sensor")
-                    if let device = viewState.selectedDevice, device.sensors.hasItems {
-                        Picker(selection: $viewState.selectedSensor, label: EmptyView()) {
-                            ForEach(device.sensors) { sensor in
-                                Text(sensor.name).tag(sensor)
-                            }
-                        }
-                    } else {
-                        Text("Unavailable")
-                            .foregroundColor(Assets.middleGrey.color)
-                    }
+                    DataAcquisitionDevicePicker(viewState: viewState)
                     
                     Text("Sample Length")
                     if viewState.selectedSensor != Constant.unselectedSensor,
@@ -112,7 +103,6 @@ struct DataAcquisitionView: View {
             let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
             guard let device = connectedDevices.first else { return }
             viewState.selectedDevice = device
-            viewState.selectedSensor = device.sensors.first ?? Constant.unselectedSensor
         }
     }
 }

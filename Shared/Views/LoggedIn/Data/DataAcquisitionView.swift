@@ -54,42 +54,35 @@ struct DataAcquisitionView: View {
             }
 
             Section(header: Text("Sensor")) {
-                Picker("Type", selection: $viewState.selectedSensor) {
-                    ForEach(NewDataSample.Sensor.allCases) { sensor in
-                        Text(sensor.rawValue)
-                            .tag(sensor)
-                    }
-                }
-                .setAsComboBoxStyle()
-                .disabled(viewState.isSampling)
+                DataAcquisitionDevicePicker(viewState: viewState)
             }
             
             Section(header: Text("Sample Length")) {
-                if viewState.canSelectSampleLengthAndFrequency {
-                    Stepper(value: $viewState.sampleLength, in: 0...100000, step: 10) {
-                        Text("\(viewState.sampleLength, specifier: "%.0f") ms")
-                    }
-                    .disabled(viewState.isSampling)
-                } else {
-                    Text("Unavailable for \(NewDataSample.Sensor.Camera.rawValue) Sensor")
-                        .foregroundColor(Assets.middleGrey.color)
-                }
+//                if viewState.canSelectSampleLengthAndFrequency {
+//                    Stepper(value: $viewState.sampleLength, in: 0...100000, step: 10) {
+//                        Text("\(viewState.sampleLength, specifier: "%.0f") ms")
+//                    }
+//                    .disabled(viewState.isSampling)
+//                } else {
+//                    Text("Unavailable for \(NewDataSample.Sensor.Camera.rawValue) Sensor")
+//                        .foregroundColor(Assets.middleGrey.color)
+//                }
             }
             
             Section(header: Text("Frequency")) {
-                if viewState.canSelectSampleLengthAndFrequency {
-                    Picker("Value", selection: $viewState.selectedFrequency) {
-                        ForEach(NewDataSample.Frequency.allCases) { frequency in
-                            Text(frequency.description)
-                                .tag(frequency)
-                        }
-                    }
-                    .setAsComboBoxStyle()
-                    .disabled(viewState.isSampling)
-                } else {
-                    Text("Unavailable for \(NewDataSample.Sensor.Camera.rawValue) Sensor")
-                        .foregroundColor(Assets.middleGrey.color)
-                }
+//                if viewState.canSelectSampleLengthAndFrequency {
+//                    Picker("Value", selection: $viewState.selectedFrequency) {
+//                        ForEach(NewDataSample.Frequency.allCases) { frequency in
+//                            Text(frequency.description)
+//                                .tag(frequency)
+//                        }
+//                    }
+//                    .setAsComboBoxStyle()
+//                    .disabled(viewState.isSampling)
+//                } else {
+//                    Text("Unavailable for \(NewDataSample.Sensor.Camera.rawValue) Sensor")
+//                        .foregroundColor(Assets.middleGrey.color)
+//                }
             }
             
             Section(header: Text("Progress")) {
