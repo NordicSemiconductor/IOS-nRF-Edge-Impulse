@@ -28,6 +28,8 @@
 		AA032989266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */; };
 		AA03298B266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03298A266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift */; };
 		AA03298C266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03298A266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift */; };
+		AA03298E266F8CB200C46547 /* DataAquisitionView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03298D266F8CB200C46547 /* DataAquisitionView+Logic.swift */; };
+		AA03298F266F8CB200C46547 /* DataAquisitionView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03298D266F8CB200C46547 /* DataAquisitionView+Logic.swift */; };
 		AA0349F7266A5356005125D4 /* sample_hello_message.json in Resources */ = {isa = PBXBuildFile; fileRef = AA0349F6266A5356005125D4 /* sample_hello_message.json */; };
 		AA0349F8266A5356005125D4 /* sample_hello_message.json in Resources */ = {isa = PBXBuildFile; fileRef = AA0349F6266A5356005125D4 /* sample_hello_message.json */; };
 		AA03E97525E3EF13003DA9DA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03E97425E3EF13003DA9DA /* Tests_iOS.swift */; };
@@ -234,6 +236,7 @@
 		AA0208A825F65EB400FD6B24 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionViewSampleLengthPicker.swift; sourceTree = "<group>"; };
 		AA03298A266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionFrequencyPicker.swift; sourceTree = "<group>"; };
+		AA03298D266F8CB200C46547 /* DataAquisitionView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataAquisitionView+Logic.swift"; sourceTree = "<group>"; };
 		AA0349F6266A5356005125D4 /* sample_hello_message.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_hello_message.json; sourceTree = "<group>"; };
 		AA03E95925E3EF12003DA9DA /* nRF_Edge_ImpulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF_Edge_ImpulseApp.swift; sourceTree = "<group>"; };
 		AA03E95A25E3EF12003DA9DA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -589,6 +592,7 @@
 				AAF55322264171AB00252345 /* DataSampleRow.swift */,
 				AAF5E75226400A3A00AC3271 /* DataSamplesView.swift */,
 				AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */,
+				AA03298D266F8CB200C46547 /* DataAquisitionView+Logic.swift */,
 				AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */,
 				AA27C2B2266E48F4002D1652 /* DataAcquisitionDevicePicker.swift */,
 				AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */,
@@ -1040,6 +1044,7 @@
 				AAF5531D2641614B00252345 /* AppData+DataSamples.swift in Sources */,
 				AACCBA882600C32C0042E87B /* ErrorView.swift in Sources */,
 				AA01F3D025EFACB000368707 /* Assets.swift in Sources */,
+				AA03298E266F8CB200C46547 /* DataAquisitionView+Logic.swift in Sources */,
 				AAF5E75C26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift in Sources */,
 				AA02086F25F648C200FD6B24 /* View.swift in Sources */,
 				AACECAE72630723B00285F94 /* ResourceData+Status.swift in Sources */,
@@ -1151,6 +1156,7 @@
 				C37DD49A260C89D800D667EA /* AdvertisementData.swift in Sources */,
 				AAFDB46C264D5F5700F0CD02 /* MultiColumnView.swift in Sources */,
 				AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */,
+				AA03298F266F8CB200C46547 /* DataAquisitionView+Logic.swift in Sources */,
 				AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA05BC482667D098003AEE50 /* StartSamplingRequest.swift in Sources */,
 				AAF4F6BE2625C0A700012359 /* LoginErrorView.swift in Sources */,

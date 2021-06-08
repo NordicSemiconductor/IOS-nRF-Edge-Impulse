@@ -14,7 +14,7 @@ struct DataAcquisitionView: View {
     @EnvironmentObject var appData: AppData
     @EnvironmentObject var scannerData: ScannerData
     
-    @ObservedObject private var viewState = DataAcquisitionViewState()
+    @ObservedObject internal var viewState = DataAcquisitionViewState()
     
     // MARK: - View
     
@@ -85,26 +85,6 @@ struct DataAcquisitionView: View {
             let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
             guard let device = connectedDevices.first else { return }
             viewState.selectedDevice = device
-        }
-    }
-}
-
-// MARK: - startSampling()
-
-extension DataAcquisitionView {
-    
-    func startSampling() {
-        viewState.progressString = "Requesting Sample ID..."
-        appData.requestNewSampleID(viewState) { response, error in
-            guard let response = response else {
-                let error: Error! = error
-                viewState.isSampling = false
-                AppEvents.shared.error = ErrorEvent(error)
-                return
-            }
-        
-            viewState.progressString = "Obtained Sample ID."
-            scannerData.startSampling(viewState)
         }
     }
 }

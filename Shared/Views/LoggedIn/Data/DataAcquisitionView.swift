@@ -14,7 +14,7 @@ struct DataAcquisitionView: View {
     
     // MARK: - State
     
-    @ObservedObject var viewState = DataAcquisitionViewState()
+    @ObservedObject internal var viewState = DataAcquisitionViewState()
     
     // MARK: - @viewBuilder
     
@@ -97,24 +97,6 @@ struct DataAcquisitionView: View {
             viewState.progress = min(newValue, 100.0)
         })
         .frame(minWidth: .minTabWidth)
-    }
-}
-
-private extension DataAcquisitionView {
-    
-    func startSampling() {
-        viewState.progressString = "Requesting Sample ID..."
-        appData.requestNewSampleID(viewState) { response, error in
-            guard let response = response else {
-                let error: Error! = error
-                viewState.isSampling = false
-                viewState.progressString = error.localizedDescription
-                return
-            }
-        
-            viewState.progressString = "Obtained Sample ID."
-            scannerData.startSampling(viewState)
-        }
     }
 }
 
