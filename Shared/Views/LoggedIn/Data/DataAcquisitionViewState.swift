@@ -24,6 +24,7 @@ final class DataAcquisitionViewState: ObservableObject {
         didSet {
             guard selectedSensor != Constant.unselectedSensor else { return }
             selectedFrequency = selectedSensor.frequencies?.first ?? Constant.unselectedFrequency
+            sampleLength = Constant.unselectedSampleLength
         }
     }
     @Published var sampleLength = Constant.unselectedSampleLength

@@ -58,16 +58,7 @@ struct DataAcquisitionView: View {
                     DataAcquisitionDevicePicker(viewState: viewState)
                     
                     Text("Sample Length")
-                    if viewState.selectedSensor != Constant.unselectedSensor,
-                       let maxSampleLength = viewState.selectedSensor.maxSampleLengthS {
-                        HStack {
-                            Slider(value: $viewState.sampleLength, in: 0...Double(maxSampleLength))
-                            Text("\(viewState.sampleLength, specifier: "%.2f") ms")
-                        }
-                    } else {
-                        Text("Unavailable")
-                            .foregroundColor(Assets.middleGrey.color)
-                    }
+                    DataAcquisitionViewSampleLengthPicker(viewState: viewState)
                     
                     Text("Frequency")
                     if let sensor = viewState.selectedSensor, sensor != Constant.unselectedSensor, let frequencies = sensor.frequencies {

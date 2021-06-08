@@ -24,6 +24,8 @@
 		AA0208A225F65C7600FD6B24 /* LoggedInRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */; };
 		AA0208A925F65EB400FD6B24 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A825F65EB400FD6B24 /* Tabs.swift */; };
 		AA0208AA25F65EB400FD6B24 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A825F65EB400FD6B24 /* Tabs.swift */; };
+		AA032988266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */; };
+		AA032989266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */; };
 		AA0349F7266A5356005125D4 /* sample_hello_message.json in Resources */ = {isa = PBXBuildFile; fileRef = AA0349F6266A5356005125D4 /* sample_hello_message.json */; };
 		AA0349F8266A5356005125D4 /* sample_hello_message.json in Resources */ = {isa = PBXBuildFile; fileRef = AA0349F6266A5356005125D4 /* sample_hello_message.json */; };
 		AA03E97525E3EF13003DA9DA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03E97425E3EF13003DA9DA /* Tests_iOS.swift */; };
@@ -228,6 +230,7 @@
 		AA02089525F65A3700FD6B24 /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
 		AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInRootView.swift; sourceTree = "<group>"; };
 		AA0208A825F65EB400FD6B24 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
+		AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionViewSampleLengthPicker.swift; sourceTree = "<group>"; };
 		AA0349F6266A5356005125D4 /* sample_hello_message.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_hello_message.json; sourceTree = "<group>"; };
 		AA03E95925E3EF12003DA9DA /* nRF_Edge_ImpulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF_Edge_ImpulseApp.swift; sourceTree = "<group>"; };
 		AA03E95A25E3EF12003DA9DA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -585,6 +588,7 @@
 				AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */,
 				AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */,
 				AA27C2B2266E48F4002D1652 /* DataAcquisitionDevicePicker.swift */,
+				AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1093,6 +1097,7 @@
 				AA01F3DF25EFDC5000368707 /* Constant.swift in Sources */,
 				AA92BEF12611F9E400BED04B /* ResourceData.swift in Sources */,
 				AAF4F6BA2625C02E00012359 /* SignedUpView.swift in Sources */,
+				AA032988266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */,
 				AAF936AB260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
 				AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */,
 				AA2CDEB62636FF3900A4950E /* AppEvents.swift in Sources */,
@@ -1167,6 +1172,7 @@
 				AA0208AA25F65EB400FD6B24 /* Tabs.swift in Sources */,
 				AA2CDEB72636FF3900A4950E /* AppEvents.swift in Sources */,
 				AA32792D2604C66B00A0CA6A /* DataAcquisitionViewState.swift in Sources */,
+				AA032989266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */,
 				AA92BEFB2612064E00BED04B /* ResourcesRequest.swift in Sources */,
 				AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */,
 				AAF4F6C42625C8C600012359 /* ThreePaneLayoutView.swift in Sources */,

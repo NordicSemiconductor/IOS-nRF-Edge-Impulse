@@ -58,15 +58,7 @@ struct DataAcquisitionView: View {
             }
             
             Section(header: Text("Sample Length")) {
-//                if viewState.canSelectSampleLengthAndFrequency {
-//                    Stepper(value: $viewState.sampleLength, in: 0...100000, step: 10) {
-//                        Text("\(viewState.sampleLength, specifier: "%.0f") ms")
-//                    }
-//                    .disabled(viewState.isSampling)
-//                } else {
-//                    Text("Unavailable for \(NewDataSample.Sensor.Camera.rawValue) Sensor")
-//                        .foregroundColor(Assets.middleGrey.color)
-//                }
+                DataAcquisitionViewSampleLengthPicker(viewState: viewState)
             }
             
             Section(header: Text("Frequency")) {

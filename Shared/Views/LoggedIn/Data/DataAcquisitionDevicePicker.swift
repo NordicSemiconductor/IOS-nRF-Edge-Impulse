@@ -29,9 +29,13 @@ struct DataAcquisitionDevicePicker: View {
     }
 }
 
+// MARK: - Preview
+
+#if DEBUG
 struct DataAquisitionDevicePicker_Previews: PreviewProvider {
     static var previews: some View {
         DataAcquisitionDevicePicker(viewState: DataAcquisitionViewState())
             .previewLayout(.sizeThatFits)
     }
 }
+#endif
