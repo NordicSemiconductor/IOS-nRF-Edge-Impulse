@@ -54,8 +54,9 @@ final class DataAcquisitionViewState: ObservableObject {
     
     func newSampleMessage() -> SampleRequestMessage? {
         guard selectedSensor != Constant.unselectedSensor else { return nil }
-        let interval = Double(sampleLength) / selectedFrequency
-        let message = SampleRequestMessage(category: selectedDataType, intervalMs: interval, label: label, lengthMs: Int(sampleLength), sensor: selectedSensor.name)
+        let intervalMs =  1.0 / selectedFrequency * 1000.0
+        let message = SampleRequestMessage(category: selectedDataType, intervalMs: intervalMs, label: label,
+                                           lengthMs: Int(sampleLength), sensor: selectedSensor.name)
         return message
     }
 }
