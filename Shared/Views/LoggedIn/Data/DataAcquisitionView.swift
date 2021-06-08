@@ -56,26 +56,17 @@ struct DataAcquisitionView: View {
             Section(header: Text("Sensor")) {
                 DataAcquisitionDevicePicker(viewState: viewState)
             }
+            .disabled(viewState.isSampling)
             
             Section(header: Text("Sample Length")) {
                 DataAcquisitionViewSampleLengthPicker(viewState: viewState)
             }
+            .disabled(viewState.isSampling)
             
             Section(header: Text("Frequency")) {
-//                if viewState.canSelectSampleLengthAndFrequency {
-//                    Picker("Value", selection: $viewState.selectedFrequency) {
-//                        ForEach(NewDataSample.Frequency.allCases) { frequency in
-//                            Text(frequency.description)
-//                                .tag(frequency)
-//                        }
-//                    }
-//                    .setAsComboBoxStyle()
-//                    .disabled(viewState.isSampling)
-//                } else {
-//                    Text("Unavailable for \(NewDataSample.Sensor.Camera.rawValue) Sensor")
-//                        .foregroundColor(Assets.middleGrey.color)
-//                }
+                DataAcquisitionFrequencyPicker(viewState: viewState)
             }
+            .disabled(viewState.isSampling)
             
             Section(header: Text("Progress")) {
                 ProgressView(value: viewState.progress, total: 100.0)

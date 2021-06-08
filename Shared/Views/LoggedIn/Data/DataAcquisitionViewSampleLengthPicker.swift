@@ -30,7 +30,6 @@ struct DataAcquisitionViewSampleLengthPicker: View {
                     .foregroundColor(Assets.middleGrey.color)
             }
         }
-        .disabled(viewState.isSampling)
     }
 }
 

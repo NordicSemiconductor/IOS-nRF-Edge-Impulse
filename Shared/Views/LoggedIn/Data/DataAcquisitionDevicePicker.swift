@@ -20,7 +20,6 @@ struct DataAcquisitionDevicePicker: View {
                     }
                 }
                 .setAsComboBoxStyle()
-                .disabled(viewState.isSampling)
             } else {
                 Text("Unavailable")
                     .foregroundColor(Assets.middleGrey.color)

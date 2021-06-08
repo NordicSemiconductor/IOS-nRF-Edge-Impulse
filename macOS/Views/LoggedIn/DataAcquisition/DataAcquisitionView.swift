@@ -61,16 +61,7 @@ struct DataAcquisitionView: View {
                     DataAcquisitionViewSampleLengthPicker(viewState: viewState)
                     
                     Text("Frequency")
-                    if let sensor = viewState.selectedSensor, sensor != Constant.unselectedSensor, let frequencies = sensor.frequencies {
-                        Picker(selection: $viewState.selectedFrequency, label: EmptyView()) {
-                            ForEach(frequencies, id: \.self) { frequency in
-                                Text("\(frequency, specifier: "%.2f") Hz").tag(frequency)
-                            }
-                        }
-                    } else {
-                        Text("Unavailable")
-                            .foregroundColor(Assets.middleGrey.color)
-                    }
+                    DataAcquisitionFrequencyPicker(viewState: viewState)
                 }
                 .disabled(viewState.isSampling)
                 

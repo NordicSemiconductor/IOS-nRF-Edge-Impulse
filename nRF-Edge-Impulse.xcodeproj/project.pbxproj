@@ -26,6 +26,8 @@
 		AA0208AA25F65EB400FD6B24 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A825F65EB400FD6B24 /* Tabs.swift */; };
 		AA032988266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */; };
 		AA032989266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */; };
+		AA03298B266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03298A266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift */; };
+		AA03298C266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03298A266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift */; };
 		AA0349F7266A5356005125D4 /* sample_hello_message.json in Resources */ = {isa = PBXBuildFile; fileRef = AA0349F6266A5356005125D4 /* sample_hello_message.json */; };
 		AA0349F8266A5356005125D4 /* sample_hello_message.json in Resources */ = {isa = PBXBuildFile; fileRef = AA0349F6266A5356005125D4 /* sample_hello_message.json */; };
 		AA03E97525E3EF13003DA9DA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03E97425E3EF13003DA9DA /* Tests_iOS.swift */; };
@@ -231,6 +233,7 @@
 		AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInRootView.swift; sourceTree = "<group>"; };
 		AA0208A825F65EB400FD6B24 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionViewSampleLengthPicker.swift; sourceTree = "<group>"; };
+		AA03298A266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionFrequencyPicker.swift; sourceTree = "<group>"; };
 		AA0349F6266A5356005125D4 /* sample_hello_message.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_hello_message.json; sourceTree = "<group>"; };
 		AA03E95925E3EF12003DA9DA /* nRF_Edge_ImpulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF_Edge_ImpulseApp.swift; sourceTree = "<group>"; };
 		AA03E95A25E3EF12003DA9DA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -589,6 +592,7 @@
 				AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */,
 				AA27C2B2266E48F4002D1652 /* DataAcquisitionDevicePicker.swift */,
 				AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */,
+				AA03298A266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1063,6 +1067,7 @@
 				AAF55323264171AB00252345 /* DataSampleRow.swift in Sources */,
 				AAF0C972260A121B001B76B9 /* HeroView.swift in Sources */,
 				AAFB8E2A2626FADD003DAEC5 /* UserPreferences.swift in Sources */,
+				AA03298B266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift in Sources */,
 				AAFDB46E264D73A800F0CD02 /* ProjectView.swift in Sources */,
 				AAFFEB3025FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
 				AA03E98225E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
@@ -1133,6 +1138,7 @@
 				AA03E98525E3EF13003DA9DA /* ContentView.swift in Sources */,
 				AAEDE6342628807B00B96AE9 /* DropdownView.swift in Sources */,
 				AADDD05F264C291F000892E1 /* DeploymentView.swift in Sources */,
+				AA03298C266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift in Sources */,
 				AA710DB5260391D800A4935F /* DataAcquisitionView.swift in Sources */,
 				C3846EE6260B4386005AEF67 /* BluetoothManager.swift in Sources */,
 				AAF4F6C52625E07900012359 /* DeviceList.swift in Sources */,
