@@ -16,6 +16,11 @@ extension BluetoothManager {
         let localizedDescription: String
         
         static let cantRetreivePeripheral = Error(localizedDescription: "Can't retreive the peripheral.")
+        static let failedToConnect = Error(localizedDescription: "Failed to connect to the peripheral")
+    }
+    
+    enum State {
+        case notConnected, connecting, connected, disconnected, readyToUse
     }
     
     static let uartServiceId = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
@@ -29,7 +34,10 @@ final class BluetoothManager: NSObject, ObservableObject {
     
     private let centralManager: CBCentralManager
     
-    private let publisher = PassthroughSubject<Data, Error>()
+    let dataPublisher = PassthroughSubject<Data, Never>()
+    
+    @Published var state: State = .notConnected
+    private var btStateSubject = PassthroughSubject<CBManagerState, Swift.Error>()
     
     private let logger = Logger(category: "BluetoothManager")
     
@@ -37,8 +45,6 @@ final class BluetoothManager: NSObject, ObservableObject {
     private var peripheral: CBPeripheral!
     private var txCharacteristic: CBCharacteristic!
     private var rxCharacteristic: CBCharacteristic!
-    
-    private var connectWhenReady = false
     
     init(peripheralId: UUID) {
         self.centralManager = CBCentralManager()
@@ -48,26 +54,21 @@ final class BluetoothManager: NSObject, ObservableObject {
         centralManager.delegate = self
     }
     
-    func connect() -> AnyPublisher<Data, Error> {
-        if case .poweredOn = centralManager.state {
-            do {
-                try tryToConnect()
-            } catch let e as Error {
-                return Fail(error: e)
-                    .eraseToAnyPublisher()
-            } catch let e {
-                return Fail(error: Error(localizedDescription: e.localizedDescription))
-                    .eraseToAnyPublisher()
+    func connect() -> AnyPublisher<State, Swift.Error> {
+        return btStateSubject.drop(while: { $0 != .poweredOn })
+            .flatMap { _ -> AnyPublisher<State, Swift.Error> in
+                do {
+                    try self.tryToConnect()
+                } catch let e {
+                    return Fail(error: e).eraseToAnyPublisher()
+                }
+                return self.$state.setFailureType(to: Swift.Error.self).eraseToAnyPublisher()
             }
-        } else {
-            connectWhenReady = true
-        }
-            
-        return publisher.eraseToAnyPublisher()
+            .eraseToAnyPublisher()
     }
     
     func received(_ data: Data) {
-        publisher.send(data)
+        dataPublisher.send(data)
     }
     
     func disconnect() {
@@ -79,11 +80,12 @@ final class BluetoothManager: NSObject, ObservableObject {
     }
     
     private func tryToConnect() throws {
+        self.state = .connecting
+        
         guard let p = centralManager.retrievePeripherals(withIdentifiers: [pId]).first else {
             throw Error.cantRetreivePeripheral
         }
         
-        connectWhenReady = false
         peripheral = p
         peripheral.delegate = self
         centralManager.connect(p, options: nil)
@@ -123,6 +125,10 @@ extension BluetoothManager: CBPeripheralDelegate {
                     rxCharacteristic = $0
                     logger.info("RX Characteristic discovered")
                 }
+                
+                if case .some = txCharacteristic, case .some = rxCharacteristic {
+                    state = .readyToUse
+                }
             }
         
     }
@@ -160,30 +166,31 @@ extension BluetoothManager: CBPeripheralDelegate {
 extension BluetoothManager: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         logger.info("Central Manager state changed to \(central.state)")
-        
-        if case .poweredOn = central.state, connectWhenReady {
-            do {
-                try tryToConnect()
-            } catch {
-                return publisher.send(completion: .failure(Error.cantRetreivePeripheral))
-            }
-        }
+        btStateSubject.send(central.state)
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         logger.info("Connected the peripheral: \(peripheral.identifier.uuidString)")
+        self.state = .connected
         self.peripheral.discoverServices([Self.uartServiceId])
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Swift.Error?) {
         logger.info("Did fail to connect the peripheral: \(peripheral.identifier.uuidString)")
         logger.error("Error: \(error?.localizedDescription ?? "")")
-        
+        let e: Swift.Error = error ?? Error.failedToConnect
+        btStateSubject.send(completion: .failure(e))
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Swift.Error?) {
         logger.info("Did disconnect peripheral: \(peripheral)")
         error.map { logger.error("Did disconnect error: \($0.localizedDescription)") }
         self.peripheral = nil
+        
+        if let e = error {
+            btStateSubject.send(completion: .failure(e))
+        } else {
+            btStateSubject.send(completion: .finished)
+        }
     }
 }

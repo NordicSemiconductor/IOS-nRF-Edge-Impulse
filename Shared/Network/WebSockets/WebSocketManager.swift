@@ -27,51 +27,56 @@ extension WebSocketManager {
         // TODO: Add code and message to error
         case wrongUrl
         case wsError(Swift.Error)
+        case wsClosed(URLSessionWebSocketTask.CloseCode)
+        case parseError
     }
     
     // TODO: maybe we should get it from DK
     static let address = "wss://remote-mgmt.edgeimpulse.com"
+    
+    enum State {
+        case notConnected, connecting, connected
+    }
 }
 
-class WebSocketManager {
-    private let publisher = PassthroughSubject<Data, Error>()
-    private let session: URLSession
+class WebSocketManager: NSObject {
+    let dataSubject = PassthroughSubject<Result<Data, Swift.Error>, Never>()
+    private lazy var session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
     private let logger = Logger(category: "WebSocketManager")
     
     private var task: URLSessionWebSocketTask!
     private var cancellable = Set<AnyCancellable>()
     
-    init() {
-        self.session = URLSession(configuration: .default)
-//        super.init()
-//        session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
-    }
+    private var stateSubject = PassthroughSubject<State, Error>()
     
-    func connect() -> AnyPublisher<Data, Error> {
+    func connect() -> AnyPublisher<State, Swift.Error> {
         self.connect(to: Self.address)
     }
     
-    func connect(to urlString: String) -> AnyPublisher<Data, Error> {
+    func connect(to urlString: String) -> AnyPublisher<State, Swift.Error> {
         guard let url = URL(string: urlString) else {
-            return Result.Publisher(.failure(Error.wrongUrl)).eraseToAnyPublisher()
+            return Fail(error: Error.wrongUrl).eraseToAnyPublisher()
         }
         
         task = session.webSocketTask(with: url)
         listen()
         task.resume()
         
-        return publisher.eraseToAnyPublisher()
+        return stateSubject
+            .mapError { $0 as Swift.Error }
+            .eraseToAnyPublisher()
     }
     
     func disconnect() {
         task.cancel(with: .normalClosure, reason: nil)
+        session.finishTasksAndInvalidate()
     }
     
     func send(_ data: Data) {
         let s = String(data: data, encoding: .utf8)!
         task.send(.string(s)) { [weak self] (error) in
             if let e = error {
-                self?.publisher.send(completion: .failure(.wsError(e)))
+                self?.dataSubject.send(.failure(Error.wsError(e)))
                 self?.logger.error("Send error: \(e.localizedDescription)")
             }
         }
@@ -81,23 +86,46 @@ class WebSocketManager {
 /// Private API
 extension WebSocketManager {
     private func listen() {
+        
         task.receive { [weak self] result in
             switch result {
             case .failure(let e):
-                self?.publisher.send(completion: .failure(.wsError(e)))
+                self?.dataSubject.send(.failure(e))
                 self?.logger.error("Error: \(e.localizedDescription)")
             case .success(let msg):
                 switch msg {
                 case .data(let d):
-                    self?.publisher.send(d)
+                    self?.dataSubject.send(.success(d))
                     self?.logger.info("Data received: \(String(data: d, encoding: .utf8) ?? d.hexEncodedString())")
                 case .string(let s):
-                    self?.publisher.send(s.data(using: .utf8)!)
                     self?.logger.info("Message received: \(s)")
+                    if let d = s.data(using: .utf8) {
+                        self?.dataSubject.send(.success(d))
+                    } else {
+                        self?.logger.error("...but not parsed")
+                        self?.dataSubject.send(.failure(Error.parseError))
+                    }
                 @unknown default:
                     break 
                 }
             }
+        }
+    }
+}
+
+extension WebSocketManager: URLSessionWebSocketDelegate {
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+        logger.log("Did open web socket with protocol: \(`protocol` ?? "<unknown>")")
+        
+        stateSubject.send(.connected)
+    }
+    
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
+        if case .normalClosure = closeCode {
+            stateSubject.send(completion: .finished)
+            logger.info("Web socket was closed")
+        } else {
+            stateSubject.send(completion: .failure(.wsClosed(closeCode)))
         }
     }
 }

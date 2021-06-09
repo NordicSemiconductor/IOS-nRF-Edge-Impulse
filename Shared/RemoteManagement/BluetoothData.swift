@@ -17,18 +17,43 @@ struct DeviceWrapper {
 }
 
 class DevicesManager {
+    @ObservedObject var appData: AppDatac
     @ObservedObject var scannerData: ScannerData
     @ObservedObject var registeredDevicesData: RegisteredDevicesData
     
-    @Published var remoteHandlers: [DeviceRemoteHandler] = []
+    private var remoteHandlers: [DeviceRemoteHandler] = []
     
     @Published var filteredScanResults: [Device] = []
     @Published var registeredDevices: [RegisteredDevice] = []
     
-    init(scannerData: ScannerData, registeredDevicesData: RegisteredDevicesData) {
+    init(scannerData: ScannerData, registeredDevicesData: RegisteredDevicesData, appData: AppData) {
         self.scannerData = scannerData
         self.registeredDevicesData = registeredDevicesData
+        self.appData = appData
+    }
+    
+    func tryToConnect(scanResult: Device) {
+        let handler = getRemoteHandler(for: scanResult)
+        guard let keys = appData.selectedProject.map ({ appData.projectDevelopmentKeys[$0] }), let apiKey = keys?.apiKey else {
+            return
+        }
         
-        
+        handler.connect(apiKey: apiKey)
+            .sink { completion in
+                
+            } receiveValue: { state in
+                
+            }
+
+    }
+    
+    private func getRemoteHandler(for scanResult: Device) -> DeviceRemoteHandler {
+        if let handler = remoteHandlers.first(where: { $0.id == scanResult.id }) {
+            return handler
+        } else {
+            let newHandler = DeviceRemoteHandler(device: scanResult)
+            remoteHandlers.append(newHandler)
+            return newHandler
+        }
     }
 }

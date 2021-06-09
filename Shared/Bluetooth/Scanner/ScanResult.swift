@@ -31,26 +31,11 @@ enum RSSI: Int {
 
 /// `ScanResult` represents discovered device by Scanner
 struct Device: Identifiable {
-    enum State {
-        case notConnected
-        case connecting
-        case ready // Connected and ready for use
-        
-        var isReady: Bool {
-            if case .ready = self {
-                return true
-            } else {
-                return false
-            }
-        }
-        
-    }
     
     let name: String
     let id: UUID
     let rssi: RSSI
     let advertisementData: AdvertisementData
-    var state: State = .notConnected
     
     init(name: String, id: UUID, rssi: RSSI, advertisementData: AdvertisementData) {
         self.name = name
@@ -66,15 +51,6 @@ struct Device: Identifiable {
         self.id = peripheral.identifier
     }
     
-    var isConnectedAndReadyForUse: Bool {
-        switch state {
-        case .ready:
-            return true
-        default:
-            return false
-        }
-    }
-    
     static func == (lhs: Device, rhs: Device) -> Bool {
         lhs.id == rhs.id
     }
@@ -84,20 +60,6 @@ struct Device: Identifiable {
 extension Device: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-    }
-}
-
-extension Device.State: CustomDebugStringConvertible {
-    
-    var debugDescription: String {
-        switch self {
-        case .notConnected:
-            return "notConnected"
-        case .connecting:
-            return "connecting"
-        case .ready:
-            return "ready"
-        }
     }
 }
 
