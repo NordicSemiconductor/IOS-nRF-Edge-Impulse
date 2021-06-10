@@ -119,9 +119,9 @@ class DeviceRemoteHandler {
               let messageData = try? JSONEncoder().encode(request) else { return }
         
         btPublisher
-            .decode(type: NewDataAcquisitionResponse.self, decoder: JSONDecoder())
+            .decode(type: SamplingRequestReceivedResponse.self, decoder: JSONDecoder())
             .sinkOrRaiseAppEventError { [weak self] response in
-                guard response.success else {
+                guard response.sample else {
                     self?.samplingState = .error(.stringError("Returned Not Successful."))
                     return
                 }

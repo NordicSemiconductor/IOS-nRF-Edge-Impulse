@@ -20,10 +20,35 @@ struct SampleRequestMessage: Codable {
     }
 }
 
-struct NewDataAcquisitionResponse: Codable {
+struct SamplingRequestReceivedResponse: Codable {
     
-    let success: Bool
-    let id: Int
+    let sample: Bool
+}
+
+struct SamplingRequestStartedResponse: Codable {
+    
+    let sampleStarted: Bool
+}
+
+struct SamplingRequestProcessingResponse: Codable {
+    
+    let sampleProcessing: Bool
+}
+
+struct SamplingRequestProgressResponse: Codable {
+    
+    let sampleReading: Bool
+    let progressPercentage: Int
+}
+
+struct SamplingRequestUploadingResponse: Codable {
+    
+    let sampleUploading: Bool
+}
+
+struct SamplingRequestFinishedResponse: Codable {
+    
+    let sampleFinished: Bool
 }
 
 struct DataAcquisitionSample: Codable {
