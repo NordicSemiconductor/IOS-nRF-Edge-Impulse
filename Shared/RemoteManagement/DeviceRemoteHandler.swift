@@ -115,8 +115,7 @@ class DeviceRemoteHandler {
     }
     
     func sendSampleRequest(_ request: BLESampleRequestWrapper) throws {
-        guard let btPublisher = btPublisher,
-              let messageData = try? JSONEncoder().encode(request) else { return }
+        guard let btPublisher = btPublisher else { return }
         
         btPublisher
             .decode(type: SamplingRequestReceivedResponse.self, decoder: JSONDecoder())
@@ -142,7 +141,7 @@ class DeviceRemoteHandler {
             }
             .store(in: &cancellables)
         
-        try bluetoothManager.write(messageData)
+        try bluetoothManager.write(request)
     }
     
     func disconnect() {
