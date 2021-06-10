@@ -59,4 +59,13 @@ final class DataAcquisitionViewState: ObservableObject {
                                            lengthMs: Int(sampleLength), sensor: selectedSensor.name)
         return message
     }
+    
+    func newBLESampleRequest() -> BLESampleRequestWrapper? {
+        guard selectedSensor != Constant.unselectedSensor else { return nil }
+        let intervalMs =  1.0 / selectedFrequency * 1000.0
+        let sample = BLESampleRequest(label: label, length: Int(sampleLength), category: selectedDataType,
+                                      interval: Int(intervalMs), sensor: selectedSensor)
+        let message = BLESampleRequestMessage(sample: sample)
+        return BLESampleRequestWrapper(type: "ws", direction: "rx", address:  "wss://studio.edgeimpulse.com", message: message)
+    }
 }

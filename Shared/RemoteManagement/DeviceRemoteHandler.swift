@@ -114,7 +114,7 @@ class DeviceRemoteHandler {
             .store(in: &cancellables)
     }
     
-    func sendSampleRequest(_ request: SampleRequestMessage) throws {
+    func sendSampleRequest(_ request: BLESampleRequestWrapper) throws {
         guard let btPublisher = btPublisher,
               let messageData = try? JSONEncoder().encode(request) else { return }
         
@@ -129,7 +129,7 @@ class DeviceRemoteHandler {
                 
                 #warning("remove test code")
                 #if DEBUG
-                DispatchQueue.main.asyncAfter(deadline: .now() + request.intervalS) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double(request.message.sample.interval)) {
                     guard let fullResponse = Preview.previewFullMicrophoneDataSampleResponse else { return }
                     do {
                         try self?.webSocketManager.send(fullResponse)

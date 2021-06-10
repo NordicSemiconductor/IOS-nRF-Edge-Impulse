@@ -20,6 +20,38 @@ struct SampleRequestMessage: Codable {
     }
 }
 
+struct BLESampleRequest: Codable {
+    
+    let label: String
+    let length: Int
+    let path: String
+    let hmacKey: String
+    let interval: Int
+    let sensor: String
+    
+    init(label: String, length: Int, category: DataSample.Category, interval: Int, sensor: Sensor) {
+        self.label = label
+        self.length = length
+        self.path = "/api/\(category.rawValue)/data"
+        self.hmacKey = "e561ff..."
+        self.interval = interval
+        self.sensor = sensor.name
+    }
+}
+
+struct BLESampleRequestMessage: Codable {
+    
+    let sample: BLESampleRequest
+}
+
+struct BLESampleRequestWrapper: Codable {
+    
+    let type: String
+    let direction: String
+    let address: String
+    let message: BLESampleRequestMessage
+}
+
 struct SamplingRequestReceivedResponse: Codable {
     
     let sample: Bool
