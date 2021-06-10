@@ -60,11 +60,14 @@ class WebSocketManager {
         task = session.webSocketTask(with: url)
         listen()
         task.resume()
+        schedulePings()
         
         return publisher.eraseToAnyPublisher()
     }
     
     func disconnect() {
+        cancellable.forEach { $0.cancel() }
+        cancellable.removeAll()
         task.cancel(with: .normalClosure, reason: nil)
     }
     
@@ -89,6 +92,32 @@ class WebSocketManager {
 
 /// Private API
 extension WebSocketManager {
+    
+    fileprivate static let PingTime: TimeInterval = 20.0
+    
+    private func schedulePings() {
+        Timer
+            .publish(every: Self.PingTime, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] a in
+                self?.ping()
+            }
+            .store(in: &cancellable)
+    }
+    
+    private func ping() {
+        task.sendPing { [weak self] error in
+            switch error {
+            case .none:
+                self?.logger.debug("Successfully pinged WebSocket.")
+            case .some(let error):
+                self?.logger.error("WebSocket ping returned an error: \(error.localizedDescription)")
+                self?.logger.error("Triggering disconnection due to ping error.")
+                self?.disconnect()
+            }
+        }
+    }
+    
     private func listen() {
         task.receive { [weak self] result in
             switch result {
@@ -104,6 +133,7 @@ extension WebSocketManager {
                     self?.publisher.send(s.data(using: .utf8)!)
                     self?.logger.info("Message received: \(s)")
                 @unknown default:
+                    self?.logger.info("Something else received received.")
                     break 
                 }
             }
