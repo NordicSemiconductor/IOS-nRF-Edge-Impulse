@@ -53,25 +53,25 @@ struct Preview {
     // MARK: - ScannerData
     
     static let noDevicesScannerData: ScannerData = {
-        let scannerData = ScannerData()
-        scannerData.scanResults = []
-        return scannerData
+        let deviceData = ScannerData()
+        deviceData.scanResults = []
+        return deviceData
     }()
     
     static let isScanningButNoDevicesScannerData: ScannerData = {
-        let scannerData = ScannerData()
-        scannerData.scanResults = []
-        return scannerData
+        let deviceData = ScannerData()
+        deviceData.scanResults = []
+        return deviceData
     }()
 
     static var mockScannerData: ScannerData = {
-        let scannerData = ScannerData()
-        scannerData.scanResults = [
+        let deviceData = ScannerData()
+        deviceData.scanResults = [
             Device(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock),
             Device(name: "Device 2", id: UUID(), rssi: .bad, advertisementData: .mock),
             Device(name: "Device 3", id: UUID(), rssi: .ok, advertisementData: .mock)
         ]
-        return scannerData
+        return deviceData
     }()
 }
 #endif

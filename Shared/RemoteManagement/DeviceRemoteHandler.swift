@@ -40,11 +40,7 @@ extension DeviceRemoteHandler {
 }
 
 class DeviceRemoteHandler {
-    
-    
     private let logger = Logger(category: "DeviceRemoteHandler")
-    
-    
     
     private (set) var device: Device
     private (set) var registeredDevice: RegisteredDevice?
@@ -59,12 +55,14 @@ class DeviceRemoteHandler {
     private var wsPublisher: AnyPublisher<Data, WebSocketManager.Error>?
     
     private let registeredDeviceData: RegisteredDevicesData
+    private let appData: AppData
     
-    init(device: Device, registeredDeviceData: RegisteredDevicesData) {
+    init(device: Device, registeredDeviceData: RegisteredDevicesData, appData: AppData) {
         self.device = device
         bluetoothManager = BluetoothManager(peripheralId: device.id)
         webSocketManager = WebSocketManager()
         self.registeredDeviceData = registeredDeviceData
+        self.appData = appData
     }
     
     deinit {
@@ -111,7 +109,7 @@ class DeviceRemoteHandler {
                         .eraseToAnyPublisher()
                 } else {
                     let deviceId = self.device.id.uuidString
-                    return self.registeredDeviceData.fetchDevice(deviceId: deviceId)
+                    return self.registeredDeviceData.fetchDevice(deviceId: deviceId, appData: self.appData)
                 }
             }
             .justDoIt { device in
@@ -127,10 +125,9 @@ class DeviceRemoteHandler {
             }
             .prefix(1)
             .timeout(10, scheduler: DispatchQueue.main, customError: { Error.timeout })
-            .eraseToAnyPublisher()
-            .catch { error  in
+            .catch { error -> Just<ConnectionState> in
                 self.state = .disconnected(.error(error))
-                return Just(ConnectionState.disconnected(.error(error))).eraseToAnyPublisher()
+                return Just(ConnectionState.disconnected(.error(error)))
             }
             .eraseToAnyPublisher()
         /*
@@ -189,7 +186,7 @@ class DeviceRemoteHandler {
         bluetoothManager.disconnect()
         webSocketManager.disconnect()
         
-        device.state = .notConnected
+        self.state = .notConnected
         let deviceName = device.name
         logger.info("\(deviceName) Disconnected.")
     }
@@ -211,6 +208,6 @@ extension DeviceRemoteHandler: Hashable, Identifiable {
 
 #if DEBUG
 extension DeviceRemoteHandler {
-    static let mock = DeviceRemoteHandler(device: Device.sample)
+    static let mock = DeviceRemoteHandler(device: Device.sample, registeredDeviceData: RegisteredDevicesData(), appData: AppData())
 }
 #endif

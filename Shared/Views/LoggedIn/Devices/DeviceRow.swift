@@ -54,10 +54,7 @@ struct DeviceRow: View {
     }
     
     var deviceForegroundColor: Color {
-        guard device.state == .notConnected else {
-            return Assets.blue.color
-        }
-        return .primary // scannerData.isScanning ? .primary : Assets.middleGrey.color
+        return Assets.blue.color
     }
 }
 

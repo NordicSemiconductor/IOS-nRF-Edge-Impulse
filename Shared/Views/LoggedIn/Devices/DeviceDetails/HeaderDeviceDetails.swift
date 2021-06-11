@@ -36,26 +36,26 @@ struct HeaderDeviceDetails: View {
                 Spacer()
             }
             
-            viewForHandler(scannerData[device])
+//            viewForHandler(scannerData[device])
         }
     }
         
     @ViewBuilder
     private func viewForHandler(_ handler: DeviceRemoteHandler) -> some View {
-        switch handler.device.state {
-        case .notConnected:
-            Button("Connect", action: {
-                appData.selectedProject
-//                    .flatMap {
-//                        appData.hand
-//                    }
-//                    handler.connect(apiKey: appData.apiToken)
-            })
-        case .connecting:
-            ProgressView()
-        case .ready:
-            Button("Disconnect", action: handler.disconnect)
-        }
+//        switch handler.device.state {
+//        case .notConnected:
+//            Button("Connect", action: {
+//                appData.selectedProject
+////                    .flatMap {
+////                        appData.hand
+////                    }
+////                    handler.connect(apiKey: appData.apiToken)
+//            })
+//        case .connecting:
+//            ProgressView()
+//        case .ready:
+//            Button("Disconnect", action: handler.disconnect)
+//        }
     }
 }
 

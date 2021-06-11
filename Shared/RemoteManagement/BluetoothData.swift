@@ -16,8 +16,8 @@ struct DeviceWrapper {
     let device: RegisteredDevice
 }
 
-class DevicesManager {
-    @ObservedObject var appData: AppDatac
+class DeviceData: ObservableObject {
+    @ObservedObject var appData: AppData
     @ObservedObject var scannerData: ScannerData
     @ObservedObject var registeredDevicesData: RegisteredDevicesData
     
@@ -30,6 +30,8 @@ class DevicesManager {
         self.scannerData = scannerData
         self.registeredDevicesData = registeredDevicesData
         self.appData = appData
+        
+        scannerData.turnOnBluetoothRadio()
     }
     
     func tryToConnect(scanResult: Device) {
@@ -51,7 +53,7 @@ class DevicesManager {
         if let handler = remoteHandlers.first(where: { $0.id == scanResult.id }) {
             return handler
         } else {
-            let newHandler = DeviceRemoteHandler(device: scanResult)
+            let newHandler = DeviceRemoteHandler(device: scanResult, registeredDeviceData: registeredDevicesData, appData: AppData())
             remoteHandlers.append(newHandler)
             return newHandler
         }

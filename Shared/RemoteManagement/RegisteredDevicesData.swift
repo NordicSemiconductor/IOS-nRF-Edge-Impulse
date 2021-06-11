@@ -9,8 +9,6 @@ import Combine
 import SwiftUI
 
 class RegisteredDevicesData: ObservableObject {
-    @EnvironmentObject var appData: AppData
-    
     enum Error: Swift.Error {
         case unauthorized, badRequest
         case any(Swift.Error)
@@ -19,11 +17,7 @@ class RegisteredDevicesData: ObservableObject {
     @Published var devices: [RegisteredDevice] = []
     private var cancellables = Set<AnyCancellable>()
     
-    init() {
-        refreshDevices()
-    }
-    
-    private func requestData() -> AnyPublisher<(Project, String), Swift.Error> {
+    private func requestData(appData: AppData) -> AnyPublisher<(Project, String), Swift.Error> {
         return appData.$selectedProject
             .combineLatest(appData.$apiToken)
             .tryCompactMap { (project, token) -> (Project, String)? in
@@ -43,8 +37,8 @@ class RegisteredDevicesData: ObservableObject {
     /// Fetch devices from EI and store them into `devices`
     /// - Returns: Publisher with devices from EI. You can subscribe on it to get new results as soos as devices are fetched or just get notified when the request is finished.
     @discardableResult
-    func refreshDevices() -> AnyPublisher<[RegisteredDevice], Swift.Error> {
-        let devicePublisher = requestData()
+    func refreshDevices(appData: AppData) -> AnyPublisher<[RegisteredDevice], Swift.Error> {
+        let devicePublisher = requestData(appData: appData)
             .flatMap { (project, token) -> AnyPublisher<[RegisteredDevice], Swift.Error> in
                 guard let request = HTTPRequest.getDevices(for: project, using: token) else {
                     return Fail(error: Error.badRequest).eraseToAnyPublisher()
@@ -68,8 +62,8 @@ class RegisteredDevicesData: ObservableObject {
     /// - Parameter deviceId: Id of the device to fetch
     /// - Returns: Publisher with fetched device. You can subscribe on it to get new result as soos as device is fetched or just get notified when the request is finished.
     @discardableResult
-    func fetchDevice(deviceId: String) -> AnyPublisher<RegisteredDevice, Swift.Error> {
-        let devicePublisher = requestData()
+    func fetchDevice(deviceId: String, appData: AppData) -> AnyPublisher<RegisteredDevice, Swift.Error> {
+        let devicePublisher = requestData(appData: appData)
             .flatMap { (project, token) -> AnyPublisher<RegisteredDevice, Swift.Error> in
                 guard let request = HTTPRequest.getDevice(for: project, deviceId: deviceId, using: token) else {
                     return Fail(error: Error.badRequest).eraseToAnyPublisher()

@@ -13,7 +13,7 @@ struct DeviceList: View {
     
     // MARK: Properties
     
-    @EnvironmentObject var scannerData: ScannerData
+    @EnvironmentObject var deviceData: DeviceData
     @EnvironmentObject var appData: AppData
     
     @State private var scannerCancellable: Cancellable? = nil
@@ -33,7 +33,7 @@ struct DeviceList: View {
             }
             .onAppear() {
                 guard !Constant.isRunningInPreviewMode else { return }
-                scannerData.turnOnBluetoothRadio()
+                deviceData.scannerData.turnOnBluetoothRadio()
             }
             .onDisappear() {
                 scannerCancellable?.cancel()
@@ -75,15 +75,16 @@ private extension DeviceList {
             buildRegisteredDevicesList(devices: items)
             
             Section(header: Text("Scan Results")) {
-                let devices = ListSection.notConnectedDevices.devices(from: scannerData)
+                let devices = ListSection.notConnectedDevices.devices(from: deviceData.scannerData)
                 if devices.hasItems {
                     ForEach(devices) { device in
                         DeviceRow(device)
                             .onTapGesture {
-                                appData.selectedProject
-                                    .flatMap { appData.projectDevelopmentKeys[$0]?.apiKey }
-                                    .flatMap { scannerData[device].connect(apiKey: $0) }
-                                self.logger.info("Device ID: \(device.id))")
+                                deviceData.tryToConnect(scanResult: device)
+//                                appData.selectedProject
+//                                    .flatMap { appData.projectDevelopmentKeys[$0]?.apiKey }
+//                                    .flatMap { scannerData[device].connect(apiKey: $0) }
+//                                self.logger.info("Device ID: \(device.id))")
                                 
                                 // TODO: change row state
                             }
@@ -128,6 +129,7 @@ private extension DeviceList {
             }
         }
         
+        // TODO: Get devices from DeviceData
         func devices(from deviceData: ScannerData) -> [Device] {
             switch self {
             case .connectedDevices:
@@ -144,14 +146,14 @@ private extension DeviceList {
 private extension DeviceList {
     
     func toggleScanner() {
-        scannerData.toggle()
+        deviceData.scannerData.toggle()
     }
     
     func refreshScanner() {
-        scannerData.scanResults = scannerData.scanResults.filter {
-            $0.state != .notConnected
-        }
-        guard !scannerData.isScanning else { return }
+//        scannerData.scanResults = scannerData.scanResults.filter {
+//            $0.state != .notConnected
+//        }
+        guard !deviceData.scannerData.isScanning else { return }
         toggleScanner()
     }
 }

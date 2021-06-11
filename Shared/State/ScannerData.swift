@@ -11,7 +11,6 @@ import os
 import CoreBluetooth
 
 final class ScannerData: NSObject, ObservableObject {
-    
     // MARK: - API Properties
     
     @Published var isScanning = false
@@ -38,22 +37,14 @@ final class ScannerData: NSObject, ObservableObject {
 
 extension ScannerData {
     
-    subscript(_ device: Device) -> DeviceRemoteHandler {
-        guard let handler = deviceHandlers[device.id] else {
-            let newHandler = DeviceRemoteHandler(device: device)
-            deviceHandlers[device.id] = newHandler
-            setupHandlerObservers(handler: newHandler)
-            return newHandler
-        }
-        return handler
-    }
-    
     func allConnectedAndReadyToUseDevices() -> [Device] {
-        scanResults.filter(\.isConnectedAndReadyForUse)
+//        scanResults.filter(\.isConnectedAndReadyForUse)
+        []
     }
     
     func allOtherDevices() -> [Device] {
-        scanResults.inverseFilter(\.isConnectedAndReadyForUse)
+//        scanResults.inverseFilter(\.isConnectedAndReadyForUse)
+        scanResults
     }
     
     /**
@@ -84,14 +75,14 @@ extension ScannerData {
     
     func startSampling(_ viewState: DataAcquisitionViewState) {
         viewState.isSampling = true
-        do {
-            let deviceHandler = self[viewState.selectedDevice]
-            try deviceHandler.sendSampleRequest(viewState.newSampleMessage())
-        }
-        catch (let error) {
-            viewState.isSampling = false
-            AppEvents.shared.error = ErrorEvent(error)
-        }
+//        do {
+//            let deviceHandler = self[viewState.selectedDevice]
+//            try deviceHandler.sendSampleRequest(viewState.newSampleMessage())
+//        }
+//        catch (let error) {
+//            viewState.isSampling = false
+//            AppEvents.shared.error = ErrorEvent(error)
+//        }
     }
     
     private func startScanning() {
@@ -123,20 +114,20 @@ private extension ScannerData {
     }
     
     private func setupHandlerObservers(handler: DeviceRemoteHandler) {
-        handler.$device
-            .drop(while: { (device) -> Bool in
-                if case .notConnected = device.state {
-                    return true
-                } else {
-                    return false
-                }
-            })
-            .sink { [weak self] (device) in
-                guard let `self` = self else { return }
-                guard let index = self.scanResults.firstIndex(of: device) else { return }
-                self.scanResults[index] = device
-            }
-            .store(in: &cancellables)
+//        handler.$device
+//            .drop(while: { (device) -> Bool in
+//                if case .notConnected = device.state {
+//                    return true
+//                } else {
+//                    return false
+//                }
+//            })
+//            .sink { [weak self] (device) in
+//                guard let `self` = self else { return }
+//                guard let index = self.scanResults.firstIndex(of: device) else { return }
+//                self.scanResults[index] = device
+//            }
+//            .store(in: &cancellables)
     }
 }
 
@@ -148,7 +139,7 @@ extension ScannerData: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral,
                         advertisementData: [String : Any], rssi RSSI: NSNumber) {
         let device = Device(peripheral: peripheral, advertisementData: advertisementData, rssi: RSSI)
-        
+        logger.info("New device discovered: \(device.name)")
         switch preferences.onlyScanConnectableDevices {
         case true:
             guard device.advertisementData.isConnectable == true else { return }
