@@ -116,35 +116,28 @@ class DeviceRemoteHandler {
     
     func sendSampleRequest(_ request: BLESampleRequestWrapper) throws {
         guard let btPublisher = btPublisher else { return }
-        let decoder = JSONDecoder()
         
         let requestReceptionResponse = btPublisher
-            .tryMap { [bluetoothManager] data -> Bool in
-                guard let response = try? decoder.decode(SamplingRequestReceivedResponse.self, from: data) else {
-                    return false
-                }
+            .onlyDecode(type: SamplingRequestReceivedResponse.self)
+            .tryMap { [bluetoothManager] response -> Bool in
                 guard response.sample else {
                     throw DeviceRemoteHandler.Error.stringError("Returned Not Successful.")
                 }
                 defer { bluetoothManager?.mockFirmwareResponse(SamplingRequestStartedResponse(sampleStarted: true)) }
                 return true
             }
-            .filter { $0 }
             .first()
             .eraseToAnyPublisher()
         
         let samplingStartedResponse = btPublisher
-            .tryMap { [weak self] data -> Bool in
-                guard let response = try? decoder.decode(SamplingRequestStartedResponse.self, from: data) else {
-                    return false
-                }
+            .onlyDecode(type: SamplingRequestStartedResponse.self)
+            .tryMap { [weak self] response -> Bool in
                 guard response.sampleStarted else {
                     throw DeviceRemoteHandler.Error.stringError("Sampling failed to start.")
                 }
                 self?.samplingState = .inProgress
                 return true
             }
-            .filter { $0 }
             .first()
             .eraseToAnyPublisher()
         
