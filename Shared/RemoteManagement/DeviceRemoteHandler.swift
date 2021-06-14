@@ -116,32 +116,59 @@ class DeviceRemoteHandler {
     
     func sendSampleRequest(_ request: BLESampleRequestWrapper) throws {
         guard let btPublisher = btPublisher else { return }
+        let decoder = JSONDecoder()
         
-        btPublisher
-            .decode(type: SamplingRequestReceivedResponse.self, decoder: JSONDecoder())
-            .sinkOrRaiseAppEventError { [weak self] response in
+        let requestReceptionResponse = btPublisher
+            .tryMap { [bluetoothManager] data -> Bool in
+                guard let response = try? decoder.decode(SamplingRequestReceivedResponse.self, from: data) else {
+                    return false
+                }
                 guard response.sample else {
-                    self?.samplingState = .error(.stringError("Returned Not Successful."))
-                    return
+                    throw DeviceRemoteHandler.Error.stringError("Returned Not Successful.")
+                }
+                defer { bluetoothManager?.mockFirmwareResponse(SamplingRequestStartedResponse(sampleStarted: true)) }
+                return true
+            }
+            .filter { $0 }
+            .first()
+            .eraseToAnyPublisher()
+        
+        let samplingStartedResponse = btPublisher
+            .tryMap { [weak self] data -> Bool in
+                guard let response = try? decoder.decode(SamplingRequestStartedResponse.self, from: data) else {
+                    return false
+                }
+                guard response.sampleStarted else {
+                    throw DeviceRemoteHandler.Error.stringError("Sampling failed to start.")
                 }
                 self?.samplingState = .inProgress
-                
-                #warning("remove test code")
-                #if DEBUG
-                DispatchQueue.main.asyncAfter(deadline: .now() + Double(request.message.sample.interval)) {
-                    guard let fullResponse = Preview.previewFullMicrophoneDataSampleResponse else { return }
-                    do {
-                        try self?.webSocketManager.send(fullResponse)
-                        self?.samplingState = .completed
-                    } catch (let error) {
-                        self?.samplingState = .error(.stringError(error.localizedDescription))
-                    }
+                return true
+            }
+            .filter { $0 }
+            .first()
+            .eraseToAnyPublisher()
+        
+        let requestPublishers: [AnyPublisher<Bool, Swift.Error>] = [requestReceptionResponse, samplingStartedResponse]
+        Publishers.MergeMany(requestPublishers)
+            .collect()
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    self?.samplingState = .error(.stringError(error.localizedDescription))
+                    AppEvents.shared.error = ErrorEvent(error)
+                default:
+                    break
                 }
-                #endif
+            }) { _ in
+                print("Completed")
             }
             .store(in: &cancellables)
         
         try bluetoothManager.write(request)
+        #warning("test code")
+        #if DEBUG
+        bluetoothManager.mockFirmwareResponse(SamplingRequestReceivedResponse(sample: true))
+        #endif
     }
     
     func disconnect() {
