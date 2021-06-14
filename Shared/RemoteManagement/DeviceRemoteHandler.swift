@@ -120,28 +120,38 @@ class DeviceRemoteHandler {
         let requestReceptionResponse = btPublisher
             .onlyDecode(type: SamplingRequestReceivedResponse.self)
             .first()
-            .tryMap { [bluetoothManager] response -> Void in
+            .tryMap { [bluetoothManager] response -> SamplingState in
                 guard response.sample else {
                     throw DeviceRemoteHandler.Error.stringError("Returned Not Successful.")
                 }
                 bluetoothManager?.mockFirmwareResponse(SamplingRequestStartedResponse(sampleStarted: true))
+                return .requestReceived
             }
             .eraseToAnyPublisher()
         
         let samplingStartedResponse = btPublisher
             .onlyDecode(type: SamplingRequestStartedResponse.self)
             .first()
-            .tryMap { [weak self] response -> Void in
+            .tryMap { [weak self] response -> SamplingState in
                 guard response.sampleStarted else {
                     throw DeviceRemoteHandler.Error.stringError("Sampling failed to start.")
                 }
-                self?.samplingState = .inProgress
+                self?.bluetoothManager?.mockFirmwareResponse(SamplingRequestProgressResponse(sampleReading: true, progressPercentage: 0))
+                return .requestStarted
             }
             .eraseToAnyPublisher()
         
-        let requestPublishers: [AnyPublisher<Void, Swift.Error>] = [requestReceptionResponse, samplingStartedResponse]
+        let samplingProgressResponse = btPublisher
+            .onlyDecode(type: SamplingRequestProgressResponse.self)
+            .tryMap { response throws -> SamplingState in
+                return .inProgress(response.progressPercentage)
+            }
+            .eraseToAnyPublisher()
+        
+        let requestPublishers: [AnyPublisher<SamplingState, Swift.Error>] = [
+            requestReceptionResponse, samplingStartedResponse, samplingProgressResponse
+        ]
         Publishers.MergeMany(requestPublishers)
-            .collect()
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .failure(let error):
@@ -150,8 +160,11 @@ class DeviceRemoteHandler {
                 default:
                     break
                 }
-            }) { _ in
-                print("Completed")
+            }) { state in
+                switch state {
+                default:
+                    print(String(describing: state))
+                }
             }
             .store(in: &cancellables)
         
@@ -181,7 +194,8 @@ extension DeviceRemoteHandler {
     
     enum SamplingState {
         case standby
-        case inProgress
+        case requestReceived, requestStarted
+        case inProgress(_ progress: Int)
         case completed
         case error(_ error: Error)
     }
