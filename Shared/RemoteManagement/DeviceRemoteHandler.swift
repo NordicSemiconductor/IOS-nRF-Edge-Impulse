@@ -119,29 +119,27 @@ class DeviceRemoteHandler {
         
         let requestReceptionResponse = btPublisher
             .onlyDecode(type: SamplingRequestReceivedResponse.self)
-            .tryMap { [bluetoothManager] response -> Bool in
+            .first()
+            .tryMap { [bluetoothManager] response -> Void in
                 guard response.sample else {
                     throw DeviceRemoteHandler.Error.stringError("Returned Not Successful.")
                 }
-                defer { bluetoothManager?.mockFirmwareResponse(SamplingRequestStartedResponse(sampleStarted: true)) }
-                return true
+                bluetoothManager?.mockFirmwareResponse(SamplingRequestStartedResponse(sampleStarted: true))
             }
-            .first()
             .eraseToAnyPublisher()
         
         let samplingStartedResponse = btPublisher
             .onlyDecode(type: SamplingRequestStartedResponse.self)
-            .tryMap { [weak self] response -> Bool in
+            .first()
+            .tryMap { [weak self] response -> Void in
                 guard response.sampleStarted else {
                     throw DeviceRemoteHandler.Error.stringError("Sampling failed to start.")
                 }
                 self?.samplingState = .inProgress
-                return true
             }
-            .first()
             .eraseToAnyPublisher()
         
-        let requestPublishers: [AnyPublisher<Bool, Swift.Error>] = [requestReceptionResponse, samplingStartedResponse]
+        let requestPublishers: [AnyPublisher<Void, Swift.Error>] = [requestReceptionResponse, samplingStartedResponse]
         Publishers.MergeMany(requestPublishers)
             .collect()
             .sink(receiveCompletion: { [weak self] completion in
