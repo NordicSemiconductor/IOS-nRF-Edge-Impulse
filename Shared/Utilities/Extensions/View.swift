@@ -26,14 +26,12 @@ extension View {
     
     // MARK: - NavBar
     
-    func setTitle(_ title: String) -> AnyView {
-        let anyView: AnyView
+    func setTitle(_ title: String) -> some View {
         #if os(iOS)
-        anyView = AnyView(navigationBarTitle(title, displayMode: .inline))
+        return navigationBarTitle(title, displayMode: .inline)
         #else
-        anyView = AnyView(navigationTitle(title))
+        return navigationTitle(title)
         #endif
-        return anyView
     }
     
     func toolbarPrincipalImage(_ image: Image) -> AnyView {
