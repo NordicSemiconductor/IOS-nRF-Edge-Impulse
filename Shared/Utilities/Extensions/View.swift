@@ -131,14 +131,12 @@ extension Picker {
         return anyView
     }
     
-    func setAsSegmentedControlStyle() -> AnyView {
-        let anyView: AnyView
+    func setAsSegmentedControlStyle() -> some View {
         #if os(iOS)
-        anyView = AnyView(pickerStyle(SegmentedPickerStyle()))
+        pickerStyle(SegmentedPickerStyle())
         #else
-        anyView = AnyView(self)
+        self
         #endif
-        return anyView
     }
 }
 
