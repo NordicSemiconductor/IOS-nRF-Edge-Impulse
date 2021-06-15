@@ -31,13 +31,7 @@ final class AppData: ObservableObject {
             selectedProjectDidChange()
         }
     }
-    @Published var selectedTab: Tabs? = .Devices {
-        didSet {
-            isShowingDetailsView = false
-        }
-    }
-        
-    @Published var isShowingDetailsView = false
+    @Published var selectedTab: Tabs? = .Devices
     
     @Published var projectDevelopmentKeys: [Project: ProjectDevelopmentKeysResponse]
     @Published var samplesForCategory: [DataSample.Category: [DataSample]]
