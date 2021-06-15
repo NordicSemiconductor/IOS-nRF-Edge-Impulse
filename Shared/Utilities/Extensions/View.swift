@@ -95,23 +95,6 @@ extension View {
         #endif
         return anyView
     }
-    
-    // MARK: - Button
-    
-    func circularButtonShape(backgroundAsset: Assets) -> AnyView {
-        let anyView: AnyView
-        #if os(iOS)
-        anyView = AnyView(frame(width: 80, height: 12)
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(backgroundAsset.color)
-                            .cornerRadius(30))
-        #else
-        anyView = AnyView(self)
-        #endif
-        return anyView
-    }
 }
 
 // MARK: - Picker
