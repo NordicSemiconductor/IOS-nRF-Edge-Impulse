@@ -60,8 +60,17 @@ extension Network {
                     return Fail(error: errorResponse)
                         .eraseToAnyPublisher()
                 } catch (let error) {
-                    return Fail(error: error)
-                        .eraseToAnyPublisher()
+                    guard let stringResponse = String(data: data, encoding: .utf8) else {
+                        return Fail(error: error)
+                            .eraseToAnyPublisher()
+                    }
+                    if stringResponse.contains("session expired") {
+                        return Fail(error: URLError(.userAuthenticationRequired))
+                            .eraseToAnyPublisher()
+                    } else  {
+                        return Fail(error: EdgeImpulseErrorResponse(success: false, error: "Unknown Server Error Received."))
+                            .eraseToAnyPublisher()
+                    }
                 }
             }
             .receive(on: RunLoop.main)
