@@ -34,10 +34,10 @@ extension View {
         #endif
     }
     
-    func toolbarPrincipalImage(_ image: Image) -> AnyView {
-        let anyView: AnyView
+    @ViewBuilder
+    func toolbarPrincipalImage(_ image: Image) -> some View {
         #if os(iOS)
-        anyView = AnyView(toolbar {
+        toolbar {
             ToolbarItem(placement: .principal) {
                 image
                     .resizable()
@@ -46,11 +46,10 @@ extension View {
                     .frame(size: .ToolbarImageSize)
                     .aspectRatio(contentMode: .fit)
             }
-        })
+        }
         #else
-        anyView = AnyView(self)
+        self
         #endif
-        return anyView
     }
     
     // MARK: - NavigationView
