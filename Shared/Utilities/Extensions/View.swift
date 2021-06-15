@@ -84,17 +84,19 @@ extension View {
 
 extension Picker {
     
-    func setAsComboBoxStyle() -> AnyView {
-        // Can cause crashes in iOS 14.1 with changeable Sections / Cells.
-        guard #available(iOS 14.4, *) else { return AnyView(self) }
-        let anyView: AnyView
+    @ViewBuilder
+    func setAsComboBoxStyle() -> some View {
         #if os(iOS)
-        anyView = AnyView(pickerStyle(InlinePickerStyle())
-                            .frame(maxHeight: 75))
+        // Can cause crashes in iOS 14.1 with changeable Sections / Cells.
+        if #available(iOS 14.4, *) {
+            pickerStyle(InlinePickerStyle())
+                .frame(maxHeight: 75)
+        } else {
+            self
+        }
         #else
-        anyView = AnyView(self)
+        self
         #endif
-        return anyView
     }
     
     func setAsSegmentedControlStyle() -> some View {
