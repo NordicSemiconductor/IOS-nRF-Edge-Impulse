@@ -55,20 +55,18 @@ extension View {
     
     // MARK: - NavigationView
     
-    func wrapInNavigationViewForiOS() -> AnyView {
-        let anyView: AnyView
+    @ViewBuilder
+    func wrapInNavigationViewForiOS() -> some View {
         #if os(iOS)
-        anyView = AnyView(
-            NavigationView {
-                self
-            }
-            .setBackgroundColor(.blue)
-            .setSingleColumnNavigationViewStyle()
-            .accentColor(.white))
+        NavigationView {
+            self
+        }
+        .setBackgroundColor(.blue)
+        .setSingleColumnNavigationViewStyle()
+        .accentColor(.white)
         #else
-        anyView = AnyView(self)
+        self
         #endif
-        return anyView
     }
     
     // MARK: - UITextField
