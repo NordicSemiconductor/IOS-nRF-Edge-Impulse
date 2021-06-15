@@ -32,8 +32,7 @@ struct PasswordField: View {
                 .modifier(FixPlaceholder(for: password, text: "Password"))
                 .disableAllAutocorrections()
                 .foregroundColor(.accentColor)
-                .roundedTextFieldShape(backgroundAsset: .lightGrey)
-                .frame(maxWidth: 320)
+                .modifier(RoundedTextFieldShape(.lightGrey))
                 .padding(.bottom, 8)
                 .disabled(!enabled)
         }

@@ -78,23 +78,6 @@ extension View {
         return disableAutocorrection(true)
         #endif
     }
-    
-    func roundedTextFieldShape(backgroundAsset: Assets, hasTextFieldBelow: Bool = false) -> AnyView {
-        var anyView: AnyView
-        #if os(iOS)
-        anyView = AnyView(frame(maxWidth: 300)
-            .frame(height: 20)
-            .padding()
-            .background(backgroundAsset.color)
-            .cornerRadius(30))
-        if hasTextFieldBelow {
-            anyView = AnyView(anyView.padding(.bottom, 16))
-        }
-        #else
-        anyView = AnyView(self)
-        #endif
-        return anyView
-    }
 }
 
 // MARK: - Picker
