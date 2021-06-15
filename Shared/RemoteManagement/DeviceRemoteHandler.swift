@@ -114,8 +114,8 @@ class DeviceRemoteHandler {
             .store(in: &cancellables)
     }
     
-    func sendSampleRequest(_ request: BLESampleRequestWrapper) throws {
-        guard let btPublisher = btPublisher else { return }
+    func samplingRequestPublisher() -> AnyPublisher<SamplingState, Swift.Error>? {
+        guard let btPublisher = btPublisher else { return nil }
         
         let requestReceptionResponse = btPublisher
             .onlyDecode(type: SamplingRequestReceivedResponse.self)
@@ -144,30 +144,20 @@ class DeviceRemoteHandler {
         let samplingProgressResponse = btPublisher
             .onlyDecode(type: SamplingRequestProgressResponse.self)
             .tryMap { response throws -> SamplingState in
+                guard response.sampleReading else {
+                    throw DeviceRemoteHandler.Error.stringError("Firmware is not reading any data.")
+                }
                 return .inProgress(response.progressPercentage)
             }
             .eraseToAnyPublisher()
         
-        let requestPublishers: [AnyPublisher<SamplingState, Swift.Error>] = [
-            requestReceptionResponse, samplingStartedResponse, samplingProgressResponse
-        ]
-        Publishers.MergeMany(requestPublishers)
-            .sink(receiveCompletion: { [weak self] completion in
-                switch completion {
-                case .failure(let error):
-                    self?.samplingState = .error(.stringError(error.localizedDescription))
-                    AppEvents.shared.error = ErrorEvent(error)
-                default:
-                    break
-                }
-            }) { state in
-                switch state {
-                default:
-                    print(String(describing: state))
-                }
-            }
-            .store(in: &cancellables)
-        
+        return Publishers.MergeMany([
+                requestReceptionResponse, samplingStartedResponse, samplingProgressResponse
+            ])
+            .eraseToAnyPublisher()
+    }
+    
+    func sendSampleRequest(_ request: BLESampleRequestWrapper) throws {
         try bluetoothManager.write(request)
         #warning("test code")
         #if DEBUG

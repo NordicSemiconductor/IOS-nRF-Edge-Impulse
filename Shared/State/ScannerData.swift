@@ -81,10 +81,29 @@ extension ScannerData {
     }
     
     func startSampling(_ viewState: DataAcquisitionViewState) {
-        guard let newSampleMessage = viewState.newBLESampleRequest() else { return }
+        let deviceHandler = self[viewState.selectedDevice]
+        guard let newSampleMessage = viewState.newBLESampleRequest(),
+              let requestPublisher = deviceHandler.samplingRequestPublisher() else { return }
+        
+        requestPublisher
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    viewState.isSampling = false
+                    AppEvents.shared.error = ErrorEvent(error)
+                default:
+                    break
+                }
+            }) { state in
+                switch state {
+                default:
+                    print(String(describing: state))
+                }
+            }
+            .store(in: &cancellables)
+        
         viewState.isSampling = true
         do {
-            let deviceHandler = self[viewState.selectedDevice]
             try deviceHandler.sendSampleRequest(newSampleMessage)
         }
         catch (let error) {
