@@ -23,7 +23,7 @@ struct CircularButtonShape: ViewModifier {
             .background(backgroundAsset.color)
             .cornerRadius(30)
         #else
-        self
+        content
         #endif
     }
 }
@@ -50,7 +50,7 @@ struct RoundedTextFieldShape: ViewModifier {
             .cornerRadius(30)
             .padding(.bottom, hasTextFieldBelow ? 16 : 0)
         #else
-        self
+        content
         #endif
     }
 }
