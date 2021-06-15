@@ -149,14 +149,12 @@ extension Picker {
 
 extension NavigationView {
     
-    @inlinable func setSingleColumnNavigationViewStyle() -> AnyView {
-        let anyView: AnyView
+    func setSingleColumnNavigationViewStyle() -> some View {
         #if os(iOS)
-        anyView = AnyView(navigationViewStyle(StackNavigationViewStyle()))
+        navigationViewStyle(StackNavigationViewStyle())
         #else
-        anyView = AnyView(self)
+        self
         #endif
-        return anyView
     }
     
     func setBackgroundColor(_ backgroundColor: Assets) -> NavigationView {
