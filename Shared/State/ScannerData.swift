@@ -96,6 +96,15 @@ extension ScannerData {
                 }
             }) { state in
                 switch state {
+                case .requestReceived:
+                    viewState.progressString = "Request Received"
+                case .requestStarted:
+                    viewState.progressString = "Sampling Started"
+                case .inProgress(let progress):
+                    viewState.progress = Double(progress)
+                    viewState.progressString = "\(progress)%"
+                case .completed:
+                    viewState.progressString = "Finished successfully"
                 default:
                     print(String(describing: state))
                 }
