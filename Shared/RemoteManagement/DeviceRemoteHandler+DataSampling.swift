@@ -20,9 +20,11 @@ extension DeviceRemoteHandler {
                 guard response.sample else {
                     throw DeviceRemoteHandler.Error.stringError("Returned Not Successful.")
                 }
+                #if DEBUG
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     bluetoothManager?.mockFirmwareResponse(SamplingRequestStartedResponse(sampleStarted: true))
                 }
+                #endif
                 return .requestReceived
             }
             .eraseToAnyPublisher()
