@@ -29,6 +29,8 @@ struct Sensor: Codable {
     var frequencies: [Double]?
 }
 
+extension Sensor: Hashable {}
+
 struct WSHelloResponse: Codable {
     var hello: Bool
     var err: String?

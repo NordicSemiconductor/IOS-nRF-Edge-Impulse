@@ -70,13 +70,13 @@ struct DropdownToolbarItem_Previews: PreviewProvider {
             TabBarLayoutView()
                 .preferredColorScheme(.light)
                 .environmentObject(Preview.projectsPreviewAppData)
-                .environmentObject(ScannerData())
+                .environmentObject(Preview.noDevicesAppData)
         }
         #elseif os(OSX)
         Group {
             ThreePaneLayoutView()
                 .environmentObject(Preview.projectsPreviewAppData)
-                .environmentObject(ScannerData())
+//                .environmentObject(Preview.)
         }
         #endif
     }

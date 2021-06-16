@@ -14,11 +14,12 @@ struct nRF_Edge_ImpulseApp: App {
     @StateObject var resourceData = ResourceData()
     
     var body: some Scene {
+        
         WindowGroup {
             ContentView(
                 deviceData: DeviceData(
-                    scannerData: ScannerData(),
-                    registeredDevicesData: RegisteredDevicesData(),
+                    scanner: Scanner(),
+                    registeredDeviceManager: RegisteredDevicesManager(),
                     appData: appData
                 )
             )

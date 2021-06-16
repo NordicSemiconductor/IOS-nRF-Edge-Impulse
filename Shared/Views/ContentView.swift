@@ -31,8 +31,9 @@ struct ContentView: View {
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(deviceData: DeviceData(scannerData: ScannerData(), registeredDevicesData: RegisteredDevicesData(), appData: AppData()))
-            .environmentObject(AppData())
+        let appData = AppData()
+        ContentView(deviceData: DeviceData(scanner: Scanner(), registeredDeviceManager: RegisteredDevicesManager(), appData: appData))
+            .environmentObject(appData)
     }
 }
 #endif

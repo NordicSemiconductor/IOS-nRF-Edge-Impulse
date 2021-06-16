@@ -54,14 +54,14 @@ class DeviceRemoteHandler {
     private var btPublisher: AnyPublisher<Data, BluetoothManager.Error>?
     private var wsPublisher: AnyPublisher<Data, WebSocketManager.Error>?
     
-    private let registeredDeviceData: RegisteredDevicesData
+    private let registeredDeviceManager: RegisteredDevicesManager
     private let appData: AppData
     
-    init(device: Device, registeredDeviceData: RegisteredDevicesData, appData: AppData) {
+    init(device: Device, registeredDeviceManager: RegisteredDevicesManager, appData: AppData) {
         self.device = device
         bluetoothManager = BluetoothManager(peripheralId: device.id)
         webSocketManager = WebSocketManager()
-        self.registeredDeviceData = registeredDeviceData
+        self.registeredDeviceManager = registeredDeviceManager
         self.appData = appData
     }
     
@@ -109,7 +109,7 @@ class DeviceRemoteHandler {
                         .eraseToAnyPublisher()
                 } else {
                     let deviceId = self.device.id.uuidString
-                    return self.registeredDeviceData.fetchDevice(deviceId: deviceId, appData: self.appData)
+                    return self.registeredDeviceManager.fetchDevice(deviceId: deviceId, appData: self.appData)
                 }
             }
             .justDoIt { device in
@@ -130,48 +130,6 @@ class DeviceRemoteHandler {
                 return Just(ConnectionState.disconnected(.error(error)))
             }
             .eraseToAnyPublisher()
-        /*
-        btPublisher
-            .gatherData(ofType: ResponseRootObject.self)
-            .mapError { Error.anyError($0) }
-            .flatMap { [unowned self] (data) -> AnyPublisher<Data, Swift.Error> in
-                guard var hello = data.message else {
-                    return Fail(error: Error.connectionEstablishFailed).eraseToAnyPublisher()
-                }
-                
-                return wsPublisher
-//                    .mapError { Error.anyError($0) }
-                    .eraseToAnyPublisher()
-            }
-            .decode(type: WSHelloResponse.self, decoder: JSONDecoder())
-            .mapError { Error.anyError($0) }
-            .flatMap { (response) -> AnyPublisher<ConnectionState, Error> in
-                if let e = response.err {
-                    return Fail(error: Error.stringError(e))
-                        .eraseToAnyPublisher()
-                } else {
-                    return Just(.connected)
-                        .setFailureType(to: Error.self)
-                        .eraseToAnyPublisher()
-                }
-            }
-            .prefix(1)
-            .timeout(10, scheduler: DispatchQueue.main, customError: { Error.timeout })
-            .sink { [weak self] (completion) in
-                guard let self = self else { return }
-                if case .failure(let error) = completion {
-                    AppEvents.shared.error = ErrorEvent(error)
-                    self.logger.error("Error: \(error.localizedDescription)")
-                    self.disconnect()
-                } else {
-                    self.logger.info("Connecting completed")
-                }
-            } receiveValue: { [weak self] (state) in
-                self?.device.state = state
-                self?.logger.info("New state: \(state.debugDescription)")
-            }
-            .store(in: &cancellables)
- */
     }
     
     func sendSampleRequest(_ container: SampleRequestMessageContainer) throws {
@@ -208,6 +166,6 @@ extension DeviceRemoteHandler: Hashable, Identifiable {
 
 #if DEBUG
 extension DeviceRemoteHandler {
-    static let mock = DeviceRemoteHandler(device: Device.sample, registeredDeviceData: RegisteredDevicesData(), appData: AppData())
+    static let mock = DeviceRemoteHandler(device: Device.sample, registeredDeviceManager: RegisteredDevicesManager(), appData: AppData())
 }
 #endif

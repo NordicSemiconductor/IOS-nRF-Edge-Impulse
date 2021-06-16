@@ -26,7 +26,11 @@ struct RegisteredDevice: Codable {
     var name: String
 }
 
-extension RegisteredDevice: Identifiable {
+extension RegisteredDevice: Identifiable, Hashable {
+    static func == (lhs: RegisteredDevice, rhs: RegisteredDevice) -> Bool {
+        lhs.deviceId == rhs.deviceId
+    }
+    
     
 }
 

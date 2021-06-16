@@ -76,11 +76,9 @@ struct RegisteredDeviceView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             RegisteredDeviceView(device: .mock, expanded: true)
-                .environmentObject(Preview.mockScannerData)
                 .previewLayout(.sizeThatFits)
             
             RegisteredDeviceView(device: .mock, expanded: false)
-                .environmentObject(Preview.mockScannerData)
                 .previewLayout(.sizeThatFits)
         }
     }

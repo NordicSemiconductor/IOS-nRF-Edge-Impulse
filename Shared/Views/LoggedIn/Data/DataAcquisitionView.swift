@@ -10,7 +10,7 @@ import SwiftUI
 struct DataAcquisitionView: View {
     
     @EnvironmentObject var appData: AppData
-    @EnvironmentObject var scannerData: ScannerData
+    @EnvironmentObject var deviceData: DeviceData
     
     // MARK: - State
     
@@ -32,7 +32,8 @@ struct DataAcquisitionView: View {
             }
             
             Section(header: Text("Device")) {
-                let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
+                
+                let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
                 if connectedDevices.hasItems {
                     Picker("Selected", selection: $viewState.selectedDevice) {
                         ForEach(connectedDevices, id: \.self) { device in
@@ -99,10 +100,11 @@ struct DataAcquisitionView: View {
         }
         .setTitle("New Sample")
         .onAppear() {
-            guard let device = scannerData.allConnectedAndReadyToUseDevices().first else {
+            guard let device = deviceData.allConnectedAndReadyToUseDevices().first else {
                 return
             }
-            viewState.selectedDevice = device
+            // TODO: Set connect device
+//            viewState.selectedDevice = device
         }
         .frame(minWidth: Tabs.minTabWidth)
     }
@@ -111,7 +113,7 @@ struct DataAcquisitionView: View {
 private extension DataAcquisitionView {
     
     func startSampling() {
-        scannerData.startSampling(viewState)
+        deviceData.startSampling(viewState)
     }
 }
 

@@ -11,7 +11,7 @@ struct DataAcquisitionView: View {
     
     // MARK: - State
     
-    @EnvironmentObject var scannerData: ScannerData
+    @EnvironmentObject var scannerData: Scanner
     
     @ObservedObject private var viewState = DataAcquisitionViewState()
     

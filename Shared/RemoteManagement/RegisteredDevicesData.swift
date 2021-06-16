@@ -8,14 +8,18 @@
 import Combine
 import SwiftUI
 
-class RegisteredDevicesData: ObservableObject {
+class RegisteredDevicesManager {
+    
+    private let network: Network
+    
+    init(network: Network = .shared) {
+        self.network = network
+    }
+    
     enum Error: Swift.Error {
         case unauthorized, badRequest
         case any(Swift.Error)
     }
-    
-    @Published var devices: [RegisteredDevice] = []
-    private var cancellables = Set<AnyCancellable>()
     
     private func requestData(appData: AppData) -> AnyPublisher<(Project, String), Swift.Error> {
         return appData.$selectedProject
@@ -38,24 +42,15 @@ class RegisteredDevicesData: ObservableObject {
     /// - Returns: Publisher with devices from EI. You can subscribe on it to get new results as soos as devices are fetched or just get notified when the request is finished.
     @discardableResult
     func refreshDevices(appData: AppData) -> AnyPublisher<[RegisteredDevice], Swift.Error> {
-        let devicePublisher = requestData(appData: appData)
+        return requestData(appData: appData)
             .flatMap { (project, token) -> AnyPublisher<[RegisteredDevice], Swift.Error> in
                 guard let request = HTTPRequest.getDevices(for: project, using: token) else {
                     return Fail(error: Error.badRequest).eraseToAnyPublisher()
                 }
                 
-                return Network.shared.perform(request, responseType: [RegisteredDevice].self)
+                return self.network.perform(request, responseType: [RegisteredDevice].self)
             }
-            
-        devicePublisher
-            .sink { completion in
-                
-            } receiveValue: { devices in
-                self.devices = devices
-            }
-            .store(in: &cancellables)
-        
-        return devicePublisher.eraseToAnyPublisher()
+            .eraseToAnyPublisher()
     }
     
     /// Feth the device by `deviceId` and add it to `devices` list.
@@ -63,25 +58,14 @@ class RegisteredDevicesData: ObservableObject {
     /// - Returns: Publisher with fetched device. You can subscribe on it to get new result as soos as device is fetched or just get notified when the request is finished.
     @discardableResult
     func fetchDevice(deviceId: String, appData: AppData) -> AnyPublisher<RegisteredDevice, Swift.Error> {
-        let devicePublisher = requestData(appData: appData)
+        return requestData(appData: appData)
             .flatMap { (project, token) -> AnyPublisher<RegisteredDevice, Swift.Error> in
                 guard let request = HTTPRequest.getDevice(for: project, deviceId: deviceId, using: token) else {
                     return Fail(error: Error.badRequest).eraseToAnyPublisher()
                 }
                 
-                return Network.shared.perform(request, responseType: RegisteredDevice.self)
+                return self.network.perform(request, responseType: RegisteredDevice.self)
             }
-            
-        devicePublisher
-            .sink { completion in
-                
-            } receiveValue: { device in
-                if !self.devices.contains(where: { device.deviceId == $0.deviceId }) {
-                    self.devices.append(device)
-                }
-            }
-            .store(in: &cancellables)
-        
-        return devicePublisher.eraseToAnyPublisher()
+            .eraseToAnyPublisher()
     }
 }

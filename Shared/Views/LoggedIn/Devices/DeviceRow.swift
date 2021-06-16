@@ -11,8 +11,6 @@ import SwiftUI
 
 struct DeviceRow: View {
     
-    @EnvironmentObject var scannerData: ScannerData
-    
     // MARK: Private Properties
     
     private let device: Device
@@ -64,7 +62,6 @@ struct DeviceRow: View {
 struct DeviceRow_Previews: PreviewProvider {
     static var previews: some View {
         DeviceRow(.sample)
-            .environmentObject(Preview.mockScannerData)
             .previewLayout(.sizeThatFits)
     }
 }
