@@ -49,6 +49,8 @@
 		AA09C79D262EEED400B039F1 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09C79B262EEED400B039F1 /* Collection.swift */; };
 		AA0B2FFA267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0B2FF9267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift */; };
 		AA0B2FFB267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0B2FF9267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift */; };
+		AA0B2FFE267A2ADA00AA0571 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = AA0B2FFD267A2ADA00AA0571 /* Introspect */; };
+		AA0B3000267A2AE400AA0571 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = AA0B2FFF267A2AE400AA0571 /* Introspect */; };
 		AA0D81292608C03A00AE615A /* DeploymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D81282608C03A00AE615A /* DeploymentView.swift */; };
 		AA0D812C2608F62700AE615A /* DeploymentViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D812B2608F62700AE615A /* DeploymentViewState.swift */; };
 		AA0D812D2608F62700AE615A /* DeploymentViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D812B2608F62700AE615A /* DeploymentViewState.swift */; };
@@ -353,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */,
+				AA0B2FFE267A2ADA00AA0571 /* Introspect in Frameworks */,
 				AA69E2C5263973F000BC44D3 /* VisualEffects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA7F5DE325F8F57D00185328 /* KeychainSwift in Frameworks */,
+				AA0B3000267A2AE400AA0571 /* Introspect in Frameworks */,
 				AA69E2C7263973FB00BC44D3 /* VisualEffects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -837,6 +841,7 @@
 			packageProductDependencies = (
 				AAFAE5E425ED11CA00A45A90 /* KeychainSwift */,
 				AA69E2C4263973F000BC44D3 /* VisualEffects */,
+				AA0B2FFD267A2ADA00AA0571 /* Introspect */,
 			);
 			productName = "nRF-Edge-Impulse (iOS)";
 			productReference = AA03E96025E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -859,6 +864,7 @@
 			packageProductDependencies = (
 				AA7F5DE225F8F57D00185328 /* KeychainSwift */,
 				AA69E2C6263973FB00BC44D3 /* VisualEffects */,
+				AA0B2FFF267A2AE400AA0571 /* Introspect */,
 			);
 			productName = "nRF-Edge-Impulse (macOS)";
 			productReference = AA03E96825E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -937,6 +943,7 @@
 			packageReferences = (
 				AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */,
+				AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = AA03E96125E3EF13003DA9DA /* Products */;
 			projectDirPath = "";
@@ -1619,6 +1626,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.3;
+			};
+		};
 		AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/twostraws/VisualEffects.git";
@@ -1638,6 +1653,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		AA0B2FFD267A2ADA00AA0571 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
+		};
+		AA0B2FFF267A2AE400AA0571 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
+		};
 		AA69E2C4263973F000BC44D3 /* VisualEffects */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */;
