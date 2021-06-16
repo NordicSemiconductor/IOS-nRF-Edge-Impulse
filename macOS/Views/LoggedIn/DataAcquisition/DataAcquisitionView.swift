@@ -72,6 +72,11 @@ struct DataAcquisitionView: View {
                     ProgressView(value: viewState.progress, total: 100.0)
                         .frame(maxWidth: 250)
                     
+                    Text(viewState.progressString)
+                        .lineLimit(0)
+                        .foregroundColor(.primary)
+                        .centerTextInsideForm()
+                    
                     Button("Start Sampling", action: startSampling)
                         .centerTextInsideForm()
                         .disabled(!viewState.canStartSampling || viewState.isSampling)
@@ -86,6 +91,7 @@ struct DataAcquisitionView: View {
             guard let device = connectedDevices.first else { return }
             viewState.selectedDevice = device
         }
+        .onReceive(viewState.countdownTimer, perform: onSampleTimerTick(_:))
     }
 }
 

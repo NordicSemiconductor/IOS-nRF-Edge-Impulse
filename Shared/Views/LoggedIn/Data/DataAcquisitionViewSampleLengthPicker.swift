@@ -21,7 +21,7 @@ struct DataAcquisitionViewSampleLengthPicker: View {
                     Text("\(viewState.sampleLength, specifier: "%.0f") ms")
                 }
                 #else
-                Stepper(value: $viewState.sampleLength, in: 0...Double(maxSampleLength), step: 10) {
+                Stepper(value: $viewState.sampleLength, in: 0...Double(maxSampleLength), step: 100) {
                     Text("\(viewState.sampleLength, specifier: "%.0f") ms")
                 }
                 #endif

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 import Combine
 
 final class DataAcquisitionViewState: ObservableObject {
@@ -31,20 +32,11 @@ final class DataAcquisitionViewState: ObservableObject {
     @Published var selectedFrequency = Constant.unselectedFrequency
     @Published var progress = 0.0
     @Published var progressString = ""
-    @Published var isSampling = false {
-        didSet {
-            if isSampling {
-                countdownTimer.connect()
-                    .store(in: &cancellables)
-            } else {
-                cancellables.forEach { $0.cancel() }
-                cancellables.removeAll()
-            }
-        }
-    }
+    @Published var isSampling = false
     
     private(set) lazy var countdownTimer = Timer.publish(every: 1, on: .main, in: .common)
     private lazy var cancellables = Set<AnyCancellable>()
+    private lazy var logger = Logger(Self.self)
     
     var canStartSampling: Bool {
         selectedDevice != Constant.unselectedDevice && label.hasItems
@@ -67,5 +59,17 @@ final class DataAcquisitionViewState: ObservableObject {
                                       interval: Int(intervalMs), sensor: selectedSensor)
         let message = BLESampleRequestMessage(sample: sample)
         return BLESampleRequestWrapper(type: "ws", direction: "rx", address:  "wss://studio.edgeimpulse.com", message: message)
+    }
+    
+    func startCountdownTimer() {
+        logger.debug(#function)
+        countdownTimer.connect()
+            .store(in: &cancellables)
+    }
+    
+    func stopCountdownTimer() {
+        logger.debug(#function)
+        cancellables.forEach { $0.cancel() }
+        cancellables.removeAll()
     }
 }

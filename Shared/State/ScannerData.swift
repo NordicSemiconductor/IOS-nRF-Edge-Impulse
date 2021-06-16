@@ -86,9 +86,10 @@ extension ScannerData {
               let requestPublisher = deviceHandler.samplingRequestPublisher() else { return }
         
         requestPublisher
-            .sink(receiveCompletion: { [weak self] completion in
+            .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
+                    viewState.stopCountdownTimer()
                     viewState.isSampling = false
                     AppEvents.shared.error = ErrorEvent(error)
                 default:
@@ -100,6 +101,7 @@ extension ScannerData {
                     viewState.progressString = "Request Received"
                 case .requestStarted:
                     viewState.progressString = "Sampling Started"
+                    viewState.startCountdownTimer()
                 case .completed:
                     viewState.progressString = "Finished successfully"
                 default:
