@@ -124,7 +124,9 @@ class DeviceRemoteHandler {
                 guard response.sample else {
                     throw DeviceRemoteHandler.Error.stringError("Returned Not Successful.")
                 }
-                bluetoothManager?.mockFirmwareResponse(SamplingRequestStartedResponse(sampleStarted: true))
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    bluetoothManager?.mockFirmwareResponse(SamplingRequestStartedResponse(sampleStarted: true))
+                }
                 return .requestReceived
             }
             .eraseToAnyPublisher()
@@ -132,27 +134,16 @@ class DeviceRemoteHandler {
         let samplingStartedResponse = btPublisher
             .onlyDecode(type: SamplingRequestStartedResponse.self)
             .first()
-            .tryMap { [weak self] response -> SamplingState in
+            .tryMap { response -> SamplingState in
                 guard response.sampleStarted else {
                     throw DeviceRemoteHandler.Error.stringError("Sampling failed to start.")
                 }
-                self?.bluetoothManager?.mockFirmwareResponse(SamplingRequestProgressResponse(sampleReading: true, progressPercentage: 0))
                 return .requestStarted
             }
             .eraseToAnyPublisher()
         
-        let samplingProgressResponse = btPublisher
-            .onlyDecode(type: SamplingRequestProgressResponse.self)
-            .tryMap { response throws -> SamplingState in
-                guard response.sampleReading else {
-                    throw DeviceRemoteHandler.Error.stringError("Firmware is not reading any data.")
-                }
-                return .inProgress(response.progressPercentage)
-            }
-            .eraseToAnyPublisher()
-        
         return Publishers.MergeMany([
-                requestReceptionResponse, samplingStartedResponse, samplingProgressResponse
+                requestReceptionResponse, samplingStartedResponse
             ])
             .eraseToAnyPublisher()
     }
@@ -185,7 +176,6 @@ extension DeviceRemoteHandler {
     enum SamplingState {
         case standby
         case requestReceived, requestStarted
-        case inProgress(_ progress: Int)
         case completed
         case error(_ error: Error)
     }

@@ -62,12 +62,6 @@ struct SamplingRequestStartedResponse: Codable {
     let sampleStarted: Bool
 }
 
-struct SamplingRequestProgressResponse: Codable {
-    
-    let sampleReading: Bool
-    let progressPercentage: Int
-}
-
 struct SamplingRequestFinishedResponse: Codable {
     
     let sampleFinished: Bool
