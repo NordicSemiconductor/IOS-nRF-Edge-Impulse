@@ -80,12 +80,15 @@ class WebSocketManager {
         guard let s = String(data: data, encoding: .utf8) else {
             throw Error.unableToEncodeAsUTF8
         }
-        
-        task.send(.string(s)) { [weak self] (error) in
+        try send(s)
+    }
+    
+    func send(_ string: String) throws {
+        task.send(.string(string)) { [weak self] (error) in
             if let e = error {
                 self?.publisher.send(completion: .failure(.wsError(e)))
                 self?.logger.error("Send error: \(e.localizedDescription)")
-            } 
+            }
         }
     }
 }

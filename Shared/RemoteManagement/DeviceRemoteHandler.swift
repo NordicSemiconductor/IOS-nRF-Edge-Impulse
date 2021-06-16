@@ -76,8 +76,7 @@ class DeviceRemoteHandler {
                     device.sensors = data.message?.hello?.sensors ?? []
                     message.hello?.apiKey = apiKey
                     message.hello?.deviceId = device.id.uuidString
-                    let d = try JSONEncoder().encode(message)
-                    try self.webSocketManager.send(d)
+                    try self.webSocketManager.send(message)
                 } catch let e {
                     return Fail(error: e)
                         .eraseToAnyPublisher()
