@@ -34,12 +34,14 @@ class DeviceRemoteHandler {
     
     @Published private (set) var device: Device
     @Published private (set) var samplingState: SamplingState
-    private var bluetoothManager: BluetoothManager!
-    private var webSocketManager: WebSocketManager!
+    internal var bluetoothManager: BluetoothManager!
+    internal var webSocketManager: WebSocketManager!
     private var cancellables = Set<AnyCancellable>()
     
-    private var btPublisher: AnyPublisher<Data, BluetoothManager.Error>?
+    internal var btPublisher: AnyPublisher<Data, BluetoothManager.Error>?
     private var wsPublisher: AnyPublisher<Data, WebSocketManager.Error>?
+    
+    // MARK: - Init / Deinit
     
     init(device: Device) {
         self.device = device
@@ -112,48 +114,6 @@ class DeviceRemoteHandler {
                 self?.logger.info("New state: \(state.debugDescription)")
             }
             .store(in: &cancellables)
-    }
-    
-    func samplingRequestPublisher() -> AnyPublisher<SamplingState, Swift.Error>? {
-        guard let btPublisher = btPublisher else { return nil }
-        
-        let requestReceptionResponse = btPublisher
-            .onlyDecode(type: SamplingRequestReceivedResponse.self)
-            .first()
-            .tryMap { [bluetoothManager] response -> SamplingState in
-                guard response.sample else {
-                    throw DeviceRemoteHandler.Error.stringError("Returned Not Successful.")
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    bluetoothManager?.mockFirmwareResponse(SamplingRequestStartedResponse(sampleStarted: true))
-                }
-                return .requestReceived
-            }
-            .eraseToAnyPublisher()
-        
-        let samplingStartedResponse = btPublisher
-            .onlyDecode(type: SamplingRequestStartedResponse.self)
-            .first()
-            .tryMap { response -> SamplingState in
-                guard response.sampleStarted else {
-                    throw DeviceRemoteHandler.Error.stringError("Sampling failed to start.")
-                }
-                return .requestStarted
-            }
-            .eraseToAnyPublisher()
-        
-        return Publishers.MergeMany([
-                requestReceptionResponse, samplingStartedResponse
-            ])
-            .eraseToAnyPublisher()
-    }
-    
-    func sendSampleRequest(_ request: BLESampleRequestWrapper) throws {
-        try bluetoothManager.write(request)
-        #warning("test code")
-        #if DEBUG
-        bluetoothManager.mockFirmwareResponse(SamplingRequestReceivedResponse(sample: true))
-        #endif
     }
     
     func disconnect() {

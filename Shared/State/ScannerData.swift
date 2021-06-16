@@ -112,7 +112,7 @@ extension ScannerData {
         
         viewState.isSampling = true
         do {
-            try deviceHandler.sendSampleRequest(newSampleMessage)
+            try deviceHandler.sendSampleRequestToBLEFirmware(newSampleMessage)
         }
         catch (let error) {
             viewState.isSampling = false
