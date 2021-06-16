@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import Introspect
 
 struct NativeLoginView: View {
     // MARK: - EnvironmentObject(s)
@@ -36,6 +37,9 @@ struct NativeLoginView: View {
             UsernameField($username, enabled: !isMakingRequest)
                 .frame(maxWidth: .maxTextFieldWidth)
                 .padding(.horizontal, 16)
+                .introspectTextField { textField in
+                    textField.becomeFirstResponder()
+                }
             
             PasswordField($password, enabled: !isMakingRequest)
                 .frame(maxWidth: .maxTextFieldWidth)
