@@ -34,9 +34,11 @@ struct NativeLoginView: View {
             AppHeaderView()
             
             UsernameField($username, enabled: !isMakingRequest)
+                .frame(maxWidth: .maxTextFieldWidth)
                 .padding(.horizontal, 16)
             
             PasswordField($password, enabled: !isMakingRequest)
+                .frame(maxWidth: .maxTextFieldWidth)
                 .padding(.horizontal, 16)
             
             LoginErrorView(viewState: viewState)

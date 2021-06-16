@@ -62,6 +62,8 @@ extension CGFloat {
     }()
     
     static let sidebarWidth: CGFloat = 160
+    
+    static let maxTextFieldWidth: CGFloat = 350
 }
 
 // MARK: - Size(s)
