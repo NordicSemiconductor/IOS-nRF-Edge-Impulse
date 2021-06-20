@@ -11,21 +11,45 @@ import Combine
 import os
 
 extension DeviceData {
-    struct RemoteDeviceWrapper {
+    struct RemoteDeviceWrapper: Identifiable, Hashable {
+        let device: RegisteredDevice
+        var id: Int { device.id }
+        var state: State = .notConnectable
+        var expandView: Bool = false 
+        
         enum State {
-            case notConnectable, readyToConnect, connected(DeviceRemoteHandler)
+            case notConnectable, readyToConnect, connected
+            
+            var color: Color {
+                switch self {
+                case .notConnectable:
+                    return .red
+                case .readyToConnect:
+                    return .orange
+                case .connected:
+                    return .green
+                }
+            }
         }
         
-        let device: RegisteredDevice
+        static func ==(lhs: RemoteDeviceWrapper, rhs: RemoteDeviceWrapper) -> Bool {
+            return lhs.device == rhs.device
+        }
+        
     }
     
-    struct DeviceWrapper {
+    struct DeviceWrapper: Identifiable, Hashable {
         enum State {
             case notConnected, connecting, connected
         }
         
         let device: Device
-        var state: State
+        var state: State = .notConnected
+        var id: UUID { device.id }
+        
+        static func ==(lhs: DeviceWrapper, rhs: DeviceWrapper) -> Bool {
+            return lhs.device == rhs.device
+        }
     }
 
     enum BluetoothStateError: Swift.Error {
@@ -45,8 +69,9 @@ class DeviceData: ObservableObject {
     private var registeredDeviceManager = RegisteredDevicesManager()
     private var remoteHandlers: [DeviceRemoteHandler] = []
     
-    @Published fileprivate (set) var scanResults: [Device] = []
-    @Published private (set) var registeredDevices: [RegisteredDevice] = []
+    @Published fileprivate (set) var scanResults: [DeviceWrapper] = []
+    @Published private (set) var registeredDevices: [RemoteDeviceWrapper] = []
+    
     private (set) lazy var bluetoothStates = PassthroughSubject<Result<Bool, BluetoothStateError>, Never>()
     
     private var cancelables = Set<AnyCancellable>()
@@ -64,8 +89,9 @@ class DeviceData: ObservableObject {
             }
                 
         scanner.scan().combineLatest(settingsPublisher)
-            .compactMap { (device, _) -> Device? in
-                self.scanResults.contains(device) ? nil : device
+            .compactMap { (device, _) -> DeviceWrapper? in
+                let wrapper = DeviceWrapper(device: device)
+                return self.scanResults.contains(wrapper) ? nil : wrapper
             }
             .sink { device in
                 self.scanResults.append(device)
@@ -81,10 +107,9 @@ class DeviceData: ObservableObject {
                     self.logger.error("Fetch device failed. Error: \(e.localizedDescription)")
                 }
             } receiveValue: { devices in
-                self.registeredDevices = devices
+                self.registeredDevices = devices.map { RemoteDeviceWrapper(device: $0) }
             }
             .store(in: &cancelables)
-
     }
     
     func tryToConnect(scanResult: Device) {
@@ -93,18 +118,44 @@ class DeviceData: ObservableObject {
             return
         }
         
+        if let index = scanResults.firstIndex(of: DeviceWrapper(device: scanResult)) {
+            self.scanResults[index].state = .connecting
+        }
+        
         handler.connect(apiKey: apiKey)
             .sink { completion in
-                
+                self.logger.info("Device remote handler completed connection")
             } receiveValue: { state in
+                self.logger.info("Device remote handler obtained new state: \(state.debugDescription)")
                 
+                if case .connected(let device, let remoteDevice) = state {
+                    if let deviceIndex = self.scanResults.firstIndex(of: DeviceWrapper(device: device)) {
+                        self.scanResults[deviceIndex].state = .connected
+                    }
+                    
+                    if let deviceIndex = self.registeredDevices.firstIndex(of: RemoteDeviceWrapper(device: remoteDevice)) {
+                        self.registeredDevices[deviceIndex].state = .connected
+                    } else {
+                        self.registeredDevices.append(RemoteDeviceWrapper(device: remoteDevice, state: .connected))
+                    }
+                }
             }
             .store(in: &cancelables)
 
     }
     
-    func allConnectedAndReadyToUseDevices() -> [RegisteredDevice] {
-        return []
+    func toggleExpandView(for remoteDevice: RemoteDeviceWrapper) {
+        registeredDevices.firstIndex(of: remoteDevice).map { self.registeredDevices[$0].expandView.toggle() }
+    }
+    
+    func allConnectedAndReadyToUseDevices() -> [DeviceRemoteHandler] {
+        remoteHandlers.filter {
+            if case .connected = $0.state {
+                return true
+            } else {
+                return false
+            }
+        }
     }
     
     func startSampling(_ viewState: DataAcquisitionViewState) {
@@ -146,7 +197,7 @@ extension Preview {
             Device(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock),
             Device(name: "Device 2", id: UUID(), rssi: .bad, advertisementData: .mock),
             Device(name: "Device 3", id: UUID(), rssi: .ok, advertisementData: .mock)
-        ]
+        ].map { DeviceData.DeviceWrapper(device: $0) }
         return deviceData
     }()
 }

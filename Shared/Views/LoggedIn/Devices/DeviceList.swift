@@ -25,7 +25,7 @@ struct DeviceList: View {
     var body: some View {
         List() {
             buildRegisteredDevicesList(devices: deviceData.registeredDevices)
-            buildScanResultsList(scanResult: deviceData.scanResults)
+            buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected })
         }
         .toolbar {
             ToolbarItem(placement: .destructiveAction) {
@@ -46,13 +46,14 @@ struct DeviceList: View {
 private extension DeviceList {
     
     @ViewBuilder
-    private func buildScanResultsList(scanResult: [Device]) -> some View {
+    private func buildScanResultsList(scanResult: [DeviceData.DeviceWrapper]) -> some View {
         Section(header: Text("Scan Results")) {
             if scanResult.hasItems {
                 ForEach(scanResult) { d in
-                    DeviceRow(d)
+                    let isConnecting = d.state == .connecting
+                    DeviceRow(d.device, isConnecting: isConnecting)
                         .onTapGesture {
-                            deviceData.tryToConnect(scanResult: d)
+                            deviceData.tryToConnect(scanResult: d.device)
                         }
                 }
             } else {
@@ -65,11 +66,14 @@ private extension DeviceList {
     }
     
     @ViewBuilder
-    private func buildRegisteredDevicesList(devices: [RegisteredDevice]) -> some View {
+    private func buildRegisteredDevicesList(devices: [DeviceData.RemoteDeviceWrapper]) -> some View {
         Section(header: Text("Registered Devices1")) {
             if devices.hasItems {
                 ForEach(devices) { d in
-                    RegisteredDeviceView(device: d, expanded: false)
+                    RegisteredDeviceView(device: d.device, connectionState: d.state, expanded: d.expandView)
+                        .onTapGesture {
+                            deviceData.toggleExpandView(for: d)
+                        }
                 }
             } else {
                 Text("No Devices")

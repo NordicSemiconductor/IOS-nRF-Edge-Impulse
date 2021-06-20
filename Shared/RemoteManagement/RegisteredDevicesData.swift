@@ -51,7 +51,7 @@ class RegisteredDevicesManager {
                 
                 return self.network.perform(request, responseType: GetDeviceListResponse.self)
             }
-            .map { $0.devices }
+            .map(\.devices)
             .justDoIt({ devices in
                 self.logger.info("\(devices.count) devices were fetched")
             })
@@ -64,13 +64,14 @@ class RegisteredDevicesManager {
     @discardableResult
     func fetchDevice(deviceId: String, appData: AppData) -> AnyPublisher<RegisteredDevice, Swift.Error> {
         return requestData(appData: appData)
-            .flatMap { (project, token) -> AnyPublisher<RegisteredDevice, Swift.Error> in
+            .flatMap { (project, token) -> AnyPublisher<GetDeviceResponse, Swift.Error> in
                 guard let request = HTTPRequest.getDevice(for: project, deviceId: deviceId, using: token) else {
                     return Fail(error: Error.badRequest).eraseToAnyPublisher()
                 }
                 
-                return self.network.perform(request, responseType: RegisteredDevice.self)
+                return self.network.perform(request, responseType: GetDeviceResponse.self)
             }
+            .map(\.device)
             .eraseToAnyPublisher()
     }
 }

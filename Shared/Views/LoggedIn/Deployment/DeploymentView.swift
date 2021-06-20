@@ -24,9 +24,9 @@ struct DeploymentView: View {
                 let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
                 if connectedDevices.hasItems {
                     Picker("Selected", selection: $viewState.selectedDevice) {
-                        ForEach(connectedDevices, id: \.self) { device in
-                            Text(device.name)
-                                .tag(device)
+                        ForEach(connectedDevices, id: \.self) { handler in
+                            Text(handler.device.name)
+                                .tag(handler.device)
                         }
                     }
                     .setAsComboBoxStyle()

@@ -29,6 +29,7 @@ private struct TextStack: View {
 
 struct RegisteredDeviceView: View {
     let device: RegisteredDevice
+    let connectionState: DeviceData.RemoteDeviceWrapper.State
     let expanded: Bool
     
     var body: some View {
@@ -38,7 +39,8 @@ struct RegisteredDeviceView: View {
                     .font(.headline)
                     .bold()
                 Spacer()
-                ConnectionStatus(color: .green)
+                
+                ConnectionStatus(color: connectionState.color)
             }
             
             if expanded {
@@ -75,10 +77,10 @@ struct RegisteredDeviceView: View {
 struct RegisteredDeviceView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            RegisteredDeviceView(device: .mock, expanded: true)
+            RegisteredDeviceView(device: .mock, connectionState: .connected, expanded: true)
                 .previewLayout(.sizeThatFits)
             
-            RegisteredDeviceView(device: .mock, expanded: false)
+            RegisteredDeviceView(device: .mock, connectionState: .notConnectable, expanded: false)
                 .previewLayout(.sizeThatFits)
         }
     }

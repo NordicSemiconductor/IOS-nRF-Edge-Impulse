@@ -14,11 +14,13 @@ struct DeviceRow: View {
     // MARK: Private Properties
     
     private let device: Device
+    private let isConnecting: Bool
     
     // MARK: Init
     
-    init(_ device: Device) {
+    init(_ device: Device, isConnecting: Bool = false) {
         self.device = device
+        self.isConnecting = isConnecting
     }
     
     // MARK: View
@@ -46,6 +48,9 @@ struct DeviceRow: View {
             }
             .padding(8)
             Spacer()
+            if isConnecting {
+                ProgressView()
+            }
         }
         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 12))
         

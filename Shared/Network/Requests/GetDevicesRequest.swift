@@ -33,3 +33,10 @@ struct GetDeviceListResponse: APIResponse {
     
     let devices: [RegisteredDevice]
 }
+
+struct GetDeviceResponse: APIResponse {
+    let success: Bool
+    let error: String?
+    
+    let device: RegisteredDevice
+}

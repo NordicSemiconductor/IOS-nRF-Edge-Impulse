@@ -30,12 +30,37 @@ extension DeviceRemoteHandler {
         }
     }
     
-    enum ConnectionState {
-        case notConnected, connecting, connected, disconnected(DisconnectReason)
+    enum ConnectionState: CustomDebugStringConvertible {
+        
+        case notConnected, connecting(Device), connected(Device, RegisteredDevice), disconnected(DisconnectReason)
+        
+        var debugDescription: String {
+            switch self {
+            case .connected(_, let device):
+                return "Connected to \(device.id)"
+            case .connecting(let device):
+                return "Connecting to \(device.name)"
+            case .notConnected:
+                return "Not Connected"
+            case .disconnected(let reason):
+                return "Disconnected. Reason: \(reason)"
+            }
+        }
+        
     }
     
-    enum DisconnectReason {
+    enum DisconnectReason: CustomDebugStringConvertible {
         case error(Swift.Error), onDemand
+        
+        var debugDescription: String {
+            switch self {
+            case .error(let e):
+                return e.localizedDescription
+            case .onDemand:
+                return "On Demand"
+            }
+        }
+        
     }
 }
 
@@ -57,12 +82,14 @@ class DeviceRemoteHandler {
     private let registeredDeviceManager: RegisteredDevicesManager
     private let appData: AppData
     
-    init(device: Device, registeredDeviceManager: RegisteredDevicesManager, appData: AppData) {
+    init(device: Device, registeredDevice: RegisteredDevice? = nil, registeredDeviceManager: RegisteredDevicesManager = RegisteredDevicesManager(), appData: AppData) {
+        self.registeredDeviceManager = registeredDeviceManager
         self.device = device
+        self.appData = appData
+        self.registeredDevice = registeredDevice
+        
         bluetoothManager = BluetoothManager(peripheralId: device.id)
         webSocketManager = WebSocketManager()
-        self.registeredDeviceManager = registeredDeviceManager
-        self.appData = appData
     }
     
     deinit {
@@ -72,8 +99,8 @@ class DeviceRemoteHandler {
     
     func connect(apiKey: String) -> AnyPublisher<ConnectionState, Never> {
         
-        #warning("check memory leaks")
-        return bluetoothManager.connect()
+//         #warning("check memory leaks")
+        bluetoothManager.connect()
             .drop(while: { $0 != .readyToUse })
             .flatMap { _ in self.bluetoothManager.dataPublisher.gatherData(ofType: ResponseRootObject.self) }
             .combineLatest(webSocketManager.connect().drop(while: { $0 != .connected }))
@@ -117,11 +144,11 @@ class DeviceRemoteHandler {
                     return
                 } else {
                     self.registeredDevice = device
-                    self.state = .connected
+                    self.state = .connected(self.device, device)
                 }
             }
-            .map { _ in
-                ConnectionState.connected
+            .map { registeredDevice in
+                ConnectionState.connected(self.device, registeredDevice)
             }
             .prefix(1)
             .timeout(10, scheduler: DispatchQueue.main, customError: { Error.timeout })
