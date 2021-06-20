@@ -7,9 +7,10 @@
 
 import Combine
 import SwiftUI
+import os
 
 class RegisteredDevicesManager {
-    
+    private lazy var logger = Logger(Self.self)
     private let network: Network
     
     init(network: Network = .shared) {
@@ -29,7 +30,7 @@ class RegisteredDevicesManager {
                     throw Error.unauthorized
                 }
                 
-                guard let p = project else {
+                guard let p = project, p.id != 0 else {
                     return nil
                 }
                 
@@ -43,13 +44,17 @@ class RegisteredDevicesManager {
     @discardableResult
     func refreshDevices(appData: AppData) -> AnyPublisher<[RegisteredDevice], Swift.Error> {
         return requestData(appData: appData)
-            .flatMap { (project, token) -> AnyPublisher<[RegisteredDevice], Swift.Error> in
+            .flatMap { (project, token) -> AnyPublisher<GetDeviceListResponse, Swift.Error> in
                 guard let request = HTTPRequest.getDevices(for: project, using: token) else {
                     return Fail(error: Error.badRequest).eraseToAnyPublisher()
                 }
                 
-                return self.network.perform(request, responseType: [RegisteredDevice].self)
+                return self.network.perform(request, responseType: GetDeviceListResponse.self)
             }
+            .map { $0.devices }
+            .justDoIt({ devices in
+                self.logger.info("\(devices.count) devices were fetched")
+            })
             .eraseToAnyPublisher()
     }
     

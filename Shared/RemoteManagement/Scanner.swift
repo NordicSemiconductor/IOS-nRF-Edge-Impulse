@@ -15,10 +15,12 @@ final class Scanner: NSObject {
     
     private lazy var logger = Logger(Self.self)
     private lazy var bluetoothManager = CBCentralManager(delegate: self, queue: nil)
-    
     private (set) lazy var devicePublisher = PassthroughSubject<Device, Never>()
+    
     @Published private (set) var managerState: CBManagerState = .unknown
-    @Published private (set) var isScunning = false
+    
+    @Published private var shouldScan = false
+    @Published private (set) var isScanning = false
     
     let userPreferences: UserPreferences
     private var cancellable = Set<AnyCancellable>()
@@ -26,15 +28,6 @@ final class Scanner: NSObject {
     init(userPreferences: UserPreferences = .shared) {
         self.userPreferences = userPreferences
         super.init()
-        
-        userPreferences.$onlyScanUARTDevices.removeDuplicates()
-            .sink { _ in
-                
-            } receiveValue: { _ in
-                self.refreshScanning()
-            }
-            .store(in: &cancellable)
-
     }
 }
 
@@ -47,28 +40,34 @@ extension Scanner {
      
      The first call to `CBCentralManager.state` is the one that turns on the BLE Radio if it's available, and successive calls check whether it turned on or not, but they cannot be made one after the other or the second will return an error. This is why we make this first call ahead of time.
      */
-    func turnOnBluetoothRadio() {
+    func turnOnBluetoothRadio() -> AnyPublisher<CBManagerState, Never> {
+        shouldScan = true
         _ = bluetoothManager.state
+        return $managerState.eraseToAnyPublisher()
     }
     
     func toggle() {
-        if bluetoothManager.isScanning {
-            bluetoothManager.stopScan()
-        } else {
-            refreshScanning()
-        }
+        shouldScan.toggle()
     }
     
-    func refreshScanning() {
-        bluetoothManager.stopScan()
-        let scanServices = userPreferences.onlyScanUARTDevices ? [BluetoothManager.uartServiceId] : nil
-        startScanning(scanServices: scanServices)
-    }
-    
-    private func startScanning(scanServices: [CBUUID]?) {
-        bluetoothManager.scanForPeripherals(withServices: scanServices,
-                                            options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
-        isScunning = true
+    func scan() -> AnyPublisher<Device, Never> {
+        turnOnBluetoothRadio()
+            .filter { $0 == .poweredOn }
+            .combineLatest($shouldScan, userPreferences.$onlyScanUARTDevices)
+            .flatMap { (_, isScanning, onlyUART) -> PassthroughSubject<Device, Never> in
+                if isScanning {
+                    let scanServices = onlyUART ? [BluetoothManager.uartServiceId] : nil
+                    self.bluetoothManager.scanForPeripherals(withServices: scanServices,
+                                                        options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
+                    self.isScanning = true
+                } else {
+                    self.bluetoothManager.stopScan()
+                    self.isScanning = false
+                }
+                
+                return self.devicePublisher
+            }
+            .eraseToAnyPublisher()
     }
 }
 
@@ -95,8 +94,10 @@ extension Scanner: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         managerState = central.state
         
+        logger.info("Bluetooth changed state: \(central.state)")
+        
         if central.state != .poweredOn {
-            isScunning = false
+            shouldScan = false
         }
     }
 }

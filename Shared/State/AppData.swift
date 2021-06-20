@@ -32,7 +32,6 @@ final class AppData: ObservableObject {
         }
     }
     @Published var selectedTab: Tabs? = .Devices
-    @Published var currentProjectDevices: [RegisteredDevice] = []
     
     @Published var projectDevelopmentKeys: [Project: ProjectDevelopmentKeysResponse]
     @Published var samplesForCategory: [DataSample.Category: [DataSample]]

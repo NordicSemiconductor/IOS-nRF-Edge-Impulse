@@ -58,22 +58,8 @@ extension LoggedInRootView {
         userCancellable = Network.shared.perform(httpRequest, responseType: GetUserResponse.self)
             .compactMap { response -> Project? in
                 hasMadeUserRequest = true
-                appData.selectedProject = response.projects.first
                 appData.loginState = .complete(response.user, response.projects)
-                
-                return appData.selectedProject
-            }
-            .flatMap { project -> AnyPublisher<GetDeviceListResponse, Swift.Error> in
-                #warning("@Dinesh: Maybe you have suggestions how to improve this part of code")
-                guard let request = HTTPRequest.getDevices(for: project, using: token) else {
-                    return Just(GetDeviceListResponse(success: true, error: nil, devices: []))
-                        .mapError { _ in Error.describedError("Could not create request") }
-                        .eraseToAnyPublisher()
-                }
-                
-                return Network.shared.perform(request)
-                    .mapError { Error.anyError($0) }
-                    .eraseToAnyPublisher()
+                return response.projects.first
             }
             .onUnauthorisedUserError(appData.logout)
             .sink(receiveCompletion: { completion in
@@ -82,12 +68,12 @@ extension LoggedInRootView {
                 case .failure(let error):
                     logger.error("Error: \(error.localizedDescription)")
                     appData.loginState = .error(error)
-                default:
+                case .finished:
                     break
                 }
             },
-            receiveValue: { userResponse in
-                appData.currentProjectDevices = userResponse.devices
+            receiveValue: { project in
+                appData.selectedProject = project
             })
     }
 }

@@ -23,31 +23,21 @@ struct DeviceList: View {
     // MARK: View
     
     var body: some View {
-        buildRootView()
-            .toolbar {
-                ToolbarItem(placement: .destructiveAction) {
-                    Button(action: refreshScanner, label: {
-                        Label("Refresh", systemImage: "arrow.clockwise")
-                    })
-                }
+        List() {
+            buildRegisteredDevicesList(devices: deviceData.registeredDevices)
+            buildScanResultsList(scanResult: deviceData.scanResults)
+        }
+        .toolbar {
+            ToolbarItem(placement: .destructiveAction) {
+                Button(action: refreshScanner, label: {
+                    Label("Refresh", systemImage: "arrow.clockwise")
+                })
             }
-            .onAppear() {
-                guard !Constant.isRunningInPreviewMode else { return }
-                deviceData.scanner.turnOnBluetoothRadio()
-            }
-            .onDisappear() {
-                scannerCancellable?.cancel()
-            }
-            .accentColor(.white)
-    }
-    
-    @ViewBuilder
-    private func buildRootView() -> some View {
-        let scanResults = deviceData.scanResults
-        let registeredDevices = deviceData.registeredDevices
-        
-        buildRegisteredDevicesList(devices: registeredDevices)
-        buildScanResultsList(scanResult: scanResults)
+        }
+        .onDisappear() {
+            scannerCancellable?.cancel()
+        }
+        .accentColor(.white)
     }
 }
 
@@ -76,7 +66,7 @@ private extension DeviceList {
     
     @ViewBuilder
     private func buildRegisteredDevicesList(devices: [RegisteredDevice]) -> some View {
-        Section(header: Text("Registered Devices")) {
+        Section(header: Text("Registered Devices1")) {
             if devices.hasItems {
                 ForEach(devices) { d in
                     RegisteredDeviceView(device: d, expanded: false)
@@ -118,7 +108,7 @@ private extension DeviceList {
 //        scannerData.scanResults = scannerData.scanResults.filter {
 //            $0.state != .notConnected
 //        }
-        guard !deviceData.scanner.isScunning else { return }
+//        guard !deviceData.scanner.isScunning else { return }
         toggleScanner()
     }
 }

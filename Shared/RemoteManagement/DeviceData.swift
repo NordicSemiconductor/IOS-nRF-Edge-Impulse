@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 import Combine
-
+import os
 
 extension DeviceData {
     struct RemoteDeviceWrapper {
@@ -41,6 +41,7 @@ class DeviceData: ObservableObject {
     @ObservedObject var preferences = UserPreferences.shared
     
     let scanner: Scanner
+    private lazy var logger = Logger(Self.self)
     private var registeredDeviceManager = RegisteredDevicesManager()
     private var remoteHandlers: [DeviceRemoteHandler] = []
     
@@ -50,47 +51,35 @@ class DeviceData: ObservableObject {
     
     private var cancelables = Set<AnyCancellable>()
     
-    init(scanner: Scanner, registeredDeviceManager: RegisteredDevicesManager, appData: AppData) {
+    init(scanner: Scanner = Scanner(), registeredDeviceManager: RegisteredDevicesManager = RegisteredDevicesManager(), appData: AppData) {
         self.scanner = scanner
         self.registeredDeviceManager = registeredDeviceManager
         self.appData = appData
         
-        scanner.turnOnBluetoothRadio()
-        
-        scanner.$managerState
-            .combineLatest(scanner.$isScunning)
-            .map { (state, scanning) -> Result<Bool, BluetoothStateError> in
-                switch state {
-                case .poweredOn:
-                    return .success(scanning)
-                case .poweredOff:
-                    return .failure(.poweredOff)
-                case .unauthorized:
-                    return .failure(.unauthorized)
-                case .unsupported:
-                    return .failure(.unsupported)
-                default:
-                    return .failure(.unknownState)
-                }
+        let settingsPublisher = preferences.$onlyScanConnectableDevices
+            .removeDuplicates()
+            .combineLatest(preferences.$onlyScanUARTDevices.removeDuplicates())
+            .justDoIt { _ in
+                self.scanResults.removeAll()
             }
-            .sink { c in
                 
-            } receiveValue: { v in
-                self.bluetoothStates.send(v)
+        scanner.scan().combineLatest(settingsPublisher)
+            .compactMap { (device, _) -> Device? in
+                self.scanResults.contains(device) ? nil : device
             }
-            .store(in: &cancelables)
-        
-        scanner.devicePublisher
             .sink { device in
-                if !self.scanResults.contains(device) {
-                    self.scanResults.appendDistinct(device)
-                }
+                self.scanResults.append(device)
             }
             .store(in: &cancelables)
         
         registeredDeviceManager.refreshDevices(appData: appData)
             .sink { completion in
-                // TODO: handle completion
+                switch completion {
+                case .finished:
+                    self.logger.info("Fetch device completed")
+                case .failure(let e):
+                    self.logger.error("Fetch device failed. Error: \(e.localizedDescription)")
+                }
             } receiveValue: { devices in
                 self.registeredDevices = devices
             }
