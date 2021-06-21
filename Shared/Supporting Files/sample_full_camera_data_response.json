@@ -1,0 +1,38 @@
+{
+    "success": true,
+    "sample": {
+        "id": 31454387,
+        "filename": "WednesdayAfterLunch.27363sq1",
+        "signatureValidate": true,
+        "signatureMethod": "HS256",
+        "signatureKey": "6d94e7a5f841dbfa10ebc68b161990e1",
+        "created": "2021-06-02T14:19:11.000Z",
+        "category": "training",
+        "coldstorageFilename": "20081/training/WednesdayAfterLunch.27363sq1.ingestion-5f979d5fcc-l95gf.json",
+        "label": "WednesdayAfterLunch",
+        "intervalMs": 0,
+        "frequency": null,
+        "deviceName": "phone_kp6z2nxu",
+        "deviceType": "MOBILE_CLIENT",
+        "sensors": [{
+            "name": "image",
+            "units": "rgba"
+        }],
+        "valuesCount": 1,
+        "totalLengthMs": 0,
+        "added": "2021-06-02T14:19:12.191Z",
+        "boundingBoxes": []
+    },
+    "payload": {
+        "device_name": "phone_kp6z2nxu",
+        "device_type": "MOBILE_CLIENT",
+        "interval_ms": 0,
+        "frequency": null,
+        "sensors": [{
+            "name": "image",
+            "units": "rgba"
+        }],
+        "values": []
+    },
+    "totalPayloadLength": 1
+}

@@ -32,6 +32,8 @@ extension BluetoothManager {
 /// Each `BluetoothManager` can handle only one peripheral
 final class BluetoothManager: NSObject, ObservableObject {
     
+    // MARK: - Private Properties
+    
     private let centralManager: CBCentralManager
     
     let dataPublisher = PassthroughSubject<Data, Never>()
@@ -49,9 +51,16 @@ final class BluetoothManager: NSObject, ObservableObject {
     init(peripheralId: UUID) {
         self.centralManager = CBCentralManager()
         self.pId = peripheralId
+        self.transmissionSubject = PassthroughSubject<Data, Error>()
         super.init()
         
         centralManager.delegate = self
+        transmissionSubject.sinkOrRaiseAppEventError { [weak self] data in
+            guard let self = self else { return }
+            self.peripheral.writeValue(data, for: self.txCharacteristic, type: .withResponse)
+            self.received(data)
+        }
+        .store(in: &cancellables)
     }
     
     func connect() -> AnyPublisher<State, Swift.Error> {
@@ -69,6 +78,12 @@ final class BluetoothManager: NSObject, ObservableObject {
     
     func received(_ data: Data) {
         dataPublisher.send(data)
+    }
+    
+    func write<T: Codable>(_ data: T) throws {
+        guard let encodedData = try? JSONEncoder().encode(data) else { return }
+        transmissionSubject.send(encodedData)
+
     }
     
     func disconnect() {
@@ -89,6 +104,23 @@ final class BluetoothManager: NSObject, ObservableObject {
         peripheral = p
         peripheral.delegate = self
         centralManager.connect(p, options: nil)
+    }
+    
+    #if DEBUG
+    // TODO: Remove once we stop mocking firmware responses.
+    internal func mockFirmwareResponse<T: Codable>(_ item: T) {
+        let data: Data! = try? JSONEncoder().encode(item)
+        received(data)
+    }
+    #endif
+    
+    private func received(_ data: Data) {
+        #if DEBUG
+        if let stringData = String(data: data, encoding: .utf8) {
+            logger.debug("Received Data: \(stringData)")
+        }
+        #endif
+        receptionSubject.send(data)
     }
 }
 

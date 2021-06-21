@@ -14,10 +14,10 @@ extension HTTPRequest {
     
     static func login(_ parameters: LoginParameters) -> HTTPRequest? {
         guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api-login"),
-              let bodyData = try? JSONEncoder().encode(parameters),
-              let bodyString = String(data: bodyData, encoding: .utf8) else { return nil }
+              let bodyData = try? JSONEncoder().encode(parameters) else { return nil }
         
-        httpRequest.setMethod(.POST(body: bodyString))
+        httpRequest.setMethod(.POST)
+        httpRequest.setBody(bodyData)
         return httpRequest
     }
 }

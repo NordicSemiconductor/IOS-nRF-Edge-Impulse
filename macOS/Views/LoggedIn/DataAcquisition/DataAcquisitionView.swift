@@ -11,9 +11,10 @@ struct DataAcquisitionView: View {
     
     // MARK: - State
     
-    @EnvironmentObject var scannerData: Scanner
+    @EnvironmentObject var appData: AppData
+    @EnvironmentObject var scannerData: ScannerData
     
-    @ObservedObject private var viewState = DataAcquisitionViewState()
+    @ObservedObject internal var viewState = DataAcquisitionViewState()
     
     // MARK: - View
     
@@ -37,76 +38,60 @@ struct DataAcquisitionView: View {
             }
             
             Divider()
+                .padding(.vertical)
             
             Section(header: Text("Data Collection").bold()) {
                 MultiColumnView {
                     Text("Sample Name")
                     TextField("Label", text: $viewState.label)
                     
-                    Text("Sample Length")
-                    if viewState.canSelectSampleLengthAndFrequency {
-                        HStack {
-                            Slider(value: $viewState.sampleLength, in: 0...100000)
-                            Text("\(viewState.sampleLength, specifier: "%2.f") ms")
-                        }
-                    } else {
-                        Text("Unavailable")
-                            .foregroundColor(Assets.middleGrey.color)
-                    }
-                    
                     Text("Category")
                     Picker(selection: $viewState.selectedDataType, label: EmptyView()) {
                         ForEach(DataSample.Category.userVisible, id: \.self) { dataType in
-                            Text(dataType.rawValue).tag(dataType)
+                            Text(dataType.rawValue.uppercasingFirst).tag(dataType)
                         }
                     }.pickerStyle(RadioGroupPickerStyle())
+                    .horizontalRadioGroupLayout()
+                    .padding(.vertical, 6)
                     
                     Text("Sensor")
-                    Picker(selection: $viewState.selectedSensor, label: EmptyView()) {
-                        ForEach(NewDataSample.Sensor.allCases, id: \.self) { sensor in
-                            Text(sensor.rawValue).tag(sensor)
-                        }
-                    }
+                    DataAcquisitionDevicePicker(viewState: viewState)
+                    
+                    Text("Sample Length")
+                    DataAcquisitionViewSampleLengthPicker(viewState: viewState)
                     
                     Text("Frequency")
-                    if viewState.canSelectSampleLengthAndFrequency {
-                        Picker(selection: $viewState.selectedFrequency, label: EmptyView()) {
-                            ForEach(NewDataSample.Frequency.allCases, id: \.self) { frequency in
-                                Text(frequency.description).tag(frequency)
-                            }
-                        }
-                    } else {
-                        Text("Unavailable")
-                            .foregroundColor(Assets.middleGrey.color)
-                    }
+                    DataAcquisitionFrequencyPicker(viewState: viewState)
                 }
                 .disabled(viewState.isSampling)
+                
+                Divider()
+                    .padding(.vertical)
+                
+                Section(header: Text("Progress").bold()) {
+                    ProgressView(value: viewState.progress, total: 100.0)
+                        .frame(maxWidth: 250)
+                    
+                    Text(viewState.progressString)
+                        .lineLimit(0)
+                        .foregroundColor(.primary)
+                        .centerTextInsideForm()
+                    
+                    Button("Start Sampling", action: startSampling)
+                        .centerTextInsideForm()
+                        .disabled(!viewState.canStartSampling || viewState.isSampling)
+                        .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
+                }
             }
         }
         .setTitle("New Sample")
         .padding(16)
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: startSampling, label: {
-                    Image(systemName: viewState.isSampling ? "stop.fill" : "play.fill")
-                }).disabled(!viewState.canStartSampling)
-            }
-        }
         .onAppear {
             let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
-            if let device = connectedDevices.first {
-                viewState.selectedDevice = device
-            }
+            guard let device = connectedDevices.first else { return }
+            viewState.selectedDevice = device
         }
-    }
-}
-
-// MARK: - startSampling()
-
-extension DataAcquisitionView {
-    
-    func startSampling() {
-        scannerData.startSampling(viewState)
+        .onReceive(viewState.countdownTimer, perform: onSampleTimerTick(_:))
     }
 }
 

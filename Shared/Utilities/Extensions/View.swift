@@ -26,20 +26,18 @@ extension View {
     
     // MARK: - NavBar
     
-    func setTitle(_ title: String) -> AnyView {
-        let anyView: AnyView
+    func setTitle(_ title: String) -> some View {
         #if os(iOS)
-        anyView = AnyView(navigationBarTitle(title, displayMode: .inline))
+        return navigationBarTitle(title, displayMode: .inline)
         #else
-        anyView = AnyView(navigationTitle(title))
+        return navigationTitle(title)
         #endif
-        return anyView
     }
     
-    func toolbarPrincipalImage(_ image: Image) -> AnyView {
-        let anyView: AnyView
+    @ViewBuilder
+    func toolbarPrincipalImage(_ image: Image) -> some View {
         #if os(iOS)
-        anyView = AnyView(toolbar {
+        toolbar {
             ToolbarItem(placement: .principal) {
                 image
                     .resizable()
@@ -48,29 +46,26 @@ extension View {
                     .frame(size: .ToolbarImageSize)
                     .aspectRatio(contentMode: .fit)
             }
-        })
+        }
         #else
-        anyView = AnyView(self)
+        self
         #endif
-        return anyView
     }
     
     // MARK: - NavigationView
     
-    func wrapInNavigationViewForiOS() -> AnyView {
-        let anyView: AnyView
+    @ViewBuilder
+    func wrapInNavigationViewForiOS() -> some View {
         #if os(iOS)
-        anyView = AnyView(
-            NavigationView {
-                self
-            }
-            .setBackgroundColor(.blue)
-            .setSingleColumnNavigationViewStyle()
-            .accentColor(.white))
+        NavigationView {
+            self
+        }
+        .setBackgroundColor(.blue)
+        .setSingleColumnNavigationViewStyle()
+        .accentColor(.white)
         #else
-        anyView = AnyView(self)
+        self
         #endif
-        return anyView
     }
     
     // MARK: - UITextField
@@ -83,67 +78,33 @@ extension View {
         return disableAutocorrection(true)
         #endif
     }
-    
-    func roundedTextFieldShape(backgroundAsset: Assets, hasTextFieldBelow: Bool = false) -> AnyView {
-        var anyView: AnyView
-        #if os(iOS)
-        anyView = AnyView(frame(maxWidth: 300)
-            .frame(height: 20)
-            .padding()
-            .background(backgroundAsset.color)
-            .cornerRadius(30))
-        if hasTextFieldBelow {
-            anyView = AnyView(anyView.padding(.bottom, 16))
-        }
-        #else
-        anyView = AnyView(self)
-        #endif
-        return anyView
-    }
-    
-    // MARK: - Button
-    
-    func circularButtonShape(backgroundAsset: Assets) -> AnyView {
-        let anyView: AnyView
-        #if os(iOS)
-        anyView = AnyView(frame(width: 80, height: 12)
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(backgroundAsset.color)
-                            .cornerRadius(30))
-        #else
-        anyView = AnyView(self)
-        #endif
-        return anyView
-    }
 }
 
 // MARK: - Picker
 
 extension Picker {
     
-    func setAsComboBoxStyle() -> AnyView {
-        // Can cause crashes in iOS 14.1 with changeable Sections / Cells.
-        guard #available(iOS 14.4, *) else { return AnyView(self) }
-        let anyView: AnyView
+    @ViewBuilder
+    func setAsComboBoxStyle() -> some View {
         #if os(iOS)
-        anyView = AnyView(pickerStyle(InlinePickerStyle())
-                            .frame(maxHeight: 75))
+        // Can cause crashes in iOS 14.1 with changeable Sections / Cells.
+        if #available(iOS 14.4, *) {
+            pickerStyle(InlinePickerStyle())
+                .frame(maxHeight: 75)
+        } else {
+            self
+        }
         #else
-        anyView = AnyView(self)
+        self
         #endif
-        return anyView
     }
     
-    func setAsSegmentedControlStyle() -> AnyView {
-        let anyView: AnyView
+    func setAsSegmentedControlStyle() -> some View {
         #if os(iOS)
-        anyView = AnyView(pickerStyle(SegmentedPickerStyle()))
+        pickerStyle(SegmentedPickerStyle())
         #else
-        anyView = AnyView(self)
+        self
         #endif
-        return anyView
     }
 }
 
@@ -151,14 +112,12 @@ extension Picker {
 
 extension NavigationView {
     
-    @inlinable func setSingleColumnNavigationViewStyle() -> AnyView {
-        let anyView: AnyView
+    func setSingleColumnNavigationViewStyle() -> some View {
         #if os(iOS)
-        anyView = AnyView(navigationViewStyle(StackNavigationViewStyle()))
+        navigationViewStyle(StackNavigationViewStyle())
         #else
-        anyView = AnyView(self)
+        self
         #endif
-        return anyView
     }
     
     func setBackgroundColor(_ backgroundColor: Assets) -> NavigationView {

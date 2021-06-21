@@ -14,7 +14,7 @@ struct DataAcquisitionView: View {
     
     // MARK: - State
     
-    @ObservedObject var viewState = DataAcquisitionViewState()
+    @ObservedObject internal var viewState = DataAcquisitionViewState()
     
     // MARK: - @viewBuilder
     
@@ -55,48 +55,33 @@ struct DataAcquisitionView: View {
             }
 
             Section(header: Text("Sensor")) {
-                Picker("Type", selection: $viewState.selectedSensor) {
-                    ForEach(NewDataSample.Sensor.allCases) { sensor in
-                        Text(sensor.rawValue)
-                            .tag(sensor)
-                    }
-                }
-                .setAsComboBoxStyle()
-                .disabled(viewState.isSampling)
+                DataAcquisitionDevicePicker(viewState: viewState)
             }
+            .disabled(viewState.isSampling)
             
             Section(header: Text("Sample Length")) {
-                if viewState.canSelectSampleLengthAndFrequency {
-                    Stepper(value: $viewState.sampleLength, in: 0...100000, step: 10) {
-                        Text("\(viewState.sampleLength, specifier: "%.0f") ms")
-                    }
-                    .disabled(viewState.isSampling)
-                } else {
-                    Text("Unavailable for \(NewDataSample.Sensor.Camera.rawValue) Sensor")
-                        .foregroundColor(Assets.middleGrey.color)
-                }
+                DataAcquisitionViewSampleLengthPicker(viewState: viewState)
             }
+            .disabled(viewState.isSampling)
             
             Section(header: Text("Frequency")) {
-                if viewState.canSelectSampleLengthAndFrequency {
-                    Picker("Value", selection: $viewState.selectedFrequency) {
-                        ForEach(NewDataSample.Frequency.allCases) { frequency in
-                            Text(frequency.description)
-                                .tag(frequency)
-                        }
-                    }
-                    .setAsComboBoxStyle()
-                    .disabled(viewState.isSampling)
-                } else {
-                    Text("Unavailable for \(NewDataSample.Sensor.Camera.rawValue) Sensor")
-                        .foregroundColor(Assets.middleGrey.color)
-                }
+                DataAcquisitionFrequencyPicker(viewState: viewState)
             }
+            .disabled(viewState.isSampling)
             
-            Button("Start Sampling", action: startSampling)
-                .centerTextInsideForm()
-                .disabled(!viewState.canStartSampling || viewState.isSampling)
-                .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
+            Section(header: Text("Progress")) {
+                ProgressView(value: viewState.progress, total: 100.0)
+                
+                Text(viewState.progressString)
+                    .lineLimit(0)
+                    .foregroundColor(.primary)
+                    .centerTextInsideForm()
+                
+                Button("Start Sampling", action: startSampling)
+                    .centerTextInsideForm()
+                    .disabled(!viewState.canStartSampling || viewState.isSampling)
+                    .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
+            }
         }
         .setTitle("New Sample")
         .onAppear() {
@@ -106,14 +91,8 @@ struct DataAcquisitionView: View {
             // TODO: Set connect device
 //            viewState.selectedDevice = device
         }
-        .frame(minWidth: Tabs.minTabWidth)
-    }
-}
-
-private extension DataAcquisitionView {
-    
-    func startSampling() {
-        deviceData.startSampling(viewState)
+        .onReceive(viewState.countdownTimer, perform: onSampleTimerTick(_:))
+        .frame(minWidth: .minTabWidth)
     }
 }
 

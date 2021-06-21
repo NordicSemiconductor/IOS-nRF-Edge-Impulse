@@ -6,29 +6,70 @@
 //
 
 import Foundation
+import OSLog
 import Combine
 
 final class DataAcquisitionViewState: ObservableObject {
     
+    // MARK: Properties
+    
     @Published var label = ""
-    @Published var selectedDevice = Constant.unselectedDevice
+    @Published var selectedDevice = Constant.unselectedRegisteredDevice {
+        didSet {
+            guard selectedDevice != Constant.unselectedRegisteredDevice else { return }
+            selectedSensor = selectedDevice.sensors.first ?? Constant.unselectedSensor
+        }
+    }
     @Published var selectedDataType = DataSample.Category.training
-    @Published var selectedSensor = NewDataSample.Sensor.Accelerometer
-    @Published var sampleLength = 10000.0
-    @Published var selectedFrequency = NewDataSample.Frequency._11000Hz
+    @Published var selectedSensor = Constant.unselectedSensor {
+        didSet {
+            guard selectedSensor != Constant.unselectedSensor else { return }
+            selectedFrequency = selectedSensor.frequencies?.first ?? Constant.unselectedFrequency
+            sampleLength = Constant.unselectedSampleLength
+        }
+    }
+    @Published var sampleLength = Constant.unselectedSampleLength
+    @Published var selectedFrequency = Constant.unselectedFrequency
+    @Published var progress = 0.0
+    @Published var progressString = ""
     @Published var isSampling = false
     
-    var canSelectSampleLengthAndFrequency: Bool {
-        selectedSensor != .Camera
-    }
+    private(set) lazy var countdownTimer = Timer.publish(every: 1, on: .main, in: .common)
+    private lazy var cancellables = Set<AnyCancellable>()
+    private lazy var logger = Logger(Self.self)
     
     var canStartSampling: Bool {
-        selectedDevice != Constant.unselectedDevice && label.hasItems
+        selectedDevice != Constant.unselectedRegisteredDevice && label.hasItems
     }
     
-    func newSampleMessage() -> SampleRequestMessageContainer {
-        let message = SampleRequestMessage(label: label, length: Int(sampleLength), interval: selectedFrequency.rawValue, sensor: selectedSensor.rawValue)
-        let container = SampleRequestMessageContainer(sample: message)
-        return container
+    // MARK: API
+    
+    func newSampleMessage() -> SampleRequestMessage? {
+        guard selectedSensor != Constant.unselectedSensor else { return nil }
+        let intervalMs =  1.0 / selectedFrequency * 1000.0
+        let message = SampleRequestMessage(category: selectedDataType, intervalMs: intervalMs, label: label,
+                                           lengthMs: Int(sampleLength), sensor: selectedSensor.name ?? "")
+        return message
+    }
+    
+    func newBLESampleRequest() -> BLESampleRequestWrapper? {
+        guard selectedSensor != Constant.unselectedSensor else { return nil }
+        let intervalMs =  1.0 / selectedFrequency * 1000.0
+        let sample = BLESampleRequest(label: label, length: Int(sampleLength), category: selectedDataType,
+                                      interval: Int(intervalMs), sensor: selectedSensor)
+        let message = BLESampleRequestMessage(sample: sample)
+        return BLESampleRequestWrapper(type: "ws", direction: "rx", address:  "wss://studio.edgeimpulse.com", message: message)
+    }
+    
+    func startCountdownTimer() {
+        logger.debug(#function)
+        countdownTimer.connect()
+            .store(in: &cancellables)
+    }
+    
+    func stopCountdownTimer() {
+        logger.debug(#function)
+        cancellables.forEach { $0.cancel() }
+        cancellables.removeAll()
     }
 }

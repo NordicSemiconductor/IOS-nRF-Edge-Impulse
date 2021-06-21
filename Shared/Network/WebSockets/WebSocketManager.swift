@@ -26,6 +26,7 @@ extension WebSocketManager {
     enum Error: Swift.Error {
         // TODO: Add code and message to error
         case wrongUrl
+        case unableToEncodeAsUTF8
         case wsError(Swift.Error)
         case wsClosed(URLSessionWebSocketTask.CloseCode)
         case parseError
@@ -61,6 +62,7 @@ class WebSocketManager: NSObject {
         task = session.webSocketTask(with: url)
         listen()
         task.resume()
+        schedulePings()
         
         return stateSubject
             .mapError { $0 as Swift.Error }
@@ -68,13 +70,26 @@ class WebSocketManager: NSObject {
     }
     
     func disconnect() {
+        cancellable.forEach { $0.cancel() }
+        cancellable.removeAll()
         task.cancel(with: .normalClosure, reason: nil)
         session.finishTasksAndInvalidate()
     }
     
-    func send(_ data: Data) {
-        let s = String(data: data, encoding: .utf8)!
-        task.send(.string(s)) { [weak self] (error) in
+    func send<T: Codable>(_ data: T) throws {
+        guard let encodedData = try? JSONEncoder().encode(data) else { return }
+        try send(encodedData)
+    }
+    
+    func send(_ data: Data) throws {
+        guard let s = String(data: data, encoding: .utf8) else {
+            throw Error.unableToEncodeAsUTF8
+        }
+        try send(s)
+    }
+    
+    func send(_ string: String) throws {
+        task.send(.string(string)) { [weak self] (error) in
             if let e = error {
                 self?.dataSubject.send(.failure(Error.wsError(e)))
                 self?.logger.error("Send error: \(e.localizedDescription)")
@@ -85,6 +100,32 @@ class WebSocketManager: NSObject {
 
 /// Private API
 extension WebSocketManager {
+    
+    fileprivate static let PingTime: TimeInterval = 20.0
+    
+    private func schedulePings() {
+        Timer
+            .publish(every: Self.PingTime, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] a in
+                self?.ping()
+            }
+            .store(in: &cancellable)
+    }
+    
+    private func ping() {
+        task.sendPing { [weak self] error in
+            switch error {
+            case .none:
+                self?.logger.debug("Successfully pinged WebSocket.")
+            case .some(let error):
+                self?.logger.error("WebSocket ping returned an error: \(error.localizedDescription)")
+                self?.logger.error("Triggering disconnection due to ping error.")
+                self?.disconnect()
+            }
+        }
+    }
+    
     private func listen() {
         
         task.receive { [weak self] result in
@@ -106,6 +147,7 @@ extension WebSocketManager {
                         self?.dataSubject.send(.failure(Error.parseError))
                     }
                 @unknown default:
+                    self?.logger.info("Something else received received.")
                     break 
                 }
             }

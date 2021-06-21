@@ -31,22 +31,44 @@ struct TwoPaneLayoutView: View {
             .setSingleColumnNavigationViewStyle()
             .frame(width: 215, alignment: .leading)
             
+            // Don't use appData.selectedTab?.view because SwiftUI will not switch well within them
+            // if there's a DetailView pushed into the embedded NavigationView.
             VStack {
-                if let selectedTab = appData.selectedTab {
-                    selectedTab.view
-                        .setTitle(selectedTab.description)
-                } else {
+                switch appData.selectedTab {
+                case .Devices?:
+                    DeviceList()
+                        .setAsDetailView(title: appData.selectedTab?.description)
+                case .DataAcquisition?:
+                    DataSamplesView()
+                        .setAsDetailView(title: appData.selectedTab?.description)
+                case .Deployment?:
+                    DeploymentView()
+                        .setAsDetailView(title: appData.selectedTab?.description)
+                case .Settings?:
+                    SettingsContentView()
+                        .setAsDetailView(title: appData.selectedTab?.description)
+                default:
                     AppHeaderView(.template)
-                        .frame(maxWidth: 120)
+                        .setAsDetailView(title: nil)
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+}
+
+// MARK: - Detail View Configuration
+
+private extension View {
+    
+    func setAsDetailView(title: String?) -> some View {
+        self
+            .setTitle(title ?? Constant.appName)
             .toolbar {
                 ProjectSelectionView()
                     .toolbarItem()
             }
             .wrapInNavigationViewForiOS()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
     }
 }
 
@@ -57,10 +79,12 @@ struct TwoPaneLayoutView_Previews: PreviewProvider {
     static var previews: some View {
         #if os(OSX)
         TwoPaneLayoutView()
+            .environmentObject(Preview.mockScannerData)
             .environmentObject(Preview.projectsPreviewAppData)
         #elseif os(iOS)
         TwoPaneLayoutView()
             .previewDevice("iPad Pro (11-inch) (2nd generation)")
+            .environmentObject(Preview.mockScannerData)
             .environmentObject(Preview.projectsPreviewAppData)
         #endif
     }

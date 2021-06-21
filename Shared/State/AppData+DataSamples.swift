@@ -17,6 +17,27 @@ extension AppData {
             requestDataSamples(for: category)
         }
     }
+    
+    func requestNewSampleID(_ configuration: DataAcquisitionViewState,
+                            deliveryBlock: @escaping (StartSamplingResponse?, Error?) -> Void) {
+        guard let sampleMessage = configuration.newSampleMessage(),
+              let currentProject = selectedProject, let apiKey = apiToken,
+              let startRequest = HTTPRequest.startSampling(sampleMessage, project: currentProject, device: configuration.selectedDevice, using: apiKey) else { return }
+        
+        Network.shared.perform(startRequest, responseType: StartSamplingResponse.self)
+            .onUnauthorisedUserError(logout)
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .failure(let error):
+                    deliveryBlock(nil, error)
+                default:
+                    break
+                }
+            }, receiveValue: { response in
+                deliveryBlock(response, nil)
+            })
+            .store(in: &cancellables)
+    }
 }
 
 // MARK: - Private

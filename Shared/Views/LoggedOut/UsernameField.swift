@@ -32,8 +32,7 @@ struct UsernameField: View {
                 .modifier(FixPlaceholder(for: username, text: "Username or E-Mail"))
                 .disableAllAutocorrections()
                 .foregroundColor(.accentColor)
-                .roundedTextFieldShape(backgroundAsset: .lightGrey, hasTextFieldBelow: true)
-                .frame(maxWidth: 320)
+                .modifier(RoundedTextFieldShape(.lightGrey, hasTextFieldBelow: true))
                 .disabled(!enabled)
         }
     }

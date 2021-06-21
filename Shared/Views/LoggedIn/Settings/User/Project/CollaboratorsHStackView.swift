@@ -28,6 +28,7 @@ struct CollaboratorsHStackView: View {
                 },
                 icon: {
                     Image(systemName: "person.fill")
+                        .foregroundColor(.primary)
                 }
             )
             

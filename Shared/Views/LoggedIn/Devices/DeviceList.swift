@@ -127,6 +127,7 @@ struct DeviceList_Previews: PreviewProvider {
         Group {
             DeviceList()
                 .setTitle("Devices")
+                .environmentObject(Preview.projectsPreviewAppData)
                 .environmentObject(Preview.mockScannerData)
         }
         #elseif os(iOS)
@@ -134,27 +135,33 @@ struct DeviceList_Previews: PreviewProvider {
             NavigationView {
                 DeviceList()
                     .setTitle("Devices")
+                    .environmentObject(Preview.projectsPreviewAppData)
                     .environmentObject(Preview.noDevicesScannerData)
                     .previewDevice("iPhone 12 mini")
             }
             .setBackgroundColor(Assets.blue)
+            .setSingleColumnNavigationViewStyle()
             
             NavigationView {
                 DeviceList()
                     .setTitle("Devices")
+                    .environmentObject(Preview.projectsPreviewAppData)
                     .environmentObject(Preview.isScanningButNoDevicesScannerData)
                     .previewDevice("iPhone 12 mini")
             }
             .setBackgroundColor(Assets.blue)
+            .setSingleColumnNavigationViewStyle()
             
             NavigationView {
                 DeviceList()
                     .setTitle("Devices")
                     .preferredColorScheme(.dark)
+                    .environmentObject(Preview.projectsPreviewAppData)
                     .environmentObject(Preview.mockScannerData)
                     .previewDevice("iPad Pro (12.9-inch) (4th generation)")
             }
             .setBackgroundColor(Assets.blue)
+            .setSingleColumnNavigationViewStyle()
         }
         #endif
     }

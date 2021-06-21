@@ -42,11 +42,13 @@ struct TabBarLayoutView_Previews: PreviewProvider {
             TabBarLayoutView()
                 .preferredColorScheme(.light)
                 .environmentObject(Preview.projectsPreviewAppData)
+                .environmentObject(Preview.mockScannerData)
         }
         Group {
             TabBarLayoutView()
                 .preferredColorScheme(.dark)
                 .environmentObject(Preview.projectsPreviewAppData)
+                .environmentObject(Preview.mockScannerData)
         }
     }
 }

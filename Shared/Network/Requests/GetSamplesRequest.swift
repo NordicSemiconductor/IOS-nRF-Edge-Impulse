@@ -15,7 +15,8 @@ extension HTTPRequest {
         let parameters = ["category": category.rawValue]
         guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/raw-data",
                                             parameters: parameters) else { return nil }
-        httpRequest.setMethod(.GET(header: ["x-api-key": apiToken]))
+        httpRequest.setMethod(.GET)
+        httpRequest.setHeaders(["x-api-key": apiToken])
         return httpRequest
     }
 }

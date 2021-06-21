@@ -65,11 +65,13 @@ struct DeploymentView: View {
 struct DeploymentView_Previews: PreviewProvider {
     
     static var previews: some View {
-        NavigationView {
+        Group {
             DeploymentView()
-                .environmentObject(Preview.noDevicesScannerData)
+                .setTitle(Tabs.Deployment.description)
+                .wrapInNavigationViewForiOS()
+                .environmentObject(Preview.noDevicesAppData)
+                .environmentObject(Preview.noDevicesScannerData)    
         }
-        .setBackgroundColor(.blue)
     }
 }
 #endif

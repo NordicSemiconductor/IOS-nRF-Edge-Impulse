@@ -23,9 +23,14 @@ struct CollaboratorRow: View {
     
     var body: some View {
         HStack {
+            #if os(OSX)
             CircleAround(URLImage(url: collaborator.photo, placeholderImage: Image("EdgeImpulse")))
                 .frame(size: .SmallImageSize)
-                .padding(.horizontal, 4)
+            #else
+            CircleAround(URLImage(url: collaborator.photo, placeholderImage: Image("EdgeImpulse")))
+                .frame(size: .SmallImageSize)
+                .padding(.horizontal, 6)
+            #endif
             
             if let user = appData.user, user == collaborator {
                 Text("\(collaborator.name) (You)")

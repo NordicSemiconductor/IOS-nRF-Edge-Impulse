@@ -26,15 +26,16 @@ struct ProjectRow: View {
             CircleAround(URLImage(url: project.logo, placeholderImage: Image("EdgeImpulse")))
                 .frame(size: .StandardImageSize)
 
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading) {
                 Text(project.name)
                     .font(.headline)
                     .bold()
                 
                 CollaboratorsHStackView(project.collaborators)
             }
+            .padding(.horizontal, 6)
         }
-        .padding(8)
+        .padding(.vertical)
     }
 }
 

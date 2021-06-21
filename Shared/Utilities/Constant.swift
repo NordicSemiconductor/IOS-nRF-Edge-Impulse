@@ -22,6 +22,10 @@ enum Constant {
     
     static let unselectedProject = Project.Unselected
     static let unselectedDevice = Device(name: "", id: UUID(), rssi: .outOfRange, advertisementData: AdvertisementData())
+    static let unselectedRegisteredDevice = RegisteredDevice.mock
+    static let unselectedSensor = Sensor(name: "Unselected", maxSampleLengthS: 0, frequencies: [])
+    static let unselectedSampleLength: Double = 0.0
+    static let unselectedFrequency: Double = 0.0
     
     // MARK: - URL(s)
     
@@ -42,6 +46,25 @@ enum Constant {
     static let copyright: String = {
         return "Copyright © \(Date.currentYear()) Nordic Semiconductor ASA"
     }()
+}
+
+// MARK: - CGFloat
+
+extension CGFloat {
+    
+    static let minTabWidth: CGFloat = {
+        let value: CGFloat
+        #if os(OSX)
+        value = 400
+        #else
+        value = 320
+        #endif
+        return value
+    }()
+    
+    static let sidebarWidth: CGFloat = 160
+    
+    static let maxTextFieldWidth: CGFloat = 350
 }
 
 // MARK: - Size(s)

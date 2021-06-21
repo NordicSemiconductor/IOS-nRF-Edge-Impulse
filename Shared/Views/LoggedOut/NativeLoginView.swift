@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import Introspect
 
 struct NativeLoginView: View {
     // MARK: - EnvironmentObject(s)
@@ -34,9 +35,14 @@ struct NativeLoginView: View {
             AppHeaderView()
             
             UsernameField($username, enabled: !isMakingRequest)
+                .frame(maxWidth: .maxTextFieldWidth)
                 .padding(.horizontal, 16)
+                .introspectTextField { textField in
+                    textField.becomeFirstResponder()
+                }
             
             PasswordField($password, enabled: !isMakingRequest)
+                .frame(maxWidth: .maxTextFieldWidth)
                 .padding(.horizontal, 16)
             
             LoginErrorView(viewState: viewState)
@@ -56,7 +62,7 @@ struct NativeLoginView: View {
                         attemptLogin()
                     }
                     .keyboardShortcut(.defaultAction)
-                    .circularButtonShape(backgroundAsset: isLoginButtonDisabled ? .lightGrey : .blue)
+                    .modifier(CircularButtonShape(backgroundAsset: isLoginButtonDisabled ? .lightGrey : .blue))
                     .disabled(isLoginButtonDisabled)
                 }
             }

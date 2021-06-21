@@ -1,0 +1,22 @@
+{
+    "hello": {
+        "apiKey":"ei_f46c5473f1ed9d0fa60d9d4db78d945831ed0f11938cb8992ab63d98300703f9",
+        "deviceId":"8B1382AC-05A2-4C37-AA3B-8FDFB4BB39D5",
+        "connection":"ip",
+        "supportsSnapshotStreaming":false,
+        "deviceType":"NRF5340_DK   ",
+        "version":3,
+        "sensors":[
+            {
+            "name":"Accelerometer",
+            "frequencies":[62.5,100],
+            "maxSampleLengthS":55866
+            },
+            {
+            "name":"Microphone",
+            "frequencies":[16000],
+            "maxSampleLengthS":2094
+            }
+        ]
+    }
+}

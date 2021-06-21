@@ -15,9 +15,7 @@ struct DataSamplesView: View {
     // MARK: Properties
     
     @State private var selectedCategory: DataSample.Category = .training
-    #if os(OSX)
-    @State private var showNewSample = false
-    #endif
+    @State private var showDataAcquisitionView = false
     
     // MARK: View
     
@@ -55,47 +53,33 @@ struct DataSamplesView: View {
                 ForEach(appData.samplesForCategory[selectedCategory] ?? []) { sample in
                     DataSampleRow(sample)
                 }
-                addNavigationLinkOnMacOS()
+                addHiddenDataAcqisitionNavigationLink()
             }
         }
         .padding(.vertical)
         .toolbar {
-            newSampleToolbarItem()
+            dataAcquisitionToolbarItem()
         }
     }
 }
 
-// MARK: - New Sample Navigation
+// MARK: - Data Acquisition Navigation
 
 private extension DataSamplesView {
     
-    func addNavigationLinkOnMacOS() -> some View {
-        #if os(OSX)
-        NavigationLink(destination: DataAcquisitionView(), isActive: $showNewSample) {
+    func addHiddenDataAcqisitionNavigationLink() -> some View {
+        NavigationLink(destination: DataAcquisitionView(), isActive: $showDataAcquisitionView) {
             EmptyView()
         }
         .hidden()
-        .onDisappear() {
-            showNewSample = false
-        }
-        #else
-        return EmptyView()
-        #endif
     }
     
-    func newSampleToolbarItem() -> some View {
-        #if os(OSX)
+    func dataAcquisitionToolbarItem() -> some View {
         Button(action: {
-            showNewSample = true
+            showDataAcquisitionView = true
         }) {
             Label("New Sample", systemImage: "plus")
         }
-        #else
-        NavigationLink(destination: DataAcquisitionView(),
-            label: {
-                Label("New Sample", systemImage: "plus")
-            })
-        #endif
     }
 }
 

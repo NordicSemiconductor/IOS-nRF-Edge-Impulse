@@ -76,7 +76,7 @@ class DeviceRemoteHandler {
     private var webSocketManager: WebSocketManager!
     private var cancellables = Set<AnyCancellable>()
     
-    private var btPublisher: AnyPublisher<Data, BluetoothManager.Error>?
+    internal var btPublisher: AnyPublisher<Data, BluetoothManager.Error>?
     private var wsPublisher: AnyPublisher<Data, WebSocketManager.Error>?
     
     private let registeredDeviceManager: RegisteredDevicesManager
@@ -113,7 +113,7 @@ class DeviceRemoteHandler {
                 hello.hello?.deviceId = self.device.id.uuidString
                 
                 do {
-                    self.webSocketManager.send(try JSONEncoder().encode(hello))
+                    try self.webSocketManager.send(hello)
                 } catch let e {
                     return Fail(error: e).eraseToAnyPublisher()
                 }
@@ -176,6 +176,20 @@ class DeviceRemoteHandler {
         logger.info("\(deviceName) Disconnected.")
     }
 }
+
+// MARK: - DeviceRemoteHandler.SamplingState
+
+extension DeviceRemoteHandler {
+    
+    enum SamplingState {
+        case standby
+        case requestReceived, requestStarted
+        case completed
+        case error(_ error: Error)
+    }
+}
+
+// MARK: - Hashable, Equatable
 
 extension DeviceRemoteHandler: Hashable, Identifiable {
     static func == (lhs: DeviceRemoteHandler, rhs: DeviceRemoteHandler) -> Bool {

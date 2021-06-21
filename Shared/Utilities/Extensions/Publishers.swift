@@ -83,6 +83,38 @@ extension Publishers {
     }
 }
 
+// MARK: - OnlyDecode
+
+extension Publisher {
+    
+    func onlyDecode<T: Codable>(type: T.Type) -> Publishers.OnlyDecode<Self, T> {
+        return .init(upstream: self)
+    }
+}
+
+extension Publishers {
+    
+    struct OnlyDecode<Upstream: Publisher, DecodedOutput: Codable>: Publisher where Upstream.Output == Data {
+        
+        typealias Output = DecodedOutput
+        typealias Failure = Upstream.Failure
+        
+        private let upstream: Upstream
+        private let decoder: JSONDecoder
+        
+        init(upstream: Upstream) {
+            self.upstream = upstream
+            self.decoder = JSONDecoder()
+        }
+        
+        func receive<S>(subscriber: S) where S: Subscriber, Upstream.Failure == S.Failure, DecodedOutput == S.Input {
+            self.upstream
+                .compactMap { try? decoder.decode(DecodedOutput.self, from: $0) }
+                .subscribe(subscriber)
+        }
+    }
+}
+
 // MARK: - GatherData
 
 extension Publisher {
@@ -107,7 +139,7 @@ extension Publishers {
             self.decoder = JSONDecoder()
         }
         
-        func receive<S>(subscriber: S) where S : Subscriber, Upstream.Failure == S.Failure, DecodedOutput == S.Input {
+        func receive<S>(subscriber: S) where S: Subscriber, Upstream.Failure == S.Failure, DecodedOutput == S.Input {
             self.upstream
                 .scan(Data(), { accum, next -> Data in
                     if case .some = try? decoder.decode(DecodedOutput.self, from: accum) {

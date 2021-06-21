@@ -27,7 +27,7 @@ struct DataSample: Identifiable, Codable {
 extension DataSample {
     
     enum Category: String, Identifiable, Codable, RawRepresentable, CaseIterable {
-        case training, testing, anomaly
+        case training, testing
         
         var id: Int {
             rawValue.hashValue
@@ -39,8 +39,6 @@ extension DataSample {
                 return "highlighter"
             case .testing:
                 return "pencil.and.outline"
-            case .anomaly:
-                return "lasso"
             }
         }
         
