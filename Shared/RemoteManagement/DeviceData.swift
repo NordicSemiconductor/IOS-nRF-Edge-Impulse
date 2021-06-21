@@ -74,7 +74,7 @@ class DeviceData: ObservableObject {
     
     private (set) lazy var bluetoothStates = PassthroughSubject<Result<Bool, BluetoothStateError>, Never>()
     
-    private var cancelables = Set<AnyCancellable>()
+    var cancellables = Set<AnyCancellable>()
     
     init(scanner: Scanner = Scanner(), registeredDeviceManager: RegisteredDevicesManager = RegisteredDevicesManager(), appData: AppData) {
         self.scanner = scanner
@@ -96,7 +96,7 @@ class DeviceData: ObservableObject {
             .sink { device in
                 self.scanResults.append(device)
             }
-            .store(in: &cancelables)
+            .store(in: &cancellables)
         
         registeredDeviceManager.refreshDevices(appData: appData)
             .sink { completion in
@@ -109,7 +109,19 @@ class DeviceData: ObservableObject {
             } receiveValue: { devices in
                 self.registeredDevices = devices.map { RemoteDeviceWrapper(device: $0) }
             }
-            .store(in: &cancelables)
+            .store(in: &cancellables)
+    }
+    
+    subscript (device: Device) -> DeviceRemoteHandler? {
+        get {
+            remoteHandlers.first(where: { $0.device == device })
+        }
+    }
+    
+    subscript (device: RegisteredDevice) -> DeviceRemoteHandler? {
+        get {
+            remoteHandlers.first(where: { $0.registeredDevice == device })
+        }
     }
     
     func tryToConnect(scanResult: Device) {
@@ -140,7 +152,7 @@ class DeviceData: ObservableObject {
                     }
                 }
             }
-            .store(in: &cancelables)
+            .store(in: &cancellables)
 
     }
     
@@ -156,10 +168,6 @@ class DeviceData: ObservableObject {
                 return false
             }
         }
-    }
-    
-    func startSampling(_ viewState: DataAcquisitionViewState) {
-        
     }
     
     private func getRemoteHandler(for scanResult: Device) -> DeviceRemoteHandler {

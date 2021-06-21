@@ -72,7 +72,7 @@ class DeviceRemoteHandler {
     
     @Published var state: ConnectionState = .notConnected
     
-    private var bluetoothManager: BluetoothManager!
+    private (set) lazy var bluetoothManager = BluetoothManager(peripheralId: self.device.id)
     private var webSocketManager: WebSocketManager!
     private var cancellables = Set<AnyCancellable>()
     
@@ -88,7 +88,6 @@ class DeviceRemoteHandler {
         self.appData = appData
         self.registeredDevice = registeredDevice
         
-        bluetoothManager = BluetoothManager(peripheralId: device.id)
         webSocketManager = WebSocketManager()
     }
     
@@ -102,7 +101,7 @@ class DeviceRemoteHandler {
 //         #warning("check memory leaks")
         bluetoothManager.connect()
             .drop(while: { $0 != .readyToUse })
-            .flatMap { _ in self.bluetoothManager.dataPublisher.gatherData(ofType: ResponseRootObject.self) }
+            .flatMap { _ in self.bluetoothManager.transmissionSubject.gatherData(ofType: ResponseRootObject.self) }
             .combineLatest(webSocketManager.connect().drop(while: { $0 != .connected }))
             .flatMap { (data, _) -> AnyPublisher<Data, Swift.Error> in
                 guard var hello = data.message else {
@@ -157,11 +156,6 @@ class DeviceRemoteHandler {
                 return Just(ConnectionState.disconnected(.error(error)))
             }
             .eraseToAnyPublisher()
-    }
-    
-    func sendSampleRequest(_ container: SampleRequestMessageContainer) throws {
-        guard let messageData = try? JSONEncoder().encode(container) else { return }
-        // TODO: Send.
     }
     
     func disconnect() {

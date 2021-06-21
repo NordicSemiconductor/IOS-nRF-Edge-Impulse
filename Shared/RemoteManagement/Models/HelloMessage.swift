@@ -24,12 +24,14 @@ struct HelloMessage: Codable {
 }
 
 struct Sensor: Codable {
-    var name: String?
+    var name: String
     var maxSampleLengthS: Int?
     var frequencies: [Double]?
 }
 
-extension Sensor: Hashable {}
+extension Sensor: Identifiable, Hashable {
+    var id: String { name }
+}
 
 struct WSHelloResponse: Codable {
     var hello: Bool

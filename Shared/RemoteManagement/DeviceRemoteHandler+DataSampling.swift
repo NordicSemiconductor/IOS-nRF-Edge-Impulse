@@ -24,7 +24,7 @@ extension DeviceRemoteHandler {
                 }
                 #if DEBUG
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    bluetoothManager?.mockFirmwareResponse(SamplingRequestStartedResponse(sampleStarted: true))
+                    bluetoothManager.mockFirmwareResponse(SamplingRequestStartedResponse(sampleStarted: true))
                 }
                 #endif
                 return .requestReceived

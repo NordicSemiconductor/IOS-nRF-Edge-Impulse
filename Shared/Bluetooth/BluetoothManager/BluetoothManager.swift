@@ -36,7 +36,7 @@ final class BluetoothManager: NSObject, ObservableObject {
     
     private let centralManager: CBCentralManager
     
-    let dataPublisher = PassthroughSubject<Data, Never>()
+    let transmissionSubject = PassthroughSubject<Data, Never>()
     
     @Published var state: State = .notConnected
     private var btStateSubject = PassthroughSubject<CBManagerState, Swift.Error>()
@@ -48,10 +48,12 @@ final class BluetoothManager: NSObject, ObservableObject {
     private var txCharacteristic: CBCharacteristic!
     private var rxCharacteristic: CBCharacteristic!
     
+    private var cancellables = Set<AnyCancellable>()
+    
     init(peripheralId: UUID) {
         self.centralManager = CBCentralManager()
         self.pId = peripheralId
-        self.transmissionSubject = PassthroughSubject<Data, Error>()
+//        self.transmissionSubject = PassthroughSubject<Data, Error>()
         super.init()
         
         centralManager.delegate = self
@@ -74,10 +76,6 @@ final class BluetoothManager: NSObject, ObservableObject {
                 return self.$state.setFailureType(to: Swift.Error.self).eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
-    }
-    
-    func received(_ data: Data) {
-        dataPublisher.send(data)
     }
     
     func write<T: Codable>(_ data: T) throws {
@@ -120,7 +118,7 @@ final class BluetoothManager: NSObject, ObservableObject {
             logger.debug("Received Data: \(stringData)")
         }
         #endif
-        receptionSubject.send(data)
+        transmissionSubject.send(data)
     }
 }
 
