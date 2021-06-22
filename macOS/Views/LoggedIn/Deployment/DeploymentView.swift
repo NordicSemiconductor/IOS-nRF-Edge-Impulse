@@ -10,7 +10,7 @@ import SwiftUI
 struct DeploymentView: View {
     
     @EnvironmentObject var appData: AppData
-    @EnvironmentObject var scannerData: ScannerData
+    @EnvironmentObject var deviceData: Scanner
     
     // MARK: - State
     

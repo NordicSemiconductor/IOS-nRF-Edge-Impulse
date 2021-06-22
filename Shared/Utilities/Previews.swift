@@ -59,36 +59,6 @@ struct Preview {
         appData.samplesForCategory[.training] = previewDataSamples
         return appData
     }
-    
-    // MARK: - ScannerData
-    
-    static let noDevicesScannerData: ScannerData = {
-        let scannerData = ScannerData()
-        scannerData.isScanning = false
-        scannerData.scanResults = []
-        return scannerData
-    }()
-    
-    static let isScanningButNoDevicesScannerData: ScannerData = {
-        let scannerData = ScannerData()
-        scannerData.isScanning = true
-        scannerData.scanResults = []
-        return scannerData
-    }()
-
-    static var mockScannerData: ScannerData = {
-        let scannerData = ScannerData()
-        scannerData.isScanning = false
-        
-        let response = previewHelloMessage
-        let sensors = response?.hello?.sensors ?? []
-        scannerData.scanResults = [
-            Device(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock, sensors: sensors),
-            Device(name: "Device 2", id: UUID(), rssi: .bad, advertisementData: .mock, sensors: sensors),
-            Device(name: "Device 3", id: UUID(), rssi: .ok, advertisementData: .mock, sensors: sensors)
-        ]
-        return scannerData
-    }()
 }
 
 // MARK: - Preview

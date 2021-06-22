@@ -8,8 +8,8 @@
 import Foundation
 
 struct ResponseRootObject: Codable {
-    let type, direction, address: String?
-    let message: Message?
+    var type, direction, address: String?
+    var message: Message?
 }
 
 struct Message: Codable {
@@ -17,31 +17,32 @@ struct Message: Codable {
 }
 
 struct HelloMessage: Codable {
-    let version: Int?
-    var apiKey: String?
-    var deviceId, deviceType, connection: String?
-    let sensors: [Sensor]?
-    let supportsSnapshotStreaming: Bool?
+    var version: Int?
+    var apiKey, deviceId, deviceType, connection: String?
+    var sensors: [Sensor]?
+    var supportsSnapshotStreaming: Bool?
 }
 
-struct Sensor: Codable, Identifiable, Hashable {
-    
-    var id: Int { name.hash }
-    
-    let name: String
-    let maxSampleLengthS: Int?
-    let frequencies: [Double]?
+struct Sensor: Codable {
+    var name: String
+    var maxSampleLengthS: Int?
+    var frequencies: [Double]?
+}
+
+extension Sensor: Identifiable, Hashable {
+    var id: String { name }
 }
 
 struct WSHelloResponse: Codable {
-    let hello: Bool
-    let err: String?
+    var hello: Bool
+    var err: String?
 }
 
 #if DEBUG
 extension ResponseRootObject {
     static let moc = ResponseRootObject(
         type: "",
+
         direction: "",
         address: "",
         message: Message(
@@ -58,6 +59,10 @@ extension ResponseRootObject {
             )
         )
     )
+}
+
+extension Sensor {
+    static let mock = Sensor(name: "Camera (320x240)", maxSampleLengthS: 1, frequencies: [1.0])
 }
 
 extension WSHelloResponse {

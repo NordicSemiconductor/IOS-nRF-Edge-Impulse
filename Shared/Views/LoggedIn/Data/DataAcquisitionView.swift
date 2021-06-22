@@ -10,7 +10,7 @@ import SwiftUI
 struct DataAcquisitionView: View {
     
     @EnvironmentObject var appData: AppData
-    @EnvironmentObject var scannerData: ScannerData
+    @EnvironmentObject var deviceData: DeviceData
     
     // MARK: - State
     
@@ -32,11 +32,12 @@ struct DataAcquisitionView: View {
             }
             
             Section(header: Text("Device")) {
-                let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
+                
+                let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
                 if connectedDevices.hasItems {
                     Picker("Selected", selection: $viewState.selectedDevice) {
-                        ForEach(connectedDevices, id: \.self) { device in
-                            Text(device.name).tag(device)
+                        ForEach(connectedDevices, id: \.self) { handler in
+                            Text(handler.device.name).tag(handler.device)
                         }
                     }
                     .setAsComboBoxStyle()
@@ -84,10 +85,11 @@ struct DataAcquisitionView: View {
         }
         .setTitle("New Sample")
         .onAppear() {
-            guard let device = scannerData.allConnectedAndReadyToUseDevices().first else {
+            guard let device = deviceData.allConnectedAndReadyToUseDevices().first else {
                 return
             }
-            viewState.selectedDevice = device
+            // TODO: Set connect device
+//            viewState.selectedDevice = device
         }
         .onReceive(viewState.countdownTimer, perform: onSampleTimerTick(_:))
         .frame(minWidth: .minTabWidth)

@@ -7,19 +7,27 @@
 
 import SwiftUI
 
+class DataContainer: ObservableObject {
+    let appData = AppData()
+    let resourceData = ResourceData()
+    lazy var deiceData = DeviceData(appData: self.appData)
+}
+
 @main
 struct nRF_Edge_ImpulseApp: App {
     
-    @StateObject var appData = AppData()
-    @StateObject var resourceData = ResourceData()
-    @StateObject var scannerData = ScannerData()
+//    @StateObject var appData = AppData()
+//    @StateObject var resourceData = ResourceData()
+    
+    @StateObject var dataContainer = DataContainer()
     
     var body: some Scene {
+        
         WindowGroup {
             ContentView()
-                .environmentObject(appData)
-                .environmentObject(resourceData)
-                .environmentObject(scannerData)
+                .environmentObject(dataContainer.appData)
+                .environmentObject(dataContainer.resourceData)
+                .environmentObject(dataContainer.deiceData)
         }
     }
 }

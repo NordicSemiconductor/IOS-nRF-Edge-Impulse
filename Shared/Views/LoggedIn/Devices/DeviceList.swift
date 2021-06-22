@@ -7,63 +7,37 @@
 
 import SwiftUI
 import Combine
+import os
 
 struct DeviceList: View {
     
     // MARK: Properties
     
+    @EnvironmentObject var deviceData: DeviceData
     @EnvironmentObject var appData: AppData
-    @EnvironmentObject var scannerData: ScannerData
     
     @State private var scannerCancellable: Cancellable? = nil
+    
+    private let logger = Logger(category: "DeviceList")
     
     // MARK: View
     
     var body: some View {
-        buildRootView()
-            .toolbar {
-                ToolbarItem(placement: .destructiveAction) {
-                    Button(action: refreshScanner, label: {
-                        Label("Refresh", systemImage: "arrow.clockwise")
-                    })
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(action: toggleScanner, label: {
-                        Image(systemName: scannerData.isScanning ? "stop.fill" : "play.fill")
-                    })
-                    .keyboardShortcut(.space, modifiers: [])
-                }
-            }
-            .onAppear() {
-                guard !Constant.isRunningInPreviewMode else { return }
-                scannerData.turnOnBluetoothRadio()
-            }
-            .onDisappear() {
-                scannerCancellable?.cancel()
-            }
-            .accentColor(.white)
-    }
-    
-    @ViewBuilder
-    private func buildRootView() -> some View {
-        if scannerData.scanResults.isEmpty {
-            VStack(spacing: 8) {
-                if scannerData.isScanning {
-                    ProgressView()
-                        .foregroundColor(.accentColor)
-                        .progressViewStyle(CircularProgressViewStyle())
-                    
-                    Text("Can't Find What you're Looking For? Check your Settings.")
-                        .font(.caption)
-                } else {
-                    Text("No Scanned Devices")
-                        .font(.headline)
-                        .bold()
-                }
-            }
-        } else {
-            buildDeviceList()
+        List() {
+            buildRegisteredDevicesList(devices: deviceData.registeredDevices)
+            buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected })
         }
+        .toolbar {
+            ToolbarItem(placement: .destructiveAction) {
+                Button(action: refreshScanner, label: {
+                    Label("Refresh", systemImage: "arrow.clockwise")
+                })
+            }
+        }
+        .onDisappear() {
+            scannerCancellable?.cancel()
+        }
+        .accentColor(.white)
     }
 }
 
@@ -72,31 +46,40 @@ struct DeviceList: View {
 private extension DeviceList {
     
     @ViewBuilder
-    private func buildDeviceList() -> some View {
-        List {
-            ForEach(ListSection.allCases) { listSection in
-                Section(header: Text(listSection.string).bold()) {
-                    let devices = listSection.devices(from: scannerData)
-                    if devices.hasItems {
-                        ForEach(devices) { device in
-                            #if os(OSX)
-                            NavigationLink(destination: DeviceDetails(device: device)) {
-                                DeviceRow(device)
-                            }
-                            #else
-                            NavigationLink(destination: DeviceDetails(device: device)) {
-                                DeviceRow(device)
-                            }
-                            .isDetailLink(false)
-                            #endif
+    private func buildScanResultsList(scanResult: [DeviceData.DeviceWrapper]) -> some View {
+        Section(header: Text("Scan Results")) {
+            if scanResult.hasItems {
+                ForEach(scanResult) { d in
+                    let isConnecting = d.state == .connecting
+                    DeviceRow(d.device, isConnecting: isConnecting)
+                        .onTapGesture {
+                            deviceData.tryToConnect(scanResult: d.device)
                         }
-                    } else {
-                        Text("No Devices")
-                            .font(.callout)
-                            .foregroundColor(Assets.middleGrey.color)
-                            .centerTextInsideForm()
-                    }
                 }
+            } else {
+                Text("No Devices")
+                    .font(.callout)
+                    .foregroundColor(Assets.middleGrey.color)
+                    .centerTextInsideForm()
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func buildRegisteredDevicesList(devices: [DeviceData.RemoteDeviceWrapper]) -> some View {
+        Section(header: Text("Registered Devices1")) {
+            if devices.hasItems {
+                ForEach(devices) { d in
+                    RegisteredDeviceView(device: d.device, connectionState: d.state, expanded: d.expandView)
+                        .onTapGesture {
+                            deviceData.toggleExpandView(for: d)
+                        }
+                }
+            } else {
+                Text("No Devices")
+                    .font(.callout)
+                    .foregroundColor(Assets.middleGrey.color)
+                    .centerTextInsideForm()
             }
         }
     }
@@ -109,18 +92,9 @@ private extension DeviceList {
         var string: String {
             switch self {
             case .connectedDevices:
-                return "Connected Devices"
+                return "Devices"
             case .notConnectedDevices:
-                return "Not Connected Devices"
-            }
-        }
-        
-        func devices(from deviceData: ScannerData) -> [Device] {
-            switch self {
-            case .connectedDevices:
-                return deviceData.allConnectedAndReadyToUseDevices()
-            case .notConnectedDevices:
-                return deviceData.allOtherDevices()
+                return "Scanner"
             }
         }
     }
@@ -131,14 +105,14 @@ private extension DeviceList {
 private extension DeviceList {
     
     func toggleScanner() {
-        scannerData.toggle()
+        deviceData.scanner.toggle()
     }
     
     func refreshScanner() {
-        scannerData.scanResults = scannerData.scanResults.filter {
-            $0.state != .notConnected
-        }
-        guard !scannerData.isScanning else { return }
+//        scannerData.scanResults = scannerData.scanResults.filter {
+//            $0.state != .notConnected
+//        }
+//        guard !deviceData.scanner.isScunning else { return }
         toggleScanner()
     }
 }

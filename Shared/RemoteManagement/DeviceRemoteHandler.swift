@@ -14,6 +14,7 @@ extension DeviceRemoteHandler {
         case anyError(Swift.Error)
         case stringError(String)
         case timeout
+        case connectionEstablishFailed
         
         var localizedDescription: String {
             switch self {
@@ -23,30 +24,70 @@ extension DeviceRemoteHandler {
                 return "Timeout error"
             case .stringError(let s):
                 return s
+            case .connectionEstablishFailed:
+                return "Can not establish connection"
             }
         }
+    }
+    
+    enum ConnectionState: CustomDebugStringConvertible {
+        
+        case notConnected, connecting(Device), connected(Device, RegisteredDevice), disconnected(DisconnectReason)
+        
+        var debugDescription: String {
+            switch self {
+            case .connected(_, let device):
+                return "Connected to \(device.id)"
+            case .connecting(let device):
+                return "Connecting to \(device.name)"
+            case .notConnected:
+                return "Not Connected"
+            case .disconnected(let reason):
+                return "Disconnected. Reason: \(reason)"
+            }
+        }
+        
+    }
+    
+    enum DisconnectReason: CustomDebugStringConvertible {
+        case error(Swift.Error), onDemand
+        
+        var debugDescription: String {
+            switch self {
+            case .error(let e):
+                return e.localizedDescription
+            case .onDemand:
+                return "On Demand"
+            }
+        }
+        
     }
 }
 
 class DeviceRemoteHandler {
-    
     private let logger = Logger(category: "DeviceRemoteHandler")
     
-    @Published private (set) var device: Device
-    @Published private (set) var samplingState: SamplingState
-    internal var bluetoothManager: BluetoothManager!
-    internal var webSocketManager: WebSocketManager!
+    private (set) var device: Device
+    private (set) var registeredDevice: RegisteredDevice?
+    
+    @Published var state: ConnectionState = .notConnected
+    
+    private (set) lazy var bluetoothManager = BluetoothManager(peripheralId: self.device.id)
+    private var webSocketManager: WebSocketManager!
     private var cancellables = Set<AnyCancellable>()
     
     internal var btPublisher: AnyPublisher<Data, BluetoothManager.Error>?
     private var wsPublisher: AnyPublisher<Data, WebSocketManager.Error>?
     
-    // MARK: - Init / Deinit
+    private let registeredDeviceManager: RegisteredDevicesManager
+    private let appData: AppData
     
-    init(device: Device) {
+    init(device: Device, registeredDevice: RegisteredDevice? = nil, registeredDeviceManager: RegisteredDevicesManager = RegisteredDevicesManager(), appData: AppData) {
+        self.registeredDeviceManager = registeredDeviceManager
         self.device = device
-        self.samplingState = .standby
-        bluetoothManager = BluetoothManager(peripheralId: device.id)
+        self.appData = appData
+        self.registeredDevice = registeredDevice
+        
         webSocketManager = WebSocketManager()
     }
     
@@ -55,64 +96,66 @@ class DeviceRemoteHandler {
         cancellables.removeAll()
     }
     
-    func connect(using apiKey: String) {
-        wsPublisher = webSocketManager.connect()
-        btPublisher = bluetoothManager.connect()
+    func connect(apiKey: String) -> AnyPublisher<ConnectionState, Never> {
         
-        guard let wsPublisher = self.wsPublisher, let btPublisher = self.btPublisher else {
-            return
-        }
-        
-        self.device.state = .connecting
-        
-        btPublisher
-            .gatherData(ofType: ResponseRootObject.self)
-            .mapError { Error.anyError($0) }
-            .flatMap { [unowned self] (data) -> AnyPublisher<Data, Swift.Error> in
-                do {
-                    guard var message = data.message else {
-                        throw Error.stringError("Data contains no message.")
-                    }
-                    device.sensors = data.message?.hello?.sensors ?? []
-                    message.hello?.apiKey = apiKey
-                    message.hello?.deviceId = device.id.uuidString
-                    try self.webSocketManager.send(message)
-                } catch let e {
-                    return Fail(error: e)
-                        .eraseToAnyPublisher()
+//         #warning("check memory leaks")
+        bluetoothManager.connect()
+            .drop(while: { $0 != .readyToUse })
+            .flatMap { _ in self.bluetoothManager.transmissionSubject.gatherData(ofType: ResponseRootObject.self) }
+            .combineLatest(webSocketManager.connect().drop(while: { $0 != .connected }))
+            .flatMap { (data, _) -> AnyPublisher<Data, Swift.Error> in
+                guard var hello = data.message else {
+                    return Fail(error: Error.connectionEstablishFailed).eraseToAnyPublisher()
                 }
-                return wsPublisher
-                    .mapError { Error.anyError($0) }
+                
+                hello.hello?.apiKey = apiKey
+                hello.hello?.deviceId = self.device.id.uuidString
+                
+                do {
+                    try self.webSocketManager.send(hello)
+                } catch let e {
+                    return Fail(error: e).eraseToAnyPublisher()
+                }
+                
+                return self.webSocketManager.dataSubject
+                    .tryMap { result in
+                        switch result {
+                        case .success(let data):
+                            return data
+                        case .failure(let error):
+                            throw error
+                        }
+                    }
                     .eraseToAnyPublisher()
             }
             .decode(type: WSHelloResponse.self, decoder: JSONDecoder())
-            .mapError { Error.anyError($0) }
-            .flatMap { (response) -> AnyPublisher<Device.State, Error> in
+            .flatMap { response -> AnyPublisher<RegisteredDevice, Swift.Error> in
                 if let e = response.err {
                     return Fail(error: Error.stringError(e))
                         .eraseToAnyPublisher()
                 } else {
-                    return Just(.ready)
-                        .setFailureType(to: Error.self)
-                        .eraseToAnyPublisher()
+                    let deviceId = self.device.id.uuidString
+                    return self.registeredDeviceManager.fetchDevice(deviceId: deviceId, appData: self.appData)
                 }
+            }
+            .justDoIt { device in
+                if let d = self.registeredDevice, d.deviceId == device.deviceId {
+                    return
+                } else {
+                    self.registeredDevice = device
+                    self.state = .connected(self.device, device)
+                }
+            }
+            .map { registeredDevice in
+                ConnectionState.connected(self.device, registeredDevice)
             }
             .prefix(1)
-            .timeout(5, scheduler: DispatchQueue.main, customError: { Error.timeout })
-            .sink { [weak self] (completion) in
-                guard let self = self else { return }
-                if case .failure(let error) = completion {
-                    AppEvents.shared.error = ErrorEvent(error)
-                    self.logger.error("Error: \(error.localizedDescription)")
-                    self.disconnect()
-                } else {
-                    self.logger.info("Connecting completed")
-                }
-            } receiveValue: { [weak self] (state) in
-                self?.device.state = state
-                self?.logger.info("New state: \(state.debugDescription)")
+            .timeout(10, scheduler: DispatchQueue.main, customError: { Error.timeout })
+            .catch { error -> Just<ConnectionState> in
+                self.state = .disconnected(.error(error))
+                return Just(ConnectionState.disconnected(.error(error)))
             }
-            .store(in: &cancellables)
+            .eraseToAnyPublisher()
     }
     
     func disconnect() {
@@ -122,7 +165,7 @@ class DeviceRemoteHandler {
         bluetoothManager.disconnect()
         webSocketManager.disconnect()
         
-        device.state = .notConnected
+        self.state = .notConnected
         let deviceName = device.name
         logger.info("\(deviceName) Disconnected.")
     }
@@ -158,6 +201,6 @@ extension DeviceRemoteHandler: Hashable, Identifiable {
 
 #if DEBUG
 extension DeviceRemoteHandler {
-    static let mock = DeviceRemoteHandler(device: Device.sample)
+    static let mock = DeviceRemoteHandler(device: Device.sample, registeredDeviceManager: RegisteredDevicesManager(), appData: AppData())
 }
 #endif

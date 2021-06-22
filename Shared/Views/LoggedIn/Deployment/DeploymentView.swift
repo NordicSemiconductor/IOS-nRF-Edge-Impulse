@@ -10,7 +10,7 @@ import SwiftUI
 struct DeploymentView: View {
     
     @EnvironmentObject var appData: AppData
-    @EnvironmentObject var scannerData: ScannerData
+    @EnvironmentObject var deviceData: DeviceData
     
     // MARK: - State
     
@@ -21,12 +21,12 @@ struct DeploymentView: View {
     var body: some View {
         Form {
             Section(header: Text("Device")) {
-                let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
+                let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
                 if connectedDevices.hasItems {
                     Picker("Selected", selection: $viewState.selectedDevice) {
-                        ForEach(connectedDevices, id: \.self) { device in
-                            Text(device.name)
-                                .tag(device)
+                        ForEach(connectedDevices, id: \.self) { handler in
+                            Text(handler.device.name)
+                                .tag(handler.device)
                         }
                     }
                     .setAsComboBoxStyle()

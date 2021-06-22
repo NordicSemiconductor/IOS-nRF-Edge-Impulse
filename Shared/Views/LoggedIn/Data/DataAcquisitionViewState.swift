@@ -14,9 +14,9 @@ final class DataAcquisitionViewState: ObservableObject {
     // MARK: Properties
     
     @Published var label = ""
-    @Published var selectedDevice = Constant.unselectedDevice {
+    @Published var selectedDevice = Constant.unselectedRegisteredDevice {
         didSet {
-            guard selectedDevice != Constant.unselectedDevice else { return }
+            guard selectedDevice != Constant.unselectedRegisteredDevice else { return }
             selectedSensor = selectedDevice.sensors.first ?? Constant.unselectedSensor
         }
     }
@@ -39,7 +39,7 @@ final class DataAcquisitionViewState: ObservableObject {
     private lazy var logger = Logger(Self.self)
     
     var canStartSampling: Bool {
-        selectedDevice != Constant.unselectedDevice && label.hasItems
+        selectedDevice != Constant.unselectedRegisteredDevice && label.hasItems
     }
     
     // MARK: API
@@ -48,7 +48,7 @@ final class DataAcquisitionViewState: ObservableObject {
         guard selectedSensor != Constant.unselectedSensor else { return nil }
         let intervalMs =  1.0 / selectedFrequency * 1000.0
         let message = SampleRequestMessage(category: selectedDataType, intervalMs: intervalMs, label: label,
-                                           lengthMs: Int(sampleLength), sensor: selectedSensor.name)
+                                           lengthMs: Int(sampleLength), sensor: selectedSensor.name ?? "")
         return message
     }
     

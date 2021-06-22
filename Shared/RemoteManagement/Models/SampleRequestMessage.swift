@@ -35,7 +35,7 @@ struct BLESampleRequest: Codable {
         self.path = "/api/\(category.rawValue)/data"
         self.hmacKey = "e561ff..."
         self.interval = interval
-        self.sensor = sensor.name
+        self.sensor = sensor.name ?? ""
     }
 }
 

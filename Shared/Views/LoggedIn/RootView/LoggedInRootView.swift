@@ -7,8 +7,16 @@
 
 import SwiftUI
 import Combine
+import os
 
 struct LoggedInRootView: View {
+    
+    private let logger = Logger(category: "LoggedInRootView")
+    
+    enum Error: Swift.Error {
+        case anyError(Swift.Error)
+        case describedError(String)
+    }
     
     // MARK: Properties
     
@@ -48,20 +56,24 @@ extension LoggedInRootView {
               let httpRequest = HTTPRequest.getUser(using: token) else { return }
         appData.loginState = .loading
         userCancellable = Network.shared.perform(httpRequest, responseType: GetUserResponse.self)
+            .compactMap { response -> Project? in
+                hasMadeUserRequest = true
+                appData.loginState = .complete(response.user, response.projects)
+                return response.projects.first
+            }
             .onUnauthorisedUserError(appData.logout)
             .sink(receiveCompletion: { completion in
                 guard !Constant.isRunningInPreviewMode else { return }
                 switch completion {
                 case .failure(let error):
+                    logger.error("Error: \(error.localizedDescription)")
                     appData.loginState = .error(error)
-                default:
+                case .finished:
                     break
                 }
             },
-            receiveValue: { userResponse in
-                hasMadeUserRequest = true
-                appData.selectedProject = userResponse.projects.first
-                appData.loginState = .complete(userResponse.user, userResponse.projects)
+            receiveValue: { project in
+                appData.selectedProject = project
             })
     }
 }

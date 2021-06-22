@@ -20,7 +20,7 @@ internal extension DataAcquisitionView {
             }
         
             viewState.progressString = "Obtained Sample ID."
-            scannerData.startSampling(viewState)
+            deviceData.startSampling(viewState)
         }
     }
     

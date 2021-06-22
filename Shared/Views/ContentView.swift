@@ -11,6 +11,7 @@ struct ContentView: View {
     
     @EnvironmentObject var appData: AppData
     @EnvironmentObject var resourceData: ResourceData
+    @EnvironmentObject var deviceData: DeviceData
     
     var body: some View {
         if appData.isLoggedIn {
@@ -18,6 +19,7 @@ struct ContentView: View {
                 .onAppear() {
                     resourceData.load()
                 }
+                .environmentObject(deviceData)
         } else {
             NativeLoginView()
         }
@@ -29,8 +31,10 @@ struct ContentView: View {
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
+        let appData = AppData()
         ContentView()
-            .environmentObject(AppData())
+            .environmentObject(appData)
+            .environmentObject(DeviceData(scanner: Scanner(), registeredDeviceManager: RegisteredDevicesManager(), appData: appData))
     }
 }
 #endif
