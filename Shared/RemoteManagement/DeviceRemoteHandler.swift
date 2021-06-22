@@ -103,8 +103,8 @@ class DeviceRemoteHandler {
             .drop(while: { $0 != .readyToUse })
             .flatMap { _ in self.bluetoothManager.receptionSubject.gatherData(ofType: ResponseRootObject.self) }
             .combineLatest(webSocketManager.connect().drop(while: { $0 != .connected }))
-            .flatMap { (data, _) -> AnyPublisher<Data, Swift.Error> in
-                guard var hello = data.message else {
+            .flatMap { [webSocketManager] (data, _) -> AnyPublisher<Data, Swift.Error> in
+                guard var hello = data.message, let webSocketManager = webSocketManager else {
                     return Fail(error: Error.connectionEstablishFailed).eraseToAnyPublisher()
                 }
                 
@@ -112,12 +112,12 @@ class DeviceRemoteHandler {
                 hello.hello?.deviceId = self.device.id.uuidString
                 
                 do {
-                    try self.webSocketManager.send(hello)
+                    try webSocketManager.send(hello)
                 } catch let e {
                     return Fail(error: e).eraseToAnyPublisher()
                 }
                 
-                return self.webSocketManager.dataSubject
+                return webSocketManager.dataSubject
                     .tryMap { result in
                         switch result {
                         case .success(let data):
@@ -129,16 +129,17 @@ class DeviceRemoteHandler {
                     .eraseToAnyPublisher()
             }
             .decode(type: WSHelloResponse.self, decoder: JSONDecoder())
-            .flatMap { response -> AnyPublisher<RegisteredDevice, Swift.Error> in
+            .flatMap { [registeredDeviceManager] response -> AnyPublisher<RegisteredDevice, Swift.Error> in
                 if let e = response.err {
                     return Fail(error: Error.stringError(e))
                         .eraseToAnyPublisher()
                 } else {
                     let deviceId = self.device.id.uuidString
-                    return self.registeredDeviceManager.fetchDevice(deviceId: deviceId, appData: self.appData)
+                    return registeredDeviceManager.fetchDevice(deviceId: deviceId, appData: self.appData)
                 }
             }
-            .justDoIt { device in
+            .justDoIt { [weak self] device in
+                guard let `self` = self else { return }
                 if let d = self.registeredDevice, d.deviceId == device.deviceId {
                     return
                 } else {
@@ -151,8 +152,8 @@ class DeviceRemoteHandler {
             }
             .prefix(1)
             .timeout(10, scheduler: DispatchQueue.main, customError: { Error.timeout })
-            .catch { error -> Just<ConnectionState> in
-                self.state = .disconnected(.error(error))
+            .catch { [weak self] error -> Just<ConnectionState> in
+                self?.state = .disconnected(.error(error))
                 return Just(ConnectionState.disconnected(.error(error)))
             }
             .eraseToAnyPublisher()

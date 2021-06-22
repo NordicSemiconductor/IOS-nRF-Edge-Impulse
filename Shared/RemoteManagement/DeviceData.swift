@@ -137,7 +137,7 @@ class DeviceData: ObservableObject {
         handler.connect(apiKey: apiKey)
             .sink { completion in
                 self.logger.info("Device remote handler completed connection")
-            } receiveValue: { state in
+            } receiveValue: { [handler] state in
                 self.logger.info("Device remote handler obtained new state: \(state.debugDescription)")
                 
                 if case .connected(let device, let remoteDevice) = state {
@@ -150,6 +150,20 @@ class DeviceData: ObservableObject {
                     } else {
                         self.registeredDevices.append(RemoteDeviceWrapper(device: remoteDevice, state: .connected))
                     }
+                } else if case .disconnected(let reason) = state {
+                    
+                    if let deviceIndex = self.scanResults.firstIndex(of: DeviceWrapper(device: scanResult)) {
+                        self.scanResults[deviceIndex].state = .notConnected
+                    }
+                    
+                    switch reason {
+                    case .onDemand:
+                        break
+                    case .error(let e):
+                        AppEvents.shared.error = ErrorEvent(e)
+                    }
+                    
+                    self.removeHandler(handler)
                 }
             }
             .store(in: &cancellables)
@@ -178,6 +192,12 @@ class DeviceData: ObservableObject {
             remoteHandlers.append(newHandler)
             return newHandler
         }
+    }
+    
+    @discardableResult
+    private func removeHandler(_ handler: DeviceRemoteHandler) -> Bool {
+        remoteHandlers.firstIndex(of: handler)
+            .map { remoteHandlers.remove(at: $0) } != nil
     }
 }
 
