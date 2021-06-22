@@ -109,11 +109,7 @@ private extension DeviceList {
     }
     
     func refreshScanner() {
-//        scannerData.scanResults = scannerData.scanResults.filter {
-//            $0.state != .notConnected
-//        }
-//        guard !deviceData.scanner.isScunning else { return }
-        toggleScanner()
+        deviceData.refresh()
     }
 }
 

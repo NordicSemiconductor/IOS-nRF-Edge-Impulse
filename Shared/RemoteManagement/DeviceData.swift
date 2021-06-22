@@ -98,18 +98,7 @@ class DeviceData: ObservableObject {
             }
             .store(in: &cancellables)
         
-        registeredDeviceManager.refreshDevices(appData: appData)
-            .sink { completion in
-                switch completion {
-                case .finished:
-                    self.logger.info("Fetch device completed")
-                case .failure(let e):
-                    self.logger.error("Fetch device failed. Error: \(e.localizedDescription)")
-                }
-            } receiveValue: { devices in
-                self.registeredDevices = devices.map { RemoteDeviceWrapper(device: $0) }
-            }
-            .store(in: &cancellables)
+        refresh()
     }
     
     subscript (device: Device) -> DeviceRemoteHandler? {
@@ -182,6 +171,32 @@ class DeviceData: ObservableObject {
                 return false
             }
         }
+    }
+    
+    func refresh() {
+        scanResults.removeAll()
+        
+        registeredDeviceManager.refreshDevices(appData: appData)
+            .prefix(1)
+            .sink { [logger] completion in
+                switch completion {
+                case .finished:
+                    logger.info("Fetch device completed")
+                case .failure(let e):
+                    logger.error("Fetch device failed. Error: \(e.localizedDescription)")
+                }
+            } receiveValue: { [weak self] devices in
+                self?.registeredDevices = devices
+                    .map { device in
+                        let state = self?.remoteHandlers
+                            .first(where: { $0.registeredDevice == device })?.registeredDevice
+                            .flatMap { d in self?.registeredDevices.first(where: { $0.device ==  d}) }
+                            .map(\.state) ?? .notConnectable
+                        
+                        return RemoteDeviceWrapper(device: device, state: state)
+                    }
+            }
+            .store(in: &cancellables)
     }
     
     private func getRemoteHandler(for scanResult: Device) -> DeviceRemoteHandler {

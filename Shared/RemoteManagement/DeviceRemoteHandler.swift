@@ -97,8 +97,6 @@ class DeviceRemoteHandler {
     }
     
     func connect(apiKey: String) -> AnyPublisher<ConnectionState, Never> {
-        
-//         #warning("check memory leaks")
         bluetoothManager.connect()
             .drop(while: { $0 != .readyToUse })
             .flatMap { _ in self.bluetoothManager.receptionSubject.gatherData(ofType: ResponseRootObject.self) }
