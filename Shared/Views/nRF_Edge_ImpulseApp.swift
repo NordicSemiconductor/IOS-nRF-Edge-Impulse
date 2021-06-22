@@ -17,7 +17,7 @@ struct nRF_Edge_ImpulseApp: App {
             ContentView()
                 .environmentObject(dataContainer.appData)
                 .environmentObject(dataContainer.resourceData)
-                .environmentObject(dataContainer.deiceData)
+                .environmentObject(dataContainer.deviceData)
         }
     }
 }
