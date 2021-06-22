@@ -36,7 +36,8 @@ final class BluetoothManager: NSObject, ObservableObject {
     
     private let centralManager: CBCentralManager
     
-    let transmissionSubject = PassthroughSubject<Data, Never>()
+    private let transmissionSubject = PassthroughSubject<Data, Never>()
+    let receptionSubject = PassthroughSubject<Data, Never>()
     
     @Published var state: State = .notConnected
     private var btStateSubject = PassthroughSubject<CBManagerState, Swift.Error>()
@@ -53,7 +54,6 @@ final class BluetoothManager: NSObject, ObservableObject {
     init(peripheralId: UUID) {
         self.centralManager = CBCentralManager()
         self.pId = peripheralId
-//        self.transmissionSubject = PassthroughSubject<Data, Error>()
         super.init()
         
         centralManager.delegate = self
@@ -118,7 +118,7 @@ final class BluetoothManager: NSObject, ObservableObject {
             logger.debug("Received Data: \(stringData)")
         }
         #endif
-        transmissionSubject.send(data)
+        receptionSubject.send(data)
     }
 }
 

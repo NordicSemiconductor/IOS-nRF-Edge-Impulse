@@ -194,7 +194,7 @@ extension Preview {
     static let isScanningButNoDevicesScannerData: DeviceData = {
         let scanner = Scanner()
         let deviceData = DeviceData(scanner: scanner, registeredDeviceManager: RegisteredDevicesManager(), appData: AppData())
-        scanner.turnOnBluetoothRadio()
+        _ = scanner.turnOnBluetoothRadio()
         deviceData.scanResults = []
         return deviceData
     }()

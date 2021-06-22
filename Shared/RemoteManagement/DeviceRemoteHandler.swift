@@ -101,7 +101,7 @@ class DeviceRemoteHandler {
 //         #warning("check memory leaks")
         bluetoothManager.connect()
             .drop(while: { $0 != .readyToUse })
-            .flatMap { _ in self.bluetoothManager.transmissionSubject.gatherData(ofType: ResponseRootObject.self) }
+            .flatMap { _ in self.bluetoothManager.receptionSubject.gatherData(ofType: ResponseRootObject.self) }
             .combineLatest(webSocketManager.connect().drop(while: { $0 != .connected }))
             .flatMap { (data, _) -> AnyPublisher<Data, Swift.Error> in
                 guard var hello = data.message else {
