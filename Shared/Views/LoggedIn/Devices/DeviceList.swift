@@ -70,10 +70,7 @@ private extension DeviceList {
         Section(header: Text("Registered Devices1")) {
             if devices.hasItems {
                 ForEach(devices) { d in
-                    RegisteredDeviceView(device: d.device, connectionState: d.state, expanded: d.expandView)
-                        .onTapGesture {
-                            deviceData.toggleExpandView(for: d)
-                        }
+                    RegisteredDeviceView(device: d.device, connectionState: d.state)
                 }
             } else {
                 Text("No Devices")

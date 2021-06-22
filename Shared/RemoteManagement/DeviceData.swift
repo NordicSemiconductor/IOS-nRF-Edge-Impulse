@@ -15,7 +15,6 @@ extension DeviceData {
         let device: RegisteredDevice
         var id: Int { device.id }
         var state: State = .notConnectable
-        var expandView: Bool = false 
         
         enum State {
             case notConnectable, readyToConnect, connected
@@ -157,10 +156,6 @@ class DeviceData: ObservableObject {
             }
             .store(in: &cancellables)
 
-    }
-    
-    func toggleExpandView(for remoteDevice: RemoteDeviceWrapper) {
-        registeredDevices.firstIndex(of: remoteDevice).map { self.registeredDevices[$0].expandView.toggle() }
     }
     
     func allConnectedAndReadyToUseDevices() -> [DeviceRemoteHandler] {

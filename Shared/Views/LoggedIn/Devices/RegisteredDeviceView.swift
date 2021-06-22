@@ -7,30 +7,12 @@
 
 import SwiftUI
 
-private struct TextStack: View {
-    let leadingText: String
-    let trailingText: String
-    
-    init(_ leadingText: String, _ trailingText: String) {
-        self.leadingText = leadingText
-        self.trailingText = trailingText
-    }
-    
-    var body: some View {
-        HStack {
-            Text(leadingText)
-                .font(.headline)
-                .bold()
-            Spacer()
-            Text(trailingText)
-        }
-    }
-}
+
 
 struct RegisteredDeviceView: View {
     let device: RegisteredDevice
     let connectionState: DeviceData.RemoteDeviceWrapper.State
-    let expanded: Bool
+    @State var expanded = false
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -44,32 +26,17 @@ struct RegisteredDeviceView: View {
             }
             
             if expanded {
-                buildExpandedView()
+                RegisteredDeviceDetailsView(device: device)
             } else {
                 Text(device.deviceId)
                     .font(.subheadline)
                     .bold()
             }
-            
-            
+        }
+        .onTapGesture {
+            expanded.toggle()
         }
         .padding()
-    }
-    
-    @ViewBuilder
-    private func buildExpandedView() -> some View {
-        TextStack("ID:", device.deviceId)
-        TextStack("Created:", device.created)
-        TextStack("Last seen:", device.lastSeen)
-        TextStack("Device type:", device.deviceType)
-        
-        HStack(alignment: .center) {
-            Spacer()
-            Button("Connect") {
-                
-            }
-            Spacer()
-        }
     }
 }
 
