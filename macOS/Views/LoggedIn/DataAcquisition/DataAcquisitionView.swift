@@ -12,7 +12,7 @@ struct DataAcquisitionView: View {
     // MARK: - State
     
     @EnvironmentObject var appData: AppData
-    @EnvironmentObject var scannerData: ScannerData
+    @EnvironmentObject var deviceData: DeviceData
     
     @ObservedObject internal var viewState = DataAcquisitionViewState()
     
@@ -24,10 +24,10 @@ struct DataAcquisitionView: View {
                 MultiColumnView {
                     Text("Connected Device")
                     Picker(selection: $viewState.selectedDevice, label: EmptyView()) {
-                        let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
+                        let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
                         if connectedDevices.hasItems {
-                            ForEach(connectedDevices) { device in
-                                Text(device.name).tag(device)
+                            ForEach(connectedDevices) { handler in
+                                Text(handler.device.name).tag(handler.device)
                             }
                         } else {
                             Text("--").tag(Constant.unselectedDevice)
@@ -87,8 +87,9 @@ struct DataAcquisitionView: View {
         .setTitle("New Sample")
         .padding(16)
         .onAppear {
-            let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
-            guard let device = connectedDevices.first else { return }
+            guard let device = deviceData.allConnectedAndReadyToUseDevices().first?.registeredDevice else {
+                return
+            }
             viewState.selectedDevice = device
         }
         .onReceive(viewState.countdownTimer, perform: onSampleTimerTick(_:))

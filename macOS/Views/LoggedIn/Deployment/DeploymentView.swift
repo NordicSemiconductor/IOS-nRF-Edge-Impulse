@@ -10,7 +10,7 @@ import SwiftUI
 struct DeploymentView: View {
     
     @EnvironmentObject var appData: AppData
-    @EnvironmentObject var deviceData: Scanner
+    @EnvironmentObject var deviceData: DeviceData
     
     // MARK: - State
     
@@ -24,10 +24,11 @@ struct DeploymentView: View {
                 MultiColumnView {
                     Text("Connected Device: ")
                     Picker(selection: $viewState.selectedDevice, label: EmptyView()) {
-                        let connectedDevices = scannerData.allConnectedAndReadyToUseDevices()
+                        let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
                         if connectedDevices.hasItems {
-                            ForEach(connectedDevices) { device in
-                                Text(device.name).tag(device)
+                            ForEach(connectedDevices) { handler in
+                                Text(handler.device.name)
+                                    .tag(handler.device)
                             }
                         } else {
                             Text("--").tag(Constant.unselectedDevice)

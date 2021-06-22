@@ -12,22 +12,14 @@ import SwiftUI
 @main
 struct nRF_Edge_ImpulseApp: App {
     
-    @StateObject var appData = AppData()
-    @StateObject var scannerData = Scanner()
-    @StateObject var resourceData = ResourceData()
-    @StateObject var registeredDeviceData = RegisteredDevicesData()
-    @StateObject lazy var devicesData: DeviceData = {
-        DeviceData(scannerData: scannerData, registeredDevicesData: registeredDeviceData, appData: appData)
-    }()
+    @StateObject var dataContainer = DataContainer()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(appData)
-                .environmentObject(scannerData)
-                .environmentObject(resourceData)
-                .environmentObject(registeredDeviceData)
-                .environmentObject(devicesData)
+                .environmentObject(dataContainer.appData)
+                .environmentObject(dataContainer.resourceData)
+                .environmentObject(dataContainer.deiceData)
         }
         .windowToolbarStyle(UnifiedWindowToolbarStyle(showsTitle: false))
         .commands {
@@ -49,8 +41,8 @@ struct nRF_Edge_ImpulseApp: App {
         
         Settings {
             SettingsContentView()
-                .environmentObject(appData)
-                .environmentObject(resourceData)
+                .environmentObject(dataContainer.appData)
+                .environmentObject(dataContainer.resourceData)
         }
     }
 }
