@@ -13,30 +13,31 @@ struct RegisteredDeviceView: View {
     @State var expanded = false
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text(device.name)
-                    .font(.headline)
-                    .bold()
-                    .lineLimit(1)
-                Spacer()
-                
-                ConnectionStatus(color: connectionState.color)
-            }
-            
-            Label("Details", systemImage: expanded ? "chevron.down" : "chevron.forward")
-                .labelStyle(IconOnTheRightLabelStyle())
-                .padding(.vertical, 2)
-                .foregroundColor(Assets.middleGrey.color)
-            
-            if expanded {
-                RegisteredDeviceDetailsView(device: device)
-            }
-        }
-        .onTapGesture {
+        Button(action: {
             expanded.toggle()
-        }
-        .padding()
+        }, label: {
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(device.name)
+                        .font(.headline)
+                        .bold()
+                        .lineLimit(1)
+                    Spacer()
+                    ConnectionStatus(color: connectionState.color)
+                }
+                
+                Label("Details", systemImage: expanded ? "chevron.down" : "chevron.forward")
+                    .labelStyle(IconOnTheRightLabelStyle())
+                    .padding(.vertical, 2)
+                    .foregroundColor(Assets.middleGrey.color)
+                
+                if expanded {
+                    RegisteredDeviceDetailsView(device: device)
+                }
+            }
+            .padding(4)
+        })
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
