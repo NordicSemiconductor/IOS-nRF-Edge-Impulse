@@ -71,6 +71,7 @@ private extension DeviceList {
             if devices.hasItems {
                 ForEach(devices) { d in
                     RegisteredDeviceView(device: d.device, connectionState: d.state)
+                        .animation(.default)
                 }
             } else {
                 Text("No Devices")

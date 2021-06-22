@@ -28,6 +28,17 @@ struct CircularButtonShape: ViewModifier {
     }
 }
 
+// MARK: - IconOnTheRightLabelStyle
+
+struct IconOnTheRightLabelStyle: LabelStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        HStack(spacing: 4) {
+            configuration.title
+            configuration.icon
+        }
+    }
+}
+
 // MARK: - RoundedTextFieldShape
 
 struct RoundedTextFieldShape: ViewModifier {

@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 struct RegisteredDeviceView: View {
     let device: RegisteredDevice
     let connectionState: DeviceData.RemoteDeviceWrapper.State
@@ -20,17 +18,19 @@ struct RegisteredDeviceView: View {
                 Text(device.name)
                     .font(.headline)
                     .bold()
+                    .lineLimit(1)
                 Spacer()
                 
                 ConnectionStatus(color: connectionState.color)
             }
             
+            Label("Details", systemImage: expanded ? "chevron.down" : "chevron.forward")
+                .labelStyle(IconOnTheRightLabelStyle())
+                .padding(.vertical, 2)
+                .foregroundColor(Assets.middleGrey.color)
+            
             if expanded {
                 RegisteredDeviceDetailsView(device: device)
-            } else {
-                Text(device.deviceId)
-                    .font(.subheadline)
-                    .bold()
             }
         }
         .onTapGesture {
@@ -45,11 +45,10 @@ struct RegisteredDeviceView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             RegisteredDeviceView(device: .mock, connectionState: .connected, expanded: true)
-                .previewLayout(.sizeThatFits)
             
-            RegisteredDeviceView(device: .mock, connectionState: .notConnectable, expanded: false)
-                .previewLayout(.sizeThatFits)
+            RegisteredDeviceView(device: .mock, connectionState: .notConnectable)
         }
+        .previewLayout(.sizeThatFits)
     }
 }
 #endif
