@@ -30,7 +30,7 @@ private struct TextStack: View {
 struct RegisteredDeviceView: View {
     let device: RegisteredDevice
     let connectionState: DeviceData.RemoteDeviceWrapper.State
-    let expanded: Bool
+    @State var expanded = false
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -50,8 +50,9 @@ struct RegisteredDeviceView: View {
                     .font(.subheadline)
                     .bold()
             }
-            
-            
+        }
+        .onTapGesture {
+            expanded.toggle()
         }
         .padding()
     }
