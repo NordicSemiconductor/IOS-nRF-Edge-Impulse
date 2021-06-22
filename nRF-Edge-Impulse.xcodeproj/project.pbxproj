@@ -112,6 +112,8 @@
 		AA92BEFB2612064E00BED04B /* ResourcesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA92BEF92612064E00BED04B /* ResourcesRequest.swift */; };
 		AA9342482681F713001CD754 /* DataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9342472681F713001CD754 /* DataContainer.swift */; };
 		AA9342492681F713001CD754 /* DataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9342472681F713001CD754 /* DataContainer.swift */; };
+		AA93424B26820C14001CD754 /* RegisteredDeviceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA93424A26820C14001CD754 /* RegisteredDeviceDetailsView.swift */; };
+		AA93424C26820C14001CD754 /* RegisteredDeviceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA93424A26820C14001CD754 /* RegisteredDeviceDetailsView.swift */; };
 		AA9CFCCF26610C76001B7751 /* sample_full_microphone_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA9CFCCE26610C76001B7751 /* sample_full_microphone_data_response.json */; };
 		AA9CFCD026610C76001B7751 /* sample_full_microphone_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA9CFCCE26610C76001B7751 /* sample_full_microphone_data_response.json */; };
 		AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */; };
@@ -307,6 +309,7 @@
 		AA92BEF02611F9E400BED04B /* ResourceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceData.swift; sourceTree = "<group>"; };
 		AA92BEF92612064E00BED04B /* ResourcesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesRequest.swift; sourceTree = "<group>"; };
 		AA9342472681F713001CD754 /* DataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataContainer.swift; sourceTree = "<group>"; };
+		AA93424A26820C14001CD754 /* RegisteredDeviceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredDeviceDetailsView.swift; sourceTree = "<group>"; };
 		AA9CFCCE26610C76001B7751 /* sample_full_microphone_data_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_full_microphone_data_response.json; sourceTree = "<group>"; };
 		AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionViewState.swift; sourceTree = "<group>"; };
 		AAA87ADC261B143B0097EA74 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -433,6 +436,7 @@
 			children = (
 				C3A36659260414BC008D82CC /* DeviceRow.swift */,
 				01E10962265FAEDE000F2EE4 /* RegisteredDeviceView.swift */,
+				AA93424A26820C14001CD754 /* RegisteredDeviceDetailsView.swift */,
 				015AB1602653D5E700C09196 /* ConnectionStatus.swift */,
 				AA02089525F65A3700FD6B24 /* DeviceList.swift */,
 				C3BF6AC72626D662006330C8 /* SignalLevel */,
@@ -1088,6 +1092,7 @@
 				AACECAE72630723B00285F94 /* ResourceData+Status.swift in Sources */,
 				C3846EE5260B4386005AEF67 /* BluetoothManager.swift in Sources */,
 				AA386B09260CEDD60079F12D /* Previews.swift in Sources */,
+				AA93424B26820C14001CD754 /* RegisteredDeviceDetailsView.swift in Sources */,
 				AAEDE6312628459600B96AE9 /* SettingsContentView.swift in Sources */,
 				AAFFEB3325FF7A06002287D6 /* ButtonStyles.swift in Sources */,
 				C301A350261DC0B80010717D /* CBCentralManager+Ext.swift in Sources */,
@@ -1245,6 +1250,7 @@
 				AA8EC8B5261F30A900FBE990 /* Modifiers.swift in Sources */,
 				AAFB8E2B2626FADD003DAEC5 /* UserPreferences.swift in Sources */,
 				AACECAE526303AF600285F94 /* SettingsSyncView.swift in Sources */,
+				AA93424C26820C14001CD754 /* RegisteredDeviceDetailsView.swift in Sources */,
 				C337B8E1267A0034003FD0A0 /* Array+ext.swift in Sources */,
 				AA27C2B4266E48F4002D1652 /* DataAcquisitionDevicePicker.swift in Sources */,
 				AA284060261F537C00EB8637 /* PasswordField.swift in Sources */,
