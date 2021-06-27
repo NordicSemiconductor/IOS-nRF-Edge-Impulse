@@ -151,22 +151,26 @@ class DeviceRemoteHandler {
             .prefix(1)
             .timeout(10, scheduler: DispatchQueue.main, customError: { Error.timeout })
             .catch { [weak self] error -> Just<ConnectionState> in
-                self?.state = .disconnected(.error(error))
+                self?.disconnect(reason: .error(error))
                 return Just(ConnectionState.disconnected(.error(error)))
             }
             .eraseToAnyPublisher()
     }
     
-    func disconnect() {
+    private func disconnect(reason: DisconnectReason) {
         btPublisher = nil
         wsPublisher = nil
         
         bluetoothManager.disconnect()
         webSocketManager.disconnect()
         
-        self.state = .notConnected
+        self.state = .disconnected(reason)
         let deviceName = device.name
         logger.info("\(deviceName) Disconnected.")
+    }
+    
+    func disconnect() {
+        disconnect(reason: .onDemand)
     }
 }
 

@@ -56,6 +56,9 @@ private extension DeviceList {
                             deviceData.tryToConnect(scanResult: d.device)
                         }
                 }
+                .onDelete { iSet in
+                    logger.info("delete")
+                }
             } else {
                 Text("No Devices")
                     .font(.callout)
@@ -70,15 +73,44 @@ private extension DeviceList {
         Section(header: Text("Registered Devices1")) {
             if devices.hasItems {
                 ForEach(devices) { d in
-                    RegisteredDeviceView(device: d.device, connectionState: d.state)
-                        .animation(.default)
+//                RegisteredDeviceView(device: d.device, connectionState: d.state)
+//                        .animation(.default)
+                    buildRegisteredDeviceRow(d.device, state: d.state)
                 }
+                    
             } else {
                 Text("No Devices")
                     .font(.callout)
                     .foregroundColor(Assets.middleGrey.color)
                     .centerTextInsideForm()
             }
+        }
+    }
+    
+    @ViewBuilder
+    private func buildRegisteredDeviceRow(_ device: RegisteredDevice, state: DeviceData.RemoteDeviceWrapper.State) -> some View {
+        
+        if #available(iOS 15, *) {
+            RegisteredDeviceView(device: device, connectionState: state)
+                .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                    Button {
+                        
+                    } label: {
+                        Label("Info", systemImage: "info.circle")
+                    }
+
+                }
+                .swipeActions(edge: .trailing) {
+                    if case .connected = state {
+                        Button(role: .destructive) {
+                            deviceData.disconnect(registeredDevice: device)
+                        } label: {
+                            Label("Delete", systemImage: "xmark.circle")
+                        }
+                    }
+                }
+        } else {
+            RegisteredDeviceView(device: device, connectionState: state)
         }
     }
     

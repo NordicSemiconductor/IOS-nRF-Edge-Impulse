@@ -83,17 +83,17 @@ class DeviceData: ObservableObject {
         let settingsPublisher = preferences.$onlyScanConnectableDevices
             .removeDuplicates()
             .combineLatest(preferences.$onlyScanUARTDevices.removeDuplicates())
-            .justDoIt { _ in
-                self.scanResults.removeAll()
+            .justDoIt { [weak self] _ in
+                self?.scanResults.removeAll()
             }
                 
         scanner.scan().combineLatest(settingsPublisher)
-            .compactMap { (device, _) -> DeviceWrapper? in
+            .compactMap { [weak self] (device, _) -> DeviceWrapper? in
                 let wrapper = DeviceWrapper(device: device)
-                return self.scanResults.contains(wrapper) ? nil : wrapper
+                return (self?.scanResults.contains(wrapper)).flatMap { $0 ? nil : wrapper }
             }
-            .sink { device in
-                self.scanResults.append(device)
+            .sink { [weak self] device in
+                self?.scanResults.append(device)
             }
             .store(in: &cancellables)
         
@@ -123,39 +123,37 @@ class DeviceData: ObservableObject {
         }
         
         handler.connect(apiKey: apiKey)
-            .sink { completion in
-                self.logger.info("Device remote handler completed connection")
-            } receiveValue: { [handler] state in
-                self.logger.info("Device remote handler obtained new state: \(state.debugDescription)")
-                
-                if case .connected(let device, let remoteDevice) = state {
-                    if let deviceIndex = self.scanResults.firstIndex(of: DeviceWrapper(device: device)) {
-                        self.scanResults[deviceIndex].state = .connected
-                    }
-                    
-                    if let deviceIndex = self.registeredDevices.firstIndex(of: RemoteDeviceWrapper(device: remoteDevice)) {
-                        self.registeredDevices[deviceIndex].state = .connected
-                    } else {
-                        self.registeredDevices.append(RemoteDeviceWrapper(device: remoteDevice, state: .connected))
-                    }
-                } else if case .disconnected(let reason) = state {
-                    
-                    if let deviceIndex = self.scanResults.firstIndex(of: DeviceWrapper(device: scanResult)) {
-                        self.scanResults[deviceIndex].state = .notConnected
-                    }
-                    
-                    switch reason {
-                    case .onDemand:
-                        break
-                    case .error(let e):
-                        AppEvents.shared.error = ErrorEvent(e)
-                    }
-                    
-                    self.removeHandler(handler)
-                }
+            .sink { [logger] completion in
+                logger.info("Device remote handler completed connection")
+            } receiveValue: { [handler, logger, weak self] state in
+                logger.info("Device remote handler obtained new state: \(state.debugDescription)")
+                self?.stateChanged(of: handler, newState: state)
             }
             .store(in: &cancellables)
-
+    }
+    
+    func disconnect(device: Device) {
+        remoteHandlers
+            .first(where: { $0.device == device })
+            .map { self.disconnect(remoteHandler: $0) }
+    }
+    
+    func disconnect(registeredDevice: RegisteredDevice) {
+        remoteHandlers
+            .first(where: { $0.registeredDevice != nil && $0.registeredDevice == registeredDevice })
+            .map { self.disconnect(remoteHandler: $0) }
+    }
+    
+    func disconnect(remoteHandler: DeviceRemoteHandler) {
+        remoteHandler.disconnect()
+        remoteHandlers.removeAll(where: { $0.device == remoteHandler.device })
+        registeredDevices
+            .firstIndex(where: { $0.device == remoteHandler.registeredDevice })
+            .map { registeredDevices[$0].state = .readyToConnect }
+        
+        scanResults
+            .firstIndex(where: { $0.device == remoteHandler.device })
+            .map { scanResults[$0].state = .notConnected }
     }
     
     func allConnectedAndReadyToUseDevices() -> [DeviceRemoteHandler] {
@@ -183,6 +181,7 @@ class DeviceData: ObservableObject {
             } receiveValue: { [weak self] devices in
                 self?.registeredDevices = devices
                     .map { device in
+                        // TODO: add `readyToConnect` state
                         let state = self?.remoteHandlers
                             .first(where: { $0.registeredDevice == device })?.registeredDevice
                             .flatMap { d in self?.registeredDevices.first(where: { $0.device ==  d}) }
@@ -208,6 +207,34 @@ class DeviceData: ObservableObject {
     private func removeHandler(_ handler: DeviceRemoteHandler) -> Bool {
         remoteHandlers.firstIndex(of: handler)
             .map { remoteHandlers.remove(at: $0) } != nil
+    }
+    
+    private func stateChanged(of handler: DeviceRemoteHandler, newState: DeviceRemoteHandler.ConnectionState) {
+        if case .connected(let device, let remoteDevice) = newState {
+            if let deviceIndex = self.scanResults.firstIndex(of: DeviceWrapper(device: device)) {
+                self.scanResults[deviceIndex].state = .connected
+            }
+            
+            if let deviceIndex = self.registeredDevices.firstIndex(of: RemoteDeviceWrapper(device: remoteDevice)) {
+                self.registeredDevices[deviceIndex].state = .connected
+            } else {
+                self.registeredDevices.append(RemoteDeviceWrapper(device: remoteDevice, state: .connected))
+            }
+        } else if case .disconnected(let reason) = newState {
+            
+            if let deviceIndex = self.scanResults.firstIndex(of: DeviceWrapper(device: handler.device)) {
+                self.scanResults[deviceIndex].state = .notConnected
+            }
+            
+            switch reason {
+            case .onDemand:
+                break
+            case .error(let e):
+                AppEvents.shared.error = ErrorEvent(e)
+            }
+            
+            self.removeHandler(handler)
+        }
     }
 }
 
