@@ -20,7 +20,11 @@ struct RegisteredDeviceView: View {
                     .bold()
                     .lineLimit(1)
                 Spacer()
-                ConnectionStatus(color: connectionState.color)
+                if case .connecting = connectionState {
+                    ProgressView()
+                } else {
+                    ConnectionStatus(color: connectionState.color)                    
+                }
             }
             
             if expanded {
