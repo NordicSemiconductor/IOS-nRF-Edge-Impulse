@@ -45,6 +45,7 @@ extension DeviceData {
         let device: Device
         var state: State = .notConnected
         var id: UUID { device.id }
+        var availableViaRegisteredDevices: Bool = false
         
         static func ==(lhs: DeviceWrapper, rhs: DeviceWrapper) -> Bool {
             return lhs.device == rhs.device
@@ -94,6 +95,7 @@ class DeviceData: ObservableObject {
             }
             .sink { [weak self] device in
                 self?.scanResults.append(device)
+                self?.updateState(device.device)
             }
             .store(in: &cancellables)
         
@@ -132,6 +134,15 @@ class DeviceData: ObservableObject {
             .store(in: &cancellables)
     }
     
+    func tryToConnect(registeredDevice: RegisteredDevice) {
+        guard let scanResult = associatedScanResult(with: registeredDevice)?.device else {
+            return
+        }
+        
+        tryToConnect(scanResult: scanResult)
+    }
+    
+    // MARK: Disconnect
     func disconnect(device: Device) {
         remoteHandlers
             .first(where: { $0.device == device })
@@ -179,16 +190,11 @@ class DeviceData: ObservableObject {
                     logger.error("Fetch device failed. Error: \(e.localizedDescription)")
                 }
             } receiveValue: { [weak self] devices in
-                self?.registeredDevices = devices
-                    .map { device in
-                        // TODO: add `readyToConnect` state
-                        let state = self?.remoteHandlers
-                            .first(where: { $0.registeredDevice == device })?.registeredDevice
-                            .flatMap { d in self?.registeredDevices.first(where: { $0.device ==  d}) }
-                            .map(\.state) ?? .notConnectable
-                        
-                        return RemoteDeviceWrapper(device: device, state: state)
-                    }
+                guard let `self` = self else { return }
+                self.registeredDevices = devices
+                    .map { RemoteDeviceWrapper(device: $0, state: .notConnectable) }
+                
+                devices.forEach(self.updateState)
             }
             .store(in: &cancellables)
     }
@@ -235,6 +241,44 @@ class DeviceData: ObservableObject {
             
             self.removeHandler(handler)
         }
+    }
+    
+    private func updateState(_ device: Device) {
+        guard let index = scanResults.firstIndex(where: { $0.device == device }) else {
+            return
+        }
+        
+        if let regDeviceIndex = registeredDevices.firstIndex(where: { $0.device.deviceId == device.id.uuidString }) {
+            if case .notConnectable = registeredDevices[regDeviceIndex].state {
+                registeredDevices[regDeviceIndex].state = .readyToConnect
+            }
+            
+            scanResults[index].availableViaRegisteredDevices = true
+        }
+    }
+    
+    private func updateState(_ device: RegisteredDevice) {
+        guard let regDeviceIndex = registeredDevices.firstIndex(where: { $0.device == device }) else {
+            return
+        }
+        
+        registeredDevices[regDeviceIndex].state = remoteHandlers
+            .first(where: { $0.registeredDevice == device })?.registeredDevice
+            .flatMap { d in self.registeredDevices.first(where: { $0.device ==  d}) }
+            .map(\.state)
+        ?? associatedScanResult(with: device)
+            .map { _ in RemoteDeviceWrapper.State.readyToConnect}
+        ?? .notConnectable
+        
+        if let scanResultIndex = scanResults.firstIndex(where: { $0.id.uuidString == device.deviceId }) {
+            scanResults[scanResultIndex].availableViaRegisteredDevices = true
+        }
+        
+    }
+    
+    // TODO: Chose connect method for searching associated devices
+    private func associatedScanResult(with registeredDevice: RegisteredDevice) -> DeviceWrapper? {
+        scanResults.first(where: { $0.device.id.uuidString == registeredDevice.deviceId })
     }
 }
 

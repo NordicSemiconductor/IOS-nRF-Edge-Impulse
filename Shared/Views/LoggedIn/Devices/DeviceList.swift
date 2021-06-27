@@ -25,7 +25,7 @@ struct DeviceList: View {
     var body: some View {
         List() {
             buildRegisteredDevicesList(devices: deviceData.registeredDevices)
-            buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected })
+            buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
         }
         .toolbar {
             ToolbarItem(placement: .destructiveAction) {
@@ -73,9 +73,12 @@ private extension DeviceList {
         Section(header: Text("Registered Devices1")) {
             if devices.hasItems {
                 ForEach(devices) { d in
-//                RegisteredDeviceView(device: d.device, connectionState: d.state)
-//                        .animation(.default)
                     buildRegisteredDeviceRow(d.device, state: d.state)
+                        .onTapGesture {
+                            if case .readyToConnect = d.state {
+                                deviceData.tryToConnect(registeredDevice: d.device)                                
+                            }
+                        }
                 }
                     
             } else {
