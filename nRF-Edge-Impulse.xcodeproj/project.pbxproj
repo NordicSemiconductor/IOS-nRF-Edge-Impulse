@@ -149,6 +149,8 @@
 		AAF0C973260A121B001B76B9 /* HeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C971260A121B001B76B9 /* HeroView.swift */; };
 		AAF0C975260A1482001B76B9 /* CircleAround.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C974260A1482001B76B9 /* CircleAround.swift */; };
 		AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C974260A1482001B76B9 /* CircleAround.swift */; };
+		AAF38C16268DED9900F1A590 /* AppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF38C15268DED9900F1A590 /* AppIconView.swift */; };
+		AAF38C17268DED9900F1A590 /* AppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF38C15268DED9900F1A590 /* AppIconView.swift */; };
 		AAF4E322261DD193009C387B /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4E321261DD193009C387B /* Cache.swift */; };
 		AAF4E323261DD193009C387B /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4E321261DD193009C387B /* Cache.swift */; };
 		AAF4F6BA2625C02E00012359 /* SignedUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6B92625C02E00012359 /* SignedUpView.swift */; };
@@ -331,6 +333,7 @@
 		AAF0C96E260A069F001B76B9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AAF0C971260A121B001B76B9 /* HeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroView.swift; sourceTree = "<group>"; };
 		AAF0C974260A1482001B76B9 /* CircleAround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleAround.swift; sourceTree = "<group>"; };
+		AAF38C15268DED9900F1A590 /* AppIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconView.swift; sourceTree = "<group>"; };
 		AAF4E321261DD193009C387B /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		AAF4F6B92625C02E00012359 /* SignedUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedUpView.swift; sourceTree = "<group>"; };
 		AAF4F6BC2625C0A700012359 /* LoginErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginErrorView.swift; sourceTree = "<group>"; };
@@ -644,6 +647,7 @@
 				AAF7299A2629B5040034B61A /* Layouts */,
 				AACCBA872600C32C0042E87B /* ErrorView.swift */,
 				AA284058261F4DFC00EB8637 /* AppHeaderView.swift */,
+				AAF38C15268DED9900F1A590 /* AppIconView.swift */,
 				AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */,
 				AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */,
 				AA0208A825F65EB400FD6B24 /* Tabs.swift */,
@@ -1116,6 +1120,7 @@
 				AA0D812C2608F62700AE615A /* DeploymentViewState.swift in Sources */,
 				AAF0C96C260A0210001B76B9 /* UserView.swift in Sources */,
 				AAF55323264171AB00252345 /* DataSampleRow.swift in Sources */,
+				AAF38C16268DED9900F1A590 /* AppIconView.swift in Sources */,
 				AAF0C972260A121B001B76B9 /* HeroView.swift in Sources */,
 				AAFB8E2A2626FADD003DAEC5 /* UserPreferences.swift in Sources */,
 				AA03298B266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift in Sources */,
@@ -1266,6 +1271,7 @@
 				AAE0B233264E94D900FD8F80 /* SettingsDebugView.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AAFAC31D2678BC8F00D486EA /* ViewModifiers.swift in Sources */,
+				AAF38C17268DED9900F1A590 /* AppIconView.swift in Sources */,
 				C301A36A261F12890010717D /* WebSocketManager.swift in Sources */,
 				01D853ED265CF67100D96592 /* GetDevicesRequest.swift in Sources */,
 				AAF0C970260A069F001B76B9 /* User.swift in Sources */,
