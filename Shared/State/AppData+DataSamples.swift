@@ -76,6 +76,7 @@ private extension AppData {
                 }
                 self.projectDevelopmentKeys[currentProject] = projectKeysResponse
                 self.requestDataSamples()
+                self.requestSelectedProjectSocketToken()
             }
             .store(in: &cancellables)
     }

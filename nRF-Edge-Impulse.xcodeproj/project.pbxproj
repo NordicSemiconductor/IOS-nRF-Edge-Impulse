@@ -151,6 +151,10 @@
 		AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C974260A1482001B76B9 /* CircleAround.swift */; };
 		AAF38C16268DED9900F1A590 /* AppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF38C15268DED9900F1A590 /* AppIconView.swift */; };
 		AAF38C17268DED9900F1A590 /* AppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF38C15268DED9900F1A590 /* AppIconView.swift */; };
+		AAF38C19268E159A00F1A590 /* GetSocketTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF38C18268E159A00F1A590 /* GetSocketTokenRequest.swift */; };
+		AAF38C1A268E159A00F1A590 /* GetSocketTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF38C18268E159A00F1A590 /* GetSocketTokenRequest.swift */; };
+		AAF38C1C268E16C800F1A590 /* AppData+Deployment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF38C1B268E16C800F1A590 /* AppData+Deployment.swift */; };
+		AAF38C1D268E16C800F1A590 /* AppData+Deployment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF38C1B268E16C800F1A590 /* AppData+Deployment.swift */; };
 		AAF4E322261DD193009C387B /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4E321261DD193009C387B /* Cache.swift */; };
 		AAF4E323261DD193009C387B /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4E321261DD193009C387B /* Cache.swift */; };
 		AAF4F6BA2625C02E00012359 /* SignedUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6B92625C02E00012359 /* SignedUpView.swift */; };
@@ -334,6 +338,8 @@
 		AAF0C971260A121B001B76B9 /* HeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroView.swift; sourceTree = "<group>"; };
 		AAF0C974260A1482001B76B9 /* CircleAround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleAround.swift; sourceTree = "<group>"; };
 		AAF38C15268DED9900F1A590 /* AppIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconView.swift; sourceTree = "<group>"; };
+		AAF38C18268E159A00F1A590 /* GetSocketTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSocketTokenRequest.swift; sourceTree = "<group>"; };
+		AAF38C1B268E16C800F1A590 /* AppData+Deployment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+Deployment.swift"; sourceTree = "<group>"; };
 		AAF4E321261DD193009C387B /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		AAF4F6B92625C02E00012359 /* SignedUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedUpView.swift; sourceTree = "<group>"; };
 		AAF4F6BC2625C0A700012359 /* LoginErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginErrorView.swift; sourceTree = "<group>"; };
@@ -684,6 +690,7 @@
 				AA92BEF92612064E00BED04B /* ResourcesRequest.swift */,
 				AAF5E75B26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift */,
 				AAF5E75526400F7300AC3271 /* GetSamplesRequest.swift */,
+				AAF38C18268E159A00F1A590 /* GetSocketTokenRequest.swift */,
 				01D853EB265CF67100D96592 /* GetDevicesRequest.swift */,
 				AA05BC462667D098003AEE50 /* StartSamplingRequest.swift */,
 			);
@@ -722,6 +729,7 @@
 				AAFAE5EA25ED14E500A45A90 /* AppData.swift */,
 				AAF7299626298D6D0034B61A /* AppData+LoginState.swift */,
 				AAF5531C2641614B00252345 /* AppData+DataSamples.swift */,
+				AAF38C1B268E16C800F1A590 /* AppData+Deployment.swift */,
 				AAE0B234264E953E00FD8F80 /* AppData+Debug.swift */,
 				AA92BEF02611F9E400BED04B /* ResourceData.swift */,
 				AACECAE62630723B00285F94 /* ResourceData+Status.swift */,
@@ -1100,6 +1108,7 @@
 				AAEDE6312628459600B96AE9 /* SettingsContentView.swift in Sources */,
 				AAFFEB3325FF7A06002287D6 /* ButtonStyles.swift in Sources */,
 				C301A350261DC0B80010717D /* CBCentralManager+Ext.swift in Sources */,
+				AAF38C19268E159A00F1A590 /* GetSocketTokenRequest.swift in Sources */,
 				AA1016FC25E9173A006DC88A /* Network.swift in Sources */,
 				012A3ECC2666694E00EBB501 /* RegisteredDevicesData.swift in Sources */,
 				C37DD499260C89D800D667EA /* AdvertisementData.swift in Sources */,
@@ -1135,6 +1144,7 @@
 				AAEDE6332628803500B96AE9 /* DropdownView.swift in Sources */,
 				AA0208A125F65C7600FD6B24 /* LoggedInRootView.swift in Sources */,
 				AA09C79C262EEED400B039F1 /* Collection.swift in Sources */,
+				AAF38C1C268E16C800F1A590 /* AppData+Deployment.swift in Sources */,
 				C301A369261F12890010717D /* WebSocketManager.swift in Sources */,
 				AAF5E7592640106700AC3271 /* DataSample.swift in Sources */,
 				AA0208A925F65EB400FD6B24 /* Tabs.swift in Sources */,
@@ -1183,6 +1193,7 @@
 				AAF5E75D26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift in Sources */,
 				AA02087025F648C200FD6B24 /* View.swift in Sources */,
 				AA14CA76261490CD004F08FE /* Codable.swift in Sources */,
+				AAF38C1A268E159A00F1A590 /* GetSocketTokenRequest.swift in Sources */,
 				01E10964265FAEDE000F2EE4 /* RegisteredDeviceView.swift in Sources */,
 				AAFFEB3A25FF9554002287D6 /* NordicError.swift in Sources */,
 				AAEDE637262882D500B96AE9 /* ProjectSelectionView.swift in Sources */,
@@ -1220,6 +1231,7 @@
 				AAA87AE4261B28F50097EA74 /* URLImage.swift in Sources */,
 				AACECAE82630723B00285F94 /* ResourceData+Status.swift in Sources */,
 				AA43B2A925FA58B500C5B5EE /* TabBarLayoutView.swift in Sources */,
+				AAF38C1D268E16C800F1A590 /* AppData+Deployment.swift in Sources */,
 				AAF5E75A2640106700AC3271 /* DataSample.swift in Sources */,
 				AA0D812D2608F62700AE615A /* DeploymentViewState.swift in Sources */,
 				C3DCF4292681353000BF9AD4 /* DeviceData+Sampling.swift in Sources */,

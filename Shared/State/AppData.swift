@@ -34,6 +34,7 @@ final class AppData: ObservableObject {
     @Published var selectedTab: Tabs? = .Devices
     
     @Published var projectDevelopmentKeys: [Project: ProjectDevelopmentKeysResponse]
+    @Published var projectSocketTokens: [Project: Token]
     @Published var samplesForCategory: [DataSample.Category: [DataSample]]
     
     // MARK: - Private Properties
@@ -45,6 +46,7 @@ final class AppData: ObservableObject {
     
     init() {
         self.projectDevelopmentKeys = [Project: ProjectDevelopmentKeysResponse]()
+        self.projectSocketTokens = [Project: Token]()
         self.samplesForCategory = [DataSample.Category: [DataSample]]()
         self.apiToken = keychain.get(KeychainKeys.apiToken.rawValue)
     }
@@ -73,6 +75,7 @@ final class AppData: ObservableObject {
     
     func logout() {
         selectedProject = Project.Unselected
+        projectSocketTokens = [Project: Token]()
         apiToken = nil
         loginState = .empty
         selectedProjectDidChange()
@@ -85,6 +88,7 @@ private extension AppData {
         projectDevelopmentKeys = [Project: ProjectDevelopmentKeysResponse]()
         samplesForCategory = [:]
         requestDataSamples()
+        requestSelectedProjectSocketToken()
     }
 }
 
