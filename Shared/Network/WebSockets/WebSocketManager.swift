@@ -32,9 +32,6 @@ extension WebSocketManager {
         case parseError
     }
     
-    // TODO: maybe we should get it from DK
-    static let address = "wss://remote-mgmt.edgeimpulse.com"
-    
     enum State {
         case notConnected, connecting, connected
     }
@@ -49,10 +46,6 @@ class WebSocketManager: NSObject {
     private var cancellable = Set<AnyCancellable>()
     
     private var stateSubject = PassthroughSubject<State, Error>()
-    
-    func connect() -> AnyPublisher<State, Swift.Error> {
-        self.connect(to: Self.address)
-    }
     
     func connect(to urlString: String) -> AnyPublisher<State, Swift.Error> {
         guard let url = URL(string: urlString) else {
@@ -98,7 +91,8 @@ class WebSocketManager: NSObject {
     }
 }
 
-/// Private API
+// MARK: - Private API
+
 extension WebSocketManager {
     
     fileprivate static let PingTime: TimeInterval = 20.0
@@ -107,7 +101,7 @@ extension WebSocketManager {
         Timer
             .publish(every: Self.PingTime, on: .main, in: .common)
             .autoconnect()
-            .sink { [weak self] a in
+            .sink { [weak self] _ in
                 self?.ping()
             }
             .store(in: &cancellable)
@@ -155,10 +149,12 @@ extension WebSocketManager {
     }
 }
 
+// MARK: - URLSessionWebSocketDelegate
+
 extension WebSocketManager: URLSessionWebSocketDelegate {
+    
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
         logger.log("Did open web socket with protocol: \(`protocol` ?? "<unknown>")")
-        
         stateSubject.send(.connected)
     }
     

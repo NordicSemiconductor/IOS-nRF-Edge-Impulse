@@ -65,6 +65,7 @@ extension DeviceRemoteHandler {
 }
 
 class DeviceRemoteHandler {
+    private static let RemoteManagementURLString = "wss://remote-mgmt.edgeimpulse.com"
     private let logger = Logger(category: "DeviceRemoteHandler")
     
     private (set) var device: Device
@@ -100,7 +101,7 @@ class DeviceRemoteHandler {
         bluetoothManager.connect()
             .drop(while: { $0 != .readyToUse })
             .flatMap { _ in self.bluetoothManager.receptionSubject.gatherData(ofType: ResponseRootObject.self) }
-            .combineLatest(webSocketManager.connect().drop(while: { $0 != .connected }))
+            .combineLatest(webSocketManager.connect(to: Self.RemoteManagementURLString).drop(while: { $0 != .connected }))
             .flatMap { [webSocketManager] (data, _) -> AnyPublisher<Data, Swift.Error> in
                 guard var hello = data.message, let webSocketManager = webSocketManager else {
                     return Fail(error: Error.connectionEstablishFailed).eraseToAnyPublisher()
