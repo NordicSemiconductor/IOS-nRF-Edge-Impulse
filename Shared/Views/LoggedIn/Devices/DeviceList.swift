@@ -79,6 +79,13 @@ private extension DeviceList {
                                 deviceData.tryToConnect(registeredDevice: d.device)                                
                             }
                         }
+                        .contextMenu {
+                            Button {
+                                print("Renaming \(d.device)")
+                            } label: {
+                                Label("Rename", systemImage: "pencil")
+                            }
+                        }
                 }
                     
             } else {
