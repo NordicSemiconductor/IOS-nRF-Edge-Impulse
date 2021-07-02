@@ -132,6 +132,8 @@
 		AAE0B233264E94D900FD8F80 /* SettingsDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE0B232264E94D900FD8F80 /* SettingsDebugView.swift */; };
 		AAE0B235264E953E00FD8F80 /* AppData+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE0B234264E953E00FD8F80 /* AppData+Debug.swift */; };
 		AAE0B236264E960C00FD8F80 /* AppData+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE0B234264E953E00FD8F80 /* AppData+Debug.swift */; };
+		AAE507BA268F19990017CAED /* RenameDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE507B9268F19990017CAED /* RenameDeviceView.swift */; };
+		AAE507BB268F19990017CAED /* RenameDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE507B9268F19990017CAED /* RenameDeviceView.swift */; };
 		AAE5B63525F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAE5B63625F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAEDE6312628459600B96AE9 /* SettingsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE6302628459600B96AE9 /* SettingsContentView.swift */; };
@@ -328,6 +330,7 @@
 		AAE05F1F2649554F005BBF98 /* SampleRequestMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleRequestMessage.swift; sourceTree = "<group>"; };
 		AAE0B232264E94D900FD8F80 /* SettingsDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDebugView.swift; sourceTree = "<group>"; };
 		AAE0B234264E953E00FD8F80 /* AppData+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+Debug.swift"; sourceTree = "<group>"; };
+		AAE507B9268F19990017CAED /* RenameDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameDeviceView.swift; sourceTree = "<group>"; };
 		AAE5B63425F23A4500AA003D /* sample_projects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_projects.json; sourceTree = "<group>"; };
 		AAEDE6302628459600B96AE9 /* SettingsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsContentView.swift; sourceTree = "<group>"; };
 		AAEDE6322628803500B96AE9 /* DropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
@@ -447,6 +450,7 @@
 				01E10962265FAEDE000F2EE4 /* RegisteredDeviceView.swift */,
 				AA93424A26820C14001CD754 /* RegisteredDeviceDetailsView.swift */,
 				015AB1602653D5E700C09196 /* ConnectionStatus.swift */,
+				AAE507B9268F19990017CAED /* RenameDeviceView.swift */,
 				AA02089525F65A3700FD6B24 /* DeviceList.swift */,
 				C3BF6AC72626D662006330C8 /* SignalLevel */,
 			);
@@ -1143,6 +1147,7 @@
 				AA284059261F4DFC00EB8637 /* AppHeaderView.swift in Sources */,
 				AAEDE6332628803500B96AE9 /* DropdownView.swift in Sources */,
 				AA0208A125F65C7600FD6B24 /* LoggedInRootView.swift in Sources */,
+				AAE507BA268F19990017CAED /* RenameDeviceView.swift in Sources */,
 				AA09C79C262EEED400B039F1 /* Collection.swift in Sources */,
 				AAF38C1C268E16C800F1A590 /* AppData+Deployment.swift in Sources */,
 				C301A369261F12890010717D /* WebSocketManager.swift in Sources */,
@@ -1192,6 +1197,7 @@
 				AAFDB472264D78AF00F0CD02 /* CollaboratorsHStackView.swift in Sources */,
 				AAF5E75D26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift in Sources */,
 				AA02087025F648C200FD6B24 /* View.swift in Sources */,
+				AAE507BB268F19990017CAED /* RenameDeviceView.swift in Sources */,
 				AA14CA76261490CD004F08FE /* Codable.swift in Sources */,
 				AAF38C1A268E159A00F1A590 /* GetSocketTokenRequest.swift in Sources */,
 				01E10964265FAEDE000F2EE4 /* RegisteredDeviceView.swift in Sources */,

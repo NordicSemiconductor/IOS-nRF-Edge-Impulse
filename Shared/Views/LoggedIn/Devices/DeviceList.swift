@@ -16,6 +16,7 @@ struct DeviceList: View {
     @EnvironmentObject var deviceData: DeviceData
     @EnvironmentObject var appData: AppData
     
+    @State private var renameDevice: RegisteredDevice!
     @State private var scannerCancellable: Cancellable? = nil
     
     private let logger = Logger(category: "DeviceList")
@@ -26,6 +27,10 @@ struct DeviceList: View {
         List() {
             buildRegisteredDevicesList(devices: deviceData.registeredDevices)
             buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
+        }
+        .sheet(item: $renameDevice) { device in
+            RenameDeviceView($renameDevice)
+                .padding()
         }
         .toolbar {
             ToolbarItem(placement: .destructiveAction) {
@@ -80,9 +85,9 @@ private extension DeviceList {
                             }
                         }
                         .contextMenu {
-                            Button {
-                                print("Renaming \(d.device)")
-                            } label: {
+                            Button(action: {
+                                self.renameDevice = d.device
+                            }) {
                                 Label("Rename", systemImage: "pencil")
                             }
                         }
