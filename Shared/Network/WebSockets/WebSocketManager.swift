@@ -42,8 +42,9 @@ class WebSocketManager: NSObject {
     private lazy var session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
     private let logger = Logger(category: "WebSocketManager")
     
+    private var socketURL: URL!
     private var task: URLSessionWebSocketTask!
-    private var cancellable = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
     private var stateSubject = PassthroughSubject<State, Error>()
     
@@ -52,7 +53,8 @@ class WebSocketManager: NSObject {
             return Fail(error: Error.wrongUrl).eraseToAnyPublisher()
         }
         
-        task = session.webSocketTask(with: url)
+        socketURL = url
+        task = session.webSocketTask(with: socketURL)
         listen()
         task.resume()
         schedulePings()
@@ -63,8 +65,8 @@ class WebSocketManager: NSObject {
     }
     
     func disconnect() {
-        cancellable.forEach { $0.cancel() }
-        cancellable.removeAll()
+        cancellables.forEach { $0.cancel() }
+        cancellables.removeAll()
         task.cancel(with: .normalClosure, reason: nil)
         session.finishTasksAndInvalidate()
     }
@@ -104,18 +106,19 @@ extension WebSocketManager {
             .sink { [weak self] _ in
                 self?.ping()
             }
-            .store(in: &cancellable)
+            .store(in: &cancellables)
     }
     
     private func ping() {
         task.sendPing { [weak self] error in
+            guard let self = self else { return }
             switch error {
             case .none:
-                self?.logger.debug("Successfully pinged WebSocket.")
+                self.logger.debug("Successfully pinged WebSocket at \(self.socketURL.absoluteString).")
             case .some(let error):
-                self?.logger.error("WebSocket ping returned an error: \(error.localizedDescription)")
-                self?.logger.error("Triggering disconnection due to ping error.")
-                self?.disconnect()
+                self.logger.error("WebSocket \(self.socketURL.absoluteString) ping returned an error: \(error.localizedDescription)")
+                self.logger.error("Triggering disconnection due to ping error.")
+                self.disconnect()
             }
         }
     }
