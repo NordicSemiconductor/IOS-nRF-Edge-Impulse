@@ -132,8 +132,6 @@
 		AAE0B233264E94D900FD8F80 /* SettingsDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE0B232264E94D900FD8F80 /* SettingsDebugView.swift */; };
 		AAE0B235264E953E00FD8F80 /* AppData+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE0B234264E953E00FD8F80 /* AppData+Debug.swift */; };
 		AAE0B236264E960C00FD8F80 /* AppData+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE0B234264E953E00FD8F80 /* AppData+Debug.swift */; };
-		AAE507C1268F1CDD0017CAED /* CustomModalView in Frameworks */ = {isa = PBXBuildFile; productRef = AAE507C0268F1CDD0017CAED /* CustomModalView */; };
-		AAE507C3268F1CE40017CAED /* CustomModalView in Frameworks */ = {isa = PBXBuildFile; productRef = AAE507C2268F1CE40017CAED /* CustomModalView */; };
 		AAE5B63525F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAE5B63625F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAEDE6312628459600B96AE9 /* SettingsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE6302628459600B96AE9 /* SettingsContentView.swift */; };
@@ -391,7 +389,6 @@
 			files = (
 				AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */,
 				AA0B2FFE267A2ADA00AA0571 /* Introspect in Frameworks */,
-				AAE507C1268F1CDD0017CAED /* CustomModalView in Frameworks */,
 				AA69E2C5263973F000BC44D3 /* VisualEffects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -402,7 +399,6 @@
 			files = (
 				AA7F5DE325F8F57D00185328 /* KeychainSwift in Frameworks */,
 				AA0B3000267A2AE400AA0571 /* Introspect in Frameworks */,
-				AAE507C3268F1CE40017CAED /* CustomModalView in Frameworks */,
 				AA69E2C7263973FB00BC44D3 /* VisualEffects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -882,7 +878,6 @@
 				AAFAE5E425ED11CA00A45A90 /* KeychainSwift */,
 				AA69E2C4263973F000BC44D3 /* VisualEffects */,
 				AA0B2FFD267A2ADA00AA0571 /* Introspect */,
-				AAE507C0268F1CDD0017CAED /* CustomModalView */,
 			);
 			productName = "nRF-Edge-Impulse (iOS)";
 			productReference = AA03E96025E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -906,7 +901,6 @@
 				AA7F5DE225F8F57D00185328 /* KeychainSwift */,
 				AA69E2C6263973FB00BC44D3 /* VisualEffects */,
 				AA0B2FFF267A2AE400AA0571 /* Introspect */,
-				AAE507C2268F1CE40017CAED /* CustomModalView */,
 			);
 			productName = "nRF-Edge-Impulse (macOS)";
 			productReference = AA03E96825E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -986,7 +980,6 @@
 				AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */,
 				AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
-				AAE507BF268F1CDD0017CAED /* XCRemoteSwiftPackageReference "CustomModalView" */,
 			);
 			productRefGroup = AA03E96125E3EF13003DA9DA /* Products */;
 			projectDirPath = "";
@@ -1707,14 +1700,6 @@
 				minimumVersion = 1.0.3;
 			};
 		};
-		AAE507BF268F1CDD0017CAED /* XCRemoteSwiftPackageReference "CustomModalView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jankaltoun/CustomModalView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -1750,16 +1735,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
-		};
-		AAE507C0268F1CDD0017CAED /* CustomModalView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AAE507BF268F1CDD0017CAED /* XCRemoteSwiftPackageReference "CustomModalView" */;
-			productName = CustomModalView;
-		};
-		AAE507C2268F1CE40017CAED /* CustomModalView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AAE507BF268F1CDD0017CAED /* XCRemoteSwiftPackageReference "CustomModalView" */;
-			productName = CustomModalView;
 		};
 		AAFAE5E425ED11CA00A45A90 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
