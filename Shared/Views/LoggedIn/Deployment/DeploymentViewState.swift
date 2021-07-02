@@ -11,18 +11,15 @@ final class DeploymentViewState: ObservableObject {
 
     @Published var selectedDevice = Constant.unselectedDevice
     @Published var progress = 0.0
-    @Published var duration: Duration = .OneShot
+    @Published var enableEONCompiler = true
+    @Published var optimization: Classifier = .Quantized
 }
 
 // MARK: - API
 
 extension DeploymentViewState {
     
-    func deploy() {
-        
-    }
-    
-    func runImpulse() {
+    func build() {
         
     }
 }
@@ -31,17 +28,8 @@ extension DeploymentViewState {
 
 extension DeploymentViewState {
     
-    enum Duration: String, RawRepresentable, CaseIterable {
-        case OneShot
-        case Continuous
-        
-        var description: String {
-            switch self {
-            case .OneShot:
-                return "One Shot"
-            case .Continuous:
-                return "Continuous"
-            }
-        }
+    enum Classifier: String, RawRepresentable, CaseIterable {
+        case Quantized
+        case Unoptimized
     }
 }
