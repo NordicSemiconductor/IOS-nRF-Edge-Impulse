@@ -39,10 +39,10 @@ extension RegisteredDevice {
     static let mock = RegisteredDevice(
         id: 1,
         deviceId: "ff:ff:ff:ff",
-        created: "01.01.2020",
-        lastSeen: "",
+        created: "2021-01-01T00:00:00.000Z",
+        lastSeen: "2021-07-04:00:00.000Z",
         deviceType: "Nordic Thingy:53",
-        sensors: [ Sensor.mock ],
+        sensors: [ .mock1, .mock2, .mock3 ],
         remoteMgmtConnected: true,
         remoteMgmtHost: nil,
         supportsSnapshotStreaming: true,

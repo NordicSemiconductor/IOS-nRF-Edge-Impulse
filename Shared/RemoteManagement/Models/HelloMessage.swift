@@ -62,7 +62,11 @@ extension ResponseRootObject {
 }
 
 extension Sensor {
-    static let mock = Sensor(name: "Camera (320x240)", maxSampleLengthS: 1, frequencies: [1.0])
+    static let mock = Sensor(name: "Camera", maxSampleLengthS: 1, frequencies: [1.0])
+    
+    static let mock1 = Sensor(name: "Camera", maxSampleLengthS: 100, frequencies: [])
+    static let mock2 = Sensor(name: "Microphone", maxSampleLengthS: 60, frequencies: [16000, 8000, 11000, 32000, 44100, 48000])
+    static let mock3 = Sensor(name: "Accelerometer", maxSampleLengthS: 300, frequencies: [62.5])
 }
 
 extension WSHelloResponse {

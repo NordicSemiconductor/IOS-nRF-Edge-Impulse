@@ -19,3 +19,18 @@ extension String {
         return dateFormatter.date(from: self)
     }
 }
+
+// MARK: - String + Date
+extension String {
+    func toDate(_ format: String? = nil) -> Date? {
+        if let f = format {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = f
+            return dateFormatter.date(from: self)
+        } else {
+            let dateFormatter = ISO8601DateFormatter()
+            dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            return dateFormatter.date(from: self)
+        }
+    }
+}

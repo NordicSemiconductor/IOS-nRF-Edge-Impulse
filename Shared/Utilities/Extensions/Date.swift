@@ -16,3 +16,15 @@ extension Date {
         return calendar.component(.year, from: Date())
     }
 }
+
+// MARK: - Format
+
+extension Date {
+    func formatterString(dateStyle: DateFormatter.Style = .short, timeStyle: DateFormatter.Style = .short) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = dateStyle
+        dateFormatter.timeStyle = timeStyle
+        
+        return dateFormatter.string(from: self)
+    }
+}

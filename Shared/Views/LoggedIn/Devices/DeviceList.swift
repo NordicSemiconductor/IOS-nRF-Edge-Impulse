@@ -17,6 +17,7 @@ struct DeviceList: View {
     @EnvironmentObject var appData: AppData
     
     @State private var scannerCancellable: Cancellable? = nil
+    @State private var selectedDeviceId: Int? = nil
     
     private let logger = Logger(category: "DeviceList")
     
@@ -44,7 +45,7 @@ struct DeviceList: View {
 // MARK: - List
 
 private extension DeviceList {
-    
+    // MARK: Scan results
     @ViewBuilder
     private func buildScanResultsList(scanResult: [DeviceData.DeviceWrapper]) -> some View {
         Section(header: Text("Scan Results")) {
@@ -68,6 +69,7 @@ private extension DeviceList {
         }
     }
     
+    // MARK: Registered Devices
     @ViewBuilder
     private func buildRegisteredDevicesList(devices: [DeviceData.RemoteDeviceWrapper]) -> some View {
         Section(header: Text("Registered Devices1")) {
@@ -91,8 +93,44 @@ private extension DeviceList {
     }
     
     @ViewBuilder
+    private func deviceContextMenu(device: RegisteredDevice, state: DeviceData.RemoteDeviceWrapper.State) -> some View {
+        if case .readyToConnect = state {
+            Button {
+                deviceData.tryToConnect(registeredDevice: device)
+            } label: {
+                Label("Connect", systemImage: "app.connected.to.app.below.fill")
+            }
+        } else if case .connected = state {
+            Button() {
+                deviceData.disconnect(registeredDevice: device)
+            } label: {
+                Label {
+                    Text("Disconnect")
+                        .foregroundColor(Color.red)
+                } icon: {
+                    Image(systemName: "xmark.circle")
+                        .foregroundColor(Color.blue)
+                }
+            }
+        }
+        
+        Button {
+            selectedDeviceId = device.id
+        } label: {
+            Label("Get info", systemImage: "info.circle")
+        }
+    }
+    
+    @ViewBuilder
     private func buildRegisteredDeviceRow(_ device: RegisteredDevice, state: DeviceData.RemoteDeviceWrapper.State) -> some View {
         
+        NavigationLink(destination: DeviceDetails(device: device), tag: device.id, selection: $selectedDeviceId) {
+            RegisteredDeviceView(device: device, connectionState: state)
+                .contextMenu {
+                    deviceContextMenu(device: device, state: state)
+                }
+        }
+        /*
         if #available(iOS 15, *) {
             RegisteredDeviceView(device: device, connectionState: state)
                 .swipeActions(edge: .leading, allowsFullSwipe: false) {
@@ -101,7 +139,6 @@ private extension DeviceList {
                     } label: {
                         Label("Info", systemImage: "info.circle")
                     }
-
                 }
                 .swipeActions(edge: .trailing) {
                     if case .connected = state {
@@ -115,6 +152,7 @@ private extension DeviceList {
         } else {
             RegisteredDeviceView(device: device, connectionState: state)
         }
+         */
     }
     
     enum ListSection: Int, Identifiable, CaseIterable {
