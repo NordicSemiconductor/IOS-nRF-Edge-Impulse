@@ -16,7 +16,7 @@ struct DeviceList: View {
     @EnvironmentObject var deviceData: DeviceData
     @EnvironmentObject var appData: AppData
     
-    @State private var renameDevice: RegisteredDevice!
+    @State private var renameDevice: RegisteredDevice? = nil
     @State private var scannerCancellable: Cancellable? = nil
     @State private var selectedDeviceId: Int? = nil
     
@@ -30,7 +30,7 @@ struct DeviceList: View {
             buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
         }
         .sheet(item: $renameDevice) { device in
-            RenameDeviceView($renameDevice)
+            RenameDeviceView($renameDevice, oldName: device.deviceId)
                 .padding()
         }
         .toolbar {
