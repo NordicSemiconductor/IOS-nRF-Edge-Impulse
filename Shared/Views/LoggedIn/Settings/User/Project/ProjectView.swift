@@ -31,6 +31,11 @@ struct ProjectView: View {
             }
             #endif
             
+            Section(header: Text("ID")) {
+                Label(String(project.id), systemImage: "key.fill")
+                    .foregroundColor(.primary)
+            }
+            
             Section(header: Text("Description")) {
                 Label(project.description, systemImage: "doc.text.fill")
                     .foregroundColor(.primary)

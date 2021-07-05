@@ -73,6 +73,15 @@ struct SettingsContentView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
             }
             #endif
+            
+            Section(header: Text("About App")) {
+                HStack {
+                    Text("Version")
+                    Spacer()
+                    Text(Constant.appVersion)
+                        .foregroundColor(.gray)
+                }
+            }
         }
         .accentColor(Assets.blue.color)
     }

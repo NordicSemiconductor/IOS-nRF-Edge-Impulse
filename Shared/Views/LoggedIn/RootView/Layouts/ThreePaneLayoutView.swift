@@ -17,26 +17,32 @@ struct ThreePaneLayoutView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                Section(header: Text("Menu")) {
-                    ForEach(Tabs.availableCases) { tab in
-                        NavigationLink(destination: tab.view,
-                            label: {
-                                Label(tab.description, systemImage: tab.systemImageName)
+            VStack(alignment: .leading) {
+                List {
+                    Section(header: Text("Menu")) {
+                        ForEach(Tabs.availableCases) { tab in
+                            NavigationLink(destination: tab.view,
+                                label: {
+                                    Label(tab.description, systemImage: tab.systemImageName)
+                                })
+                        }
+                    }
+                    
+                    if let user = appData.user {
+                        Section(header: Text("User")) {
+                            NavigationLink(destination: UserContentView().frame(width: .minTabWidth), label: {
+                                Label(user.name, systemImage: "person.fill")
                             })
+                        }
                     }
                 }
+                .listStyle(SidebarListStyle())
+                .frame(minWidth: .sidebarWidth)
                 
-                if let user = appData.user {
-                    Section(header: Text("User")) {
-                        NavigationLink(destination: UserContentView().frame(width: .minTabWidth), label: {
-                            Label(user.name, systemImage: "person.fill")
-                        })
-                    }
-                }
+                SmallAppIconAndVersionView()
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
             }
-            .listStyle(SidebarListStyle())
-            .frame(minWidth: .sidebarWidth)
             
             AppHeaderView(.template)
                 .frame(maxWidth: 120)

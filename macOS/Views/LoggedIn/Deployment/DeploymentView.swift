@@ -38,29 +38,29 @@ struct DeploymentView: View {
                 
                 ProgressView(value: viewState.progress, total: 100.0)
                 
-                Button("Deploy", action: viewState.deploy)
+                Button("Deploy", action: viewState.build)
                     .foregroundColor(.primary)
             }
             
             Divider()
                 .padding(.vertical)
             
-            Section(header: Text("Mode").bold()) {
-                MultiColumnView {
-                    Text("Selected: ")
-                    Picker(selection: $viewState.duration, label: EmptyView()) {
-                        ForEach(DeploymentViewState.Duration.allCases, id: \.self) { continuous in
-                            Text(continuous.rawValue).tag(continuous)
-                        }
-                    }
-                }
-                
-                ProgressView(value: viewState.progress, total: 100.0)
-                
-                Button("Run Impulse", action: viewState.runImpulse)
-                    .foregroundColor(.primary)
-                    .padding(.vertical)
-            }
+//            Section(header: Text("Mode").bold()) {
+//                MultiColumnView {
+//                    Text("Selected: ")
+//                    Picker(selection: $viewState.duration, label: EmptyView()) {
+//                        ForEach(DeploymentViewState.Duration.allCases, id: \.self) { continuous in
+//                            Text(continuous.rawValue).tag(continuous)
+//                        }
+//                    }
+//                }
+//                
+//                ProgressView(value: viewState.progress, total: 100.0)
+//                
+//                Button("Run Impulse", action: viewState.runImpulse)
+//                    .foregroundColor(.primary)
+//                    .padding(.vertical)
+//            }
         }
         .padding(16)
         .frame(maxWidth: 320)

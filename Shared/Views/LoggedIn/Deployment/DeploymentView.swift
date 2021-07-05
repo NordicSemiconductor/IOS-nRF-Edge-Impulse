@@ -37,22 +37,34 @@ struct DeploymentView: View {
                 }
             }
             
-            ProgressView(value: viewState.progress, total: 100.0)
+            Section(header: Text("Optimizations")) {
+                Toggle(isOn: $viewState.enableEONCompiler, label: {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Enable EON™ Compiler")
+                        Text("Same accuracy, up to 50% less memory. Open source.")
+                            .font(.caption)
+                            .foregroundColor(Assets.middleGrey.color)
+                    }
+                })
+                .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
+            }
             
-            Button("Deploy", action: viewState.deploy)
-                .centerTextInsideForm()
-                .foregroundColor(.primary)
-            
-            Section(header: Text("Mode")) {
-                Picker("Selected", selection: $viewState.duration) {
-                    ForEach(DeploymentViewState.Duration.allCases, id: \.self) { continuous in
-                        Text(continuous.rawValue).tag(continuous)
+            Section(header: Text("Classifier")) {
+                Picker("Classifier", selection: $viewState.optimization) {
+                    ForEach(DeploymentViewState.Classifier.allCases, id: \.self) { classifier in
+                        Text(classifier.rawValue).tag(classifier)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
+                
+                Text("\(DeploymentViewState.Classifier.Quantized.rawValue) is recommended for best performance. ")
+                    .font(.caption)
+                    .foregroundColor(Assets.middleGrey.color)
             }
             
-            Button("Run Impulse", action: viewState.runImpulse)
+            ProgressView(value: viewState.progress, total: 100.0)
+            
+            Button("Build", action: viewState.build)
                 .centerTextInsideForm()
                 .foregroundColor(.primary)
         }
