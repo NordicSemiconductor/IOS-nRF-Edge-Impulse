@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegisteredDeviceView: View {
     let device: RegisteredDevice
-    let connectionState: DeviceData.RemoteDeviceWrapper.State
+    let connectionState: DeviceData.RegisteredDeviceWrapper.State
     @State var expanded = false
     
     var body: some View {

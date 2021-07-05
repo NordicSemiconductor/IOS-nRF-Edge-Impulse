@@ -13,19 +13,52 @@ struct DeviceDetails: View {
     let device: RegisteredDevice
     
     var body: some View {
-        List {
-            Text(device.name)
-                .font(.headline)
-            
-            DeviceInfoRow(title: "Created At:", systemImage: "calendar", content: device.created.toDate()?.formatterString() ?? "")
-            DeviceInfoRow(title: "Last Seen:", systemImage: "eye", content: device.lastSeen.toDate()?.formatterString() ?? "")
-            DeviceInfoRow(title: "Device ID:", systemImage: "person", content: device.deviceId)
-            DeviceInfoRow(title: "Device Type:", systemImage: nil, content: device.deviceType)
-            
-            Section(header: Text("Sensors")) {
-                ForEach(device.sensors) { SensorSection(sensor: $0) }
+            Form {
+                DeviceInfoRow(title: "Created At:", systemImage: "calendar", content: device.created.toDate()?.formatterString() ?? "")
+                DeviceInfoRow(title: "Last Seen:", systemImage: "eye", content: device.lastSeen.toDate()?.formatterString() ?? "")
+                DeviceInfoRow(title: "Device ID:", systemImage: "person", content: device.deviceId)
+                DeviceInfoRow(title: "Device Type:", systemImage: nil, content: device.deviceType)
+                
+                Section(header: Text("Sensors")) {
+                    ForEach(device.sensors) { SensorSection(sensor: $0) }
+                }
+                
+                if let state = deviceData.connectionState(of: device) {
+                    connectionSection(state: state)
+                }
+            }
+            .accentColor(Assets.blue.color)
+            .navigationTitle(Text(device.name))
+    }
+    
+    // MARK: Connection section
+    @ViewBuilder
+    private func connectionSection(state: DeviceData.RegisteredDeviceWrapper.State) -> some View {
+        
+        let footerText = state == .notConnectable ? "The device can't be connected" : ""
+        
+        Section(header: Text("Connection"), footer: Text(footerText)) {
+            if case .readyToConnect = state {
+                Button("Connect") {
+                    deviceData.tryToConnect(registeredDevice: device)
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+            } else if case .connecting = state {
+                HStack {
+                    Button("Connect") { }
+                    .disabled(true)
+                    ProgressView()
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+            } else if case .connected = state {
+                Button("Disconnect") {
+                    deviceData.disconnect(registeredDevice: device)
+                }
+                .foregroundColor(Assets.red.color)
+                .frame(maxWidth: .infinity, alignment: .center)
             }
         }
+        
     }
 }
 

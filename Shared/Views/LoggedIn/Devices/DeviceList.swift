@@ -71,7 +71,7 @@ private extension DeviceList {
     
     // MARK: Registered Devices
     @ViewBuilder
-    private func buildRegisteredDevicesList(devices: [DeviceData.RemoteDeviceWrapper]) -> some View {
+    private func buildRegisteredDevicesList(devices: [DeviceData.RegisteredDeviceWrapper]) -> some View {
         Section(header: Text("Registered Devices1")) {
             if devices.hasItems {
                 ForEach(devices) { d in
@@ -79,6 +79,8 @@ private extension DeviceList {
                         .onTapGesture {
                             if case .readyToConnect = d.state {
                                 deviceData.tryToConnect(registeredDevice: d.device)                                
+                            } else {
+                                selectedDeviceId = d.id
                             }
                         }
                 }
@@ -93,7 +95,7 @@ private extension DeviceList {
     }
     
     @ViewBuilder
-    private func deviceContextMenu(device: RegisteredDevice, state: DeviceData.RemoteDeviceWrapper.State) -> some View {
+    private func deviceContextMenu(device: RegisteredDevice, state: DeviceData.RegisteredDeviceWrapper.State) -> some View {
         if case .readyToConnect = state {
             Button {
                 deviceData.tryToConnect(registeredDevice: device)
@@ -106,12 +108,12 @@ private extension DeviceList {
             } label: {
                 Label {
                     Text("Disconnect")
-                        .foregroundColor(Color.red)
                 } icon: {
                     Image(systemName: "xmark.circle")
                         .foregroundColor(Color.blue)
                 }
             }
+            .foregroundColor(Assets.red.color)
         }
         
         Button {
@@ -122,7 +124,7 @@ private extension DeviceList {
     }
     
     @ViewBuilder
-    private func buildRegisteredDeviceRow(_ device: RegisteredDevice, state: DeviceData.RemoteDeviceWrapper.State) -> some View {
+    private func buildRegisteredDeviceRow(_ device: RegisteredDevice, state: DeviceData.RegisteredDeviceWrapper.State) -> some View {
         
         NavigationLink(destination: DeviceDetails(device: device), tag: device.id, selection: $selectedDeviceId) {
             RegisteredDeviceView(device: device, connectionState: state)
