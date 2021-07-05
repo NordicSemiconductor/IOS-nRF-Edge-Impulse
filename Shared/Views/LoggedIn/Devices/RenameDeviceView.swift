@@ -56,6 +56,10 @@ struct RenameDeviceView: View {
                     .modifier(RoundedTextFieldShape(.lightGrey))
                     .disabled(!textFieldEnabled)
                     .padding(4)
+                    .introspectTextField { textField in
+                        textField.becomeFirstResponder()
+                        textField.selectAll(nil)
+                    }
             }
             
             if let errorMessage = errorMessage {
