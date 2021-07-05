@@ -64,13 +64,13 @@ fileprivate extension RenameDeviceView {
     func attemptRename() {
         guard let device = presentedDevice.wrappedValue,
               let currentProject = appData.selectedProject,
-              let apiKey = appData.projectDevelopmentKeys[currentProject]?.apiKey,
-              let renameRequest = HTTPRequest.renameDevice(device.id, as: newDeviceName,
+              let apiKey = appData.apiToken,
+              let renameRequest = HTTPRequest.renameDevice(device, as: newDeviceName,
                                                            in: currentProject, using: apiKey) else { return }
         
         requestIsOngoing = true
         Network.shared.perform(renameRequest, responseType: RenameDeviceResponse.self)
-            .sink(receiveCompletion: { completion in
+            .sinkOrRaiseAppEventError(onError: { error in
                 self.presentedDevice.wrappedValue = nil
             }, receiveValue: { response in
                 self.presentedDevice.wrappedValue = nil

@@ -25,11 +25,13 @@ extension Publisher {
         }
     }
     
-    func sinkOrRaiseAppEventError(receiveValue: @escaping ((Self.Output) -> Void)) -> AnyCancellable {
+    func sinkOrRaiseAppEventError(onError errorValue: ((Self.Failure) -> Void)? = nil,
+                                  receiveValue: @escaping ((Self.Output) -> Void)) -> AnyCancellable {
         self.sink(receiveCompletion: { completion in
             switch completion {
             case .failure(let error):
                 AppEvents.shared.error = ErrorEvent(error)
+                errorValue?(error)
             default:
                 break
             }
