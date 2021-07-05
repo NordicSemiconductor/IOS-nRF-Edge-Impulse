@@ -77,7 +77,7 @@ private extension DeviceList {
     // MARK: Registered Devices
     @ViewBuilder
     private func buildRegisteredDevicesList(devices: [DeviceData.RegisteredDeviceWrapper]) -> some View {
-        Section(header: Text("Registered Devices1")) {
+        Section(header: Text("Registered Devices")) {
             if devices.hasItems {
                 ForEach(devices) { d in
                     buildRegisteredDeviceRow(d.device, state: d.state)
