@@ -15,9 +15,9 @@ extension HTTPRequest {
     
     // MARK: - Init
     
-    init?(host: HTTPHost, path: String, parameters: [String: String]? = nil) {
+    init?(scheme: HTTPScheme = .https, host: HTTPHost, path: String, parameters: [String: String]? = nil) {
         var components = URLComponents()
-        components.scheme = "https"
+        components.scheme = scheme.rawValue
         components.host = host.rawValue
         components.path = path
         components.queryItems = parameters?.map { key, value in
@@ -44,6 +44,13 @@ extension HTTPRequest {
         addValue("application/json", forHTTPHeaderField: "Content-Type")
         httpBody = data
     }
+}
+
+// MARK: - Scheme
+
+enum HTTPScheme: String, RawRepresentable {
+    
+    case wss, https
 }
 
 // MARK: - Host
