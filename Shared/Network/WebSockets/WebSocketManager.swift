@@ -70,8 +70,12 @@ class WebSocketManager: NSObject {
     func disconnect() {
         cancellables.forEach { $0.cancel() }
         cancellables.removeAll()
-        task.cancel(with: .normalClosure, reason: nil)
-        session.finishTasksAndInvalidate()
+        if let task = task {
+            task.cancel(with: .normalClosure, reason: nil)
+        }
+        if let session = session {
+            session.finishTasksAndInvalidate()
+        }
         
         socketURL = nil
         socketTimeout = nil

@@ -15,14 +15,52 @@ final class DeploymentViewState: ObservableObject {
     @Published var progress = 0.0
     @Published var enableEONCompiler = true
     @Published var optimization: Classifier = .Quantized
+    
+    private lazy var socketManager = WebSocketManager()
+    private lazy var cancellables = Set<AnyCancellable>()
 }
 
 // MARK: - API
 
 extension DeploymentViewState {
     
-    func connect() {
+    func connect(using socketToken: Token) {
+        guard let request = HTTPRequest(scheme: .wss, host: .EdgeImpulse, path: "/socket.io/", parameters: ["token": socketToken.socketToken, "transport": "websocket"]),
+              let urlString = request.url?.absoluteString else {
+            status = .error(NordicError.init(description: "Unable to make HTTPRequest."))
+            return
+        }
         status = .connecting
+        socketManager.connect(to: urlString, pingTimeout: 4)
+            .flatMap { (_) -> AnyPublisher<Data, Swift.Error> in
+                return self.socketManager.dataSubject
+                    .tryMap { result in
+                        switch result {
+                        case .success(let data):
+                            return data
+                        case .failure(let error):
+                            throw error
+                        }
+                    }
+                    .eraseToAnyPublisher()
+            }
+            .sinkOrRaiseAppEventError(onError: { error in
+                self.status = .error(error)
+            }) { data in
+                self.status = .streaming
+                guard let message = String(bytes: data, encoding: .utf8) else { return }
+                print(message)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func disconnect() {
+        socketManager.disconnect()
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+        cancellables.removeAll()
+        status = .idle
     }
     
     func build() {
