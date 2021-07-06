@@ -12,8 +12,7 @@ import Foundation
 extension HTTPRequest {
     
     static func renameDevice(_ device: RegisteredDevice, as newName: String, in project: Project, using apiToken: String) -> HTTPRequest? {
-        guard let escapedDeviceId = device.deviceId.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
-              var request = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/devices/\(escapedDeviceId)/rename"),
+        guard var request = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/devices/\(device.deviceId)/rename"),
               let bodyData = try? JSONEncoder().encode(RenameDeviceBody(name: newName)) else { return nil }
         
         request.setMethod(.POST)
