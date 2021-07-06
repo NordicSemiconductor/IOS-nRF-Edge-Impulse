@@ -17,7 +17,6 @@ struct DeviceList: View {
     @EnvironmentObject var appData: AppData
     
     @State private var renameDevice: RegisteredDevice? = nil
-    @State private var scannerCancellable: Cancellable? = nil
     @State private var selectedDeviceId: Int? = nil
     
     private let logger = Logger(category: "DeviceList")
@@ -39,9 +38,6 @@ struct DeviceList: View {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 })
             }
-        }
-        .onDisappear() {
-            scannerCancellable?.cancel()
         }
         .accentColor(.white)
     }
