@@ -55,7 +55,6 @@ struct RenameDeviceView: View {
                     .modifier(FixPlaceholder(for: $newDeviceName, text: "New Device Name"))
                     .disableAllAutocorrections()
                     .foregroundColor(.accentColor)
-                    .frame(minWidth: 200)
                     .modifier(RoundedTextFieldShape(.lightGrey))
                     .disabled(!textFieldEnabled)
                     .padding(4)
@@ -73,9 +72,21 @@ struct RenameDeviceView: View {
                     .padding(4)
             }
             
-            Button("OK", action: buttonClicked)
-                .disabled(!buttonEnabled)
+            HStack {
+                Button("OK", action: okButton)
+                    .disabled(!buttonEnabled)
+                
+                switch viewState {
+                case .waitingForInput:
+                    Button("Cancel", action: dismiss)
+                        .foregroundColor(Assets.red.color)
+                        .disabled(!buttonEnabled)
+                default:
+                    EmptyView()
+                }
+            }
         }
+        .frame(minWidth: 200)
         .padding()
     }
     
@@ -123,15 +134,19 @@ internal extension RenameDeviceView {
 
 fileprivate extension RenameDeviceView {
     
-    func buttonClicked() {
+    func okButton() {
         switch viewState {
         case .waitingForInput:
             attemptRename()
         case .requestIsOngoing:
             break
         case .error(_), .success:
-            presentedDevice.wrappedValue = nil
+            dismiss()
         }
+    }
+    
+    func dismiss() {
+        presentedDevice.wrappedValue = nil
     }
     
     func attemptRename() {
@@ -152,7 +167,7 @@ fileprivate extension RenameDeviceView {
                 logger.debug("Request Response Successful. Refreshing list of Devices.")
                 self.deviceData.refresh()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
-                    self.buttonClicked()
+                    self.okButton()
                 }
             })
             .store(in: &cancellables)
