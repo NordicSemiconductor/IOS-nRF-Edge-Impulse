@@ -29,7 +29,7 @@ struct DeviceList: View {
             buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
         }
         .sheet(item: $renameDevice) { device in
-            RenameDeviceView($renameDevice, oldName: device.deviceId)
+            RenameDeviceView($renameDevice, oldName: device.name)
                 .padding()
         }
         .toolbar {
