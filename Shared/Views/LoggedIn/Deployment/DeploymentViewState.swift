@@ -6,9 +6,11 @@
 //
 
 import Combine
+import SwiftUI
 
 final class DeploymentViewState: ObservableObject {
 
+    @Published var status: SocketStatus = .idle
     @Published var selectedDevice = Constant.unselectedDevice
     @Published var progress = 0.0
     @Published var enableEONCompiler = true
@@ -18,6 +20,10 @@ final class DeploymentViewState: ObservableObject {
 // MARK: - API
 
 extension DeploymentViewState {
+    
+    func connect() {
+        status = .connecting
+    }
     
     func build() {
         

@@ -94,6 +94,8 @@
 		AA482F822631A213007B8B64 /* UserContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F802631A213007B8B64 /* UserContentView.swift */; };
 		AA4D06F3268F410E00DFB6A9 /* RenameDeviceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */; };
 		AA4D06F4268F410E00DFB6A9 /* RenameDeviceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */; };
+		AA4E8A7926947A3600C844FE /* DeploymentViewState+SocketStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */; };
+		AA4E8A7A26947A3600C844FE /* DeploymentViewState+SocketStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */; };
 		AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */; };
 		AA535511261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */; };
 		AA69E2C7263973FB00BC44D3 /* VisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = AA69E2C6263973FB00BC44D3 /* VisualEffects */; };
@@ -316,6 +318,7 @@
 		AA482F7E26318B11007B8B64 /* View+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+macOS.swift"; sourceTree = "<group>"; };
 		AA482F802631A213007B8B64 /* UserContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContentView.swift; sourceTree = "<group>"; };
 		AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameDeviceRequest.swift; sourceTree = "<group>"; };
+		AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentViewState+SocketStatus.swift"; sourceTree = "<group>"; };
 		AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorRow.swift; sourceTree = "<group>"; };
 		AA80988325EE518F00091AC0 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		AA80989925EE959B00091AC0 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
@@ -561,6 +564,7 @@
 			children = (
 				AA0D81282608C03A00AE615A /* DeploymentView.swift */,
 				AA0D812B2608F62700AE615A /* DeploymentViewState.swift */,
+				AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */,
 			);
 			path = Deployment;
 			sourceTree = "<group>";
@@ -1191,6 +1195,7 @@
 				AAF5E75326400A3A00AC3271 /* DataSamplesView.swift in Sources */,
 				AA8EC8B4261F30A900FBE990 /* Modifiers.swift in Sources */,
 				AA28405F261F537C00EB8637 /* PasswordField.swift in Sources */,
+				AA4E8A7926947A3600C844FE /* DeploymentViewState+SocketStatus.swift in Sources */,
 				AAFDB46B264D5F5600F0CD02 /* MultiColumnView.swift in Sources */,
 				AA01F3DF25EFDC5000368707 /* Constant.swift in Sources */,
 				AA92BEF12611F9E400BED04B /* ResourceData.swift in Sources */,
@@ -1269,6 +1274,7 @@
 				012A3ECA2666627E00EBB501 /* DeviceData.swift in Sources */,
 				AA10170425E91885006DC88A /* HTTPRequest.swift in Sources */,
 				AA01DA6126395E6000F6DD44 /* Date.swift in Sources */,
+				AA4E8A7A26947A3600C844FE /* DeploymentViewState+SocketStatus.swift in Sources */,
 				AAF4F6C72625EB7300012359 /* SettingsContentView.swift in Sources */,
 				AA01F3E025EFDC5000368707 /* Constant.swift in Sources */,
 				AAFFEB3125FF6A29002287D6 /* HorizontalTabView.swift in Sources */,

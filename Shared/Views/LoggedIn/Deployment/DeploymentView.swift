@@ -63,7 +63,7 @@ struct DeploymentView: View {
             }
             
             ProgressView(value: viewState.progress, total: 100.0)
-            
+            viewState.status.view
             Button("Build", action: viewState.build)
                 .centerTextInsideForm()
                 .foregroundColor(.primary)
