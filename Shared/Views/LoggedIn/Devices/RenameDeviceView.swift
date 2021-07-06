@@ -75,6 +75,7 @@ struct RenameDeviceView: View {
             HStack {
                 Button("OK", action: okButton)
                     .disabled(!buttonEnabled)
+                    .keyboardShortcut(.defaultAction)
                 
                 switch viewState {
                 case .waitingForInput:
