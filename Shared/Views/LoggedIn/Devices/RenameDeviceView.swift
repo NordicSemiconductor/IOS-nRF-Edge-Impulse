@@ -7,12 +7,14 @@
 
 import SwiftUI
 import Combine
+import OSLog
 
 // MARK: - RenameDeviceView
 
 struct RenameDeviceView: View {
     
     @EnvironmentObject var appData: AppData
+    @EnvironmentObject var deviceData: DeviceData
     
     // MARK: Properties
     
@@ -53,6 +55,7 @@ struct RenameDeviceView: View {
                     .modifier(FixPlaceholder(for: $newDeviceName, text: "New Device Name"))
                     .disableAllAutocorrections()
                     .foregroundColor(.accentColor)
+                    .frame(minWidth: 200)
                     .modifier(RoundedTextFieldShape(.lightGrey))
                     .disabled(!textFieldEnabled)
                     .padding(4)
@@ -132,6 +135,7 @@ fileprivate extension RenameDeviceView {
     }
     
     func attemptRename() {
+        let logger = Logger(category: String(describing: RenameDeviceView.self))
         guard let device = presentedDevice.wrappedValue,
               let currentProject = appData.selectedProject,
               let apiKey = appData.apiToken,
@@ -142,8 +146,11 @@ fileprivate extension RenameDeviceView {
         Network.shared.perform(renameRequest, responseType: RenameDeviceResponse.self)
             .sinkOrRaiseAppEventError(onError: { error in
                 self.viewState = .error(error)
+                logger.debug("Request Response failed with Error: \(error.localizedDescription).")
             }, receiveValue: { _ in
                 self.viewState = .success
+                logger.debug("Request Response Successful. Refreshing list of Devices.")
+                self.deviceData.refresh()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
                     self.buttonClicked()
                 }
@@ -164,6 +171,7 @@ struct RenameDeviceView_Previews: PreviewProvider {
             RenameDeviceView(.constant(RegisteredDevice.mock), oldName: RegisteredDevice.mock.deviceId, viewState: .success)
         }
         .previewLayout(.sizeThatFits)
+        .environmentObject(Preview.mockScannerData)
         .environmentObject(Preview.mockScannerData)
     }
 }
