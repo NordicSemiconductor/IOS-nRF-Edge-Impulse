@@ -58,7 +58,9 @@ struct RenameDeviceView: View {
                     .padding(4)
                     .introspectTextField { textField in
                         textField.becomeFirstResponder()
+                        #if os(iOS)
                         textField.selectAll(nil)
+                        #endif
                     }
             }
             
