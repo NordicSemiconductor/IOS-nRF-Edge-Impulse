@@ -39,9 +39,9 @@ extension WebSocketManager {
 
 class WebSocketManager: NSObject {
     let dataSubject = PassthroughSubject<Result<Data, Swift.Error>, Never>()
-    private lazy var session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
-    private let logger = Logger(category: "WebSocketManager")
+    private let logger = Logger(category: String(describing: WebSocketManager.self))
     
+    private var session: URLSession!
     private var socketURL: URL!
     private var task: URLSessionWebSocketTask!
     private var cancellables = Set<AnyCancellable>()
@@ -54,6 +54,7 @@ class WebSocketManager: NSObject {
         }
         
         socketURL = url
+        session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
         task = session.webSocketTask(with: socketURL)
         listen()
         task.resume()
@@ -69,6 +70,9 @@ class WebSocketManager: NSObject {
         cancellables.removeAll()
         task.cancel(with: .normalClosure, reason: nil)
         session.finishTasksAndInvalidate()
+        
+        socketURL = nil
+        session = nil
     }
     
     func send<T: Codable>(_ data: T) throws {
