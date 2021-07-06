@@ -34,9 +34,8 @@ extension DeviceData {
         }
         
         static func ==(lhs: RegisteredDeviceWrapper, rhs: RegisteredDeviceWrapper) -> Bool {
-            return lhs.device == rhs.device
+            return lhs.device == rhs.device && lhs.device.name == rhs.device.name
         }
-        
     }
     
     struct DeviceWrapper: Identifiable, Hashable {

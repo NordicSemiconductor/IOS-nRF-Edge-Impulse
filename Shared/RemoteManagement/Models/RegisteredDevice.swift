@@ -27,11 +27,10 @@ struct RegisteredDevice: Codable {
 }
 
 extension RegisteredDevice: Identifiable, Hashable {
+    
     static func == (lhs: RegisteredDevice, rhs: RegisteredDevice) -> Bool {
-        lhs.deviceId == rhs.deviceId
+        return lhs.deviceId == rhs.deviceId && lhs.name == rhs.name
     }
-    
-    
 }
 
 #if DEBUG
