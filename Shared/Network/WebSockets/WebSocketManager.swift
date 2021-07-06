@@ -43,17 +43,19 @@ class WebSocketManager: NSObject {
     
     private var session: URLSession!
     private var socketURL: URL!
+    private var socketTimeout: TimeInterval!
     private var task: URLSessionWebSocketTask!
     private var cancellables = Set<AnyCancellable>()
     
     private var stateSubject = PassthroughSubject<State, Error>()
     
-    func connect(to urlString: String) -> AnyPublisher<State, Swift.Error> {
+    func connect(to urlString: String, pingTimeout: TimeInterval = WebSocketManager.PingTime) -> AnyPublisher<State, Swift.Error> {
         guard let url = URL(string: urlString) else {
             return Fail(error: Error.wrongUrl).eraseToAnyPublisher()
         }
         
         socketURL = url
+        socketTimeout = pingTimeout
         session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
         task = session.webSocketTask(with: socketURL)
         listen()
@@ -72,6 +74,7 @@ class WebSocketManager: NSObject {
         session.finishTasksAndInvalidate()
         
         socketURL = nil
+        socketTimeout = nil
         session = nil
     }
     
@@ -105,7 +108,7 @@ extension WebSocketManager {
     
     private func schedulePings() {
         Timer
-            .publish(every: Self.PingTime, on: .main, in: .common)
+            .publish(every: socketTimeout, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
                 self?.ping()
