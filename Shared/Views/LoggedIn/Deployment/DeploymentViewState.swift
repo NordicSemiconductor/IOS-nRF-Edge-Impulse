@@ -56,18 +56,31 @@ extension DeploymentViewState {
         }
         status = .connecting
         socketManager.connect(to: urlString, pingTimeout: 4)
-            .flatMap { (_) -> AnyPublisher<Data, Swift.Error> in
-                return self.socketManager.dataSubject
-                    .tryMap { result in
-                        switch result {
-                        case .success(let data):
-                            return data
-                        case .failure(let error):
-                            throw error
-                        }
-                    }
-                    .eraseToAnyPublisher()
+            .receive(on: RunLoop.main)
+            .sinkReceivingError(onError: { error in
+                self.status = .error(error)
+            }) { status in
+                switch status {
+                case .notConnected:
+                    self.status = .error(NordicError.init(description: "Disconnected."))
+                case .connecting:
+                    self.status = .connecting
+                case .connected:
+                    self.status = .connected
+                }
             }
+            .store(in: &cancellables)
+        
+        socketManager.dataSubject
+            .tryMap { result -> Data in
+                switch result {
+                case .success(let data):
+                    return data
+                case .failure(let error):
+                    throw error
+                }
+            }
+            .receive(on: RunLoop.main)
             .sinkReceivingError(onError: { error in
                 self.status = .error(error)
             }) { data in
