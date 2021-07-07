@@ -66,11 +66,18 @@ struct DeploymentView: View {
             }
             
             ProgressView(value: viewState.progress, total: 100.0)
-            viewState.status.view(onRetry: attemptToConnect)
-            Button("Build", action: viewState.build)
-                .centerTextInsideForm()
-                .foregroundColor(viewState.buildButtonEnable ? .primary : Assets.middleGrey.color)
-                .disabled(!viewState.buildButtonEnable)
+            viewState.status.view
+            switch viewState.status {
+            case .error(_):
+                Button("Retry", action: retry)
+                    .centerTextInsideForm()
+                    .foregroundColor(.primary)
+            default:
+                Button("Build", action: attemptToBuild)
+                    .centerTextInsideForm()
+                    .foregroundColor(viewState.buildButtonEnable ? .primary : Assets.middleGrey.color)
+                    .disabled(!viewState.buildButtonEnable)
+            }
         }
         .onAppear() {
             attemptToConnect()
@@ -81,6 +88,25 @@ struct DeploymentView: View {
 // MARK: - Logic
 
 fileprivate extension DeploymentView {
+    
+    func attemptToBuild() {
+        guard let currentProject = appData.selectedProject,
+              let apiToken = appData.apiToken else { return }
+        viewState.sendBuildRequest(for: currentProject, using: apiToken) { [self] response, error in
+            guard let response = response else {
+                if let error = error {
+                    self.viewState.status = .error(error)
+                }
+                return
+            }
+            self.viewState.status = .buildingModel(response.id)
+        }
+    }
+    
+    func retry() {
+        viewState.status = .idle
+        attemptToConnect()
+    }
     
     func attemptToConnect() {
         guard viewState.isReadyToConnect,

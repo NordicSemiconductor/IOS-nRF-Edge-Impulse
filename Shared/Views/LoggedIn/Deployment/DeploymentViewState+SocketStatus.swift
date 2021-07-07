@@ -15,6 +15,7 @@ extension DeploymentViewState {
         case idle
         case connecting
         case connected
+        case buildingModel(_ id: Int)
         case error(_ error: Error)
         
         var color: Color {
@@ -23,7 +24,7 @@ extension DeploymentViewState {
                 return Assets.middleGrey.color
             case .connecting:
                 return Assets.sun.color
-            case .connected:
+            case .connected, .buildingModel(_):
                 return .green
             case .error(_):
                 return Assets.red.color
@@ -31,16 +32,12 @@ extension DeploymentViewState {
         }
         
         @ViewBuilder
-        func view(onRetry retryAction: @escaping () -> ()) -> some View {
+        var view: some View {
             HStack {
                 ConnectionStatus(color: self.color)
                 switch self {
                 case .error(let e):
                     Text(e.localizedDescription)
-                    Button(action: retryAction) {
-                        Image(systemName: "arrow.counterclockwise")
-                            .padding(6)
-                    }
                 default:
                     Text((String(describing: self).uppercasingFirst))
                         .lineLimit(1)
@@ -60,10 +57,10 @@ struct SocketStatus_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            DeploymentViewState.SocketStatus.idle.view(onRetry: SocketStatus_Previews.doNothing)
-            DeploymentViewState.SocketStatus.connecting.view(onRetry: SocketStatus_Previews.doNothing)
-            DeploymentViewState.SocketStatus.connected.view(onRetry: SocketStatus_Previews.doNothing)
-            DeploymentViewState.SocketStatus.error(NordicError.testError).view(onRetry: SocketStatus_Previews.doNothing)
+            DeploymentViewState.SocketStatus.idle.view
+            DeploymentViewState.SocketStatus.connecting.view
+            DeploymentViewState.SocketStatus.connected.view
+            DeploymentViewState.SocketStatus.error(NordicError.testError).view
         }
         .previewLayout(.sizeThatFits)
     }

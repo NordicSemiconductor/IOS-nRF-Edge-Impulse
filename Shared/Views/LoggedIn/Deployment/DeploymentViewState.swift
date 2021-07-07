@@ -78,6 +78,18 @@ extension DeploymentViewState {
             .store(in: &cancellables)
     }
     
+    func sendBuildRequest(for selectedProject: Project, using apiToken: String,
+                          deliveryBlock: @escaping (BuildOnDeviceModelRequestResponse?, Error?) -> Void) {
+        guard let buildRequest = HTTPRequest.buildModel(project: selectedProject, using: apiToken) else { return }
+        Network.shared.perform(buildRequest, responseType: BuildOnDeviceModelRequestResponse.self)
+            .sinkReceivingError(onError: { error in
+                deliveryBlock(nil, error)
+            }, receiveValue: { response in
+                deliveryBlock(response, nil)
+            })
+            .store(in: &cancellables)
+    }
+    
     func disconnect() {
         socketManager.disconnect()
         for cancellable in cancellables {
@@ -85,10 +97,6 @@ extension DeploymentViewState {
         }
         cancellables.removeAll()
         status = .idle
-    }
-    
-    func build() {
-        
     }
 }
 
