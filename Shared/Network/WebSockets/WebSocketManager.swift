@@ -122,12 +122,13 @@ extension WebSocketManager {
     
     private func ping() {
         task.sendPing { [weak self] error in
-            guard let self = self else { return }
+            guard let self = self, let socketURL = self.socketURL else { return }
             switch error {
             case .none:
-                self.logger.debug("Successfully pinged WebSocket at \(self.socketURL.absoluteString).")
+                self.logger.debug("Successfully pinged WebSocket at \(socketURL.absoluteString).")
             case .some(let error):
-                self.logger.error("WebSocket \(self.socketURL.absoluteString) ping returned an error: \(error.localizedDescription)")
+                self.logger.error("WebSocket \(socketURL.absoluteString) ping returned an error: \(error.localizedDescription)")
+                self.stateSubject.send(completion: .failure(.wsError(error)))
                 self.logger.error("Triggering disconnection due to ping error.")
                 self.disconnect()
             }
