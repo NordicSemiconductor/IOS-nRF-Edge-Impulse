@@ -49,7 +49,7 @@ extension DeploymentViewState {
 extension DeploymentViewState {
     
     func connect(using socketToken: Token) {
-        guard let request = HTTPRequest(scheme: .wss, host: .EdgeImpulse, path: "/socket.io/", parameters: ["token": socketToken.socketToken, "transport": "websocket"]),
+        guard let request = HTTPRequest(scheme: .wss, host: .EdgeImpulse, path: "/socket.io/", parameters: ["token": socketToken.socketToken, "EIO": "3", "transport": "websocket"]),
               let urlString = request.url?.absoluteString else {
             status = .error(NordicError.init(description: "Unable to make HTTPRequest."))
             return
@@ -62,7 +62,7 @@ extension DeploymentViewState {
             }) { status in
                 switch status {
                 case .notConnected:
-                    self.status = .error(NordicError.init(description: "Disconnected."))
+                    self.status = .error(NordicError(description: "Disconnected."))
                 case .connecting:
                     self.status = .connecting
                 case .connected:
