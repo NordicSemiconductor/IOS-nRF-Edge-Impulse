@@ -20,6 +20,30 @@ final class DeploymentViewState: ObservableObject {
     private lazy var cancellables = Set<AnyCancellable>()
 }
 
+// MARK: - API Properties
+
+extension DeploymentViewState {
+    
+    var buildButtonEnable: Bool {
+        guard selectedDevice != Constant.unselectedDevice else { return false }
+        switch status {
+        case .connected:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    var isReadyToConnect: Bool {
+        switch status {
+        case .idle:
+            return true
+        default:
+            return false
+        }
+    }
+}
+
 // MARK: - API
 
 extension DeploymentViewState {

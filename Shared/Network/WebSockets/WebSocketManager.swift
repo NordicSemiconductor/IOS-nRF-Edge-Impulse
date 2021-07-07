@@ -38,6 +38,9 @@ extension WebSocketManager {
 }
 
 class WebSocketManager: NSObject {
+    /**
+     Subscribe to listen to all data received via WebSocket.
+     */
     let dataSubject = PassthroughSubject<Result<Data, Swift.Error>, Never>()
     private let logger = Logger(category: String(describing: WebSocketManager.self))
     
@@ -49,6 +52,9 @@ class WebSocketManager: NSObject {
     
     private var stateSubject = PassthroughSubject<State, Error>()
     
+    /**
+     - Returns: Subject/Publisher reporting status changes (connected, disconnected etc).
+     */
     func connect(to urlString: String, pingTimeout: TimeInterval = WebSocketManager.PingTime) -> AnyPublisher<State, Swift.Error> {
         guard let url = URL(string: urlString) else {
             return Fail(error: Error.wrongUrl).eraseToAnyPublisher()

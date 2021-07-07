@@ -18,16 +18,6 @@ struct DeploymentView: View {
     
     // MARK: - viewBuilder
     
-    var buildButtonEnable: Bool {
-        guard viewState.selectedDevice != Constant.unselectedDevice else { return false }
-        switch viewState.status {
-        case .connected:
-            return true
-        default:
-            return false
-        }
-    }
-    
     var body: some View {
         Form {
             Section(header: Text("Device")) {
@@ -77,24 +67,16 @@ struct DeploymentView: View {
             Button("Build", action: viewState.build)
                 .centerTextInsideForm()
                 .foregroundColor(.primary)
-                .disabled(!buildButtonEnable)
+                .disabled(!viewState.buildButtonEnable)
         }
         .onAppear() {
-            switch viewState.status {
-            case .idle:
-                break
-            default:
-                return
-            }
-            guard let currentProject = appData.selectedProject,
+            guard viewState.isReadyToConnect,
+                  let currentProject = appData.selectedProject,
                   let socketToken = appData.projectSocketTokens[currentProject] else {
                 // TODO: Error: Token missing.
                 return
             }
             viewState.connect(using: socketToken)
-        }
-        .onDisappear() {
-            viewState.disconnect()
         }
     }
 }
