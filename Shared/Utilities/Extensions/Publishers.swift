@@ -25,13 +25,34 @@ extension Publisher {
         }
     }
     
-    func sinkOrRaiseAppEventError(onError errorValue: ((Self.Failure) -> Void)? = nil,
-                                  receiveValue: @escaping ((Self.Output) -> Void)) -> AnyCancellable {
+    func sinkReceivingError(onError errorValue: ((Self.Failure) -> Void)? = nil,      
+                            receiveValue: @escaping ((Self.Output) -> Void)) -> AnyCancellable {
         self.sink(receiveCompletion: { completion in
             switch completion {
             case .failure(let error):
-                AppEvents.shared.error = ErrorEvent(error)
-                errorValue?(error)
+                DispatchQueue.main.async {
+                    errorValue?(error)
+                }
+            default:
+                break
+            }
+        }) { result in
+            if let apiResponse = result as? APIResponse, !apiResponse.success {
+                let errorMessage = apiResponse.error ?? "Server returned 'request was not a success' response."
+                AppEvents.shared.error = ErrorEvent(title: "Error", localizedDescription: errorMessage)
+                return
+            }
+            receiveValue(result)
+        }
+    }
+    
+    func sinkOrRaiseAppEventError(receiveValue: @escaping ((Self.Output) -> Void)) -> AnyCancellable {
+        self.sink(receiveCompletion: { completion in
+            switch completion {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    AppEvents.shared.error = ErrorEvent(error)
+                }
             default:
                 break
             }

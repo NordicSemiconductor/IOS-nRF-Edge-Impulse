@@ -160,7 +160,7 @@ fileprivate extension RenameDeviceView {
         
         viewState = .requestIsOngoing
         Network.shared.perform(renameRequest, responseType: RenameDeviceResponse.self)
-            .sinkOrRaiseAppEventError(onError: { error in
+            .sinkReceivingError(onError: { error in
                 self.viewState = .error(error)
                 logger.debug("Request Response failed with Error: \(error.localizedDescription).")
             }, receiveValue: { _ in

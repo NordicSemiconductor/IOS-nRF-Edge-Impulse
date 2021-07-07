@@ -44,7 +44,7 @@ extension DeploymentViewState {
                     }
                     .eraseToAnyPublisher()
             }
-            .sinkOrRaiseAppEventError(onError: { error in
+            .sinkReceivingError(onError: { error in
                 self.status = .error(error)
             }) { data in
                 self.status = .streaming
