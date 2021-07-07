@@ -11,13 +11,18 @@ import SwiftUI
 struct nRF_Edge_ImpulseApp: App {
     
     @StateObject var dataContainer = DataContainer()
+    @StateObject var hudState = HUDState()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .hud(isPresented: $hudState.isPresented) {
+                    Label(hudState.title, systemImage: hudState.systemImage)
+                }
                 .environmentObject(dataContainer.appData)
                 .environmentObject(dataContainer.resourceData)
                 .environmentObject(dataContainer.deviceData)
+                .environmentObject(hudState)
         }
     }
 }

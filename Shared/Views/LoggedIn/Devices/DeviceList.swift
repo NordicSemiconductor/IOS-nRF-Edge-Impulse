@@ -88,13 +88,6 @@ private extension DeviceList {
                                 selectedDeviceId = d.id
                             }
                         }
-                        .contextMenu {
-                            Button(action: {
-                                self.renameDevice = d.device
-                            }) {
-                                Label("Rename", systemImage: "pencil")
-                            }
-                        }
                 }
                     
             } else {
@@ -108,6 +101,7 @@ private extension DeviceList {
     
     @ViewBuilder
     private func deviceContextMenu(device: RegisteredDevice, state: DeviceData.RegisteredDeviceWrapper.State) -> some View {
+        
         if case .readyToConnect = state {
             Button {
                 deviceData.tryToConnect(registeredDevice: device)
@@ -128,6 +122,11 @@ private extension DeviceList {
             .foregroundColor(Assets.red.color)
         }
         
+        Button(action: {
+            self.renameDevice = device
+        }) {
+            Label("Rename", systemImage: "pencil")
+        }
         Button {
             selectedDeviceId = device.id
         } label: {

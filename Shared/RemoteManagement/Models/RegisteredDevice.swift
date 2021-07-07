@@ -45,7 +45,7 @@ extension RegisteredDevice {
         sensors: [ .mock1, .mock2, .mock3 ],
         remoteMgmtConnected: true,
         remoteMgmtHost: nil,
-        supportsSnapshotStreaming: true,
+        supportsSnapshotStreaming: false,
         name: "Thingy:53"
     )
 }

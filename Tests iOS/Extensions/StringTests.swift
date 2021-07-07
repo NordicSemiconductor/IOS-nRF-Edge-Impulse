@@ -20,7 +20,6 @@ class StringTests: XCTestCase {
     }
     
     func testDateConversion() {
-        XCTAssertNotNil("".toDate())
         
     }
 

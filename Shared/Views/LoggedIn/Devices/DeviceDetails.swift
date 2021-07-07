@@ -17,7 +17,10 @@ struct DeviceDetails: View {
                 DeviceInfoRow(title: "Created At:", systemImage: "calendar", content: device.created.toDate()?.formatterString() ?? "")
                 DeviceInfoRow(title: "Last Seen:", systemImage: "eye", content: device.lastSeen.toDate()?.formatterString() ?? "")
                 DeviceInfoRow(title: "Device ID:", systemImage: "person", content: device.deviceId)
-                DeviceInfoRow(title: "Device Type:", systemImage: nil, content: device.deviceType)
+                DeviceInfoRow(title: "Device Type:", systemImage: "t.square", content: device.deviceType)
+                
+                BoolDeviceInfoRow(title: "Remote Management Connected", systemImage: "app.connected.to.app.below.fill", choice: device.remoteMgmtConnected)
+                BoolDeviceInfoRow(title: "Supports Snapshot Streaming", systemImage: "arrow.left.and.right", choice: device.supportsSnapshotStreaming)
                 
                 Section(header: Text("Sensors")) {
                     ForEach(device.sensors) { SensorSection(sensor: $0) }
@@ -50,6 +53,7 @@ struct DeviceDetails: View {
                     ProgressView()
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
+                
             } else if case .connected = state {
                 Button("Disconnect") {
                     deviceData.disconnect(registeredDevice: device)
@@ -63,15 +67,39 @@ struct DeviceDetails: View {
 }
 
 private struct DeviceInfoRow: View {
+    @EnvironmentObject private var hudState: HUDState
+    
     let title: String
     let systemImage: String?
     let content: String
+        
+    var body: some View {
+        HStack {
+            Label(title, systemImage: systemImage ?? "")
+            Spacer()
+            
+            Text(content)
+                .bold()
+                .onLongPressGesture {
+                    UIPasteboard.general.string = content
+                    hudState.show(title: "Copied", systemImage: "doc.on.doc")
+                }
+        }
+    }
+}
+
+private struct BoolDeviceInfoRow: View {
+    let title: String
+    let systemImage: String?
+    let choice: Bool
     
     var body: some View {
         HStack {
             Label(title, systemImage: systemImage ?? "")
             Spacer()
-            Text(content).bold()
+            choice
+            ? Image(systemName: "checkmark.circle.fill").foregroundColor(.green)
+            : Image(systemName: "xmark.circle.fill").foregroundColor(Assets.red.color)
         }
     }
 }
@@ -124,6 +152,7 @@ private struct SensorSection: View {
 struct DeviceDetails_Previews: PreviewProvider {
     static var previews: some View {
         DeviceDetails(device: .mock)
+            .environmentObject(DeviceData(appData: AppData()))
     }
 }
 #endif

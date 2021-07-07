@@ -231,6 +231,10 @@
 		C37E5ECA262842AA00B9E361 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E5EC8262842AA00B9E361 /* Scanner.swift */; };
 		C3846EE5260B4386005AEF67 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3846EE4260B4386005AEF67 /* BluetoothManager.swift */; };
 		C3846EE6260B4386005AEF67 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3846EE4260B4386005AEF67 /* BluetoothManager.swift */; };
+		C39B106B2695C5390056095E /* HUDState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39B106A2695C5390056095E /* HUDState.swift */; };
+		C39B106C2695C5390056095E /* HUDState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39B106A2695C5390056095E /* HUDState.swift */; };
+		C39B106E2695DF400056095E /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39B106D2695DF400056095E /* HUD.swift */; };
+		C39B106F2695DF400056095E /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39B106D2695DF400056095E /* HUD.swift */; };
 		C3A3665A260414BC008D82CC /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A36659260414BC008D82CC /* DeviceRow.swift */; };
 		C3A3665B260414BC008D82CC /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A36659260414BC008D82CC /* DeviceRow.swift */; };
 		C3B5DDBF269221D400FD62D2 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B5DDBE269221D400FD62D2 /* StringTests.swift */; };
@@ -384,6 +388,8 @@
 		C37DD498260C89D800D667EA /* AdvertisementData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementData.swift; sourceTree = "<group>"; };
 		C37E5EC8262842AA00B9E361 /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
 		C3846EE4260B4386005AEF67 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		C39B106A2695C5390056095E /* HUDState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDState.swift; sourceTree = "<group>"; };
+		C39B106D2695DF400056095E /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		C3A36659260414BC008D82CC /* DeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRow.swift; sourceTree = "<group>"; };
 		C3B5DDBE269221D400FD62D2 /* StringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
 		C3BF6AAB26244907006330C8 /* Logger+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Ext.swift"; sourceTree = "<group>"; };
@@ -668,6 +674,7 @@
 				AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */,
 				AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */,
 				AA0208A825F65EB400FD6B24 /* Tabs.swift */,
+				C39B106D2695DF400056095E /* HUD.swift */,
 			);
 			path = RootView;
 			sourceTree = "<group>";
@@ -749,6 +756,7 @@
 				AAF0C96E260A069F001B76B9 /* User.swift */,
 				AA008A7625EE422C00F70F75 /* Project.swift */,
 				AAF5E7582640106700AC3271 /* DataSample.swift */,
+				C39B106A2695C5390056095E /* HUDState.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -1154,6 +1162,7 @@
 				AA03298B266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift in Sources */,
 				AAFDB46E264D73A800F0CD02 /* ProjectView.swift in Sources */,
 				AAFFEB3025FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
+				C39B106B2695C5390056095E /* HUDState.swift in Sources */,
 				AA03E98225E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				C33C10C32609791E0097EA5A /* SignalLevel.swift in Sources */,
 				AA02088E25F651D100FD6B24 /* ScanResult.swift in Sources */,
@@ -1184,6 +1193,7 @@
 				C3755CD4268F0A9700FE8C69 /* DeviceDetails.swift in Sources */,
 				AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */,
 				AAF5E75326400A3A00AC3271 /* DataSamplesView.swift in Sources */,
+				C39B106E2695DF400056095E /* HUD.swift in Sources */,
 				AA8EC8B4261F30A900FBE990 /* Modifiers.swift in Sources */,
 				AA28405F261F537C00EB8637 /* PasswordField.swift in Sources */,
 				AAFDB46B264D5F5600F0CD02 /* MultiColumnView.swift in Sources */,
@@ -1246,6 +1256,7 @@
 				C37DD49A260C89D800D667EA /* AdvertisementData.swift in Sources */,
 				AAFDB46C264D5F5700F0CD02 /* MultiColumnView.swift in Sources */,
 				AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */,
+				C39B106F2695DF400056095E /* HUD.swift in Sources */,
 				AA03298F266F8CB200C46547 /* DataAquisitionView+Logic.swift in Sources */,
 				AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA05BC482667D098003AEE50 /* StartSamplingRequest.swift in Sources */,
@@ -1277,6 +1288,7 @@
 				AA0208AA25F65EB400FD6B24 /* Tabs.swift in Sources */,
 				AA2CDEB72636FF3900A4950E /* AppEvents.swift in Sources */,
 				01D853F0265D0B8D00D96592 /* RegisteredDevice.swift in Sources */,
+				C39B106C2695C5390056095E /* HUDState.swift in Sources */,
 				AA32792D2604C66B00A0CA6A /* DataAcquisitionViewState.swift in Sources */,
 				AA032989266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */,
 				AA92BEFB2612064E00BED04B /* ResourcesRequest.swift in Sources */,
