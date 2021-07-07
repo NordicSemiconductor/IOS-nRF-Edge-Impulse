@@ -140,8 +140,9 @@ extension WebSocketManager {
         task.receive { [weak self] result in
             switch result {
             case .failure(let e):
-                self?.dataSubject.send(.failure(e))
                 self?.logger.error("Error: \(e.localizedDescription)")
+                self?.dataSubject.send(.failure(e))
+                self?.stateSubject.send(completion: .failure(.wsError(e)))
             case .success(let msg):
                 switch msg {
                 case .data(let d):
