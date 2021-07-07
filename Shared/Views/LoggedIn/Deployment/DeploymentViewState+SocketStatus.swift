@@ -31,12 +31,16 @@ extension DeploymentViewState {
         }
         
         @ViewBuilder
-        var view: some View {
+        func view(onRetry retryAction: @escaping () -> ()) -> some View {
             HStack {
                 ConnectionStatus(color: self.color)
                 switch self {
                 case .error(let e):
                     Text(e.localizedDescription)
+                    Button(action: retryAction) {
+                        Image(systemName: "arrow.counterclockwise")
+                            .padding(6)
+                    }
                 default:
                     Text((String(describing: self).uppercasingFirst))
                         .lineLimit(1)
@@ -49,13 +53,17 @@ extension DeploymentViewState {
 // MARK: - Preview
 
 #if DEBUG
-struct DeploymentViewState_SocketStatus_Previews: PreviewProvider {
+
+struct SocketStatus_Previews: PreviewProvider {
+    
+    static var doNothing: () -> () = { }
+    
     static var previews: some View {
         Group {
-            DeploymentViewState.SocketStatus.idle.view
-            DeploymentViewState.SocketStatus.connecting.view
-            DeploymentViewState.SocketStatus.connected.view
-            DeploymentViewState.SocketStatus.error(NordicError.testError).view
+            DeploymentViewState.SocketStatus.idle.view(onRetry: SocketStatus_Previews.doNothing)
+            DeploymentViewState.SocketStatus.connecting.view(onRetry: SocketStatus_Previews.doNothing)
+            DeploymentViewState.SocketStatus.connected.view(onRetry: SocketStatus_Previews.doNothing)
+            DeploymentViewState.SocketStatus.error(NordicError.testError).view(onRetry: SocketStatus_Previews.doNothing)
         }
         .previewLayout(.sizeThatFits)
     }

@@ -66,21 +66,30 @@ struct DeploymentView: View {
             }
             
             ProgressView(value: viewState.progress, total: 100.0)
-            viewState.status.view
+            viewState.status.view(onRetry: attemptToConnect)
             Button("Build", action: viewState.build)
                 .centerTextInsideForm()
                 .foregroundColor(viewState.buildButtonEnable ? .primary : Assets.middleGrey.color)
                 .disabled(!viewState.buildButtonEnable)
         }
         .onAppear() {
-            guard viewState.isReadyToConnect,
-                  let currentProject = appData.selectedProject,
-                  let socketToken = appData.projectSocketTokens[currentProject] else {
-                // TODO: Error: Token missing.
-                return
-            }
-            viewState.connect(using: socketToken)
+            attemptToConnect()
         }
+    }
+}
+
+// MARK: - Logic
+
+fileprivate extension DeploymentView {
+    
+    func attemptToConnect() {
+        guard viewState.isReadyToConnect,
+              let currentProject = appData.selectedProject,
+              let socketToken = appData.projectSocketTokens[currentProject] else {
+            // TODO: Error: Token missing.
+            return
+        }
+        viewState.connect(using: socketToken)
     }
 }
 
