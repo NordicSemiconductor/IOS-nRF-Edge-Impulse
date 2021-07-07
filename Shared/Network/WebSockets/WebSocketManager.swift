@@ -38,22 +38,31 @@ extension WebSocketManager {
 }
 
 class WebSocketManager: NSObject {
+    /**
+     Subscribe to listen to all data received via WebSocket.
+     */
     let dataSubject = PassthroughSubject<Result<Data, Swift.Error>, Never>()
-    private lazy var session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
-    private let logger = Logger(category: "WebSocketManager")
+    private let logger = Logger(category: String(describing: WebSocketManager.self))
     
+    private var session: URLSession!
     private var socketURL: URL!
+    private var socketTimeout: TimeInterval!
     private var task: URLSessionWebSocketTask!
     private var cancellables = Set<AnyCancellable>()
     
     private var stateSubject = PassthroughSubject<State, Error>()
     
-    func connect(to urlString: String) -> AnyPublisher<State, Swift.Error> {
+    /**
+     - Returns: Subject/Publisher reporting status changes (connected, disconnected etc).
+     */
+    func connect(to urlString: String, pingTimeout: TimeInterval = WebSocketManager.PingTime) -> AnyPublisher<State, Swift.Error> {
         guard let url = URL(string: urlString) else {
             return Fail(error: Error.wrongUrl).eraseToAnyPublisher()
         }
         
         socketURL = url
+        socketTimeout = pingTimeout
+        session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
         task = session.webSocketTask(with: socketURL)
         listen()
         task.resume()
@@ -67,8 +76,16 @@ class WebSocketManager: NSObject {
     func disconnect() {
         cancellables.forEach { $0.cancel() }
         cancellables.removeAll()
-        task.cancel(with: .normalClosure, reason: nil)
-        session.finishTasksAndInvalidate()
+        if let task = task {
+            task.cancel(with: .normalClosure, reason: nil)
+        }
+        if let session = session {
+            session.finishTasksAndInvalidate()
+        }
+        
+        socketURL = nil
+        socketTimeout = nil
+        session = nil
     }
     
     func send<T: Codable>(_ data: T) throws {
@@ -101,7 +118,7 @@ extension WebSocketManager {
     
     private func schedulePings() {
         Timer
-            .publish(every: Self.PingTime, on: .main, in: .common)
+            .publish(every: socketTimeout, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
                 self?.ping()
@@ -111,12 +128,13 @@ extension WebSocketManager {
     
     private func ping() {
         task.sendPing { [weak self] error in
-            guard let self = self else { return }
+            guard let self = self, let socketURL = self.socketURL else { return }
             switch error {
             case .none:
-                self.logger.debug("Successfully pinged WebSocket at \(self.socketURL.absoluteString).")
+                self.logger.debug("Successfully pinged WebSocket at \(socketURL.absoluteString).")
             case .some(let error):
-                self.logger.error("WebSocket \(self.socketURL.absoluteString) ping returned an error: \(error.localizedDescription)")
+                self.logger.error("WebSocket \(socketURL.absoluteString) ping returned an error: \(error.localizedDescription)")
+                self.stateSubject.send(completion: .failure(.wsError(error)))
                 self.logger.error("Triggering disconnection due to ping error.")
                 self.disconnect()
             }
@@ -128,8 +146,9 @@ extension WebSocketManager {
         task.receive { [weak self] result in
             switch result {
             case .failure(let e):
-                self?.dataSubject.send(.failure(e))
                 self?.logger.error("Error: \(e.localizedDescription)")
+                self?.dataSubject.send(.failure(e))
+                self?.stateSubject.send(completion: .failure(.wsError(e)))
             case .success(let msg):
                 switch msg {
                 case .data(let d):

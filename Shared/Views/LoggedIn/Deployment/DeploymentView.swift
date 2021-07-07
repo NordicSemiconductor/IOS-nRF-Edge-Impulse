@@ -30,6 +30,9 @@ struct DeploymentView: View {
                         }
                     }
                     .setAsComboBoxStyle()
+                    .onAppear() {
+                        viewState.selectedDevice = deviceData.allConnectedAndReadyToUseDevices().first?.device ?? Constant.unselectedDevice
+                    }
                 } else {
                     Text("No Devices Scanned.")
                         .foregroundColor(Assets.middleGrey.color)
@@ -63,11 +66,56 @@ struct DeploymentView: View {
             }
             
             ProgressView(value: viewState.progress, total: 100.0)
-            
-            Button("Build", action: viewState.build)
-                .centerTextInsideForm()
-                .foregroundColor(.primary)
+            viewState.status.view
+            switch viewState.status {
+            case .error(_):
+                Button("Retry", action: retry)
+                    .centerTextInsideForm()
+                    .foregroundColor(.primary)
+            default:
+                Button("Build", action: attemptToBuild)
+                    .centerTextInsideForm()
+                    .foregroundColor(viewState.buildButtonEnable ? .primary : Assets.middleGrey.color)
+                    .disabled(!viewState.buildButtonEnable)
+            }
         }
+        .onAppear() {
+            attemptToConnect()
+        }
+    }
+}
+
+// MARK: - Logic
+
+fileprivate extension DeploymentView {
+    
+    func attemptToBuild() {
+        guard let currentProject = appData.selectedProject,
+              let apiToken = appData.apiToken else { return }
+        viewState.sendBuildRequest(for: currentProject, using: apiToken) { [self] response, error in
+            guard let response = response else {
+                if let error = error {
+                    self.viewState.status = .error(error)
+                }
+                return
+            }
+            self.viewState.status = .buildingModel(response.id)
+        }
+    }
+    
+    func retry() {
+        viewState.status = .idle
+        attemptToConnect()
+    }
+    
+    func attemptToConnect() {
+        guard viewState.isReadyToConnect,
+              let currentProject = appData.selectedProject,
+              let socketToken = appData.projectSocketTokens[currentProject] else {
+            // TODO: Error: Token missing.
+            return
+        }
+        viewState.connect(using: socketToken)
     }
 }
 
