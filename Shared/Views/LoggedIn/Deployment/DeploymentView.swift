@@ -30,6 +30,9 @@ struct DeploymentView: View {
                         }
                     }
                     .setAsComboBoxStyle()
+                    .onAppear() {
+                        viewState.selectedDevice = deviceData.allConnectedAndReadyToUseDevices().first?.device ?? Constant.unselectedDevice
+                    }
                 } else {
                     Text("No Devices Scanned.")
                         .foregroundColor(Assets.middleGrey.color)
@@ -66,7 +69,7 @@ struct DeploymentView: View {
             viewState.status.view
             Button("Build", action: viewState.build)
                 .centerTextInsideForm()
-                .foregroundColor(.primary)
+                .foregroundColor(viewState.buildButtonEnable ? .primary : Assets.middleGrey.color)
                 .disabled(!viewState.buildButtonEnable)
         }
         .onAppear() {
