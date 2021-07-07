@@ -21,7 +21,7 @@ struct DeploymentView: View {
     var buildButtonEnable: Bool {
         guard viewState.selectedDevice != Constant.unselectedDevice else { return false }
         switch viewState.status {
-        case .streaming:
+        case .connected:
             return true
         default:
             return false

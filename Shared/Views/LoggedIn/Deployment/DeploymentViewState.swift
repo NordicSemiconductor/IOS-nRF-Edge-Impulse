@@ -47,7 +47,7 @@ extension DeploymentViewState {
             .sinkReceivingError(onError: { error in
                 self.status = .error(error)
             }) { data in
-                self.status = .streaming
+                self.status = .connected
                 guard let message = String(bytes: data, encoding: .utf8) else { return }
                 print(message)
             }
