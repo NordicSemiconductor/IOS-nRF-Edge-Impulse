@@ -45,7 +45,6 @@ class WebSocketManager: NSObject {
     private let logger = Logger(category: String(describing: WebSocketManager.self))
     
     private var session: URLSession!
-    private var socketURL: URL!
     private var socketTimeout: TimeInterval!
     private var task: URLSessionWebSocketTask!
     private var cancellables = Set<AnyCancellable>()
@@ -60,7 +59,6 @@ class WebSocketManager: NSObject {
             return Fail(error: Error.wrongUrl).eraseToAnyPublisher()
         }
         
-        socketURL = url
         socketTimeout = pingTimeout
         session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
         task = session.webSocketTask(with: socketURL)
@@ -83,7 +81,6 @@ class WebSocketManager: NSObject {
             session.finishTasksAndInvalidate()
         }
         
-        socketURL = nil
         socketTimeout = nil
         session = nil
     }
@@ -128,12 +125,12 @@ extension WebSocketManager {
     
     private func ping() {
         task.sendPing { [weak self] error in
-            guard let self = self, let socketURL = self.socketURL else { return }
+            guard let self = self, let socketURLString = self.task.currentRequest?.url?.absoluteString else { return }
             switch error {
             case .none:
-                self.logger.debug("Successfully pinged WebSocket at \(socketURL.absoluteString).")
+                self.logger.debug("Successfully pinged WebSocket at \(socketURLString).")
             case .some(let error):
-                self.logger.error("WebSocket \(socketURL.absoluteString) ping returned an error: \(error.localizedDescription)")
+                self.logger.error("WebSocket \(socketURLString) ping returned an error: \(error.localizedDescription)")
                 self.stateSubject.send(completion: .failure(.wsError(error)))
                 self.logger.error("Triggering disconnection due to ping error.")
                 self.disconnect()
