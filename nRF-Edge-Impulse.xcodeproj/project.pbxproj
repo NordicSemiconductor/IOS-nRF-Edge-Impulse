@@ -120,6 +120,8 @@
 		AA93424C26820C14001CD754 /* RegisteredDeviceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA93424A26820C14001CD754 /* RegisteredDeviceDetailsView.swift */; };
 		AA9CFCCF26610C76001B7751 /* sample_full_microphone_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA9CFCCE26610C76001B7751 /* sample_full_microphone_data_response.json */; };
 		AA9CFCD026610C76001B7751 /* sample_full_microphone_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA9CFCCE26610C76001B7751 /* sample_full_microphone_data_response.json */; };
+		AA9D798D26971D2300A987FB /* SocketIOJobMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9D798C26971D2300A987FB /* SocketIOJobMessage.swift */; };
+		AA9D798E26971D2300A987FB /* SocketIOJobMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9D798C26971D2300A987FB /* SocketIOJobMessage.swift */; };
 		AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */; };
 		AAA87ADD261B143B0097EA74 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA87ADC261B143B0097EA74 /* String.swift */; };
 		AAA87ADE261B143B0097EA74 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA87ADC261B143B0097EA74 /* String.swift */; };
@@ -335,6 +337,7 @@
 		AA9342472681F713001CD754 /* DataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataContainer.swift; sourceTree = "<group>"; };
 		AA93424A26820C14001CD754 /* RegisteredDeviceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredDeviceDetailsView.swift; sourceTree = "<group>"; };
 		AA9CFCCE26610C76001B7751 /* sample_full_microphone_data_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_full_microphone_data_response.json; sourceTree = "<group>"; };
+		AA9D798C26971D2300A987FB /* SocketIOJobMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOJobMessage.swift; sourceTree = "<group>"; };
 		AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionViewState.swift; sourceTree = "<group>"; };
 		AAA87ADC261B143B0097EA74 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		AAA87AE2261B28F50097EA74 /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
@@ -847,6 +850,7 @@
 			isa = PBXGroup;
 			children = (
 				C301A368261F12890010717D /* WebSocketManager.swift */,
+				AA9D798C26971D2300A987FB /* SocketIOJobMessage.swift */,
 			);
 			path = WebSockets;
 			sourceTree = "<group>";
@@ -1199,6 +1203,7 @@
 				AA27C2B3266E48F4002D1652 /* DataAcquisitionDevicePicker.swift in Sources */,
 				AA02089625F65A3700FD6B24 /* DeviceList.swift in Sources */,
 				AA92BEFA2612064E00BED04B /* ResourcesRequest.swift in Sources */,
+				AA9D798D26971D2300A987FB /* SocketIOJobMessage.swift in Sources */,
 				AAEDE636262882BF00B96AE9 /* ProjectSelectionView.swift in Sources */,
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AA05BC472667D098003AEE50 /* StartSamplingRequest.swift in Sources */,
@@ -1273,6 +1278,7 @@
 				AAFDB46C264D5F5700F0CD02 /* MultiColumnView.swift in Sources */,
 				AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */,
 				C39B106F2695DF400056095E /* HUD.swift in Sources */,
+				AA9D798E26971D2300A987FB /* SocketIOJobMessage.swift in Sources */,
 				AA03298F266F8CB200C46547 /* DataAquisitionView+Logic.swift in Sources */,
 				AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA05BC482667D098003AEE50 /* StartSamplingRequest.swift in Sources */,

@@ -15,6 +15,7 @@ final class DeploymentViewState: ObservableObject {
     @Published var progress = 0.0
     @Published var enableEONCompiler = true
     @Published var optimization: Classifier = .Quantized
+    @Published var jobMessages = [SocketIOJobMessage]()
     
     private lazy var socketManager = WebSocketManager()
     private lazy var cancellables = Set<AnyCancellable>()
@@ -85,8 +86,11 @@ extension DeploymentViewState {
                 self.status = .error(error)
             }) { data in
                 self.status = .connected
-                guard let message = String(bytes: data, encoding: .utf8) else { return }
-                print(message)
+                guard let dataString = String(bytes: data, encoding: .utf8),
+                      let message = try? SocketIOJobMessage(from: dataString) else { return }
+                
+                self.jobMessages.append(message)
+                print(message.message)
             }
             .store(in: &cancellables)
     }
