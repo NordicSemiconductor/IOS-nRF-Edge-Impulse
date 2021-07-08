@@ -163,6 +163,7 @@ extension WebSocketManager {
                     self?.logger.info("Something else received received.")
                     break 
                 }
+                self?.listen()
             }
         }
     }
