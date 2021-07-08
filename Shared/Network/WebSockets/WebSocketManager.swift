@@ -61,7 +61,7 @@ class WebSocketManager: NSObject {
         
         socketTimeout = pingTimeout
         session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
-        task = session.webSocketTask(with: socketURL)
+        task = session.webSocketTask(with: url)
         listen()
         task.resume()
         schedulePings()
