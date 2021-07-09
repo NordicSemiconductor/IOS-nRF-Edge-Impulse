@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SocketIOJobMessage: Identifiable {
+struct SocketIOJobMessage: Identifiable, Hashable {
     let id: Int
     
     let kind: String
