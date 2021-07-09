@@ -85,12 +85,16 @@ extension DeploymentViewState {
             .sinkReceivingError(onError: { error in
                 self.status = .error(error)
             }) { data in
-                self.status = .connected
                 guard let dataString = String(bytes: data, encoding: .utf8),
                       let message = try? SocketIOJobMessage(from: dataString) else { return }
                 
-                self.jobMessages.append(message)
-                print(message.message)
+                switch self.status {
+                case .buildingModel(let modelId):
+                    guard modelId == message.jobId else { return }
+                    self.jobMessages.append(message)
+                default:
+                    break
+                }
             }
             .store(in: &cancellables)
     }
