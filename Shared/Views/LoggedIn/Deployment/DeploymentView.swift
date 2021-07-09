@@ -20,50 +20,62 @@ struct DeploymentView: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Device")) {
-                let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
-                if connectedDevices.hasItems {
-                    Picker("Selected", selection: $viewState.selectedDevice) {
-                        ForEach(connectedDevices, id: \.self) { handler in
-                            Text(handler.device.name)
-                                .tag(handler.device)
+            switch viewState.status {
+            case .buildingModel(_), .error(_):
+                Section(header: Text("Logs")) {
+                    List {
+                        ForEach(viewState.jobMessages) { message in
+                            Text(message.message)
                         }
                     }
-                    .setAsComboBoxStyle()
-                    .onAppear() {
-                        viewState.selectedDevice = deviceData.allConnectedAndReadyToUseDevices().first?.device ?? Constant.unselectedDevice
-                    }
-                } else {
-                    Text("No Devices Scanned.")
-                        .foregroundColor(Assets.middleGrey.color)
-                        .multilineTextAlignment(.leading)
                 }
-            }
-            
-            Section(header: Text("Optimizations")) {
-                Toggle(isOn: $viewState.enableEONCompiler, label: {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Enable EON™ Compiler")
-                        Text("Same accuracy, up to 50% less memory. Open source.")
-                            .font(.caption)
+            default:
+                Section(header: Text("Device")) {
+                    let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
+                    if connectedDevices.hasItems {
+                        Picker("Selected", selection: $viewState.selectedDevice) {
+                            ForEach(connectedDevices, id: \.self) { handler in
+                                Text(handler.device.name)
+                                    .tag(handler.device)
+                            }
+                        }
+                        .setAsComboBoxStyle()
+                        .onAppear() {
+                            viewState.selectedDevice = deviceData.allConnectedAndReadyToUseDevices().first?.device ?? Constant.unselectedDevice
+                        }
+                    } else {
+                        Text("No Devices Scanned.")
                             .foregroundColor(Assets.middleGrey.color)
-                    }
-                })
-                .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
-            }
-            
-            Section(header: Text("Classifier")) {
-                Picker("Classifier", selection: $viewState.optimization) {
-                    ForEach(DeploymentViewState.Classifier.allCases, id: \.self) { classifier in
-                        Text(classifier.rawValue).tag(classifier)
+                            .multilineTextAlignment(.leading)
                     }
                 }
-                .pickerStyle(SegmentedPickerStyle())
                 
-                Text("\(DeploymentViewState.Classifier.Quantized.rawValue) is recommended for best performance. ")
-                    .font(.caption)
-                    .foregroundColor(Assets.middleGrey.color)
+                Section(header: Text("Optimizations")) {
+                    Toggle(isOn: $viewState.enableEONCompiler, label: {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Enable EON™ Compiler")
+                            Text("Same accuracy, up to 50% less memory. Open source.")
+                                .font(.caption)
+                                .foregroundColor(Assets.middleGrey.color)
+                        }
+                    })
+                    .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
+                }
+                
+                Section(header: Text("Classifier")) {
+                    Picker("Classifier", selection: $viewState.optimization) {
+                        ForEach(DeploymentViewState.Classifier.allCases, id: \.self) { classifier in
+                            Text(classifier.rawValue).tag(classifier)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    
+                    Text("\(DeploymentViewState.Classifier.Quantized.rawValue) is recommended for best performance. ")
+                        .font(.caption)
+                        .foregroundColor(Assets.middleGrey.color)
+                }
             }
+            
             
             ProgressView(value: viewState.progress, total: 100.0)
             viewState.status.view

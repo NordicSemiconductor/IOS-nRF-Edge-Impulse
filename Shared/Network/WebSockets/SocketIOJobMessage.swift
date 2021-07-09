@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct SocketIOJobMessage {
+struct SocketIOJobMessage: Identifiable {
+    let id: Int
     
     let kind: String
     let jobId: Int
@@ -27,5 +28,6 @@ struct SocketIOJobMessage {
         kind = String(cleanString[Range(match.range(at: 1), in: cleanString)!])
         jobId = Int(String(cleanString[Range(match.range(at: 2), in: cleanString)!]))!
         message = String(cleanString[Range(match.range(at: 3), in: cleanString)!])
+        id = inputString.hashValue + jobId
     }
 }
