@@ -18,7 +18,7 @@ final class DeploymentViewState: ObservableObject {
     @Published var jobMessages = [SocketIOJobMessage]()
     
     private lazy var socketManager = WebSocketManager()
-    private lazy var cancellables = Set<AnyCancellable>()
+    internal var cancellables = Set<AnyCancellable>()
 }
 
 // MARK: - API Properties
@@ -86,7 +86,8 @@ extension DeploymentViewState {
                 self.status = .error(error)
             }) { data in
                 guard let dataString = String(bytes: data, encoding: .utf8),
-                      let message = try? SocketIOJobMessage(from: dataString) else { return }
+                      let message = try? SocketIOJobMessage(from: dataString),
+                      !message.message.isEmpty else { return }
                 
                 switch self.status {
                 case .buildingModel(let modelId):

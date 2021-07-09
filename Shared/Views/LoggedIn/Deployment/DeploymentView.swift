@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct DeploymentView: View {
     
@@ -20,25 +21,27 @@ struct DeploymentView: View {
     
     var body: some View {
         VStack {
-            Form {
             switch viewState.status {
                 case .buildingModel(_), .error(_):
-                    Section(header: Text("Logs")) {
-                        ScrollViewReader { reader in
-                            List {
-                                ForEach(viewState.jobMessages) { message in
-                                    Text(message.message)
-                                }
-                                .onReceive(viewState.$jobMessages, perform: { _ in
-                                    guard let last = viewState.jobMessages.last else { return }
-                                    withAnimation {
-                                        reader.scrollTo(last, anchor: .bottom)
-                                    }
-                                })
-                            }
+                    List {
+                        ForEach(viewState.jobMessages) { message in
+                            Text(message.message)
                         }
                     }
+                    .introspectTableView { tableView in
+                        viewState.jobMessages.publisher
+                            .debounce(for: 50, scheduler: DispatchQueue.main)
+                            .collect()
+                            .sink { [weak tableView] _ in
+                                guard let tableView = tableView, let dataSource = tableView.dataSource, let sections = dataSource.numberOfSections?(in: tableView), sections > 0 else { return }
+                                let indexPath = IndexPath(row: viewState.jobMessages.count - 1, section: 0)
+                                tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                            }
+                            .store(in: &viewState.cancellables)
+                    }
+                    .padding(.top)
                 default:
+                    Form {
                     Section(header: Text("Device")) {
                         let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
                         if connectedDevices.hasItems {
@@ -84,8 +87,8 @@ struct DeploymentView: View {
                             .foregroundColor(Assets.middleGrey.color)
                     }
                 }
+                    .padding(.bottom)
             }
-            .padding(.vertical)
             
             Form {
                 ProgressView(value: viewState.progress, total: 100.0)
