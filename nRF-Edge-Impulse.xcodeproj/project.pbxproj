@@ -35,6 +35,7 @@
 		AA01020C269C5D1D0045D6F2 /* SocketIOJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01020A269C5D1D0045D6F2 /* SocketIOJob.swift */; };
 		AA01020E269C74850045D6F2 /* DownloadDeviceModelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01020D269C74850045D6F2 /* DownloadDeviceModelRequest.swift */; };
 		AA01020F269C74850045D6F2 /* DownloadDeviceModelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01020D269C74850045D6F2 /* DownloadDeviceModelRequest.swift */; };
+		AA010212269C90D70045D6F2 /* McuManager in Frameworks */ = {isa = PBXBuildFile; productRef = AA010211269C90D70045D6F2 /* McuManager */; };
 		AA01DA6026395E6000F6DD44 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01DA5F26395E6000F6DD44 /* Date.swift */; };
 		AA01DA6126395E6000F6DD44 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01DA5F26395E6000F6DD44 /* Date.swift */; };
 		AA01F3D025EFACB000368707 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01F3CF25EFACB000368707 /* Assets.swift */; };
@@ -436,6 +437,7 @@
 			files = (
 				AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */,
 				C3163D36268DD61900CD3DB5 /* Introspect in Frameworks */,
+				AA010212269C90D70045D6F2 /* McuManager in Frameworks */,
 				C3163D34268DD61000CD3DB5 /* VisualEffects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -949,6 +951,7 @@
 				AAFAE5E425ED11CA00A45A90 /* KeychainSwift */,
 				C3163D33268DD61000CD3DB5 /* VisualEffects */,
 				C3163D35268DD61900CD3DB5 /* Introspect */,
+				AA010211269C90D70045D6F2 /* McuManager */,
 			);
 			productName = "nRF-Edge-Impulse (iOS)";
 			productReference = AA03E96025E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -1051,6 +1054,7 @@
 				AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */,
 				AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				AA010210269C90D70045D6F2 /* XCRemoteSwiftPackageReference "mcumgr-ios" */,
 			);
 			productRefGroup = AA03E96125E3EF13003DA9DA /* Products */;
 			projectDirPath = "";
@@ -1786,6 +1790,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		AA010210269C90D70045D6F2 /* XCRemoteSwiftPackageReference "mcumgr-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JuulLabs-OSS/mcumgr-ios.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
@@ -1813,6 +1825,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		AA010211269C90D70045D6F2 /* McuManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA010210269C90D70045D6F2 /* XCRemoteSwiftPackageReference "mcumgr-ios" */;
+			productName = McuManager;
+		};
 		AA0B2FFF267A2AE400AA0571 /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
