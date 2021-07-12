@@ -123,7 +123,7 @@ extension DeploymentViewState {
     
     func downloadModel(for selectedProject: Project, using apiToken: String) {
         guard let downloadRequest = HTTPRequest.downloadModelFor(project: selectedProject, using: apiToken) else { return }
-        Network.shared.perform(downloadRequest, responseType: Data.self)
+        Network.shared.perform(downloadRequest)
             .sinkReceivingError(onError: { error in
                 print(error.localizedDescription)
             }, receiveValue: { response in

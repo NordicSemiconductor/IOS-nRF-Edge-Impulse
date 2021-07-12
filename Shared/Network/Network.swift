@@ -34,7 +34,7 @@ extension Network {
     
     // MARK: - HTTPRequest
     
-    public func perform<T: Codable>(_ request: HTTPRequest, responseType: T.Type = T.self) -> AnyPublisher<T, Error> {
+    public func perform(_ request: HTTPRequest) -> AnyPublisher<Data, Error> {
         return session.dataTaskPublisher(for: request)
             .tryMap() { element -> Data in
                 guard let httpResponse = element.response as? HTTPURLResponse else {
@@ -48,6 +48,11 @@ extension Network {
                 }
                 return element.data
             }
+            .eraseToAnyPublisher()
+    }
+    
+    public func perform<T: Codable>(_ request: HTTPRequest, responseType: T.Type = T.self) -> AnyPublisher<T, Error> {
+        return perform(request)
             .flatMap { data -> AnyPublisher<T, Error> in
                 let decoder = JSONDecoder()
                 if let response = try? decoder.decode(T.self, from: data) {
