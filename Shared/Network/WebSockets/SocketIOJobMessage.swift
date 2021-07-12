@@ -19,10 +19,9 @@ struct SocketIOJobMessage: Identifiable, Hashable {
     
     // MARK: - Properties
     
-    let id: Int
+    var id: Int { job.id }
     
-    let kind: String
-    let jobId: Int
+    let job: SocketIOJob
     let message: String
     let progress: Double
     
@@ -31,15 +30,13 @@ struct SocketIOJobMessage: Identifiable, Hashable {
     init(from inputString: String) throws {
         let cleanString = inputString.replacingOccurrences(of: "\\n", with: "")
         
+        job = try SocketIOJob(from: inputString)
         let cleanStringRange = NSRange(cleanString.startIndex..<cleanString.endIndex, in: cleanString)
         guard let match = Self.MainRegEx.firstMatch(in: cleanString, options: [], range: cleanStringRange),
               // +1 because the full string is returned as the first match
               match.numberOfRanges == 4 else { throw NordicError.testError }
         
-        kind = String(cleanString[Range(match.range(at: 1), in: cleanString)!])
-        jobId = Int(String(cleanString[Range(match.range(at: 2), in: cleanString)!]))!
         message = String(cleanString[Range(match.range(at: 3), in: cleanString)!])
-        id = inputString.hashValue + jobId
         
         guard let progressMatch = Self.ProgressRegEx.firstMatch(in: cleanString, options: [], range: cleanStringRange),
               // +1 because the full string is returned as the first match

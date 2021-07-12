@@ -91,7 +91,7 @@ extension DeploymentViewState {
                 
                 switch self.status {
                 case .buildingModel(let modelId):
-                    guard modelId == message.jobId else { return }
+                    guard modelId == message.job.jobId else { return }
                     self.jobMessages.append(message)
                     guard message.progress > .leastNonzeroMagnitude else { return }
                     self.progress = message.progress
