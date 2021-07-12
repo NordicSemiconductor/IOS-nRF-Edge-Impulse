@@ -19,6 +19,9 @@ final class DeploymentViewState: ObservableObject {
     
     private lazy var socketManager = WebSocketManager()
     internal var cancellables = Set<AnyCancellable>()
+    
+    private var project: Project!
+    private var apiToken: String!
 }
 
 // MARK: - API Properties
@@ -45,7 +48,7 @@ extension DeploymentViewState {
     }
 }
 
-// MARK: - API
+// MARK: - WebSocket
 
 extension DeploymentViewState {
     
@@ -86,25 +89,8 @@ extension DeploymentViewState {
                 self.status = .error(error)
             }) { data in
                 guard let dataString = String(bytes: data, encoding: .utf8) else { return }
-                switch self.status {
-                case .buildingModel(let jobId):
-                    self.parseJobMessages(dataString, for: jobId)
-                default:
-                    break
-                }
+                self.receivedJobData(dataString: dataString)
             }
-            .store(in: &cancellables)
-    }
-    
-    func sendBuildRequest(for selectedProject: Project, using apiToken: String,
-                          deliveryBlock: @escaping (BuildOnDeviceModelRequestResponse?, Error?) -> Void) {
-        guard let buildRequest = HTTPRequest.buildModel(project: selectedProject, using: apiToken) else { return }
-        Network.shared.perform(buildRequest, responseType: BuildOnDeviceModelRequestResponse.self)
-            .sinkReceivingError(onError: { error in
-                deliveryBlock(nil, error)
-            }, receiveValue: { response in
-                deliveryBlock(response, nil)
-            })
             .store(in: &cancellables)
     }
     
@@ -118,26 +104,66 @@ extension DeploymentViewState {
     }
 }
 
-// MARK: - Parsing
+// MARK: - Requests
+
+extension DeploymentViewState {
+
+    func sendBuildRequest(for selectedProject: Project, using apiToken: String) {
+        guard let buildRequest = HTTPRequest.buildModel(project: selectedProject, using: apiToken) else { return }
+        project = selectedProject
+        self.apiToken = apiToken
+        Network.shared.perform(buildRequest, responseType: BuildOnDeviceModelRequestResponse.self)
+            .sinkReceivingError(onError: { error in
+                self.status = .error(error)
+            }, receiveValue: { response in
+                self.status = .buildingModel(response.id)
+            })
+            .store(in: &cancellables)
+    }
+    
+    func downloadModel(for selectedProject: Project, using apiToken: String) {
+        guard let downloadRequest = HTTPRequest.downloadModelFor(project: selectedProject, using: apiToken) else { return }
+        Network.shared.perform(downloadRequest, responseType: Data.self)
+            .sinkReceivingError(onError: { error in
+                print(error.localizedDescription)
+            }, receiveValue: { response in
+                print("Received \(response.count) bytes")
+            })
+            .store(in: &cancellables)
+    }
+}
+
+// MARK: - Logic
 
 fileprivate extension DeploymentViewState {
     
-    func parseJobMessages(_ string: String, for jobId: Int) {
+    func receivedJobData(dataString: String) {
+        switch self.status {
+        case .buildingModel(let jobId):
+            self.processJobMessages(dataString, for: jobId)
+        default:
+            break
+        }
+    }
+    
+    func processJobMessages(_ string: String, for jobId: Int) {
         if let message = try? SocketIOJobMessage(from: string), !message.message.isEmpty {
             guard jobId == message.job.jobId else { return }
-            self.jobMessages.append(message)
+            jobMessages.append(message)
             guard message.progress > .leastNonzeroMagnitude else { return }
-            self.progress = message.progress
+            progress = message.progress
         } else if let jobResult = try? SocketIOJobResult(from: string),
                   // Bug in EI API causes it to return 'job-finished, success: true' when it starts building the Model.
                   jobMessages.count > 10 {
             guard jobResult.success else {
-                self.status = .error(NordicError(description: "Server returned Job was not successful."))
+                status = .error(NordicError(description: "Server returned Job was not successful."))
                 return
             }
+            
             // If we don't disconnect, the Server will do it for us.
             disconnect()
-            self.status = .downloadingModel(jobId)
+            status = .downloadingModel
+            downloadModel(for: project, using: apiToken)
         }
     }
 }

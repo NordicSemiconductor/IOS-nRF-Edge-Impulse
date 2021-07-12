@@ -19,12 +19,15 @@ struct DeploymentLogView: View {
         }
         .introspectTableView { tableView in
             viewState.jobMessages.publisher
-                .debounce(for: 50, scheduler: DispatchQueue.main)
+                .debounce(for: 300, scheduler: DispatchQueue.main)
                 .collect()
                 .sink { [weak tableView] _ in
                     guard let tableView = tableView, let dataSource = tableView.dataSource,
-                          let sections = dataSource.numberOfSections?(in: tableView), sections > 0 else { return }
-                    let indexPath = IndexPath(row: viewState.jobMessages.count - 1, section: 0)
+                          let sections = dataSource.numberOfSections?(in: tableView),
+                          sections > 0 else { return }
+                    let numberOfRows = dataSource.tableView(tableView, numberOfRowsInSection: 0)
+                    guard numberOfRows > 0 else { return }
+                    let indexPath = IndexPath(row: numberOfRows - 1, section: 0)
                     tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
                 }
                 .store(in: &viewState.cancellables)

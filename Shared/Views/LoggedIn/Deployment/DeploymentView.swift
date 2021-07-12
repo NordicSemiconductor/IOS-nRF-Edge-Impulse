@@ -21,7 +21,7 @@ struct DeploymentView: View {
     var body: some View {
         VStack {
             switch viewState.status {
-            case .buildingModel(_), .downloadingModel(_), .error(_):
+            case .buildingModel(_), .downloadingModel, .error(_):
                 DeploymentLogView()
                     .environmentObject(viewState)
                     .padding(.top)
@@ -48,15 +48,7 @@ fileprivate extension DeploymentView {
     func attemptToBuild() {
         guard let currentProject = appData.selectedProject,
               let apiToken = appData.apiToken else { return }
-        viewState.sendBuildRequest(for: currentProject, using: apiToken) { [self] response, error in
-            guard let response = response else {
-                if let error = error {
-                    self.viewState.status = .error(error)
-                }
-                return
-            }
-            self.viewState.status = .buildingModel(response.id)
-        }
+        viewState.sendBuildRequest(for: currentProject, using: apiToken)
     }
     
     func retry() {
