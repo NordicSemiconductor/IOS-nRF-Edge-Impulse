@@ -27,6 +27,8 @@
 		AA010200269C3F280045D6F2 /* DeploymentProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0101FE269C3F280045D6F2 /* DeploymentProgressView.swift */; };
 		AA010202269C460D0045D6F2 /* DeploymentConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */; };
 		AA010203269C460D0045D6F2 /* DeploymentConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */; };
+		AA010205269C47C90045D6F2 /* DeploymentLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010204269C47C90045D6F2 /* DeploymentLogView.swift */; };
+		AA010206269C47C90045D6F2 /* DeploymentLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010204269C47C90045D6F2 /* DeploymentLogView.swift */; };
 		AA01DA6026395E6000F6DD44 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01DA5F26395E6000F6DD44 /* Date.swift */; };
 		AA01DA6126395E6000F6DD44 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01DA5F26395E6000F6DD44 /* Date.swift */; };
 		AA01F3D025EFACB000368707 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01F3CF25EFACB000368707 /* Assets.swift */; };
@@ -286,6 +288,7 @@
 		AA008A7625EE422C00F70F75 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		AA0101FE269C3F280045D6F2 /* DeploymentProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentProgressView.swift; sourceTree = "<group>"; };
 		AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentConfigurationView.swift; sourceTree = "<group>"; };
+		AA010204269C47C90045D6F2 /* DeploymentLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentLogView.swift; sourceTree = "<group>"; };
 		AA01DA5F26395E6000F6DD44 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		AA01F3CF25EFACB000368707 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		AA01F3DE25EFDC5000368707 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -584,6 +587,7 @@
 			isa = PBXGroup;
 			children = (
 				AA0D81282608C03A00AE615A /* DeploymentView.swift */,
+				AA010204269C47C90045D6F2 /* DeploymentLogView.swift */,
 				AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */,
 				AA0101FE269C3F280045D6F2 /* DeploymentProgressView.swift */,
 				AA0D812B2608F62700AE615A /* DeploymentViewState.swift */,
@@ -1217,6 +1221,7 @@
 				AA02089625F65A3700FD6B24 /* DeviceList.swift in Sources */,
 				AA92BEFA2612064E00BED04B /* ResourcesRequest.swift in Sources */,
 				AA9D798D26971D2300A987FB /* SocketIOJobMessage.swift in Sources */,
+				AA010205269C47C90045D6F2 /* DeploymentLogView.swift in Sources */,
 				AAEDE636262882BF00B96AE9 /* ProjectSelectionView.swift in Sources */,
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AA05BC472667D098003AEE50 /* StartSamplingRequest.swift in Sources */,
@@ -1355,6 +1360,7 @@
 				AA28405D261F4F3D00EB8637 /* UsernameField.swift in Sources */,
 				AAF4F6CA2625EC4C00012359 /* SettingsDevicesView.swift in Sources */,
 				AAFDB46F264D73A800F0CD02 /* ProjectView.swift in Sources */,
+				AA010206269C47C90045D6F2 /* DeploymentLogView.swift in Sources */,
 				AA09C79D262EEED400B039F1 /* Collection.swift in Sources */,
 				AAF5531E2641614B00252345 /* AppData+DataSamples.swift in Sources */,
 				AAE0B233264E94D900FD8F80 /* SettingsDebugView.swift in Sources */,
