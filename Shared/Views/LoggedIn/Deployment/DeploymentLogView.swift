@@ -12,7 +12,7 @@ struct DeploymentLogView: View {
     @EnvironmentObject var viewState: DeploymentViewState
     
     var body: some View {
-        List {
+        Form {
             ForEach(viewState.jobMessages) { message in
                 Text(message.message)
             }
