@@ -90,25 +90,8 @@ struct DeploymentView: View {
                     .padding(.bottom)
             }
             
-            Form {
-                ProgressView(value: viewState.progress, total: 100.0)
-                viewState.status.view
-                switch viewState.status {
-                case .error(_):
-                    Button("Retry", action: retry)
-                        .centerTextInsideForm()
-                        .foregroundColor(.primary)
-                default:
-                    Button("Build", action: attemptToBuild)
-                        .centerTextInsideForm()
-                        .foregroundColor(viewState.buildButtonEnable ? .primary : Assets.middleGrey.color)
-                        .disabled(!viewState.buildButtonEnable)
-                }
-            }
-            .introspectTableView { tableView in
-                tableView.isScrollEnabled = false
-            }
-            .frame(height: 200)
+            DeploymentViewProgressView(retryAction: retry, buildAction: attemptToBuild)
+                .environmentObject(viewState)
         }
         .background(Color.formBackground)
         .onAppear() {
