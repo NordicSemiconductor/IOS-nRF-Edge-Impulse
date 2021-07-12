@@ -93,6 +93,8 @@ extension DeploymentViewState {
                 case .buildingModel(let modelId):
                     guard modelId == message.jobId else { return }
                     self.jobMessages.append(message)
+                    guard message.progress > .leastNonzeroMagnitude else { return }
+                    self.progress = message.progress
                 default:
                     break
                 }
