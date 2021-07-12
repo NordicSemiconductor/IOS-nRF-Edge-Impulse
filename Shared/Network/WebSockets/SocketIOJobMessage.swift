@@ -8,6 +8,17 @@
 import Foundation
 
 struct SocketIOJobMessage: Identifiable, Hashable {
+    
+    // MARK: - Static
+    
+    // Use https://regexr.com/ to check RegExes.
+    static let MainRegEx: NSRegularExpression! =
+        try? NSRegularExpression(pattern: #"[0-9]+\["job-(.*)-([0-9]+)",\{"data":"(.*)"\}\]"#, options: [])
+    static let ProgressRegEx: NSRegularExpression! =
+        try? NSRegularExpression(pattern: #"\[([0-9]+)\/([0-9]+)\].+"#, options: [])
+    
+    // MARK: - Properties
+    
     let id: Int
     
     let kind: String
@@ -15,14 +26,13 @@ struct SocketIOJobMessage: Identifiable, Hashable {
     let message: String
     let progress: Double
     
+    // MARK: - Init
+    
     init(from inputString: String) throws {
         let cleanString = inputString.replacingOccurrences(of: "\\n", with: "")
         
-        // Use https://regexr.com/ to check RegExes.
-        let mainPattern = #"[0-9]+\["job-(.*)-([0-9]+)",\{"data":"(.*)"\}\]"#
-        let mainRegEx = try NSRegularExpression(pattern: mainPattern, options: [])
         let cleanStringRange = NSRange(cleanString.startIndex..<cleanString.endIndex, in: cleanString)
-        guard let match = mainRegEx.firstMatch(in: cleanString, options: [], range: cleanStringRange),
+        guard let match = Self.MainRegEx.firstMatch(in: cleanString, options: [], range: cleanStringRange),
               // +1 because the full string is returned as the first match
               match.numberOfRanges == 4 else { throw NordicError.testError }
         
@@ -31,9 +41,7 @@ struct SocketIOJobMessage: Identifiable, Hashable {
         message = String(cleanString[Range(match.range(at: 3), in: cleanString)!])
         id = inputString.hashValue + jobId
         
-        let progressPattern = #"\[([0-9]+)\/([0-9]+)\].+"#
-        let progressRegEx = try NSRegularExpression(pattern: progressPattern, options: [])
-        guard let progressMatch = progressRegEx.firstMatch(in: cleanString, options: [], range: cleanStringRange),
+        guard let progressMatch = Self.ProgressRegEx.firstMatch(in: cleanString, options: [], range: cleanStringRange),
               // +1 because the full string is returned as the first match
               progressMatch.numberOfRanges == 3 else {
             progress = 0.0
