@@ -85,19 +85,8 @@ extension DeploymentViewState {
             .sinkReceivingError(onError: { error in
                 self.status = .error(error)
             }) { data in
-                guard let dataString = String(bytes: data, encoding: .utf8),
-                      let message = try? SocketIOJobMessage(from: dataString),
-                      !message.message.isEmpty else { return }
-                
-                switch self.status {
-                case .buildingModel(let modelId):
-                    guard modelId == message.job.jobId else { return }
-                    self.jobMessages.append(message)
-                    guard message.progress > .leastNonzeroMagnitude else { return }
-                    self.progress = message.progress
-                default:
-                    break
-                }
+                guard let dataString = String(bytes: data, encoding: .utf8) else { return }
+                self.parse(dataString)
             }
             .store(in: &cancellables)
     }
@@ -121,6 +110,30 @@ extension DeploymentViewState {
         }
         cancellables.removeAll()
         status = .idle
+    }
+}
+
+// MARK: - Parsing
+
+fileprivate extension DeploymentViewState {
+    
+    func parse(_ string: String) {
+        if let message = try? SocketIOJobMessage(from: string), !message.message.isEmpty {
+            switch self.status {
+            case .buildingModel(let modelId):
+                guard modelId == message.job.jobId else { return }
+                self.jobMessages.append(message)
+                guard message.progress > .leastNonzeroMagnitude else { return }
+                self.progress = message.progress
+            default:
+                break
+            }
+        } else if let jobResult = try? SocketIOJobResult(from: string) {
+            guard jobResult.success else {
+                self.status = .error(NordicError.testError)
+                return
+            }
+        }
     }
 }
 

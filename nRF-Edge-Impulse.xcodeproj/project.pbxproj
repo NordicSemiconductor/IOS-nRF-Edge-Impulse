@@ -29,6 +29,8 @@
 		AA010203269C460D0045D6F2 /* DeploymentConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */; };
 		AA010205269C47C90045D6F2 /* DeploymentLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010204269C47C90045D6F2 /* DeploymentLogView.swift */; };
 		AA010206269C47C90045D6F2 /* DeploymentLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010204269C47C90045D6F2 /* DeploymentLogView.swift */; };
+		AA010208269C5CD30045D6F2 /* SocketIOJobResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010207269C5CD30045D6F2 /* SocketIOJobResult.swift */; };
+		AA010209269C5CD30045D6F2 /* SocketIOJobResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010207269C5CD30045D6F2 /* SocketIOJobResult.swift */; };
 		AA01020B269C5D1D0045D6F2 /* SocketIOJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01020A269C5D1D0045D6F2 /* SocketIOJob.swift */; };
 		AA01020C269C5D1D0045D6F2 /* SocketIOJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01020A269C5D1D0045D6F2 /* SocketIOJob.swift */; };
 		AA01DA6026395E6000F6DD44 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01DA5F26395E6000F6DD44 /* Date.swift */; };
@@ -291,6 +293,7 @@
 		AA0101FE269C3F280045D6F2 /* DeploymentProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentProgressView.swift; sourceTree = "<group>"; };
 		AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentConfigurationView.swift; sourceTree = "<group>"; };
 		AA010204269C47C90045D6F2 /* DeploymentLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentLogView.swift; sourceTree = "<group>"; };
+		AA010207269C5CD30045D6F2 /* SocketIOJobResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOJobResult.swift; sourceTree = "<group>"; };
 		AA01020A269C5D1D0045D6F2 /* SocketIOJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOJob.swift; sourceTree = "<group>"; };
 		AA01DA5F26395E6000F6DD44 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		AA01F3CF25EFACB000368707 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
@@ -871,6 +874,7 @@
 				C301A368261F12890010717D /* WebSocketManager.swift */,
 				AA01020A269C5D1D0045D6F2 /* SocketIOJob.swift */,
 				AA9D798C26971D2300A987FB /* SocketIOJobMessage.swift */,
+				AA010207269C5CD30045D6F2 /* SocketIOJobResult.swift */,
 			);
 			path = WebSockets;
 			sourceTree = "<group>";
@@ -1204,6 +1208,7 @@
 				C39B106B2695C5390056095E /* HUDState.swift in Sources */,
 				AA03E98225E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				C33C10C32609791E0097EA5A /* SignalLevel.swift in Sources */,
+				AA010208269C5CD30045D6F2 /* SocketIOJobResult.swift in Sources */,
 				AA02088E25F651D100FD6B24 /* ScanResult.swift in Sources */,
 				AAA87ADD261B143B0097EA74 /* String.swift in Sources */,
 				C3DCF4282681353000BF9AD4 /* DeviceData+Sampling.swift in Sources */,
@@ -1359,6 +1364,7 @@
 				AA27C2B4266E48F4002D1652 /* DataAcquisitionDevicePicker.swift in Sources */,
 				AA284060261F537C00EB8637 /* PasswordField.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
+				AA010209269C5CD30045D6F2 /* SocketIOJobResult.swift in Sources */,
 				AA92BEF22611F9E400BED04B /* ResourceData.swift in Sources */,
 				AAF4F6BB2625C02E00012359 /* SignedUpView.swift in Sources */,
 				AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,

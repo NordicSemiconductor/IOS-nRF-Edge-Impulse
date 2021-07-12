@@ -31,17 +31,21 @@ extension DeploymentViewState {
             }
         }
         
+        var text: String {
+            switch self {
+            case .error(let e):
+                return e.localizedDescription
+            default:
+                return String(describing: self).uppercasingFirst
+            }
+        }
+        
         @ViewBuilder
         var view: some View {
             HStack {
                 ConnectionStatus(color: self.color)
-                switch self {
-                case .error(let e):
-                    Text(e.localizedDescription)
-                default:
-                    Text((String(describing: self).uppercasingFirst))
-                        .lineLimit(1)
-                }
+                Text(text.uppercasingFirst)
+                    .lineLimit(1)
             }
         }
     }
