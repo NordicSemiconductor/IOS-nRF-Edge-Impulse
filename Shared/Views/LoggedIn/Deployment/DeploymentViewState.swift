@@ -86,7 +86,12 @@ extension DeploymentViewState {
                 self.status = .error(error)
             }) { data in
                 guard let dataString = String(bytes: data, encoding: .utf8) else { return }
-                self.parse(dataString)
+                switch self.status {
+                case .buildingModel(let jobId):
+                    self.parseJobMessages(dataString, for: jobId)
+                default:
+                    break
+                }
             }
             .store(in: &cancellables)
     }
@@ -117,22 +122,22 @@ extension DeploymentViewState {
 
 fileprivate extension DeploymentViewState {
     
-    func parse(_ string: String) {
+    func parseJobMessages(_ string: String, for jobId: Int) {
         if let message = try? SocketIOJobMessage(from: string), !message.message.isEmpty {
-            switch self.status {
-            case .buildingModel(let modelId):
-                guard modelId == message.job.jobId else { return }
-                self.jobMessages.append(message)
-                guard message.progress > .leastNonzeroMagnitude else { return }
-                self.progress = message.progress
-            default:
-                break
-            }
-        } else if let jobResult = try? SocketIOJobResult(from: string) {
+            guard jobId == message.job.jobId else { return }
+            self.jobMessages.append(message)
+            guard message.progress > .leastNonzeroMagnitude else { return }
+            self.progress = message.progress
+        } else if let jobResult = try? SocketIOJobResult(from: string),
+                  // Bug in EI API causes it to return 'job-finished, success: true' when it starts building the Model.
+                  jobMessages.count > 10 {
             guard jobResult.success else {
-                self.status = .error(NordicError.testError)
+                self.status = .error(NordicError(description: "Server returned Job was not successful."))
                 return
             }
+            // If we don't disconnect, the Server will do it for us.
+            disconnect()
+            self.status = .downloadingModel(jobId)
         }
     }
 }

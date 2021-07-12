@@ -21,14 +21,14 @@ struct DeploymentView: View {
     var body: some View {
         VStack {
             switch viewState.status {
-                case .buildingModel(_), .error(_):
-                    DeploymentLogView()
-                        .environmentObject(viewState)
-                        .padding(.top)
-                default:
-                    DeploymentConfigurationView()
-                        .environmentObject(viewState)
-                        .padding(.bottom)
+            case .buildingModel(_), .downloadingModel(_), .error(_):
+                DeploymentLogView()
+                    .environmentObject(viewState)
+                    .padding(.top)
+            default:
+                DeploymentConfigurationView()
+                    .environmentObject(viewState)
+                    .padding(.bottom)
             }
             
             DeploymentProgressView(retryAction: retry, buildAction: attemptToBuild)

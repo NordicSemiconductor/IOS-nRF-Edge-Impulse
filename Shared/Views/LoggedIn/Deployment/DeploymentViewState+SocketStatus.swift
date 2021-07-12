@@ -16,6 +16,7 @@ extension DeploymentViewState {
         case connecting
         case connected
         case buildingModel(_ id: Int)
+        case downloadingModel(_ id: Int)
         case error(_ error: Error)
         
         var color: Color {
@@ -26,6 +27,8 @@ extension DeploymentViewState {
                 return Assets.sun.color
             case .connected, .buildingModel(_):
                 return .green
+            case .downloadingModel(_):
+                return Assets.blue.color
             case .error(_):
                 return Assets.red.color
             }
