@@ -23,8 +23,10 @@
 		AA0050902695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00508E2695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift */; };
 		AA008A7725EE422C00F70F75 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA008A7625EE422C00F70F75 /* Project.swift */; };
 		AA008A7825EE422C00F70F75 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA008A7625EE422C00F70F75 /* Project.swift */; };
-		AA0101FF269C3F280045D6F2 /* DeploymentViewProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0101FE269C3F280045D6F2 /* DeploymentViewProgressView.swift */; };
-		AA010200269C3F280045D6F2 /* DeploymentViewProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0101FE269C3F280045D6F2 /* DeploymentViewProgressView.swift */; };
+		AA0101FF269C3F280045D6F2 /* DeploymentProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0101FE269C3F280045D6F2 /* DeploymentProgressView.swift */; };
+		AA010200269C3F280045D6F2 /* DeploymentProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0101FE269C3F280045D6F2 /* DeploymentProgressView.swift */; };
+		AA010202269C460D0045D6F2 /* DeploymentConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */; };
+		AA010203269C460D0045D6F2 /* DeploymentConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */; };
 		AA01DA6026395E6000F6DD44 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01DA5F26395E6000F6DD44 /* Date.swift */; };
 		AA01DA6126395E6000F6DD44 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01DA5F26395E6000F6DD44 /* Date.swift */; };
 		AA01F3D025EFACB000368707 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01F3CF25EFACB000368707 /* Assets.swift */; };
@@ -282,7 +284,8 @@
 		01E10962265FAEDE000F2EE4 /* RegisteredDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredDeviceView.swift; sourceTree = "<group>"; };
 		AA00508E2695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildOnDeviceModelRequest.swift; sourceTree = "<group>"; };
 		AA008A7625EE422C00F70F75 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		AA0101FE269C3F280045D6F2 /* DeploymentViewProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentViewProgressView.swift; sourceTree = "<group>"; };
+		AA0101FE269C3F280045D6F2 /* DeploymentProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentProgressView.swift; sourceTree = "<group>"; };
+		AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentConfigurationView.swift; sourceTree = "<group>"; };
 		AA01DA5F26395E6000F6DD44 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		AA01F3CF25EFACB000368707 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		AA01F3DE25EFDC5000368707 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -581,7 +584,8 @@
 			isa = PBXGroup;
 			children = (
 				AA0D81282608C03A00AE615A /* DeploymentView.swift */,
-				AA0101FE269C3F280045D6F2 /* DeploymentViewProgressView.swift */,
+				AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */,
+				AA0101FE269C3F280045D6F2 /* DeploymentProgressView.swift */,
 				AA0D812B2608F62700AE615A /* DeploymentViewState.swift */,
 				AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */,
 			);
@@ -1221,7 +1225,7 @@
 				C3755CD4268F0A9700FE8C69 /* DeviceDetails.swift in Sources */,
 				AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */,
 				AAF5E75326400A3A00AC3271 /* DataSamplesView.swift in Sources */,
-				AA0101FF269C3F280045D6F2 /* DeploymentViewProgressView.swift in Sources */,
+				AA0101FF269C3F280045D6F2 /* DeploymentProgressView.swift in Sources */,
 				C39B106E2695DF400056095E /* HUD.swift in Sources */,
 				AA8EC8B4261F30A900FBE990 /* Modifiers.swift in Sources */,
 				AA28405F261F537C00EB8637 /* PasswordField.swift in Sources */,
@@ -1229,6 +1233,7 @@
 				AAFDB46B264D5F5600F0CD02 /* MultiColumnView.swift in Sources */,
 				AA01F3DF25EFDC5000368707 /* Constant.swift in Sources */,
 				AA92BEF12611F9E400BED04B /* ResourceData.swift in Sources */,
+				AA010202269C460D0045D6F2 /* DeploymentConfigurationView.swift in Sources */,
 				AAFAC31C2678BC8F00D486EA /* ViewModifiers.swift in Sources */,
 				AAF4F6BA2625C02E00012359 /* SignedUpView.swift in Sources */,
 				AA032988266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */,
@@ -1268,7 +1273,7 @@
 				AAF4E323261DD193009C387B /* Cache.swift in Sources */,
 				AA1016FD25E9173A006DC88A /* Network.swift in Sources */,
 				AACCBA892600C32C0042E87B /* ErrorView.swift in Sources */,
-				AA010200269C3F280045D6F2 /* DeploymentViewProgressView.swift in Sources */,
+				AA010200269C3F280045D6F2 /* DeploymentProgressView.swift in Sources */,
 				AA02088F25F651D100FD6B24 /* ScanResult.swift in Sources */,
 				AA0B2FFB267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift in Sources */,
 				AA03E98525E3EF13003DA9DA /* ContentView.swift in Sources */,
@@ -1295,6 +1300,7 @@
 				AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA05BC482667D098003AEE50 /* StartSamplingRequest.swift in Sources */,
 				AAF4F6BE2625C0A700012359 /* LoginErrorView.swift in Sources */,
+				AA010203269C460D0045D6F2 /* DeploymentConfigurationView.swift in Sources */,
 				AA7F5DE425F8F6C900185328 /* LoginRequest.swift in Sources */,
 				AAA87AE4261B28F50097EA74 /* URLImage.swift in Sources */,
 				AACECAE82630723B00285F94 /* ResourceData+Status.swift in Sources */,

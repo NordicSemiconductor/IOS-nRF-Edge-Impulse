@@ -1,5 +1,5 @@
 //
-//  DeploymentViewProgressView.swift
+//  DeploymentProgressView.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Dinesh Harjani on 12/7/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DeploymentViewProgressView: View {
+struct DeploymentProgressView: View {
     
     @EnvironmentObject var viewState: DeploymentViewState
     
@@ -40,13 +40,13 @@ struct DeploymentViewProgressView: View {
 // MARK: - Preview
 
 #if DEBUG
-struct DeploymentViewControlsView_Previews: PreviewProvider {
+struct DeploymentControlsView_Previews: PreviewProvider {
     
     static var noOp: () -> () = { }
     
     static var previews: some View {
         Group {
-            DeploymentViewProgressView(retryAction: noOp, buildAction: noOp)
+            DeploymentProgressView(retryAction: noOp, buildAction: noOp)
                 .environmentObject(DeploymentViewState())
         }
         .previewLayout(.sizeThatFits)
