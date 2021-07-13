@@ -48,6 +48,7 @@ extension Network {
                 }
                 return element.data
             }
+            .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
     
