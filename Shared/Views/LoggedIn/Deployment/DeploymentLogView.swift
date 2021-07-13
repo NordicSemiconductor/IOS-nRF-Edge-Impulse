@@ -13,12 +13,12 @@ struct DeploymentLogView: View {
     
     var body: some View {
         Form {
-            ForEach(viewState.jobMessages) { message in
-                Text(message.message)
+            ForEach(viewState.logMessages, id: \.self) { message in
+                Text(message)
             }
         }
         .introspectTableView { tableView in
-            viewState.jobMessages.publisher
+            viewState.logMessages.publisher
                 .debounce(for: 300, scheduler: DispatchQueue.main)
                 .collect()
                 .sink { [weak tableView] _ in

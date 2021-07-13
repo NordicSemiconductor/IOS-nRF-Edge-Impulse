@@ -15,7 +15,7 @@ final class DeploymentViewState: ObservableObject {
     @Published var progress = 0.0
     @Published var enableEONCompiler = true
     @Published var optimization: Classifier = .Quantized
-    @Published var jobMessages = [SocketIOJobMessage]()
+    @Published var logMessages = [String]()
     
     private lazy var socketManager = WebSocketManager()
     internal var cancellables = Set<AnyCancellable>()
@@ -138,9 +138,9 @@ extension DeploymentViewState {
 fileprivate extension DeploymentViewState {
     
     func receivedJobData(dataString: String) {
-        switch self.status {
+        switch status {
         case .buildingModel(let jobId):
-            self.processJobMessages(dataString, for: jobId)
+            processJobMessages(dataString, for: jobId)
         default:
             break
         }
@@ -149,7 +149,7 @@ fileprivate extension DeploymentViewState {
     func processJobMessages(_ string: String, for jobId: Int) {
         if let message = try? SocketIOJobMessage(from: string), !message.message.isEmpty {
             guard jobId == message.job.jobId else { return }
-            jobMessages.append(message)
+            logMessages.append(message.message)
             guard message.progress > .leastNonzeroMagnitude else { return }
             progress = message.progress
         } else if let jobResult = try? SocketIOJobResult(from: string), jobResult.job.jobId == jobId {
