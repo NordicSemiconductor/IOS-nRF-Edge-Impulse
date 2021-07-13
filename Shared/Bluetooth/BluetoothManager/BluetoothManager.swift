@@ -84,9 +84,11 @@ final class BluetoothManager: NSObject, ObservableObject {
         transmissionSubject.send(encodedData)
     }
     
-    func sendUpgradeFirmware(_ data: Data, delegate: FirmwareUpgradeDelegate? = nil) throws {
+    func sendUpgradeFirmware(_ data: Data, logDelegate: McuMgrLogDelegate,
+                             firmwareDelegate: FirmwareUpgradeDelegate) throws {
         let bleTransport = McuMgrBleTransport(peripheral)
-        let dfuManager = FirmwareUpgradeManager(transporter: bleTransport, delegate: delegate)
+        bleTransport.logDelegate = logDelegate
+        let dfuManager = FirmwareUpgradeManager(transporter: bleTransport, delegate: firmwareDelegate)
 
         // Start the firmware upgrade with the image data
         try dfuManager.start(data: data)

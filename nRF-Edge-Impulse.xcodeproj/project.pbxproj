@@ -79,6 +79,8 @@
 		AA0B2FFA267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0B2FF9267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift */; };
 		AA0B2FFB267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0B2FF9267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift */; };
 		AA0B3000267A2AE400AA0571 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = AA0B2FFF267A2AE400AA0571 /* Introspect */; };
+		AA0CD078269DC258000FFF0B /* DeploymentViewState+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */; };
+		AA0CD079269DC258000FFF0B /* DeploymentViewState+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */; };
 		AA0D81292608C03A00AE615A /* DeploymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D81282608C03A00AE615A /* DeploymentView.swift */; };
 		AA0D812C2608F62700AE615A /* DeploymentViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D812B2608F62700AE615A /* DeploymentViewState.swift */; };
 		AA0D812D2608F62700AE615A /* DeploymentViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D812B2608F62700AE615A /* DeploymentViewState.swift */; };
@@ -331,6 +333,7 @@
 		AA076F7E2698721D0012CD64 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		AA09C79B262EEED400B039F1 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		AA0B2FF9267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceRemoteHandler+DataSampling.swift"; sourceTree = "<group>"; };
+		AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentViewState+Delegates.swift"; sourceTree = "<group>"; };
 		AA0D81282608C03A00AE615A /* DeploymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentView.swift; sourceTree = "<group>"; };
 		AA0D812B2608F62700AE615A /* DeploymentViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentViewState.swift; sourceTree = "<group>"; };
 		AA0D90AD260E1F1100A455B7 /* nRF_Edge_ImpulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF_Edge_ImpulseApp.swift; sourceTree = "<group>"; };
@@ -603,6 +606,7 @@
 				AA0101FE269C3F280045D6F2 /* DeploymentProgressView.swift */,
 				AA0D812B2608F62700AE615A /* DeploymentViewState.swift */,
 				AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */,
+				AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */,
 			);
 			path = Deployment;
 			sourceTree = "<group>";
@@ -1189,6 +1193,7 @@
 				AA1016FC25E9173A006DC88A /* Network.swift in Sources */,
 				012A3ECC2666694E00EBB501 /* RegisteredDevicesData.swift in Sources */,
 				AA01020B269C5D1D0045D6F2 /* SocketIOJob.swift in Sources */,
+				AA0CD078269DC258000FFF0B /* DeploymentViewState+Delegates.swift in Sources */,
 				C37DD499260C89D800D667EA /* AdvertisementData.swift in Sources */,
 				01E10963265FAEDE000F2EE4 /* RegisteredDeviceView.swift in Sources */,
 				C3BF6AAC26244907006330C8 /* Logger+Ext.swift in Sources */,
@@ -1387,6 +1392,7 @@
 				AAF5531E2641614B00252345 /* AppData+DataSamples.swift in Sources */,
 				AAE0B233264E94D900FD8F80 /* SettingsDebugView.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
+				AA0CD079269DC258000FFF0B /* DeploymentViewState+Delegates.swift in Sources */,
 				AAFAC31D2678BC8F00D486EA /* ViewModifiers.swift in Sources */,
 				AAF38C17268DED9900F1A590 /* AppIconView.swift in Sources */,
 				C301A36A261F12890010717D /* WebSocketManager.swift in Sources */,

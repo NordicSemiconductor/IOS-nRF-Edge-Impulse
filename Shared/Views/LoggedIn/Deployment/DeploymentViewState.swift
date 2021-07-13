@@ -7,6 +7,7 @@
 
 import Combine
 import SwiftUI
+import McuManager
 
 final class DeploymentViewState: ObservableObject {
 
@@ -141,7 +142,7 @@ extension DeploymentViewState {
         
         logMessages.append("Sending firmware to device...")
         do {
-            try device.bluetoothManager.sendUpgradeFirmware(modelData, delegate: nil)
+            try device.bluetoothManager.sendUpgradeFirmware(modelData, logDelegate: self, firmwareDelegate: self)
             status = .performingFirmwareUpdate
         } catch {
             reportError(error)
@@ -151,7 +152,7 @@ extension DeploymentViewState {
 
 // MARK: - Logic
 
-fileprivate extension DeploymentViewState {
+internal extension DeploymentViewState {
     
     func receivedJobData(dataString: String) {
         switch status {
