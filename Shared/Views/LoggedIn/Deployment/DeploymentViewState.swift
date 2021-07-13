@@ -11,7 +11,7 @@ import SwiftUI
 final class DeploymentViewState: ObservableObject {
 
     @Published var status: SocketStatus = .idle
-    @Published var selectedDevice = Constant.unselectedDevice
+    @Published var selectedDevice: DeviceRemoteHandler!
     @Published var progress = 0.0
     @Published var enableEONCompiler = true
     @Published var optimization: Classifier = .Quantized
@@ -29,7 +29,7 @@ final class DeploymentViewState: ObservableObject {
 extension DeploymentViewState {
     
     var buildButtonEnable: Bool {
-        guard selectedDevice != Constant.unselectedDevice else { return false }
+        guard selectedDevice != nil else { return false }
         switch status {
         case .connected:
             return true
@@ -127,9 +127,25 @@ extension DeploymentViewState {
             .sinkReceivingError(onError: { error in
                 self.reportError(error)
             }, receiveValue: { response in
-                print("Received \(response.count) bytes")
+                self.logMessages.append("Received \(response.count) bytes of firmware.")
+                self.sendModelToDevice(modelData: response)
             })
             .store(in: &cancellables)
+    }
+    
+    func sendModelToDevice(modelData: Data) {
+        guard let device = selectedDevice else {
+            reportError(NordicError(description: "No Device."))
+            return
+        }
+        
+        logMessages.append("Sending firmware to device...")
+        do {
+            try device.bluetoothManager.sendUpgradeFirmware(modelData, delegate: nil)
+            status = .performingFirmwareUpdate
+        } catch {
+            reportError(error)
+        }
     }
 }
 

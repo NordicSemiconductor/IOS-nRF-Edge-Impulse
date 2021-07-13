@@ -25,7 +25,7 @@ struct DeploymentConfigurationView: View {
                     }
                     .setAsComboBoxStyle()
                     .onAppear() {
-                        viewState.selectedDevice = deviceData.allConnectedAndReadyToUseDevices().first?.device ?? Constant.unselectedDevice
+                        viewState.selectedDevice = deviceData.allConnectedAndReadyToUseDevices().first
                     }
                 } else {
                     Text("No Devices Scanned.")
