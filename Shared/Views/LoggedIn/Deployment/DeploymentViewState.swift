@@ -55,18 +55,18 @@ extension DeploymentViewState {
     func connect(using socketToken: Token) {
         guard let request = HTTPRequest(scheme: .wss, host: .EdgeImpulse, path: "/socket.io/", parameters: ["token": socketToken.socketToken, "EIO": "3", "transport": "websocket"]),
               let urlString = request.url?.absoluteString else {
-            status = .error(NordicError.init(description: "Unable to make HTTPRequest."))
+            reportError(NordicError(description: "Unable to make HTTPRequest."))
             return
         }
         status = .connecting
         socketManager.connect(to: urlString, pingTimeout: 4)
             .receive(on: RunLoop.main)
             .sinkReceivingError(onError: { error in
-                self.status = .error(error)
+                self.reportError(error)
             }) { status in
                 switch status {
                 case .notConnected:
-                    self.status = .error(NordicError(description: "Disconnected."))
+                    self.reportError(NordicError(description: "Disconnected."))
                 case .connecting:
                     self.status = .connecting
                 case .connected:
@@ -86,7 +86,7 @@ extension DeploymentViewState {
             }
             .receive(on: RunLoop.main)
             .sinkReceivingError(onError: { error in
-                self.status = .error(error)
+                self.reportError(error)
             }) { data in
                 guard let dataString = String(bytes: data, encoding: .utf8) else { return }
                 self.receivedJobData(dataString: dataString)
@@ -114,7 +114,7 @@ extension DeploymentViewState {
         self.apiToken = apiToken
         Network.shared.perform(buildRequest, responseType: BuildOnDeviceModelRequestResponse.self)
             .sinkReceivingError(onError: { error in
-                self.status = .error(error)
+                self.reportError(error)
             }, receiveValue: { response in
                 self.status = .buildingModel(response.id)
             })
@@ -125,7 +125,7 @@ extension DeploymentViewState {
         guard let downloadRequest = HTTPRequest.downloadModelFor(project: selectedProject, using: apiToken) else { return }
         Network.shared.perform(downloadRequest)
             .sinkReceivingError(onError: { error in
-                print(error.localizedDescription)
+                self.reportError(error)
             }, receiveValue: { response in
                 print("Received \(response.count) bytes")
             })
@@ -154,7 +154,7 @@ fileprivate extension DeploymentViewState {
             progress = message.progress
         } else if let jobResult = try? SocketIOJobResult(from: string), jobResult.job.jobId == jobId {
             guard jobResult.success else {
-                status = .error(NordicError(description: "Server returned Job was not successful."))
+                reportError(NordicError(description: "Server returned Job was not successful."))
                 return
             }
             
@@ -163,6 +163,11 @@ fileprivate extension DeploymentViewState {
             status = .downloadingModel
             downloadModel(for: project, using: apiToken)
         }
+    }
+    
+    func reportError(_ error: Error) {
+        logMessages.append("Error: \(error.localizedDescription)")
+        status = .error(error)
     }
 }
 
