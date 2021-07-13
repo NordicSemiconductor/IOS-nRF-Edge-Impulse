@@ -9,6 +9,7 @@ import Foundation
 import CoreBluetooth
 import os
 import Combine
+import McuManager
 
 /// Static methods and nested structures
 extension BluetoothManager {
@@ -81,7 +82,14 @@ final class BluetoothManager: NSObject, ObservableObject {
     func write<T: Codable>(_ data: T) throws {
         guard let encodedData = try? JSONEncoder().encode(data) else { return }
         transmissionSubject.send(encodedData)
+    }
+    
+    func sendUpgradeFirmware(_ data: Data, delegate: FirmwareUpgradeDelegate? = nil) throws {
+        let bleTransport = McuMgrBleTransport(peripheral)
+        let dfuManager = FirmwareUpgradeManager(transporter: bleTransport, delegate: delegate)
 
+        // Start the firmware upgrade with the image data
+        try dfuManager.start(data: data)
     }
     
     func disconnect() {
