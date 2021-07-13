@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Project
 
-struct Project: Identifiable, Codable {
+struct Project: Identifiable, Hashable, Codable {
     
     let id: Int
     let name: String
@@ -41,15 +41,6 @@ struct Project: Identifiable, Codable {
                           debugDescription: "`Created` Date String does not match expected format.")
         }
         self.created = createdDate
-    }
-}
-
-// MARK: - Hashable
-
-extension Project: Hashable {
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
     }
 }
 
