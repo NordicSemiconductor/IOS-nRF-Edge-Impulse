@@ -13,8 +13,10 @@ struct DeploymentLogView: View {
     
     var body: some View {
         Form {
-            ForEach(viewState.logMessages, id: \.self) { message in
-                Text(message)
+            Section(header: Text("Logs")) {
+                ForEach(viewState.logMessages, id: \.self) { message in
+                    Text(message)
+                }
             }
         }
         .introspectTableView { tableView in
