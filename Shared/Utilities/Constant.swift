@@ -20,7 +20,7 @@ enum Constant {
     
     // MARK: - Unselected
     
-    static let unselectedProject = Project.Unselected
+    static let unselectedProject: Project! = Project.Unselected
     static let unselectedDevice = Device(name: "", id: UUID(), rssi: .outOfRange, advertisementData: AdvertisementData())
     static let unselectedRegisteredDevice = RegisteredDevice.mock
     static let unselectedSensor = Sensor(name: "Unselected", maxSampleLengthS: 0, frequencies: [])

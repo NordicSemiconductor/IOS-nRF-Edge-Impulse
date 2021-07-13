@@ -24,7 +24,7 @@ struct DeviceList: View {
     // MARK: View
     
     var body: some View {
-        List() {
+        List {
             buildRegisteredDevicesList(devices: deviceData.registeredDevices)
             buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
         }

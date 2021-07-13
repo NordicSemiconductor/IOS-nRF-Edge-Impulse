@@ -19,7 +19,7 @@ struct DeploymentConfigurationView: View {
                 if connectedDevices.hasItems {
                     Picker("Selected", selection: $viewState.selectedDevice) {
                         ForEach(connectedDevices, id: \.self) { handler in
-                            Text(handler.device.name)
+                            Text(handler.userVisibleName)
                                 .tag(handler.device)
                         }
                     }

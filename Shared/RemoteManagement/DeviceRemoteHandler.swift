@@ -97,6 +97,10 @@ class DeviceRemoteHandler {
         cancellables.removeAll()
     }
     
+    var userVisibleName: String {
+        registeredDevice?.name ?? device.name
+    }
+    
     func connect(apiKey: String) -> AnyPublisher<ConnectionState, Never> {
         bluetoothManager.connect()
             .drop(while: { $0 != .readyToUse })
