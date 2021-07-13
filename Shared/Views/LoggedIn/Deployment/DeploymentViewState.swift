@@ -152,9 +152,7 @@ fileprivate extension DeploymentViewState {
             jobMessages.append(message)
             guard message.progress > .leastNonzeroMagnitude else { return }
             progress = message.progress
-        } else if let jobResult = try? SocketIOJobResult(from: string),
-                  // Bug in EI API causes it to return 'job-finished, success: true' when it starts building the Model.
-                  jobMessages.count > 10 {
+        } else if let jobResult = try? SocketIOJobResult(from: string), jobResult.job.jobId == jobId {
             guard jobResult.success else {
                 status = .error(NordicError(description: "Server returned Job was not successful."))
                 return
