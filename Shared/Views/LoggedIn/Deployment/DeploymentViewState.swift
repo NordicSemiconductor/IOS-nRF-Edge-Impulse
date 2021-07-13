@@ -18,7 +18,7 @@ final class DeploymentViewState: ObservableObject {
     @Published var optimization: Classifier = .Quantized
     @Published var logMessages = [String]()
     
-    private lazy var socketManager = WebSocketManager()
+    private var socketManager: WebSocketManager!
     internal var cancellables = Set<AnyCancellable>()
     
     private var project: Project!
@@ -60,6 +60,7 @@ extension DeploymentViewState {
             return
         }
         status = .connecting
+        socketManager = WebSocketManager()
         socketManager.connect(to: urlString, pingTimeout: 4)
             .receive(on: RunLoop.main)
             .sinkReceivingError(onError: { error in
@@ -96,12 +97,9 @@ extension DeploymentViewState {
     }
     
     func disconnect() {
+        guard let socketManager = socketManager else { return }
         socketManager.disconnect()
-        for cancellable in cancellables {
-            cancellable.cancel()
-        }
-        cancellables.removeAll()
-        status = .idle
+        self.socketManager = nil
     }
 }
 
@@ -185,6 +183,11 @@ internal extension DeploymentViewState {
     func reportError(_ error: Error) {
         logMessages.append("Error: \(error.localizedDescription)")
         status = .error(error)
+        
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+        cancellables.removeAll()
     }
 }
 
