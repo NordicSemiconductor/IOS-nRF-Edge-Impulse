@@ -210,6 +210,8 @@
 		AAF5E75D26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5E75B26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift */; };
 		AAF7299726298D6D0034B61A /* AppData+LoginState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7299626298D6D0034B61A /* AppData+LoginState.swift */; };
 		AAF7299826298D6D0034B61A /* AppData+LoginState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7299626298D6D0034B61A /* AppData+LoginState.swift */; };
+		AAF7D44D269EE8CE009269D4 /* SetOptimizationLevelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D44C269EE8CE009269D4 /* SetOptimizationLevelRequest.swift */; };
+		AAF7D44E269EE8CE009269D4 /* SetOptimizationLevelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D44C269EE8CE009269D4 /* SetOptimizationLevelRequest.swift */; };
 		AAF936AB260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */; };
 		AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */; };
 		AAFAC31C2678BC8F00D486EA /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAC31B2678BC8F00D486EA /* ViewModifiers.swift */; };
@@ -405,6 +407,7 @@
 		AAF5E7582640106700AC3271 /* DataSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSample.swift; sourceTree = "<group>"; };
 		AAF5E75B26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProjectDevelopmentKeysRequest.swift; sourceTree = "<group>"; };
 		AAF7299626298D6D0034B61A /* AppData+LoginState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+LoginState.swift"; sourceTree = "<group>"; };
+		AAF7D44C269EE8CE009269D4 /* SetOptimizationLevelRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetOptimizationLevelRequest.swift; sourceTree = "<group>"; };
 		AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPaneLayoutView.swift; sourceTree = "<group>"; };
 		AAFAC31B2678BC8F00D486EA /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		AAFAE5EA25ED14E500A45A90 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
@@ -759,6 +762,7 @@
 				AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */,
 				AA05BC462667D098003AEE50 /* StartSamplingRequest.swift */,
 				AA00508E2695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift */,
+				AAF7D44C269EE8CE009269D4 /* SetOptimizationLevelRequest.swift */,
 				AA01020D269C74850045D6F2 /* DownloadDeviceModelRequest.swift */,
 			);
 			path = Requests;
@@ -1245,6 +1249,7 @@
 				AA00508F2695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift in Sources */,
 				AA0D81292608C03A00AE615A /* DeploymentView.swift in Sources */,
 				AA008A7725EE422C00F70F75 /* Project.swift in Sources */,
+				AAF7D44D269EE8CE009269D4 /* SetOptimizationLevelRequest.swift in Sources */,
 				AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */,
 				AA27C2B3266E48F4002D1652 /* DataAcquisitionDevicePicker.swift in Sources */,
 				AA02089625F65A3700FD6B24 /* DeviceList.swift in Sources */,
@@ -1309,6 +1314,7 @@
 				AA1016FD25E9173A006DC88A /* Network.swift in Sources */,
 				AACCBA892600C32C0042E87B /* ErrorView.swift in Sources */,
 				AA010200269C3F280045D6F2 /* DeploymentProgressView.swift in Sources */,
+				AAF7D44E269EE8CE009269D4 /* SetOptimizationLevelRequest.swift in Sources */,
 				AA02088F25F651D100FD6B24 /* ScanResult.swift in Sources */,
 				AA0B2FFB267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift in Sources */,
 				AA03E98525E3EF13003DA9DA /* ContentView.swift in Sources */,

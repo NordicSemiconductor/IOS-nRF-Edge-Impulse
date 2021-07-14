@@ -48,6 +48,7 @@ fileprivate extension DeploymentView {
     func attemptToBuild() {
         guard let currentProject = appData.selectedProject,
               let apiToken = appData.apiToken else { return }
+        viewState.sendSetOptimizationLevelRequest(for: currentProject, using: apiToken)
         viewState.sendBuildRequest(for: currentProject, using: apiToken)
     }
     
@@ -60,7 +61,7 @@ fileprivate extension DeploymentView {
         guard viewState.isReadyToConnect,
               let currentProject = appData.selectedProject,
               let socketToken = appData.projectSocketTokens[currentProject] else {
-            // TODO: Error: Token missing.
+            viewState.status = .error(NordicError(description: "Tokens are missing."))
             return
         }
         viewState.connect(using: socketToken)
