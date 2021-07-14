@@ -9,8 +9,9 @@ import Foundation
 
 extension HTTPRequest {
     
-    static func buildModel(project: Project, usingEONCompiler: Bool, using apiToken: String) -> HTTPRequest? {
-        let body = BuildOnDeviceModelRequestBody(isEONCompilerEnabled: usingEONCompiler)
+    static func buildModel(project: Project, usingEONCompiler: Bool, classifier: DeploymentViewState.Classifier,
+                           using apiToken: String) -> HTTPRequest? {
+        let body = BuildOnDeviceModelRequestBody(isEONCompilerEnabled: usingEONCompiler, classifier: classifier)
         guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/jobs/build-ondevice-model",
                                             parameters: ["type": "nordic-thingy53"]),
               let bodyData = try? JSONEncoder().encode(body) else {
@@ -25,17 +26,6 @@ extension HTTPRequest {
     }
 }
 
-// MARK: - Body
-
-fileprivate struct BuildOnDeviceModelRequestBody: Codable {
-    
-    let engine: String
-    
-    init(isEONCompilerEnabled: Bool) {
-        self.engine = isEONCompilerEnabled ? "tflite-eon" : "tflite"
-    }
-}
-
 // MARK: - Response
 
 struct BuildOnDeviceModelRequestResponse: APIResponse {
@@ -43,4 +33,31 @@ struct BuildOnDeviceModelRequestResponse: APIResponse {
     let id: Int
     let success: Bool
     let error: String?
+}
+
+// MARK: - Body
+
+fileprivate struct BuildOnDeviceModelRequestBody: Codable {
+    
+    let engine: String
+    let modelType: String
+    
+    init(isEONCompilerEnabled: Bool, classifier: DeploymentViewState.Classifier) {
+        self.engine = isEONCompilerEnabled ? "tflite-eon" : "tflite"
+        self.modelType = classifier.requestValue
+    }
+}
+
+// MARK: - DeploymentViewState.Classifier
+
+fileprivate extension DeploymentViewState.Classifier {
+    
+    var requestValue: String {
+        switch self {
+        case .Quantized:
+            return "int8"
+        case .Unoptimized:
+            return "float32"
+        }
+    }
 }

@@ -106,23 +106,10 @@ extension DeploymentViewState {
 // MARK: - Requests
 
 extension DeploymentViewState {
-
-    func sendSetOptimizationLevelRequest(for selectedProject: Project, using apiToken: String) {
-        guard let setOptimizationRequest = HTTPRequest.setOptimizationLevel(project: selectedProject, classifier: optimization,
-                                                                            using: apiToken) else { return }
-        self.apiToken = apiToken
-        Network.shared.perform(setOptimizationRequest, responseType: BuildOnDeviceModelRequestResponse.self)
-            .sinkReceivingError(onError: { error in
-                self.logMessages.append("Error Setting Optimization Level: \(error.localizedDescription).")
-            }, receiveValue: { response in
-                self.logMessages.append("Optimization Level set to \(self.optimization).")
-            })
-            .store(in: &cancellables)
-    }
     
     func sendBuildRequest(for selectedProject: Project, using apiToken: String) {
         guard let buildRequest = HTTPRequest.buildModel(project: selectedProject, usingEONCompiler: enableEONCompiler,
-                                                        using: apiToken) else { return }
+                                                        classifier: optimization, using: apiToken) else { return }
         project = selectedProject
         self.apiToken = apiToken
         Network.shared.perform(buildRequest, responseType: BuildOnDeviceModelRequestResponse.self)
