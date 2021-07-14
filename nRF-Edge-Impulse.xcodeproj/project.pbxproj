@@ -213,6 +213,8 @@
 		AAF7D450269F0EC1009269D4 /* McuManager in Frameworks */ = {isa = PBXBuildFile; productRef = AAF7D44F269F0EC1009269D4 /* McuManager */; };
 		AAF7D452269F1176009269D4 /* DeploymentView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */; };
 		AAF7D453269F1176009269D4 /* DeploymentView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */; };
+		AAF7D45B269F2C22009269D4 /* FormIniOSListInMacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D45A269F2C22009269D4 /* FormIniOSListInMacOS.swift */; };
+		AAF7D45C269F2C22009269D4 /* FormIniOSListInMacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D45A269F2C22009269D4 /* FormIniOSListInMacOS.swift */; };
 		AAF936AB260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */; };
 		AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */; };
 		AAFAC31C2678BC8F00D486EA /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAC31B2678BC8F00D486EA /* ViewModifiers.swift */; };
@@ -409,6 +411,7 @@
 		AAF5E75B26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProjectDevelopmentKeysRequest.swift; sourceTree = "<group>"; };
 		AAF7299626298D6D0034B61A /* AppData+LoginState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+LoginState.swift"; sourceTree = "<group>"; };
 		AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentView+Logic.swift"; sourceTree = "<group>"; };
+		AAF7D45A269F2C22009269D4 /* FormIniOSListInMacOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormIniOSListInMacOS.swift; sourceTree = "<group>"; };
 		AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPaneLayoutView.swift; sourceTree = "<group>"; };
 		AAFAC31B2678BC8F00D486EA /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		AAFAE5EA25ED14E500A45A90 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
@@ -754,6 +757,7 @@
 				AAF38C15268DED9900F1A590 /* AppIconView.swift */,
 				AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */,
 				C39B106D2695DF400056095E /* HUD.swift */,
+				AAF7D45A269F2C22009269D4 /* FormIniOSListInMacOS.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1222,6 +1226,7 @@
 				AA80988425EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA43B2A825FA574F00C5B5EE /* TabBarLayoutView.swift in Sources */,
 				AAF4F6BD2625C0A700012359 /* LoginErrorView.swift in Sources */,
+				AAF7D45B269F2C22009269D4 /* FormIniOSListInMacOS.swift in Sources */,
 				01D853EC265CF67100D96592 /* GetDevicesRequest.swift in Sources */,
 				AAFDB471264D78AF00F0CD02 /* CollaboratorsHStackView.swift in Sources */,
 				AA0B2FFA267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift in Sources */,
@@ -1427,6 +1432,7 @@
 				AAF7299826298D6D0034B61A /* AppData+LoginState.swift in Sources */,
 				C3A3665A260414BC008D82CC /* DeviceRow.swift in Sources */,
 				C37E5ECA262842AA00B9E361 /* Scanner.swift in Sources */,
+				AAF7D45C269F2C22009269D4 /* FormIniOSListInMacOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

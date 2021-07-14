@@ -13,17 +13,23 @@ struct DeviceDetails: View {
     let device: RegisteredDevice
     
     var body: some View {
-            Form {
-                DeviceInfoRow(title: "Created At:", systemImage: "calendar", content: device.created.toDate()?.formatterString() ?? "")
-                DeviceInfoRow(title: "Last Seen:", systemImage: "eye", content: device.lastSeen.toDate()?.formatterString() ?? "")
-                DeviceInfoRow(title: "Device ID:", systemImage: "person", content: device.deviceId)
-                DeviceInfoRow(title: "Device Type:", systemImage: "t.square", content: device.deviceType)
+            FormIniOSListInMacOS {
+                Section(header: Text("Device Information")) {
+                    DeviceInfoRow(title: "ID:", systemImage: "person", content: device.deviceId)
+                    DeviceInfoRow(title: "Type:", systemImage: "t.square", content: device.deviceType)
+                    DeviceInfoRow(title: "Created At:", systemImage: "calendar", content: device.created.toDate()?.formatterString() ?? "")
+                    DeviceInfoRow(title: "Last Seen:", systemImage: "eye", content: device.lastSeen.toDate()?.formatterString() ?? "")
+                }
                 
-                BoolDeviceInfoRow(title: "Remote Management Connected", systemImage: "app.connected.to.app.below.fill", choice: device.remoteMgmtConnected)
-                BoolDeviceInfoRow(title: "Supports Snapshot Streaming", systemImage: "arrow.left.and.right", choice: device.supportsSnapshotStreaming)
+                Section(header: Text("Status")) {
+                    BoolDeviceInfoRow(title: "Remote Management Connected", systemImage: "app.connected.to.app.below.fill", choice: device.remoteMgmtConnected)
+                    BoolDeviceInfoRow(title: "Supports Snapshot Streaming", systemImage: "arrow.left.and.right", choice: device.supportsSnapshotStreaming)
+                }
                 
                 Section(header: Text("Sensors")) {
-                    ForEach(device.sensors) { SensorSection(sensor: $0) }
+                    ForEach(device.sensors) {
+                        SensorSection(sensor: $0)
+                    }
                 }
                 
                 if let state = deviceData.connectionState(of: device) {
