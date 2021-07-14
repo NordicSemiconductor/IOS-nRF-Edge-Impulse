@@ -22,7 +22,7 @@ struct DeviceDetails: View {
                 }
                 
                 Section(header: Text("Status")) {
-                    BoolDeviceInfoRow(title: "Remote Management Connected", systemImage: "app.connected.to.app.below.fill", choice: device.remoteMgmtConnected)
+                    BoolDeviceInfoRow(title: "Connected to Remote Management", systemImage: "network", choice: device.remoteMgmtConnected)
                     BoolDeviceInfoRow(title: "Supports Snapshot Streaming", systemImage: "arrow.left.and.right", choice: device.supportsSnapshotStreaming)
                 }
                 
@@ -124,23 +124,23 @@ private struct SensorSection: View {
             icon: { sensorIcon(sensorName: sensor.name) }
         )
         
-        sensor.maxSampleLengthS.map { l in
+        sensor.maxSampleLengthS.map { length in
             HStack {
-                Label("Max. Sample Length:", systemImage: "")
+                Label("Max. Sample Length:", systemImage: "waveform.path.ecg")
                 Spacer()
-                Text("\(l)").bold()
+                Text("\(length)").bold()
             }
         }
         
-        if sensor.frequencies?.hasItems == true {
-            let fs = sensor.frequencies!
+        if let frequencies = sensor.frequencies, frequencies.hasItems == true {
+            let text = frequencies
                 .map { String(format: "%g", $0) }
                 .joined(separator: ", ")
             
             HStack(alignment: .top) {
-                Label("Frequencies:", systemImage: "")
+                Label("Frequencies:", systemImage: "wave.3.right")
                 Spacer()
-                Text(fs).bold()
+                Text(text).bold()
             }
         }
     }
