@@ -81,7 +81,12 @@ private struct DeviceInfoRow: View {
             Text(content)
                 .bold()
                 .onLongPressGesture {
+                    #if os(iOS)
                     UIPasteboard.general.string = content
+                    #elseif os(OSX)
+                    NSPasteboard.general.clearContents()
+                    NSPasteboard.general.setString(content, forType: .string)
+                    #endif
                     hudState.show(title: "Copied", systemImage: "doc.on.doc")
                 }
         }

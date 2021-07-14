@@ -23,3 +23,16 @@ extension UITableView {
 }
 
 #endif
+
+#if canImport(AppKit)
+import AppKit
+
+extension NSTableView {
+    
+    func scrollToBottom() {
+        guard numberOfRows > 0 else { return }
+        scrollRowToVisible(numberOfRows - 1)
+    }
+}
+
+#endif

@@ -31,7 +31,9 @@ struct DeploymentProgressView: View {
             }
         }
         .introspectTableView { tableView in
+            #if os(iOS)
             tableView.isScrollEnabled = false
+            #endif
         }
         .frame(height: 200)
     }

@@ -14,7 +14,7 @@ struct DeploymentView: View {
     
     // MARK: - State
     
-    @ObservedObject private var viewState = DeploymentViewState()
+    @ObservedObject internal var viewState = DeploymentViewState()
     
     // MARK: - View
     
@@ -36,10 +36,8 @@ struct DeploymentView: View {
                     }
                 }
                 
-                ProgressView(value: viewState.progress, total: 100.0)
-                
-                Button("Deploy", action: viewState.build)
-                    .foregroundColor(.primary)
+                DeploymentProgressView(retryAction: retry, buildAction: attemptToBuild)
+                    .environmentObject(viewState)
             }
             
             Divider()

@@ -210,6 +210,9 @@
 		AAF5E75D26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5E75B26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift */; };
 		AAF7299726298D6D0034B61A /* AppData+LoginState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7299626298D6D0034B61A /* AppData+LoginState.swift */; };
 		AAF7299826298D6D0034B61A /* AppData+LoginState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7299626298D6D0034B61A /* AppData+LoginState.swift */; };
+		AAF7D450269F0EC1009269D4 /* McuManager in Frameworks */ = {isa = PBXBuildFile; productRef = AAF7D44F269F0EC1009269D4 /* McuManager */; };
+		AAF7D452269F1176009269D4 /* DeploymentView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */; };
+		AAF7D453269F1176009269D4 /* DeploymentView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */; };
 		AAF936AB260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */; };
 		AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */; };
 		AAFAC31C2678BC8F00D486EA /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAC31B2678BC8F00D486EA /* ViewModifiers.swift */; };
@@ -405,6 +408,7 @@
 		AAF5E7582640106700AC3271 /* DataSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSample.swift; sourceTree = "<group>"; };
 		AAF5E75B26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProjectDevelopmentKeysRequest.swift; sourceTree = "<group>"; };
 		AAF7299626298D6D0034B61A /* AppData+LoginState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+LoginState.swift"; sourceTree = "<group>"; };
+		AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentView+Logic.swift"; sourceTree = "<group>"; };
 		AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPaneLayoutView.swift; sourceTree = "<group>"; };
 		AAFAC31B2678BC8F00D486EA /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		AAFAE5EA25ED14E500A45A90 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
@@ -454,6 +458,7 @@
 			files = (
 				AA7F5DE325F8F57D00185328 /* KeychainSwift in Frameworks */,
 				AA0B3000267A2AE400AA0571 /* Introspect in Frameworks */,
+				AAF7D450269F0EC1009269D4 /* McuManager in Frameworks */,
 				AA69E2C7263973FB00BC44D3 /* VisualEffects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -604,6 +609,7 @@
 			isa = PBXGroup;
 			children = (
 				AA0D81282608C03A00AE615A /* DeploymentView.swift */,
+				AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */,
 				AA010204269C47C90045D6F2 /* DeploymentLogView.swift */,
 				AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */,
 				AA0101FE269C3F280045D6F2 /* DeploymentProgressView.swift */,
@@ -983,6 +989,7 @@
 				AA7F5DE225F8F57D00185328 /* KeychainSwift */,
 				AA69E2C6263973FB00BC44D3 /* VisualEffects */,
 				AA0B2FFF267A2AE400AA0571 /* Introspect */,
+				AAF7D44F269F0EC1009269D4 /* McuManager */,
 			);
 			productName = "nRF-Edge-Impulse (macOS)";
 			productReference = AA03E96825E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -1217,6 +1224,7 @@
 				AA0D812C2608F62700AE615A /* DeploymentViewState.swift in Sources */,
 				AAF0C96C260A0210001B76B9 /* UserView.swift in Sources */,
 				AAF55323264171AB00252345 /* DataSampleRow.swift in Sources */,
+				AAF7D452269F1176009269D4 /* DeploymentView+Logic.swift in Sources */,
 				AA076F7F2698721D0012CD64 /* Color.swift in Sources */,
 				AAF38C16268DED9900F1A590 /* AppIconView.swift in Sources */,
 				AAF0C972260A121B001B76B9 /* HeroView.swift in Sources */,
@@ -1389,6 +1397,7 @@
 				AA92BEF22611F9E400BED04B /* ResourceData.swift in Sources */,
 				AAF4F6BB2625C02E00012359 /* SignedUpView.swift in Sources */,
 				AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
+				AAF7D453269F1176009269D4 /* DeploymentView+Logic.swift in Sources */,
 				AA28405D261F4F3D00EB8637 /* UsernameField.swift in Sources */,
 				AAF4F6CA2625EC4C00012359 /* SettingsDevicesView.swift in Sources */,
 				AAFDB46F264D73A800F0CD02 /* ProjectView.swift in Sources */,
@@ -1856,6 +1865,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
+		};
+		AAF7D44F269F0EC1009269D4 /* McuManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA010210269C90D70045D6F2 /* XCRemoteSwiftPackageReference "mcumgr-ios" */;
+			productName = McuManager;
 		};
 		AAFAE5E425ED11CA00A45A90 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;

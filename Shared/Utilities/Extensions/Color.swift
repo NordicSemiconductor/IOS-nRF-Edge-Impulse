@@ -11,9 +11,17 @@ extension Color {
     
     static var formBackground: Color {
         #if os(OSX)
-        return .black
+        return .white
         #elseif os(iOS)
         return Color(UIColor.systemGroupedBackground)
+        #endif
+    }
+    
+    static var secondarySystemBackground: Color {
+        #if os(OSX)
+        return .white
+        #elseif os(iOS)
+        return Color(UIColor.secondarySystemBackground)
         #endif
     }
 }

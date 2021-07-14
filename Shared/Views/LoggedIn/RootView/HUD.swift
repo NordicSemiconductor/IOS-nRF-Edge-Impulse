@@ -15,7 +15,7 @@ struct HUD<Content: View>: View {
             .padding()
             .background(
                 Capsule()
-                    .foregroundColor(Color(UIColor.secondarySystemBackground))
+                    .foregroundColor(.secondarySystemBackground)
                     .shadow(radius: 12, x: 0, y: 5)
             )
     }
