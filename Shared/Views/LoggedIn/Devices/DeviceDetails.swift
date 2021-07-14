@@ -34,7 +34,7 @@ struct DeviceDetails: View {
                     connectionSection(state: state)
                 }
             }
-            .accentColor(Assets.blue.color)
+            .accentColor(.primary)
             .navigationTitle(Text(device.name))
     }
     

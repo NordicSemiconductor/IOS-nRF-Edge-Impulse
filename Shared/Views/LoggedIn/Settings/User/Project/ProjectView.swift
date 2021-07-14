@@ -22,23 +22,20 @@ struct ProjectView: View {
     // MARK: View
     
     var body: some View {
-        List {
+        FormIniOSListInMacOS {
             #if os(OSX)
             Section(header: Text("Name")) {
                 Label(project.name, systemImage: "character.book.closed.fill")
                     .font(.headline)
-                    .foregroundColor(.primary)
             }
             #endif
             
             Section(header: Text("ID")) {
                 Label(String(project.id), systemImage: "key.fill")
-                    .foregroundColor(.primary)
             }
             
             Section(header: Text("Description")) {
                 Label(project.description, systemImage: "doc.text.fill")
-                    .foregroundColor(.primary)
             }
             
             Section(header: Text("Creation Date")) {
@@ -46,7 +43,6 @@ struct ProjectView: View {
                     title: { Text(project.created, style: .date) },
                     icon: {
                         Image(systemName: "clock.fill")
-                            .foregroundColor(.primary)
                     }
                 )
             }
@@ -58,6 +54,7 @@ struct ProjectView: View {
             }
         }
         .setTitle(project.name)
+        .accentColor(.primary)
     }
 }
 
