@@ -26,10 +26,8 @@ struct DeviceDetails: View {
                     BoolDeviceInfoRow(title: "Supports Snapshot Streaming", systemImage: "arrow.left.and.right", choice: device.supportsSnapshotStreaming)
                 }
                 
-                Section(header: Text("Sensors")) {
-                    ForEach(device.sensors) {
-                        SensorSection(sensor: $0)
-                    }
+                ForEach(device.sensors) {
+                    SensorSection(sensor: $0)
                 }
                 
                 if let state = deviceData.connectionState(of: device) {
@@ -119,42 +117,40 @@ private struct SensorSection: View {
     let sensor: Sensor
 
     var body: some View {
-        Label(
-            title: { Text(sensor.name).font(.headline) },
-            icon: { sensorIcon(sensorName: sensor.name) }
-        )
         
-        sensor.maxSampleLengthS.map { length in
-            HStack {
-                Label("Max. Sample Length:", systemImage: "waveform.path.ecg")
-                Spacer()
-                Text("\(length)").bold()
+        Section(header: Label(sensor.name, systemImage: sensorIcon)) {
+            sensor.maxSampleLengthS.map { length in
+                HStack {
+                    Label("Max. Sample Length:", systemImage: "waveform.path.ecg")
+                    Spacer()
+                    Text("\(length)").bold()
+                }
             }
-        }
-        
-        if let frequencies = sensor.frequencies, frequencies.hasItems == true {
-            let text = frequencies
-                .map { String(format: "%g", $0) }
-                .joined(separator: ", ")
             
-            HStack(alignment: .top) {
-                Label("Frequencies:", systemImage: "wave.3.right")
-                Spacer()
-                Text(text).bold()
+            if let frequencies = sensor.frequencies, frequencies.hasItems == true {
+                let text = frequencies
+                    .map { String(format: "%g", $0) }
+                    .joined(separator: ", ")
+                
+                HStack(alignment: .top) {
+                    Label("Frequencies:", systemImage: "wave.3.right")
+                    Spacer()
+                    Text(text).bold()
+                }
             }
         }
     }
     
-    private func sensorIcon(sensorName: String) -> Image {
-        switch sensorName {
+    private var sensorIcon: String {
+        switch sensor.name {
         case "Camera":
-            return Image(systemName: "camera")
+            return "camera"
         case "Microphone":
-            return Image(systemName: "mic")
+            return "mic"
         case "Accelerometer":
-            return Image(systemName: "move.3d")
+            return "move.3d"
         default:
-            return Image(systemName: "square")
+            return "square"
         }
     }
 }
