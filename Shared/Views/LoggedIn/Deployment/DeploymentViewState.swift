@@ -11,7 +11,7 @@ import McuManager
 
 final class DeploymentViewState: ObservableObject {
 
-    @Published var status: SocketStatus = .idle
+    @Published var status: BuildStatus = .idle
     @Published var selectedDevice: DeviceRemoteHandler!
     @Published var progress = 0.0
     @Published var enableEONCompiler = true
@@ -32,7 +32,7 @@ extension DeploymentViewState {
     var buildButtonEnable: Bool {
         guard selectedDevice != nil else { return false }
         switch status {
-        case .connected:
+        case .socketConnected:
             return true
         default:
             return false
@@ -59,7 +59,7 @@ extension DeploymentViewState {
             reportError(NordicError(description: "Unable to make HTTPRequest."))
             return
         }
-        status = .connecting
+        status = .socketConnecting
         socketManager = WebSocketManager()
         socketManager.connect(to: urlString, pingTimeout: 4)
             .receive(on: RunLoop.main)
@@ -70,9 +70,9 @@ extension DeploymentViewState {
                 case .notConnected:
                     self.reportError(NordicError(description: "Disconnected."))
                 case .connecting:
-                    self.status = .connecting
+                    self.status = .socketConnecting
                 case .connected:
-                    self.status = .connected
+                    self.status = .socketConnected
                 }
             }
             .store(in: &cancellables)
@@ -112,6 +112,7 @@ extension DeploymentViewState {
                                                         classifier: optimization, using: apiToken) else { return }
         project = selectedProject
         self.apiToken = apiToken
+        status = .buildRequestSent
         Network.shared.perform(buildRequest, responseType: BuildOnDeviceModelRequestResponse.self)
             .sinkReceivingError(onError: { error in
                 self.reportError(error)

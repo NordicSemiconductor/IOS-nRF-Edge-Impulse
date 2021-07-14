@@ -11,11 +11,10 @@ import SwiftUI
 
 extension DeploymentViewState {
     
-    enum SocketStatus {
+    enum BuildStatus {
         case idle
-        case connecting
-        case connected
-        case buildingModel(_ id: Int)
+        case socketConnecting, socketConnected
+        case buildRequestSent, buildingModel(_ id: Int)
         case downloadingModel, performingFirmwareUpdate
         case error(_ error: Error)
         
@@ -23,9 +22,9 @@ extension DeploymentViewState {
             switch self {
             case .idle:
                 return Assets.middleGrey.color
-            case .connecting:
+            case .socketConnecting, .buildRequestSent:
                 return Assets.sun.color
-            case .connected, .buildingModel(_):
+            case .socketConnected, .buildingModel(_):
                 return .green
             case .downloadingModel, .performingFirmwareUpdate:
                 return Assets.blue.color
@@ -64,10 +63,10 @@ struct SocketStatus_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            DeploymentViewState.SocketStatus.idle.view
-            DeploymentViewState.SocketStatus.connecting.view
-            DeploymentViewState.SocketStatus.connected.view
-            DeploymentViewState.SocketStatus.error(NordicError.testError).view
+            DeploymentViewState.BuildStatus.idle.view
+            DeploymentViewState.BuildStatus.socketConnecting.view
+            DeploymentViewState.BuildStatus.socketConnected.view
+            DeploymentViewState.BuildStatus.error(NordicError.testError).view
         }
         .previewLayout(.sizeThatFits)
     }
