@@ -87,10 +87,7 @@ private extension DeviceList {
                 }
                     
             } else {
-                Text("No Devices")
-                    .font(.callout)
-                    .foregroundColor(Assets.middleGrey.color)
-                    .centerTextInsideForm()
+                NoDevicesView()
             }
         }
     }
