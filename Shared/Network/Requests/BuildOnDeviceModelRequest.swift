@@ -9,10 +9,11 @@ import Foundation
 
 extension HTTPRequest {
     
-    static func buildModel(project: Project, using apiToken: String) -> HTTPRequest? {
+    static func buildModel(project: Project, usingEONCompiler: Bool, using apiToken: String) -> HTTPRequest? {
+        let body = BuildOnDeviceModelRequestBody(isEONCompilerEnabled: usingEONCompiler)
         guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/jobs/build-ondevice-model",
                                             parameters: ["type": "nordic-thingy53"]),
-              let bodyData = try? JSONEncoder().encode(BuildOnDeviceModelRequestBody()) else {
+              let bodyData = try? JSONEncoder().encode(body) else {
             return nil
         }
         
@@ -30,8 +31,8 @@ fileprivate struct BuildOnDeviceModelRequestBody: Codable {
     
     let engine: String
     
-    init() {
-        self.engine = "tflite-eon"
+    init(isEONCompilerEnabled: Bool) {
+        self.engine = isEONCompilerEnabled ? "tflite-eon" : "tflite"
     }
 }
 

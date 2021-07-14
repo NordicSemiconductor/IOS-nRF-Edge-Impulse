@@ -108,7 +108,8 @@ extension DeploymentViewState {
 extension DeploymentViewState {
 
     func sendBuildRequest(for selectedProject: Project, using apiToken: String) {
-        guard let buildRequest = HTTPRequest.buildModel(project: selectedProject, using: apiToken) else { return }
+        guard let buildRequest = HTTPRequest.buildModel(project: selectedProject, usingEONCompiler: enableEONCompiler,
+                                                        using: apiToken) else { return }
         project = selectedProject
         self.apiToken = apiToken
         Network.shared.perform(buildRequest, responseType: BuildOnDeviceModelRequestResponse.self)
