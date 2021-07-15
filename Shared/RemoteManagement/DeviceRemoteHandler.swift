@@ -77,9 +77,6 @@ class DeviceRemoteHandler {
     private var webSocketManager: WebSocketManager!
     private var cancellables = Set<AnyCancellable>()
     
-    internal var btPublisher: AnyPublisher<Data, BluetoothManager.Error>?
-    private var wsPublisher: AnyPublisher<Data, WebSocketManager.Error>?
-    
     private let registeredDeviceManager: RegisteredDevicesManager
     private let appData: AppData
     
@@ -162,10 +159,7 @@ class DeviceRemoteHandler {
             .eraseToAnyPublisher()
     }
     
-    private func disconnect(reason: DisconnectReason) {
-        btPublisher = nil
-        wsPublisher = nil
-        
+    private func disconnect(reason: DisconnectReason) {        
         bluetoothManager.disconnect()
         webSocketManager.disconnect()
         
