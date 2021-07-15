@@ -37,7 +37,7 @@ struct DataAcquisitionView: View {
                 if connectedDevices.hasItems {
                     Picker("Selected", selection: $viewState.selectedDevice) {
                         ForEach(connectedDevices, id: \.self) { handler in
-                            Text(handler.device.name).tag(handler.device)
+                            Text(handler.userVisibleName).tag(handler.device)
                         }
                     }
                     .setAsComboBoxStyle()
