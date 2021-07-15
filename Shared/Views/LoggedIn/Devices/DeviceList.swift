@@ -25,7 +25,7 @@ struct DeviceList: View {
     
     var body: some View {
         List {
-            buildRegisteredDevicesList(devices: deviceData.registeredDevices)
+            buildRegisteredDevicesList()
             buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
         }
         .sheet(item: $renameDevice) { device in
@@ -72,20 +72,19 @@ private extension DeviceList {
     
     // MARK: Registered Devices
     @ViewBuilder
-    private func buildRegisteredDevicesList(devices: [DeviceData.RegisteredDeviceWrapper]) -> some View {
+    private func buildRegisteredDevicesList() -> some View {
         Section(header: Text("Registered Devices")) {
-            if devices.hasItems {
-                ForEach(devices) { d in
+            if deviceData.registeredDevices.hasItems {
+                ForEach(deviceData.registeredDevices) { d in
                     buildRegisteredDeviceRow(d.device, state: d.state)
                         .onTapGesture {
                             if case .readyToConnect = d.state {
-                                deviceData.tryToConnect(registeredDevice: d.device)                                
+                                deviceData.tryToConnect(registeredDevice: d.device)
                             } else {
                                 selectedDeviceId = d.id
                             }
                         }
                 }
-                    
             } else {
                 NoDevicesView()
             }
