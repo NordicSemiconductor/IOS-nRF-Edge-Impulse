@@ -196,7 +196,6 @@ class DeviceData: ObservableObject {
         scanResults.removeAll()
         
         registeredDeviceManager.refreshDevices(appData: appData)
-            .prefix(1)
             .sink { [logger] completion in
                 switch completion {
                 case .finished:
