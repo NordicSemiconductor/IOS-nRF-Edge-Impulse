@@ -245,24 +245,24 @@ class DeviceData: ObservableObject {
     
     private func stateChanged(of handler: DeviceRemoteHandler, newState: DeviceRemoteHandler.ConnectionState) {
         if case .connected(let device, let registeredDevice) = newState {
-            if let deviceIndex = self.scanResults.firstIndex(of: DeviceWrapper(device: device)) {
-                self.scanResults[deviceIndex].state = .connected
-                self.scanResults[deviceIndex].availableViaRegisteredDevices = true 
+            if let deviceIndex = scanResults.firstIndex(of: DeviceWrapper(device: device)) {
+                scanResults[deviceIndex].state = .connected
+                scanResults[deviceIndex].availableViaRegisteredDevices = true
             }
             
-            if let deviceIndex = self.registeredDevices.firstIndex(of: RegisteredDeviceWrapper(device: registeredDevice)) {
-                self.registeredDevices[deviceIndex].state = .connected
+            if let deviceIndex = registeredDevices.firstIndex(of: RegisteredDeviceWrapper(device: registeredDevice)) {
+                registeredDevices[deviceIndex].state = .connected
             } else {
-                self.registeredDevices.append(RegisteredDeviceWrapper(device: registeredDevice, state: .connected))
+                registeredDevices.append(RegisteredDeviceWrapper(device: registeredDevice, state: .connected))
             }
         } else if case .disconnected(let reason) = newState {
             
             if let deviceIndex = self.scanResults.firstIndex(of: DeviceWrapper(device: handler.device)) {
-                self.scanResults[deviceIndex].state = .notConnected
+                scanResults[deviceIndex].state = .notConnected
             }
             
             if let registeredDeviceIndex = handler.registeredDevice.flatMap({ registeredDevices.firstIndex(of: RegisteredDeviceWrapper(device: $0)) }) {
-                self.registeredDevices[registeredDeviceIndex].state = .readyToConnect
+                registeredDevices[registeredDeviceIndex].state = .readyToConnect
             }
             
             switch reason {
@@ -272,7 +272,7 @@ class DeviceData: ObservableObject {
                 AppEvents.shared.error = ErrorEvent(e)
             }
             
-            self.removeHandler(handler)
+            removeHandler(handler)
         }
     }
     
