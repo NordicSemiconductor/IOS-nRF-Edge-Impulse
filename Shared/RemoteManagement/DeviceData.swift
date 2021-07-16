@@ -281,7 +281,7 @@ class DeviceData: ObservableObject {
             return
         }
         
-        if let regDeviceIndex = registeredDevices.firstIndex(where: { $0.device.deviceId == device.id.uuidString }) {
+        if let regDeviceIndex = registeredDevices.firstIndex(where: { $0 == device }) {
             if case .notConnectable = registeredDevices[regDeviceIndex].state {
                 registeredDevices[regDeviceIndex].state = .readyToConnect
             }
@@ -308,10 +308,9 @@ class DeviceData: ObservableObject {
             .map { _ in RegisteredDeviceWrapper.State.readyToConnect}
         ?? .notConnectable
         
-        if let scanResultIndex = scanResults.firstIndex(where: { $0.id.uuidString == device.deviceId }) {
+        if let scanResultIndex = scanResults.firstIndex(where: { $0 == device }) {
             scanResults[scanResultIndex].availableViaRegisteredDevices = true
         }
-        
     }
     
     // TODO: Chose connect method for searching associated devices
