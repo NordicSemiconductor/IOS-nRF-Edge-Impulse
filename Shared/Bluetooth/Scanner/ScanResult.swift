@@ -41,7 +41,7 @@ struct Device: Identifiable {
     #if DEBUG
     init(name: String, uuid: UUID, rssi: RSSI, advertisementData: AdvertisementData) {
         self.name = name
-        self.id = uuid.uuidString
+        self.id = advertisementData.advertisedID() ?? uuid.uuidString
         self.uuid = uuid
         self.rssi = rssi
         self.advertisementData = advertisementData
@@ -53,7 +53,7 @@ struct Device: Identifiable {
         let advertisementData = AdvertisementData(advertisementData)
         self.advertisementData = advertisementData
         self.rssi = RSSI(value: rssi.intValue)
-        self.id = peripheral.identifier.uuidString
+        self.id = advertisementData.advertisedID() ?? peripheral.identifier.uuidString
         self.uuid = peripheral.identifier
     }
     
