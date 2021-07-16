@@ -32,6 +32,12 @@ struct AdvertisementData {
         isConnectable = (advertisementData[CBAdvertisementDataIsConnectable] as? NSNumber)?.boolValue
         solicitedServiceUUIDs = advertisementData[CBAdvertisementDataSolicitedServiceUUIDsKey] as? [CBUUID]
     }
+    
+    func advertisedID() -> String? {
+        guard let data = manufacturerData, data.count > 2,
+              let unicodeID = String(data: data.suffix(from: 2), encoding: .utf8) else { return nil }
+        return unicodeID.utf8.map { String($0) }.joined(separator: ":")
+    }
 }
 
 #if DEBUG

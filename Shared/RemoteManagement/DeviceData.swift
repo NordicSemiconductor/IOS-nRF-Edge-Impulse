@@ -36,6 +36,13 @@ extension DeviceData {
         static func ==(lhs: RegisteredDeviceWrapper, rhs: RegisteredDeviceWrapper) -> Bool {
             return lhs.device == rhs.device && lhs.device.name == rhs.device.name
         }
+        
+        static func ==(lhs: RegisteredDeviceWrapper, rhs: Device) -> Bool {
+            guard let advertisedId = rhs.advertisedID else {
+                return lhs.device.deviceId == rhs.id.uuidString
+            }
+            return lhs.device.deviceId == advertisedId
+        }
     }
     
     struct DeviceWrapper: Identifiable, Hashable {
@@ -50,6 +57,13 @@ extension DeviceData {
         
         static func ==(lhs: DeviceWrapper, rhs: DeviceWrapper) -> Bool {
             return lhs.device == rhs.device
+        }
+        
+        static func ==(lhs: DeviceWrapper, rhs: RegisteredDevice) -> Bool {
+            guard let advertisedId = lhs.device.advertisedID else {
+                return lhs.device.id.uuidString == rhs.deviceId
+            }
+            return advertisedId == rhs.deviceId
         }
     }
 
@@ -204,7 +218,7 @@ class DeviceData: ObservableObject {
                     logger.error("Fetch device failed. Error: \(e.localizedDescription)")
                 }
             } receiveValue: { [weak self] devices in
-                guard let `self` = self else { return }
+                guard let self = self else { return }
                 self.registeredDevices = devices
                     .map { RegisteredDeviceWrapper(device: $0, state: .notConnectable) }
                 
@@ -290,7 +304,7 @@ class DeviceData: ObservableObject {
                 default: return nil
                 }
             }
-        ?? associatedScanResult(with: device)
+            ?? associatedScanResult(with: device)
             .map { _ in RegisteredDeviceWrapper.State.readyToConnect}
         ?? .notConnectable
         
@@ -302,14 +316,11 @@ class DeviceData: ObservableObject {
     
     // TODO: Chose connect method for searching associated devices
     private func associatedScanResult(with registeredDevice: RegisteredDevice) -> DeviceWrapper? {
-        scanResults.first(where: { $0.device.id.uuidString == registeredDevice.deviceId })
+        scanResults.first { $0 == registeredDevice }
     }
     
     private func associatedRegisteredDevice(with scanResult: Device) -> RegisteredDeviceWrapper? {
-        registeredDevices.first(where: { $0.device.deviceId == scanResult.id.uuidString })
-        
-//        getRemoteHandler(for: scanResult).registeredDevice
-//            .flatMap { d in registeredDevices.first(where: { $0.device ==  d}) }
+        registeredDevices.first { $0 == scanResult }
     }
 }
 
