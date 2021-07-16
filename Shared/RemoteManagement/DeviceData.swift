@@ -38,7 +38,7 @@ extension DeviceData {
         }
         
         static func ==(lhs: RegisteredDeviceWrapper, rhs: Device) -> Bool {
-            return lhs.device.deviceId == rhs.id.uuidString
+            return lhs.device.deviceId == rhs.id
         }
     }
     
@@ -49,7 +49,7 @@ extension DeviceData {
         
         let device: Device
         var state: State = .notConnected
-        var id: UUID { device.id }
+        var id: String { device.id }
         var availableViaRegisteredDevices: Bool = false
         
         static func ==(lhs: DeviceWrapper, rhs: DeviceWrapper) -> Bool {
@@ -57,7 +57,7 @@ extension DeviceData {
         }
         
         static func ==(lhs: DeviceWrapper, rhs: RegisteredDevice) -> Bool {
-            return lhs.device.id.uuidString == rhs.deviceId
+            return lhs.device.id == rhs.deviceId
         }
     }
 

@@ -73,7 +73,7 @@ class DeviceRemoteHandler {
     
     @Published var state: ConnectionState = .notConnected
     
-    private (set) lazy var bluetoothManager = BluetoothManager(peripheralId: self.device.id)
+    private (set) lazy var bluetoothManager = BluetoothManager(peripheralId: self.device.uuid)
     private var webSocketManager: WebSocketManager!
     private var cancellables = Set<AnyCancellable>()
     
@@ -109,7 +109,7 @@ class DeviceRemoteHandler {
                 }
                 
                 hello.hello?.apiKey = apiKey
-                hello.hello?.deviceId = self.device.id.uuidString
+                hello.hello?.deviceId = self.device.id
                 
                 do {
                     try webSocketManager.send(hello)
@@ -134,7 +134,7 @@ class DeviceRemoteHandler {
                     return Fail(error: Error.stringError(e))
                         .eraseToAnyPublisher()
                 } else {
-                    let deviceId = self.device.id.uuidString
+                    let deviceId = self.device.id
                     return registeredDeviceManager.fetchDevice(deviceId: deviceId, appData: self.appData)
                 }
             }
@@ -200,7 +200,7 @@ extension DeviceRemoteHandler: Hashable, Identifiable {
         hasher.combine(device)
     }
     
-    var id: UUID {
+    var id: String {
         device.id
     }
 }

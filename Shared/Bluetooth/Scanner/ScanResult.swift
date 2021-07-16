@@ -33,7 +33,7 @@ enum RSSI: Int {
 struct Device: Identifiable {
     
     let name: String
-    let id: UUID
+    let id: String
     let uuid: UUID
     let rssi: RSSI
     let advertisementData: AdvertisementData
@@ -41,7 +41,7 @@ struct Device: Identifiable {
     #if DEBUG
     init(name: String, uuid: UUID, rssi: RSSI, advertisementData: AdvertisementData) {
         self.name = name
-        self.id = uuid
+        self.id = uuid.uuidString
         self.uuid = uuid
         self.rssi = rssi
         self.advertisementData = advertisementData
@@ -53,7 +53,7 @@ struct Device: Identifiable {
         let advertisementData = AdvertisementData(advertisementData)
         self.advertisementData = advertisementData
         self.rssi = RSSI(value: rssi.intValue)
-        self.id = peripheral.identifier
+        self.id = peripheral.identifier.uuidString
         self.uuid = peripheral.identifier
     }
     
