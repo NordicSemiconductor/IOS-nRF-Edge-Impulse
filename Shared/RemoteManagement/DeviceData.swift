@@ -38,10 +38,7 @@ extension DeviceData {
         }
         
         static func ==(lhs: RegisteredDeviceWrapper, rhs: Device) -> Bool {
-            guard let advertisedId = rhs.advertisedID else {
-                return lhs.device.deviceId == rhs.id.uuidString
-            }
-            return lhs.device.deviceId == advertisedId
+            return lhs.device.deviceId == rhs.id.uuidString
         }
     }
     
@@ -60,10 +57,7 @@ extension DeviceData {
         }
         
         static func ==(lhs: DeviceWrapper, rhs: RegisteredDevice) -> Bool {
-            guard let advertisedId = lhs.device.advertisedID else {
-                return lhs.device.id.uuidString == rhs.deviceId
-            }
-            return advertisedId == rhs.deviceId
+            return lhs.device.id.uuidString == rhs.deviceId
         }
     }
 

@@ -34,7 +34,6 @@ struct Device: Identifiable {
     
     let name: String
     let id: UUID
-    let advertisedID: String?
     let rssi: RSSI
     let advertisementData: AdvertisementData
     
@@ -42,7 +41,6 @@ struct Device: Identifiable {
     init(name: String, id: UUID, rssi: RSSI, advertisementData: AdvertisementData) {
         self.name = name
         self.id = id
-        self.advertisedID = advertisementData.advertisedID()
         self.rssi = rssi
         self.advertisementData = advertisementData
     }
@@ -54,7 +52,6 @@ struct Device: Identifiable {
         self.advertisementData = advertisementData
         self.rssi = RSSI(value: rssi.intValue)
         self.id = peripheral.identifier
-        self.advertisedID = advertisementData.advertisedID()
     }
     
     static func == (lhs: Device, rhs: Device) -> Bool {
