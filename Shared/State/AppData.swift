@@ -82,6 +82,22 @@ final class AppData: ObservableObject {
     }
 }
 
+// MARK: - Requests
+
+extension AppData {
+    
+    func deleteDevice(_ device: RegisteredDevice, onSuccess callback: @escaping () -> Void) {
+        guard let currentProject = selectedProject, let apiToken = apiToken,
+              let deleteRequest = HTTPRequest.deleteDevice(device, from: currentProject, using: apiToken) else { return }
+
+        Network.shared.perform(deleteRequest, responseType: DeleteDeviceResponse.self)
+            .sinkOrRaiseAppEventError { _ in
+                callback()
+            }
+            .store(in: &cancellables)
+    }
+}
+
 private extension AppData {
     
     func selectedProjectDidChange() {

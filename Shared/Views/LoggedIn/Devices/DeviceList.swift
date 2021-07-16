@@ -124,6 +124,13 @@ private extension DeviceList {
         } label: {
             Label("Get info", systemImage: "info.circle")
         }
+        
+        Divider()
+        Button {
+            appData.deleteDevice(device) { deviceData.refresh() }
+        } label: {
+            Label("Delete", systemImage: "minus.circle")
+        }
     }
     
     @ViewBuilder
