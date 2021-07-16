@@ -192,6 +192,10 @@ extension DeviceRemoteHandler: Hashable, Identifiable {
         lhs.device == rhs.device
     }
     
+    static func == (lhs: DeviceRemoteHandler, rhs: Device) -> Bool {
+        lhs.device == rhs
+    }
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(device)
     }

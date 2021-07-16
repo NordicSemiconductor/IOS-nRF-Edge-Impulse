@@ -228,7 +228,7 @@ class DeviceData: ObservableObject {
     }
     
     private func getRemoteHandler(for scanResult: Device) -> DeviceRemoteHandler {
-        if let handler = remoteHandlers.first(where: { $0.id == scanResult.id }) {
+        if let handler = remoteHandlers.first(where: { $0 == scanResult }) {
             return handler
         } else {
             let newHandler = DeviceRemoteHandler(device: scanResult, registeredDeviceManager: registeredDeviceManager, appData: appData)
