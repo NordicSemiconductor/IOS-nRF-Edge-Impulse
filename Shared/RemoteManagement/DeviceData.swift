@@ -338,9 +338,9 @@ extension Preview {
     static var mockScannerData: DeviceData = {
         let deviceData = DeviceData(scanner: Scanner(), registeredDeviceManager: RegisteredDevicesManager(), appData: AppData())
         deviceData.scanResults = [
-            Device(name: "Device 1", id: UUID(), rssi: .good, advertisementData: .mock),
-            Device(name: "Device 2", id: UUID(), rssi: .bad, advertisementData: .mock),
-            Device(name: "Device 3", id: UUID(), rssi: .ok, advertisementData: .mock)
+            Device(name: "Device 1", uuid: UUID(), rssi: .good, advertisementData: .mock),
+            Device(name: "Device 2", uuid: UUID(), rssi: .bad, advertisementData: .mock),
+            Device(name: "Device 3", uuid: UUID(), rssi: .ok, advertisementData: .mock)
         ].map { DeviceData.DeviceWrapper(device: $0) }
         return deviceData
     }()

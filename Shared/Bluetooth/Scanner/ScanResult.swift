@@ -34,13 +34,15 @@ struct Device: Identifiable {
     
     let name: String
     let id: UUID
+    let uuid: UUID
     let rssi: RSSI
     let advertisementData: AdvertisementData
     
     #if DEBUG
-    init(name: String, id: UUID, rssi: RSSI, advertisementData: AdvertisementData) {
+    init(name: String, uuid: UUID, rssi: RSSI, advertisementData: AdvertisementData) {
         self.name = name
-        self.id = id
+        self.id = uuid
+        self.uuid = uuid
         self.rssi = rssi
         self.advertisementData = advertisementData
     }
@@ -52,6 +54,7 @@ struct Device: Identifiable {
         self.advertisementData = advertisementData
         self.rssi = RSSI(value: rssi.intValue)
         self.id = peripheral.identifier
+        self.uuid = peripheral.identifier
     }
     
     static func == (lhs: Device, rhs: Device) -> Bool {
@@ -69,6 +72,6 @@ extension Device: Hashable {
 // MARK: - Sample
 #if DEBUG
 extension Device {
-    static let sample = Device(name: "Test Device", id: UUID(), rssi: .outOfRange, advertisementData: .mock)
+    static let sample = Device(name: "Test Device", uuid: UUID(), rssi: .outOfRange, advertisementData: .mock)
 }
 #endif
