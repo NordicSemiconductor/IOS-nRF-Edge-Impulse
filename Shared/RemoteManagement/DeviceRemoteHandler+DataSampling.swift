@@ -10,12 +10,8 @@ import Combine
 
 extension DeviceRemoteHandler {
     
-    func samplingRequestPublisher() -> AnyPublisher<SamplingState, Swift.Error>? {
-        guard let btPublisher = btPublisher else { return nil }
-        
-        
-        
-        let requestReceptionResponse = btPublisher
+    func samplingRequestPublisher() -> AnyPublisher<SamplingState, Swift.Error>? {        
+        let requestReceptionResponse = bluetoothManager.receptionSubject
             .onlyDecode(type: SamplingRequestReceivedResponse.self)
             .first()
             .tryMap { [bluetoothManager] response -> SamplingState in
@@ -31,7 +27,7 @@ extension DeviceRemoteHandler {
             }
             .eraseToAnyPublisher()
         
-        let samplingStartedResponse = btPublisher
+        let samplingStartedResponse = bluetoothManager.receptionSubject
             .onlyDecode(type: SamplingRequestStartedResponse.self)
             .first()
             .tryMap { response -> SamplingState in

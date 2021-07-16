@@ -33,9 +33,9 @@ struct BLESampleRequest: Codable {
         self.label = label
         self.length = length
         self.path = "/api/\(category.rawValue)/data"
-        self.hmacKey = "e561ff..."
+        self.hmacKey = "fjjgfbjg"
         self.interval = interval
-        self.sensor = sensor.name ?? ""
+        self.sensor = sensor.name
     }
 }
 
@@ -50,6 +50,13 @@ struct BLESampleRequestWrapper: Codable {
     let direction: String
     let address: String
     let message: BLESampleRequestMessage
+    
+    init(scheme: HTTPScheme, host: HTTPHost, message: BLESampleRequestMessage) {
+        self.type = "ws"
+        self.direction = "rx"
+        self.address = scheme.rawValue + "://" + host.rawValue
+        self.message = message
+    }
 }
 
 struct SamplingRequestReceivedResponse: Codable {

@@ -48,7 +48,7 @@ final class DataAcquisitionViewState: ObservableObject {
         guard selectedSensor != Constant.unselectedSensor else { return nil }
         let intervalMs =  1.0 / selectedFrequency * 1000.0
         let message = SampleRequestMessage(category: selectedDataType, intervalMs: intervalMs, label: label,
-                                           lengthMs: Int(sampleLength), sensor: selectedSensor.name ?? "")
+                                           lengthMs: Int(sampleLength), sensor: selectedSensor.name)
         return message
     }
     
@@ -58,7 +58,7 @@ final class DataAcquisitionViewState: ObservableObject {
         let sample = BLESampleRequest(label: label, length: Int(sampleLength), category: selectedDataType,
                                       interval: Int(intervalMs), sensor: selectedSensor)
         let message = BLESampleRequestMessage(sample: sample)
-        return BLESampleRequestWrapper(type: "ws", direction: "rx", address:  "wss://studio.edgeimpulse.com", message: message)
+        return BLESampleRequestWrapper(scheme: .wss, host: .EdgeImpulse, message: message)
     }
     
     func startCountdownTimer() {

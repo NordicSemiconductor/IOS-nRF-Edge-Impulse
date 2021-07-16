@@ -33,8 +33,15 @@ extension RegisteredDevice: Identifiable, Hashable {
     }
 }
 
-#if DEBUG
 extension RegisteredDevice {
+    
+    static let Unselected = RegisteredDevice(
+        id: 0, deviceId: "00:00:00:00", created: "2021-01-01T00:00:00.000Z", lastSeen: "2021-07-04:00:00.000Z",
+        deviceType: "Nordic Thingy:53", sensors: [], remoteMgmtConnected: false, remoteMgmtHost: nil,
+        supportsSnapshotStreaming: false, name: "--"
+    )
+    
+    #if DEBUG
     static let mock = RegisteredDevice(
         id: 1,
         deviceId: "ff:ff:ff:ff",
@@ -47,5 +54,5 @@ extension RegisteredDevice {
         supportsSnapshotStreaming: false,
         name: "Thingy:53"
     )
+    #endif
 }
-#endif
