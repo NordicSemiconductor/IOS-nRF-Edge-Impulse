@@ -109,7 +109,7 @@ class DeviceRemoteHandler {
                 }
                 
                 hello.hello?.apiKey = apiKey
-                hello.hello?.deviceId = self.device.id.uuidString
+                hello.hello?.deviceId = self.device.deviceId
                 
                 do {
                     try webSocketManager.send(hello)
@@ -134,7 +134,7 @@ class DeviceRemoteHandler {
                     return Fail(error: Error.stringError(e))
                         .eraseToAnyPublisher()
                 } else {
-                    let deviceId = self.device.id.uuidString
+                    let deviceId = self.device.deviceId
                     return registeredDeviceManager.fetchDevice(deviceId: deviceId, appData: self.appData)
                 }
             }
@@ -200,8 +200,8 @@ extension DeviceRemoteHandler: Hashable, Identifiable {
         hasher.combine(device)
     }
     
-    var id: UUID {
-        device.id
+    var id: String {
+        device.deviceId
     }
 }
 
