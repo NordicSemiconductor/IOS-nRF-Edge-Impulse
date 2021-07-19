@@ -94,6 +94,9 @@ private extension DeviceList {
                                 selectedDeviceId = d.id
                             }
                         }
+                        .contextMenu {
+                            deviceContextMenu(device: d.device, state: d.state)
+                        }
                 }
             } else {
                 NoDevicesView()
@@ -146,12 +149,8 @@ private extension DeviceList {
     
     @ViewBuilder
     private func buildRegisteredDeviceRow(_ device: Device, state: DeviceData.DeviceWrapper.State) -> some View {
-        
         NavigationLink(destination: DeviceDetails(device: device), tag: device.id, selection: $selectedDeviceId) {
             RegisteredDeviceView(device: device, connectionState: state)
-                .contextMenu {
-                    deviceContextMenu(device: device, state: state)
-                }
         }
         /*
         if #available(iOS 15, *) {
