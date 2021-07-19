@@ -38,10 +38,6 @@ struct ScanResult: Identifiable {
     let rssi: RSSI
     let advertisementData: AdvertisementData
     
-    var deviceId: String {
-        advertisementData.advertisedID() ?? id.uuidString
-    }
-    
     #if DEBUG
     init(name: String, uuid: UUID, rssi: RSSI, advertisementData: AdvertisementData) {
         self.name = name

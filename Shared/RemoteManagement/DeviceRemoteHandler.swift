@@ -73,7 +73,7 @@ class DeviceRemoteHandler {
     
     @Published var state: ConnectionState = .notConnected
     
-    private (set) lazy var bluetoothManager = BluetoothManager(peripheralId: self.scanResult.id)
+    private (set) lazy var bluetoothManager = BluetoothManager(peripheralId: self.scanResult.uuid)
     private var webSocketManager: WebSocketManager!
     private var cancellables = Set<AnyCancellable>()
     
@@ -109,7 +109,7 @@ class DeviceRemoteHandler {
                 }
                 
                 hello.hello?.apiKey = apiKey
-                hello.hello?.deviceId = self.scanResult.deviceId
+                hello.hello?.deviceId = self.scanResult.id
                 
                 do {
                     try webSocketManager.send(hello)
@@ -134,8 +134,7 @@ class DeviceRemoteHandler {
                     return Fail(error: Error.stringError(e))
                         .eraseToAnyPublisher()
                 } else {
-                    let deviceId = self.scanResult.deviceId
-                    return registeredDeviceManager.fetchDevice(deviceId: deviceId, appData: self.appData)
+                    return registeredDeviceManager.fetchDevice(deviceId: self.scanResult.id, appData: self.appData)
                 }
             }
             .justDoIt { [weak self] device in
@@ -201,7 +200,7 @@ extension DeviceRemoteHandler: Hashable, Identifiable {
     }
     
     var id: String {
-        scanResult.deviceId
+        scanResult.id
     }
 }
 

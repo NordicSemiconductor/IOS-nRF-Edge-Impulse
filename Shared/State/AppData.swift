@@ -86,7 +86,7 @@ final class AppData: ObservableObject {
 
 extension AppData {
     
-    func deleteDevice(_ device: RegisteredDevice, onSuccess callback: @escaping () -> Void) {
+    func deleteDevice(_ device: Device, onSuccess callback: @escaping () -> Void) {
         guard let currentProject = selectedProject, let apiToken = apiToken,
               let deleteRequest = HTTPRequest.deleteDevice(device, from: currentProject, using: apiToken) else { return }
 
