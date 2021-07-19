@@ -516,7 +516,6 @@
 				01E10962265FAEDE000F2EE4 /* RegisteredDeviceView.swift */,
 				015AB1602653D5E700C09196 /* ConnectionStatus.swift */,
 				AAE507B9268F19990017CAED /* RenameDeviceView.swift */,
-				AAE96F0926A58E220089D370 /* AlertViewContainer.swift */,
 				AA02089525F65A3700FD6B24 /* DeviceList.swift */,
 				C3755CD3268F0A9700FE8C69 /* DeviceDetails.swift */,
 				AAA5C7C4269F39EA0012809A /* NoDevicesView.swift */,
@@ -765,6 +764,7 @@
 				AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */,
 				C39B106D2695DF400056095E /* HUD.swift */,
 				AAF7D45A269F2C22009269D4 /* FormIniOSListInMacOS.swift */,
+				AAE96F0926A58E220089D370 /* AlertViewContainer.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
