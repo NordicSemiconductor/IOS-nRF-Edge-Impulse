@@ -17,6 +17,10 @@ struct DeviceList: View {
     @EnvironmentObject var appData: AppData
     
     @State private var renameDevice: Device? = nil
+    
+    @State private var showDeleteDeviceAlert = false
+    @State private var deleteDevice: Device? = nil
+    
     @State private var selectedDeviceId: Int? = nil
     
     private let logger = Logger(category: "DeviceList")
@@ -27,6 +31,22 @@ struct DeviceList: View {
         List {
             buildRegisteredDevicesList()
             buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
+        }
+        .alert(isPresented: $showDeleteDeviceAlert) {
+            Alert(title: Text("Delete Device"),
+                  message: Text("Are you sure you want to delete this Device?"),
+                  primaryButton: .destructive(Text("Yes"), action: {
+                    showDeleteDeviceAlert = false
+                    guard let device = deleteDevice else { return }
+                    appData.deleteDevice(device) {
+                        deviceData.refresh()
+                    }
+                    deleteDevice = nil
+                  }),
+                  secondaryButton: .default(Text("Cancel"), action: {
+                    showDeleteDeviceAlert = false
+                    deleteDevice = nil
+                  }))
         }
         .sheet(item: $renameDevice) { device in
             RenameDeviceView($renameDevice, oldName: device.name)
@@ -115,7 +135,7 @@ private extension DeviceList {
         }
         
         Button(action: {
-            self.renameDevice = device
+            renameDevice = device
         }) {
             Label("Rename", systemImage: "pencil")
         }
@@ -127,7 +147,8 @@ private extension DeviceList {
         
         Divider()
         Button {
-            appData.deleteDevice(device) { deviceData.refresh() }
+            deleteDevice = device
+            showDeleteDeviceAlert = true
         } label: {
             Label("Delete", systemImage: "minus.circle")
         }
