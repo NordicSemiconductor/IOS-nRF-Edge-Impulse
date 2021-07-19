@@ -26,9 +26,9 @@ struct DeploymentView: View {
                     Picker(selection: $viewState.selectedDevice, label: EmptyView()) {
                         let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
                         if connectedDevices.hasItems {
-                            ForEach(connectedDevices) { handler in
-                                Text(handler.device.name)
-                                    .tag(handler.device)
+                            ForEach(connectedDevices.compactMap({ $0.device })) { device in
+                                Text(device.name)
+                                    .tag(device)
                             }
                         } else {
                             Text("--").tag(Constant.unselectedDevice)
