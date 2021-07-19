@@ -33,7 +33,7 @@ enum RSSI: Int {
 struct ScanResult: Identifiable {
     
     let name: String
-    let id: UUID
+    let id: String
     let uuid: UUID
     let rssi: RSSI
     let advertisementData: AdvertisementData
@@ -45,7 +45,7 @@ struct ScanResult: Identifiable {
     #if DEBUG
     init(name: String, uuid: UUID, rssi: RSSI, advertisementData: AdvertisementData) {
         self.name = name
-        self.id = uuid
+        self.id = advertisementData.advertisedID() ?? uuid.uuidString
         self.uuid = uuid
         self.rssi = rssi
         self.advertisementData = advertisementData
@@ -57,7 +57,7 @@ struct ScanResult: Identifiable {
         let advertisementData = AdvertisementData(advertisementData)
         self.advertisementData = advertisementData
         self.rssi = RSSI(value: rssi.intValue)
-        self.id = peripheral.identifier
+        self.id = advertisementData.advertisedID() ?? peripheral.identifier.uuidString
         self.uuid = peripheral.identifier
     }
     

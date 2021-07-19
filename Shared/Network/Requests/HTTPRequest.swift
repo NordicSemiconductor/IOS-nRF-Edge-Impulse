@@ -77,7 +77,7 @@ enum HTTPHost: String, RawRepresentable {
 
 enum HTTPMethod: String, RawRepresentable {
     
-    case GET, POST
+    case GET, POST, DELETE
 }
 
 // MARK: - APIResponse

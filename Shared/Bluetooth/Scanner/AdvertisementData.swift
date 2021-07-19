@@ -36,7 +36,10 @@ struct AdvertisementData {
     func advertisedID() -> String? {
         guard let data = manufacturerData, data.count > 2,
               let unicodeID = String(data: data.suffix(from: 2), encoding: .utf8) else { return nil }
-        return unicodeID.utf8.map { String($0) }.joined(separator: ":")
+        return unicodeID.utf8.map {
+            let s = String($0)
+            return s.count < 2 ? "0" + s : s
+        }.joined(separator: ":")
     }
 }
 

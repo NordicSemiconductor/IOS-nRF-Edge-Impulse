@@ -119,6 +119,8 @@
 		AA4E8A7A26947A3600C844FE /* DeploymentViewState+SocketStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */; };
 		AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */; };
 		AA535511261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */; };
+		AA63F87026A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA63F86F26A1AE82001EDE54 /* DeleteDeviceRequest.swift */; };
+		AA63F87126A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA63F86F26A1AE82001EDE54 /* DeleteDeviceRequest.swift */; };
 		AA69E2C7263973FB00BC44D3 /* VisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = AA69E2C6263973FB00BC44D3 /* VisualEffects */; };
 		AA710DB5260391D800A4935F /* DataAcquisitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA263F05260385690018CF5B /* DataAcquisitionView.swift */; };
 		AA7F5DE325F8F57D00185328 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AA7F5DE225F8F57D00185328 /* KeychainSwift */; };
@@ -362,6 +364,7 @@
 		AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameDeviceRequest.swift; sourceTree = "<group>"; };
 		AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentViewState+SocketStatus.swift"; sourceTree = "<group>"; };
 		AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorRow.swift; sourceTree = "<group>"; };
+		AA63F86F26A1AE82001EDE54 /* DeleteDeviceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDeviceRequest.swift; sourceTree = "<group>"; };
 		AA80988325EE518F00091AC0 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		AA80989925EE959B00091AC0 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
 		AA8EC8B3261F30A900FBE990 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
@@ -774,6 +777,7 @@
 				AAF38C18268E159A00F1A590 /* GetSocketTokenRequest.swift */,
 				01D853EB265CF67100D96592 /* GetDevicesRequest.swift */,
 				AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */,
+				AA63F86F26A1AE82001EDE54 /* DeleteDeviceRequest.swift */,
 				AA05BC462667D098003AEE50 /* StartSamplingRequest.swift */,
 				AA00508E2695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift */,
 				AA01020D269C74850045D6F2 /* DownloadDeviceModelRequest.swift */,
@@ -1272,6 +1276,7 @@
 				AAA5C7C5269F39EA0012809A /* NoDevicesView.swift in Sources */,
 				AA9D798D26971D2300A987FB /* SocketIOJobMessage.swift in Sources */,
 				AA010205269C47C90045D6F2 /* DeploymentLogView.swift in Sources */,
+				AA63F87026A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */,
 				AAEDE636262882BF00B96AE9 /* ProjectSelectionView.swift in Sources */,
 				AAFED87725E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
 				AA05BC472667D098003AEE50 /* StartSamplingRequest.swift in Sources */,
@@ -1398,6 +1403,7 @@
 				012A3ECD2666694E00EBB501 /* RegisteredDevicesData.swift in Sources */,
 				AAE0B235264E953E00FD8F80 /* AppData+Debug.swift in Sources */,
 				AA9342492681F713001CD754 /* DataContainer.swift in Sources */,
+				AA63F87126A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */,
 				AA482F822631A213007B8B64 /* UserContentView.swift in Sources */,
 				AA8EC8B5261F30A900FBE990 /* Modifiers.swift in Sources */,
 				AAFB8E2B2626FADD003DAEC5 /* UserPreferences.swift in Sources */,
