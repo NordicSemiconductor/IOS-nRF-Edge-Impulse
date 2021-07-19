@@ -32,12 +32,12 @@ struct GetDeviceListResponse: APIResponse {
     let success: Bool
     let error: String?
     
-    let devices: [RegisteredDevice]
+    let devices: [Device]
 }
 
 struct GetDeviceResponse: APIResponse {
     let success: Bool
     let error: String?
     
-    let device: RegisteredDevice
+    let device: Device
 }

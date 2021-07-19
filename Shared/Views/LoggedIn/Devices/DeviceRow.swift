@@ -13,13 +13,13 @@ struct DeviceRow: View {
     
     // MARK: Private Properties
     
-    private let device: Device
+    private let scanResult: ScanResult
     private let isConnecting: Bool
     
     // MARK: Init
     
-    init(_ device: Device, isConnecting: Bool = false) {
-        self.device = device
+    init(_ device: ScanResult, isConnecting: Bool = false) {
+        self.scanResult = device
         self.isConnecting = isConnecting
     }
     
@@ -32,16 +32,16 @@ struct DeviceRow: View {
                     .foregroundColor(deviceForegroundColor)
                 
                 VStack(alignment: .leading) {
-                    Text(device.name)
+                    Text(scanResult.name)
                         .font(.headline)
                         .foregroundColor(deviceForegroundColor)
                         .bold()
                     
                     HStack {
-                        SignalLevel(rssi: device.rssi)
+                        SignalLevel(rssi: scanResult.rssi)
                             .frame(width: 20, height: 15, alignment: .center)
                         
-                        Text("\(device.rssi.rawValue) dB")
+                        Text("\(scanResult.rssi.rawValue) dB")
                             .foregroundColor(deviceForegroundColor)
                     }
                 }

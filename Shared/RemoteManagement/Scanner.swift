@@ -15,7 +15,7 @@ final class Scanner: NSObject {
     
     private lazy var logger = Logger(Self.self)
     private lazy var bluetoothManager = CBCentralManager(delegate: self, queue: nil)
-    private (set) lazy var devicePublisher = PassthroughSubject<Device, Never>()
+    private (set) lazy var devicePublisher = PassthroughSubject<ScanResult, Never>()
     
     @Published private (set) var managerState: CBManagerState = .unknown
     
@@ -50,11 +50,11 @@ extension Scanner {
         shouldScan.toggle()
     }
     
-    func scan() -> AnyPublisher<Device, Never> {
+    func scan() -> AnyPublisher<ScanResult, Never> {
         turnOnBluetoothRadio()
             .filter { $0 == .poweredOn }
             .combineLatest($shouldScan, userPreferences.$onlyScanUARTDevices)
-            .flatMap { (_, isScanning, onlyUART) -> PassthroughSubject<Device, Never> in
+            .flatMap { (_, isScanning, onlyUART) -> PassthroughSubject<ScanResult, Never> in
                 if isScanning {
                     let scanServices = onlyUART ? [BluetoothManager.uartServiceId] : nil
                     self.bluetoothManager.scanForPeripherals(withServices: scanServices,
@@ -78,8 +78,8 @@ extension Scanner: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral,
                         advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        let device = Device(peripheral: peripheral, advertisementData: advertisementData, rssi: RSSI)
-//        logger.info("New device discovered: \(device.name)")
+        let device = ScanResult(peripheral: peripheral, advertisementData: advertisementData, rssi: RSSI)
+//        logger.info("New device discovered: \(scanResult.name)")
         
         if userPreferences.onlyScanConnectableDevices {
             if device.advertisementData.isConnectable == true {

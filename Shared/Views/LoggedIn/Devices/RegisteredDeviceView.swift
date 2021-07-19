@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct RegisteredDeviceView: View {
-    let device: RegisteredDevice
-    let connectionState: DeviceData.RegisteredDeviceWrapper.State
+    let device: Device
+    let connectionState: DeviceData.DeviceWrapper.State
     
     var body: some View {
         VStack(alignment: .leading) {

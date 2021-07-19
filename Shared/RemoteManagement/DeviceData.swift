@@ -11,8 +11,8 @@ import Combine
 import os
 
 extension DeviceData {
-    struct RegisteredDeviceWrapper: Identifiable, Hashable {
-        let device: RegisteredDevice
+    struct DeviceWrapper: Identifiable, Hashable {
+        let device: Device
         var id: Int { device.id }
         var state: State = .notConnectable
         
@@ -33,31 +33,31 @@ extension DeviceData {
             }
         }
         
-        static func ==(lhs: RegisteredDeviceWrapper, rhs: RegisteredDeviceWrapper) -> Bool {
+        static func ==(lhs: DeviceWrapper, rhs: DeviceWrapper) -> Bool {
             return lhs.device == rhs.device && lhs.device.name == rhs.device.name
         }
         
-        static func ==(lhs: RegisteredDeviceWrapper, rhs: Device) -> Bool {
+        static func ==(lhs: DeviceWrapper, rhs: ScanResult) -> Bool {
             return lhs.device.deviceId == rhs.deviceId
         }
     }
     
-    struct DeviceWrapper: Identifiable, Hashable {
+    struct ScanResultWrapper: Identifiable, Hashable {
         enum State {
             case notConnected, connecting, connected
         }
         
-        let device: Device
+        let scanResult: ScanResult
         var state: State = .notConnected
-        var id: UUID { device.id }
+        var id: UUID { scanResult.id }
         var availableViaRegisteredDevices: Bool = false
         
-        static func ==(lhs: DeviceWrapper, rhs: DeviceWrapper) -> Bool {
-            return lhs.device == rhs.device
+        static func ==(lhs: ScanResultWrapper, rhs: ScanResultWrapper) -> Bool {
+            return lhs.scanResult == rhs.scanResult
         }
         
-        static func ==(lhs: DeviceWrapper, rhs: RegisteredDevice) -> Bool {
-            return lhs.device.deviceId == rhs.deviceId
+        static func ==(lhs: ScanResultWrapper, rhs: Device) -> Bool {
+            return lhs.scanResult.deviceId == rhs.deviceId
         }
     }
 
@@ -75,11 +75,11 @@ class DeviceData: ObservableObject {
     
     let scanner: Scanner
     private lazy var logger = Logger(Self.self)
-    private var registeredDeviceManager = RegisteredDevicesManager()
+    private var deviceManager = RegisteredDevicesManager()
     private var remoteHandlers: [DeviceRemoteHandler] = []
     
-    @Published fileprivate (set) var scanResults: [DeviceWrapper] = []
-    @Published private (set) var registeredDevices: [RegisteredDeviceWrapper] = []
+    @Published fileprivate (set) var scanResults: [ScanResultWrapper] = []
+    @Published private (set) var registeredDevices: [DeviceWrapper] = []
     
     private (set) lazy var bluetoothStates = PassthroughSubject<Result<Bool, BluetoothStateError>, Never>()
     
@@ -87,7 +87,7 @@ class DeviceData: ObservableObject {
     
     init(scanner: Scanner = Scanner(), registeredDeviceManager: RegisteredDevicesManager = RegisteredDevicesManager(), appData: AppData) {
         self.scanner = scanner
-        self.registeredDeviceManager = registeredDeviceManager
+        self.deviceManager = registeredDeviceManager
         self.appData = appData
         
         let settingsPublisher = preferences.$onlyScanConnectableDevices
@@ -98,17 +98,23 @@ class DeviceData: ObservableObject {
             }
                 
         scanner.scan().combineLatest(settingsPublisher)
-            .compactMap { [weak self] (device, _) -> DeviceWrapper? in
-                let wrapper = DeviceWrapper(device: device)
+            .compactMap { [weak self] (device, _) -> ScanResultWrapper? in
+                let wrapper = ScanResultWrapper(scanResult: device)
                 return (self?.scanResults.contains(wrapper)).flatMap { $0 ? nil : wrapper }
             }
             .sink { [weak self] device in
                 self?.scanResults.append(device)
-                self?.updateState(device.device)
+                self?.updateState(device.scanResult)
             }
             .store(in: &cancellables)
         
         refresh()
+    }
+    
+    subscript (scanResult: ScanResult) -> DeviceRemoteHandler? {
+        get {
+            remoteHandlers.first(where: { $0.scanResult == scanResult })
+        }
     }
     
     subscript (device: Device) -> DeviceRemoteHandler? {
@@ -117,20 +123,14 @@ class DeviceData: ObservableObject {
         }
     }
     
-    subscript (device: RegisteredDevice) -> DeviceRemoteHandler? {
-        get {
-            remoteHandlers.first(where: { $0.registeredDevice == device })
-        }
-    }
-    
     // MARK: Connecting
-    func tryToConnect(scanResult: Device) {
+    func tryToConnect(scanResult: ScanResult) {
         let handler = getRemoteHandler(for: scanResult)
         guard let keys = appData.selectedProject.map ({ appData.projectDevelopmentKeys[$0] }), let apiKey = keys?.apiKey else {
             return
         }
         
-        if let index = scanResults.firstIndex(of: DeviceWrapper(device: scanResult)) {
+        if let index = scanResults.firstIndex(of: ScanResultWrapper(scanResult: scanResult)) {
             self.scanResults[index].state = .connecting
         }
         
@@ -148,8 +148,8 @@ class DeviceData: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func tryToConnect(registeredDevice: RegisteredDevice) {
-        guard let scanResult = associatedScanResult(with: registeredDevice)?.device else {
+    func tryToConnect(device: Device) {
+        guard let scanResult = associatedScanResult(with: device)?.scanResult else {
             return
         }
         
@@ -157,36 +157,36 @@ class DeviceData: ObservableObject {
     }
     
     // MARK: Connection State
-    func connectionState(of device: RegisteredDevice) -> RegisteredDeviceWrapper.State? {
+    func connectionState(of device: Device) -> DeviceWrapper.State? {
         registeredDevices.first(where: { $0.device == device })?.state
     }
     
-    func connectionState(of device: Device) -> DeviceWrapper.State? {
-        scanResults.first(where: { $0.device == device })?.state
+    func connectionState(of scanResult: ScanResult) -> ScanResultWrapper.State? {
+        scanResults.first(where: { $0.scanResult == scanResult })?.state
     }
     
     // MARK: Disconnect
-    func disconnect(device: Device) {
+    func disconnect(scanResult: ScanResult) {
         remoteHandlers
-            .first(where: { $0.device == device })
+            .first(where: { $0.scanResult == scanResult })
             .map { self.disconnect(remoteHandler: $0) }
     }
     
-    func disconnect(registeredDevice: RegisteredDevice) {
+    func disconnect(device: Device) {
         remoteHandlers
-            .first(where: { $0.registeredDevice != nil && $0.registeredDevice == registeredDevice })
+            .first(where: { $0.device != nil && $0.device == device })
             .map { self.disconnect(remoteHandler: $0) }
     }
     
     func disconnect(remoteHandler: DeviceRemoteHandler) {
         remoteHandler.disconnect()
-        remoteHandlers.removeAll(where: { $0.device == remoteHandler.device })
+        remoteHandlers.removeAll(where: { $0.scanResult == remoteHandler.scanResult })
         registeredDevices
-            .firstIndex(where: { $0.device == remoteHandler.registeredDevice })
+            .firstIndex(where: { $0.device == remoteHandler.device })
             .map { registeredDevices[$0].state = .readyToConnect }
         
         scanResults
-            .firstIndex(where: { $0.device == remoteHandler.device })
+            .firstIndex(where: { $0.scanResult == remoteHandler.scanResult })
             .map { scanResults[$0].state = .notConnected }
     }
     
@@ -203,7 +203,7 @@ class DeviceData: ObservableObject {
     func refresh() {
         scanResults.removeAll()
         
-        registeredDeviceManager.refreshDevices(appData: appData)
+        deviceManager.refreshDevices(appData: appData)
             .sink { [logger] completion in
                 switch completion {
                 case .finished:
@@ -214,18 +214,18 @@ class DeviceData: ObservableObject {
             } receiveValue: { [weak self] devices in
                 guard let self = self else { return }
                 self.registeredDevices = devices
-                    .map { RegisteredDeviceWrapper(device: $0, state: .notConnectable) }
+                    .map { DeviceWrapper(device: $0, state: .notConnectable) }
                 
                 devices.forEach(self.updateState)
             }
             .store(in: &cancellables)
     }
     
-    private func getRemoteHandler(for scanResult: Device) -> DeviceRemoteHandler {
+    private func getRemoteHandler(for scanResult: ScanResult) -> DeviceRemoteHandler {
         if let handler = remoteHandlers.first(where: { $0 == scanResult }) {
             return handler
         } else {
-            let newHandler = DeviceRemoteHandler(device: scanResult, registeredDeviceManager: registeredDeviceManager, appData: appData)
+            let newHandler = DeviceRemoteHandler(scanResult: scanResult, registeredDeviceManager: deviceManager, appData: appData)
             remoteHandlers.append(newHandler)
             return newHandler
         }
@@ -239,23 +239,23 @@ class DeviceData: ObservableObject {
     
     private func stateChanged(of handler: DeviceRemoteHandler, newState: DeviceRemoteHandler.ConnectionState) {
         if case .connected(let device, let registeredDevice) = newState {
-            if let deviceIndex = scanResults.firstIndex(of: DeviceWrapper(device: device)) {
+            if let deviceIndex = scanResults.firstIndex(of: ScanResultWrapper(scanResult: device)) {
                 scanResults[deviceIndex].state = .connected
                 scanResults[deviceIndex].availableViaRegisteredDevices = true
             }
             
-            if let deviceIndex = registeredDevices.firstIndex(of: RegisteredDeviceWrapper(device: registeredDevice)) {
+            if let deviceIndex = registeredDevices.firstIndex(of: DeviceWrapper(device: registeredDevice)) {
                 registeredDevices[deviceIndex].state = .connected
             } else {
-                registeredDevices.append(RegisteredDeviceWrapper(device: registeredDevice, state: .connected))
+                registeredDevices.append(DeviceWrapper(device: registeredDevice, state: .connected))
             }
         } else if case .disconnected(let reason) = newState {
             
-            if let deviceIndex = self.scanResults.firstIndex(of: DeviceWrapper(device: handler.device)) {
+            if let deviceIndex = self.scanResults.firstIndex(of: ScanResultWrapper(scanResult: handler.scanResult)) {
                 scanResults[deviceIndex].state = .notConnected
             }
             
-            if let registeredDeviceIndex = handler.registeredDevice.flatMap({ registeredDevices.firstIndex(of: RegisteredDeviceWrapper(device: $0)) }) {
+            if let registeredDeviceIndex = handler.device.flatMap({ registeredDevices.firstIndex(of: DeviceWrapper(device: $0)) }) {
                 registeredDevices[registeredDeviceIndex].state = .readyToConnect
             }
             
@@ -270,12 +270,12 @@ class DeviceData: ObservableObject {
         }
     }
     
-    private func updateState(_ device: Device) {
-        guard let index = scanResults.firstIndex(where: { $0.device == device }) else {
+    private func updateState(_ scanResult: ScanResult) {
+        guard let index = scanResults.firstIndex(where: { $0.scanResult == scanResult }) else {
             return
         }
         
-        if let regDeviceIndex = registeredDevices.firstIndex(where: { $0 == device }) {
+        if let regDeviceIndex = registeredDevices.firstIndex(where: { $0 == scanResult }) {
             if case .notConnectable = registeredDevices[regDeviceIndex].state {
                 registeredDevices[regDeviceIndex].state = .readyToConnect
             }
@@ -284,14 +284,14 @@ class DeviceData: ObservableObject {
         }
     }
     
-    private func updateState(_ device: RegisteredDevice) {
+    private func updateState(_ device: Device) {
         guard let regDeviceIndex = registeredDevices.firstIndex(where: { $0.device == device }) else {
             return
         }
         
         registeredDevices[regDeviceIndex].state = remoteHandlers
-            .first(where: { $0.registeredDevice == device })
-            .flatMap { h -> RegisteredDeviceWrapper.State? in
+            .first(where: { $0.device == device })
+            .flatMap { h -> DeviceWrapper.State? in
                 switch h.state {
                 case .connecting: return .connecting
                 case .connected: return .connected
@@ -299,7 +299,7 @@ class DeviceData: ObservableObject {
                 }
             }
             ?? associatedScanResult(with: device)
-            .map { _ in RegisteredDeviceWrapper.State.readyToConnect}
+            .map { _ in DeviceWrapper.State.readyToConnect}
         ?? .notConnectable
         
         if let scanResultIndex = scanResults.firstIndex(where: { $0 == device }) {
@@ -308,11 +308,11 @@ class DeviceData: ObservableObject {
     }
     
     // TODO: Chose connect method for searching associated devices
-    private func associatedScanResult(with registeredDevice: RegisteredDevice) -> DeviceWrapper? {
-        scanResults.first { $0 == registeredDevice }
+    private func associatedScanResult(with device: Device) -> ScanResultWrapper? {
+        scanResults.first { $0 == device }
     }
     
-    private func associatedRegisteredDevice(with scanResult: Device) -> RegisteredDeviceWrapper? {
+    private func associatedRegisteredDevice(with scanResult: ScanResult) -> DeviceWrapper? {
         registeredDevices.first { $0 == scanResult }
     }
 }
@@ -338,10 +338,10 @@ extension Preview {
     static var mockScannerData: DeviceData = {
         let deviceData = DeviceData(scanner: Scanner(), registeredDeviceManager: RegisteredDevicesManager(), appData: AppData())
         deviceData.scanResults = [
-            Device(name: "Device 1", uuid: UUID(), rssi: .good, advertisementData: .mock),
-            Device(name: "Device 2", uuid: UUID(), rssi: .bad, advertisementData: .mock),
-            Device(name: "Device 3", uuid: UUID(), rssi: .ok, advertisementData: .mock)
-        ].map { DeviceData.DeviceWrapper(device: $0) }
+            ScanResult(name: "Device 1", uuid: UUID(), rssi: .good, advertisementData: .mock),
+            ScanResult(name: "Device 2", uuid: UUID(), rssi: .bad, advertisementData: .mock),
+            ScanResult(name: "Device 3", uuid: UUID(), rssi: .ok, advertisementData: .mock)
+        ].map { DeviceData.ScanResultWrapper(scanResult: $0) }
         return deviceData
     }()
 }

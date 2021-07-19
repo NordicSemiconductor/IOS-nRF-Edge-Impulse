@@ -87,7 +87,7 @@ struct DataAcquisitionView: View {
         .setTitle("New Sample")
         .padding(16)
         .onAppear {
-            guard let device = deviceData.allConnectedAndReadyToUseDevices().first?.registeredDevice else {
+            guard let device = deviceData.allConnectedAndReadyToUseDevices().first?.device else {
                 return
             }
             viewState.selectedDevice = device

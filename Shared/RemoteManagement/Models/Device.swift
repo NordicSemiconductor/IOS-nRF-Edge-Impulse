@@ -1,5 +1,5 @@
 //
-//  RegisteredDevice.swift
+//  Device.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Nick Kibysh on 25/05/2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RegisteredDevice: Codable {
+struct Device: Codable {
     enum CodingKeys: String, CodingKey {
         case id, deviceId, created, lastSeen, deviceType, sensors, supportsSnapshotStreaming, name
         case remoteMgmtConnected = "remote_mgmt_connected"
@@ -26,23 +26,23 @@ struct RegisteredDevice: Codable {
     var name: String
 }
 
-extension RegisteredDevice: Identifiable, Hashable {
+extension Device: Identifiable, Hashable {
     
-    static func == (lhs: RegisteredDevice, rhs: RegisteredDevice) -> Bool {
+    static func == (lhs: Device, rhs: Device) -> Bool {
         return lhs.deviceId == rhs.deviceId && lhs.name == rhs.name
     }
 }
 
-extension RegisteredDevice {
+extension Device {
     
-    static let Unselected = RegisteredDevice(
+    static let Unselected = Device(
         id: 0, deviceId: "00:00:00:00", created: "2021-01-01T00:00:00.000Z", lastSeen: "2021-07-04:00:00.000Z",
         deviceType: "Nordic Thingy:53", sensors: [], remoteMgmtConnected: false, remoteMgmtHost: nil,
         supportsSnapshotStreaming: false, name: "--"
     )
     
     #if DEBUG
-    static let mock = RegisteredDevice(
+    static let mock = Device(
         id: 1,
         deviceId: "ff:ff:ff:ff",
         created: "2021-01-01T00:00:00.000Z",

@@ -1,5 +1,5 @@
 //
-//  Device.swift
+//  ScanResult.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Dinesh Harjani on 8/3/21.
@@ -27,10 +27,10 @@ enum RSSI: Int {
     }
 }
 
-// MARK: - Device
+// MARK: - ScanResult
 
 /// `ScanResult` represents discovered device by Scanner
-struct Device: Identifiable {
+struct ScanResult: Identifiable {
     
     let name: String
     let id: UUID
@@ -61,13 +61,13 @@ struct Device: Identifiable {
         self.uuid = peripheral.identifier
     }
     
-    static func == (lhs: Device, rhs: Device) -> Bool {
+    static func == (lhs: ScanResult, rhs: ScanResult) -> Bool {
         lhs.id == rhs.id
     }
 }
 
 // MARK: - DeviceScanResult
-extension Device: Hashable {
+extension ScanResult: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
@@ -75,7 +75,7 @@ extension Device: Hashable {
 
 // MARK: - Sample
 #if DEBUG
-extension Device {
-    static let sample = Device(name: "Test Device", uuid: UUID(), rssi: .outOfRange, advertisementData: .mock)
+extension ScanResult {
+    static let sample = ScanResult(name: "Test Device", uuid: UUID(), rssi: .outOfRange, advertisementData: .mock)
 }
 #endif

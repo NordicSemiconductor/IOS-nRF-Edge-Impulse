@@ -15,8 +15,8 @@
 		015AB1622653D5E700C09196 /* ConnectionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015AB1602653D5E700C09196 /* ConnectionStatus.swift */; };
 		01D853EC265CF67100D96592 /* GetDevicesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D853EB265CF67100D96592 /* GetDevicesRequest.swift */; };
 		01D853ED265CF67100D96592 /* GetDevicesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D853EB265CF67100D96592 /* GetDevicesRequest.swift */; };
-		01D853EF265D0B8D00D96592 /* RegisteredDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D853EE265D0B8D00D96592 /* RegisteredDevice.swift */; };
-		01D853F0265D0B8D00D96592 /* RegisteredDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D853EE265D0B8D00D96592 /* RegisteredDevice.swift */; };
+		01D853EF265D0B8D00D96592 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D853EE265D0B8D00D96592 /* Device.swift */; };
+		01D853F0265D0B8D00D96592 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D853EE265D0B8D00D96592 /* Device.swift */; };
 		01E10963265FAEDE000F2EE4 /* RegisteredDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E10962265FAEDE000F2EE4 /* RegisteredDeviceView.swift */; };
 		01E10964265FAEDE000F2EE4 /* RegisteredDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E10962265FAEDE000F2EE4 /* RegisteredDeviceView.swift */; };
 		AA00508F2695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00508E2695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift */; };
@@ -298,7 +298,7 @@
 		012A3ECB2666694E00EBB501 /* RegisteredDevicesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredDevicesData.swift; sourceTree = "<group>"; };
 		015AB1602653D5E700C09196 /* ConnectionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatus.swift; sourceTree = "<group>"; };
 		01D853EB265CF67100D96592 /* GetDevicesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDevicesRequest.swift; sourceTree = "<group>"; };
-		01D853EE265D0B8D00D96592 /* RegisteredDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredDevice.swift; sourceTree = "<group>"; };
+		01D853EE265D0B8D00D96592 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		01E10962265FAEDE000F2EE4 /* RegisteredDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredDeviceView.swift; sourceTree = "<group>"; };
 		AA00508E2695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildOnDeviceModelRequest.swift; sourceTree = "<group>"; };
 		AA008A7625EE422C00F70F75 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -916,7 +916,7 @@
 			children = (
 				C301A378261F36250010717D /* HelloMessage.swift */,
 				AAE05F1F2649554F005BBF98 /* SampleRequestMessage.swift */,
-				01D853EE265D0B8D00D96592 /* RegisteredDevice.swift */,
+				01D853EE265D0B8D00D96592 /* Device.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1201,7 +1201,7 @@
 				AA01F3D025EFACB000368707 /* Assets.swift in Sources */,
 				AA03298E266F8CB200C46547 /* DataAquisitionView+Logic.swift in Sources */,
 				AAF5E75C26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift in Sources */,
-				01D853EF265D0B8D00D96592 /* RegisteredDevice.swift in Sources */,
+				01D853EF265D0B8D00D96592 /* Device.swift in Sources */,
 				AA02086F25F648C200FD6B24 /* View.swift in Sources */,
 				AACECAE72630723B00285F94 /* ResourceData+Status.swift in Sources */,
 				C3846EE5260B4386005AEF67 /* BluetoothManager.swift in Sources */,
@@ -1387,7 +1387,7 @@
 				AAA5C7C6269F39EA0012809A /* NoDevicesView.swift in Sources */,
 				AA0208AA25F65EB400FD6B24 /* Tabs.swift in Sources */,
 				AA2CDEB72636FF3900A4950E /* AppEvents.swift in Sources */,
-				01D853F0265D0B8D00D96592 /* RegisteredDevice.swift in Sources */,
+				01D853F0265D0B8D00D96592 /* Device.swift in Sources */,
 				C39B106C2695C5390056095E /* HUDState.swift in Sources */,
 				AA32792D2604C66B00A0CA6A /* DataAcquisitionViewState.swift in Sources */,
 				AA032989266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */,

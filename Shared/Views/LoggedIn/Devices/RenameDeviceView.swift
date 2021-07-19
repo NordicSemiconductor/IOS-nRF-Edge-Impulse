@@ -18,7 +18,7 @@ struct RenameDeviceView: View {
     
     // MARK: Properties
     
-    var presentedDevice: Binding<RegisteredDevice?>
+    var presentedDevice: Binding<Device?>
     @State private var newDeviceName: String
     @State private var viewState: ViewState
     
@@ -26,7 +26,7 @@ struct RenameDeviceView: View {
     
     // MARK: Init
     
-    init(_ presentedDevice: Binding<RegisteredDevice?>, oldName: String,
+    init(_ presentedDevice: Binding<Device?>, oldName: String,
          viewState: ViewState = .waitingForInput) {
         self.presentedDevice = presentedDevice
         self.viewState = viewState
@@ -181,10 +181,10 @@ fileprivate extension RenameDeviceView {
 struct RenameDeviceView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            RenameDeviceView(.constant(RegisteredDevice.mock), oldName: RegisteredDevice.mock.deviceId)
-            RenameDeviceView(.constant(RegisteredDevice.mock), oldName: RegisteredDevice.mock.deviceId, viewState: .requestIsOngoing)
-            RenameDeviceView(.constant(RegisteredDevice.mock), oldName: RegisteredDevice.mock.deviceId, viewState: .error(NordicError.init(description: "A")))
-            RenameDeviceView(.constant(RegisteredDevice.mock), oldName: RegisteredDevice.mock.deviceId, viewState: .success)
+            RenameDeviceView(.constant(Device.mock), oldName: Device.mock.deviceId)
+            RenameDeviceView(.constant(Device.mock), oldName: Device.mock.deviceId, viewState: .requestIsOngoing)
+            RenameDeviceView(.constant(Device.mock), oldName: Device.mock.deviceId, viewState: .error(NordicError.init(description: "A")))
+            RenameDeviceView(.constant(Device.mock), oldName: Device.mock.deviceId, viewState: .success)
         }
         .previewLayout(.sizeThatFits)
         .environmentObject(Preview.mockScannerData)

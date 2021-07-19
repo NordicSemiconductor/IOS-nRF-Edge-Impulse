@@ -10,7 +10,7 @@ import SwiftUI
 struct DeviceDetails: View {
     @EnvironmentObject var deviceData: DeviceData
     
-    let device: RegisteredDevice
+    let device: Device
     
     var body: some View {
             FormIniOSListInMacOS {
@@ -40,14 +40,14 @@ struct DeviceDetails: View {
     
     // MARK: Connection section
     @ViewBuilder
-    private func connectionSection(state: DeviceData.RegisteredDeviceWrapper.State) -> some View {
+    private func connectionSection(state: DeviceData.DeviceWrapper.State) -> some View {
         
         let footerText = state == .notConnectable ? "The device can't be connected" : ""
         
         Section(header: Text("Connection"), footer: Text(footerText)) {
             if case .readyToConnect = state {
                 Button("Connect") {
-                    deviceData.tryToConnect(registeredDevice: device)
+                    deviceData.tryToConnect(device: device)
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
             } else if case .connecting = state {
@@ -60,7 +60,7 @@ struct DeviceDetails: View {
                 
             } else if case .connected = state {
                 Button("Disconnect") {
-                    deviceData.disconnect(registeredDevice: device)
+                    deviceData.disconnect(device: device)
                 }
                 .foregroundColor(Assets.red.color)
                 .frame(maxWidth: .infinity, alignment: .center)

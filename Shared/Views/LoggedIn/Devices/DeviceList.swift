@@ -16,7 +16,7 @@ struct DeviceList: View {
     @EnvironmentObject var deviceData: DeviceData
     @EnvironmentObject var appData: AppData
     
-    @State private var renameDevice: RegisteredDevice? = nil
+    @State private var renameDevice: Device? = nil
     @State private var selectedDeviceId: Int? = nil
     
     private let logger = Logger(category: "DeviceList")
@@ -48,14 +48,14 @@ struct DeviceList: View {
 private extension DeviceList {
     // MARK: Scan results
     @ViewBuilder
-    private func buildScanResultsList(scanResult: [DeviceData.DeviceWrapper]) -> some View {
+    private func buildScanResultsList(scanResult: [DeviceData.ScanResultWrapper]) -> some View {
         Section(header: Text("Scan Results")) {
             if scanResult.hasItems {
                 ForEach(scanResult) { d in
                     let isConnecting = d.state == .connecting
-                    DeviceRow(d.device, isConnecting: isConnecting)
+                    DeviceRow(d.scanResult, isConnecting: isConnecting)
                         .onTapGesture {
-                            deviceData.tryToConnect(scanResult: d.device)
+                            deviceData.tryToConnect(scanResult: d.scanResult)
                         }
                 }
                 .onDelete { iSet in
@@ -79,7 +79,7 @@ private extension DeviceList {
                     buildRegisteredDeviceRow(d.device, state: d.state)
                         .onTapGesture {
                             if case .readyToConnect = d.state {
-                                deviceData.tryToConnect(registeredDevice: d.device)
+                                deviceData.tryToConnect(device: d.device)
                             } else {
                                 selectedDeviceId = d.id
                             }
@@ -92,17 +92,17 @@ private extension DeviceList {
     }
     
     @ViewBuilder
-    private func deviceContextMenu(device: RegisteredDevice, state: DeviceData.RegisteredDeviceWrapper.State) -> some View {
+    private func deviceContextMenu(device: Device, state: DeviceData.DeviceWrapper.State) -> some View {
         
         if case .readyToConnect = state {
             Button {
-                deviceData.tryToConnect(registeredDevice: device)
+                deviceData.tryToConnect(device: device)
             } label: {
                 Label("Connect", systemImage: "app.connected.to.app.below.fill")
             }
         } else if case .connected = state {
             Button() {
-                deviceData.disconnect(registeredDevice: device)
+                deviceData.disconnect(device: device)
             } label: {
                 Label {
                     Text("Disconnect")
@@ -127,7 +127,7 @@ private extension DeviceList {
     }
     
     @ViewBuilder
-    private func buildRegisteredDeviceRow(_ device: RegisteredDevice, state: DeviceData.RegisteredDeviceWrapper.State) -> some View {
+    private func buildRegisteredDeviceRow(_ device: Device, state: DeviceData.DeviceWrapper.State) -> some View {
         
         NavigationLink(destination: DeviceDetails(device: device), tag: device.id, selection: $selectedDeviceId) {
             RegisteredDeviceView(device: device, connectionState: state)
@@ -148,7 +148,7 @@ private extension DeviceList {
                 .swipeActions(edge: .trailing) {
                     if case .connected = state {
                         Button(role: .destructive) {
-                            deviceData.disconnect(registeredDevice: device)
+                            deviceData.disconnect(device: device)
                         } label: {
                             Label("Delete", systemImage: "xmark.circle")
                         }

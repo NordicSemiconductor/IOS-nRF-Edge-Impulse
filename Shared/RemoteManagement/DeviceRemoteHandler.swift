@@ -32,7 +32,7 @@ extension DeviceRemoteHandler {
     
     enum ConnectionState: CustomDebugStringConvertible {
         
-        case notConnected, connecting(Device), connected(Device, RegisteredDevice), disconnected(DisconnectReason)
+        case notConnected, connecting(ScanResult), connected(ScanResult, Device), disconnected(DisconnectReason)
         
         var debugDescription: String {
             switch self {
@@ -68,23 +68,23 @@ class DeviceRemoteHandler {
     private static let RemoteManagementURLString = "wss://remote-mgmt.edgeimpulse.com"
     private let logger = Logger(category: "DeviceRemoteHandler")
     
-    private (set) var device: Device
-    private (set) var registeredDevice: RegisteredDevice?
+    private (set) var scanResult: ScanResult
+    private (set) var device: Device?
     
     @Published var state: ConnectionState = .notConnected
     
-    private (set) lazy var bluetoothManager = BluetoothManager(peripheralId: self.device.id)
+    private (set) lazy var bluetoothManager = BluetoothManager(peripheralId: self.scanResult.id)
     private var webSocketManager: WebSocketManager!
     private var cancellables = Set<AnyCancellable>()
     
     private let registeredDeviceManager: RegisteredDevicesManager
     private let appData: AppData
     
-    init(device: Device, registeredDevice: RegisteredDevice? = nil, registeredDeviceManager: RegisteredDevicesManager = RegisteredDevicesManager(), appData: AppData) {
+    init(scanResult: ScanResult, device: Device? = nil, registeredDeviceManager: RegisteredDevicesManager = RegisteredDevicesManager(), appData: AppData) {
         self.registeredDeviceManager = registeredDeviceManager
-        self.device = device
+        self.scanResult = scanResult
         self.appData = appData
-        self.registeredDevice = registeredDevice
+        self.device = device
         
         webSocketManager = WebSocketManager()
     }
@@ -95,7 +95,7 @@ class DeviceRemoteHandler {
     }
     
     var userVisibleName: String {
-        registeredDevice?.name ?? device.name
+        device?.name ?? scanResult.name
     }
     
     func connect(apiKey: String) -> AnyPublisher<ConnectionState, Never> {
@@ -109,7 +109,7 @@ class DeviceRemoteHandler {
                 }
                 
                 hello.hello?.apiKey = apiKey
-                hello.hello?.deviceId = self.device.deviceId
+                hello.hello?.deviceId = self.scanResult.deviceId
                 
                 do {
                     try webSocketManager.send(hello)
@@ -129,26 +129,26 @@ class DeviceRemoteHandler {
                     .eraseToAnyPublisher()
             }
             .decode(type: WSHelloResponse.self, decoder: JSONDecoder())
-            .flatMap { [registeredDeviceManager] response -> AnyPublisher<RegisteredDevice, Swift.Error> in
+            .flatMap { [registeredDeviceManager] response -> AnyPublisher<Device, Swift.Error> in
                 if let e = response.err {
                     return Fail(error: Error.stringError(e))
                         .eraseToAnyPublisher()
                 } else {
-                    let deviceId = self.device.deviceId
+                    let deviceId = self.scanResult.deviceId
                     return registeredDeviceManager.fetchDevice(deviceId: deviceId, appData: self.appData)
                 }
             }
             .justDoIt { [weak self] device in
                 guard let `self` = self else { return }
-                if let d = self.registeredDevice, d.deviceId == device.deviceId {
+                if let d = self.device, d.deviceId == device.deviceId {
                     return
                 } else {
-                    self.registeredDevice = device
-                    self.state = .connected(self.device, device)
+                    self.device = device
+                    self.state = .connected(self.scanResult, device)
                 }
             }
             .map { registeredDevice in
-                ConnectionState.connected(self.device, registeredDevice)
+                ConnectionState.connected(self.scanResult, registeredDevice)
             }
             .prefix(1)
             .timeout(10, scheduler: DispatchQueue.main, customError: { Error.timeout })
@@ -164,7 +164,7 @@ class DeviceRemoteHandler {
         webSocketManager.disconnect()
         
         self.state = .disconnected(reason)
-        let deviceName = device.name
+        let deviceName = scanResult.name
         logger.info("\(deviceName) Disconnected.")
     }
     
@@ -189,24 +189,24 @@ extension DeviceRemoteHandler {
 
 extension DeviceRemoteHandler: Hashable, Identifiable {
     static func == (lhs: DeviceRemoteHandler, rhs: DeviceRemoteHandler) -> Bool {
-        lhs.device == rhs.device
+        lhs.scanResult == rhs.scanResult
     }
     
-    static func == (lhs: DeviceRemoteHandler, rhs: Device) -> Bool {
-        lhs.device == rhs
+    static func == (lhs: DeviceRemoteHandler, rhs: ScanResult) -> Bool {
+        lhs.scanResult == rhs
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(device)
+        hasher.combine(scanResult)
     }
     
     var id: String {
-        device.deviceId
+        scanResult.deviceId
     }
 }
 
 #if DEBUG
 extension DeviceRemoteHandler {
-    static let mock = DeviceRemoteHandler(device: Device.sample, registeredDeviceManager: RegisteredDevicesManager(), appData: AppData())
+    static let mock = DeviceRemoteHandler(scanResult: ScanResult.sample, registeredDeviceManager: RegisteredDevicesManager(), appData: AppData())
 }
 #endif
