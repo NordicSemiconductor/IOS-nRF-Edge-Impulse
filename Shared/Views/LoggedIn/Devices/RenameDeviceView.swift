@@ -90,8 +90,9 @@ struct RenameDeviceView: View {
                 }
             }
         }
-        .frame(minWidth: 200)
         .padding()
+        .background(Color.secondarySystemBackground)
+        .frame(minWidth: 200)
     }
     
     // MARK: Logic

@@ -28,50 +28,20 @@ struct DeviceList: View {
     // MARK: View
     
     var body: some View {
-        ZStack {
+        AlertViewContainer(content: {
             List {
                 buildRegisteredDevicesList()
                 buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
             }
-            
-            #if os(iOS)
-            if let renameDevice = renameDevice {
-                ZStack {
-                    Color.black.opacity(0.7)
-                        .edgesIgnoringSafeArea(.vertical)
-                        .onTapGesture {
-                            self.renameDevice = nil
-                        }
-                    
-                    RenameDeviceView(self.$renameDevice, oldName: renameDevice.name)
-                        .background(Color.white)
-                        .cornerRadius(20.0)
-                        .shadow(radius: 20.0)
-                }
-                
-            }
-            #endif
-        }
+        }, alertView: { device in
+            RenameDeviceView($renameDevice, oldName: device.name)
+        }, isShowing: $renameDevice)
         .alert(isPresented: $showDeleteDeviceAlert) {
             Alert(title: Text("Delete Device"),
                   message: Text("Are you sure you want to delete this Device?"),
-                  primaryButton: .destructive(Text("Yes"), action: {
-                    showDeleteDeviceAlert = false
-                    guard let device = deleteDevice else { return }
-                    appData.deleteDevice(device) {
-                        deviceData.refresh()
-                    }
-                    deleteDevice = nil
-                  }),
-                  secondaryButton: .default(Text("Cancel"), action: {
-                    showDeleteDeviceAlert = false
-                    deleteDevice = nil
-                  }))
+                  primaryButton: .destructive(Text("Yes"), action: confirmDeleteDevice),
+                  secondaryButton: .default(Text("Cancel"), action: dismissDeleteDevice))
         }
-//        .sheet(item: $renameDevice) { device in
-//            RenameDeviceView($renameDevice, oldName: device.name)
-//                .padding()
-//        }
         .toolbar {
             ToolbarItem(placement: .destructiveAction) {
                 Button(action: refreshScanner, label: {
@@ -234,6 +204,20 @@ private extension DeviceList {
     
     func refreshScanner() {
         deviceData.refresh()
+    }
+    
+    func confirmDeleteDevice() {
+        showDeleteDeviceAlert = false
+        guard let device = deleteDevice else { return }
+        appData.deleteDevice(device) {
+            deviceData.refresh()
+        }
+        deleteDevice = nil
+    }
+    
+    func dismissDeleteDevice() {
+        showDeleteDeviceAlert = false
+        deleteDevice = nil
     }
 }
 
