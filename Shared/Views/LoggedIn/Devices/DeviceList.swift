@@ -28,9 +28,29 @@ struct DeviceList: View {
     // MARK: View
     
     var body: some View {
-        List {
-            buildRegisteredDevicesList()
-            buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
+        ZStack {
+            List {
+                buildRegisteredDevicesList()
+                buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
+            }
+            
+            #if os(iOS)
+            if let renameDevice = renameDevice {
+                ZStack {
+                    Color.black.opacity(0.7)
+                        .edgesIgnoringSafeArea(.vertical)
+                        .onTapGesture {
+                            self.renameDevice = nil
+                        }
+                    
+                    RenameDeviceView(self.$renameDevice, oldName: renameDevice.name)
+                        .background(Color.white)
+                        .cornerRadius(20.0)
+                        .shadow(radius: 20.0)
+                }
+                
+            }
+            #endif
         }
         .alert(isPresented: $showDeleteDeviceAlert) {
             Alert(title: Text("Delete Device"),
@@ -48,10 +68,10 @@ struct DeviceList: View {
                     deleteDevice = nil
                   }))
         }
-        .sheet(item: $renameDevice) { device in
-            RenameDeviceView($renameDevice, oldName: device.name)
-                .padding()
-        }
+//        .sheet(item: $renameDevice) { device in
+//            RenameDeviceView($renameDevice, oldName: device.name)
+//                .padding()
+//        }
         .toolbar {
             ToolbarItem(placement: .destructiveAction) {
                 Button(action: refreshScanner, label: {

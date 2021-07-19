@@ -54,15 +54,17 @@ struct RenameDeviceView: View {
                 TextField("", text: $newDeviceName)
                     .modifier(FixPlaceholder(for: $newDeviceName, text: "New Device Name"))
                     .disableAllAutocorrections()
-                    .foregroundColor(.accentColor)
+                    .accentColor(.black)
                     .modifier(RoundedTextFieldShape(.lightGrey))
                     .disabled(!textFieldEnabled)
                     .padding(4)
                     .introspectTextField { textField in
-                        textField.becomeFirstResponder()
-                        #if os(iOS)
-                        textField.selectAll(nil)
-                        #endif
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            textField.becomeFirstResponder()
+                            #if os(iOS)
+                            textField.selectAll(nil)
+                            #endif
+                        }
                     }
             }
             
@@ -72,8 +74,9 @@ struct RenameDeviceView: View {
                     .padding(4)
             }
             
-            HStack {
+            HStack(spacing: 8) {
                 Button("OK", action: okButton)
+                    .foregroundColor(.primary)
                     .disabled(!buttonEnabled)
                     .keyboardShortcut(.defaultAction)
                 
