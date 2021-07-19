@@ -19,7 +19,7 @@ extension Color {
     
     static var secondarySystemBackground: Color {
         #if os(OSX)
-        return .white
+        return Color(.controlBackgroundColor)
         #elseif os(iOS)
         return Color(UIColor.secondarySystemBackground)
         #endif
