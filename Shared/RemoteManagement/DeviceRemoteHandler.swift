@@ -138,7 +138,7 @@ class DeviceRemoteHandler {
                 }
             }
             .justDoIt { [weak self] device in
-                guard let `self` = self else { return }
+                guard let self = self else { return }
                 if let d = self.device, d.deviceId == device.deviceId {
                     return
                 } else {
