@@ -39,6 +39,7 @@ struct RenameDeviceView: View {
     var body: some View {
         VStack(alignment: .center) {
             Text("Rename Device")
+                .foregroundColor(.textColor)
                 .font(.headline)
             
             switch viewState {
@@ -46,6 +47,10 @@ struct RenameDeviceView: View {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
                     .padding()
+            case .error(let error):
+                Text(error.localizedDescription)
+                    .foregroundColor(Assets.red.color)
+                    .padding(4)
             case .success:
                 Text("Success!")
                     .foregroundColor(.green)
@@ -56,6 +61,7 @@ struct RenameDeviceView: View {
                     .foregroundColor(.textFieldColor)
                     .modifier(RoundedTextFieldShape(.lightGrey))
                     .disabled(!textFieldEnabled)
+                    .frame(maxWidth: 300)
                     .padding(4)
                     .introspectTextField { textField in
                         textField.becomeFirstResponder()
@@ -65,15 +71,9 @@ struct RenameDeviceView: View {
                     }
             }
             
-            if let errorMessage = errorMessage {
-                Text(errorMessage)
-                    .foregroundColor(Assets.red.color)
-                    .padding(4)
-            }
-            
             HStack(spacing: 8) {
                 Button("OK", action: okButton)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.textColor)
                     .disabled(!buttonEnabled)
                     .keyboardShortcut(.defaultAction)
                 
@@ -88,8 +88,8 @@ struct RenameDeviceView: View {
             }
         }
         .padding()
+        .frame(width: 350)
         .background(Color.secondarySystemBackground)
-        .frame(minWidth: 200)
     }
     
     // MARK: Logic
@@ -109,15 +109,6 @@ struct RenameDeviceView: View {
             return false
         default:
             return true
-        }
-    }
-    
-    private var errorMessage: String? {
-        switch viewState {
-        case .error(let error):
-            return error.localizedDescription
-        default:
-            return nil
         }
     }
 }
