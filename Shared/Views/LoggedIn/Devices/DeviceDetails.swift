@@ -36,6 +36,22 @@ struct DeviceDetails: View {
             }
             .accentColor(.primary)
             .navigationTitle(Text(device.name))
+            .toolbar {
+                if let state = deviceData.connectionState(of: device) {
+                    if case .readyToConnect = state {
+                        Button("Connect") {
+                            deviceData.tryToConnect(device: device)
+                        }
+                    } else if case .connecting = state {
+                        ProgressView()
+                        
+                    } else if case .connected = state {
+                        Button("Disconnect") {
+                            deviceData.disconnect(device: device)
+                        }
+                    }
+                }
+            }
     }
     
     // MARK: Connection section
