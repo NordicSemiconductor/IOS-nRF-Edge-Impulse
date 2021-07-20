@@ -42,9 +42,13 @@ struct AlertViewContainer<Container: View, AlertView: View, BindingIdentifiable:
                 alertView(identifiable)
                     .cornerRadius(20.0)
                     .shadow(radius: 20.0)
+                    .animation(.spring())
+                    .transition(.move(edge: .top))
                     .introspectTextField { textField in
-                        textField.becomeFirstResponder()
-                        textField.selectAll(nil)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            textField.becomeFirstResponder()
+                            textField.selectAll(nil)
+                        }
                     }
             }
         }
