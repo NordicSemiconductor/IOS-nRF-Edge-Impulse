@@ -9,6 +9,8 @@ import SwiftUI
 
 struct UsernameField: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     // MARK: - Private Properties
     
     private var username: Binding<String>
@@ -28,11 +30,10 @@ struct UsernameField: View {
             Image(systemName: "person.fill")
                 .frame(size: .StandardImageSize)
                 .accentColor(Assets.darkGrey.color)
-            TextField("", text: username)
-                .modifier(FixPlaceholder(for: username, text: "Username or E-Mail"))
+            TextField("Username or E-Mail", text: username)
                 .disableAllAutocorrections()
-                .foregroundColor(.accentColor)
-                .modifier(RoundedTextFieldShape(.lightGrey, hasTextFieldBelow: true))
+                .foregroundColor(.textFieldColor)
+                .modifier(RoundedTextFieldShape(colorScheme == .light ? Assets.lightGrey : Assets.middleGrey, hasTextFieldBelow: true))
                 .disabled(!enabled)
         }
     }

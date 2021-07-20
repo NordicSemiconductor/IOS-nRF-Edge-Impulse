@@ -9,6 +9,8 @@ import SwiftUI
 
 struct PasswordField: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     // MARK: - Private Properties
     
     private var password: Binding<String>
@@ -28,11 +30,10 @@ struct PasswordField: View {
             Image(systemName: "key.fill")
                 .frame(size: .StandardImageSize)
                 .accentColor(Assets.darkGrey.color)
-            SecureField("", text: password)
-                .modifier(FixPlaceholder(for: password, text: "Password"))
+            SecureField("Password", text: password)
                 .disableAllAutocorrections()
-                .foregroundColor(.accentColor)
-                .modifier(RoundedTextFieldShape(.lightGrey))
+                .foregroundColor(.textFieldColor)
+                .modifier(RoundedTextFieldShape(colorScheme == .light ? Assets.lightGrey : Assets.middleGrey))
                 .padding(.bottom, 8)
                 .disabled(!enabled)
         }
