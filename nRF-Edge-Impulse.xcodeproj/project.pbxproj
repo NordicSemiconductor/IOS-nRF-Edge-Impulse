@@ -93,6 +93,8 @@
 		AA10170425E91885006DC88A /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* HTTPRequest.swift */; };
 		AA14CA75261490CD004F08FE /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14CA74261490CD004F08FE /* Codable.swift */; };
 		AA14CA76261490CD004F08FE /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14CA74261490CD004F08FE /* Codable.swift */; };
+		AA1C386F26A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C386E26A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift */; };
+		AA1C387026A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C386E26A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift */; };
 		AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA27C2B3266E48F4002D1652 /* DataAcquisitionDevicePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27C2B2266E48F4002D1652 /* DataAcquisitionDevicePicker.swift */; };
@@ -352,6 +354,7 @@
 		AA1016FB25E9173A006DC88A /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		AA10170225E91885006DC88A /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
 		AA14CA74261490CD004F08FE /* Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
+		AA1C386E26A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentConfigurationView+Logic.swift"; sourceTree = "<group>"; };
 		AA1F07A325F7989400CC41A9 /* BluetoothError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothError.swift; sourceTree = "<group>"; };
 		AA263F05260385690018CF5B /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
 		AA27C2B2266E48F4002D1652 /* DataAcquisitionDevicePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionDevicePicker.swift; sourceTree = "<group>"; };
@@ -621,6 +624,7 @@
 				AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */,
 				AA010204269C47C90045D6F2 /* DeploymentLogView.swift */,
 				AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */,
+				AA1C386E26A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift */,
 				AA0101FE269C3F280045D6F2 /* DeploymentProgressView.swift */,
 				AA0D812B2608F62700AE615A /* DeploymentViewState.swift */,
 				AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */,
@@ -1225,6 +1229,7 @@
 				012A3ECC2666694E00EBB501 /* RegisteredDevicesData.swift in Sources */,
 				AA01020B269C5D1D0045D6F2 /* SocketIOJob.swift in Sources */,
 				AA0CD078269DC258000FFF0B /* DeploymentViewState+Delegates.swift in Sources */,
+				AA1C386F26A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift in Sources */,
 				C37DD499260C89D800D667EA /* AdvertisementData.swift in Sources */,
 				01E10963265FAEDE000F2EE4 /* RegisteredDeviceView.swift in Sources */,
 				C3BF6AAC26244907006330C8 /* Logger+Ext.swift in Sources */,
@@ -1405,6 +1410,7 @@
 				AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */,
 				AAF4F6C42625C8C600012359 /* ThreePaneLayoutView.swift in Sources */,
 				AA535511261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */,
+				AA1C387026A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift in Sources */,
 				012A3ECD2666694E00EBB501 /* RegisteredDevicesData.swift in Sources */,
 				AAE0B235264E953E00FD8F80 /* AppData+Debug.swift in Sources */,
 				AA9342492681F713001CD754 /* DataContainer.swift in Sources */,

@@ -23,15 +23,15 @@ struct DeploymentView: View {
             Section(header: Text("Target").bold()) {
                 MultiColumnView {
                     Text("Connected Device: ")
-                    Picker(selection: $viewState.selectedDevice, label: EmptyView()) {
-                        let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
+                    Picker(selection: $viewState.selectedDeviceHandler, label: EmptyView()) {
+                        let connectedDevices = deviceData.allConnectedAndReadyToUseDevices().compactMap({ $0.device })
                         if connectedDevices.hasItems {
                             ForEach(connectedDevices.compactMap({ $0.device })) { device in
                                 Text(device.name)
                                     .tag(device)
                             }
                         } else {
-                            Text("--").tag(Constant.unselectedScanResult)
+                            Text("--").tag(Constant.unselectedDevice)
                         }
                     }
                 }
