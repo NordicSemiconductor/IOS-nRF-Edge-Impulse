@@ -84,12 +84,7 @@ struct DataAcquisitionView: View {
             }
         }
         .setTitle("New Sample")
-        .onAppear() {
-            guard let device = deviceData.allConnectedAndReadyToUseDevices().first?.device else {
-                return
-            }
-            viewState.selectedDevice = device
-        }
+        .onAppear(perform: setInitialSelectedDevice)
         .onReceive(viewState.countdownTimer, perform: onSampleTimerTick(_:))
         .frame(minWidth: .minTabWidth)
     }
