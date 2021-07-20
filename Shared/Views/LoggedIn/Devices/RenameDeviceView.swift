@@ -51,20 +51,17 @@ struct RenameDeviceView: View {
                     .foregroundColor(.green)
                     .padding(4)
             default:
-                TextField("", text: $newDeviceName)
-                    .modifier(FixPlaceholder(for: $newDeviceName, text: "New Device Name"))
+                TextField("New Device Name", text: $newDeviceName)
                     .disableAllAutocorrections()
-                    .accentColor(.black)
+                    .foregroundColor(.textFieldColor)
                     .modifier(RoundedTextFieldShape(.lightGrey))
                     .disabled(!textFieldEnabled)
                     .padding(4)
                     .introspectTextField { textField in
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            textField.becomeFirstResponder()
-                            #if os(iOS)
-                            textField.selectAll(nil)
-                            #endif
-                        }
+                        textField.becomeFirstResponder()
+                        #if os(iOS)
+                        textField.selectAll(nil)
+                        #endif
                     }
             }
             

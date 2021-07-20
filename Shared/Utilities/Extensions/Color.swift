@@ -9,6 +9,14 @@ import SwiftUI
 
 extension Color {
     
+    static var textFieldColor: Color {
+        #if os(OSX)
+        return Color.primary
+        #elseif os(iOS)
+        return Color(.black)
+        #endif
+    }
+    
     static var formBackground: Color {
         #if os(OSX)
         return .white
