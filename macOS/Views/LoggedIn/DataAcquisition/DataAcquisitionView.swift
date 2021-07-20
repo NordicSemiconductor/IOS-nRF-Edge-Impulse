@@ -30,7 +30,7 @@ struct DataAcquisitionView: View {
                                 Text(device.name).tag(device)
                             }
                         } else {
-                            Text("--").tag(Constant.unselectedDevice)
+                            Text("--").tag(Constant.unselectedScanResult)
                         }
                     }
                     .disabled(viewState.isSampling)

@@ -31,7 +31,7 @@ struct DeploymentView: View {
                                     .tag(device)
                             }
                         } else {
-                            Text("--").tag(Constant.unselectedDevice)
+                            Text("--").tag(Constant.unselectedScanResult)
                         }
                     }
                 }
