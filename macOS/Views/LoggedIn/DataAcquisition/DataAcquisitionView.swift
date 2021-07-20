@@ -24,13 +24,13 @@ struct DataAcquisitionView: View {
                 MultiColumnView {
                     Text("Connected Device")
                     Picker(selection: $viewState.selectedDevice, label: EmptyView()) {
-                        let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
+                        let connectedDevices = deviceData.allConnectedAndReadyToUseDevices().compactMap({ $0.device })
                         if connectedDevices.hasItems {
-                            ForEach(connectedDevices.compactMap({ $0.device })) { device in
+                            ForEach(connectedDevices) { device in
                                 Text(device.name).tag(device)
                             }
                         } else {
-                            Text("--").tag(Constant.unselectedScanResult)
+                            Text("--").tag(Constant.unselectedDevice)
                         }
                     }
                     .disabled(viewState.isSampling)
