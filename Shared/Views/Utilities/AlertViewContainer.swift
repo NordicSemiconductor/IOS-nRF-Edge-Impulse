@@ -42,12 +42,19 @@ struct AlertViewContainer<Container: View, AlertView: View, BindingIdentifiable:
                 alertView(identifiable)
                     .cornerRadius(20.0)
                     .shadow(radius: 20.0)
+                    .introspectTextField { textField in
+                        textField.becomeFirstResponder()
+                        textField.selectAll(nil)
+                    }
             }
         }
         #elseif os(OSX)
         content()
             .sheet(item: isShowing) { identifiable in
                 alertView(identifiable)
+                    .introspectTextField { textField in
+                        textField.becomeFirstResponder()
+                    }
             }
         #endif
     }

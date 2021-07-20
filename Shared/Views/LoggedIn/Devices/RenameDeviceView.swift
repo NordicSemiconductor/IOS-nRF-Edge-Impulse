@@ -63,12 +63,6 @@ struct RenameDeviceView: View {
                     .disabled(!textFieldEnabled)
                     .frame(maxWidth: 300)
                     .padding(4)
-                    .introspectTextField { textField in
-                        textField.becomeFirstResponder()
-                        #if os(iOS)
-                        textField.selectAll(nil)
-                        #endif
-                    }
             }
             
             HStack(spacing: 8) {
