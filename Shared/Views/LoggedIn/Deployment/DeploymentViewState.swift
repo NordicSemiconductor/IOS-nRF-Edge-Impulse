@@ -12,7 +12,7 @@ import McuManager
 final class DeploymentViewState: ObservableObject {
 
     @Published var status: BuildStatus = .idle
-    @Published var selectedDevice: DeviceRemoteHandler!
+    @Published var selectedDeviceHandler: DeviceRemoteHandler!
     @Published var progress = 0.0
     @Published var enableEONCompiler = true
     @Published var optimization: Classifier = .Quantized
@@ -30,7 +30,7 @@ final class DeploymentViewState: ObservableObject {
 extension DeploymentViewState {
     
     var buildButtonEnable: Bool {
-        guard selectedDevice != nil else { return false }
+        guard selectedDeviceHandler != nil else { return false }
         switch status {
         case .socketConnected:
             return true
@@ -135,7 +135,7 @@ extension DeploymentViewState {
     }
     
     func sendModelToDevice(modelData: Data) {
-        guard let device = selectedDevice else {
+        guard let device = selectedDeviceHandler else {
             reportError(NordicError(description: "No Device."))
             return
         }

@@ -17,6 +17,10 @@ struct DeviceList: View {
     @EnvironmentObject var appData: AppData
     
     @State private var renameDevice: Device? = nil
+    
+    @State private var showDeleteDeviceAlert = false
+    @State private var deleteDevice: Device? = nil
+    
     @State private var selectedDeviceId: Int? = nil
     
     private let logger = Logger(category: "DeviceList")
@@ -24,13 +28,19 @@ struct DeviceList: View {
     // MARK: View
     
     var body: some View {
-        List {
-            buildRegisteredDevicesList()
-            buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
-        }
-        .sheet(item: $renameDevice) { device in
+        AlertViewContainer(content: {
+            List {
+                buildRegisteredDevicesList()
+                buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
+            }
+        }, alertView: { device in
             RenameDeviceView($renameDevice, oldName: device.name)
-                .padding()
+        }, isShowing: $renameDevice)
+        .alert(isPresented: $showDeleteDeviceAlert) {
+            Alert(title: Text("Delete Device"),
+                  message: Text("Are you sure you want to delete this Device?"),
+                  primaryButton: .destructive(Text("Yes"), action: confirmDeleteDevice),
+                  secondaryButton: .default(Text("Cancel"), action: dismissDeleteDevice))
         }
         .toolbar {
             ToolbarItem(placement: .destructiveAction) {
@@ -84,6 +94,9 @@ private extension DeviceList {
                                 selectedDeviceId = d.id
                             }
                         }
+                        .contextMenu {
+                            deviceContextMenu(device: d.device, state: d.state)
+                        }
                 }
             } else {
                 NoDevicesView()
@@ -115,7 +128,7 @@ private extension DeviceList {
         }
         
         Button(action: {
-            self.renameDevice = device
+            renameDevice = device
         }) {
             Label("Rename", systemImage: "pencil")
         }
@@ -127,7 +140,8 @@ private extension DeviceList {
         
         Divider()
         Button {
-            appData.deleteDevice(device) { deviceData.refresh() }
+            deleteDevice = device
+            showDeleteDeviceAlert = true
         } label: {
             Label("Delete", systemImage: "minus.circle")
         }
@@ -135,12 +149,8 @@ private extension DeviceList {
     
     @ViewBuilder
     private func buildRegisteredDeviceRow(_ device: Device, state: DeviceData.DeviceWrapper.State) -> some View {
-        
         NavigationLink(destination: DeviceDetails(device: device), tag: device.id, selection: $selectedDeviceId) {
             RegisteredDeviceView(device: device, connectionState: state)
-                .contextMenu {
-                    deviceContextMenu(device: device, state: state)
-                }
         }
         /*
         if #available(iOS 15, *) {
@@ -193,6 +203,20 @@ private extension DeviceList {
     
     func refreshScanner() {
         deviceData.refresh()
+    }
+    
+    func confirmDeleteDevice() {
+        showDeleteDeviceAlert = false
+        guard let device = deleteDevice else { return }
+        appData.deleteDevice(device) {
+            deviceData.refresh()
+        }
+        deleteDevice = nil
+    }
+    
+    func dismissDeleteDevice() {
+        showDeleteDeviceAlert = false
+        deleteDevice = nil
     }
 }
 

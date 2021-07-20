@@ -9,9 +9,25 @@ import SwiftUI
 
 extension Color {
     
+    static var textColor: Color {
+        #if os(OSX)
+        return Color.primary
+        #elseif os(iOS)
+        return Color(.label)
+        #endif
+    }
+    
+    static var textFieldColor: Color {
+        #if os(OSX)
+        return Color.primary
+        #elseif os(iOS)
+        return Color(.black)
+        #endif
+    }
+    
     static var formBackground: Color {
         #if os(OSX)
-        return .white
+        return .clear
         #elseif os(iOS)
         return Color(UIColor.systemGroupedBackground)
         #endif
@@ -19,7 +35,7 @@ extension Color {
     
     static var secondarySystemBackground: Color {
         #if os(OSX)
-        return .white
+        return Color(.controlBackgroundColor)
         #elseif os(iOS)
         return Color(UIColor.secondarySystemBackground)
         #endif

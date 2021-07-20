@@ -24,10 +24,10 @@ struct DataAcquisitionView: View {
                 MultiColumnView {
                     Text("Connected Device")
                     Picker(selection: $viewState.selectedDevice, label: EmptyView()) {
-                        let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
+                        let connectedDevices = deviceData.allConnectedAndReadyToUseDevices().compactMap({ $0.device })
                         if connectedDevices.hasItems {
-                            ForEach(connectedDevices) { handler in
-                                Text(handler.device.name).tag(handler.device)
+                            ForEach(connectedDevices) { device in
+                                Text(device.name).tag(device)
                             }
                         } else {
                             Text("--").tag(Constant.unselectedDevice)
@@ -86,12 +86,7 @@ struct DataAcquisitionView: View {
         }
         .setTitle("New Sample")
         .padding(16)
-        .onAppear {
-            guard let device = deviceData.allConnectedAndReadyToUseDevices().first?.device else {
-                return
-            }
-            viewState.selectedDevice = device
-        }
+        .onAppear(perform: setInitialSelectedDevice)
         .onReceive(viewState.countdownTimer, perform: onSampleTimerTick(_:))
     }
 }

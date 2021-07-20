@@ -39,6 +39,7 @@ struct RenameDeviceView: View {
     var body: some View {
         VStack(alignment: .center) {
             Text("Rename Device")
+                .foregroundColor(.textColor)
                 .font(.headline)
             
             switch viewState {
@@ -46,34 +47,27 @@ struct RenameDeviceView: View {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
                     .padding()
+            case .error(let error):
+                Text(error.localizedDescription)
+                    .foregroundColor(Assets.red.color)
+                    .padding(4)
             case .success:
                 Text("Success!")
                     .foregroundColor(.green)
                     .padding(4)
             default:
-                TextField("", text: $newDeviceName)
-                    .modifier(FixPlaceholder(for: $newDeviceName, text: "New Device Name"))
+                TextField("New Device Name", text: $newDeviceName)
                     .disableAllAutocorrections()
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(.textFieldColor)
                     .modifier(RoundedTextFieldShape(.lightGrey))
                     .disabled(!textFieldEnabled)
-                    .padding(4)
-                    .introspectTextField { textField in
-                        textField.becomeFirstResponder()
-                        #if os(iOS)
-                        textField.selectAll(nil)
-                        #endif
-                    }
-            }
-            
-            if let errorMessage = errorMessage {
-                Text(errorMessage)
-                    .foregroundColor(Assets.red.color)
+                    .frame(maxWidth: 300)
                     .padding(4)
             }
             
-            HStack {
+            HStack(spacing: 8) {
                 Button("OK", action: okButton)
+                    .foregroundColor(.textColor)
                     .disabled(!buttonEnabled)
                     .keyboardShortcut(.defaultAction)
                 
@@ -87,8 +81,9 @@ struct RenameDeviceView: View {
                 }
             }
         }
-        .frame(minWidth: 200)
         .padding()
+        .frame(width: 350)
+        .background(Color.secondarySystemBackground)
     }
     
     // MARK: Logic
@@ -108,15 +103,6 @@ struct RenameDeviceView: View {
             return false
         default:
             return true
-        }
-    }
-    
-    private var errorMessage: String? {
-        switch viewState {
-        case .error(let error):
-            return error.localizedDescription
-        default:
-            return nil
         }
     }
 }

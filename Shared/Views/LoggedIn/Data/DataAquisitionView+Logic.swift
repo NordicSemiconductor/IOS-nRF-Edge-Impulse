@@ -9,6 +9,13 @@ import Foundation
 
 internal extension DataAcquisitionView {
 
+    func setInitialSelectedDevice() {
+        guard let device = deviceData.allConnectedAndReadyToUseDevices().first?.device else {
+            return
+        }
+        viewState.selectedDevice = device
+    }
+    
     func startSampling() {
         viewState.progressString = "Requesting Sample ID..."
         appData.requestNewSampleID(viewState) { response, error in
