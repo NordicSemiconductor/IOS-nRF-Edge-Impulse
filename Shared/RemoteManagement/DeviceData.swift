@@ -257,6 +257,8 @@ class DeviceData: ObservableObject {
             
             if let registeredDeviceIndex = handler.device.flatMap({ registeredDevices.firstIndex(of: DeviceWrapper(device: $0)) }) {
                 registeredDevices[registeredDeviceIndex].state = .readyToConnect
+            } else if let registeredDeviceIndex = registeredDevices.firstIndex(where: { $0 == handler.scanResult }) {
+                registeredDevices[registeredDeviceIndex].state = .readyToConnect
             }
             
             switch reason {
