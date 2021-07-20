@@ -101,6 +101,7 @@ class DeviceRemoteHandler {
     func connect(apiKey: String) -> AnyPublisher<ConnectionState, Never> {
         bluetoothManager.connect()
             .drop(while: { $0 != .readyToUse })
+            .first()
             .flatMap { _ in self.bluetoothManager.receptionSubject.gatherData(ofType: ResponseRootObject.self) }
             .combineLatest(webSocketManager.connect(to: Self.RemoteManagementURLString).drop(while: { $0 != .connected }))
             .flatMap { [webSocketManager] (data, _) -> AnyPublisher<Data, Swift.Error> in
