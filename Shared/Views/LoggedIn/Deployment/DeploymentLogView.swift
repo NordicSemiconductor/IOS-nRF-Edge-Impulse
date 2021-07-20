@@ -12,7 +12,7 @@ struct DeploymentLogView: View {
     @EnvironmentObject var viewState: DeploymentViewState
     
     var body: some View {
-        Form {
+        FormIniOSListInMacOS {
             Section(header: Text("Logs")) {
                 ForEach(viewState.logMessages, id: \.self) { message in
                     Text(message)

@@ -15,7 +15,7 @@ struct DeploymentProgressView: View {
     let buildAction: () -> ()
     
     var body: some View {
-        Form {
+        FormIniOSListInMacOS {
             ProgressView(value: viewState.progress, total: 100.0)
             viewState.status.view
             switch viewState.status {

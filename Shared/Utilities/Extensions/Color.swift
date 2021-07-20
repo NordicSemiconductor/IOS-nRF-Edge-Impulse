@@ -27,7 +27,7 @@ extension Color {
     
     static var formBackground: Color {
         #if os(OSX)
-        return .white
+        return .clear
         #elseif os(iOS)
         return Color(UIColor.systemGroupedBackground)
         #endif

@@ -13,7 +13,7 @@ struct DeploymentConfigurationView: View {
     @EnvironmentObject var viewState: DeploymentViewState
     
     var body: some View {
-        Form {
+        FormIniOSListInMacOS {
             Section(header: Text("Device")) {
                 let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
                 if connectedDevices.hasItems {
