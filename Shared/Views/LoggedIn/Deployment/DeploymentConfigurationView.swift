@@ -13,24 +13,10 @@ struct DeploymentConfigurationView: View {
     @EnvironmentObject var viewState: DeploymentViewState
     
     var body: some View {
-        FormIniOSListInMacOS {
+        Form {
             Section(header: Text("Device")) {
-                let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
-                if connectedDevices.hasItems {
-                    Picker("Selected", selection: $viewState.selectedDeviceHandler) {
-                        ForEach(connectedDevices) { handler in
-                            Text(handler.userVisibleName)
-                                .tag(handler.device)
-                        }
-                    }
-                    .setAsComboBoxStyle()
+                ConnectedDevicePicker($viewState.selectedDeviceHandler)
                     .onAppear(perform: selectFirstAvailableDeviceHandler)
-                } else {
-                    Text("No Devices Scanned.")
-                        .tag(Constant.unselectedDevice)
-                        .foregroundColor(Assets.middleGrey.color)
-                        .multilineTextAlignment(.leading)
-                }
             }
             
             Section(header: Text("Optimizations")) {
