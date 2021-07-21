@@ -11,7 +11,7 @@ import McuManager
 
 final class DeploymentViewState: ObservableObject {
 
-    @Published var status: BuildStatus = .idle
+    @Published var status: JobStatus = .idle
     @Published var selectedDeviceHandler: DeviceRemoteHandler!
     @Published var progress = 0.0
     @Published var enableEONCompiler = true
