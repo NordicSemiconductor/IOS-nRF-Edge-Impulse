@@ -95,7 +95,6 @@
 		AA1C387126A6DC8100304D69 /* DeploymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D81282608C03A00AE615A /* DeploymentView.swift */; };
 		AA1C387626A6DD7200304D69 /* DeploymentConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */; };
 		AA1C387726A6DDF500304D69 /* DeploymentLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010204269C47C90045D6F2 /* DeploymentLogView.swift */; };
-		AA1C387826A6DE4F00304D69 /* DeploymentConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */; };
 		AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA27C2B3266E48F4002D1652 /* DataAcquisitionDevicePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27C2B2266E48F4002D1652 /* DataAcquisitionDevicePicker.swift */; };
@@ -170,6 +169,7 @@
 		AAEDE6342628807B00B96AE9 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE6322628803500B96AE9 /* DropdownView.swift */; };
 		AAEDE636262882BF00B96AE9 /* ProjectSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE635262882BF00B96AE9 /* ProjectSelectionView.swift */; };
 		AAEDE637262882D500B96AE9 /* ProjectSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE635262882BF00B96AE9 /* ProjectSelectionView.swift */; };
+		AAEED04226A7B55700999E51 /* DeploymentConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEED04126A7B55700999E51 /* DeploymentConfigurationView.swift */; };
 		AAEED04426A7B68800999E51 /* ConnectedDevicePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEED04326A7B68800999E51 /* ConnectedDevicePicker.swift */; };
 		AAEED04526A7B68800999E51 /* ConnectedDevicePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEED04326A7B68800999E51 /* ConnectedDevicePicker.swift */; };
 		AAF0C9692609FEBE001B76B9 /* GetCurrentUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C9682609FEBE001B76B9 /* GetCurrentUserRequest.swift */; };
@@ -394,6 +394,7 @@
 		AAEDE6302628459600B96AE9 /* SettingsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsContentView.swift; sourceTree = "<group>"; };
 		AAEDE6322628803500B96AE9 /* DropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
 		AAEDE635262882BF00B96AE9 /* ProjectSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSelectionView.swift; sourceTree = "<group>"; };
+		AAEED04126A7B55700999E51 /* DeploymentConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentConfigurationView.swift; sourceTree = "<group>"; };
 		AAEED04326A7B68800999E51 /* ConnectedDevicePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedDevicePicker.swift; sourceTree = "<group>"; };
 		AAF0C9682609FEBE001B76B9 /* GetCurrentUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentUserRequest.swift; sourceTree = "<group>"; };
 		AAF0C96B260A0210001B76B9 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
@@ -687,6 +688,7 @@
 		AADDD05D264C28FB000892E1 /* Deployment */ = {
 			isa = PBXGroup;
 			children = (
+				AAEED04126A7B55700999E51 /* DeploymentConfigurationView.swift */,
 			);
 			path = Deployment;
 			sourceTree = "<group>";
@@ -1353,7 +1355,7 @@
 				C3846EE6260B4386005AEF67 /* BluetoothManager.swift in Sources */,
 				AAF4F6C52625E07900012359 /* DeviceList.swift in Sources */,
 				AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */,
-				AA1C387826A6DE4F00304D69 /* DeploymentConfigurationView.swift in Sources */,
+				AAEED04226A7B55700999E51 /* DeploymentConfigurationView.swift in Sources */,
 				AA076F802698721D0012CD64 /* Color.swift in Sources */,
 				AA386B0A260CEDD60079F12D /* Previews.swift in Sources */,
 				AA01020F269C74850045D6F2 /* DownloadDeviceModelRequest.swift in Sources */,
