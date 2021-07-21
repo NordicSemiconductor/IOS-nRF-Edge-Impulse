@@ -13,12 +13,52 @@ struct DeploymentConfigurationView: View {
     @EnvironmentObject var viewState: DeploymentViewState
     
     var body: some View {
-        VStack {
+        ScrollView {
             Section(header: Text("Target").bold()) {
                 ConnectedDevicePicker($viewState.selectedDeviceHandler)
             }
             .onAppear(perform: selectFirstAvailableDeviceHandler)
+            
+            Divider()
+                .padding(.vertical)
+            
+            Section(header: Text("Configuration").bold()) {
+                MultiColumnView {
+                    Text("Compiler")
+                    VStack(alignment: .leading, spacing: 4) {
+                        Toggle(isOn: $viewState.enableEONCompiler, label: {
+                            Text("Enable EON™ Compiler")
+                        })
+                        .toggleStyle(CheckboxToggleStyle())
+                    }
+                    
+                    Text("")
+                    Text("Same accuracy, up to 50% less memory. Open source.")
+                        .font(.caption)
+                        .foregroundColor(Assets.middleGrey.color)
+                }
+                
+                MultiColumnView {
+                    Text("Classifier")
+                    Picker(selection: $viewState.optimization, label: EmptyView()) {
+                        ForEach(DeploymentViewState.Classifier.allCases, id: \.self) { classifier in
+                            Text(classifier.rawValue).tag(classifier)
+                        }
+                    }
+                    .pickerStyle(RadioGroupPickerStyle())
+                    .horizontalRadioGroupLayout()
+                    .padding(.vertical, 6)
+                    
+                    Text("")
+                    Text("\(DeploymentViewState.Classifier.Quantized.rawValue) is recommended for best performance. ")
+                        .font(.caption)
+                        .foregroundColor(Assets.middleGrey.color)
+                }
+                
+                
+            }
         }
+        .padding()
         .setTitle("Deployment")
     }
 }
