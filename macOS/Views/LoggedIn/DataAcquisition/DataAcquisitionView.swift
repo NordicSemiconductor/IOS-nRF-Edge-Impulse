@@ -21,20 +21,8 @@ struct DataAcquisitionView: View {
     var body: some View {
         ScrollView {
             Section(header: Text("Target").bold()) {
-                MultiColumnView {
-                    Text("Connected Device")
-                    Picker(selection: $viewState.selectedDevice, label: EmptyView()) {
-                        let connectedDevices = deviceData.allConnectedAndReadyToUseDevices().compactMap({ $0.device })
-                        if connectedDevices.hasItems {
-                            ForEach(connectedDevices) { device in
-                                Text(device.name).tag(device)
-                            }
-                        } else {
-                            Text("--").tag(Constant.unselectedDevice)
-                        }
-                    }
+                ConnectedDevicePicker($viewState.selectedDevice)
                     .disabled(viewState.isSampling)
-                }
             }
             
             Divider()

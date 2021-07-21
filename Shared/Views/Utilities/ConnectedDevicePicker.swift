@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - ConnectedDevicePicker
+
 struct ConnectedDevicePicker<SelectionValue: Hashable>: View {
     
     @EnvironmentObject var deviceData: DeviceData
@@ -16,7 +18,14 @@ struct ConnectedDevicePicker<SelectionValue: Hashable>: View {
     init(_ selectionBinding: Binding<SelectionValue>) {
         self.selectionBinding = selectionBinding
     }
+}
+
+// MARK: - iOS
+
+#if os(iOS)
+extension ConnectedDevicePicker {
     
+    @ViewBuilder
     var body: some View {
         let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
         if connectedDevices.hasItems {
@@ -33,3 +42,28 @@ struct ConnectedDevicePicker<SelectionValue: Hashable>: View {
         }
     }
 }
+#endif
+
+// MARK: - macOS
+
+#if os(OSX)
+extension ConnectedDevicePicker {
+    
+    @ViewBuilder
+    var body: some View {
+        MultiColumnView {
+            Text("Connected Device")
+            Picker(selection: selectionBinding, label: EmptyView()) {
+                let connectedDevices = deviceData.allConnectedAndReadyToUseDevices().compactMap({ $0.device })
+                if connectedDevices.hasItems {
+                    ForEach(connectedDevices) { device in
+                        Text(device.name).tag(device)
+                    }
+                } else {
+                    Text("--").tag(Constant.unselectedDevice)
+                }
+            }
+        }
+    }
+}
+#endif
