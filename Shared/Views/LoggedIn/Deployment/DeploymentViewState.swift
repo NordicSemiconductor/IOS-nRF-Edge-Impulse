@@ -12,7 +12,13 @@ import McuManager
 final class DeploymentViewState: ObservableObject {
 
     @Published var status: JobStatus = .idle
-    @Published var selectedDeviceHandler: DeviceRemoteHandler!
+    @Published var selectedDevice = Constant.unselectedDevice
+    @Published var selectedDeviceHandler: DeviceRemoteHandler! {
+        didSet {
+            guard let selectedDeviceHandler = selectedDeviceHandler else { return }
+            selectedDevice = selectedDeviceHandler.device ?? Constant.unselectedDevice
+        }
+    }
     @Published var progress = 0.0
     @Published var enableEONCompiler = true
     @Published var optimization: Classifier = .Quantized

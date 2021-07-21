@@ -15,9 +15,9 @@ struct DeploymentConfigurationView: View {
     var body: some View {
         ScrollView {
             Section(header: Text("Target").bold()) {
-                ConnectedDevicePicker($viewState.selectedDeviceHandler)
+                ConnectedDevicePicker($viewState.selectedDevice)
+                    .onAppear(perform: selectFirstAvailableDeviceHandler)
             }
-            .onAppear(perform: selectFirstAvailableDeviceHandler)
             
             Divider()
                 .padding(.vertical)
