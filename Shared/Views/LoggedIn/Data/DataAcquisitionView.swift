@@ -32,21 +32,7 @@ struct DataAcquisitionView: View {
             }
             
             Section(header: Text("Device")) {
-                
-                let connectedDevices = deviceData.allConnectedAndReadyToUseDevices()
-                if connectedDevices.hasItems {
-                    Picker("Selected", selection: $viewState.selectedDevice) {
-                        ForEach(connectedDevices, id: \.self) { handler in
-                            Text(handler.userVisibleName).tag(handler.device)
-                        }
-                    }
-                    .setAsComboBoxStyle()
-                    .disabled(viewState.isSampling)
-                } else {
-                    Text("No Connected Devices")
-                        .foregroundColor(Assets.middleGrey.color)
-                        .multilineTextAlignment(.leading)
-                }
+                ConnectedDevicePicker($viewState.selectedDevice)
             }
             
             Section(header: Text("Label")) {
