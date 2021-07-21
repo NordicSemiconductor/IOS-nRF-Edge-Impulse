@@ -40,22 +40,23 @@ struct WSHelloResponse: Codable {
 
 #if DEBUG
 extension ResponseRootObject {
-    static let moc = ResponseRootObject(
-        type: "",
-
-        direction: "",
+    
+    static let Thingy53v22 = ResponseRootObject(
+        type: "ws",
+        direction: "tx",
         address: "",
         message: Message(
             hello: HelloMessage(
-                version: 1,
-                apiKey: "ei_8dd502530a5232ff64374815fddc229151e0a82c1d4f23e86097d8acdf882295",
-                deviceId: "15:FE:90:11:1D:18",
-                deviceType: "PORTENTA_H7_M7",
-                connection: "daemon",
+                version: 3,
+                apiKey: "",
+                deviceId: "FF:FF:FF:FF:FF:FF",
+                deviceType: "nRF5340_DK",
+                connection: "ip",
                 sensors: [
-                    Sensor(name: "Camera (320x240)", maxSampleLengthS: 1, frequencies: [1.0])
+                    Sensor(name: "Accelerometer", maxSampleLengthS: 55866, frequencies: [62.5, 100.0]),
+                    Sensor(name: "Microphone", maxSampleLengthS: 2094, frequencies: [16000.0])
                 ],
-                supportsSnapshotStreaming: true
+                supportsSnapshotStreaming: false
             )
         )
     )
