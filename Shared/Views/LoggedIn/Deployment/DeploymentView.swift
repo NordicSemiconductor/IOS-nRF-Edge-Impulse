@@ -21,7 +21,7 @@ struct DeploymentView: View {
     var body: some View {
         VStack {
             switch viewState.status {
-            case .buildingModel(_), .downloadingModel, .error(_):
+            case .buildingModel(_), .downloadingModel, .performingFirmwareUpdate, .error(_):
                 DeploymentLogView()
                     .environmentObject(viewState)
                     .padding(.top)

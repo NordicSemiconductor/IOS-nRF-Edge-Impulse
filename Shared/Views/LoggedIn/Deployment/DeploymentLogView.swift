@@ -12,20 +12,18 @@ struct DeploymentLogView: View {
     @EnvironmentObject var viewState: DeploymentViewState
     
     var body: some View {
-        FormIniOSListInMacOS {
-            Section(header: Text("Logs")) {
-                ForEach(viewState.logMessages, id: \.self) { message in
-                    Text(message)
+        ScrollViewReader { scroll in
+            FormIniOSListInMacOS {
+                Section(header: Text("Logs")) {
+                    ForEach(viewState.logMessages, id: \.self) { message in
+                        Text(message)
+                    }
                 }
             }
-        }
-        .introspectTableView { tableView in
-            viewState.$logMessages
-                .throttle(for: .seconds(2), scheduler: RunLoop.main, latest: true)
-                .sink { [weak tableView] _ in
-                    tableView?.scrollToBottom()
-                }
-                .store(in: &viewState.cancellables)
+            .onReceive(
+                viewState.$logMessages.compactMap { $0.last }) { newMessage in
+                scroll.scrollTo(newMessage)
+            }
         }
     }
 }
