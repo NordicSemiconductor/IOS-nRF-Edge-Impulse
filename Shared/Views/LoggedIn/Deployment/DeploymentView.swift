@@ -14,7 +14,7 @@ struct DeploymentView: View {
     
     // MARK: - State
     
-    @ObservedObject internal var viewState = DeploymentViewState()
+    @StateObject internal var viewState = DeploymentViewState()
     
     // MARK: - viewBuilder
     
