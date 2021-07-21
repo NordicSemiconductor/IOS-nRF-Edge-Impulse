@@ -27,6 +27,7 @@ struct DeploymentConfigurationView: View {
                     .onAppear(perform: selectFirstAvailableDeviceHandler)
                 } else {
                     Text("No Devices Scanned.")
+                        .tag(Constant.unselectedDevice)
                         .foregroundColor(Assets.middleGrey.color)
                         .multilineTextAlignment(.leading)
                 }
