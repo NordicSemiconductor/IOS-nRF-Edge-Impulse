@@ -17,6 +17,7 @@ struct DeploymentProgressView: View {
     var body: some View {
         VStack {
             ProgressView(value: viewState.progress, total: 100.0)
+                .padding(.horizontal)
             
             viewState.status.view
             
@@ -27,13 +28,14 @@ struct DeploymentProgressView: View {
                     .foregroundColor(.primary)
             default:
                 Button("Build", action: buildAction)
+                    .modifier(CircularButtonShape(backgroundAsset: .blue))
                     .centerTextInsideForm()
                     .foregroundColor(viewState.buildButtonEnable ? .primary : Assets.middleGrey.color)
                     .disabled(!viewState.buildButtonEnable)
             }
         }
         .padding(.horizontal)
-        .frame(height: 100)
+        .frame(height: 120)
     }
 }
 
