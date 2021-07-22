@@ -13,6 +13,10 @@ enum Tabs: Int, RawRepresentable, CaseIterable {
     case Deployment
     case Settings
     
+    var keyboardShortcutKey: KeyEquivalent {
+        KeyEquivalent(Character("\(rawValue + 1)"))
+    }
+    
     static var availableCases: [Tabs] {
         #if os(OSX)
         // Preferences is available via Menu on macOS.
