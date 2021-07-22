@@ -11,15 +11,39 @@ import Foundation
 
 internal extension DeploymentView {
     
+    func connectThenBuild() {
+        viewState.$status
+            .first {
+                switch $0 {
+                case .socketConnected, .error(_):
+                    return true
+                default:
+                    return false
+                }
+            }
+            .receive(on: RunLoop.main)
+            .sink { status in
+                switch status {
+                case .socketConnected:
+                    attemptToBuild()
+                default:
+                    break
+                }
+            }
+            .store(in: &viewState.cancellables)
+        
+        attemptToConnect()
+    }
+    
+    func retry() {
+        viewState.disconnect()
+        viewState.status = .idle
+    }
+    
     func attemptToBuild() {
         guard let currentProject = appData.selectedProject,
               let apiToken = appData.apiToken else { return }
         viewState.sendBuildRequest(for: currentProject, using: apiToken)
-    }
-    
-    func retry() {
-        viewState.status = .idle
-        attemptToConnect()
     }
     
     func attemptToConnect() {

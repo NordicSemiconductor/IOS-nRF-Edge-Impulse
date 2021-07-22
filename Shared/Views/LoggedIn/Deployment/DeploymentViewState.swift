@@ -36,13 +36,7 @@ final class DeploymentViewState: ObservableObject {
 extension DeploymentViewState {
     
     var buildButtonEnable: Bool {
-        guard selectedDeviceHandler != nil else { return false }
-        switch status {
-        case .socketConnected:
-            return true
-        default:
-            return false
-        }
+        selectedDeviceHandler != nil && isReadyToConnect
     }
     
     var isReadyToConnect: Bool {

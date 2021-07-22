@@ -31,13 +31,13 @@ struct DeploymentView: View {
                     .padding(.bottom)
             }
             
-            DeploymentProgressView(retryAction: retry, buildAction: attemptToBuild)
+            Divider()
+                .padding(.horizontal)
+            
+            DeploymentProgressView(retryAction: retry, buildAction: connectThenBuild)
                 .environmentObject(viewState)
         }
         .background(Color.formBackground)
-        .onAppear() {
-            attemptToConnect()
-        }
     }
 }
 
