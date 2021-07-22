@@ -37,6 +37,7 @@ internal extension DeploymentView {
     
     func retry() {
         viewState.disconnect()
+        viewState.logMessages.removeAll()
         viewState.status = .idle
     }
     
