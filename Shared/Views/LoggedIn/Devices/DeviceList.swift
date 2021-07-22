@@ -47,6 +47,7 @@ struct DeviceList: View {
                 Button(action: refreshScanner, label: {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 })
+                .keyboardShortcut(KeyEquivalent("r"), modifiers: [.command])
             }
         }
         .accentColor(.white)
