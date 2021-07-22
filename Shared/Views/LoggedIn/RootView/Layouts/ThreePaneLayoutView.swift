@@ -29,9 +29,10 @@ struct ThreePaneLayoutView: View {
                     }
                     
                     if let user = appData.user {
-                        Section(header: Text("User")) {
-                            NavigationLink(destination: UserContentView().frame(width: .minTabWidth), label: {
-                                Label(user.name, systemImage: "person.fill")
+                        let userTab = Tabs.User
+                        Section(header: Text(userTab.description)) {
+                            NavigationLink(destination: userTab.view, tag: userTab, selection: $appData.selectedTab, label: {
+                                Label(user.name, systemImage: userTab.systemImageName)
                             })
                         }
                     }

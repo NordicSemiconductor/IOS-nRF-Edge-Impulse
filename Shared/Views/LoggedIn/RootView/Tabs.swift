@@ -12,6 +12,7 @@ enum Tabs: Int, RawRepresentable, CaseIterable {
     case DataAcquisition
     case Deployment
     case Settings
+    case User
     
     var keyboardShortcutKey: KeyEquivalent {
         KeyEquivalent(Character("\(rawValue + 1)"))
@@ -20,9 +21,9 @@ enum Tabs: Int, RawRepresentable, CaseIterable {
     static var availableCases: [Tabs] {
         #if os(OSX)
         // Preferences is available via Menu on macOS.
-        return allCases.filter({ $0 != .Settings })
+        return allCases.filter { $0 != .Settings }.filter { $0 != .User }
         #elseif os(iOS)
-        return allCases
+        return allCases.filter { $0 != User }
         #endif
     }
 }
@@ -46,6 +47,9 @@ extension Tabs {
         case .Settings:
             SettingsContentView()
                 .frame(minWidth: .minTabWidth)
+        case .User:
+            UserContentView()
+                .frame(width: .minTabWidth)
         }
     }
 }
@@ -66,6 +70,8 @@ extension Tabs: Identifiable, CustomStringConvertible {
             return "shippingbox"
         case .Settings:
             return "gear"
+        case .User:
+            return "person.fill"
         }
     }
     
@@ -79,6 +85,8 @@ extension Tabs: Identifiable, CustomStringConvertible {
             return "Deployment"
         case .Settings:
             return "Settings"
+        case .User:
+            return "User"
         }
     }
 }

@@ -29,6 +29,10 @@ struct nRF_Edge_ImpulseApp: App {
                 ForEach(Tabs.availableCases) { tab in
                     commandForTab(tab)
                 }
+                
+                if dataContainer.appData.isLoggedIn {
+                    commandForTab(Tabs.User)
+                }
             }
             
             CommandGroup(replacing: .appInfo) {
