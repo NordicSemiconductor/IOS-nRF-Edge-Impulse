@@ -21,7 +21,7 @@ struct ThreePaneLayoutView: View {
                 List {
                     Section(header: Text("Menu")) {
                         ForEach(Tabs.availableCases) { tab in
-                            NavigationLink(destination: tab.view,
+                            NavigationLink(destination: tab.view, tag: tab, selection: $appData.selectedTab,
                                 label: {
                                     Label(tab.description, systemImage: tab.systemImageName)
                                 })

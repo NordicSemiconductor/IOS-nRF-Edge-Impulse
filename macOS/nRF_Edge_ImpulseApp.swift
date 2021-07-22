@@ -23,19 +23,16 @@ struct nRF_Edge_ImpulseApp: App {
         }
         .windowToolbarStyle(UnifiedWindowToolbarStyle(showsTitle: false))
         .commands {
-            CommandGroup(replacing: .appInfo) {
-                Button("About \(Constant.appName)") {
-                    NSApplication.shared.orderFrontStandardAboutPanel(
-                        options: [
-                            NSApplication.AboutPanelOptionKey.credits: NSAttributedString(
-                                string: Constant.aboutEdgeImpulse,
-                                attributes: [
-                                    NSAttributedString.Key.font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
-                                ]
-                            ),
-                            NSApplication.AboutPanelOptionKey(rawValue: "Copyright"): Constant.copyright]
-                    )
+            CommandGroup(after: CommandGroupPlacement.windowList) {
+                Divider()
+                
+                ForEach(Tabs.availableCases) { tab in
+                    commandForTab(tab)
                 }
+            }
+            
+            CommandGroup(replacing: .appInfo) {
+                aboutAppCommand()
             }
         }
         
@@ -43,6 +40,35 @@ struct nRF_Edge_ImpulseApp: App {
             SettingsContentView()
                 .environmentObject(dataContainer.appData)
                 .environmentObject(dataContainer.resourceData)
+        }
+    }
+}
+
+// MARK: - Commands
+
+extension nRF_Edge_ImpulseApp {
+    
+    @ViewBuilder
+    func commandForTab(_ tab: Tabs) -> some View {
+        Button("Show \(tab.description) Tab") {
+            dataContainer.appData.selectedTab = tab
+        }
+        .keyboardShortcut(tab.keyboardShortcutKey, modifiers: .command)
+    }
+    
+    @ViewBuilder
+    func aboutAppCommand() -> some View {
+        Button("About \(Constant.appName)") {
+            NSApplication.shared.orderFrontStandardAboutPanel(
+                options: [
+                    NSApplication.AboutPanelOptionKey.credits: NSAttributedString(
+                        string: Constant.aboutEdgeImpulse,
+                        attributes: [
+                            NSAttributedString.Key.font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
+                        ]
+                    ),
+                    NSApplication.AboutPanelOptionKey(rawValue: "Copyright"): Constant.copyright]
+            )
         }
     }
 }
