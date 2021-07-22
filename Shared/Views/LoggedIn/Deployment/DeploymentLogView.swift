@@ -15,13 +15,13 @@ struct DeploymentLogView: View {
         ScrollViewReader { scroll in
             FormIniOSListInMacOS {
                 Section(header: Text("Logs")) {
-                    ForEach(viewState.logMessages, id: \.self) { message in
-                        Text(message)
+                    ForEach(viewState.logs, id: \.self) { log in
+                        Text(log.line)
                     }
                 }
             }
             .onReceive(
-                viewState.$logMessages.compactMap { $0.last }) { newMessage in
+                viewState.$logs.compactMap { $0.last }) { newMessage in
                 scroll.scrollTo(newMessage)
             }
         }

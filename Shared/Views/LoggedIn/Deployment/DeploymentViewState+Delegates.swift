@@ -13,7 +13,7 @@ import McuManager
 extension DeploymentViewState: McuMgrLogDelegate {
     
     func log(_ msg: String, ofCategory category: McuMgrLogCategory, atLevel level: McuMgrLogLevel) {
-        logMessages.append(msg)
+        logs.append(LogMessage(msg))
     }
 }
 

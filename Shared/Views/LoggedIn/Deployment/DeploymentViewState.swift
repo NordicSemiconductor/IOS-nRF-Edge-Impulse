@@ -22,7 +22,7 @@ final class DeploymentViewState: ObservableObject {
     @Published var progress = 0.0
     @Published var enableEONCompiler = true
     @Published var optimization: Classifier = .Quantized
-    @Published var logMessages = [String]()
+    @Published var logs = [LogMessage]()
     
     private var socketManager: WebSocketManager!
     internal var cancellables = Set<AnyCancellable>()
@@ -128,7 +128,7 @@ extension DeploymentViewState {
             .sinkReceivingError(onError: { error in
                 self.reportError(error)
             }, receiveValue: { response in
-                self.logMessages.append("Received \(response.count) bytes of firmware.")
+                self.logs.append(LogMessage("Received \(response.count) bytes of firmware."))
                 self.sendModelToDevice(modelData: response)
             })
             .store(in: &cancellables)
@@ -140,7 +140,7 @@ extension DeploymentViewState {
             return
         }
         
-        logMessages.append("Sending firmware to device...")
+        logs.append(LogMessage("Sending firmware to device..."))
         do {
             try device.bluetoothManager.sendUpgradeFirmware(modelData, logDelegate: self, firmwareDelegate: self)
             status = .performingFirmwareUpdate
@@ -166,7 +166,7 @@ internal extension DeploymentViewState {
     func processJobMessages(_ string: String, for jobId: Int) {
         if let message = try? SocketIOJobMessage(from: string), !message.message.isEmpty {
             guard jobId == message.job.jobId else { return }
-            logMessages.append(message.message)
+            logs.append(LogMessage(message))
             guard message.progress > .leastNonzeroMagnitude else { return }
             progress = message.progress
         } else if let jobResult = try? SocketIOJobResult(from: string), jobResult.job.jobId == jobId {
@@ -183,7 +183,7 @@ internal extension DeploymentViewState {
     }
     
     func reportError(_ error: Error) {
-        logMessages.append("Error: \(error.localizedDescription)")
+        logs.append(LogMessage(error))
         status = .error(error)
         
         for cancellable in cancellables {
@@ -193,7 +193,7 @@ internal extension DeploymentViewState {
     }
 }
 
-// MARK: - DeploymentViewState.Duration
+// MARK: - DeploymentViewState.Classifier
 
 extension DeploymentViewState {
     
