@@ -15,9 +15,11 @@ struct DeploymentProgressView: View {
     let buildAction: () -> ()
     
     var body: some View {
-        FormIniOSListInMacOS {
+        VStack {
             ProgressView(value: viewState.progress, total: 100.0)
+            
             viewState.status.view
+            
             switch viewState.status {
             case .error(_):
                 Button("Retry", action: retryAction)
@@ -30,12 +32,8 @@ struct DeploymentProgressView: View {
                     .disabled(!viewState.buildButtonEnable)
             }
         }
-        .introspectTableView { tableView in
-            #if os(iOS)
-            tableView.isScrollEnabled = false
-            #endif
-        }
-        .frame(height: 200)
+        .padding(.horizontal)
+        .frame(height: 100)
     }
 }
 

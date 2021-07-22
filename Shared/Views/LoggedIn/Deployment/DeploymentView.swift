@@ -34,8 +34,10 @@ struct DeploymentView: View {
             Divider()
                 .padding(.horizontal)
             
-            DeploymentProgressView(retryAction: retry, buildAction: connectThenBuild)
-                .environmentObject(viewState)
+            Section(header: Text("Progress").bold()) {
+                DeploymentProgressView(retryAction: retry, buildAction: connectThenBuild)
+                    .environmentObject(viewState)
+            }
         }
         .background(Color.formBackground)
     }
