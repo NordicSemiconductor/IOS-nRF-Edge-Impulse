@@ -148,9 +148,8 @@ private struct SensorSection: View {
             }
             
             if let frequencies = sensor.frequencies, frequencies.hasItems == true {
-                let text = frequencies
-                    .map { String(format: "%g", $0) }
-                    .joined(separator: ", ")
+                let text = ListFormatter.localizedString(
+                    byJoining: frequencies.map { "\(String(format: "%.2f", $0)) Hz" })
                 
                 HStack(alignment: .top) {
                     Label("Frequencies:", systemImage: "wave.3.right")
