@@ -41,11 +41,13 @@ struct DeploymentProgressView: View {
             switch viewState.status {
             case .error(_):
                 Button("Retry", action: retryAction)
+                    .modifier(CircularButtonShape(backgroundAsset: .blue))
                     .centerTextInsideForm()
                     .foregroundColor(.primary)
             default:
                 Button("Build", action: buildAction)
-                    .modifier(CircularButtonShape(backgroundAsset: .blue))
+                    .modifier(CircularButtonShape(backgroundAsset: viewState.buildButtonEnable
+                                                    ? .blue : .middleGrey))
                     .centerTextInsideForm()
                     .foregroundColor(viewState.buildButtonEnable ? .primary : Assets.middleGrey.color)
                     .disabled(!viewState.buildButtonEnable)
