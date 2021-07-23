@@ -11,8 +11,8 @@ import Foundation
 
 extension HTTPRequest {
     
-    static func deleteDevice(_ device: Device, from project: Project, using apiToken: String) -> HTTPRequest? {
-        guard var request = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/device/\(device.deviceId)") else {
+    static func deleteDevice(_ deviceId: String, from project: Project, using apiToken: String) -> HTTPRequest? {
+        guard var request = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/device/\(deviceId)") else {
             return nil
         }
         

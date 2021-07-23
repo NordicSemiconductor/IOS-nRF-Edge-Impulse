@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DeviceDetails: View {
     @EnvironmentObject var deviceData: DeviceData
+    @State private var showingAlert = false
     
     let device: Device
     
@@ -35,6 +36,9 @@ struct DeviceDetails: View {
                 }
             }
             .accentColor(.primary)
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Important message"), message: Text("Wear sunscreen"), dismissButton: .default(Text("Got it!")))
+            }
             .navigationTitle(Text(device.name))
             .toolbar {
                 if let state = deviceData.connectionState(of: device) {

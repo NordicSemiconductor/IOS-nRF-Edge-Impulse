@@ -85,7 +85,7 @@ final class AppData: ObservableObject {
 // MARK: - Requests
 
 extension AppData {
-    
+    /*
     func deleteDevice(_ device: Device, onSuccess callback: @escaping () -> Void) {
         guard let currentProject = selectedProject, let apiToken = apiToken,
               let deleteRequest = HTTPRequest.deleteDevice(device, from: currentProject, using: apiToken) else { return }
@@ -96,6 +96,7 @@ extension AppData {
             }
             .store(in: &cancellables)
     }
+     */
 }
 
 private extension AppData {

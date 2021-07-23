@@ -199,8 +199,14 @@ extension Publishers {
         
         typealias Output = Upstream.Output
         typealias Failure = Upstream.Failure
-        
-        
-        
     }
+}
+
+extension Publisher {
+    func eraseToAnyVoidPublisher() -> AnyPublisher<Void, Self.Failure> {
+        self
+            .map { _ in () }
+            .eraseToAnyPublisher()
+    }
+    
 }

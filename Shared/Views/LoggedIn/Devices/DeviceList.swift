@@ -208,9 +208,8 @@ private extension DeviceList {
     func confirmDeleteDevice() {
         showDeleteDeviceAlert = false
         guard let device = deleteDevice else { return }
-        appData.deleteDevice(device) {
-            deviceData.refresh()
-        }
+        
+        deviceData.tryToDelete(device: device)
         deleteDevice = nil
     }
     

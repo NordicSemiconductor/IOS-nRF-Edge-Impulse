@@ -24,10 +24,7 @@ struct NoDevicesView: View {
 #if DEBUG
 struct NoDevicesView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            NoDevicesView()
-        }
-        .previewLayout(.sizeThatFits)
+        ElementPreview(NoDevicesView())
     }
 }
 #endif

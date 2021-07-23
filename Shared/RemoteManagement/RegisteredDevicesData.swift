@@ -43,7 +43,7 @@ class RegisteredDevicesManager {
     /// - Returns: Publisher with devices from EI. You can subscribe on it to get new results as soos as devices are fetched or just get notified when the request is finished.
     @discardableResult
     func refreshDevices(appData: AppData) -> AnyPublisher<[Device], Swift.Error> {
-        return requestData(appData: appData)
+        requestData(appData: appData)
             .flatMap { (project, token) -> AnyPublisher<GetDeviceListResponse, Swift.Error> in
                 guard let request = HTTPRequest.getDevices(for: project, using: token) else {
                     return Fail(error: Error.badRequest).eraseToAnyPublisher()
@@ -63,7 +63,7 @@ class RegisteredDevicesManager {
     /// - Returns: Publisher with fetched device. You can subscribe on it to get new result as soos as device is fetched or just get notified when the request is finished.
     @discardableResult
     func fetchDevice(deviceId: String, appData: AppData) -> AnyPublisher<Device, Swift.Error> {
-        return requestData(appData: appData)
+        requestData(appData: appData)
             .flatMap { (project, token) -> AnyPublisher<GetDeviceResponse, Swift.Error> in
                 guard let request = HTTPRequest.getDevice(for: project, deviceId: deviceId, using: token) else {
                     return Fail(error: Error.badRequest).eraseToAnyPublisher()
@@ -73,5 +73,18 @@ class RegisteredDevicesManager {
             }
             .map(\.device)
             .eraseToAnyPublisher()
+    }
+    
+    @discardableResult
+    func deleteDevice(deviceId: String, appData: AppData) -> AnyPublisher<Void, Swift.Error> {
+        return requestData(appData: appData)
+            .flatMap { (project, token) -> AnyPublisher<DeleteDeviceResponse, Swift.Error> in
+                guard let request = HTTPRequest.deleteDevice(deviceId, from: project, using: token) else {
+                    return Fail(error: Error.badRequest).eraseToAnyPublisher()
+                }
+                
+                return self.network.perform(request, responseType: DeleteDeviceResponse.self)
+            }
+            .eraseToAnyVoidPublisher()
     }
 }

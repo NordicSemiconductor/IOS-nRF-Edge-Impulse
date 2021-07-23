@@ -276,6 +276,8 @@
 		C3A3665A260414BC008D82CC /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A36659260414BC008D82CC /* DeviceRow.swift */; };
 		C3A3665B260414BC008D82CC /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A36659260414BC008D82CC /* DeviceRow.swift */; };
 		C3B5DDBF269221D400FD62D2 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B5DDBE269221D400FD62D2 /* StringTests.swift */; };
+		C3BB69BB26A9D37C003731FF /* ElementPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB69BA26A9D37C003731FF /* ElementPreview.swift */; };
+		C3BB69BC26A9D37C003731FF /* ElementPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB69BA26A9D37C003731FF /* ElementPreview.swift */; };
 		C3BF6AAC26244907006330C8 /* Logger+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BF6AAB26244907006330C8 /* Logger+Ext.swift */; };
 		C3BF6AB12624490B006330C8 /* Logger+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BF6AAB26244907006330C8 /* Logger+Ext.swift */; };
 		C3DCF4282681353000BF9AD4 /* DeviceData+Sampling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF4272681353000BF9AD4 /* DeviceData+Sampling.swift */; };
@@ -447,6 +449,7 @@
 		C39B106D2695DF400056095E /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		C3A36659260414BC008D82CC /* DeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRow.swift; sourceTree = "<group>"; };
 		C3B5DDBE269221D400FD62D2 /* StringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
+		C3BB69BA26A9D37C003731FF /* ElementPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementPreview.swift; sourceTree = "<group>"; };
 		C3BF6AAB26244907006330C8 /* Logger+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Ext.swift"; sourceTree = "<group>"; };
 		C3DCF4272681353000BF9AD4 /* DeviceData+Sampling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceData+Sampling.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -864,6 +867,7 @@
 		AAFED87D25E7FFF000BB7445 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C3BB69B926A9D35A003731FF /* Preview */,
 				C301A34E261DC09D0010717D /* Extensions */,
 				AA01F3CF25EFACB000368707 /* Assets.swift */,
 				AA01F3DE25EFDC5000368707 /* Constant.swift */,
@@ -955,6 +959,14 @@
 				C3B5DDBE269221D400FD62D2 /* StringTests.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C3BB69B926A9D35A003731FF /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				C3BB69BA26A9D37C003731FF /* ElementPreview.swift */,
+			);
+			path = Preview;
 			sourceTree = "<group>";
 		};
 		C3BF6AC72626D662006330C8 /* SignalLevel */ = {
@@ -1198,6 +1210,7 @@
 				AAF5054725F11E45003AFED7 /* DataAcquisitionView.swift in Sources */,
 				AA14CA75261490CD004F08FE /* Codable.swift in Sources */,
 				015AB1612653D5E700C09196 /* ConnectionStatus.swift in Sources */,
+				C3BB69BB26A9D37C003731FF /* ElementPreview.swift in Sources */,
 				AAFFEB3925FF9554002287D6 /* NordicError.swift in Sources */,
 				AA01DA6026395E6000F6DD44 /* Date.swift in Sources */,
 				AA10170325E91885006DC88A /* HTTPRequest.swift in Sources */,
@@ -1413,6 +1426,7 @@
 				AAE0B235264E953E00FD8F80 /* AppData+Debug.swift in Sources */,
 				AA9342492681F713001CD754 /* DataContainer.swift in Sources */,
 				AAE96F0B26A58E220089D370 /* AlertViewContainer.swift in Sources */,
+				C3BB69BC26A9D37C003731FF /* ElementPreview.swift in Sources */,
 				AA63F87126A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */,
 				AA482F822631A213007B8B64 /* UserContentView.swift in Sources */,
 				AA8EC8B5261F30A900FBE990 /* Modifiers.swift in Sources */,

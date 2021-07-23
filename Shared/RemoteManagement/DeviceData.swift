@@ -14,10 +14,10 @@ extension DeviceData {
     struct DeviceWrapper: Identifiable, Hashable {
         let device: Device
         var id: Int { device.id }
-        var state: State = .notConnectable
+        fileprivate (set) var state: State = .notConnectable
         
         enum State {
-            case notConnectable, readyToConnect, connecting, connected
+            case notConnectable, readyToConnect, connecting, connected, deleting
             
             var color: Color {
                 switch self {
@@ -27,7 +27,7 @@ extension DeviceData {
                     return .orange
                 case .connected:
                     return .green
-                case .connecting:
+                case .connecting, .deleting:
                     return .gray
                 }
             }
@@ -221,6 +221,45 @@ class DeviceData: ObservableObject {
             .store(in: &cancellables)
     }
     
+    // MARK: Delete device
+    func tryToDelete(device: Device) {
+        guard let wrapperIndex = wrapper(for: device)
+                .flatMap ({self.registeredDevices.firstIndex(of: $0)}) else { return }
+        if case .deleting = registeredDevices[wrapperIndex].state {
+            return
+        } else if case .connected = registeredDevices[wrapperIndex].state {
+            disconnect(device: device)
+        }
+        
+        registeredDevices[wrapperIndex].state = .deleting
+        
+        deviceManager.deleteDevice(deviceId: device.deviceId, appData: appData)
+            .compactMap { [weak self] _ -> Device? in
+                guard let `self` = self else { return nil }
+                return self.wrapper(for: device)
+                    .flatMap { self.registeredDevices.firstIndex(of: $0) }
+                    .map { self.registeredDevices.remove(at: $0) }
+                    .map(\.device)
+            }
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let e):
+                    AppEvents.shared.error = ErrorEvent(e)
+                    self.updateState(self.registeredDevices[wrapperIndex].device)
+                }
+            } receiveValue: { device in
+                
+            }
+            .store(in: &cancellables)
+
+
+    }
+}
+
+// MARK: - Private methods
+extension DeviceData {
     private func getRemoteHandler(for scanResult: ScanResult) -> DeviceRemoteHandler {
         if let handler = remoteHandlers.first(where: { $0 == scanResult }) {
             return handler
@@ -255,8 +294,9 @@ class DeviceData: ObservableObject {
                 scanResults[deviceIndex].state = .notConnected
             }
             
-            if let registeredDeviceIndex = handler.device.flatMap({ registeredDevices.firstIndex(of: DeviceWrapper(device: $0)) }) {
-                registeredDevices[registeredDeviceIndex].state = .readyToConnect
+            if let wrapper = self.associatedRegisteredDevice(with: handler.scanResult),
+               let deviceIndex = self.registeredDevices.firstIndex(of: wrapper) {
+                registeredDevices[deviceIndex].state = .readyToConnect
             }
             
             switch reason {
@@ -307,13 +347,20 @@ class DeviceData: ObservableObject {
         }
     }
     
-    // TODO: Chose connect method for searching associated devices
     private func associatedScanResult(with device: Device) -> ScanResultWrapper? {
         scanResults.first { $0 == device }
     }
     
     private func associatedRegisteredDevice(with scanResult: ScanResult) -> DeviceWrapper? {
         registeredDevices.first { $0 == scanResult }
+    }
+    
+    private func wrapper(for device: Device) -> DeviceWrapper? {
+        registeredDevices.first(where: { $0.device == device })
+    }
+    
+    private func wrapper(for scanResult: ScanResult) -> ScanResultWrapper? {
+        scanResults.first(where: { $0.scanResult == scanResult })
     }
 }
 
