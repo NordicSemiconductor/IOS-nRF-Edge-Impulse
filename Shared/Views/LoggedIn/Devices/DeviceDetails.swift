@@ -143,7 +143,7 @@ private struct SensorSection: View {
                 HStack {
                     Label("Max. Sample Length:", systemImage: "waveform.path.ecg")
                     Spacer()
-                    Text("\(length)").bold()
+                    Text("\(length) ms").bold()
                 }
             }
             
