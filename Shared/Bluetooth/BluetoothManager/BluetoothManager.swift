@@ -153,23 +153,22 @@ extension BluetoothManager: CBPeripheralDelegate {
             logger.error("Failed to discover characteristic. Error: \(e.localizedDescription)")
         }
         
-        service.characteristics?
-            .forEach {
-                
-                if $0.uuid == Self.txCharacteristicId {
-                    txCharacteristic = $0
-                    peripheral.setNotifyValue(true, for: txCharacteristic)
-                    logger.info("TX Characteristic discovered")
-                } else if $0.uuid == Self.rxCharacteristicId {
-                    rxCharacteristic = $0
-                    logger.info("RX Characteristic discovered")
-                }
-                
-                if case .some = txCharacteristic, case .some = rxCharacteristic {
-                    state = .readyToUse
-                }
+        service.characteristics?.forEach {
+            switch $0.uuid {
+            case Self.txCharacteristicId:
+                txCharacteristic = $0
+                peripheral.setNotifyValue(true, for: txCharacteristic)
+                logger.info("TX Characteristic discovered")
+            case Self.rxCharacteristicId:
+                rxCharacteristic = $0
+                logger.info("RX Characteristic discovered")
+            default:
+                break
             }
+        }
         
+        guard txCharacteristic != nil, rxCharacteristic != nil else { return }
+        state = .readyToUse
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Swift.Error?) {

@@ -15,9 +15,12 @@ struct DeploymentProgressView: View {
     let buildAction: () -> ()
     
     var body: some View {
-        FormIniOSListInMacOS {
+        VStack {
             ProgressView(value: viewState.progress, total: 100.0)
+                .padding(.horizontal)
+            
             viewState.status.view
+            
             switch viewState.status {
             case .error(_):
                 Button("Retry", action: retryAction)
@@ -25,17 +28,14 @@ struct DeploymentProgressView: View {
                     .foregroundColor(.primary)
             default:
                 Button("Build", action: buildAction)
+                    .modifier(CircularButtonShape(backgroundAsset: .blue))
                     .centerTextInsideForm()
                     .foregroundColor(viewState.buildButtonEnable ? .primary : Assets.middleGrey.color)
                     .disabled(!viewState.buildButtonEnable)
             }
         }
-        .introspectTableView { tableView in
-            #if os(iOS)
-            tableView.isScrollEnabled = false
-            #endif
-        }
-        .frame(height: 200)
+        .padding(.horizontal)
+        .frame(height: 120)
     }
 }
 

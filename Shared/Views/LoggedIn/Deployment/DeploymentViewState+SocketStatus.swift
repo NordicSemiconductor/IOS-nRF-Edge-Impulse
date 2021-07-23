@@ -11,7 +11,7 @@ import SwiftUI
 
 extension DeploymentViewState {
     
-    enum BuildStatus {
+    enum JobStatus {
         case idle
         case socketConnecting, socketConnected
         case buildRequestSent, buildingModel(_ id: Int)
@@ -35,8 +35,20 @@ extension DeploymentViewState {
         
         var text: String {
             switch self {
-            case .error(let e):
-                return e.localizedDescription
+            case .socketConnecting:
+                return "Connecting to Server..."
+            case .socketConnected:
+                return "Online"
+            case .buildRequestSent:
+                return "Request sent to Server. Awaiting Response..."
+            case .buildingModel(_):
+                return "Building Model..."
+            case .downloadingModel:
+                return "Downloading Model..."
+            case .performingFirmwareUpdate:
+                return "Performing DFU..."
+            case .error(_):
+                return "Failed"
             default:
                 return String(describing: self).uppercasingFirst
             }
@@ -63,10 +75,10 @@ struct SocketStatus_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            DeploymentViewState.BuildStatus.idle.view
-            DeploymentViewState.BuildStatus.socketConnecting.view
-            DeploymentViewState.BuildStatus.socketConnected.view
-            DeploymentViewState.BuildStatus.error(NordicError.testError).view
+            DeploymentViewState.JobStatus.idle.view
+            DeploymentViewState.JobStatus.socketConnecting.view
+            DeploymentViewState.JobStatus.socketConnected.view
+            DeploymentViewState.JobStatus.error(NordicError.testError).view
         }
         .previewLayout(.sizeThatFits)
     }

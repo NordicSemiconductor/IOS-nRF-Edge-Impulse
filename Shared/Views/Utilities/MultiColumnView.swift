@@ -16,7 +16,7 @@ struct MultiColumnView<Content: View>: View {
     
     // MARK: Init
     
-    init(columns: [GridItem] = TwoColumns, @ViewBuilder content: @escaping () -> Content) {
+    init(columns: [GridItem] = .TwoColumns, @ViewBuilder content: @escaping () -> Content) {
         self.content = content
         self.columns = columns
     }
@@ -32,17 +32,20 @@ struct MultiColumnView<Content: View>: View {
 
 // MARK: Default Columns
 
-var TwoColumns: [GridItem] = [
-    GridItem(.fixed(120), spacing: 0),
-    GridItem(.flexible(minimum: 200, maximum: .infinity), spacing: 0)
-]
+extension Array where ArrayLiteralElement == GridItem {
+
+    static let TwoColumns: [GridItem] = [
+        GridItem(.fixed(120), spacing: 0),
+        GridItem(.flexible(minimum: 200, maximum: .infinity), spacing: 0)
+    ]
+}
 
 // MARK: - Preview
 
 #if DEBUG
 struct MultiColumnView_Previews: PreviewProvider {
     static var previews: some View {
-        MultiColumnView(columns: TwoColumns) {
+        MultiColumnView {
             Text("Hello")
             Text("Hello, too")
         }

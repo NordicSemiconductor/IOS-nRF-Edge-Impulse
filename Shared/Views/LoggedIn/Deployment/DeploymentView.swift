@@ -14,14 +14,14 @@ struct DeploymentView: View {
     
     // MARK: - State
     
-    @ObservedObject internal var viewState = DeploymentViewState()
+    @StateObject internal var viewState = DeploymentViewState()
     
     // MARK: - viewBuilder
     
     var body: some View {
         VStack {
             switch viewState.status {
-            case .buildingModel(_), .downloadingModel, .error(_):
+            case .buildingModel(_), .downloadingModel, .performingFirmwareUpdate, .error(_):
                 DeploymentLogView()
                     .environmentObject(viewState)
                     .padding(.top)
@@ -31,13 +31,15 @@ struct DeploymentView: View {
                     .padding(.bottom)
             }
             
-            DeploymentProgressView(retryAction: retry, buildAction: attemptToBuild)
-                .environmentObject(viewState)
+            Divider()
+                .padding(.horizontal)
+            
+            Section(header: Text("Progress").bold()) {
+                DeploymentProgressView(retryAction: retry, buildAction: connectThenBuild)
+                    .environmentObject(viewState)
+            }
         }
         .background(Color.formBackground)
-        .onAppear() {
-            attemptToConnect()
-        }
     }
 }
 

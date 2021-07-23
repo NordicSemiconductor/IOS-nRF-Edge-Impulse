@@ -23,6 +23,7 @@ struct HorizontalTabView: View {
             Label(tab.description, systemImage: tab.systemImageName)
                 .frame(maxWidth: .infinity, alignment: .leading)
         })
+        .keyboardShortcut(tab.keyboardShortcutKey, modifiers: [.command])
         .buttonStyle(TabBarListButtonStyle())
         .accentColor(appData.selectedTab != tab ? Assets.blue.color : Color.white)
         .background(appData.selectedTab == tab ? Assets.blue.color : Color.clear)
