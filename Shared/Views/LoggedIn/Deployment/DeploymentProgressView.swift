@@ -14,10 +14,27 @@ struct DeploymentProgressView: View {
     let retryAction: () -> ()
     let buildAction: () -> ()
     
+    #if os(OSX)
+    var shouldShowIndeterminateProgressBar: Bool {
+        switch viewState.status {
+        case .socketConnecting, .buildRequestSent, .downloadingModel:
+            return true
+        default:
+            return false
+        }
+    }
+    #endif
+    
     var body: some View {
         VStack {
+            #if os(OSX)
+            NSProgressView(value: $viewState.progress, maxValue: 100.0,
+                           isIndeterminate: shouldShowIndeterminateProgressBar)
+                .padding(.horizontal)
+            #else
             ProgressView(value: viewState.progress, total: 100.0)
                 .padding(.horizontal)
+            #endif
             
             viewState.status.view
             
