@@ -13,9 +13,13 @@ import SwiftUI
 
 struct NSProgressView: NSViewRepresentable {
     
+    // MARK: Properties
+    
     @Binding var value: Double
     var maxValue: Double
     var isIndeterminate: Bool
+    
+    // MARK: NSViewRepresentable
     
     func makeNSView(context: NSViewRepresentableContext<Self>) -> NSProgressIndicator {
         let progressIndicator = NSProgressIndicator()
@@ -37,6 +41,7 @@ fileprivate extension NSProgressView {
             progressIndicator.isIndeterminate = true
             progressIndicator.startAnimation(nil)
         } else {
+            progressIndicator.isIndeterminate = false
             progressIndicator.minValue = 0.0
             progressIndicator.doubleValue = value
             progressIndicator.maxValue = maxValue
