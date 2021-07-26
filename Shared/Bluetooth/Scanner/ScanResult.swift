@@ -38,7 +38,6 @@ struct ScanResult: Identifiable {
     let rssi: RSSI
     let advertisementData: AdvertisementData
     
-    #if DEBUG
     init(name: String, uuid: UUID, rssi: RSSI, advertisementData: AdvertisementData) {
         self.name = name
         self.id = advertisementData.advertisedID() ?? uuid.uuidString
@@ -46,7 +45,6 @@ struct ScanResult: Identifiable {
         self.rssi = rssi
         self.advertisementData = advertisementData
     }
-    #endif
     
     init(peripheral: CBPeripheral, advertisementData: [String: Any], rssi: NSNumber) {
         self.name = advertisementData[CBAdvertisementDataLocalNameKey] as? String ?? "N/A"
