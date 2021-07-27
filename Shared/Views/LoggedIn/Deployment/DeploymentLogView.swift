@@ -21,7 +21,7 @@ struct DeploymentLogView: View {
                 }
             }
             .onReceive(
-                viewState.$logs.compactMap { $0.last }) { newMessage in
+                viewState.$logs.compactMap { $0.last }.debounce(for: .milliseconds(50), scheduler: RunLoop.main)) { newMessage in
                 scroll.scrollTo(newMessage)
             }
         }
