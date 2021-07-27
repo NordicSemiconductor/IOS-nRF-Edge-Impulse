@@ -18,8 +18,9 @@ struct RegisteredDeviceView: View {
                     .font(.headline)
                     .bold()
                     .lineLimit(1)
+                    .foregroundColor(connectionState == .deleting ? .gray : .textColor)
                 Spacer()
-                if case .connecting = connectionState {
+                if connectionState == .connecting || connectionState == .deleting {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle())
                         .frame(width: 20, height: 20)
@@ -28,7 +29,7 @@ struct RegisteredDeviceView: View {
                 }
             }
             
-            Text("ID: \(device.deviceId)")
+            Text(connectionState == .deleting ? "Deleting..." : "ID: \(device.deviceId)")
                 .labelStyle(IconOnTheRightLabelStyle())
                 .padding(.vertical, 2)
                 .foregroundColor(Assets.middleGrey.color)
@@ -42,7 +43,9 @@ struct RegisteredDeviceView: View {
 struct RegisteredDeviceView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            RegisteredDeviceView(device: .mock, connectionState: .notConnectable)
+            ForEach(DeviceData.DeviceWrapper.State.allCases, id: \.self) { state in
+                RegisteredDeviceView(device: .mock, connectionState: state)
+            }
         }
         .previewLayout(.sizeThatFits)
     }

@@ -16,7 +16,7 @@ extension DeviceData {
         var id: Int { device.id }
         fileprivate (set) var state: State = .notConnectable
         
-        enum State {
+        enum State: CaseIterable {
             case notConnectable, readyToConnect, connecting, connected, deleting
             
             var color: Color {
@@ -79,7 +79,7 @@ class DeviceData: ObservableObject {
     private var remoteHandlers: [DeviceRemoteHandler] = []
     
     @Published fileprivate (set) var scanResults: [ScanResultWrapper] = []
-    @Published private (set) var registeredDevices: [DeviceWrapper] = []
+    @Published fileprivate (set) var registeredDevices: [DeviceWrapper] = []
     
     private (set) lazy var bluetoothStates = PassthroughSubject<Result<Bool, BluetoothStateError>, Never>()
     
@@ -254,7 +254,6 @@ class DeviceData: ObservableObject {
             }
             .store(in: &cancellables)
 
-
     }
 }
 
@@ -389,6 +388,22 @@ extension Preview {
             ScanResult(name: "Device 2", uuid: UUID(), rssi: .bad, advertisementData: .mock),
             ScanResult(name: "Device 3", uuid: UUID(), rssi: .ok, advertisementData: .mock)
         ].map { DeviceData.ScanResultWrapper(scanResult: $0) }
+        return deviceData
+    }()
+    
+    static var mockRegisteredDevices: DeviceData = {
+        let deviceData = DeviceData(scanner: Scanner(), registeredDeviceManager: RegisteredDevicesManager(), appData: AppData())
+        var registeredDevices = Array<Device>(repeating: .mock, count: 5)
+            .map { DeviceData.DeviceWrapper(device: $0) }
+        
+        let states: [DeviceData.DeviceWrapper.State] = DeviceData.DeviceWrapper.State.allCases
+        
+        deviceData.registeredDevices = zip(registeredDevices, states).map {
+            var wrapper = $0.0
+            wrapper.state = $0.1
+            return wrapper
+        }
+        
         return deviceData
     }()
 }

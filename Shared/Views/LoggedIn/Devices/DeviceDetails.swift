@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DeviceDetails: View {
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var deviceData: DeviceData
     @State private var showingAlert = false
     
@@ -34,10 +35,15 @@ struct DeviceDetails: View {
                 if let state = deviceData.connectionState(of: device) {
                     connectionSection(state: state)
                 }
+                
+                deleteSection()
             }
             .accentColor(.primary)
             .alert(isPresented: $showingAlert) {
-                Alert(title: Text("Important message"), message: Text("Wear sunscreen"), dismissButton: .default(Text("Got it!")))
+                Alert(title: Text("Delete Device"),
+                      message: Text("Are you sure you want to delete this Device?"),
+                      primaryButton: .destructive(Text("Yes"), action: confirmDeleteDevice),
+                      secondaryButton: .default(Text("Cancel"), action: dismissDeleteDevice))
             }
             .navigationTitle(Text(device.name))
             .toolbar {
@@ -87,6 +93,29 @@ struct DeviceDetails: View {
             }
         }
         
+    }
+    
+    @ViewBuilder
+    private func deleteSection() -> some View {
+        Section(footer: Text("Delete this device from the list of registered devices")) {
+            Button("Delete") {
+                showingAlert = true
+            }
+            .foregroundColor(Assets.red.color)
+            .frame(maxWidth: .infinity, alignment: .center)
+        }
+    }
+}
+
+private extension DeviceDetails {
+    func confirmDeleteDevice() {
+        showingAlert = false
+        deviceData.tryToDelete(device: device)
+        presentationMode.wrappedValue.dismiss()
+    }
+    
+    func dismissDeleteDevice() {
+        showingAlert = false
     }
 }
 
@@ -178,8 +207,26 @@ private struct SensorSection: View {
 #if DEBUG
 struct DeviceDetails_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceDetails(device: .mock)
-            .environmentObject(DeviceData(appData: AppData()))
+        Group {
+            DeviceDetails(device: .mock)
+                .navigationTitle("Device")
+                .environmentObject(DeviceData(appData: AppData()))
+                .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro Max"))
+                .previewDisplayName("iPhone 12 Pro Max")
+            
+            DeviceDetails(device: .mock)
+                .navigationTitle("Device")
+                .environmentObject(DeviceData(appData: AppData()))
+                .previewDevice(PreviewDevice(rawValue: "iPhone 12"))
+                .preferredColorScheme(.dark)
+                .previewDisplayName("iPhone 12")
+            
+            DeviceDetails(device: .mock)
+                .navigationTitle("Device")
+                .environmentObject(DeviceData(appData: AppData()))
+                .previewDevice(PreviewDevice(rawValue: "iPhone 12 mini"))
+                .previewDisplayName("iPhone 12 min")
+        }
     }
 }
 #endif
