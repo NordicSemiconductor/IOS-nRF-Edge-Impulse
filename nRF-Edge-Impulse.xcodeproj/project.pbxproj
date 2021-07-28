@@ -281,6 +281,8 @@
 		C3BB69BC26A9D37C003731FF /* ElementPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB69BA26A9D37C003731FF /* ElementPreview.swift */; };
 		C3BF6AAC26244907006330C8 /* Logger+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BF6AAB26244907006330C8 /* Logger+Ext.swift */; };
 		C3BF6AB12624490B006330C8 /* Logger+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BF6AAB26244907006330C8 /* Logger+Ext.swift */; };
+		C3CD27E026B145A40026FE67 /* RegisteredDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD27DF26B145A40026FE67 /* RegisteredDeviceRow.swift */; };
+		C3CD27E126B145A50026FE67 /* RegisteredDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD27DF26B145A40026FE67 /* RegisteredDeviceRow.swift */; };
 		C3DCF4282681353000BF9AD4 /* DeviceData+Sampling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF4272681353000BF9AD4 /* DeviceData+Sampling.swift */; };
 		C3DCF4292681353000BF9AD4 /* DeviceData+Sampling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF4272681353000BF9AD4 /* DeviceData+Sampling.swift */; };
 /* End PBXBuildFile section */
@@ -454,6 +456,7 @@
 		C3B5DDBE269221D400FD62D2 /* StringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
 		C3BB69BA26A9D37C003731FF /* ElementPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementPreview.swift; sourceTree = "<group>"; };
 		C3BF6AAB26244907006330C8 /* Logger+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Ext.swift"; sourceTree = "<group>"; };
+		C3CD27DF26B145A40026FE67 /* RegisteredDeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredDeviceRow.swift; sourceTree = "<group>"; };
 		C3DCF4272681353000BF9AD4 /* DeviceData+Sampling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceData+Sampling.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -522,6 +525,7 @@
 			children = (
 				C3A36659260414BC008D82CC /* DeviceRow.swift */,
 				01E10962265FAEDE000F2EE4 /* RegisteredDeviceView.swift */,
+				C3CD27DF26B145A40026FE67 /* RegisteredDeviceRow.swift */,
 				015AB1602653D5E700C09196 /* ConnectionStatus.swift */,
 				AAE507B9268F19990017CAED /* RenameDeviceView.swift */,
 				AA02089525F65A3700FD6B24 /* DeviceList.swift */,
@@ -1281,6 +1285,7 @@
 				AA010208269C5CD30045D6F2 /* SocketIOJobResult.swift in Sources */,
 				AA02088E25F651D100FD6B24 /* ScanResult.swift in Sources */,
 				AAA87ADD261B143B0097EA74 /* String.swift in Sources */,
+				C3CD27E026B145A40026FE67 /* RegisteredDeviceRow.swift in Sources */,
 				C3DCF4282681353000BF9AD4 /* DeviceData+Sampling.swift in Sources */,
 				AA284059261F4DFC00EB8637 /* AppHeaderView.swift in Sources */,
 				AAEDE6332628803500B96AE9 /* DropdownView.swift in Sources */,
@@ -1383,6 +1388,7 @@
 				AAFDB46C264D5F5700F0CD02 /* MultiColumnView.swift in Sources */,
 				AAEED04526A7B68800999E51 /* ConnectedDevicePicker.swift in Sources */,
 				AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */,
+				C3CD27E126B145A50026FE67 /* RegisteredDeviceRow.swift in Sources */,
 				C39B106F2695DF400056095E /* HUD.swift in Sources */,
 				AA9D798E26971D2300A987FB /* SocketIOJobMessage.swift in Sources */,
 				AA03298F266F8CB200C46547 /* DataAquisitionView+Logic.swift in Sources */,

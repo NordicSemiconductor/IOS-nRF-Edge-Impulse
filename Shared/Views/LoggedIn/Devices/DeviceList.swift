@@ -21,7 +21,7 @@ struct DeviceList: View {
     @State private var showDeleteDeviceAlert = false
     @State private var deleteDevice: Device? = nil
     
-    @State private var selectedDeviceId: String? = nil
+    @State private var selectedDeviceId: Int? = nil
     
     private let logger = Logger(category: "DeviceList")
     
@@ -62,7 +62,6 @@ private extension DeviceList {
     private func buildScanResultsList(scanResult: [DeviceData.ScanResultWrapper]) -> some View {
         Section(header: Text("Scan Results")) {
             if scanResult.hasItems {
-
                 ForEach(scanResult) { d in
                     let isConnecting = d.state == .connecting
                     DeviceRow(d.scanResult, isConnecting: isConnecting)
@@ -88,21 +87,10 @@ private extension DeviceList {
         Section(header: Text("Registered Devices")) {
             if deviceData.registeredDevices.hasItems {
                 ForEach(deviceData.registeredDevices) { d in
-                    ZStack {
-                        Button(action: {
-                            if case .readyToConnect = d.state {
-                                deviceData.tryToConnect(device: d.device)
-                            } else if d.state == .connected || d.state == .notConnectable {
-                                selectedDeviceId = d.device.deviceId
-                            }
-                        }, label: {
-                            EmptyView()
-                        })
-                        buildRegisteredDeviceRow(d.device, state: d.state)
-                            .contextMenu {
-                                deviceContextMenu(device: d.device, state: d.state)
-                            }
-                    }   
+                    RegisteredDeviceRow(device: d.device, state: d.state, selection: $selectedDeviceId)
+                        .contextMenu {
+                            deviceContextMenu(device: d.device, state: d.state)
+                        }
                 }
             } else {
                 NoDevicesView()
@@ -139,7 +127,7 @@ private extension DeviceList {
             Label("Rename", systemImage: "pencil")
         }
         Button {
-            selectedDeviceId = device.deviceId
+            selectedDeviceId = device.id
         } label: {
             Label("Get info", systemImage: "info.circle")
         }
@@ -151,40 +139,6 @@ private extension DeviceList {
         } label: {
             Label("Delete", systemImage: "minus.circle")
         }
-    }
-    
-    @ViewBuilder
-    private func buildRegisteredDeviceRow(_ device: Device, state: DeviceData.DeviceWrapper.State) -> some View {
-        HStack {
-            RegisteredDeviceView(device: device, connectionState: state)
-            NavigationLink(destination: DeviceDetails(device: device), tag: device.deviceId, selection: $selectedDeviceId) {
-            }
-            .disabled(true)
-            .frame(width: 12)
-        }
-        /*
-        if #available(iOS 15, *) {
-            RegisteredDeviceView(device: device, connectionState: state)
-                .swipeActions(edge: .leading, allowsFullSwipe: false) {
-                    Button {
-                        
-                    } label: {
-                        Label("Info", systemImage: "info.circle")
-                    }
-                }
-                .swipeActions(edge: .trailing) {
-                    if case .connected = state {
-                        Button(role: .destructive) {
-                            deviceData.disconnect(device: device)
-                        } label: {
-                            Label("Delete", systemImage: "xmark.circle")
-                        }
-                    }
-                }
-        } else {
-            RegisteredDeviceView(device: device, connectionState: state)
-        }
-         */
     }
     
     enum ListSection: Int, Identifiable, CaseIterable {
