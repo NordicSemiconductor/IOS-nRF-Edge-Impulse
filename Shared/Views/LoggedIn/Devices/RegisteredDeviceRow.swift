@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct RegisteredDeviceRow: View {
+    @EnvironmentObject var deviceData: DeviceData
+    
     let device: Device
     let state: DeviceData.DeviceWrapper.State
     let selection: Binding<Int?>
@@ -16,7 +18,11 @@ struct RegisteredDeviceRow: View {
         mainBody()
             .contentShape(Rectangle())
             .onTapGesture {
-                selection.wrappedValue = device.id
+                if state == .notConnectable || state == .connected {
+                    selection.wrappedValue = device.id
+                } else if state == .readyToConnect {
+                    deviceData.tryToConnect(device: device)
+                }
             }
     }
     
@@ -29,6 +35,7 @@ struct RegisteredDeviceRow: View {
                 tag: device.id,
                 selection: selection,
                 label: {EmptyView()})
+                .frame(width: 10)
                 .disabled(true)
         }
     }
