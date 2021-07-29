@@ -147,9 +147,18 @@ class DeviceRemoteHandler {
                     self.state = .connected(self.scanResult, device)
                 }
             }
-            .tryMap { registeredDevice in
+            .tryMap { [weak self] registeredDevice in
+                guard let self = self else {
+                    throw DeviceRemoteHandler.Error.connectionEstablishFailed
+                }
                 let bleHello = BLEHelloMessageContainer(message: BLEHelloMessage(hello: true))
                 try self.bluetoothManager.write(bleHello)
+                
+                if let currentProject = self.appData.selectedProject,
+                   let projectApiKey = self.appData.projectDevelopmentKeys[currentProject]?.apiKey {
+                    let bleConfigure = BLEConfigureMessage(apiKey: projectApiKey)
+                    try self.bluetoothManager.write(bleConfigure)
+                }
                 
                 return ConnectionState.connected(self.scanResult, registeredDevice)
             }

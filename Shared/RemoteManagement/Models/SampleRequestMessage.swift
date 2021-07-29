@@ -60,6 +60,30 @@ struct BLEHelloMessageContainer: Codable {
     }
 }
 
+// MARK: - BLE Configure Message
+
+struct BLEConfigureMessage: Codable {
+    
+    let apiKey: String
+    let address: String
+    
+    init(apiKey: String) {
+        self.apiKey = apiKey
+        self.address = HTTPScheme.wss.rawValue + "://" + HTTPHost.EdgeImpulse.rawValue
+    }
+}
+
+struct BLEConfigureMessageContainer: Codable {
+    
+    let type: String
+    let message: BLEConfigureMessage
+    
+    init(message: BLEConfigureMessage) {
+        self.type = "configure"
+        self.message = message
+    }
+}
+
 // MARK: - BLE Sample Request Message
 
 struct BLESampleRequestMessage: Codable {
