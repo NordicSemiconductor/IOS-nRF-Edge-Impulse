@@ -79,7 +79,9 @@ final class BluetoothManager: NSObject, ObservableObject {
     }
     
     func write<T: Codable>(_ data: T) throws {
-        guard let encodedData = try? JSONEncoder().encode(data) else { return }
+        guard var encodedData = try? JSONEncoder().encode(data) else { return }
+        encodedData.appendUARTTerminator()
+        print(encodedData.hexEncodedString())
         transmissionSubject.send(encodedData)
     }
     
@@ -230,5 +232,15 @@ extension BluetoothManager: CBCentralManagerDelegate {
         } else {
             btStateSubject.send(completion: .finished)
         }
+    }
+}
+
+// MARK: - UART Terminator
+
+fileprivate extension Data {
+    
+    mutating func appendUARTTerminator() {
+        // append 'OA'
+        append(Data(repeating: 10, count: 1))
     }
 }

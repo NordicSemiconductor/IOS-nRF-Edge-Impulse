@@ -46,9 +46,9 @@ extension DeviceRemoteHandler {
     
     func sendSampleRequestToBLEFirmware(_ request: BLESampleRequestWrapper) throws {
         try bluetoothManager.write(request)
-        #warning("test code")
-        #if DEBUG
-        bluetoothManager.mockFirmwareResponse(SamplingRequestReceivedResponse(sample: true))
-        #endif
+//        #warning("test code")
+//        #if DEBUG
+//        bluetoothManager.mockFirmwareResponse(SamplingRequestReceivedResponse(sample: true))
+//        #endif
     }
 }
