@@ -65,18 +65,13 @@ private extension DeviceList {
                 ForEach(scanResult) { d in
                     let isConnecting = d.state == .connecting
                     DeviceRow(d.scanResult, isConnecting: isConnecting)
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             deviceData.tryToConnect(scanResult: d.scanResult)
                         }
                 }
-                .onDelete { iSet in
-                    logger.info("delete")
-                }
             } else {
-                Text("No Devices")
-                    .font(.callout)
-                    .foregroundColor(Assets.middleGrey.color)
-                    .centerTextInsideForm()
+                NoDevicesView()
             }
         }
     }

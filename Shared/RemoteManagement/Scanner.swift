@@ -69,6 +69,7 @@ extension Scanner {
             }
             .eraseToAnyPublisher()
     }
+    
 }
 
 // MARK: - CBCentralManagerDelegate
