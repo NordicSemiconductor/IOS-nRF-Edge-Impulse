@@ -39,6 +39,29 @@ struct BLESampleRequest: Codable {
     }
 }
 
+// MARK: - BLE Hello Message
+
+struct BLEHelloMessage: Codable {
+    let hello: Bool
+}
+
+struct BLEHelloMessageContainer: Codable {
+    
+    let type: String
+    let direction: String
+    let address: String
+    let message: BLEHelloMessage
+    
+    init(message: BLEHelloMessage) {
+        self.type = "ws"
+        self.direction = "rx"
+        self.address = HTTPScheme.wss.rawValue + "://" + HTTPHost.EdgeImpulse.rawValue
+        self.message = message
+    }
+}
+
+// MARK: - BLE Sample Request Message
+
 struct BLESampleRequestMessage: Codable {
     
     let sample: BLESampleRequest

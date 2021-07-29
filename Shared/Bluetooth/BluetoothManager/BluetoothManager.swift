@@ -81,7 +81,7 @@ final class BluetoothManager: NSObject, ObservableObject {
     func write<T: Codable>(_ data: T) throws {
         guard var encodedData = try? JSONEncoder().encode(data) else { return }
         encodedData.appendUARTTerminator()
-        print(encodedData.hexEncodedString())
+        print("Sending over BLE: \(encodedData.hexEncodedString())")
         transmissionSubject.send(encodedData)
     }
     

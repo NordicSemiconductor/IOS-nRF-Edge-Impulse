@@ -105,15 +105,15 @@ class DeviceRemoteHandler {
             .flatMap { _ in self.bluetoothManager.receptionSubject.gatherData(ofType: ResponseRootObject.self) }
             .combineLatest(webSocketManager.connect(to: Self.RemoteManagementURLString).drop(while: { $0 != .connected }))
             .flatMap { [webSocketManager] (data, _) -> AnyPublisher<Data, Swift.Error> in
-                guard var hello = data.message, let webSocketManager = webSocketManager else {
+                guard var webSocketHello = data.message, let webSocketManager = webSocketManager else {
                     return Fail(error: Error.connectionEstablishFailed).eraseToAnyPublisher()
                 }
                 
-                hello.hello?.apiKey = apiKey
-                hello.hello?.deviceId = self.scanResult.id
+                webSocketHello.hello?.apiKey = apiKey
+                webSocketHello.hello?.deviceId = self.scanResult.id
                 
                 do {
-                    try webSocketManager.send(hello)
+                    try webSocketManager.send(webSocketHello)
                 } catch let e {
                     return Fail(error: e).eraseToAnyPublisher()
                 }
@@ -147,8 +147,11 @@ class DeviceRemoteHandler {
                     self.state = .connected(self.scanResult, device)
                 }
             }
-            .map { registeredDevice in
-                ConnectionState.connected(self.scanResult, registeredDevice)
+            .tryMap { registeredDevice in
+                let bleHello = BLEHelloMessageContainer(message: BLEHelloMessage(hello: true))
+                try self.bluetoothManager.write(bleHello)
+                
+                return ConnectionState.connected(self.scanResult, registeredDevice)
             }
             .prefix(1)
             .timeout(10, scheduler: DispatchQueue.main, customError: { Error.timeout })
