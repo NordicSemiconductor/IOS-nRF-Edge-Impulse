@@ -60,7 +60,7 @@ final class BluetoothManager: NSObject, ObservableObject {
         centralManager.delegate = self
         transmissionSubject.sinkOrRaiseAppEventError { [weak self] data in
             guard let self = self else { return }
-            self.peripheral.writeValue(data, for: self.txCharacteristic, type: .withResponse)
+            self.peripheral.writeValue(data, for: self.rxCharacteristic, type: .withResponse)
         }
         .store(in: &cancellables)
     }
