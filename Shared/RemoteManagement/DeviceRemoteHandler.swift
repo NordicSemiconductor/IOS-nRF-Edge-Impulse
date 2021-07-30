@@ -156,7 +156,7 @@ class DeviceRemoteHandler {
                 
                 if let currentProject = self.appData.selectedProject,
                    let projectApiKey = self.appData.projectDevelopmentKeys[currentProject]?.apiKey {
-                    let bleConfigure = BLEConfigureMessage(apiKey: projectApiKey)
+                    let bleConfigure = BLEConfigureMessageContainer(message: BLEConfigureMessage(apiKey: projectApiKey))
                     try self.bluetoothManager.write(bleConfigure)
                 }
                 
