@@ -49,11 +49,11 @@ extension DeviceData {
         
         let scanResult: ScanResult
         var state: State = .notConnected
-        var id: UUID { scanResult.uuid }
+        var id: String { scanResult.id + String(scanResult.rssi.value) }
         var availableViaRegisteredDevices: Bool = false
         
         static func ==(lhs: ScanResultWrapper, rhs: ScanResultWrapper) -> Bool {
-            return lhs.scanResult == rhs.scanResult
+            return lhs.scanResult == rhs.scanResult && lhs.scanResult.rssi == rhs.scanResult.rssi
         }
         
         static func ==(lhs: ScanResultWrapper, rhs: Device) -> Bool {
@@ -105,12 +105,15 @@ class DeviceData: ObservableObject {
                     return ScanResultWrapper(scanResult: scanResult)
                 }
             }
-            .sink { [weak self] wrapper in
-                self?.scanResults.replaceOrAppend(wrapper)
-                self?.updateState(wrapper.scanResult)
+            .collect(.byTime(RunLoop.main, .seconds(2)))
+            .sink { [weak self] wrappers in
+                guard wrappers.hasItems else { return }
+                wrappers.forEach { w in
+                    self?.scanResults.addOrReplaceFirst(w, where: { $0.scanResult.id == w.scanResult.id })
+                    self?.updateState(w.scanResult)
+                }
             }
             .store(in: &cancellables)
-        
         refresh()
     }
     

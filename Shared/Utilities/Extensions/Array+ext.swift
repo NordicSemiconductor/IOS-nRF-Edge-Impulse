@@ -26,4 +26,12 @@ extension Array where Element : Equatable & Hashable {
             self.append(element)
         }
     }
+    
+    mutating func addOrReplaceFirst(_ element: Element, where condition: (Element) -> (Bool)) {
+        if let index = firstIndex(where: condition) {
+            self[index] = element
+        } else {
+            self.append(element)
+        }
+    }
 }
