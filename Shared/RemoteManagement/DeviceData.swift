@@ -98,13 +98,16 @@ class DeviceData: ObservableObject {
             }
                 
         scanner.scan().combineLatest(settingsPublisher)
-            .compactMap { [weak self] (device, _) -> ScanResultWrapper? in
-                let wrapper = ScanResultWrapper(scanResult: device)
-                return (self?.scanResults.contains(wrapper)).flatMap { $0 ? nil : wrapper }
+            .compactMap { [weak self] (scanResult, _) -> ScanResultWrapper? in
+                if let w = self?.wrapper(for: scanResult), w.scanResult.rssi == scanResult.rssi {
+                    return nil
+                } else {
+                    return ScanResultWrapper(scanResult: scanResult)
+                }
             }
-            .sink { [weak self] device in
-                self?.scanResults.append(device)
-                self?.updateState(device.scanResult)
+            .sink { [weak self] wrapper in
+                self?.scanResults.replaceOrAppend(wrapper)
+                self?.updateState(wrapper.scanResult)
             }
             .store(in: &cancellables)
         

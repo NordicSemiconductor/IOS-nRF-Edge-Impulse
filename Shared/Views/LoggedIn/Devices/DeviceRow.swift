@@ -41,7 +41,7 @@ struct DeviceRow: View {
                         SignalLevel(rssi: scanResult.rssi)
                             .frame(width: 20, height: 15, alignment: .center)
                         
-                        Text("\(scanResult.rssi.rawValue) dB")
+                        Text("\(scanResult.rssi.value) dB")
                             .foregroundColor(deviceForegroundColor)
                     }
                 }
