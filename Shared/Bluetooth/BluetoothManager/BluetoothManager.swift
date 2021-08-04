@@ -60,7 +60,27 @@ final class BluetoothManager: NSObject, ObservableObject {
         centralManager.delegate = self
         transmissionSubject.sinkOrRaiseAppEventError { [weak self] data in
             guard let self = self else { return }
-            self.peripheral.writeValue(data, for: self.rxCharacteristic, type: .withResponse)
+            let chunkSize = self.peripheral.maximumWriteValueLength(for: .withoutResponse)
+            guard data.count > chunkSize else {
+                self.peripheral.writeValue(data, for: self.rxCharacteristic, type: .withoutResponse)
+                return
+            }
+            
+            var chunks = [Data]()
+            var i = 0
+            while i < data.count {
+                if i + chunkSize < data.count {
+                    chunks.append(data.subdata(in: i..<i+chunkSize))
+                    i += chunkSize
+                } else {
+                    chunks.append(data.subdata(in: i..<data.count))
+                    i = data.count
+                }
+            }
+            chunks.enumerated().forEach { i, chunkData in
+                self.logger.debug("Chunk \(i): \(chunkData.hexEncodedString()) (\(chunkData.count) bytes)")
+                self.peripheral.writeValue(chunkData, for: self.rxCharacteristic, type: .withoutResponse)
+            }
         }
         .store(in: &cancellables)
     }
