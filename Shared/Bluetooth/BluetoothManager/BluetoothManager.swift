@@ -50,6 +50,11 @@ final class BluetoothManager: NSObject, ObservableObject {
     private var peripheral: CBPeripheral!
     private var txCharacteristic: CBCharacteristic!
     private var rxCharacteristic: CBCharacteristic!
+    private lazy var jsonEncoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .withoutEscapingSlashes
+        return encoder
+    }()
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -94,7 +99,12 @@ final class BluetoothManager: NSObject, ObservableObject {
     }
     
     func write<T: Codable>(_ data: T) throws {
-        guard var encodedData = try? JSONEncoder().encode(data) else { return }
+        guard var encodedData = try? jsonEncoder.encode(data) else { return }
+        #if DEBUG
+        if let dataAsString = String(data: encodedData, encoding: .utf8) {
+            print("Write JSON: \(dataAsString)")
+        }
+        #endif
         encodedData.appendUARTTerminator()
         transmissionSubject.send(encodedData)
     }
