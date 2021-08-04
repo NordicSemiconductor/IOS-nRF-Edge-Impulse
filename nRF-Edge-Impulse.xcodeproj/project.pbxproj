@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		011D788026BB3CA10035B752 /* TextHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011D787F26BB3CA10035B752 /* TextHeader.swift */; };
+		011D788126BB3CA10035B752 /* TextHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011D787F26BB3CA10035B752 /* TextHeader.swift */; };
 		012A3EC92666627E00EBB501 /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A3EC82666627E00EBB501 /* DeviceData.swift */; };
 		012A3ECA2666627E00EBB501 /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A3EC82666627E00EBB501 /* DeviceData.swift */; };
 		012A3ECC2666694E00EBB501 /* RegisteredDevicesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A3ECB2666694E00EBB501 /* RegisteredDevicesData.swift */; };
@@ -305,6 +307,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		011D787F26BB3CA10035B752 /* TextHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextHeader.swift; sourceTree = "<group>"; };
 		012A3EC82666627E00EBB501 /* DeviceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
 		012A3ECB2666694E00EBB501 /* RegisteredDevicesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredDevicesData.swift; sourceTree = "<group>"; };
 		015AB1602653D5E700C09196 /* ConnectionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatus.swift; sourceTree = "<group>"; };
@@ -531,6 +534,7 @@
 				AA02089525F65A3700FD6B24 /* DeviceList.swift */,
 				C3755CD3268F0A9700FE8C69 /* DeviceDetails.swift */,
 				AAA5C7C4269F39EA0012809A /* NoDevicesView.swift */,
+				011D787F26BB3CA10035B752 /* TextHeader.swift */,
 				C3BF6AC72626D662006330C8 /* SignalLevel */,
 			);
 			path = Devices;
@@ -1237,6 +1241,7 @@
 				AA02086F25F648C200FD6B24 /* View.swift in Sources */,
 				AACECAE72630723B00285F94 /* ResourceData+Status.swift in Sources */,
 				C3846EE5260B4386005AEF67 /* BluetoothManager.swift in Sources */,
+				011D788026BB3CA10035B752 /* TextHeader.swift in Sources */,
 				AAE96F0A26A58E220089D370 /* AlertViewContainer.swift in Sources */,
 				AAFC490C26A979FD002A08F9 /* LogMessage.swift in Sources */,
 				AA386B09260CEDD60079F12D /* Previews.swift in Sources */,
@@ -1473,6 +1478,7 @@
 				AAF5E75726400F7300AC3271 /* GetSamplesRequest.swift in Sources */,
 				AAF7299826298D6D0034B61A /* AppData+LoginState.swift in Sources */,
 				C3A3665A260414BC008D82CC /* DeviceRow.swift in Sources */,
+				011D788126BB3CA10035B752 /* TextHeader.swift in Sources */,
 				C37E5ECA262842AA00B9E361 /* Scanner.swift in Sources */,
 				AAF7D45C269F2C22009269D4 /* FormIniOSListInMacOS.swift in Sources */,
 			);

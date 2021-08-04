@@ -60,7 +60,10 @@ private extension DeviceList {
     // MARK: Scan results
     @ViewBuilder
     private func buildScanResultsList(scanResult: [DeviceData.ScanResultWrapper]) -> some View {
-        VStack {
+        
+        VStack(alignment: .leading, spacing: 20) {
+            
+            TextHeader(title: "Scan Results")
             
             if scanResult.hasItems {
                 ForEach(scanResult) { d in
@@ -80,7 +83,9 @@ private extension DeviceList {
     // MARK: Registered Devices
     @ViewBuilder
     private func buildRegisteredDevicesList() -> some View {
-        Section(header: Text("Registered Devices")) {
+        VStack(alignment: .leading, spacing: 8, content: {
+            TextHeader(title: "Registered Devices")
+            
             if deviceData.registeredDevices.hasItems {
                 ForEach(deviceData.registeredDevices) { d in
                     RegisteredDeviceRow(device: d.device, state: d.state, selection: $selectedDeviceId)
@@ -91,7 +96,7 @@ private extension DeviceList {
             } else {
                 NoDevicesView()
             }
-        }
+        })
     }
     
     @ViewBuilder
