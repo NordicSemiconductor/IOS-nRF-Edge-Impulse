@@ -42,6 +42,7 @@ extension DeviceData {
         
         viewState.isSampling = true
         do {
+            viewState.progressString = "Sending Sample Request to Firmware..."
             try deviceHandler?.sendSampleRequestToBLEFirmware(newSampleMessage)
         }
         catch (let error) {

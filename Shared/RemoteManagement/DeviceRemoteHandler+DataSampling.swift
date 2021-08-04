@@ -13,16 +13,10 @@ extension DeviceRemoteHandler {
     func samplingRequestPublisher() -> AnyPublisher<SamplingState, Swift.Error>? {        
         let requestReceptionResponse = bluetoothManager.receptionSubject
             .onlyDecode(type: SamplingRequestReceivedResponse.self)
-            .first()
-            .tryMap { [bluetoothManager] response -> SamplingState in
-                guard response.sample else {
+            .tryMap { response -> SamplingState in
+                guard response.message.sample else {
                     throw DeviceRemoteHandler.Error.stringError("Returned Not Successful.")
                 }
-                #if DEBUG
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    bluetoothManager.mockFirmwareResponse(SamplingRequestStartedResponse(sampleStarted: true))
-                }
-                #endif
                 return .requestReceived
             }
             .eraseToAnyPublisher()
@@ -39,16 +33,12 @@ extension DeviceRemoteHandler {
             .eraseToAnyPublisher()
         
         return Publishers.MergeMany([
-                requestReceptionResponse, samplingStartedResponse
+                requestReceptionResponse
             ])
             .eraseToAnyPublisher()
     }
     
     func sendSampleRequestToBLEFirmware(_ request: BLESampleRequestWrapper) throws {
         try bluetoothManager.write(request)
-//        #warning("test code")
-//        #if DEBUG
-//        bluetoothManager.mockFirmwareResponse(SamplingRequestReceivedResponse(sample: true))
-//        #endif
     }
 }

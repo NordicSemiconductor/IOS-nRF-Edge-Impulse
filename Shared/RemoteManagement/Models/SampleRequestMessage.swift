@@ -108,12 +108,30 @@ struct BLESampleRequestWrapper: Codable {
 
 struct SamplingRequestReceivedResponse: Codable {
     
+    let type: String
+    let direction: String
+    let address: String
+    let message: SamplingRequestReceivedResponseMessage
+}
+
+struct SamplingRequestReceivedResponseMessage: Codable {
     let sample: Bool
 }
 
 struct SamplingRequestStartedResponse: Codable {
     
+    let type: String
+    let direction: String
+    let address: String
     let sampleStarted: Bool
+}
+
+struct SamplingRequestUploadingResponse: Codable {
+    
+    let type: String
+    let direction: String
+    let address: String
+    let sampleUploading: Bool
 }
 
 struct SamplingRequestFinishedResponse: Codable {
@@ -124,11 +142,6 @@ struct SamplingRequestFinishedResponse: Codable {
 struct SamplingRequestProcessingResponse: Codable {
     
     let sampleProcessing: Bool
-}
-
-struct SamplingRequestUploadingResponse: Codable {
-    
-    let sampleUploading: Bool
 }
 
 struct DataAcquisitionSample: Codable {

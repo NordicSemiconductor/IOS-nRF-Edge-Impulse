@@ -139,20 +139,7 @@ final class BluetoothManager: NSObject, ObservableObject {
         centralManager.connect(p, options: nil)
     }
     
-    #if DEBUG
-    // TODO: Remove once we stop mocking firmware responses.
-    internal func mockFirmwareResponse<T: Codable>(_ item: T) {
-        let data: Data! = try? JSONEncoder().encode(item)
-        received(data)
-    }
-    #endif
-    
     private func received(_ data: Data) {
-        #if DEBUG
-        if let stringData = String(data: data, encoding: .utf8) {
-            logger.debug("Received Data: \(stringData)")
-        }
-        #endif
         receptionSubject.send(data)
     }
 }
