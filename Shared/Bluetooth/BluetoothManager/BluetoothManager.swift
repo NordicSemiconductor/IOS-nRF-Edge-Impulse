@@ -10,6 +10,7 @@ import CoreBluetooth
 import os
 import Combine
 import McuManager
+import Algorithms
 
 /// Static methods and nested structures
 extension BluetoothManager {
@@ -58,31 +59,25 @@ final class BluetoothManager: NSObject, ObservableObject {
         super.init()
         
         centralManager.delegate = self
-        transmissionSubject.sinkOrRaiseAppEventError { [weak self] data in
-            guard let self = self else { return }
-            let chunkSize = self.peripheral.maximumWriteValueLength(for: .withoutResponse)
-            guard data.count > chunkSize else {
-                self.peripheral.writeValue(data, for: self.rxCharacteristic, type: .withoutResponse)
-                return
+        transmissionSubject
+            .map { [weak self] data -> [Data] in
+                self?.logger.debug("Write total: \(data.count) bytes")
+                guard let self = self,
+                      let mtuSize = self.peripheral?.maximumWriteValueLength(for: .withoutResponse) else { return [] }
+                
+                guard data.count > mtuSize else {
+                    return [data]
+                }
+                return Array(data.chunks(ofCount: mtuSize))
             }
-            
-            var chunks = [Data]()
-            var i = 0
-            while i < data.count {
-                if i + chunkSize < data.count {
-                    chunks.append(data.subdata(in: i..<i+chunkSize))
-                    i += chunkSize
-                } else {
-                    chunks.append(data.subdata(in: i..<data.count))
-                    i = data.count
+            .sink { [weak self] chunks in
+                guard let self = self else { return }
+                chunks.enumerated().forEach { i, chunkData in
+                    self.logger.debug("Write Chunk \(i): \(chunkData.hexEncodedString()) (\(chunkData.count) bytes)")
+                    self.peripheral.writeValue(chunkData, for: self.rxCharacteristic, type: .withoutResponse)
                 }
             }
-            chunks.enumerated().forEach { i, chunkData in
-                self.logger.debug("Chunk \(i): \(chunkData.hexEncodedString()) (\(chunkData.count) bytes)")
-                self.peripheral.writeValue(chunkData, for: self.rxCharacteristic, type: .withoutResponse)
-            }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
     }
     
     func connect() -> AnyPublisher<State, Swift.Error> {
@@ -101,7 +96,6 @@ final class BluetoothManager: NSObject, ObservableObject {
     func write<T: Codable>(_ data: T) throws {
         guard var encodedData = try? JSONEncoder().encode(data) else { return }
         encodedData.appendUARTTerminator()
-        print("Sending over BLE: \(encodedData.hexEncodedString())")
         transmissionSubject.send(encodedData)
     }
     
