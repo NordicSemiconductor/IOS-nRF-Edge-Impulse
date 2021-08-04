@@ -52,10 +52,10 @@ final class DataAcquisitionViewState: ObservableObject {
         return message
     }
     
-    func newBLESampleRequest() -> BLESampleRequestWrapper? {
+    func newBLESampleRequest(with hmacKey: String) -> BLESampleRequestWrapper? {
         guard selectedSensor != Constant.unselectedSensor else { return nil }
         let intervalMs =  1.0 / selectedFrequency * 1000.0
-        let sample = BLESampleRequest(label: label, length: Int(sampleLength), category: selectedDataType,
+        let sample = BLESampleRequest(label: label, length: Int(sampleLength), hmacKey: hmacKey, category: selectedDataType,
                                       interval: Int(intervalMs), sensor: selectedSensor)
         let message = BLESampleRequestMessage(sample: sample)
         return BLESampleRequestWrapper(scheme: .wss, host: .EdgeImpulse, message: message)

@@ -10,7 +10,9 @@ import Foundation
 extension DeviceData {
     func startSampling(_ viewState: DataAcquisitionViewState) {
         let deviceHandler = self[viewState.selectedDevice]
-        guard let newSampleMessage = viewState.newBLESampleRequest(),
+        guard let project = self.appData.selectedProject,
+              let hmacKey = self.appData.projectDevelopmentKeys[project]?.hmacKey,
+              let newSampleMessage = viewState.newBLESampleRequest(with: hmacKey),
               let requestPublisher = deviceHandler?.samplingRequestPublisher() else { return }
         
         requestPublisher

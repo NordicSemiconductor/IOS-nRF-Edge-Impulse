@@ -29,11 +29,11 @@ struct BLESampleRequest: Codable {
     let interval: Int
     let sensor: String
     
-    init(label: String, length: Int, category: DataSample.Category, interval: Int, sensor: Sensor) {
+    init(label: String, length: Int, hmacKey: String, category: DataSample.Category, interval: Int, sensor: Sensor) {
         self.label = label
         self.length = length
         self.path = "/api/\(category.rawValue)/data"
-        self.hmacKey = "fjjgfbjg"
+        self.hmacKey = hmacKey
         self.interval = interval
         self.sensor = sensor.name
     }
