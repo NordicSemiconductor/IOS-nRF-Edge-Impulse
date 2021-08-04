@@ -107,11 +107,15 @@ class DeviceData: ObservableObject {
             }
             .collect(.byTime(RunLoop.main, .seconds(2)))
             .sink { [weak self] wrappers in
+                guard let `self` = self else { return }
                 guard wrappers.hasItems else { return }
+                var newScanResults = self.scanResults
                 wrappers.forEach { w in
-                    self?.scanResults.addOrReplaceFirst(w, where: { $0.scanResult.id == w.scanResult.id })
-                    self?.updateState(w.scanResult)
+                    newScanResults.addOrReplaceFirst(w, where: { $0.scanResult.id == w.scanResult.id })
                 }
+                self.scanResults = newScanResults
+//                wrappers.forEach { self.updateState($0.scanResult) }
+//                self.updateState(w.scanResult)
             }
             .store(in: &cancellables)
         refresh()

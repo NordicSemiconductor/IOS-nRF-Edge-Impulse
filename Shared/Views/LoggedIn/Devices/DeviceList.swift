@@ -29,7 +29,7 @@ struct DeviceList: View {
     
     var body: some View {
         AlertViewContainer(content: {
-            List {
+            ScrollView {
                 buildRegisteredDevicesList()
                 buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
             }
@@ -60,7 +60,8 @@ private extension DeviceList {
     // MARK: Scan results
     @ViewBuilder
     private func buildScanResultsList(scanResult: [DeviceData.ScanResultWrapper]) -> some View {
-        Section(header: Text("Scan Results")) {
+        VStack {
+            
             if scanResult.hasItems {
                 ForEach(scanResult) { d in
                     let isConnecting = d.state == .connecting
