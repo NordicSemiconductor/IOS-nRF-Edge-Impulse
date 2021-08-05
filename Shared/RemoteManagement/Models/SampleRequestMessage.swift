@@ -147,16 +147,22 @@ struct SamplingRequestUploadingResponseMssage: Codable {
 struct SamplingRequestFinishedResponse: Codable {
  
     struct Headers: Codable {
-        let apiKey: String
-        let label: String
+//        let apiKey: String
+//        let label: String
 //        let allowDuplicates: String
+        
+//        enum CodingKeys: String, CodingKey {
+//            case label
+//            case apiKey = "api-key"
+//            case allowDuplicates = "allow-duplicates"
+//        }
     }
     
     let type: String
     let address: String
-//    let method: String
+    let method: String
 //    let headers: Headers
-//    let body: String
+    let body: String
 }
 
 struct DataAcquisitionSample: Codable {
