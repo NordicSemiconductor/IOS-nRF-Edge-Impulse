@@ -13,9 +13,9 @@ extension DeviceData {
         guard let project = self.appData.selectedProject,
               let hmacKey = self.appData.projectDevelopmentKeys[project]?.hmacKey,
               let newSampleMessage = viewState.newBLESampleRequest(with: hmacKey),
-              let requestPublisher = deviceHandler?.samplingRequestPublisher() else { return }
+              let samplingPublisher = deviceHandler?.samplingRequestPublisher() else { return }
         
-        requestPublisher
+        samplingPublisher
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
@@ -26,7 +26,7 @@ extension DeviceData {
                     break
                 }
             }) { state in
-                switch state {
+                switch deviceHandler?.samplingState {
                 case .standby:
                     viewState.progressString = ""
                 case .requestReceived:
@@ -34,7 +34,7 @@ extension DeviceData {
                 case .requestStarted:
                     viewState.progressString = "Sampling Started"
                     viewState.startCountdownTimer()
-                case .uploading:
+                case .receivingFromFirmware:
                     viewState.stopCountdownTimer()
                     viewState.progress = 100.0
                     viewState.progressString = "Sampling Complete. Receiving Firmware..."
@@ -43,6 +43,9 @@ extension DeviceData {
                     viewState.progress = 100.0
                     viewState.progressString = "Finished successfully"
                     viewState.isSampling = false
+                case .none:
+                    // TODO: throw error:
+                    break
                 }
             }
             .store(in: &cancellables)

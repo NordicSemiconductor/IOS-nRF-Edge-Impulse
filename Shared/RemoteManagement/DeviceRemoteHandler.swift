@@ -72,6 +72,7 @@ class DeviceRemoteHandler {
     private (set) var device: Device?
     
     @Published var state: ConnectionState = .notConnected
+    @Published var samplingState: SamplingState = .standby
     
     private (set) lazy var bluetoothManager = BluetoothManager(peripheralId: self.scanResult.uuid)
     private var webSocketManager: WebSocketManager!
@@ -192,7 +193,7 @@ extension DeviceRemoteHandler {
     enum SamplingState {
         case standby
         case requestReceived, requestStarted
-        case uploading, completed
+        case receivingFromFirmware, completed
     }
 }
 

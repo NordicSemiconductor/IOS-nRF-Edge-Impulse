@@ -145,13 +145,18 @@ struct SamplingRequestUploadingResponseMssage: Codable {
 }
 
 struct SamplingRequestFinishedResponse: Codable {
+ 
+    struct Headers: Codable {
+        let apiKey: String
+        let label: String
+//        let allowDuplicates: String
+    }
     
-    let sampleFinished: Bool
-}
-
-struct SamplingRequestProcessingResponse: Codable {
-    
-    let sampleProcessing: Bool
+    let type: String
+    let address: String
+//    let method: String
+//    let headers: Headers
+//    let body: String
 }
 
 struct DataAcquisitionSample: Codable {
