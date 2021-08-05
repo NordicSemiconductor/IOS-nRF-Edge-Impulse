@@ -27,15 +27,22 @@ extension DeviceData {
                 }
             }) { state in
                 switch state {
+                case .standby:
+                    viewState.progressString = ""
                 case .requestReceived:
                     viewState.progressString = "Request Received"
                 case .requestStarted:
                     viewState.progressString = "Sampling Started"
                     viewState.startCountdownTimer()
+                case .uploading:
+                    viewState.stopCountdownTimer()
+                    viewState.progress = 100.0
+                    viewState.progressString = "Sampling Complete. Receiving Firmware..."
                 case .completed:
+                    viewState.stopCountdownTimer()
+                    viewState.progress = 100.0
                     viewState.progressString = "Finished successfully"
-                default:
-                    print(String(describing: state))
+                    viewState.isSampling = false
                 }
             }
             .store(in: &cancellables)

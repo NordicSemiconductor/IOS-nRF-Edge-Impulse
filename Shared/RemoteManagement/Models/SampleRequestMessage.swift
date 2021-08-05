@@ -123,6 +123,11 @@ struct SamplingRequestStartedResponse: Codable {
     let type: String
     let direction: String
     let address: String
+    let message: SamplingRequestStartedResponseMssage
+}
+
+struct SamplingRequestStartedResponseMssage: Codable {
+    
     let sampleStarted: Bool
 }
 
@@ -131,6 +136,11 @@ struct SamplingRequestUploadingResponse: Codable {
     let type: String
     let direction: String
     let address: String
+    let message: SamplingRequestUploadingResponseMssage
+}
+
+struct SamplingRequestUploadingResponseMssage: Codable {
+    
     let sampleUploading: Bool
 }
 

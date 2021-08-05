@@ -10,7 +10,7 @@ import Combine
 
 extension DeviceRemoteHandler {
     
-    func samplingRequestPublisher() -> AnyPublisher<SamplingState, Swift.Error>? {        
+    func samplingRequestPublisher() -> AnyPublisher<SamplingState, Swift.Error>? {
         let requestReceptionResponse = bluetoothManager.receptionSubject
             .onlyDecode(type: SamplingRequestReceivedResponse.self)
             .tryMap { response -> SamplingState in
@@ -23,18 +23,25 @@ extension DeviceRemoteHandler {
         
         let samplingStartedResponse = bluetoothManager.receptionSubject
             .onlyDecode(type: SamplingRequestStartedResponse.self)
-            .first()
             .tryMap { response -> SamplingState in
-                guard response.sampleStarted else {
+                guard response.message.sampleStarted else {
                     throw DeviceRemoteHandler.Error.stringError("Sampling failed to start.")
                 }
                 return .requestStarted
             }
             .eraseToAnyPublisher()
         
-        return Publishers.MergeMany([
-                requestReceptionResponse
-            ])
+        let uploadingStartedResponse = bluetoothManager.receptionSubject
+            .onlyDecode(type: SamplingRequestUploadingResponse.self)
+            .tryMap { response -> SamplingState in
+                guard response.message.sampleUploading else {
+                    throw DeviceRemoteHandler.Error.stringError("Failed to obtain Sample from the Firmware..")
+                }
+                return .uploading
+            }
+            .eraseToAnyPublisher()
+        
+        return Publishers.MergeMany([requestReceptionResponse, samplingStartedResponse, uploadingStartedResponse])
             .eraseToAnyPublisher()
     }
     

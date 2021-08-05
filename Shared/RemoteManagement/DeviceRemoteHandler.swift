@@ -192,8 +192,7 @@ extension DeviceRemoteHandler {
     enum SamplingState {
         case standby
         case requestReceived, requestStarted
-        case completed
-        case error(_ error: Error)
+        case uploading, completed
     }
 }
 
