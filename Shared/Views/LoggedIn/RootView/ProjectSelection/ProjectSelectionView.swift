@@ -10,25 +10,46 @@ import SwiftUI
 struct ProjectSelectionView: View {
     
     @EnvironmentObject var appData: AppData
+    @EnvironmentObject var deviceData: DeviceData
+    
+    @State private var showingAlert = false
+    @State private var preselectedProject: Project?
     
     // MARK: View
     
     var body: some View {
-        Menu {
-            ForEach(appData.projects ?? []) { project in
-                Button(project.name) {
-                    appData.selectedProject = project
+            Menu {
+                ForEach(appData.projects ?? []) { project in
+                    Button(project.name) {
+                        if deviceData.allConnectedOrConnectingDevices().hasItems {
+                            preselectedProject = project
+                            showingAlert = true
+                        } else {
+                            appData.selectedProject = project
+                        }
+                        
+                    }
                 }
-            }
-            
-            Divider()
+                
+                Divider()
 
-            Button(action: logout) {
-                Label("Logout", systemImage: "person.fill.xmark")
+                Button(action: logout) {
+                    Label("Logout", systemImage: "person.fill.xmark")
+                }
+            } label: {
+                DropdownView(currentProject: appData.selectedProject ?? appData.projects?.first)
             }
-        } label: {
-            DropdownView(currentProject: appData.selectedProject ?? appData.projects?.first)
-        }
+            .alert(isPresented: $showingAlert, content: {
+                Alert(
+                    title: Text("Are you sure you want to switch the project?"),
+                    message: Text("If you switch the project all connected devices will be disconnected"),
+                    primaryButton: .default(Text("Yes"), action: {
+                        deviceData.disconnectAll()
+                        appData.selectedProject = preselectedProject
+                    }),
+                    secondaryButton: .cancel(Text("No")))
+            })
+        
     }
     
     // MARK: ToolbarItem

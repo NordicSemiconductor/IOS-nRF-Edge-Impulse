@@ -99,7 +99,9 @@ class DeviceRemoteHandler {
     }
     
     func connect(apiKey: String) -> AnyPublisher<ConnectionState, Never> {
-        bluetoothManager.connect()
+        state = .connecting(scanResult)
+        
+        return bluetoothManager.connect()
             .drop(while: { $0 != .readyToUse })
             .first()
             .flatMap { _ in self.bluetoothManager.receptionSubject.gatherData(ofType: ResponseRootObject.self) }
