@@ -45,6 +45,14 @@ extension DeviceRemoteHandler {
         
         let samplingResultResponse = bluetoothManager.receptionSubject
             .drop(while: { [unowned self] _ in self.samplingState != .receivingFromFirmware })
+            .compactMap {
+                // Filter-out the data from this JSON, because they are received too fast from each other.
+                if let _ = try? JSONDecoder().decode(SamplingRequestUploadingResponse.self, from: $0) {
+                    return nil
+                } else {
+                    return $0
+                }
+            }
             .gatherData(ofType: SamplingRequestFinishedResponse.self)
             .tryMap { [weak self] response in
                 guard response.type == "http" else { //let binary = Data(base64Encoded: response.body) else {
