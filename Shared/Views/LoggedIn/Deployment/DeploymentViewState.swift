@@ -66,7 +66,8 @@ extension DeploymentViewState {
         }
         status = .socketConnecting
         socketManager = WebSocketManager()
-        socketManager.connect(to: urlString, using: WebSocketManager.PingConfiguration(stringData: "2"))
+        let pingConfiguration = WebSocketManager.PingConfiguration(data: "2".data(using: .utf8))
+        socketManager.connect(to: urlString, using: pingConfiguration)
             .receive(on: RunLoop.main)
             .sinkReceivingError(onError: { error in
                 self.reportError(error)

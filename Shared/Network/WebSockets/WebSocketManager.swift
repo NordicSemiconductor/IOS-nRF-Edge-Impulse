@@ -54,7 +54,7 @@ class WebSocketManager: NSObject {
     /**
      - Returns: Subject/Publisher reporting status changes (connected, disconnected etc).
      */
-    func connect(to urlString: String, using pingConfiguration: PingConfiguration = PingConfiguration()) -> AnyPublisher<State, Swift.Error> {
+    func connect(to urlString: String, using pingConfiguration: PingConfiguration) -> AnyPublisher<State, Swift.Error> {
         guard let url = URL(string: urlString) else {
             return Fail(error: Error.wrongUrl).eraseToAnyPublisher()
         }
@@ -185,10 +185,6 @@ extension WebSocketManager {
         let timeout: TimeInterval
         let data: Data?
      
-        init(timeout: TimeInterval = PingTime, stringData: String? = nil) {
-            self.init(timeout: timeout, data: stringData?.data(using: .utf8))
-        }
-        
         init(timeout: TimeInterval = PingTime, data: Data? = nil) {
             self.timeout = timeout
             self.data = data
