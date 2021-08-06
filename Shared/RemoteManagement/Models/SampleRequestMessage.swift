@@ -165,6 +165,11 @@ struct SamplingRequestFinishedResponse: Codable {
     let body: String
 }
 
+struct WebSocketResponse: Codable {
+    
+    let err: String?
+}
+
 struct DataAcquisitionSample: Codable {
     
     let id: Int

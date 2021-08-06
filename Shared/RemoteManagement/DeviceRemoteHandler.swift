@@ -75,13 +75,14 @@ class DeviceRemoteHandler {
     @Published var samplingState: SamplingState = .standby
     
     private (set) lazy var bluetoothManager = BluetoothManager(peripheralId: self.scanResult.uuid)
-    private var webSocketManager: WebSocketManager!
+    internal var webSocketManager: WebSocketManager!
     private var cancellables = Set<AnyCancellable>()
     
     private let registeredDeviceManager: RegisteredDevicesManager
     private let appData: AppData
     
-    init(scanResult: ScanResult, device: Device? = nil, registeredDeviceManager: RegisteredDevicesManager = RegisteredDevicesManager(), appData: AppData) {
+    init(scanResult: ScanResult, device: Device? = nil, registeredDeviceManager: RegisteredDevicesManager = RegisteredDevicesManager(),
+         appData: AppData) {
         self.registeredDeviceManager = registeredDeviceManager
         self.scanResult = scanResult
         self.appData = appData
@@ -195,7 +196,25 @@ extension DeviceRemoteHandler {
     enum SamplingState {
         case standby
         case requestReceived, requestStarted
-        case receivingFromFirmware, completed
+        case receivingFromFirmware
+        case uploadingSample, completed
+        
+        var userDescription: String {
+            switch self {
+            case .standby:
+                return ""
+            case .requestReceived:
+                return "Request Received"
+            case .requestStarted:
+                return "Sampling Started"
+            case .receivingFromFirmware:
+                return "Sampling Complete. Receiving Firmware..."
+            case .uploadingSample:
+                return "Uploading Firmware to Edge Impulse..."
+            case .completed:
+                return "Success!"
+            }
+        }
     }
 }
 
