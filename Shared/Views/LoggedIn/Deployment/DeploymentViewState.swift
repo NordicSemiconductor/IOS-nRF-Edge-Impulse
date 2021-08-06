@@ -66,7 +66,7 @@ extension DeploymentViewState {
         }
         status = .socketConnecting
         socketManager = WebSocketManager()
-        socketManager.connect(to: urlString, pingTimeout: 4)
+        socketManager.connect(to: urlString, using: WebSocketManager.PingConfiguration(stringData: "2"))
             .receive(on: RunLoop.main)
             .sinkReceivingError(onError: { error in
                 self.reportError(error)

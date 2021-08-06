@@ -45,7 +45,7 @@ class WebSocketManager: NSObject {
     private let logger = Logger(category: String(describing: WebSocketManager.self))
     
     private var session: URLSession!
-    private var socketTimeout: TimeInterval!
+    private var pingConfiguration: PingConfiguration!
     private var task: URLSessionWebSocketTask!
     private var cancellables = Set<AnyCancellable>()
     
@@ -54,12 +54,12 @@ class WebSocketManager: NSObject {
     /**
      - Returns: Subject/Publisher reporting status changes (connected, disconnected etc).
      */
-    func connect(to urlString: String, pingTimeout: TimeInterval = WebSocketManager.PingTime) -> AnyPublisher<State, Swift.Error> {
+    func connect(to urlString: String, using pingConfiguration: PingConfiguration = PingConfiguration()) -> AnyPublisher<State, Swift.Error> {
         guard let url = URL(string: urlString) else {
             return Fail(error: Error.wrongUrl).eraseToAnyPublisher()
         }
         
-        socketTimeout = pingTimeout
+        self.pingConfiguration = pingConfiguration
         session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
         task = session.webSocketTask(with: url)
         listen()
@@ -81,12 +81,14 @@ class WebSocketManager: NSObject {
             session.finishTasksAndInvalidate()
         }
         
-        socketTimeout = nil
+        pingConfiguration = nil
         session = nil
     }
     
     func send<T: Codable>(_ data: T) throws {
-        guard let encodedData = try? JSONEncoder().encode(data) else { return }
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .withoutEscapingSlashes
+        guard let encodedData = try? encoder.encode(data) else { return }
         try send(encodedData)
     }
     
@@ -111,33 +113,6 @@ class WebSocketManager: NSObject {
 
 extension WebSocketManager {
     
-    fileprivate static let PingTime: TimeInterval = 20.0
-    
-    private func schedulePings() {
-        Timer
-            .publish(every: socketTimeout, on: .main, in: .common)
-            .autoconnect()
-            .sink { [weak self] _ in
-                self?.ping()
-            }
-            .store(in: &cancellables)
-    }
-    
-    private func ping() {
-        task.sendPing { [weak self] error in
-            guard let self = self, let socketURLString = self.task.currentRequest?.url?.absoluteString else { return }
-            switch error {
-            case .none:
-                self.logger.debug("Successfully pinged WebSocket at \(socketURLString).")
-            case .some(let error):
-                self.logger.error("WebSocket \(socketURLString) ping returned an error: \(error.localizedDescription)")
-                self.stateSubject.send(completion: .failure(.wsError(error)))
-                self.logger.error("Triggering disconnection due to ping error.")
-                self.disconnect()
-            }
-        }
-    }
-    
     private func listen() {
         
         task.receive { [weak self] result in
@@ -161,10 +136,62 @@ extension WebSocketManager {
                     }
                 @unknown default:
                     self?.logger.info("Something else received received.")
-                    break 
+                    break
                 }
                 self?.listen()
             }
+        }
+    }
+    
+    private func schedulePings() {
+        let timeout = pingConfiguration.timeout
+        Timer
+            .publish(every: timeout, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                if let pingData = self?.pingConfiguration?.data {
+                    print("Sending Ping Data: \(pingData.hexEncodedString())")
+                    try? self?.send(pingData)
+                }
+                self?.ping()
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func ping() {
+        task.sendPing { [weak self] error in
+            guard let self = self, let socketURLString = self.task.currentRequest?.url?.absoluteString else { return }
+            switch error {
+            case .none:
+                self.logger.debug("Successfully pinged WebSocket at \(socketURLString).")
+            case .some(let error):
+                self.logger.error("WebSocket \(socketURLString) ping returned an error: \(error.localizedDescription)")
+                self.stateSubject.send(completion: .failure(.wsError(error)))
+                self.logger.error("Triggering disconnection due to ping error.")
+                self.disconnect()
+            }
+        }
+    }
+}
+
+// MARK: - PingConfiguration
+
+extension WebSocketManager {
+    
+    struct PingConfiguration {
+        
+        static let PingTime: TimeInterval = 20.0
+        
+        let timeout: TimeInterval
+        let data: Data?
+     
+        init(timeout: TimeInterval = PingTime, stringData: String? = nil) {
+            self.init(timeout: timeout, data: stringData?.data(using: .utf8))
+        }
+        
+        init(timeout: TimeInterval = PingTime, data: Data? = nil) {
+            self.timeout = timeout
+            self.data = data
         }
     }
 }
