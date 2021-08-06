@@ -21,7 +21,7 @@ struct DeviceList: View {
     @State private var showDeleteDeviceAlert = false
     @State private var deleteDevice: Device? = nil
     
-    @State private var selectedDeviceId: Int? = nil
+    @State private var selectedDeviceId: String? = nil
     
     private let logger = Logger(category: "DeviceList")
     
@@ -62,58 +62,24 @@ private extension DeviceList {
     @ViewBuilder
     private func buildScanResultsList(scanResult: [DeviceData.ScanResultWrapper]) -> some View {
         
-        VStack(alignment: .leading) {
-            
-            Text("Scan Results".uppercased())
-                .font(.subheadline)
-            
-            if scanResult.hasItems {
-                VStack(spacing: 0) {
-                    ForEach(scanResult) { d in
-                        let isConnecting = d.state == .connecting
-                        DeviceRow(d.scanResult, isConnecting: isConnecting)
-                            .background(Color.secondarySystemGroupBackground)
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                deviceData.tryToConnect(scanResult: d.scanResult)
-                            }
-                            
-                        Divider()
-                    }
+        DeviceSection(title: "Scan Results", data: scanResult) { s in
+            DeviceRow(s.scanResult, isConnecting: s.state == .connecting)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    deviceData.tryToConnect(scanResult: s.scanResult)
                 }
-                .cornerRadius(10)
-            } else {
-                NoDevicesView()
-            }
         }
-        .padding()
-        
     }
     
     // MARK: Registered Devices
     @ViewBuilder
     private func buildRegisteredDevicesList() -> some View {
-        VStack(alignment: .leading, spacing: 8, content: {
-            Text("Registered Devices".uppercased())
-                .font(.subheadline)
-            
-            if deviceData.registeredDevices.hasItems {
-                VStack {
-                    ForEach(deviceData.registeredDevices) { d in
-                        RegisteredDeviceRow(device: d.device, state: d.state, selection: $selectedDeviceId)
-                            .contextMenu {
-                                deviceContextMenu(device: d.device, state: d.state)
-                            }
-                            .background(Color.secondarySystemGroupBackground)
-                        Divider()
-                    }
+        DeviceSection(title: "Registered Devices", data: deviceData.registeredDevices) { d in
+            RegisteredDeviceRow(device: d.device, state: d.state, selection: $selectedDeviceId)
+                .contextMenu {
+                    deviceContextMenu(device: d.device, state: d.state)
                 }
-                .cornerRadius(10)
-            } else {
-                NoDevicesView()
-            }
-        })
-        .padding()
+        }
     }
     
     @ViewBuilder
@@ -145,7 +111,7 @@ private extension DeviceList {
             Label("Rename", systemImage: "pencil")
         }
         Button {
-            selectedDeviceId = device.id
+            selectedDeviceId = device.deviceId
         } label: {
             Label("Get info", systemImage: "info.circle")
         }

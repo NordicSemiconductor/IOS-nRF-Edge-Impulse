@@ -12,14 +12,14 @@ struct RegisteredDeviceRow: View {
     
     let device: Device
     let state: DeviceData.DeviceWrapper.State
-    let selection: Binding<Int?>
+    let selection: Binding<String?>
     
     var body: some View {
         mainBody()
             .contentShape(Rectangle())
             .onTapGesture {
                 if state == .notConnectable || state == .connected {
-                    selection.wrappedValue = device.id
+                    selection.wrappedValue = device.deviceId
                 } else if state == .readyToConnect {
                     deviceData.tryToConnect(device: device)
                 }
@@ -32,7 +32,7 @@ struct RegisteredDeviceRow: View {
             RegisteredDeviceView(device: device, connectionState: state)
             NavigationLink(
                 destination: DeviceDetails(device: device),
-                tag: device.id,
+                tag: device.deviceId,
                 selection: selection,
                 label: {EmptyView()})
                 .frame(width: 10)

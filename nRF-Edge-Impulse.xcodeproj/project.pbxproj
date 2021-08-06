@@ -15,6 +15,8 @@
 		012A3ECD2666694E00EBB501 /* RegisteredDevicesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A3ECB2666694E00EBB501 /* RegisteredDevicesData.swift */; };
 		015AB1612653D5E700C09196 /* ConnectionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015AB1602653D5E700C09196 /* ConnectionStatus.swift */; };
 		015AB1622653D5E700C09196 /* ConnectionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015AB1602653D5E700C09196 /* ConnectionStatus.swift */; };
+		0187B39326BD6C7B00E59BFD /* DeviceSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0187B39226BD6C7B00E59BFD /* DeviceSection.swift */; };
+		0187B39426BD6C7B00E59BFD /* DeviceSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0187B39226BD6C7B00E59BFD /* DeviceSection.swift */; };
 		01D853EC265CF67100D96592 /* GetDevicesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D853EB265CF67100D96592 /* GetDevicesRequest.swift */; };
 		01D853ED265CF67100D96592 /* GetDevicesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D853EB265CF67100D96592 /* GetDevicesRequest.swift */; };
 		01D853EF265D0B8D00D96592 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D853EE265D0B8D00D96592 /* Device.swift */; };
@@ -311,6 +313,7 @@
 		012A3EC82666627E00EBB501 /* DeviceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
 		012A3ECB2666694E00EBB501 /* RegisteredDevicesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredDevicesData.swift; sourceTree = "<group>"; };
 		015AB1602653D5E700C09196 /* ConnectionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatus.swift; sourceTree = "<group>"; };
+		0187B39226BD6C7B00E59BFD /* DeviceSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSection.swift; sourceTree = "<group>"; };
 		01D853EB265CF67100D96592 /* GetDevicesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDevicesRequest.swift; sourceTree = "<group>"; };
 		01D853EE265D0B8D00D96592 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		01E10962265FAEDE000F2EE4 /* RegisteredDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredDeviceView.swift; sourceTree = "<group>"; };
@@ -503,6 +506,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0187B39126BD6C5E00E59BFD /* DevieceSection */ = {
+			isa = PBXGroup;
+			children = (
+				C3A36659260414BC008D82CC /* DeviceRow.swift */,
+				01E10962265FAEDE000F2EE4 /* RegisteredDeviceView.swift */,
+				C3CD27DF26B145A40026FE67 /* RegisteredDeviceRow.swift */,
+				0187B39226BD6C7B00E59BFD /* DeviceSection.swift */,
+			);
+			path = DevieceSection;
+			sourceTree = "<group>";
+		};
 		AA008A7D25EE4BBC00F70F75 /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -526,9 +540,7 @@
 		AA02089425F654C300FD6B24 /* Devices */ = {
 			isa = PBXGroup;
 			children = (
-				C3A36659260414BC008D82CC /* DeviceRow.swift */,
-				01E10962265FAEDE000F2EE4 /* RegisteredDeviceView.swift */,
-				C3CD27DF26B145A40026FE67 /* RegisteredDeviceRow.swift */,
+				0187B39126BD6C5E00E59BFD /* DevieceSection */,
 				015AB1602653D5E700C09196 /* ConnectionStatus.swift */,
 				AAE507B9268F19990017CAED /* RenameDeviceView.swift */,
 				AA02089525F65A3700FD6B24 /* DeviceList.swift */,
@@ -1304,6 +1316,7 @@
 				C301A379261F36250010717D /* HelloMessage.swift in Sources */,
 				AAE05F202649554F005BBF98 /* SampleRequestMessage.swift in Sources */,
 				AA00508F2695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift in Sources */,
+				0187B39326BD6C7B00E59BFD /* DeviceSection.swift in Sources */,
 				AA0D81292608C03A00AE615A /* DeploymentView.swift in Sources */,
 				AA008A7725EE422C00F70F75 /* Project.swift in Sources */,
 				AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */,
@@ -1402,6 +1415,7 @@
 				AAF4F6BE2625C0A700012359 /* LoginErrorView.swift in Sources */,
 				AAFC490D26A979FD002A08F9 /* LogMessage.swift in Sources */,
 				AA7F5DE425F8F6C900185328 /* LoginRequest.swift in Sources */,
+				0187B39426BD6C7B00E59BFD /* DeviceSection.swift in Sources */,
 				AAA87AE4261B28F50097EA74 /* URLImage.swift in Sources */,
 				AACECAE82630723B00285F94 /* ResourceData+Status.swift in Sources */,
 				AA43B2A925FA58B500C5B5EE /* TabBarLayoutView.swift in Sources */,

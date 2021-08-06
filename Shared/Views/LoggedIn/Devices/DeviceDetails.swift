@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DeviceDetails: View {
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+//    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var deviceData: DeviceData
     @State private var showingAlert = false
     
@@ -111,7 +111,7 @@ private extension DeviceDetails {
     func confirmDeleteDevice() {
         showingAlert = false
         deviceData.tryToDelete(device: device)
-        presentationMode.wrappedValue.dismiss()
+//        presentationMode.wrappedValue.dismiss()
     }
     
     func dismissDeleteDevice() {
