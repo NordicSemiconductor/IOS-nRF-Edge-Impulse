@@ -51,6 +51,7 @@ struct DeviceList: View {
             }
         }
         .accentColor(.white)
+        .background(Color.formBackground)
     }
 }
 
@@ -61,42 +62,58 @@ private extension DeviceList {
     @ViewBuilder
     private func buildScanResultsList(scanResult: [DeviceData.ScanResultWrapper]) -> some View {
         
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading) {
             
-            TextHeader(title: "Scan Results")
+            Text("Scan Results".uppercased())
+                .font(.subheadline)
             
             if scanResult.hasItems {
-                ForEach(scanResult) { d in
-                    let isConnecting = d.state == .connecting
-                    DeviceRow(d.scanResult, isConnecting: isConnecting)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            deviceData.tryToConnect(scanResult: d.scanResult)
-                        }
+                VStack(spacing: 0) {
+                    ForEach(scanResult) { d in
+                        let isConnecting = d.state == .connecting
+                        DeviceRow(d.scanResult, isConnecting: isConnecting)
+                            .background(Color.secondarySystemGroupBackground)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                deviceData.tryToConnect(scanResult: d.scanResult)
+                            }
+                            
+                        Divider()
+                    }
                 }
+                .cornerRadius(10)
             } else {
                 NoDevicesView()
             }
         }
+        .padding()
+        
     }
     
     // MARK: Registered Devices
     @ViewBuilder
     private func buildRegisteredDevicesList() -> some View {
         VStack(alignment: .leading, spacing: 8, content: {
-            TextHeader(title: "Registered Devices")
+            Text("Registered Devices".uppercased())
+                .font(.subheadline)
             
             if deviceData.registeredDevices.hasItems {
-                ForEach(deviceData.registeredDevices) { d in
-                    RegisteredDeviceRow(device: d.device, state: d.state, selection: $selectedDeviceId)
-                        .contextMenu {
-                            deviceContextMenu(device: d.device, state: d.state)
-                        }
+                VStack {
+                    ForEach(deviceData.registeredDevices) { d in
+                        RegisteredDeviceRow(device: d.device, state: d.state, selection: $selectedDeviceId)
+                            .contextMenu {
+                                deviceContextMenu(device: d.device, state: d.state)
+                            }
+                            .background(Color.secondarySystemGroupBackground)
+                        Divider()
+                    }
                 }
+                .cornerRadius(10)
             } else {
                 NoDevicesView()
             }
         })
+        .padding()
     }
     
     @ViewBuilder
@@ -234,6 +251,16 @@ struct DeviceList_Previews: PreviewProvider {
                 DeviceList()
                     .setTitle("Devices")
                     .preferredColorScheme(.dark)
+                    .environmentObject(Preview.projectsPreviewAppData)
+                    .environmentObject(Preview.mockScannerData)
+                    .previewDevice("iPad Pro (12.9-inch) (4th generation)")
+            }
+            .setBackgroundColor(Assets.blue)
+            .setSingleColumnNavigationViewStyle()
+            
+            NavigationView {
+                DeviceList()
+                    .setTitle("Devices")
                     .environmentObject(Preview.projectsPreviewAppData)
                     .environmentObject(Preview.mockScannerData)
                     .previewDevice("iPad Pro (12.9-inch) (4th generation)")

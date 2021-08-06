@@ -40,4 +40,12 @@ extension Color {
         return Color(UIColor.secondarySystemBackground)
         #endif
     }
+    
+    static var secondarySystemGroupBackground: Color {
+        #if os(OSX)
+        return Color(.controlBackgroundColor)
+        #elseif os(iOS)
+        return Color(UIColor.secondarySystemGroupedBackground)
+        #endif
+    }
 }
