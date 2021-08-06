@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct DataAcquisitionView: View {
     
@@ -15,6 +16,7 @@ struct DataAcquisitionView: View {
     // MARK: - State
     
     @ObservedObject internal var viewState = DataAcquisitionViewState()
+    @State private var keyboardShownOnce = false
     
     // MARK: - @viewBuilder
     
@@ -38,6 +40,11 @@ struct DataAcquisitionView: View {
             Section(header: Text("Label")) {
                 TextField("Label", text: $viewState.label)
                     .disabled(viewState.isSampling)
+                    .introspectTextField { textField in
+                        guard !keyboardShownOnce else { return }
+                        textField.becomeFirstResponder()
+                        keyboardShownOnce = true
+                    }
             }
 
             Section(header: Text("Sensor")) {

@@ -21,6 +21,7 @@ extension DeviceData {
                 case .failure(let error):
                     viewState.stopCountdownTimer()
                     viewState.isSampling = false
+                    viewState.progressString = "Failed"
                     AppEvents.shared.error = ErrorEvent(error)
                 default:
                     break
