@@ -152,9 +152,9 @@ struct SamplingRequestFinishedResponse: Codable {
         let allowDuplicates: String
         
         enum CodingKeys: String, CodingKey {
-            case apiKey = "api-key"
-            case label
-            case allowDuplicates = "allow-duplicates"
+            case apiKey = "x-api-key"
+            case label = "x-label"
+            case allowDuplicates = "x-allow-duplicates"
         }
     }
     
