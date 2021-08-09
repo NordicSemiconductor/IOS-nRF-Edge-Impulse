@@ -16,12 +16,14 @@ extension DeviceData {
               let samplingPublisher = deviceHandler?.samplingRequestPublisher() else { return }
         
         samplingPublisher
+            .timeout(.seconds(.timeoutInterval), scheduler: DispatchQueue.main, customError: { DeviceRemoteHandler.Error.timeout })
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
+                    guard deviceHandler?.samplingState != .completed else { return }
                     viewState.stopCountdownTimer()
                     viewState.isSampling = false
-                    viewState.progressString = "Failed"
+                    viewState.progressString = error.localizedDescription
                     AppEvents.shared.error = ErrorEvent(error)
                 default:
                     break
