@@ -114,8 +114,7 @@ class DeviceData: ObservableObject {
                     newScanResults.addOrReplaceFirst(w, where: { $0.scanResult.id == w.scanResult.id })
                 }
                 self.scanResults = newScanResults
-//                wrappers.forEach { self.updateState($0.scanResult) }
-//                self.updateState(w.scanResult)
+                wrappers.forEach { self.updateState($0.scanResult) }
             }
             .store(in: &cancellables)
         refresh()
