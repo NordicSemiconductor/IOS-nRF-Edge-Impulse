@@ -37,6 +37,8 @@
 		AA01020E269C74850045D6F2 /* DownloadDeviceModelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01020D269C74850045D6F2 /* DownloadDeviceModelRequest.swift */; };
 		AA01020F269C74850045D6F2 /* DownloadDeviceModelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01020D269C74850045D6F2 /* DownloadDeviceModelRequest.swift */; };
 		AA010212269C90D70045D6F2 /* McuManager in Frameworks */ = {isa = PBXBuildFile; productRef = AA010211269C90D70045D6F2 /* McuManager */; };
+		AA01902826BA938F00B70E85 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = AA01902726BA938F00B70E85 /* Algorithms */; };
+		AA01902A26BA939700B70E85 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = AA01902926BA939700B70E85 /* Algorithms */; };
 		AA01DA6026395E6000F6DD44 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01DA5F26395E6000F6DD44 /* Date.swift */; };
 		AA01DA6126395E6000F6DD44 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01DA5F26395E6000F6DD44 /* Date.swift */; };
 		AA01F3D025EFACB000368707 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01F3CF25EFACB000368707 /* Assets.swift */; };
@@ -474,6 +476,7 @@
 				AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */,
 				C3163D36268DD61900CD3DB5 /* Introspect in Frameworks */,
 				AA010212269C90D70045D6F2 /* McuManager in Frameworks */,
+				AA01902826BA938F00B70E85 /* Algorithms in Frameworks */,
 				C3163D34268DD61000CD3DB5 /* VisualEffects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,6 +488,7 @@
 				AA7F5DE325F8F57D00185328 /* KeychainSwift in Frameworks */,
 				AA0B3000267A2AE400AA0571 /* Introspect in Frameworks */,
 				AAF7D450269F0EC1009269D4 /* McuManager in Frameworks */,
+				AA01902A26BA939700B70E85 /* Algorithms in Frameworks */,
 				AA69E2C7263973FB00BC44D3 /* VisualEffects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1025,6 +1029,7 @@
 				C3163D33268DD61000CD3DB5 /* VisualEffects */,
 				C3163D35268DD61900CD3DB5 /* Introspect */,
 				AA010211269C90D70045D6F2 /* McuManager */,
+				AA01902726BA938F00B70E85 /* Algorithms */,
 			);
 			productName = "nRF-Edge-Impulse (iOS)";
 			productReference = AA03E96025E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -1049,6 +1054,7 @@
 				AA69E2C6263973FB00BC44D3 /* VisualEffects */,
 				AA0B2FFF267A2AE400AA0571 /* Introspect */,
 				AAF7D44F269F0EC1009269D4 /* McuManager */,
+				AA01902926BA939700B70E85 /* Algorithms */,
 			);
 			productName = "nRF-Edge-Impulse (macOS)";
 			productReference = AA03E96825E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -1129,6 +1135,7 @@
 				AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */,
 				AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				AA010210269C90D70045D6F2 /* XCRemoteSwiftPackageReference "mcumgr-ios" */,
+				AA01902626BA938F00B70E85 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
 			productRefGroup = AA03E96125E3EF13003DA9DA /* Products */;
 			projectDirPath = "";
@@ -1895,6 +1902,14 @@
 				kind = branch;
 			};
 		};
+		AA01902626BA938F00B70E85 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.1;
+			};
+		};
 		AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
@@ -1926,6 +1941,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AA010210269C90D70045D6F2 /* XCRemoteSwiftPackageReference "mcumgr-ios" */;
 			productName = McuManager;
+		};
+		AA01902726BA938F00B70E85 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA01902626BA938F00B70E85 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+		AA01902926BA939700B70E85 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA01902626BA938F00B70E85 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
 		};
 		AA0B2FFF267A2AE400AA0571 /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;

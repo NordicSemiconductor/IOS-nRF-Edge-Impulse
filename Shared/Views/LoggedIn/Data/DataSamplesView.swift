@@ -76,6 +76,9 @@ private extension DataSamplesView {
     
     func dataAcquisitionToolbarItem() -> some View {
         Button(action: {
+            if showDataAcquisitionView {
+                showDataAcquisitionView = false
+            }
             showDataAcquisitionView = true
         }) {
             Label("New Sample", systemImage: "plus")

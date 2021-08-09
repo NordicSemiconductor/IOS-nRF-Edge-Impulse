@@ -10,45 +10,93 @@ import Combine
 
 extension DeviceRemoteHandler {
     
-    func samplingRequestPublisher() -> AnyPublisher<SamplingState, Swift.Error>? {        
+    func samplingRequestPublisher() -> AnyPublisher<Void, Swift.Error>? {
         let requestReceptionResponse = bluetoothManager.receptionSubject
             .onlyDecode(type: SamplingRequestReceivedResponse.self)
-            .first()
-            .tryMap { [bluetoothManager] response -> SamplingState in
-                guard response.sample else {
-                    throw DeviceRemoteHandler.Error.stringError("Returned Not Successful.")
+            .tryMap { [weak self] response in
+                guard response.message.sample else {
+                    throw DeviceRemoteHandler.Error.stringError("Returned Not Successful")
                 }
-                #if DEBUG
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    bluetoothManager.mockFirmwareResponse(SamplingRequestStartedResponse(sampleStarted: true))
-                }
-                #endif
-                return .requestReceived
+                self?.samplingState = .requestStarted
             }
             .eraseToAnyPublisher()
         
         let samplingStartedResponse = bluetoothManager.receptionSubject
+            .drop(while: { [unowned self] _ in self.samplingState != .requestReceived })
             .onlyDecode(type: SamplingRequestStartedResponse.self)
-            .first()
-            .tryMap { response -> SamplingState in
-                guard response.sampleStarted else {
-                    throw DeviceRemoteHandler.Error.stringError("Sampling failed to start.")
+            .tryMap { [weak self] response in
+                guard response.message.sampleStarted else {
+                    throw DeviceRemoteHandler.Error.stringError("Sampling failed to start")
                 }
-                return .requestStarted
+                self?.samplingState = .requestStarted
             }
             .eraseToAnyPublisher()
         
-        return Publishers.MergeMany([
-                requestReceptionResponse, samplingStartedResponse
-            ])
+        let uploadingStartedResponse = bluetoothManager.receptionSubject
+            .drop(while: { [unowned self] _ in self.samplingState != .requestStarted })
+            .onlyDecode(type: SamplingRequestUploadingResponse.self)
+            .tryMap { [weak self] response in
+                guard response.message.sampleUploading else {
+                    throw DeviceRemoteHandler.Error.stringError("Failed to obtain Sample from the Firmware")
+                }
+                self?.samplingState = .receivingFromFirmware
+            }
+            .eraseToAnyPublisher()
+        
+        let samplingResultResponse = bluetoothManager.receptionSubject
+            .drop(while: { [unowned self] _ in self.samplingState != .receivingFromFirmware })
+            .compactMap {
+                // Filter-out the data from this JSON, because they are received too fast from each other.
+                if let _ = try? JSONDecoder().decode(SamplingRequestUploadingResponse.self, from: $0) {
+                    return nil
+                } else {
+                    return $0
+                }
+            }
+            .gatherData(ofType: SamplingRequestFinishedResponse.self)
+            .tryMap { [weak self] response in
+                #if DEBUG
+                let encoder = JSONEncoder()
+                encoder.outputFormatting = .withoutEscapingSlashes
+                if let jsonData = try? encoder.encode(response), let jsonText = String(data: jsonData, encoding: .utf8) {
+                    print("Full Response: \(jsonText)")
+                }
+                #endif
+                
+                guard response.type == "http" else { //let binary = Data(base64Encoded: response.body) else {
+                    throw DeviceRemoteHandler.Error.stringError("Failed to obtain Sample from the Firmware")
+                }
+                self?.samplingState = .uploadingSample
+                try? self?.webSocketManager.send(response)
+            }
+            .eraseToAnyPublisher()
+        
+        let uploadToServerResult = webSocketManager.dataSubject
+            .drop(while: { [weak self] _ in self?.samplingState != .uploadingSample })
+            .tryMap { result in
+                switch result {
+                case .success(let data):
+                    return data
+                case .failure(let error):
+                    throw error
+                }
+            }
+            .onlyDecode(type: WebSocketResponse.self)
+            .tryMap { [weak self] response in
+                if let errorDescription = response.err {
+                    throw DeviceRemoteHandler.Error.stringError(errorDescription)
+                }
+                self?.samplingState = .completed
+            }
+            .eraseToAnyPublisher()
+        
+        return Publishers.MergeMany([requestReceptionResponse, samplingStartedResponse,
+                                     uploadingStartedResponse, samplingResultResponse,
+                                     uploadToServerResult])
             .eraseToAnyPublisher()
     }
     
     func sendSampleRequestToBLEFirmware(_ request: BLESampleRequestWrapper) throws {
         try bluetoothManager.write(request)
-//        #warning("test code")
-//        #if DEBUG
-//        bluetoothManager.mockFirmwareResponse(SamplingRequestReceivedResponse(sample: true))
-//        #endif
     }
 }

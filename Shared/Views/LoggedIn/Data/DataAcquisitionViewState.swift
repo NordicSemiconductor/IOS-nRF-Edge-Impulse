@@ -25,7 +25,11 @@ final class DataAcquisitionViewState: ObservableObject {
         didSet {
             guard selectedSensor != Constant.unselectedSensor else { return }
             selectedFrequency = selectedSensor.frequencies?.first ?? Constant.unselectedFrequency
-            sampleLength = Constant.unselectedSampleLength
+            if let maxSampleLength = selectedSensor.maxSampleLengthS {
+                sampleLength = Double(maxSampleLength) / 2.0
+            } else {
+                sampleLength = Constant.unselectedSampleLength
+            }
         }
     }
     @Published var sampleLength = Constant.unselectedSampleLength
@@ -52,11 +56,10 @@ final class DataAcquisitionViewState: ObservableObject {
         return message
     }
     
-    func newBLESampleRequest() -> BLESampleRequestWrapper? {
+    func newBLESampleRequest(with hmacKey: String) -> BLESampleRequestWrapper? {
         guard selectedSensor != Constant.unselectedSensor else { return nil }
-        let intervalMs =  1.0 / selectedFrequency * 1000.0
-        let sample = BLESampleRequest(label: label, length: Int(sampleLength), category: selectedDataType,
-                                      interval: Int(intervalMs), sensor: selectedSensor)
+        let sample = BLESampleRequest(label: label, length: Int(sampleLength), hmacKey: hmacKey, category: selectedDataType,
+                                      interval: selectedFrequency, sensor: selectedSensor)
         let message = BLESampleRequestMessage(sample: sample)
         return BLESampleRequestWrapper(scheme: .wss, host: .EdgeImpulse, message: message)
     }

@@ -10,6 +10,7 @@ import CoreBluetooth
 import os
 import Combine
 import McuManager
+import Algorithms
 
 /// Static methods and nested structures
 extension BluetoothManager {
@@ -49,6 +50,11 @@ final class BluetoothManager: NSObject, ObservableObject {
     private var peripheral: CBPeripheral!
     private var txCharacteristic: CBCharacteristic!
     private var rxCharacteristic: CBCharacteristic!
+    private lazy var jsonEncoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .withoutEscapingSlashes
+        return encoder
+    }()
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -58,11 +64,25 @@ final class BluetoothManager: NSObject, ObservableObject {
         super.init()
         
         centralManager.delegate = self
-        transmissionSubject.sinkOrRaiseAppEventError { [weak self] data in
-            guard let self = self else { return }
-            self.peripheral.writeValue(data, for: self.txCharacteristic, type: .withResponse)
-        }
-        .store(in: &cancellables)
+        transmissionSubject
+            .map { [weak self] data -> [Data] in
+                self?.logger.debug("Write total: \(data.count) bytes")
+                guard let self = self,
+                      let mtuSize = self.peripheral?.maximumWriteValueLength(for: .withoutResponse) else { return [] }
+                
+                guard data.count > mtuSize else {
+                    return [data]
+                }
+                return Array(data.chunks(ofCount: mtuSize))
+            }
+            .sink { [weak self] chunks in
+                guard let self = self else { return }
+                chunks.enumerated().forEach { i, chunkData in
+                    self.logger.debug("Write Chunk \(i): \(chunkData.hexEncodedString()) (\(chunkData.count) bytes)")
+                    self.peripheral.writeValue(chunkData, for: self.rxCharacteristic, type: .withoutResponse)
+                }
+            }
+            .store(in: &cancellables)
     }
     
     func connect() -> AnyPublisher<State, Swift.Error> {
@@ -79,9 +99,13 @@ final class BluetoothManager: NSObject, ObservableObject {
     }
     
     func write<T: Codable>(_ data: T) throws {
-        guard var encodedData = try? JSONEncoder().encode(data) else { return }
+        guard var encodedData = try? jsonEncoder.encode(data) else { return }
+        #if DEBUG
+        if let dataAsString = String(data: encodedData, encoding: .utf8) {
+            print("Write JSON: \(dataAsString)")
+        }
+        #endif
         encodedData.appendUARTTerminator()
-        print("Sending over BLE: \(encodedData.hexEncodedString())")
         transmissionSubject.send(encodedData)
     }
     
@@ -115,20 +139,7 @@ final class BluetoothManager: NSObject, ObservableObject {
         centralManager.connect(p, options: nil)
     }
     
-    #if DEBUG
-    // TODO: Remove once we stop mocking firmware responses.
-    internal func mockFirmwareResponse<T: Codable>(_ item: T) {
-        let data: Data! = try? JSONEncoder().encode(item)
-        received(data)
-    }
-    #endif
-    
     private func received(_ data: Data) {
-        #if DEBUG
-        if let stringData = String(data: data, encoding: .utf8) {
-            logger.debug("Received Data: \(stringData)")
-        }
-        #endif
         receptionSubject.send(data)
     }
 }
@@ -193,13 +204,12 @@ extension BluetoothManager: CBPeripheralDelegate {
             return
         }
         
-        received(bytesReceived)
-        
         if let validUTF8String = String(data: bytesReceived, encoding: .utf8) {
-            logger.debug("Received new data: \(validUTF8String)")
+            logger.debug("Received new data: \(validUTF8String) (\(bytesReceived.hexEncodedString()))")
         } else {
-            logger.debug("Received string can't be parsed")
+            logger.debug("Received Data couldn't be parsed as String.")
         }
+        received(bytesReceived)
     }
 }
 

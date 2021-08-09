@@ -164,13 +164,7 @@ extension Publishers {
         
         func receive<S>(subscriber: S) where S: Subscriber, Upstream.Failure == S.Failure, DecodedOutput == S.Input {
             self.upstream
-                .scan(Data(), { accum, next -> Data in
-                    if case .some = try? decoder.decode(DecodedOutput.self, from: accum) {
-                        return next
-                    } else {
-                        return accum + next
-                    }
-                })
+                .scan(Data(), { $0 + $1 })
                 .compactMap { try? decoder.decode(DecodedOutput.self, from: $0) }
                 .subscribe(subscriber)
         }

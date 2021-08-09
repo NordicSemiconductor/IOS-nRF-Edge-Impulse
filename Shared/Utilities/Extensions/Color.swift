@@ -9,6 +9,14 @@ import SwiftUI
 
 extension Color {
     
+    static var universalAccentColor: Color {
+        #if os(OSX)
+        return Color.accentColor
+        #elseif os(iOS)
+        return Assets.blue.color
+        #endif
+    }
+    
     static var textColor: Color {
         #if os(OSX)
         return Color.primary

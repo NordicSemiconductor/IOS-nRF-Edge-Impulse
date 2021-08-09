@@ -72,15 +72,17 @@ class DeviceRemoteHandler {
     private (set) var device: Device?
     
     @Published var state: ConnectionState = .notConnected
+    @Published var samplingState: SamplingState = .standby
     
     private (set) lazy var bluetoothManager = BluetoothManager(peripheralId: self.scanResult.uuid)
-    private var webSocketManager: WebSocketManager!
+    internal var webSocketManager: WebSocketManager!
     private var cancellables = Set<AnyCancellable>()
     
     private let registeredDeviceManager: RegisteredDevicesManager
     private let appData: AppData
     
-    init(scanResult: ScanResult, device: Device? = nil, registeredDeviceManager: RegisteredDevicesManager = RegisteredDevicesManager(), appData: AppData) {
+    init(scanResult: ScanResult, device: Device? = nil, registeredDeviceManager: RegisteredDevicesManager = RegisteredDevicesManager(),
+         appData: AppData) {
         self.registeredDeviceManager = registeredDeviceManager
         self.scanResult = scanResult
         self.appData = appData
@@ -99,11 +101,17 @@ class DeviceRemoteHandler {
     }
     
     func connect(apiKey: String) -> AnyPublisher<ConnectionState, Never> {
-        bluetoothManager.connect()
+        state = .connecting(scanResult)
+        
+        let pingConfiguration = WebSocketManager.PingConfiguration()
+        return bluetoothManager.connect()
             .drop(while: { $0 != .readyToUse })
             .first()
             .flatMap { _ in self.bluetoothManager.receptionSubject.gatherData(ofType: ResponseRootObject.self) }
-            .combineLatest(webSocketManager.connect(to: Self.RemoteManagementURLString).drop(while: { $0 != .connected }))
+            .combineLatest(
+                webSocketManager.connect(to: Self.RemoteManagementURLString, using: pingConfiguration)
+                    .drop(while: { $0 != .connected })
+            )
             .flatMap { [webSocketManager] (data, _) -> AnyPublisher<Data, Swift.Error> in
                 guard var webSocketHello = data.message, let webSocketManager = webSocketManager else {
                     return Fail(error: Error.connectionEstablishFailed).eraseToAnyPublisher()
@@ -156,7 +164,7 @@ class DeviceRemoteHandler {
                 
                 if let currentProject = self.appData.selectedProject,
                    let projectApiKey = self.appData.projectDevelopmentKeys[currentProject]?.apiKey {
-                    let bleConfigure = BLEConfigureMessage(apiKey: projectApiKey)
+                    let bleConfigure = BLEConfigureMessageContainer(message: BLEConfigureMessage(apiKey: projectApiKey))
                     try self.bluetoothManager.write(bleConfigure)
                 }
                 
@@ -192,8 +200,25 @@ extension DeviceRemoteHandler {
     enum SamplingState {
         case standby
         case requestReceived, requestStarted
-        case completed
-        case error(_ error: Error)
+        case receivingFromFirmware
+        case uploadingSample, completed
+        
+        var userDescription: String {
+            switch self {
+            case .standby:
+                return ""
+            case .requestReceived:
+                return "Request Received"
+            case .requestStarted:
+                return "Sampling Started"
+            case .receivingFromFirmware:
+                return "Sampling Complete. Receiving Firmware..."
+            case .uploadingSample:
+                return "Uploading Firmware to Edge Impulse..."
+            case .completed:
+                return "Success!"
+            }
+        }
     }
 }
 

@@ -26,14 +26,14 @@ struct BLESampleRequest: Codable {
     let length: Int
     let path: String
     let hmacKey: String
-    let interval: Int
+    let interval: Double
     let sensor: String
     
-    init(label: String, length: Int, category: DataSample.Category, interval: Int, sensor: Sensor) {
+    init(label: String, length: Int, hmacKey: String, category: DataSample.Category, interval: Double, sensor: Sensor) {
         self.label = label
         self.length = length
         self.path = "/api/\(category.rawValue)/data"
-        self.hmacKey = "fjjgfbjg"
+        self.hmacKey = hmacKey
         self.interval = interval
         self.sensor = sensor.name
     }
@@ -108,27 +108,66 @@ struct BLESampleRequestWrapper: Codable {
 
 struct SamplingRequestReceivedResponse: Codable {
     
+    let type: String
+    let direction: String
+    let address: String
+    let message: SamplingRequestReceivedResponseMessage
+}
+
+struct SamplingRequestReceivedResponseMessage: Codable {
     let sample: Bool
 }
 
 struct SamplingRequestStartedResponse: Codable {
     
+    let type: String
+    let direction: String
+    let address: String
+    let message: SamplingRequestStartedResponseMssage
+}
+
+struct SamplingRequestStartedResponseMssage: Codable {
+    
     let sampleStarted: Bool
-}
-
-struct SamplingRequestFinishedResponse: Codable {
-    
-    let sampleFinished: Bool
-}
-
-struct SamplingRequestProcessingResponse: Codable {
-    
-    let sampleProcessing: Bool
 }
 
 struct SamplingRequestUploadingResponse: Codable {
     
+    let type: String
+    let direction: String
+    let address: String
+    let message: SamplingRequestUploadingResponseMssage
+}
+
+struct SamplingRequestUploadingResponseMssage: Codable {
+    
     let sampleUploading: Bool
+}
+
+struct SamplingRequestFinishedResponse: Codable {
+ 
+    struct Headers: Codable {
+        let apiKey: String
+        let label: String
+        let allowDuplicates: String
+        
+        enum CodingKeys: String, CodingKey {
+            case apiKey = "api-key"
+            case label
+            case allowDuplicates = "allow-duplicates"
+        }
+    }
+    
+    let type: String
+    let address: String
+    let method: String
+    let headers: Headers
+    let body: String
+}
+
+struct WebSocketResponse: Codable {
+    
+    let err: String?
 }
 
 struct DataAcquisitionSample: Codable {

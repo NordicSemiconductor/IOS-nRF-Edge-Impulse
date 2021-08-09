@@ -59,6 +59,7 @@ struct RegisteredDeviceRow: View {
     }
 }
 
+#if DEBUG
 struct RegisteredDeviceRow_Previews: PreviewProvider {
     static var previews: some View {
         Group {
@@ -69,3 +70,4 @@ struct RegisteredDeviceRow_Previews: PreviewProvider {
         .previewLayout(.sizeThatFits)
     }
 }
+#endif

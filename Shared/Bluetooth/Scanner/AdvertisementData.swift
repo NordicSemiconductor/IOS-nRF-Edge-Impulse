@@ -9,6 +9,9 @@ import Foundation
 import CoreBluetooth
 
 struct AdvertisementData {
+    
+    // MARK: - Properties
+    
     let localName: String? // CBAdvertisementDataLocalNameKey
     let manufacturerData: Data? // CBAdvertisementDataManufacturerDataKey
     let serviceData: [CBUUID : Data]? // CBAdvertisementDataServiceDataKey
@@ -17,6 +20,8 @@ struct AdvertisementData {
     let txPowerLevel: Int? // CBAdvertisementDataTxPowerLevelKey
     let isConnectable: Bool? // CBAdvertisementDataIsConnectable
     let solicitedServiceUUIDs: [CBUUID]? // CBAdvertisementDataSolicitedServiceUUIDsKey
+    
+    // MARK: - Init
     
     init() {
         self.init([:])
@@ -33,15 +38,19 @@ struct AdvertisementData {
         solicitedServiceUUIDs = advertisementData[CBAdvertisementDataSolicitedServiceUUIDsKey] as? [CBUUID]
     }
     
+    // MARK: - Advertised ID (MAC Address)
+    
+    private static let ExpectedManufacturerDataPrefix: UInt8 = 225
+    
     func advertisedID() -> String? {
-        guard let data = manufacturerData, data.count > 2,
-              let unicodeID = String(data: data.suffix(from: 2), encoding: .utf8) else { return nil }
-        return unicodeID.utf8.map {
-            let s = String($0)
-            return s.count < 2 ? "0" + s : s
-        }.joined(separator: ":")
+        guard let data = manufacturerData, data.count > 4 else { return nil }
+        var advData = data.suffix(from: 2) // Skip 'Nordic' Manufacturer Code
+        guard advData.removeFirst() == Self.ExpectedManufacturerDataPrefix else { return nil }
+        return advData.hexEncodedString(separator: ":").uppercased()
     }
 }
+
+// MARK: - Debug
 
 #if DEBUG
 extension AdvertisementData {

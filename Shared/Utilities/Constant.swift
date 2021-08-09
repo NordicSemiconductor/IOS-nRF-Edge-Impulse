@@ -83,3 +83,10 @@ extension CGSize {
     static let ToolbarImageSize = CGSize(width: 30, height: 30)
     static let StandardImageSize = CGSize(width: 40, height: 40)
 }
+
+// MARK: - TimeInterval
+
+extension TimeInterval {
+    
+    static let timeoutInterval: Self = 25.0
+}

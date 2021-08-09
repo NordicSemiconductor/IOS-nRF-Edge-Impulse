@@ -199,9 +199,28 @@ class DeviceData: ObservableObject {
             .map { scanResults[$0].state = .notConnected }
     }
     
+    func disconnectAll() {
+        allConnectedOrConnectingDevices()
+            .forEach {
+                disconnect(remoteHandler: $0)
+            }
+    }
+    
     func allConnectedAndReadyToUseDevices() -> [DeviceRemoteHandler] {
         remoteHandlers.filter {
             if case .connected = $0.state {
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+    
+    func allConnectedOrConnectingDevices() -> [DeviceRemoteHandler] {
+        remoteHandlers.filter {
+            if case .connected = $0.state {
+                return true
+            } else if case .connecting = $0.state {
                 return true
             } else {
                 return false
