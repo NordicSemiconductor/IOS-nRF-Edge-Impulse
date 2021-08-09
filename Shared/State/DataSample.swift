@@ -41,9 +41,5 @@ extension DataSample {
                 return "pencil.and.outline"
             }
         }
-        
-        static let userVisible: [DataSample.Category] = [
-            .training, .testing
-        ]
     }
 }

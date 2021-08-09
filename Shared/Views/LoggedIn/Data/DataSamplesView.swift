@@ -29,7 +29,7 @@ struct DataSamplesView: View {
     var body: some View {
         VStack(spacing: 8) {
             Picker("Category", selection: $selectedCategory) {
-                ForEach(DataSample.Category.userVisible) { dataType in
+                ForEach(DataSample.Category.allCases) { dataType in
                     Text(dataType.rawValue.uppercasingFirst)
                         .tag(dataType)
                 }

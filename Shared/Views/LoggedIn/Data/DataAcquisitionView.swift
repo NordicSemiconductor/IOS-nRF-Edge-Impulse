@@ -24,7 +24,7 @@ struct DataAcquisitionView: View {
         Form {
             Section(header: Text("Category")) {
                 Picker("Selected", selection: $viewState.selectedDataType) {
-                    ForEach(DataSample.Category.userVisible) { dataType in
+                    ForEach(DataSample.Category.allCases) { dataType in
                         Text(dataType.rawValue.uppercasingFirst)
                             .tag(dataType)
                     }
