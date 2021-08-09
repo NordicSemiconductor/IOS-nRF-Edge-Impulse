@@ -30,14 +30,18 @@ struct RegisteredDeviceRow: View {
     private func mainBody() -> some View {
         HStack {
             RegisteredDeviceView(device: device, connectionState: state)
+            Image(systemName: "chevron.right")
+                .renderingMode(.template)
+                .foregroundColor(.gray)
             NavigationLink(
                 destination: DeviceDetails(device: device),
                 tag: device.deviceId,
                 selection: selection,
                 label: {EmptyView()})
-                .frame(width: 10)
+                .frame(width: 0)
                 .disabled(true)
         }
+        .padding()
     }
 }
 
