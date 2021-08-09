@@ -10,21 +10,35 @@ import CoreBluetooth.CBPeripheral
 
 // MARK: - RSSI
 
-enum RSSI: Int {
-    case outOfRange = 127
-    case practicalWorst = -100
-    case bad
-    case ok
-    case good
+struct RSSI: ExpressibleByIntegerLiteral, Equatable, Hashable {
+    init(integerLiteral value: Int) {
+        self.value = value
+        self.condition = Condition(value: value)
+    }
     
-    init(value: Int) {
-        switch value {
-        case (5)... : self = .outOfRange
-        case (-60)...(-20): self = .good
-        case (-89)...(-20): self = .ok
-        default: self = .bad
+    typealias IntegerLiteralType = Int
+    
+    enum Condition: Int {
+        case outOfRange = 127
+        case practicalWorst = -100
+        case bad
+        case ok
+        case good
+        
+        init(value: Int) {
+            switch value {
+            case (5)... : self = .outOfRange
+            case (-60)...(-20): self = .good
+            case (-89)...(-20): self = .ok
+            default: self = .bad
+            }
         }
     }
+    
+    let value: Int
+    let condition: Condition
+    
+    
 }
 
 // MARK: - ScanResult
@@ -50,7 +64,7 @@ struct ScanResult: Identifiable {
         self.name = advertisementData[CBAdvertisementDataLocalNameKey] as? String ?? "N/A"
         let advertisementData = AdvertisementData(advertisementData)
         self.advertisementData = advertisementData
-        self.rssi = RSSI(value: rssi.intValue)
+        self.rssi = RSSI(integerLiteral: rssi.intValue)
         self.id = advertisementData.advertisedID() ?? peripheral.identifier.uuidString
         self.uuid = peripheral.identifier
     }
@@ -69,6 +83,14 @@ extension ScanResult: Hashable {
 
 // MARK: - Sample
 #if DEBUG
+extension RSSI {
+    static let outOfRange: RSSI = 127
+    static let practicalWorst: RSSI = -100
+    static let bad: RSSI = -90
+    static let ok: RSSI = -80
+    static let good: RSSI = -50
+}
+
 extension ScanResult {
     static let sample = ScanResult(name: "Test Device", uuid: UUID(), rssi: .outOfRange, advertisementData: .mock)
 }

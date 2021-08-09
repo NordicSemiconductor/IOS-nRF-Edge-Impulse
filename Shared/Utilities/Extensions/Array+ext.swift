@@ -18,4 +18,20 @@ extension Array where Element : Equatable & Hashable {
             return false
         }
     }
+    
+    mutating func replaceOrAppend(_ element: Element) {
+        if let index = firstIndex(of: element) {
+            self[index] = element
+        } else {
+            self.append(element)
+        }
+    }
+    
+    mutating func addOrReplaceFirst(_ element: Element, where condition: (Element) -> (Bool)) {
+        if let index = firstIndex(where: condition) {
+            self[index] = element
+        } else {
+            self.append(element)
+        }
+    }
 }

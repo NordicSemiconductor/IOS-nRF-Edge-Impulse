@@ -49,11 +49,11 @@ extension DeviceData {
         
         let scanResult: ScanResult
         var state: State = .notConnected
-        var id: UUID { scanResult.uuid }
+        var id: String { scanResult.id + String(scanResult.rssi.value) }
         var availableViaRegisteredDevices: Bool = false
         
         static func ==(lhs: ScanResultWrapper, rhs: ScanResultWrapper) -> Bool {
-            return lhs.scanResult == rhs.scanResult
+            return lhs.scanResult == rhs.scanResult && lhs.scanResult.rssi == rhs.scanResult.rssi
         }
         
         static func ==(lhs: ScanResultWrapper, rhs: Device) -> Bool {
@@ -98,16 +98,25 @@ class DeviceData: ObservableObject {
             }
                 
         scanner.scan().combineLatest(settingsPublisher)
-            .compactMap { [weak self] (device, _) -> ScanResultWrapper? in
-                let wrapper = ScanResultWrapper(scanResult: device)
-                return (self?.scanResults.contains(wrapper)).flatMap { $0 ? nil : wrapper }
+            .compactMap { [weak self] (scanResult, _) -> ScanResultWrapper? in
+                if let w = self?.wrapper(for: scanResult), w.scanResult.rssi == scanResult.rssi {
+                    return nil
+                } else {
+                    return ScanResultWrapper(scanResult: scanResult)
+                }
             }
-            .sink { [weak self] device in
-                self?.scanResults.append(device)
-                self?.updateState(device.scanResult)
+            .collect(.byTime(RunLoop.main, .seconds(2)))
+            .sink { [weak self] wrappers in
+                guard let `self` = self else { return }
+                guard wrappers.hasItems else { return }
+                var newScanResults = self.scanResults
+                wrappers.forEach { w in
+                    newScanResults.addOrReplaceFirst(w, where: { $0.scanResult.id == w.scanResult.id })
+                }
+                self.scanResults = newScanResults
+                wrappers.forEach { self.updateState($0.scanResult) }
             }
             .store(in: &cancellables)
-        
         refresh()
     }
     

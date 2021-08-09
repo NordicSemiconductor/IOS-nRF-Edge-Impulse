@@ -84,7 +84,7 @@ extension SignalDisplayParameters {
         let color: Color
         let numberOfFilledBars: Int
         
-        switch rssi {
+        switch rssi.condition {
         case .good:
             color = .green
             numberOfFilledBars = 3

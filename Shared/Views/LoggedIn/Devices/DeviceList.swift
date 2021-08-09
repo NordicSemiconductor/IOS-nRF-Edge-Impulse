@@ -21,7 +21,7 @@ struct DeviceList: View {
     @State private var showDeleteDeviceAlert = false
     @State private var deleteDevice: Device? = nil
     
-    @State private var selectedDeviceId: Int? = nil
+    @State private var selectedDeviceId: String? = nil
     
     private let logger = Logger(category: "DeviceList")
     
@@ -29,7 +29,7 @@ struct DeviceList: View {
     
     var body: some View {
         AlertViewContainer(content: {
-            List {
+            ScrollView {
                 buildRegisteredDevicesList()
                 buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
             }
@@ -51,6 +51,7 @@ struct DeviceList: View {
             }
         }
         .accentColor(.white)
+        .background(Color.formBackground)
     }
 }
 
@@ -60,36 +61,24 @@ private extension DeviceList {
     // MARK: Scan results
     @ViewBuilder
     private func buildScanResultsList(scanResult: [DeviceData.ScanResultWrapper]) -> some View {
-        Section(header: Text("Scan Results")) {
-            if scanResult.hasItems {
-                ForEach(scanResult) { d in
-                    let isConnecting = d.state == .connecting
-                    DeviceRow(d.scanResult, isConnecting: isConnecting)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            deviceData.tryToConnect(scanResult: d.scanResult)
-                        }
+        
+        DeviceSection(title: "Scan Results", data: scanResult) { s in
+            DeviceRow(s.scanResult, isConnecting: s.state == .connecting)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    deviceData.tryToConnect(scanResult: s.scanResult)
                 }
-            } else {
-                NoDevicesView()
-            }
         }
     }
     
     // MARK: Registered Devices
     @ViewBuilder
     private func buildRegisteredDevicesList() -> some View {
-        Section(header: Text("Registered Devices")) {
-            if deviceData.registeredDevices.hasItems {
-                ForEach(deviceData.registeredDevices) { d in
-                    RegisteredDeviceRow(device: d.device, state: d.state, selection: $selectedDeviceId)
-                        .contextMenu {
-                            deviceContextMenu(device: d.device, state: d.state)
-                        }
+        DeviceSection(title: "Registered Devices", data: deviceData.registeredDevices) { d in
+            RegisteredDeviceRow(device: d.device, state: d.state, selection: $selectedDeviceId)
+                .contextMenu {
+                    deviceContextMenu(device: d.device, state: d.state)
                 }
-            } else {
-                NoDevicesView()
-            }
         }
     }
     
@@ -122,7 +111,7 @@ private extension DeviceList {
             Label("Rename", systemImage: "pencil")
         }
         Button {
-            selectedDeviceId = device.id
+            selectedDeviceId = device.deviceId
         } label: {
             Label("Get info", systemImage: "info.circle")
         }
@@ -228,6 +217,16 @@ struct DeviceList_Previews: PreviewProvider {
                 DeviceList()
                     .setTitle("Devices")
                     .preferredColorScheme(.dark)
+                    .environmentObject(Preview.projectsPreviewAppData)
+                    .environmentObject(Preview.mockScannerData)
+                    .previewDevice("iPad Pro (12.9-inch) (4th generation)")
+            }
+            .setBackgroundColor(Assets.blue)
+            .setSingleColumnNavigationViewStyle()
+            
+            NavigationView {
+                DeviceList()
+                    .setTitle("Devices")
                     .environmentObject(Preview.projectsPreviewAppData)
                     .environmentObject(Preview.mockScannerData)
                     .previewDevice("iPad Pro (12.9-inch) (4th generation)")
