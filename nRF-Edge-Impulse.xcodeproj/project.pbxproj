@@ -100,6 +100,8 @@
 		AA1C387126A6DC8100304D69 /* DeploymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D81282608C03A00AE615A /* DeploymentView.swift */; };
 		AA1C387626A6DD7200304D69 /* DeploymentConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */; };
 		AA1C387726A6DDF500304D69 /* DeploymentLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010204269C47C90045D6F2 /* DeploymentLogView.swift */; };
+		AA1EF9E926C2CEF300B85FF3 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AA1EF9E826C2CEF300B85FF3 /* ZIPFoundation */; };
+		AA1EF9EB26C2CEFC00B85FF3 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AA1EF9EA26C2CEFC00B85FF3 /* ZIPFoundation */; };
 		AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA27C2B3266E48F4002D1652 /* DataAcquisitionDevicePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27C2B2266E48F4002D1652 /* DataAcquisitionDevicePicker.swift */; };
@@ -481,6 +483,7 @@
 				AA010212269C90D70045D6F2 /* McuManager in Frameworks */,
 				AA01902826BA938F00B70E85 /* Algorithms in Frameworks */,
 				C3163D34268DD61000CD3DB5 /* VisualEffects in Frameworks */,
+				AA1EF9E926C2CEF300B85FF3 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +496,7 @@
 				AAF7D450269F0EC1009269D4 /* McuManager in Frameworks */,
 				AA01902A26BA939700B70E85 /* Algorithms in Frameworks */,
 				AA69E2C7263973FB00BC44D3 /* VisualEffects in Frameworks */,
+				AA1EF9EB26C2CEFC00B85FF3 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1034,6 +1038,7 @@
 				C3163D35268DD61900CD3DB5 /* Introspect */,
 				AA010211269C90D70045D6F2 /* McuManager */,
 				AA01902726BA938F00B70E85 /* Algorithms */,
+				AA1EF9E826C2CEF300B85FF3 /* ZIPFoundation */,
 			);
 			productName = "nRF-Edge-Impulse (iOS)";
 			productReference = AA03E96025E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -1059,6 +1064,7 @@
 				AA0B2FFF267A2AE400AA0571 /* Introspect */,
 				AAF7D44F269F0EC1009269D4 /* McuManager */,
 				AA01902926BA939700B70E85 /* Algorithms */,
+				AA1EF9EA26C2CEFC00B85FF3 /* ZIPFoundation */,
 			);
 			productName = "nRF-Edge-Impulse (macOS)";
 			productReference = AA03E96825E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -1140,6 +1146,7 @@
 				AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				AA010210269C90D70045D6F2 /* XCRemoteSwiftPackageReference "mcumgr-ios" */,
 				AA01902626BA938F00B70E85 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 			);
 			productRefGroup = AA03E96125E3EF13003DA9DA /* Products */;
 			projectDirPath = "";
@@ -1924,6 +1931,14 @@
 				minimumVersion = 0.1.3;
 			};
 		};
+		AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.12;
+			};
+		};
 		AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/twostraws/VisualEffects.git";
@@ -1962,6 +1977,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
+		};
+		AA1EF9E826C2CEF300B85FF3 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+		AA1EF9EA26C2CEFC00B85FF3 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
 		};
 		AA69E2C6263973FB00BC44D3 /* VisualEffects */ = {
 			isa = XCSwiftPackageProductDependency;
