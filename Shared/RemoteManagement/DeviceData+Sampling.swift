@@ -13,7 +13,7 @@ extension DeviceData {
         guard let project = self.appData.selectedProject,
               let hmacKey = self.appData.projectDevelopmentKeys[project]?.hmacKey,
               let newSampleMessage = viewState.newBLESampleRequest(with: hmacKey),
-              let samplingPublisher = deviceHandler?.samplingRequestPublisher(category: viewState.selectedDataType) else { return }
+              let samplingPublisher = deviceHandler?.samplingRequestPublisher(sampleState: viewState) else { return }
         
         samplingPublisher
             .timeout(.seconds(.timeoutInterval), scheduler: DispatchQueue.main, customError: { DeviceRemoteHandler.Error.timeout })

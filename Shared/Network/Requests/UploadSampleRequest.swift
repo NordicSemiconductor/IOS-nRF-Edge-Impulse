@@ -9,10 +9,10 @@ import Foundation
 
 extension HTTPRequest {
     
-    static func uploadSample(_ fullSample: SamplingRequestFinishedResponse, category: DataSample.Category,
-                             using apiToken: String) -> HTTPRequest? {
+    static func uploadSample(_ fullSample: SamplingRequestFinishedResponse, name: String,
+                             category: DataSample.Category, using apiToken: String) -> HTTPRequest? {
         let jsonEncoder = JSONEncoder()
-        jsonEncoder.outputFormatting = .withoutEscapingSlashes
+        jsonEncoder.outputFormatting = [.prettyPrinted, .withoutEscapingSlashes]
         guard var httpRequest = HTTPRequest(host: .EdgeImpulseIngestionAPI, path: "/api/\(category.rawValue)/data"),
               let bodyData = try? jsonEncoder.encode(fullSample) else {
             return nil
@@ -20,7 +20,12 @@ extension HTTPRequest {
         
         httpRequest.setMethod(.POST)
         let jwtValue = "jwt=" + apiToken
-        httpRequest.setHeaders(["cookie": jwtValue, "Accept": "application/json"])
+        var headers: [String : String] = ["cookie": jwtValue, "Content-Type": "application/json"]
+        headers["x-api-key"] = fullSample.headers.apiKey
+        headers["x-label"] = fullSample.headers.label
+        headers["x-allow-duplicates"] = fullSample.headers.allowDuplicates
+        headers["x-file-name"] = name
+        httpRequest.setHeaders(headers)
         httpRequest.setBody(bodyData)
         return httpRequest
     }

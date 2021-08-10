@@ -10,7 +10,7 @@ import Combine
 
 extension DeviceRemoteHandler {
     
-    func samplingRequestPublisher(category: DataSample.Category) -> AnyPublisher<Void, Swift.Error>? {
+    func samplingRequestPublisher(sampleState: DataAcquisitionViewState) -> AnyPublisher<Void, Swift.Error>? {
         let requestReceptionResponse = bluetoothManager.receptionSubject
             .onlyDecode(type: SamplingRequestReceivedResponse.self)
             .tryMap { [weak self] response in
@@ -76,7 +76,8 @@ extension DeviceRemoteHandler {
                     throw DeviceRemoteHandler.Error.stringError("Response does not contain valid data.")
                 }
                 self?.samplingState = .uploadingSample
-                self?.appData.uploadSample(response, for: category, subject: uploadSampleResponseSubject)
+                self?.appData.uploadSample(response, named: sampleState.label, for: sampleState.selectedDataType,
+                                           subject: uploadSampleResponseSubject)
             }
             .eraseToAnyPublisher()
         

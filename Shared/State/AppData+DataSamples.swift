@@ -40,9 +40,9 @@ extension AppData {
             .store(in: &cancellables)
     }
     
-    func uploadSample<AnySubject: Subject>(_ finishedSample: SamplingRequestFinishedResponse, for category: DataSample.Category,
-                                           subject: AnySubject) where AnySubject.Output == String, AnySubject.Failure == DeviceRemoteHandler.Error {
-        guard let uploadRequest = HTTPRequest.uploadSample(finishedSample, category: category,
+    func uploadSample<AnySubject: Subject>(_ finishedSample: SamplingRequestFinishedResponse, named sampleName: String,
+                                           for category: DataSample.Category, subject: AnySubject) where AnySubject.Output == String, AnySubject.Failure == DeviceRemoteHandler.Error {
+        guard let uploadRequest = HTTPRequest.uploadSample(finishedSample, name: sampleName, category: category,
                                                            using: finishedSample.headers.apiKey) else { return }
         Network.shared.perform(uploadRequest, responseType: String.self)
             .onUnauthorisedUserError(logout)

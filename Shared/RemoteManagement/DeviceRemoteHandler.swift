@@ -79,7 +79,7 @@ class DeviceRemoteHandler {
     private var cancellables = Set<AnyCancellable>()
     
     private let registeredDeviceManager: RegisteredDevicesManager
-    private let appData: AppData
+    internal let appData: AppData
     
     init(scanResult: ScanResult, device: Device? = nil, registeredDeviceManager: RegisteredDevicesManager = RegisteredDevicesManager(),
          appData: AppData) {
