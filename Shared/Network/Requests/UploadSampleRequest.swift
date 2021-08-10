@@ -19,7 +19,8 @@ extension HTTPRequest {
         }
         
         httpRequest.setMethod(.POST)
-        var headers: [String : String] = ["Content-Type": "application/json"]
+        var headers: [String : String] = ["Accept": "*/*", "Accept-Encoding": "gzip, deflate, br",
+                                          "Content-Type": "application/json"]
         headers["x-api-key"] = fullSample.headers.apiKey
         headers["x-label"] = fullSample.headers.label
         headers["x-disallow-duplicates"] = fullSample.headers.allowDuplicates
