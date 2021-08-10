@@ -82,7 +82,7 @@ extension ScanResult: Hashable {
 }
 
 // MARK: - Sample
-#if DEBUG
+
 extension RSSI {
     static let outOfRange: RSSI = 127
     static let practicalWorst: RSSI = -100
@@ -91,6 +91,7 @@ extension RSSI {
     static let good: RSSI = -50
 }
 
+#if DEBUG
 extension ScanResult {
     static let sample = ScanResult(name: "Test Device", uuid: UUID(), rssi: .outOfRange, advertisementData: .mock)
 }

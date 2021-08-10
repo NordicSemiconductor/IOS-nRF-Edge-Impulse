@@ -36,8 +36,10 @@ struct SignalLevel: View {
     }
 }
 
+#if DEBUG
 struct SignalLevel_Previews: PreviewProvider {
     static var previews: some View {
         SignalLevel(rssi: .good)
     }
 }
+#endif
