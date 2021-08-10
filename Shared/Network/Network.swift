@@ -44,6 +44,11 @@ extension Network {
                     throw URLError(.userAuthenticationRequired)
                 }
                 guard httpResponse.statusCode == 200 else {
+                    #if DEBUG
+                    if let dataAsString = String(data: element.data, encoding: .utf8) {
+                        print("\(request): \(dataAsString)")
+                    }
+                    #endif
                     throw URLError(.badServerResponse)
                 }
                 return element.data

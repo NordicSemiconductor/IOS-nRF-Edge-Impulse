@@ -19,11 +19,10 @@ extension HTTPRequest {
         }
         
         httpRequest.setMethod(.POST)
-        let jwtValue = "jwt=" + apiToken
-        var headers: [String : String] = ["cookie": jwtValue, "Content-Type": "application/json"]
+        var headers: [String : String] = ["Content-Type": "application/json"]
         headers["x-api-key"] = fullSample.headers.apiKey
         headers["x-label"] = fullSample.headers.label
-        headers["x-allow-duplicates"] = fullSample.headers.allowDuplicates
+        headers["x-disallow-duplicates"] = fullSample.headers.allowDuplicates
         headers["x-file-name"] = name
         httpRequest.setHeaders(headers)
         httpRequest.setBody(bodyData)
