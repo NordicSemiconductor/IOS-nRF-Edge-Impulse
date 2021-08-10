@@ -58,6 +58,7 @@ enum HTTPScheme: String, RawRepresentable {
 enum HTTPHost: String, RawRepresentable {
     
     case EdgeImpulse
+    case EdgeImpulseIngestionAPI
     case GitHubAPI
     case GitHubUserContent
     
@@ -65,6 +66,8 @@ enum HTTPHost: String, RawRepresentable {
         switch self {
         case .EdgeImpulse:
             return "studio.edgeimpulse.com"
+        case .EdgeImpulseIngestionAPI:
+            return "ingestion.edgeimpulse.com"
         case .GitHubAPI:
             return "api.github.com"
         case .GitHubUserContent:

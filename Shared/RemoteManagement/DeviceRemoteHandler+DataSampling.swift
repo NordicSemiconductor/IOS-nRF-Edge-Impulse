@@ -10,7 +10,7 @@ import Combine
 
 extension DeviceRemoteHandler {
     
-    func samplingRequestPublisher() -> AnyPublisher<Void, Swift.Error>? {
+    func samplingRequestPublisher(category: DataSample.Category) -> AnyPublisher<Void, Swift.Error>? {
         let requestReceptionResponse = bluetoothManager.receptionSubject
             .onlyDecode(type: SamplingRequestReceivedResponse.self)
             .tryMap { [weak self] response in
@@ -43,6 +43,15 @@ extension DeviceRemoteHandler {
             }
             .eraseToAnyPublisher()
         
+        let uploadSampleResponseSubject = PassthroughSubject<String, DeviceRemoteHandler.Error>()
+        
+        let uploadPublisher = uploadSampleResponseSubject
+            .tryMap { [weak self] b in
+                print(b)
+                self?.samplingState = .completed
+            }
+            .eraseToAnyPublisher()
+        
         let samplingResultResponse = bluetoothManager.receptionSubject
             .drop(while: { [unowned self] _ in self.samplingState != .receivingFromFirmware })
             .compactMap {
@@ -63,36 +72,16 @@ extension DeviceRemoteHandler {
                 }
                 #endif
                 
-                guard response.type == "http" else { //let binary = Data(base64Encoded: response.body) else {
-                    throw DeviceRemoteHandler.Error.stringError("Failed to obtain Sample from the Firmware")
+                guard response.headers.apiKey.hasItems else { // Data(base64Encoded: response.body) != nil
+                    throw DeviceRemoteHandler.Error.stringError("Response does not contain valid data.")
                 }
                 self?.samplingState = .uploadingSample
-                try? self?.webSocketManager.send(response)
-            }
-            .eraseToAnyPublisher()
-        
-        let uploadToServerResult = webSocketManager.dataSubject
-            .drop(while: { [weak self] _ in self?.samplingState != .uploadingSample })
-            .tryMap { result in
-                switch result {
-                case .success(let data):
-                    return data
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .onlyDecode(type: WebSocketResponse.self)
-            .tryMap { [weak self] response in
-                if let errorDescription = response.err {
-                    throw DeviceRemoteHandler.Error.stringError(errorDescription)
-                }
-                self?.samplingState = .completed
+                self?.appData.uploadSample(response, for: category, subject: uploadSampleResponseSubject)
             }
             .eraseToAnyPublisher()
         
         return Publishers.MergeMany([requestReceptionResponse, samplingStartedResponse,
-                                     uploadingStartedResponse, samplingResultResponse,
-                                     uploadToServerResult])
+                                     uploadingStartedResponse, samplingResultResponse, uploadPublisher])
             .eraseToAnyPublisher()
     }
     

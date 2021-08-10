@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 // MARK: - Public API
 
@@ -35,6 +36,21 @@ extension AppData {
                 }
             }, receiveValue: { response in
                 deliveryBlock(response, nil)
+            })
+            .store(in: &cancellables)
+    }
+    
+    func uploadSample<AnySubject: Subject>(_ finishedSample: SamplingRequestFinishedResponse, for category: DataSample.Category,
+                                           subject: AnySubject) where AnySubject.Output == String, AnySubject.Failure == DeviceRemoteHandler.Error {
+        guard let uploadRequest = HTTPRequest.uploadSample(finishedSample, category: category,
+                                                           using: finishedSample.headers.apiKey) else { return }
+        Network.shared.perform(uploadRequest, responseType: String.self)
+            .onUnauthorisedUserError(logout)
+            .sinkReceivingError(onError: { error in
+                subject.send(completion: .failure(DeviceRemoteHandler.Error.stringError(error.localizedDescription)))
+            }, receiveValue: { response in
+                subject.send(response)
+                subject.send(completion: .finished)
             })
             .store(in: &cancellables)
     }
