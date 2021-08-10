@@ -21,7 +21,7 @@ final class DeploymentViewState: ObservableObject {
     }
     @Published var progress = 0.0
     @Published var enableEONCompiler = true
-    @Published var optimization: Classifier = .Quantized
+    @Published var optimization: Classifier = .Unoptimized
     @Published var logs = [LogMessage]()
     
     private var socketManager: WebSocketManager!
