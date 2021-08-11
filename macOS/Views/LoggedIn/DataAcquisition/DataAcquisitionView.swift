@@ -35,7 +35,7 @@ struct DataAcquisitionView: View {
                     
                     Text("Category")
                     Picker(selection: $viewState.selectedDataType, label: EmptyView()) {
-                        ForEach(DataSample.Category.userVisible, id: \.self) { dataType in
+                        ForEach(DataSample.Category.allCases, id: \.self) { dataType in
                             Text(dataType.rawValue.uppercasingFirst).tag(dataType)
                         }
                     }.pickerStyle(RadioGroupPickerStyle())
