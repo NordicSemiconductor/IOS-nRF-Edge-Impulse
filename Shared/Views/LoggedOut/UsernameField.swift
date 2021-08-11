@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct UsernameField: View {
     
@@ -35,6 +36,11 @@ struct UsernameField: View {
                 .foregroundColor(.textFieldColor)
                 .modifier(RoundedTextFieldShape(colorScheme == .light ? Assets.lightGrey : Assets.middleGrey, hasTextFieldBelow: true))
                 .disabled(!enabled)
+        }
+        .introspectTextField { textfield in
+            #if os(iOS)
+            textfield.keyboardType = .emailAddress
+            #endif
         }
     }
 }
