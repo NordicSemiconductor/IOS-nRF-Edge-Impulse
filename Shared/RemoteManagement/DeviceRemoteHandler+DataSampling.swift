@@ -46,8 +46,8 @@ extension DeviceRemoteHandler {
         let uploadSampleResponseSubject = PassthroughSubject<String, DeviceRemoteHandler.Error>()
         
         let uploadPublisher = uploadSampleResponseSubject
-            .tryMap { [weak self] b in
-                print(b)
+            .tryMap { [weak self] serverResponse in
+                print(serverResponse)
                 self?.samplingState = .completed
             }
             .eraseToAnyPublisher()
