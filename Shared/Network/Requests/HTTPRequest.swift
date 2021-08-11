@@ -41,7 +41,6 @@ extension HTTPRequest {
     }
     
     mutating func setBody(_ data: Data) {
-        addValue("application/json", forHTTPHeaderField: "Content-Type")
         httpBody = data
     }
 }

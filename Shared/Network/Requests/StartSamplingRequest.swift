@@ -18,7 +18,7 @@ extension HTTPRequest {
         
         httpRequest.setMethod(.POST)
         let jwtValue = "jwt=" + apiToken
-        httpRequest.setHeaders(["cookie": jwtValue, "Accept": "application/json"])
+        httpRequest.setHeaders(["cookie": jwtValue, "Accept": "application/json", "Content-Type": "application/json"])
         httpRequest.setBody(bodyData)
         return httpRequest
     }

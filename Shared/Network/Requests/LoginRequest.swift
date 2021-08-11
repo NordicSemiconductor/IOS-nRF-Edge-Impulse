@@ -17,6 +17,7 @@ extension HTTPRequest {
               let bodyData = try? JSONEncoder().encode(parameters) else { return nil }
         
         httpRequest.setMethod(.POST)
+        httpRequest.setHeaders(["Content-Type": "application/json"])
         httpRequest.setBody(bodyData)
         return httpRequest
     }
