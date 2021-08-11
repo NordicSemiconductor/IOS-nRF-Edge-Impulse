@@ -9,24 +9,20 @@ import Foundation
 
 extension HTTPRequest {
     
-    static func uploadSample(_ fullSample: SamplingRequestFinishedResponse, name: String,
-                             category: DataSample.Category, using apiToken: String) -> HTTPRequest? {
-        let jsonEncoder = JSONEncoder()
-        jsonEncoder.outputFormatting = [.prettyPrinted, .withoutEscapingSlashes]
-        guard var httpRequest = HTTPRequest(host: .EdgeImpulseIngestionAPI, path: "/api/\(category.rawValue)/data"),
-              let bodyData = try? jsonEncoder.encode(fullSample) else {
+    static func uploadSample(_ headers: SamplingRequestFinishedResponse.Headers, body: Data, name: String,
+                             category: DataSample.Category) -> HTTPRequest? {
+        guard var httpRequest = HTTPRequest(host: .EdgeImpulseIngestionAPI, path: "/api/\(category.rawValue)/data") else {
             return nil
         }
         
         httpRequest.setMethod(.POST)
-        var headers: [String : String] = ["Accept": "*/*", "Accept-Encoding": "gzip, deflate, br",
-                                          "Content-Type": "application/json"]
-        headers["x-api-key"] = fullSample.headers.apiKey
-        headers["x-label"] = fullSample.headers.label
-        headers["x-disallow-duplicates"] = fullSample.headers.disallowDuplicates
-        headers["x-file-name"] = name
-        httpRequest.setHeaders(headers)
-        httpRequest.setBody(bodyData)
+        var requestHeaders: [String : String] = ["content-type": "application/cbor"]
+        requestHeaders["x-api-key"] = headers.apiKey
+        requestHeaders["x-label"] = headers.label
+        requestHeaders["x-disallow-duplicates"] = headers.disallowDuplicates
+        requestHeaders["x-file-name"] = name
+        httpRequest.setHeaders(requestHeaders)
+        httpRequest.setBody(body)
         return httpRequest
     }
 }

@@ -40,12 +40,12 @@ extension AppData {
             .store(in: &cancellables)
     }
     
-    func uploadSample<AnySubject: Subject>(_ finishedSample: SamplingRequestFinishedResponse, named sampleName: String,
+    func uploadSample<AnySubject: Subject>(headers: SamplingRequestFinishedResponse.Headers, body: Data, named sampleName: String,
                                            for category: DataSample.Category, subject: AnySubject) where AnySubject.Output == String, AnySubject.Failure == DeviceRemoteHandler.Error {
-        guard let uploadRequest = HTTPRequest.uploadSample(finishedSample, name: sampleName, category: category,
-                                                           using: finishedSample.headers.apiKey) else { return }
-        Network.shared.perform(uploadRequest, responseType: String.self)
+        guard let uploadRequest = HTTPRequest.uploadSample(headers, body: body, name: sampleName, category: category) else { return }
+        Network.shared.perform(uploadRequest)
             .onUnauthorisedUserError(logout)
+            .compactMap { String(data: $0, encoding: .utf8) }
             .sinkReceivingError(onError: { error in
                 subject.send(completion: .failure(DeviceRemoteHandler.Error.stringError(error.localizedDescription)))
             }, receiveValue: { response in

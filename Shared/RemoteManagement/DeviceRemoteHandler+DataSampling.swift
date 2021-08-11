@@ -76,8 +76,7 @@ extension DeviceRemoteHandler {
                     throw DeviceRemoteHandler.Error.stringError("Response does not contain valid base64 Data.")
                 }
                 self?.samplingState = .uploadingSample
-                self?.appData.uploadSample(response, named: sampleState.label, for: sampleState.selectedDataType,
-                                           subject: uploadSampleResponseSubject)
+                self?.appData.uploadSample(headers: response.headers, body: decodedBody, named: sampleState.label, for: sampleState.selectedDataType, subject: uploadSampleResponseSubject)
             }
             .eraseToAnyPublisher()
         
