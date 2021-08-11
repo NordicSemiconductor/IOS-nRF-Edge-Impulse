@@ -72,8 +72,8 @@ extension DeviceRemoteHandler {
                 }
                 #endif
                 
-                guard response.headers.apiKey.hasItems else { // Data(base64Encoded: response.body) != nil
-                    throw DeviceRemoteHandler.Error.stringError("Response does not contain valid data.")
+                guard let decodedBody = Data(base64Encoded: response.body) else {
+                    throw DeviceRemoteHandler.Error.stringError("Response does not contain valid base64 Data.")
                 }
                 self?.samplingState = .uploadingSample
                 self?.appData.uploadSample(response, named: sampleState.label, for: sampleState.selectedDataType,

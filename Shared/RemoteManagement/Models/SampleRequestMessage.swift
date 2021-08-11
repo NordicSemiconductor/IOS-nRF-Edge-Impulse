@@ -149,12 +149,12 @@ struct SamplingRequestFinishedResponse: Codable {
     struct Headers: Codable {
         let apiKey: String
         let label: String
-        let allowDuplicates: String
+        let disallowDuplicates: String
         
         enum CodingKeys: String, CodingKey {
             case apiKey = "x-api-key"
             case label = "x-label"
-            case allowDuplicates = "x-allow-duplicates"
+            case disallowDuplicates = "x-disallow-duplicates"
         }
     }
     
