@@ -8,6 +8,8 @@
 import Combine
 import SwiftUI
 import McuManager
+import OSLog
+import ZIPFoundation
 
 final class DeploymentViewState: ObservableObject {
 
@@ -23,6 +25,7 @@ final class DeploymentViewState: ObservableObject {
     @Published var enableEONCompiler = true
     @Published var optimization: Classifier = .Unoptimized
     @Published var logs = [LogMessage]()
+    private lazy var logger = Logger(Self.self)
     
     private var socketManager: WebSocketManager!
     internal var cancellables = Set<AnyCancellable>()
@@ -133,11 +136,44 @@ extension DeploymentViewState {
         Network.shared.perform(downloadRequest)
             .sinkReceivingError(onError: { error in
                 self.reportError(error)
-            }, receiveValue: { response in
-                self.logs.append(LogMessage("Received \(response.count) bytes of firmware."))
-                self.sendModelToDevice(modelData: response)
+            }, receiveValue: { data in
+                self.logs.append(LogMessage("Received \(data.count) bytes of Data."))
+                self.unpackResponse(responseData: data)
             })
             .store(in: &cancellables)
+    }
+    
+    func unpackResponse(responseData: Data) {
+        status = .unpackingModelData
+        do {
+            guard let tempUrlPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first else { return }
+            let directoryURL = URL(fileURLWithPath: tempUrlPath, isDirectory: true)
+            
+            self.logs.append(LogMessage("Writing Response Data to disk..."))
+            let zipFileURL = URL(fileURLWithPath: tempUrlPath + "/\(abs(responseData.hashValue)).zip")
+            try responseData.write(to: zipFileURL)
+            defer {
+                cleanup(zipFileURL)
+            }
+        
+            self.logs.append(LogMessage("Opening up Response Archive..."))
+            guard Archive(url: zipFileURL, accessMode: .read) != nil else {
+                self.logs.append(LogMessage("Welp! Response Data is not a ZIP file."))
+                throw NordicError(description: "Server did not return a .ZIP file.")
+            }
+            
+            let fileManager = FileManager()
+            try fileManager.unzipItem(at: zipFileURL, to: directoryURL)
+            
+            let contents = try fileManager.contentsOfDirectory(atPath: directoryURL.absoluteString)
+            for file in contents {
+                print(file)
+            }
+        } catch {
+            reportError(error)
+        }
+        
+//        self.sendModelToDevice(modelData: response)
     }
     
     func sendModelToDevice(modelData: Data) {
@@ -196,6 +232,15 @@ internal extension DeploymentViewState {
             cancellable.cancel()
         }
         cancellables.removeAll()
+    }
+    
+    private func cleanup(_ url: URL) {
+        do {
+            let fileManager = FileManager()
+            try fileManager.removeItem(at: url)
+        } catch {
+            logger.debug("Unable to delete file at \(url.absoluteString): \(error.localizedDescription)")
+        }
     }
 }
 
