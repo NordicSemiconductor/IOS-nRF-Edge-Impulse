@@ -88,5 +88,5 @@ extension CGSize {
 
 extension TimeInterval {
     
-    static let timeoutInterval: Self = 25.0
+    static let timeoutInterval: Self = 45.0
 }
