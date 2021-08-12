@@ -53,8 +53,8 @@ struct DataSamplesView: View {
                 ForEach(appData.samplesForCategory[selectedCategory] ?? []) { sample in
                     DataSampleRow(sample)
                 }
-                addHiddenDataAcqisitionNavigationLink()
             }
+            addHiddenDataAcqisitionNavigationLink()
         }
         .padding(.vertical)
         .toolbar {

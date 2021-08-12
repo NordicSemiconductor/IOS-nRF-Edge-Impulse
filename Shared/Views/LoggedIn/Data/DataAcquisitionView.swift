@@ -42,8 +42,10 @@ struct DataAcquisitionView: View {
                     .disabled(viewState.isSampling)
                     .introspectTextField { textField in
                         guard !keyboardShownOnce else { return }
-                        textField.becomeFirstResponder()
                         keyboardShownOnce = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [textField] in
+                            textField.becomeFirstResponder()
+                        }
                     }
             }
 
