@@ -16,6 +16,7 @@ struct DataSamplesView: View {
     
     @State private var selectedCategory: DataSample.Category = .training
     @State private var showDataAcquisitionView = false
+    @State private var dataAcquisitionView = DataAcquisitionView()
     
     // MARK: View
     
@@ -68,7 +69,7 @@ struct DataSamplesView: View {
 private extension DataSamplesView {
     
     func addHiddenDataAcqisitionNavigationLink() -> some View {
-        NavigationLink(destination: DataAcquisitionView(), isActive: $showDataAcquisitionView) {
+        NavigationLink(destination: dataAcquisitionView, isActive: $showDataAcquisitionView) {
             EmptyView()
         }
         .hidden()
@@ -76,9 +77,6 @@ private extension DataSamplesView {
     
     func dataAcquisitionToolbarItem() -> some View {
         Button(action: {
-            if showDataAcquisitionView {
-                showDataAcquisitionView = false
-            }
             showDataAcquisitionView = true
         }) {
             Label("New Sample", systemImage: "plus")
