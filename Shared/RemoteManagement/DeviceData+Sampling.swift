@@ -8,6 +8,7 @@
 import Foundation
 
 extension DeviceData {
+    
     func startSampling(_ viewState: DataAcquisitionViewState) {
         let deviceHandler = self[viewState.selectedDevice]
         guard let project = self.appData.selectedProject,
@@ -28,7 +29,7 @@ extension DeviceData {
                 default:
                     break
                 }
-            }) { state in
+            }) { [unowned self] state in
                 viewState.progressString = deviceHandler?.samplingState.userDescription ?? ""
                 switch deviceHandler?.samplingState {
                 case .requestStarted:
@@ -40,6 +41,8 @@ extension DeviceData {
                     viewState.stopCountdownTimer()
                     viewState.progress = 100.0
                     viewState.isSampling = false
+                    self.logger.debug("Sample Uploaded Successfully. Triggering Request for new Samples.")
+                    self.appData.requestDataSamples()
                 default:
                     break
                 }

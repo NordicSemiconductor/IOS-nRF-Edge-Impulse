@@ -74,7 +74,7 @@ class DeviceData: ObservableObject {
     @ObservedObject var preferences = UserPreferences.shared
     
     let scanner: Scanner
-    private lazy var logger = Logger(Self.self)
+    internal lazy var logger = Logger(Self.self)
     private var deviceManager = RegisteredDevicesManager()
     private var remoteHandlers: [DeviceRemoteHandler] = []
     
