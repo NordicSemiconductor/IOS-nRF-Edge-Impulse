@@ -150,11 +150,13 @@ struct SamplingRequestFinishedResponse: Codable {
         let apiKey: String
         let label: String
         let disallowDuplicates: String
+        let contentType: String
         
         enum CodingKeys: String, CodingKey {
             case apiKey = "x-api-key"
             case label = "x-label"
             case disallowDuplicates = "x-disallow-duplicates"
+            case contentType = "Content-Type"
         }
     }
     

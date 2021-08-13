@@ -15,12 +15,13 @@ extension HTTPRequest {
             return nil
         }
         
-        httpRequest.setMethod(.POST)
-        var requestHeaders: [String : String] = ["content-type": "application/cbor"]
+        var requestHeaders = [String: String]()
+        requestHeaders["Content-Type"] = headers.contentType
         requestHeaders["x-api-key"] = headers.apiKey
         requestHeaders["x-label"] = headers.label
         requestHeaders["x-disallow-duplicates"] = headers.disallowDuplicates
         requestHeaders["x-file-name"] = name
+        httpRequest.setMethod(.POST)
         httpRequest.setHeaders(requestHeaders)
         httpRequest.setBody(body)
         return httpRequest
