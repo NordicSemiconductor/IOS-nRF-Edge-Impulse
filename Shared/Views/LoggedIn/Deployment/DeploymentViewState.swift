@@ -147,8 +147,6 @@ extension DeploymentViewState {
         status = .unpackingModelData
         do {
             guard let tempUrlPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first else { return }
-            let directoryURL = URL(fileURLWithPath: tempUrlPath, isDirectory: true)
-            
             self.logs.append(LogMessage("Writing Response Data to disk..."))
             let zipFileURL = URL(fileURLWithPath: tempUrlPath + "/\(abs(responseData.hashValue)).zip")
             try responseData.write(to: zipFileURL)
@@ -163,9 +161,13 @@ extension DeploymentViewState {
             }
             
             let fileManager = FileManager()
+            let directoryURL = URL(fileURLWithPath: tempUrlPath + "/\(abs(responseData.hashValue))/", isDirectory: true)
+            try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: true, attributes: nil)
             try fileManager.unzipItem(at: zipFileURL, to: directoryURL)
-            
-            let contents = try fileManager.contentsOfDirectory(atPath: directoryURL.absoluteString)
+            defer {
+                cleanup(directoryURL)
+            }
+            let contents = try fileManager.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil, options: [])
             for file in contents {
                 print(file)
             }
