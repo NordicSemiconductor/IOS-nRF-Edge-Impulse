@@ -168,8 +168,18 @@ extension DeploymentViewState {
                 cleanup(directoryURL)
             }
             let contents = try fileManager.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil, options: [])
+            var binFileURL: URL!
             for file in contents {
-                print(file)
+                switch file.pathExtension {
+                case "bin":
+                    binFileURL = file
+                case "json":
+                    let jsonData = try Data(contentsOf: file)
+                    self.logs.append(LogMessage("Reading Manifest file..."))
+                    let manifest = try JSONDecoder().decode(DFUManifest.self, from: jsonData)
+                default:
+                    break
+                }
             }
         } catch {
             reportError(error)

@@ -89,6 +89,8 @@
 		AA0D812C2608F62700AE615A /* DeploymentViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D812B2608F62700AE615A /* DeploymentViewState.swift */; };
 		AA0D812D2608F62700AE615A /* DeploymentViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D812B2608F62700AE615A /* DeploymentViewState.swift */; };
 		AA0D90AE260E1F1100A455B7 /* nRF_Edge_ImpulseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D90AD260E1F1100A455B7 /* nRF_Edge_ImpulseApp.swift */; };
+		AA0E584426C6847F00C437DD /* DFUManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0E584326C6847F00C437DD /* DFUManifest.swift */; };
+		AA0E584526C6847F00C437DD /* DFUManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0E584326C6847F00C437DD /* DFUManifest.swift */; };
 		AA1016FC25E9173A006DC88A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1016FB25E9173A006DC88A /* Network.swift */; };
 		AA1016FD25E9173A006DC88A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1016FB25E9173A006DC88A /* Network.swift */; };
 		AA10170325E91885006DC88A /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* HTTPRequest.swift */; };
@@ -368,6 +370,7 @@
 		AA0D81282608C03A00AE615A /* DeploymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentView.swift; sourceTree = "<group>"; };
 		AA0D812B2608F62700AE615A /* DeploymentViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentViewState.swift; sourceTree = "<group>"; };
 		AA0D90AD260E1F1100A455B7 /* nRF_Edge_ImpulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF_Edge_ImpulseApp.swift; sourceTree = "<group>"; };
+		AA0E584326C6847F00C437DD /* DFUManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DFUManifest.swift; sourceTree = "<group>"; };
 		AA1016FB25E9173A006DC88A /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		AA10170225E91885006DC88A /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
 		AA14CA74261490CD004F08FE /* Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
@@ -665,6 +668,7 @@
 				AA0D812B2608F62700AE615A /* DeploymentViewState.swift */,
 				AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */,
 				AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */,
+				AA0E584326C6847F00C437DD /* DFUManifest.swift */,
 			);
 			path = Deployment;
 			sourceTree = "<group>";
@@ -1251,6 +1255,7 @@
 			files = (
 				AAE0B236264E960C00FD8F80 /* AppData+Debug.swift in Sources */,
 				AAF5054725F11E45003AFED7 /* DataAcquisitionView.swift in Sources */,
+				AA0E584426C6847F00C437DD /* DFUManifest.swift in Sources */,
 				AA14CA75261490CD004F08FE /* Codable.swift in Sources */,
 				015AB1612653D5E700C09196 /* ConnectionStatus.swift in Sources */,
 				C3BB69BB26A9D37C003731FF /* ElementPreview.swift in Sources */,
@@ -1485,6 +1490,7 @@
 				AA0A3EA026AAC27000F9C1E2 /* NSProgressView.swift in Sources */,
 				AACECAE526303AF600285F94 /* SettingsSyncView.swift in Sources */,
 				C337B8E1267A0034003FD0A0 /* Array+ext.swift in Sources */,
+				AA0E584526C6847F00C437DD /* DFUManifest.swift in Sources */,
 				AA27C2B4266E48F4002D1652 /* DataAcquisitionDevicePicker.swift in Sources */,
 				AA284060261F537C00EB8637 /* PasswordField.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
