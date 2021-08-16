@@ -53,7 +53,7 @@ extension Network {
                 }
                 return element.data
             }
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
     
@@ -84,7 +84,7 @@ extension Network {
                     }
                 }
             }
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
     

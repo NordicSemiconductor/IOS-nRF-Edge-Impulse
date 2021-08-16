@@ -147,16 +147,16 @@ extension DeploymentViewState {
         status = .unpackingModelData
         do {
             guard let tempUrlPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first else { return }
-            self.logs.append(LogMessage("Writing Response Data to disk..."))
+            logs.append(LogMessage("Writing Response Data to disk..."))
             let zipFileURL = URL(fileURLWithPath: tempUrlPath + "/\(abs(responseData.hashValue)).zip")
             try responseData.write(to: zipFileURL)
             defer {
                 cleanup(zipFileURL)
             }
         
-            self.logs.append(LogMessage("Opening up Response Archive..."))
+            logs.append(LogMessage("Opening up Response Archive..."))
             guard Archive(url: zipFileURL, accessMode: .read) != nil else {
-                self.logs.append(LogMessage("Welp! Response Data is not a ZIP file."))
+                logs.append(LogMessage("Welp! Response Data is not a ZIP file."))
                 throw NordicError(description: "Server did not return a .ZIP file.")
             }
             
@@ -168,27 +168,28 @@ extension DeploymentViewState {
                 cleanup(directoryURL)
             }
             let contents = try fileManager.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil, options: [])
-            var binFileURL: URL!
+            var binFileData: Data!
+            var manifest: DFUManifest!
             for file in contents {
                 switch file.pathExtension {
                 case "bin":
-                    binFileURL = file
+                    logs.append(LogMessage("Reading Binary file..."))
+                    binFileData = try Data(contentsOf: file)
                 case "json":
                     let jsonData = try Data(contentsOf: file)
-                    self.logs.append(LogMessage("Reading Manifest file..."))
-                    let manifest = try JSONDecoder().decode(DFUManifest.self, from: jsonData)
+                    logs.append(LogMessage("Reading Manifest file..."))
+                    manifest = try JSONDecoder().decode(DFUManifest.self, from: jsonData)
                 default:
                     break
                 }
             }
+            self.sendModelToDevice(modelData: binFileData, manifest: manifest)
         } catch {
             reportError(error)
         }
-        
-//        self.sendModelToDevice(modelData: response)
     }
     
-    func sendModelToDevice(modelData: Data) {
+    func sendModelToDevice(modelData: Data, manifest: DFUManifest) {
         guard let device = selectedDeviceHandler else {
             reportError(NordicError(description: "No Device."))
             return

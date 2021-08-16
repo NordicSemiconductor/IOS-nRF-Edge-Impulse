@@ -13,7 +13,10 @@ import McuManager
 extension DeploymentViewState: McuMgrLogDelegate {
     
     func log(_ msg: String, ofCategory category: McuMgrLogCategory, atLevel level: McuMgrLogLevel) {
-        logs.append(LogMessage(msg))
+        guard level != .verbose else { return }
+        DispatchQueue.main.async { [unowned self] in
+            self.logs.append(LogMessage(msg))
+        }
     }
 }
 
@@ -22,7 +25,9 @@ extension DeploymentViewState: McuMgrLogDelegate {
 extension DeploymentViewState: FirmwareUpgradeDelegate {
     
     func upgradeDidStart(controller: FirmwareUpgradeController) {
-        progress = 0.0
+        DispatchQueue.main.async { [unowned self] in
+            self.progress = 0.0
+        }
     }
     
     func upgradeStateDidChange(from previousState: FirmwareUpgradeState, to newState: FirmwareUpgradeState) {
@@ -30,11 +35,15 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     }
     
     func upgradeDidComplete() {
-        progress = 100.0
+        DispatchQueue.main.async { [unowned self] in
+            self.progress = 100.0
+        }
     }
     
     func upgradeDidFail(inState state: FirmwareUpgradeState, with error: Error) {
-        reportError(error)
+        DispatchQueue.main.async { [unowned self] in
+            self.reportError(error)
+        }
     }
     
     func upgradeDidCancel(state: FirmwareUpgradeState) {
@@ -42,6 +51,9 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     }
     
     func uploadProgressDidChange(bytesSent: Int, imageSize: Int, timestamp: Date) {
-        
+        let progress = Double(bytesSent) / Double(imageSize)
+        DispatchQueue.main.async { [unowned self] in
+            self.progress = progress
+        }
     }
 }
