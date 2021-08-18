@@ -196,7 +196,9 @@ private struct SensorSection: View {
         case "Microphone":
             return "mic"
         case "Accelerometer":
-            return "move.3d"
+            return "gyroscope"
+        case "Magnetometer":
+            return "tuningfork"
         default:
             return "square"
         }
