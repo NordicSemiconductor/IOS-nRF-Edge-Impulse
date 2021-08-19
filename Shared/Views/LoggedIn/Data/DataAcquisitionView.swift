@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Introspect
 
 struct DataAcquisitionView: View {
     
@@ -21,63 +20,23 @@ struct DataAcquisitionView: View {
     // MARK: - @viewBuilder
     
     var body: some View {
-        Form {
-            Section(header: Text("Category")) {
-                Picker("Selected", selection: $viewState.selectedDataType) {
-                    ForEach(DataSample.Category.allCases) { dataType in
-                        Text(dataType.rawValue.uppercasingFirst)
-                            .tag(dataType)
-                    }
+        VStack {
+            DataAcquisitionFormView()
+                .environmentObject(viewState)
+            
+            Divider()
+                .padding(.horizontal)
+            
+            Form {
+                Section(header: Text("Progress")) {
+                    ProgressView(value: viewState.progress, total: 100.0)
+                    
+                    Button("Start Sampling", action: startSampling)
+                        .disabled(!viewState.canStartSampling || viewState.isSampling)
+                        .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
                 }
-                .pickerStyle(SegmentedPickerStyle())
-                .disabled(viewState.isSampling)
             }
-            
-            Section(header: Text("Device")) {
-                ConnectedDevicePicker($viewState.selectedDevice)
-                    .disabled(viewState.isSampling)
-            }
-            
-            Section(header: Text("Label")) {
-                TextField("Label", text: $viewState.label)
-                    .disabled(viewState.isSampling)
-                    .introspectTextField { textField in
-                        guard !keyboardShownOnce, viewState.label.isEmpty else { return }
-                        keyboardShownOnce = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [textField] in
-                            textField.becomeFirstResponder()
-                        }
-                    }
-            }
-
-            Section(header: Text("Sensor")) {
-                DataAcquisitionDevicePicker(viewState: viewState)
-            }
-            .disabled(viewState.isSampling)
-            
-            Section(header: Text("Sample Length")) {
-                DataAcquisitionViewSampleLengthPicker(viewState: viewState)
-            }
-            .disabled(viewState.isSampling)
-            
-            Section(header: Text("Frequency")) {
-                DataAcquisitionFrequencyPicker(viewState: viewState)
-            }
-            .disabled(viewState.isSampling)
-            
-            Section(header: Text("Progress")) {
-                ProgressView(value: viewState.progress, total: 100.0)
-                
-                Text(viewState.progressString)
-                    .lineLimit(0)
-                    .foregroundColor(.primary)
-                    .centerTextInsideForm()
-                
-                Button("Start Sampling", action: startSampling)
-                    .centerTextInsideForm()
-                    .disabled(!viewState.canStartSampling || viewState.isSampling)
-                    .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
-            }
+            .frame(height: 140)
         }
         .setTitle("New Sample")
         .onAppear(perform: setInitialSelectedDevice)
