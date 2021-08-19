@@ -10,7 +10,6 @@ import SwiftUI
 struct SettingsContentView: View {
     
     @EnvironmentObject var appData: AppData
-    @EnvironmentObject var resourceData: ResourceData
     
     @ObservedObject var preferences = UserPreferences.shared
     
@@ -40,32 +39,6 @@ struct SettingsContentView: View {
                        isOn: $preferences.onlyScanConnectableDevices)
                     .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
             }
-            
-            Section(header: Text("UUID Database")) {
-                HStack {
-                    Text("Status")
-                    Spacer()
-                    resourceData.status.label()
-                }
-                
-                HStack {
-                    Text("Last Check")
-                    Spacer()
-                    Text(resourceData.lastCheckDateString ?? "N/A")
-                        .foregroundColor(.gray)
-                }
-                
-                HStack {
-                    Text("Last SHA")
-                    Spacer()
-                    Text(resourceData.lastSavedSHA?.prefix(7) ?? "N/A")
-                        .foregroundColor(.gray)
-                }
-                
-                Button("Trigger Update", action: resourceData.forceUpdate)
-                    .frame(maxWidth: .infinity, alignment: .center)
-            }
-            .lineLimit(1)
             
             #if DEBUG
             Section(header: Text("Debug")) {
@@ -108,7 +81,6 @@ struct SettingsContentView_Previews: PreviewProvider {
             .setBackgroundColor(.blue)
         }
         .previewDevice("iPhone 12 mini")
-        .environmentObject(ResourceData())
     }
 }
 #endif

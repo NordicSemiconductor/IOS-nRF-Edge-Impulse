@@ -18,7 +18,6 @@ struct nRF_Edge_ImpulseApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(dataContainer.appData)
-                .environmentObject(dataContainer.resourceData)
                 .environmentObject(dataContainer.deviceData)
         }
         .windowToolbarStyle(UnifiedWindowToolbarStyle(showsTitle: false))
@@ -43,7 +42,6 @@ struct nRF_Edge_ImpulseApp: App {
         Settings {
             SettingsContentView()
                 .environmentObject(dataContainer.appData)
-                .environmentObject(dataContainer.resourceData)
         }
     }
 }

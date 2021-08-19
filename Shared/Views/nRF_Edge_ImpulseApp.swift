@@ -20,7 +20,6 @@ struct nRF_Edge_ImpulseApp: App {
                     Label(hudState.title, systemImage: hudState.systemImage)
                 }
                 .environmentObject(dataContainer.appData)
-                .environmentObject(dataContainer.resourceData)
                 .environmentObject(dataContainer.deviceData)
                 .environmentObject(hudState)
         }

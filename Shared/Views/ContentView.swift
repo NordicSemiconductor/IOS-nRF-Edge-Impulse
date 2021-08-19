@@ -10,15 +10,11 @@ import SwiftUI
 struct ContentView: View {
     
     @EnvironmentObject var appData: AppData
-    @EnvironmentObject var resourceData: ResourceData
     @EnvironmentObject var deviceData: DeviceData
     
     var body: some View {
         if appData.isLoggedIn {
             LoggedInRootView()
-                .onAppear() {
-                    resourceData.load()
-                }
                 .environmentObject(deviceData)
         } else {
             NativeLoginView()
