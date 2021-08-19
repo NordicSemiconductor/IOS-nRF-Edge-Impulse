@@ -45,11 +45,6 @@ struct nRF_Edge_ImpulseApp: App {
                 .environmentObject(dataContainer.appData)
                 .environmentObject(dataContainer.resourceData)
         }
-        .commands {
-            CommandGroup(replacing: CommandGroupPlacement.appSettings) {
-                commandForSettings()
-            }
-        }
     }
 }
 
