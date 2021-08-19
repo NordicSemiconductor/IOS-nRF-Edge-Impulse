@@ -12,6 +12,8 @@ import Combine
 
 struct ReusableProgressView: View {
     
+    // MARK: Properties
+    
     var progress: Binding<Double>
     var isIndeterminate: Binding<Bool>
     
@@ -19,9 +21,11 @@ struct ReusableProgressView: View {
     var statusColor: Binding<Color>
     
     @State var buttonText = "Button"
-    @State var buttonEnabled = true
+    var buttonEnabled: Binding<Bool>
     
     let buttonAction: () -> ()
+    
+    // MARK: View
     
     var body: some View {
         VStack {
@@ -42,7 +46,7 @@ struct ReusableProgressView: View {
             
             Button(buttonText, action: buttonAction)
                 .centerTextInsideForm()
-//                .disabled(!buttonEnabled)
+                .disabled(!buttonEnabled.wrappedValue)
         }
         .padding(.vertical)
         .frame(height: 120)

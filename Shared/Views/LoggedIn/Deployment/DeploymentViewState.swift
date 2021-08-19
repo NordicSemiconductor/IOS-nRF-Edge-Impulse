@@ -22,6 +22,7 @@ final class DeploymentViewState: ObservableObject {
         didSet {
             guard let selectedDeviceHandler = selectedDeviceHandler else { return }
             selectedDevice = selectedDeviceHandler.device ?? Constant.unselectedDevice
+            onStatusChanged(status)
         }
     }
     @Published var progress = 0.0
