@@ -14,6 +14,8 @@ import ZIPFoundation
 final class DeploymentViewState: ObservableObject {
 
     @Published var status: JobStatus = .idle
+    @Published var statusText: String = JobStatus.idle.text
+    
     @Published var selectedDevice = Constant.unselectedDevice
     @Published var selectedDeviceHandler: DeviceRemoteHandler! {
         didSet {
@@ -22,9 +24,15 @@ final class DeploymentViewState: ObservableObject {
         }
     }
     @Published var progress = 0.0
+    @Published var progressShouldBeIndeterminate = false
     @Published var enableEONCompiler = true
     @Published var optimization: Classifier = .Unoptimized
+    @Published var buildButtonEnable = true
+    
     @Published var logs = [LogMessage]()
+    
+    // MARK: - Private Properties
+    
     private lazy var logger = Logger(Self.self)
     
     private var socketManager: WebSocketManager!
@@ -32,28 +40,11 @@ final class DeploymentViewState: ObservableObject {
     
     private var project: Project!
     private var apiToken: String!
-}
-
-// MARK: - API Properties
-
-extension DeploymentViewState {
     
-    var buildButtonEnable: Bool {
-        switch status {
-        case .idle:
-            return selectedDeviceHandler != nil && isReadyToConnect
-        default:
-            return false
-        }
-    }
-    
-    var isReadyToConnect: Bool {
-        switch status {
-        case .idle:
-            return true
-        default:
-            return false
-        }
+    init() {
+        $status
+            .sinkReceivingError(receiveValue: onStatusChanged(_:))
+            .store(in: &cancellables)
     }
 }
 
@@ -67,6 +58,7 @@ extension DeploymentViewState {
             reportError(NordicError(description: "Unable to make HTTPRequest."))
             return
         }
+        
         status = .socketConnecting
         socketManager = WebSocketManager()
         let pingConfiguration = WebSocketManager.PingConfiguration(data: "2".data(using: .utf8))
@@ -208,6 +200,33 @@ extension DeploymentViewState {
 // MARK: - Logic
 
 internal extension DeploymentViewState {
+    
+    private func onStatusChanged(_ status: JobStatus) {
+        progressShouldBeIndeterminate = false
+        buildButtonEnable = false
+        statusText = status.text
+        
+        switch status {
+        case .idle:
+            buildButtonEnable = selectedDeviceHandler != nil
+        case .socketConnecting:
+            progressShouldBeIndeterminate = true
+        case .socketConnected:
+            break
+        case .buildRequestSent:
+            progressShouldBeIndeterminate = true
+        case .buildingModel(_):
+            break
+        case .downloadingModel:
+            progressShouldBeIndeterminate = true
+        case .unpackingModelData:
+            progressShouldBeIndeterminate = true
+        case .performingFirmwareUpdate:
+            break
+        case .error(_):
+            buildButtonEnable = true
+        }
+    }
     
     func receivedJobData(dataString: String) {
         switch status {

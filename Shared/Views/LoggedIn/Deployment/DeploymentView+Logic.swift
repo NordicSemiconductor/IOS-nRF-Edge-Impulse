@@ -49,7 +49,7 @@ internal extension DeploymentView {
     }
     
     func attemptToConnect() {
-        guard viewState.isReadyToConnect,
+        guard viewState.selectedDeviceHandler != nil,
               let currentProject = appData.selectedProject,
               let socketToken = appData.projectSocketTokens[currentProject] else {
             viewState.status = .error(NordicError(description: "Tokens are missing."))

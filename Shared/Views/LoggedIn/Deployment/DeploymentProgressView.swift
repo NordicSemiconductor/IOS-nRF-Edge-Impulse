@@ -14,43 +14,13 @@ struct DeploymentProgressView: View {
     let retryAction: () -> ()
     let buildAction: () -> ()
     
-    #if os(OSX)
-    var shouldShowIndeterminateProgressBar: Bool {
-        switch viewState.status {
-        case .socketConnecting, .buildRequestSent, .downloadingModel:
-            return true
-        default:
-            return false
-        }
-    }
-    #endif
-    
     var body: some View {
         VStack {
-            #if os(OSX)
-            NSProgressView(value: $viewState.progress, maxValue: 100.0,
-                           isIndeterminate: shouldShowIndeterminateProgressBar)
-                .padding(.horizontal)
-            #else
-            ProgressView(value: viewState.progress, total: 100.0)
-                .padding(.horizontal)
-            #endif
-            
-            viewState.status.view
-            
             switch viewState.status {
             case .error(_):
-                Button("Retry", action: retryAction)
-                    .modifier(CircularButtonShape(backgroundAsset: .blue))
-                    .centerTextInsideForm()
-                    .foregroundColor(.primary)
+                ReusableProgressView(progress: $viewState.progress, isIndeterminate: $viewState.progressShouldBeIndeterminate, statusText: $viewState.statusText, statusColor: viewState.status.color, buttonText: "Retry", buttonEnabled: viewState.buildButtonEnable, buttonAction: retryAction)
             default:
-                Button("Build", action: buildAction)
-                    .modifier(CircularButtonShape(backgroundAsset: viewState.buildButtonEnable
-                                                    ? .blue : .middleGrey))
-                    .centerTextInsideForm()
-                    .foregroundColor(viewState.buildButtonEnable ? .primary : Assets.middleGrey.color)
-                    .disabled(!viewState.buildButtonEnable)
+                ReusableProgressView(progress: $viewState.progress, isIndeterminate: $viewState.progressShouldBeIndeterminate, statusText: $viewState.statusText, statusColor: viewState.status.color, buttonText: "Build", buttonEnabled: viewState.buildButtonEnable, buttonAction: buildAction)
             }
         }
         .padding(.horizontal)

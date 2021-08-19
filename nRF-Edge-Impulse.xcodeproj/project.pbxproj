@@ -166,6 +166,8 @@
 		AAE5B63625F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAE96F0A26A58E220089D370 /* AlertViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE96F0926A58E220089D370 /* AlertViewContainer.swift */; };
 		AAE96F0B26A58E220089D370 /* AlertViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE96F0926A58E220089D370 /* AlertViewContainer.swift */; };
+		AAEBB92B26CE6D5B006A4DF7 /* ReusableProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEBB92A26CE6D5B006A4DF7 /* ReusableProgressView.swift */; };
+		AAEBB92C26CE6D5B006A4DF7 /* ReusableProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEBB92A26CE6D5B006A4DF7 /* ReusableProgressView.swift */; };
 		AAEDE6312628459600B96AE9 /* SettingsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE6302628459600B96AE9 /* SettingsContentView.swift */; };
 		AAEDE6332628803500B96AE9 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE6322628803500B96AE9 /* DropdownView.swift */; };
 		AAEDE6342628807B00B96AE9 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE6322628803500B96AE9 /* DropdownView.swift */; };
@@ -400,6 +402,7 @@
 		AAE507B9268F19990017CAED /* RenameDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameDeviceView.swift; sourceTree = "<group>"; };
 		AAE5B63425F23A4500AA003D /* sample_projects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_projects.json; sourceTree = "<group>"; };
 		AAE96F0926A58E220089D370 /* AlertViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewContainer.swift; sourceTree = "<group>"; };
+		AAEBB92A26CE6D5B006A4DF7 /* ReusableProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProgressView.swift; sourceTree = "<group>"; };
 		AAEDE6302628459600B96AE9 /* SettingsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsContentView.swift; sourceTree = "<group>"; };
 		AAEDE6322628803500B96AE9 /* DropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
 		AAEDE635262882BF00B96AE9 /* ProjectSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSelectionView.swift; sourceTree = "<group>"; };
@@ -799,6 +802,7 @@
 				C39B106D2695DF400056095E /* HUD.swift */,
 				AAF7D45A269F2C22009269D4 /* FormIniOSListInMacOS.swift */,
 				AAE96F0926A58E220089D370 /* AlertViewContainer.swift */,
+				AAEBB92A26CE6D5B006A4DF7 /* ReusableProgressView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1340,6 +1344,7 @@
 				AAEED04426A7B68800999E51 /* ConnectedDevicePicker.swift in Sources */,
 				AAF4F6C32625C8C600012359 /* ThreePaneLayoutView.swift in Sources */,
 				AA482F812631A213007B8B64 /* UserContentView.swift in Sources */,
+				AAEBB92B26CE6D5B006A4DF7 /* ReusableProgressView.swift in Sources */,
 				C3755CD4268F0A9700FE8C69 /* DeviceDetails.swift in Sources */,
 				AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */,
 				AAF5E75326400A3A00AC3271 /* DataSamplesView.swift in Sources */,
@@ -1454,6 +1459,7 @@
 				C39B106C2695C5390056095E /* HUDState.swift in Sources */,
 				AA32792D2604C66B00A0CA6A /* DataAcquisitionViewState.swift in Sources */,
 				AA032989266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */,
+				AAEBB92C26CE6D5B006A4DF7 /* ReusableProgressView.swift in Sources */,
 				AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */,
 				AAF4F6C42625C8C600012359 /* ThreePaneLayoutView.swift in Sources */,
 				AA535511261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */,
