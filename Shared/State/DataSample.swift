@@ -13,7 +13,23 @@ struct DataSample: Identifiable, Codable {
     let filename: String
     let category: Category
     let label: String
+    let intervalMs: Double
+    let frequency: Double
     let totalLengthMs: Double
+    let sensors: [DataSample.Sensor]
+    
+    var symbolName: String {
+        switch sensors.first?.units {
+        case "m/s2":
+            return "gyroscope"
+        case "wav":
+            return "mic"
+        case "Gaus":
+            return "tuningfork"
+        default:
+            return "square"
+        }
+    }
     
     func totalLengthInSeconds() -> String {
         let double = Measurement(value: totalLengthMs, unit: UnitDuration.milliseconds)
@@ -32,14 +48,16 @@ extension DataSample {
         var id: Int {
             rawValue.hashValue
         }
+    }
+}
+
+// MARK: - DataSample.Sensor
+
+extension DataSample {
+    
+    struct Sensor: Codable {
         
-        var symbolName: String {
-            switch self {
-            case .training:
-                return "highlighter"
-            case .testing:
-                return "pencil.and.outline"
-            }
-        }
+        let name: String
+        let units: String
     }
 }

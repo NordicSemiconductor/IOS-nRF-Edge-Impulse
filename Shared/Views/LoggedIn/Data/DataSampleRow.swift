@@ -21,7 +21,7 @@ struct DataSampleRow: View {
     
     var body: some View {
         MultiColumnView(columns: DataSamplesView.Columns) {
-            Image(systemName: sample.category.symbolName)
+            Image(systemName: sample.symbolName)
             Text(sample.filename)
                 .bold()
             Text(sample.label)
