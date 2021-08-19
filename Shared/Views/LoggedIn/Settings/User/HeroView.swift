@@ -12,25 +12,31 @@ struct HeroView: View {
     
     let user: User
     
+    #if os(OSX)
+    var body: some View {
+        ZStack {
+            LinearGradient(gradient: Gradient(colors: [Color.clear, Assets.sky.color]),
+                           startPoint: .leading, endPoint: .trailing)
+            VisualEffectBlur()
+            UserView(user: user)
+        }
+        .frame(height: 1.25 * UserView.ImageSize.height)
+        .cornerRadius(8.0, antialiased: true)
+    }
+    #else
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [Assets.blue.color, Assets.grass.color, .yellow, Assets.red.color]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-
-            #if os(OSX)
-            VisualEffectBlur()
-            UserView(user: user)
-            #else
+                startPoint: .topLeading, endPoint: .bottomTrailing)
+            
             VisualEffectBlur(blurStyle: .systemThickMaterial, vibrancyStyle: .none) {
                 UserView(user: user)
                     .padding(.horizontal)
             }
-            #endif
         }
         .frame(height: 2 * UserView.ImageSize.height)
     }
+    #endif
 }
 
 // MARK: - Preview
