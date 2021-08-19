@@ -27,8 +27,6 @@
 		AA0050902695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00508E2695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift */; };
 		AA008A7725EE422C00F70F75 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA008A7625EE422C00F70F75 /* Project.swift */; };
 		AA008A7825EE422C00F70F75 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA008A7625EE422C00F70F75 /* Project.swift */; };
-		AA0101FF269C3F280045D6F2 /* DeploymentProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0101FE269C3F280045D6F2 /* DeploymentProgressView.swift */; };
-		AA010200269C3F280045D6F2 /* DeploymentProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0101FE269C3F280045D6F2 /* DeploymentProgressView.swift */; };
 		AA010205269C47C90045D6F2 /* DeploymentLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010204269C47C90045D6F2 /* DeploymentLogView.swift */; };
 		AA010208269C5CD30045D6F2 /* SocketIOJobResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010207269C5CD30045D6F2 /* SocketIOJobResult.swift */; };
 		AA010209269C5CD30045D6F2 /* SocketIOJobResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA010207269C5CD30045D6F2 /* SocketIOJobResult.swift */; };
@@ -322,7 +320,6 @@
 		01E10962265FAEDE000F2EE4 /* RegisteredDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredDeviceView.swift; sourceTree = "<group>"; };
 		AA00508E2695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildOnDeviceModelRequest.swift; sourceTree = "<group>"; };
 		AA008A7625EE422C00F70F75 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		AA0101FE269C3F280045D6F2 /* DeploymentProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentProgressView.swift; sourceTree = "<group>"; };
 		AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentConfigurationView.swift; sourceTree = "<group>"; };
 		AA010204269C47C90045D6F2 /* DeploymentLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentLogView.swift; sourceTree = "<group>"; };
 		AA010207269C5CD30045D6F2 /* SocketIOJobResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOJobResult.swift; sourceTree = "<group>"; };
@@ -656,7 +653,6 @@
 				AA010204269C47C90045D6F2 /* DeploymentLogView.swift */,
 				AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */,
 				AA1C386E26A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift */,
-				AA0101FE269C3F280045D6F2 /* DeploymentProgressView.swift */,
 				AA0D812B2608F62700AE615A /* DeploymentViewState.swift */,
 				AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */,
 				AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */,
@@ -1348,7 +1344,6 @@
 				C3755CD4268F0A9700FE8C69 /* DeviceDetails.swift in Sources */,
 				AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */,
 				AAF5E75326400A3A00AC3271 /* DataSamplesView.swift in Sources */,
-				AA0101FF269C3F280045D6F2 /* DeploymentProgressView.swift in Sources */,
 				C39B106E2695DF400056095E /* HUD.swift in Sources */,
 				AA28405F261F537C00EB8637 /* PasswordField.swift in Sources */,
 				AA4E8A7926947A3600C844FE /* DeploymentViewState+SocketStatus.swift in Sources */,
@@ -1394,7 +1389,6 @@
 				AAF4E323261DD193009C387B /* Cache.swift in Sources */,
 				AA1016FD25E9173A006DC88A /* Network.swift in Sources */,
 				AACCBA892600C32C0042E87B /* ErrorView.swift in Sources */,
-				AA010200269C3F280045D6F2 /* DeploymentProgressView.swift in Sources */,
 				AA02088F25F651D100FD6B24 /* ScanResult.swift in Sources */,
 				AA0B2FFB267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift in Sources */,
 				AA03E98525E3EF13003DA9DA /* ContentView.swift in Sources */,

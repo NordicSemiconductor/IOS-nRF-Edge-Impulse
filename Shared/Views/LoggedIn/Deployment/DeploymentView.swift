@@ -35,8 +35,12 @@ struct DeploymentView: View {
                 .padding(.horizontal)
             
             Section(header: Text("Progress").bold()) {
-                DeploymentProgressView(retryAction: retry, buildAction: connectThenBuild)
-                    .environmentObject(viewState)
+                switch viewState.status {
+                case .error(_):
+                    ReusableProgressView(progress: $viewState.progress, isIndeterminate: $viewState.progressShouldBeIndeterminate, statusText: $viewState.statusText, statusColor: $viewState.statusColor, buttonText: "Retry", buttonEnabled: viewState.buildButtonEnable, buttonAction: retry)
+                default:
+                    ReusableProgressView(progress: $viewState.progress, isIndeterminate: $viewState.progressShouldBeIndeterminate, statusText: $viewState.statusText, statusColor: $viewState.statusColor, buttonText: "Build", buttonEnabled: viewState.buildButtonEnable, buttonAction: connectThenBuild)
+                }
             }
         }
         .background(Color.formBackground)

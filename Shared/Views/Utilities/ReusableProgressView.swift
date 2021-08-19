@@ -16,7 +16,7 @@ struct ReusableProgressView: View {
     var isIndeterminate: Binding<Bool>
     
     var statusText: Binding<String>
-    @State var statusColor = Color.red
+    var statusColor: Binding<Color>
     
     @State var buttonText = "Button"
     @State var buttonEnabled = true
@@ -35,7 +35,7 @@ struct ReusableProgressView: View {
             #endif
             
             HStack {
-                ConnectionStatus(color: statusColor)
+                ConnectionStatus(color: statusColor.wrappedValue)
                 Text(statusText.wrappedValue.uppercasingFirst)
                     .lineLimit(1)
             }
