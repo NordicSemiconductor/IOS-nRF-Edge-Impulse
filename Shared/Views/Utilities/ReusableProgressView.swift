@@ -30,7 +30,7 @@ struct ReusableProgressView: View {
     var body: some View {
         VStack {
             #if os(OSX)
-            NSProgressView(value: progress.wrappedValue, maxValue: 100.0,
+            NSProgressView(value: progress.projectedValue, maxValue: 100.0,
                            isIndeterminate: isIndeterminate.wrappedValue)
                 .padding(.horizontal)
             #else
