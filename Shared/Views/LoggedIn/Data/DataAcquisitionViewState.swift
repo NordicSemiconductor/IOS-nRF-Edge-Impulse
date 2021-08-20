@@ -42,7 +42,8 @@ final class DataAcquisitionViewState: ObservableObject {
     @Published var samplingButtonEnable = true
     
     private(set) lazy var countdownTimer = Timer.publish(every: 1, on: .main, in: .common)
-    private lazy var cancellables = Set<AnyCancellable>()
+    private lazy var stateCancellables = Set<AnyCancellable>()
+    private lazy var timerCancellables = Set<AnyCancellable>()
     private lazy var logger = Logger(Self.self)
     
     // MARK: Init
@@ -60,7 +61,7 @@ final class DataAcquisitionViewState: ObservableObject {
                 self.samplingButtonEnable = !emptyLabel && !unselectedDevice
                 print("samplingButtonEnable: \(self.samplingButtonEnable)")
             }
-            .store(in: &cancellables)
+            .store(in: &stateCancellables)
     }
     
     // MARK: API
@@ -85,12 +86,12 @@ final class DataAcquisitionViewState: ObservableObject {
     func startCountdownTimer() {
         logger.debug(#function)
         countdownTimer.connect()
-            .store(in: &cancellables)
+            .store(in: &timerCancellables)
     }
     
     func stopCountdownTimer() {
         logger.debug(#function)
-        cancellables.forEach { $0.cancel() }
-        cancellables.removeAll()
+        timerCancellables.forEach { $0.cancel() }
+        timerCancellables.removeAll()
     }
 }
