@@ -14,7 +14,7 @@ struct DataAcquisitionView: View {
     @EnvironmentObject var appData: AppData
     @EnvironmentObject var deviceData: DeviceData
     
-    @ObservedObject internal var viewState = DataAcquisitionViewState()
+    @StateObject internal var viewState = DataAcquisitionViewState()
     
     // MARK: - View
     
@@ -57,18 +57,9 @@ struct DataAcquisitionView: View {
                     .padding(.vertical)
                 
                 Section(header: Text("Progress").bold()) {
-                    ProgressView(value: viewState.progress, total: 100.0)
-                        .frame(maxWidth: 250)
-                    
-                    Text(viewState.progressString)
-                        .lineLimit(0)
-                        .foregroundColor(.primary)
-                        .centerTextInsideForm()
-                    
-                    Button("Start Sampling", action: startSampling)
-                        .centerTextInsideForm()
-                        .disabled(!viewState.canStartSampling || viewState.isSampling)
-                        .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
+                    Section(header: Text("Progress").bold()) {
+                        ReusableProgressView(progress: $viewState.progress, isIndeterminate: $viewState.indeterminateProgress, statusText: $viewState.progressString, statusColor: $viewState.progressColor, buttonText: "Start Sampling", buttonEnabled: $viewState.samplingButtonEnable, buttonAction: startSampling)
+                    }
                 }
             }
         }
