@@ -62,7 +62,7 @@ private extension DeviceList {
     @ViewBuilder
     private func buildScanResultsList(scanResult: [DeviceData.ScanResultWrapper]) -> some View {
         
-        DeviceSection(title: "Scan Results", data: scanResult) { s in
+        DeviceSection(title: "Add Device", data: scanResult) { s in
             DeviceRow(s.scanResult, isConnecting: s.state == .connecting)
                 .contentShape(Rectangle())
                 .onTapGesture {
@@ -74,7 +74,7 @@ private extension DeviceList {
     // MARK: Registered Devices
     @ViewBuilder
     private func buildRegisteredDevicesList() -> some View {
-        DeviceSection(title: "Registered Devices", data: deviceData.registeredDevices) { d in
+        DeviceSection(title: "Devices", data: deviceData.registeredDevices) { d in
             RegisteredDeviceRow(device: d.device, state: d.state, selection: $selectedDeviceId)
                 .contextMenu {
                     deviceContextMenu(device: d.device, state: d.state)

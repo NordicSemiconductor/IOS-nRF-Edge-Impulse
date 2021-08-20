@@ -22,12 +22,14 @@ extension DeviceData {
             var color: Color {
                 switch self {
                 case .notConnectable:
-                    return .red
+                    return .gray
                 case .readyToConnect:
-                    return .orange
+                    return Assets.lake.color
                 case .connected:
                     return .green
-                case .connecting, .deleting:
+                case .connecting:
+                    return Assets.fall.color
+                case .deleting:
                     return .gray
                 }
             }

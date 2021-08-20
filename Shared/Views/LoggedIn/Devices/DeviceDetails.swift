@@ -125,10 +125,10 @@ private struct DeviceInfoRow: View {
     let title: String
     let systemImage: String?
     let content: String
-        
+    
     var body: some View {
         HStack {
-            Label(title, systemImage: systemImage ?? "")
+            NordicLabel(title: title, systemImage: systemImage ?? "")
             Spacer()
             
             Text(content)
@@ -142,6 +142,7 @@ private struct DeviceInfoRow: View {
                     #endif
                     hudState.show(title: "Copied", systemImage: "doc.on.doc")
                 }
+                .foregroundColor(.secondary)
         }
     }
 }
@@ -153,7 +154,14 @@ private struct BoolDeviceInfoRow: View {
     
     var body: some View {
         HStack {
-            Label(title, systemImage: systemImage ?? "")
+            Label(
+                title: { Text(title) },
+                icon: {
+                    Image(systemName: systemImage ?? "")
+                        .renderingMode(.template)
+                        .foregroundColor(.universalAccentColor)
+                }
+            )
             Spacer()
             choice
             ? Image(systemName: "checkmark.circle.fill").foregroundColor(.green)
@@ -170,9 +178,10 @@ private struct SensorSection: View {
         Section(header: Label(sensor.name, systemImage: sensorIcon)) {
             sensor.maxSampleLengthS.map { length in
                 HStack {
-                    Label("Max. Sample Length:", systemImage: "waveform.path.ecg")
+                    NordicLabel(title: "Max. Sample Length:", systemImage: "waveform.path.ecg")
                     Spacer()
                     Text("\(length) ms").bold()
+                        .foregroundColor(.secondary)
                 }
             }
             
@@ -181,9 +190,10 @@ private struct SensorSection: View {
                     byJoining: frequencies.map { "\(String(format: "%.2f", $0)) Hz" })
                 
                 HStack(alignment: .top) {
-                    Label("Frequencies:", systemImage: "wave.3.right")
+                    NordicLabel(title: "Frequencies", systemImage: "wave.3.right")
                     Spacer()
                     Text(text).bold()
+                        .foregroundColor(.secondary)
                 }
             }
         }
@@ -202,6 +212,22 @@ private struct SensorSection: View {
         default:
             return "square"
         }
+    }
+}
+
+private struct NordicLabel: View {
+    let title: String
+    let systemImage: String
+    
+    var body: some View {
+        Label(
+            title: { Text(title) },
+            icon: {
+                Image(systemName: systemImage)
+                    .renderingMode(.template)
+                    .foregroundColor(.universalAccentColor)
+            }
+        )
     }
 }
 
