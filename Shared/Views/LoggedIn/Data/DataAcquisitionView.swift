@@ -31,7 +31,7 @@ struct DataAcquisitionView: View {
                 ReusableProgressView(progress: $viewState.progress, isIndeterminate: $viewState.indeterminateProgress, statusText: $viewState.progressString, statusColor: $viewState.progressColor, buttonText: "Start Sampling", buttonEnabled: $viewState.samplingButtonEnable, buttonAction: startSampling)
             }
         }
-        .setTitle("New Sample")
+        .setTitle("Record New Data")
         .onAppear(perform: setInitialSelectedDevice)
         .onReceive(viewState.countdownTimer, perform: onSampleTimerTick(_:))
         .frame(minWidth: .minTabWidth)
