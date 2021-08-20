@@ -13,18 +13,10 @@ final class DataAcquisitionViewState: ObservableObject {
     
     // MARK: Properties
     
-    @Published var label = "" {
-        didSet {
-            samplingButtonEnable = !isSampling && selectedDevice != Constant.unselectedDevice && label.hasItems
-        }
-    }
+    @Published var label = ""
     @Published var selectedDevice = Constant.unselectedDevice {
         didSet {
-            guard selectedDevice != Constant.unselectedDevice else {
-                samplingButtonEnable = false
-                return
-            }
-            samplingButtonEnable = !isSampling && selectedDevice != Constant.unselectedDevice && label.hasItems
+            guard selectedDevice != Constant.unselectedDevice else { return }
             selectedSensor = selectedDevice.sensors.first ?? Constant.unselectedSensor
         }
     }
@@ -45,13 +37,31 @@ final class DataAcquisitionViewState: ObservableObject {
     @Published var progress = 0.0
     @Published var indeterminateProgress = false
     @Published var progressString = "Idle"
-    @Published var progressColor = Assets.lightGrey.color
+    @Published var progressColor = Assets.middleGrey.color
     @Published var isSampling = false
-    @Published var samplingButtonEnable = false
+    @Published var samplingButtonEnable = true
     
     private(set) lazy var countdownTimer = Timer.publish(every: 1, on: .main, in: .common)
     private lazy var cancellables = Set<AnyCancellable>()
     private lazy var logger = Logger(Self.self)
+    
+    // MARK: Init
+    
+    init() {
+        Publishers.CombineLatest3($label.map { $0.isEmpty },
+                                  $selectedDevice.map { $0 == Constant.unselectedDevice },
+                                  $isSampling.map { $0 })
+            .sink { emptyLabel, unselectedDevice, isSampling in
+                guard !isSampling else {
+                    self.samplingButtonEnable = false
+                    print("samplingButtonEnable: \(self.samplingButtonEnable)")
+                    return
+                }
+                self.samplingButtonEnable = !emptyLabel && !unselectedDevice
+                print("samplingButtonEnable: \(self.samplingButtonEnable)")
+            }
+            .store(in: &cancellables)
+    }
     
     // MARK: API
     

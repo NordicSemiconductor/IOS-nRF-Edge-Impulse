@@ -14,7 +14,7 @@ struct DataAcquisitionView: View {
     
     // MARK: - State
     
-    @ObservedObject internal var viewState = DataAcquisitionViewState()
+    @StateObject internal var viewState = DataAcquisitionViewState()
     @State private var keyboardShownOnce = false
     
     // MARK: - @viewBuilder
