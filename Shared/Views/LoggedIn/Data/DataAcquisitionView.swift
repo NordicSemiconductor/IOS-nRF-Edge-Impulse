@@ -14,7 +14,7 @@ struct DataAcquisitionView: View {
     
     // MARK: - State
     
-    @ObservedObject internal var viewState = DataAcquisitionViewState()
+    @StateObject internal var viewState = DataAcquisitionViewState()
     @State private var keyboardShownOnce = false
     
     // MARK: - @viewBuilder
@@ -27,18 +27,11 @@ struct DataAcquisitionView: View {
             Divider()
                 .padding(.horizontal)
             
-            Form {
-                Section(header: Text("Progress")) {
-                    ProgressView(value: viewState.progress, total: 100.0)
-                    
-                    Button("Start Sampling", action: startSampling)
-                        .disabled(!viewState.canStartSampling || viewState.isSampling)
-                        .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
-                }
+            Section(header: Text("Progress").bold()) {
+                ReusableProgressView(progress: $viewState.progress, isIndeterminate: $viewState.indeterminateProgress, statusText: $viewState.progressString, statusColor: $viewState.progressColor, buttonText: "Start Sampling", buttonEnabled: $viewState.samplingButtonEnable, buttonAction: startSampling)
             }
-            .frame(height: 140)
         }
-        .setTitle("New Sample")
+        .setTitle("Record New Data")
         .onAppear(perform: setInitialSelectedDevice)
         .onReceive(viewState.countdownTimer, perform: onSampleTimerTick(_:))
         .frame(minWidth: .minTabWidth)

@@ -17,11 +17,13 @@ internal extension DataAcquisitionView {
     }
     
     func startSampling() {
+        viewState.progressColor = Assets.sun.color
         viewState.progressString = "Requesting Sample ID..."
         appData.requestNewSampleID(viewState) { response, error in
             guard let response = response else {
                 let error: Error! = error
                 viewState.isSampling = false
+                viewState.progressColor = Assets.red.color
                 viewState.progressString = error.localizedDescription
                 return
             }

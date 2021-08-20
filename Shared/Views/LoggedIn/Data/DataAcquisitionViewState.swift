@@ -35,15 +35,31 @@ final class DataAcquisitionViewState: ObservableObject {
     @Published var sampleLength = Constant.unselectedSampleLength
     @Published var selectedFrequency = Constant.unselectedFrequency
     @Published var progress = 0.0
-    @Published var progressString = ""
+    @Published var indeterminateProgress = false
+    @Published var progressString = "Idle"
+    @Published var progressColor = Assets.middleGrey.color
     @Published var isSampling = false
+    @Published var samplingButtonEnable = true
     
     private(set) lazy var countdownTimer = Timer.publish(every: 1, on: .main, in: .common)
-    private lazy var cancellables = Set<AnyCancellable>()
+    private lazy var stateCancellables = Set<AnyCancellable>()
+    private lazy var timerCancellables = Set<AnyCancellable>()
     private lazy var logger = Logger(Self.self)
     
-    var canStartSampling: Bool {
-        selectedDevice != Constant.unselectedDevice && label.hasItems
+    // MARK: Init
+    
+    init() {
+        Publishers.CombineLatest3($label.map { $0.isEmpty },
+                                  $selectedDevice.map { $0 == Constant.unselectedDevice },
+                                  $isSampling.map { $0 })
+            .sink { emptyLabel, unselectedDevice, isSampling in
+                guard !isSampling else {
+                    self.samplingButtonEnable = false
+                    return
+                }
+                self.samplingButtonEnable = !emptyLabel && !unselectedDevice
+            }
+            .store(in: &stateCancellables)
     }
     
     // MARK: API
@@ -68,12 +84,12 @@ final class DataAcquisitionViewState: ObservableObject {
     func startCountdownTimer() {
         logger.debug(#function)
         countdownTimer.connect()
-            .store(in: &cancellables)
+            .store(in: &timerCancellables)
     }
     
     func stopCountdownTimer() {
         logger.debug(#function)
-        cancellables.forEach { $0.cancel() }
-        cancellables.removeAll()
+        timerCancellables.forEach { $0.cancel() }
+        timerCancellables.removeAll()
     }
 }

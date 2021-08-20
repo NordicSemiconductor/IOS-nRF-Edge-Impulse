@@ -24,6 +24,7 @@ extension DeviceData {
                     guard deviceHandler?.samplingState != .completed else { return }
                     viewState.stopCountdownTimer()
                     viewState.isSampling = false
+                    viewState.progressColor = Assets.red.color
                     viewState.progressString = error.localizedDescription
                     AppEvents.shared.error = ErrorEvent(error)
                 default:
@@ -37,10 +38,14 @@ extension DeviceData {
                 case .receivingFromFirmware:
                     viewState.stopCountdownTimer()
                     viewState.progress = 100.0
+                    viewState.indeterminateProgress = true
+                    viewState.progressColor = Assets.blue.color
                 case .completed:
                     viewState.stopCountdownTimer()
                     viewState.progress = 100.0
+                    viewState.indeterminateProgress = false
                     viewState.isSampling = false
+                    viewState.progressColor = .green
                     self.logger.debug("Sample Uploaded Successfully. Triggering Request for new Samples.")
                     self.appData.requestDataSamples()
                 default:
@@ -56,6 +61,8 @@ extension DeviceData {
         }
         catch (let error) {
             viewState.isSampling = false
+            viewState.progressColor = Assets.blue.color
+            viewState.progressString = error.localizedDescription
             AppEvents.shared.error = ErrorEvent(error)
         }
     }
