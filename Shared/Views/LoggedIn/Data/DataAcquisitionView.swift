@@ -27,16 +27,9 @@ struct DataAcquisitionView: View {
             Divider()
                 .padding(.horizontal)
             
-            Form {
-                Section(header: Text("Progress")) {
-                    ProgressView(value: viewState.progress, total: 100.0)
-                    
-                    Button("Start Sampling", action: startSampling)
-                        .disabled(!viewState.canStartSampling || viewState.isSampling)
-                        .accentColor(viewState.canStartSampling ? Assets.red.color : Assets.middleGrey.color)
-                }
+            Section(header: Text("Progress").bold()) {
+                ReusableProgressView(progress: $viewState.progress, isIndeterminate: $viewState.indeterminateProgress, statusText: $viewState.progressString, statusColor: $viewState.progressColor, buttonText: "Start Sampling", buttonEnabled: $viewState.samplingButtonEnable, buttonAction: startSampling)
             }
-            .frame(height: 140)
         }
         .setTitle("New Sample")
         .onAppear(perform: setInitialSelectedDevice)

@@ -13,10 +13,18 @@ final class DataAcquisitionViewState: ObservableObject {
     
     // MARK: Properties
     
-    @Published var label = ""
+    @Published var label = "" {
+        didSet {
+            samplingButtonEnable = !isSampling && selectedDevice != Constant.unselectedDevice && label.hasItems
+        }
+    }
     @Published var selectedDevice = Constant.unselectedDevice {
         didSet {
-            guard selectedDevice != Constant.unselectedDevice else { return }
+            guard selectedDevice != Constant.unselectedDevice else {
+                samplingButtonEnable = false
+                return
+            }
+            samplingButtonEnable = !isSampling && selectedDevice != Constant.unselectedDevice && label.hasItems
             selectedSensor = selectedDevice.sensors.first ?? Constant.unselectedSensor
         }
     }
@@ -35,16 +43,15 @@ final class DataAcquisitionViewState: ObservableObject {
     @Published var sampleLength = Constant.unselectedSampleLength
     @Published var selectedFrequency = Constant.unselectedFrequency
     @Published var progress = 0.0
-    @Published var progressString = ""
+    @Published var indeterminateProgress = false
+    @Published var progressString = "Idle"
+    @Published var progressColor = Assets.lightGrey.color
     @Published var isSampling = false
+    @Published var samplingButtonEnable = false
     
     private(set) lazy var countdownTimer = Timer.publish(every: 1, on: .main, in: .common)
     private lazy var cancellables = Set<AnyCancellable>()
     private lazy var logger = Logger(Self.self)
-    
-    var canStartSampling: Bool {
-        selectedDevice != Constant.unselectedDevice && label.hasItems
-    }
     
     // MARK: API
     
