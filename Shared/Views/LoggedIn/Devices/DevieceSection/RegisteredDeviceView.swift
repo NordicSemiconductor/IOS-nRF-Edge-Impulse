@@ -12,28 +12,38 @@ struct RegisteredDeviceView: View {
     let connectionState: DeviceData.DeviceWrapper.State
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text(device.name)
-                    .font(.headline)
-                    .bold()
-                    .lineLimit(1)
-                    .foregroundColor(connectionState == .deleting ? .gray : .textColor)
-                Spacer()
-                if connectionState == .connecting || connectionState == .deleting {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .frame(width: 20, height: 20)
-                } else {
-                    ConnectionStatus(color: connectionState.color)
-                }
+        HStack {
+            ZStack {
+                Circle()
+                    .foregroundColor(connectionState.color)
+                Image(systemName: "cpu")
+                    .resizable()
+                    .frame(size: CGSize(width: 24, height:24))
+                    .foregroundColor(.white)
+                    
             }
-            
-            Text(connectionState == .deleting ? "Deleting..." : "ID: \(device.deviceId)")
-                .labelStyle(IconOnTheRightLabelStyle())
-                .padding(.vertical, 2)
-                .foregroundColor(Assets.middleGrey.color)
-                .lineLimit(1)
+            .frame(size: CGSize(width: 40, height: 40))
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(device.name)
+                        .font(.headline)
+                        .bold()
+                        .lineLimit(1)
+                        .foregroundColor(connectionState == .deleting ? .gray : .textColor)
+                }
+                
+                Text(connectionState == .deleting ? "Deleting..." : "ID: \(device.deviceId)")
+                    .labelStyle(IconOnTheRightLabelStyle())
+                    .padding(.vertical, 2)
+                    .foregroundColor(Assets.middleGrey.color)
+                    .lineLimit(1)
+            }
+            Spacer()
+            if connectionState == .connecting || connectionState == .deleting {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .frame(width: 20, height: 20)
+            }
         }
         .padding(4)
     }
