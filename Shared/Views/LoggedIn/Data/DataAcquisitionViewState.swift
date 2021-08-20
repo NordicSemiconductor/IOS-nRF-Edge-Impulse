@@ -55,11 +55,9 @@ final class DataAcquisitionViewState: ObservableObject {
             .sink { emptyLabel, unselectedDevice, isSampling in
                 guard !isSampling else {
                     self.samplingButtonEnable = false
-                    print("samplingButtonEnable: \(self.samplingButtonEnable)")
                     return
                 }
                 self.samplingButtonEnable = !emptyLabel && !unselectedDevice
-                print("samplingButtonEnable: \(self.samplingButtonEnable)")
             }
             .store(in: &stateCancellables)
     }
