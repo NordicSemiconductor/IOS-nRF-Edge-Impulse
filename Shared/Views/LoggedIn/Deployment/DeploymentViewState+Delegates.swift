@@ -13,7 +13,7 @@ import McuManager
 extension DeploymentViewState: McuMgrLogDelegate {
     
     func log(_ msg: String, ofCategory category: McuMgrLogCategory, atLevel level: McuMgrLogLevel) {
-        guard level != .verbose else { return }
+        guard category != .transport else { return }
         DispatchQueue.main.async { [unowned self] in
             self.logs.append(LogMessage(msg))
         }
@@ -48,7 +48,9 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     }
     
     func upgradeDidCancel(state: FirmwareUpgradeState) {
-        // No-op.
+        DispatchQueue.main.async { [unowned self] in
+            self.status = .error(NordicError(description: "Upgrade Cancelled."))
+        }
     }
     
     func uploadProgressDidChange(bytesSent: Int, imageSize: Int, timestamp: Date) {
