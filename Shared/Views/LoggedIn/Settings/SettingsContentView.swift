@@ -49,7 +49,7 @@ struct SettingsContentView: View {
             
             Section(header: Text("About App")) {
                 HStack {
-                    Text("Version")
+                    Text("Application Version")
                     Spacer()
                     Text(Constant.appVersion)
                         .foregroundColor(.gray)
