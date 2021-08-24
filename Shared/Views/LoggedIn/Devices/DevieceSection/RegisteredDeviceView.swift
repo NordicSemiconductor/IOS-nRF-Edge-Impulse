@@ -23,6 +23,7 @@ struct RegisteredDeviceView: View {
                     
             }
             .frame(size: CGSize(width: 40, height: 40))
+            
             VStack(alignment: .leading) {
                 HStack {
                     Text(device.name)
@@ -38,7 +39,10 @@ struct RegisteredDeviceView: View {
                     .foregroundColor(Assets.middleGrey.color)
                     .lineLimit(1)
             }
+            .padding(.horizontal, 4)
+            
             Spacer()
+            
             if connectionState == .connecting || connectionState == .deleting {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())

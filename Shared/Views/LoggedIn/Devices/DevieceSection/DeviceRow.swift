@@ -27,33 +27,40 @@ struct DeviceRow: View {
     
     var body: some View {
         HStack {
-            HStack(alignment: .top) {
-                Image(systemName: "candybarphone")
-                    .foregroundColor(deviceForegroundColor)
+            ZStack {
+                Circle()
+                    .foregroundColor(Assets.darkGrey.color)
                 
-                VStack(alignment: .leading) {
-                    Text(scanResult.name)
-                        .font(.headline)
-                        .foregroundColor(deviceForegroundColor)
-                        .bold()
+                Image(systemName: "cpu")
+                    .resizable()
+                    .frame(size: CGSize(width: 24, height:24))
+                    .foregroundColor(.white)
+            }
+            .frame(size: CGSize(width: 40, height: 40))
+            
+            VStack(alignment: .leading) {
+                Text(scanResult.name)
+                    .font(.headline)
+                    .foregroundColor(deviceForegroundColor)
+                    .bold()
+                
+                HStack {
+                    SignalLevel(rssi: scanResult.rssi)
+                        .frame(width: 20, height: 15, alignment: .center)
                     
-                    HStack {
-                        SignalLevel(rssi: scanResult.rssi)
-                            .frame(width: 20, height: 15, alignment: .center)
-                        
-                        Text("\(scanResult.rssi.value) dB")
-                            .foregroundColor(deviceForegroundColor)
-                    }
+                    Text("\(scanResult.rssi.value) dB")
+                        .foregroundColor(deviceForegroundColor)
                 }
             }
-            .padding(8)
+            .padding(.horizontal, 4)
+            
             Spacer()
+            
             if isConnecting {
                 ProgressView()
             }
         }
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 12))
-        
+        .padding(8)
     }
     
     var deviceForegroundColor: Color {
