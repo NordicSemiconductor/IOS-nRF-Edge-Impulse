@@ -16,7 +16,7 @@ extension DeploymentViewState {
         case socketConnecting, socketConnected
         case buildRequestSent, buildingModel(_ id: Int)
         case downloadingModel, unpackingModelData, performingFirmwareUpdate
-        case error(_ error: Error)
+        case success, error(_ error: Error)
         
         var color: Color {
             switch self {
@@ -25,9 +25,11 @@ extension DeploymentViewState {
             case .socketConnecting, .buildRequestSent, .unpackingModelData:
                 return Assets.sun.color
             case .socketConnected, .buildingModel(_):
-                return .green
+                return Assets.grass.color
             case .downloadingModel, .performingFirmwareUpdate:
                 return Assets.blue.color
+            case .success:
+                return Color.green
             case .error(_):
                 return Assets.red.color
             }
@@ -49,6 +51,8 @@ extension DeploymentViewState {
                 return "Unpacking Data..."
             case .performingFirmwareUpdate:
                 return "Performing DFU..."
+            case .success:
+                return "Success!"
             case .error(_):
                 return "Failed"
             default:

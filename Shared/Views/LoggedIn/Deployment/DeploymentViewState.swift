@@ -210,7 +210,7 @@ internal extension DeploymentViewState {
         statusColor = status.color
         
         switch status {
-        case .idle:
+        case .idle, .success:
             buildButtonEnable = selectedDeviceHandler != nil
         case .socketConnecting:
             progressShouldBeIndeterminate = true

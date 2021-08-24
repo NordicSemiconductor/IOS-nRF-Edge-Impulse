@@ -37,6 +37,7 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     func upgradeDidComplete() {
         DispatchQueue.main.async { [unowned self] in
             self.progress = 100.0
+            self.status = .success
         }
     }
     
