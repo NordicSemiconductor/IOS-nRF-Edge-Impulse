@@ -27,6 +27,24 @@ struct ReusableProgressView: View {
     
     // MARK: View
     
+    // MARK: Helpers
+    
+    var connectionStatusTopPadding: CGFloat {
+        #if os(macOS)
+        return 0
+        #else
+        return 16
+        #endif
+    }
+    
+    var buttonTopPadding: CGFloat {
+        #if os(macOS)
+        return 0
+        #else
+        return 8
+        #endif
+    }
+    
     var body: some View {
         VStack {
             #if os(OSX)
@@ -44,11 +62,10 @@ struct ReusableProgressView: View {
                 Text(statusText.wrappedValue.uppercasingFirst)
                     .lineLimit(1)
             }
-            .padding(.top, 16)
+            .padding(.top, connectionStatusTopPadding)
             
             Button(buttonText, action: buttonAction)
-                .centerTextInsideForm()
-                .padding(.top, 8)
+                .padding(.top, buttonTopPadding)
                 .disabled(!buttonEnabled.wrappedValue)
         }
         .padding(.vertical)

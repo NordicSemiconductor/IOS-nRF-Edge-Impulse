@@ -57,9 +57,7 @@ struct DataAcquisitionView: View {
                     .padding(.vertical)
                 
                 Section(header: Text("Progress").bold()) {
-                    Section(header: Text("Progress").bold()) {
-                        ReusableProgressView(progress: $viewState.progress, isIndeterminate: $viewState.indeterminateProgress, statusText: $viewState.progressString, statusColor: $viewState.progressColor, buttonText: "Start Sampling", buttonEnabled: $viewState.samplingButtonEnable, buttonAction: startSampling)
-                    }
+                    ReusableProgressView(progress: $viewState.progress, isIndeterminate: $viewState.indeterminateProgress, statusText: $viewState.progressString, statusColor: $viewState.progressColor, buttonText: "Start Sampling", buttonEnabled: $viewState.samplingButtonEnable, buttonAction: startSampling)
                 }
             }
         }
