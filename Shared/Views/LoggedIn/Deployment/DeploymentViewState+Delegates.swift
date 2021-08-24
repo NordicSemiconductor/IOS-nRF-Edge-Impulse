@@ -54,7 +54,7 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     }
     
     func uploadProgressDidChange(bytesSent: Int, imageSize: Int, timestamp: Date) {
-        let progress = Double(bytesSent) / Double(imageSize)
+        let progress = Double(bytesSent) / Double(imageSize) * 100.0
         DispatchQueue.main.async { [unowned self] in
             self.progress = progress
         }
