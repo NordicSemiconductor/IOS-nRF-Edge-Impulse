@@ -20,12 +20,54 @@ struct DataAcquisitionView: View {
     // MARK: - @viewBuilder
     
     var body: some View {
-        VStack {
-            DataAcquisitionFormView()
-                .environmentObject(viewState)
+        FormIniOSListInMacOS {
+            Section(header: Text("Category")) {
+                Picker("Selected", selection: $viewState.selectedDataType) {
+                    ForEach(DataSample.Category.allCases) { dataType in
+                        Text(dataType.rawValue.uppercasingFirst)
+                            .tag(dataType)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .disabled(viewState.isSampling)
+            }
             
+            Section(header: Text("Device")) {
+                ConnectedDevicePicker($viewState.selectedDevice)
+                    .disabled(viewState.isSampling)
+            }
+            
+            Section(header: Text("Label")) {
+                TextField("Label", text: $viewState.label)
+                    .disabled(viewState.isSampling)
+                    .introspectTextField { textField in
+                        guard !keyboardShownOnce, viewState.label.isEmpty else { return }
+                        keyboardShownOnce = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [textField] in
+                            textField.becomeFirstResponder()
+                        }
+                    }
+            }
+
+            Section(header: Text("Sensor")) {
+                DataAcquisitionDevicePicker(viewState: viewState)
+            }
+            .disabled(viewState.isSampling)
+            
+            Section(header: Text("Sample Length")) {
+                DataAcquisitionViewSampleLengthPicker(viewState: viewState)
+            }
+            .disabled(viewState.isSampling)
+            
+            Section(header: Text("Frequency")) {
+                DataAcquisitionFrequencyPicker(viewState: viewState)
+            }
+            .disabled(viewState.isSampling)
+            
+            #if os(macOS)
             Divider()
                 .padding(.horizontal)
+            #endif
             
             Section(header: Text("Progress").bold()) {
                 ReusableProgressView(progress: $viewState.progress, isIndeterminate: $viewState.indeterminateProgress, statusText: $viewState.progressString, statusColor: $viewState.progressColor, buttonText: "Start Sampling", buttonEnabled: $viewState.samplingButtonEnable, buttonAction: startSampling)

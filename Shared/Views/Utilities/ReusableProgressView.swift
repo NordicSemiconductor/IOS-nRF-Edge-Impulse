@@ -35,6 +35,7 @@ struct ReusableProgressView: View {
                 .padding(.horizontal)
             #else
             ProgressView(value: progress.wrappedValue, total: 100.0)
+                .padding(.top, 4)
                 .padding(.horizontal)
             #endif
             
@@ -43,13 +44,14 @@ struct ReusableProgressView: View {
                 Text(statusText.wrappedValue.uppercasingFirst)
                     .lineLimit(1)
             }
+            .padding(.top, 16)
             
             Button(buttonText, action: buttonAction)
                 .centerTextInsideForm()
+                .padding(.top, 8)
                 .disabled(!buttonEnabled.wrappedValue)
         }
         .padding(.vertical)
-        .frame(height: 120)
     }
 }
 
