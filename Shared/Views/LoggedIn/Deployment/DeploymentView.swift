@@ -35,7 +35,7 @@ struct DeploymentView: View {
             
             Section(header: Text("Progress").bold()) {
                 switch viewState.status {
-                case .error(_):
+                case .success, .error(_):
                     ReusableProgressView(progress: $viewState.progress, isIndeterminate: $viewState.progressShouldBeIndeterminate, statusText: $viewState.statusText, statusColor: $viewState.statusColor, buttonText: "Retry", buttonEnabled: $viewState.buildButtonEnable, buttonAction: retry)
                 default:
                     ReusableProgressView(progress: $viewState.progress, isIndeterminate: $viewState.progressShouldBeIndeterminate, statusText: $viewState.statusText, statusColor: $viewState.statusColor, buttonText: "Build", buttonEnabled: $viewState.buildButtonEnable, buttonAction: connectThenBuild)
