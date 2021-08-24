@@ -20,12 +20,11 @@ struct DeploymentView: View {
     
     var body: some View {
         VStack {
-            switch viewState.status {
-            case .buildingModel(_), .downloadingModel, .performingFirmwareUpdate, .error(_):
+            if viewState.status.shouldShowLogs {
                 DeploymentLogView()
                     .environmentObject(viewState)
                     .padding(.top)
-            default:
+            } else {
                 DeploymentConfigurationView()
                     .environmentObject(viewState)
                     .padding(.bottom)

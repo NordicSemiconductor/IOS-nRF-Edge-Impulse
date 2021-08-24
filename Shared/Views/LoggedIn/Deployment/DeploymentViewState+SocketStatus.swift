@@ -18,6 +18,15 @@ extension DeploymentViewState {
         case downloadingModel, unpackingModelData, performingFirmwareUpdate
         case success, error(_ error: Error)
         
+        var shouldShowLogs: Bool {
+            switch self {
+            case .buildingModel(_), .downloadingModel, .performingFirmwareUpdate, .success, .error(_):
+                return true
+            default:
+                return false
+            }
+        }
+        
         var color: Color {
             switch self {
             case .idle:
@@ -59,34 +68,5 @@ extension DeploymentViewState {
                 return String(describing: self).uppercasingFirst
             }
         }
-        
-        @ViewBuilder
-        var view: some View {
-            HStack {
-                ConnectionStatus(color: self.color)
-                Text(text.uppercasingFirst)
-                    .lineLimit(1)
-            }
-        }
     }
 }
-
-// MARK: - Preview
-
-#if DEBUG
-
-struct SocketStatus_Previews: PreviewProvider {
-    
-    static var doNothing: () -> () = { }
-    
-    static var previews: some View {
-        Group {
-            DeploymentViewState.JobStatus.idle.view
-            DeploymentViewState.JobStatus.socketConnecting.view
-            DeploymentViewState.JobStatus.socketConnected.view
-            DeploymentViewState.JobStatus.error(NordicError.testError).view
-        }
-        .previewLayout(.sizeThatFits)
-    }
-}
-#endif
