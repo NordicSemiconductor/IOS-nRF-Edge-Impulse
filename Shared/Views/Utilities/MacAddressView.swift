@@ -17,10 +17,10 @@ struct MacAddressView: View {
                 .font(.footnote)
                 .fontWeight(.light)
             
-            Text(MacAddress.shared.read() ?? "N/A")
+            Text(MacAddress.shared.get() ?? "N/A")
                 .font(.footnote)
         }
-        .padding(.bottom, 4)
+        .padding(.bottom, 10)
     }
 }
 

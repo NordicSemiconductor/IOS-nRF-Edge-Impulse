@@ -7,12 +7,18 @@
 
 import Foundation
 
-enum MacAddress {
+final class MacAddress {
+    
+    static let shared = MacAddress()
+    
+    // MARK: - Private
+    
+    private init() {}
     
     /**
      macOS counterpart is properly implemented.
      */
-    static func read() -> String? {
+    func get() -> String? {
         return nil
     }
 }
