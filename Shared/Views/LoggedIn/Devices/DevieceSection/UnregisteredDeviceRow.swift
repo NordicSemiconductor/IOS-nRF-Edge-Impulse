@@ -14,12 +14,14 @@ struct UnregisteredDeviceRow: View {
     // MARK: Private Properties
     
     private let scanResult: ScanResult
+    private let isConnectable: Bool
     private let isConnecting: Bool
     
     // MARK: Init
     
     init(_ device: ScanResult, isConnecting: Bool = false) {
         self.scanResult = device
+        self.isConnectable = device.advertisementData.isConnectable ?? true
         self.isConnecting = isConnecting
     }
     
@@ -27,7 +29,8 @@ struct UnregisteredDeviceRow: View {
     
     var body: some View {
         HStack {
-            DeviceIconView(name: "cpu", color: Assets.darkGrey.color)
+            DeviceIconView(name: isConnectable ? "cpu" : "bolt.slash",
+                           color: Assets.darkGrey.color)
             
             VStack(alignment: .leading) {
                 Text(scanResult.name)

@@ -25,6 +25,7 @@ struct DeviceIconView: View {
             
             Image(systemName: name)
                 .resizable()
+                .aspectRatio(contentMode: .fit)
                 .frame(size: CGSize(width: 24, height: 24))
                 .foregroundColor(.white)
         }
