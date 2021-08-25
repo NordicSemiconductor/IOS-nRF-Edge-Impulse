@@ -13,16 +13,7 @@ struct RegisteredDeviceView: View {
     
     var body: some View {
         HStack {
-            ZStack {
-                Circle()
-                    .foregroundColor(connectionState.color)
-                Image(systemName: "cpu")
-                    .resizable()
-                    .frame(size: CGSize(width: 24, height:24))
-                    .foregroundColor(.white)
-                    
-            }
-            .frame(size: CGSize(width: 40, height: 40))
+            DeviceIconView(name: "cpu", color: connectionState.color)
             
             VStack(alignment: .leading) {
                 HStack {
