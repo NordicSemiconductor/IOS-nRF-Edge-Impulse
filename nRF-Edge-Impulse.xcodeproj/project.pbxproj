@@ -151,6 +151,10 @@
 		AAA87ADE261B143B0097EA74 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA87ADC261B143B0097EA74 /* String.swift */; };
 		AAA87AE3261B28F50097EA74 /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA87AE2261B28F50097EA74 /* URLImage.swift */; };
 		AAA87AE4261B28F50097EA74 /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA87AE2261B28F50097EA74 /* URLImage.swift */; };
+		AAB8C87226D52205004FC21B /* MacAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB8C87126D52205004FC21B /* MacAddress.swift */; };
+		AAB8C87426D53631004FC21B /* MacAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB8C87326D53631004FC21B /* MacAddress.swift */; };
+		AAB8C87626D536A0004FC21B /* MacAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB8C87526D536A0004FC21B /* MacAddressView.swift */; };
+		AAB8C87726D536A0004FC21B /* MacAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB8C87526D536A0004FC21B /* MacAddressView.swift */; };
 		AACCBA882600C32C0042E87B /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCBA872600C32C0042E87B /* ErrorView.swift */; };
 		AACCBA892600C32C0042E87B /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCBA872600C32C0042E87B /* ErrorView.swift */; };
 		AAE05F202649554F005BBF98 /* SampleRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE05F1F2649554F005BBF98 /* SampleRequestMessage.swift */; };
@@ -391,6 +395,9 @@
 		AAA5C7C4269F39EA0012809A /* NoDevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDevicesView.swift; sourceTree = "<group>"; };
 		AAA87ADC261B143B0097EA74 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		AAA87AE2261B28F50097EA74 /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
+		AAB8C87126D52205004FC21B /* MacAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacAddress.swift; sourceTree = "<group>"; };
+		AAB8C87326D53631004FC21B /* MacAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacAddress.swift; sourceTree = "<group>"; };
+		AAB8C87526D536A0004FC21B /* MacAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacAddressView.swift; sourceTree = "<group>"; };
 		AACCBA862600BF370042E87B /* nRF-Edge-Impulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "nRF-Edge-Impulse.entitlements"; sourceTree = "<group>"; };
 		AACCBA872600C32C0042E87B /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		AAE05F1F2649554F005BBF98 /* SampleRequestMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleRequestMessage.swift; sourceTree = "<group>"; };
@@ -692,6 +699,7 @@
 			children = (
 				AA482F7E26318B11007B8B64 /* View+macOS.swift */,
 				AA0A3E9F26AAC27000F9C1E2 /* NSProgressView.swift */,
+				AAB8C87126D52205004FC21B /* MacAddress.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -799,6 +807,7 @@
 				AAF7D45A269F2C22009269D4 /* FormIniOSListInMacOS.swift */,
 				AAE96F0926A58E220089D370 /* AlertViewContainer.swift */,
 				AAEBB92A26CE6D5B006A4DF7 /* ReusableProgressView.swift */,
+				AAB8C87526D536A0004FC21B /* MacAddressView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -905,6 +914,7 @@
 				AAFFEB3825FF9554002287D6 /* NordicError.swift */,
 				AA386B08260CEDD60079F12D /* Previews.swift */,
 				AAF4E321261DD193009C387B /* Cache.swift */,
+				AAB8C87326D53631004FC21B /* MacAddress.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1256,6 +1266,7 @@
 				AACCBA882600C32C0042E87B /* ErrorView.swift in Sources */,
 				AA01F3D025EFACB000368707 /* Assets.swift in Sources */,
 				AA03298E266F8CB200C46547 /* DataAquisitionView+Logic.swift in Sources */,
+				AAB8C87626D536A0004FC21B /* MacAddressView.swift in Sources */,
 				AAF5E75C26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift in Sources */,
 				01D853EF265D0B8D00D96592 /* Device.swift in Sources */,
 				AA02086F25F648C200FD6B24 /* View.swift in Sources */,
@@ -1316,6 +1327,7 @@
 				AAEDE6332628803500B96AE9 /* DropdownView.swift in Sources */,
 				AA0208A125F65C7600FD6B24 /* LoggedInRootView.swift in Sources */,
 				AAE507BA268F19990017CAED /* RenameDeviceView.swift in Sources */,
+				AAB8C87426D53631004FC21B /* MacAddress.swift in Sources */,
 				AA09C79C262EEED400B039F1 /* Collection.swift in Sources */,
 				AAF38C1C268E16C800F1A590 /* AppData+Deployment.swift in Sources */,
 				C301A369261F12890010717D /* WebSocketManager.swift in Sources */,
@@ -1437,6 +1449,7 @@
 				AA4E8A7A26947A3600C844FE /* DeploymentViewState+SocketStatus.swift in Sources */,
 				AAF4F6C72625EB7300012359 /* SettingsContentView.swift in Sources */,
 				AA01F3E025EFDC5000368707 /* Constant.swift in Sources */,
+				AAB8C87726D536A0004FC21B /* MacAddressView.swift in Sources */,
 				AAFFEB3125FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
 				C33C10C42609791E0097EA5A /* SignalLevel.swift in Sources */,
 				C3BF6AB12624490B006330C8 /* Logger+Ext.swift in Sources */,
@@ -1458,6 +1471,7 @@
 				AAF4F6C42625C8C600012359 /* ThreePaneLayoutView.swift in Sources */,
 				AA535511261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */,
 				AA1C387026A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift in Sources */,
+				AAB8C87226D52205004FC21B /* MacAddress.swift in Sources */,
 				012A3ECD2666694E00EBB501 /* RegisteredDevicesData.swift in Sources */,
 				AAE0B235264E953E00FD8F80 /* AppData+Debug.swift in Sources */,
 				AA9342492681F713001CD754 /* DataContainer.swift in Sources */,

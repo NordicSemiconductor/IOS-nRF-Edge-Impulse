@@ -32,6 +32,10 @@ struct DeviceList: View {
             ScrollView {
                 buildRegisteredDevicesList()
                 buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
+                
+                #if os(macOS)
+                MacAddressView()
+                #endif
             }
         }, alertView: { device in
             RenameDeviceView($renameDevice, oldName: device.name)
