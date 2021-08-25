@@ -285,8 +285,8 @@
 		C39B106C2695C5390056095E /* HUDState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39B106A2695C5390056095E /* HUDState.swift */; };
 		C39B106E2695DF400056095E /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39B106D2695DF400056095E /* HUD.swift */; };
 		C39B106F2695DF400056095E /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39B106D2695DF400056095E /* HUD.swift */; };
-		C3A3665A260414BC008D82CC /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A36659260414BC008D82CC /* DeviceRow.swift */; };
-		C3A3665B260414BC008D82CC /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A36659260414BC008D82CC /* DeviceRow.swift */; };
+		C3A3665A260414BC008D82CC /* UnregisteredDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A36659260414BC008D82CC /* UnregisteredDeviceRow.swift */; };
+		C3A3665B260414BC008D82CC /* UnregisteredDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A36659260414BC008D82CC /* UnregisteredDeviceRow.swift */; };
 		C3B5DDBF269221D400FD62D2 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B5DDBE269221D400FD62D2 /* StringTests.swift */; };
 		C3BB69BB26A9D37C003731FF /* ElementPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB69BA26A9D37C003731FF /* ElementPreview.swift */; };
 		C3BB69BC26A9D37C003731FF /* ElementPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB69BA26A9D37C003731FF /* ElementPreview.swift */; };
@@ -467,7 +467,7 @@
 		C3846EE4260B4386005AEF67 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		C39B106A2695C5390056095E /* HUDState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDState.swift; sourceTree = "<group>"; };
 		C39B106D2695DF400056095E /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
-		C3A36659260414BC008D82CC /* DeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRow.swift; sourceTree = "<group>"; };
+		C3A36659260414BC008D82CC /* UnregisteredDeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisteredDeviceRow.swift; sourceTree = "<group>"; };
 		C3B5DDBE269221D400FD62D2 /* StringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
 		C3BB69BA26A9D37C003731FF /* ElementPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementPreview.swift; sourceTree = "<group>"; };
 		C3BF6AAB26244907006330C8 /* Logger+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Ext.swift"; sourceTree = "<group>"; };
@@ -523,7 +523,7 @@
 			isa = PBXGroup;
 			children = (
 				AA03CAFE26D64DFE004CF3FC /* DeviceIconView.swift */,
-				C3A36659260414BC008D82CC /* DeviceRow.swift */,
+				C3A36659260414BC008D82CC /* UnregisteredDeviceRow.swift */,
 				01E10962265FAEDE000F2EE4 /* RegisteredDeviceView.swift */,
 				C3CD27DF26B145A40026FE67 /* RegisteredDeviceRow.swift */,
 				0187B39226BD6C7B00E59BFD /* DeviceSection.swift */,
@@ -1378,7 +1378,7 @@
 				AAF0C9692609FEBE001B76B9 /* GetCurrentUserRequest.swift in Sources */,
 				AAFAE5EB25ED14E500A45A90 /* AppData.swift in Sources */,
 				C337B8E0267A0034003FD0A0 /* Array+ext.swift in Sources */,
-				C3A3665B260414BC008D82CC /* DeviceRow.swift in Sources */,
+				C3A3665B260414BC008D82CC /* UnregisteredDeviceRow.swift in Sources */,
 				C37E5EC9262842AA00B9E361 /* Scanner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1515,7 +1515,7 @@
 				AAF0C96A2609FEBE001B76B9 /* GetCurrentUserRequest.swift in Sources */,
 				AAF5E75726400F7300AC3271 /* GetSamplesRequest.swift in Sources */,
 				AAF7299826298D6D0034B61A /* AppData+LoginState.swift in Sources */,
-				C3A3665A260414BC008D82CC /* DeviceRow.swift in Sources */,
+				C3A3665A260414BC008D82CC /* UnregisteredDeviceRow.swift in Sources */,
 				011D788126BB3CA10035B752 /* TextHeader.swift in Sources */,
 				C37E5ECA262842AA00B9E361 /* Scanner.swift in Sources */,
 				AAF7D45C269F2C22009269D4 /* FormIniOSListInMacOS.swift in Sources */,

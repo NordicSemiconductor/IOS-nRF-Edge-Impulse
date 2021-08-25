@@ -67,7 +67,7 @@ private extension DeviceList {
     private func buildScanResultsList(scanResult: [DeviceData.ScanResultWrapper]) -> some View {
         
         DeviceSection(title: "Add Device", data: scanResult) { s in
-            DeviceRow(s.scanResult, isConnecting: s.state == .connecting)
+            UnregisteredDeviceRow(s.scanResult, isConnecting: s.state == .connecting)
                 .contentShape(Rectangle())
                 .onTapGesture {
                     deviceData.tryToConnect(scanResult: s.scanResult)
