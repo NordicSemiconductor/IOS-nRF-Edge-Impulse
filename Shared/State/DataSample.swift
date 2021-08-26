@@ -13,8 +13,8 @@ struct DataSample: Identifiable, Codable {
     let filename: String
     let category: Category
     let label: String
-    let intervalMs: Double
-    let frequency: Double
+    let intervalMs: Double?
+    let frequency: Double?
     let totalLengthMs: Double
     let sensors: [DataSample.Sensor]
     
