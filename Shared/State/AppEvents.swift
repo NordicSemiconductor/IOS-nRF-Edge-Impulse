@@ -23,9 +23,8 @@ final class AppEvents: ObservableObject {
 
 // MARK: - ErrorEvent
 
-struct ErrorEvent: Error, Identifiable {
+struct ErrorEvent: Error, Identifiable, Hashable {
     
-    let id = UUID()
     let title: String
     let localizedDescription: String
     
@@ -38,5 +37,14 @@ struct ErrorEvent: Error, Identifiable {
     init(title: String, localizedDescription: String) {
         self.title = title
         self.localizedDescription = localizedDescription
+    }
+    
+    var id: Int {
+        hashValue
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(title)
+        hasher.combine(localizedDescription)
     }
 }
