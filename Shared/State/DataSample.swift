@@ -26,6 +26,10 @@ struct DataSample: Identifiable, Codable {
             return "mic"
         case "Gaus":
             return "tuningfork"
+        case "lux":
+            return "lightbulb"
+        case "degC":
+            return "wind"
         default:
             return "square"
         }

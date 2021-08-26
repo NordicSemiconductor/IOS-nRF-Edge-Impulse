@@ -209,6 +209,10 @@ private struct SensorSection: View {
             return "gyroscope"
         case "Magnetometer":
             return "tuningfork"
+        case "Light":
+            return "lightbulb"
+        case "Environment":
+            return "wind"
         default:
             return "square"
         }
