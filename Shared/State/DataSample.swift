@@ -19,7 +19,7 @@ struct DataSample: Identifiable, Codable {
     let sensors: [DataSample.Sensor]
     
     var symbolName: String {
-        switch sensors.first?.units {
+        switch sensors.first?.units.trimmingCharacters(in: .whitespacesAndNewlines) {
         case "m/s2":
             return "gyroscope"
         case "wav":
