@@ -171,7 +171,7 @@ class DeviceRemoteHandler {
                 return ConnectionState.connected(self.scanResult, registeredDevice)
             }
             .prefix(1)
-            .timeout(10, scheduler: DispatchQueue.main, customError: { Error.timeout })
+            .timeout(25, scheduler: DispatchQueue.main, customError: { Error.timeout })
             .catch { [weak self] error -> Just<ConnectionState> in
                 self?.disconnect(reason: .error(error))
                 return Just(ConnectionState.disconnected(.error(error)))

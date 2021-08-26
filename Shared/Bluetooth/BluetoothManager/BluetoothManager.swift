@@ -174,8 +174,11 @@ extension BluetoothManager: CBPeripheralDelegate {
             switch $0.uuid {
             case Self.txCharacteristicId:
                 txCharacteristic = $0
-                peripheral.setNotifyValue(true, for: txCharacteristic)
                 logger.info("TX Characteristic discovered")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    peripheral.setNotifyValue(true, for: self.txCharacteristic)
+                    self.logger.info("TX Characteristic set to Notify")
+                }
             case Self.rxCharacteristicId:
                 rxCharacteristic = $0
                 logger.info("RX Characteristic discovered")
