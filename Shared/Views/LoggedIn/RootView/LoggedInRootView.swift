@@ -43,6 +43,8 @@ struct LoggedInRootView: View {
             .alert(item: $appEvents.error) { error in
                 Alert(title: Text(error.title),
                       message: Text(error.localizedDescription))
+            }.onAppear {
+                appEvents.error = nil
             }
     }
 }
