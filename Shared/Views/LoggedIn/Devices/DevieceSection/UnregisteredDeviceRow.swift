@@ -14,14 +14,12 @@ struct UnregisteredDeviceRow: View {
     // MARK: Private Properties
     
     private let scanResult: ScanResult
-    private let isConnectable: Bool
     private let isConnecting: Bool
     
     // MARK: Init
     
     init(_ device: ScanResult, isConnecting: Bool = false) {
         self.scanResult = device
-        self.isConnectable = device.advertisementData.isConnectable ?? true
         self.isConnecting = isConnecting
     }
     
@@ -29,7 +27,7 @@ struct UnregisteredDeviceRow: View {
     
     var body: some View {
         HStack {
-            DeviceIconView(name: isConnectable ? "cpu" : "bolt.slash",
+            DeviceIconView(name: scanResult.isConnectable ? "cpu" : "bolt.slash",
                            color: Assets.darkGrey.color)
             
             VStack(alignment: .leading) {
@@ -50,9 +48,16 @@ struct UnregisteredDeviceRow: View {
             
             Spacer()
             
-            if isConnecting {
-                ProgressView()
+            HStack {
+                if !scanResult.isConnectable {
+                    Text("Not Connectable")
+                        .font(.caption)
+                        .foregroundColor(Assets.middleGrey.color)
+                } else if isConnecting {
+                    ProgressView()
+                }
             }
+            .padding(.horizontal)
         }
         .padding(8)
     }
@@ -67,8 +72,11 @@ struct UnregisteredDeviceRow: View {
 #if DEBUG
 struct UnregisteredDeviceRow_Previews: PreviewProvider {
     static var previews: some View {
-        UnregisteredDeviceRow(.sample)
-            .previewLayout(.sizeThatFits)
+        Group {
+            UnregisteredDeviceRow(.sample)
+            UnregisteredDeviceRow(.unconnectableSample)
+        }
+        .previewLayout(.sizeThatFits)
     }
 }
 #endif

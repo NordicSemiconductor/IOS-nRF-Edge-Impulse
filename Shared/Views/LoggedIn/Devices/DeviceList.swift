@@ -70,6 +70,7 @@ private extension DeviceList {
             UnregisteredDeviceRow(s.scanResult, isConnecting: s.state == .connecting)
                 .contentShape(Rectangle())
                 .onTapGesture {
+                    guard s.scanResult.isConnectable else { return }
                     deviceData.tryToConnect(scanResult: s.scanResult)
                 }
         }

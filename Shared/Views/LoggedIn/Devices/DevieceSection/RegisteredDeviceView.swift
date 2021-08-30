@@ -49,7 +49,7 @@ struct RegisteredDeviceView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(DeviceData.DeviceWrapper.State.allCases, id: \.self) { state in
-                RegisteredDeviceView(device: .mock, connectionState: state)
+                RegisteredDeviceView(device: .connectableMock, connectionState: state)
             }
         }
         .previewLayout(.sizeThatFits)

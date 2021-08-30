@@ -42,7 +42,7 @@ extension Device {
     )
     
     #if DEBUG
-    static let mock = Device(
+    static let connectableMock = Device(
         id: 1,
         deviceId: "ff:ff:ff:ff",
         created: "2021-01-01T00:00:00.000Z",

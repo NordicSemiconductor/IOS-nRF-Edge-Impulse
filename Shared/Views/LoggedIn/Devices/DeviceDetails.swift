@@ -239,20 +239,20 @@ private struct NordicLabel: View {
 struct DeviceDetails_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            DeviceDetails(device: .mock)
+            DeviceDetails(device: .connectableMock)
                 .navigationTitle("Device")
                 .environmentObject(DeviceData(appData: AppData()))
                 .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro Max"))
                 .previewDisplayName("iPhone 12 Pro Max")
             
-            DeviceDetails(device: .mock)
+            DeviceDetails(device: .connectableMock)
                 .navigationTitle("Device")
                 .environmentObject(DeviceData(appData: AppData()))
                 .previewDevice(PreviewDevice(rawValue: "iPhone 12"))
                 .preferredColorScheme(.dark)
                 .previewDisplayName("iPhone 12")
             
-            DeviceDetails(device: .mock)
+            DeviceDetails(device: .connectableMock)
                 .navigationTitle("Device")
                 .environmentObject(DeviceData(appData: AppData()))
                 .previewDevice(PreviewDevice(rawValue: "iPhone 12 mini"))

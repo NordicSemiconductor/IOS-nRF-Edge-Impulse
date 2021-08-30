@@ -167,10 +167,10 @@ fileprivate extension RenameDeviceView {
 struct RenameDeviceView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            RenameDeviceView(.constant(Device.mock), oldName: Device.mock.deviceId)
-            RenameDeviceView(.constant(Device.mock), oldName: Device.mock.deviceId, viewState: .requestIsOngoing)
-            RenameDeviceView(.constant(Device.mock), oldName: Device.mock.deviceId, viewState: .error(NordicError.init(description: "A")))
-            RenameDeviceView(.constant(Device.mock), oldName: Device.mock.deviceId, viewState: .success)
+            RenameDeviceView(.constant(Device.connectableMock), oldName: Device.connectableMock.deviceId)
+            RenameDeviceView(.constant(Device.connectableMock), oldName: Device.connectableMock.deviceId, viewState: .requestIsOngoing)
+            RenameDeviceView(.constant(Device.connectableMock), oldName: Device.connectableMock.deviceId, viewState: .error(NordicError.init(description: "A")))
+            RenameDeviceView(.constant(Device.connectableMock), oldName: Device.connectableMock.deviceId, viewState: .success)
         }
         .previewLayout(.sizeThatFits)
         .environmentObject(Preview.mockScannerData)

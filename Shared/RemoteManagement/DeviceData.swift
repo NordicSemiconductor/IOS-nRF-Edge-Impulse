@@ -414,16 +414,16 @@ extension Preview {
     static var mockScannerData: DeviceData = {
         let deviceData = DeviceData(scanner: Scanner(), registeredDeviceManager: RegisteredDevicesManager(), appData: AppData())
         deviceData.scanResults = [
-            ScanResult(name: "Device 1", uuid: UUID(), rssi: .good, advertisementData: .mock),
-            ScanResult(name: "Device 2", uuid: UUID(), rssi: .bad, advertisementData: .mock),
-            ScanResult(name: "Device 3", uuid: UUID(), rssi: .ok, advertisementData: .mock)
+            ScanResult(name: "Device 1", uuid: UUID(), rssi: .good, advertisementData: .connectableMock),
+            ScanResult(name: "Device 2", uuid: UUID(), rssi: .bad, advertisementData: .connectableMock),
+            ScanResult(name: "Device 3", uuid: UUID(), rssi: .ok, advertisementData: .connectableMock)
         ].map { DeviceData.ScanResultWrapper(scanResult: $0) }
         return deviceData
     }()
     
     static var mockRegisteredDevices: DeviceData = {
         let deviceData = DeviceData(scanner: Scanner(), registeredDeviceManager: RegisteredDevicesManager(), appData: AppData())
-        var registeredDevices = Array<Device>(repeating: .mock, count: 5)
+        var registeredDevices = Array<Device>(repeating: .connectableMock, count: 5)
             .map { DeviceData.DeviceWrapper(device: $0) }
         
         let states: [DeviceData.DeviceWrapper.State] = DeviceData.DeviceWrapper.State.allCases

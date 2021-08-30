@@ -54,11 +54,20 @@ struct AdvertisementData {
 
 #if DEBUG
 extension AdvertisementData {
-    static var mock: AdvertisementData {
+    static var connectableMock: AdvertisementData {
         AdvertisementData(
             [
-                CBAdvertisementDataLocalNameKey : "Device 1",
-                CBAdvertisementDataIsConnectable : NSNumber.init(value: true)
+                CBAdvertisementDataLocalNameKey : "iPhone 13",
+                CBAdvertisementDataIsConnectable : true as NSNumber
+            ]
+        )
+    }
+    
+    static var unconnectableMock: AdvertisementData {
+        AdvertisementData(
+            [
+                CBAdvertisementDataLocalNameKey : "iPhone 14",
+                CBAdvertisementDataIsConnectable : false as NSNumber
             ]
         )
     }

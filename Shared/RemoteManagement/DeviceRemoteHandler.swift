@@ -244,6 +244,6 @@ extension DeviceRemoteHandler: Hashable, Identifiable {
 
 #if DEBUG
 extension DeviceRemoteHandler {
-    static let mock = DeviceRemoteHandler(scanResult: ScanResult.sample, registeredDeviceManager: RegisteredDevicesManager(), appData: AppData())
+    static let connectableMock = DeviceRemoteHandler(scanResult: ScanResult.sample, registeredDeviceManager: RegisteredDevicesManager(), appData: AppData())
 }
 #endif

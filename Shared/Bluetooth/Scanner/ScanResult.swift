@@ -51,6 +51,7 @@ struct ScanResult: Identifiable {
     let uuid: UUID
     let rssi: RSSI
     let advertisementData: AdvertisementData
+    let isConnectable: Bool
     
     init(name: String, uuid: UUID, rssi: RSSI, advertisementData: AdvertisementData) {
         self.name = name
@@ -58,6 +59,7 @@ struct ScanResult: Identifiable {
         self.uuid = uuid
         self.rssi = rssi
         self.advertisementData = advertisementData
+        self.isConnectable = advertisementData.isConnectable ?? false
     }
     
     init(peripheral: CBPeripheral, advertisementData: [String: Any], rssi: NSNumber) {
@@ -67,6 +69,7 @@ struct ScanResult: Identifiable {
         self.rssi = RSSI(integerLiteral: rssi.intValue)
         self.id = advertisementData.advertisedID() ?? peripheral.identifier.uuidString
         self.uuid = peripheral.identifier
+        self.isConnectable = advertisementData.isConnectable ?? false
     }
     
     static func == (lhs: ScanResult, rhs: ScanResult) -> Bool {
@@ -93,6 +96,7 @@ extension RSSI {
 
 #if DEBUG
 extension ScanResult {
-    static let sample = ScanResult(name: "Test Device", uuid: UUID(), rssi: .outOfRange, advertisementData: .mock)
+    static let sample = ScanResult(name: "Test Device", uuid: UUID(), rssi: .outOfRange, advertisementData: .connectableMock)
+    static let unconnectableSample = ScanResult(name: "2021 Belgian NoPrix", uuid: UUID(), rssi: .outOfRange, advertisementData: .unconnectableMock)
 }
 #endif
