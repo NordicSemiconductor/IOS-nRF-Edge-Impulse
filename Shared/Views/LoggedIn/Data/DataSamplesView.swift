@@ -54,6 +54,8 @@ struct DataSamplesView: View {
                 ForEach(appData.samplesForCategory[selectedCategory] ?? []) { sample in
                     DataSampleRow(sample)
                 }
+                
+                DataSamplesFooterView(selectedCategory: selectedCategory)
             }
             addHiddenDataAcqisitionNavigationLink()
         }
