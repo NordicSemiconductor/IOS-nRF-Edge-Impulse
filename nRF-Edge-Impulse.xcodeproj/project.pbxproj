@@ -190,6 +190,8 @@
 		AAF0C973260A121B001B76B9 /* HeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C971260A121B001B76B9 /* HeroView.swift */; };
 		AAF0C975260A1482001B76B9 /* CircleAround.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C974260A1482001B76B9 /* CircleAround.swift */; };
 		AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C974260A1482001B76B9 /* CircleAround.swift */; };
+		AAF290BF26DCE5CA00ABE0E2 /* Sensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF290BE26DCE5CA00ABE0E2 /* Sensor.swift */; };
+		AAF290C026DCE5CA00ABE0E2 /* Sensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF290BE26DCE5CA00ABE0E2 /* Sensor.swift */; };
 		AAF38C16268DED9900F1A590 /* AppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF38C15268DED9900F1A590 /* AppIconView.swift */; };
 		AAF38C17268DED9900F1A590 /* AppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF38C15268DED9900F1A590 /* AppIconView.swift */; };
 		AAF38C19268E159A00F1A590 /* GetSocketTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF38C18268E159A00F1A590 /* GetSocketTokenRequest.swift */; };
@@ -420,6 +422,7 @@
 		AAF0C96E260A069F001B76B9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AAF0C971260A121B001B76B9 /* HeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroView.swift; sourceTree = "<group>"; };
 		AAF0C974260A1482001B76B9 /* CircleAround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleAround.swift; sourceTree = "<group>"; };
+		AAF290BE26DCE5CA00ABE0E2 /* Sensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensor.swift; sourceTree = "<group>"; };
 		AAF38C15268DED9900F1A590 /* AppIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconView.swift; sourceTree = "<group>"; };
 		AAF38C18268E159A00F1A590 /* GetSocketTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSocketTokenRequest.swift; sourceTree = "<group>"; };
 		AAF38C1B268E16C800F1A590 /* AppData+Deployment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+Deployment.swift"; sourceTree = "<group>"; };
@@ -873,11 +876,12 @@
 				AAE0B234264E953E00FD8F80 /* AppData+Debug.swift */,
 				AA2CDEB52636FF3900A4950E /* AppEvents.swift */,
 				AAFB8E292626FADD003DAEC5 /* UserPreferences.swift */,
+				C39B106A2695C5390056095E /* HUDState.swift */,
 				AAF0C96E260A069F001B76B9 /* User.swift */,
 				AA008A7625EE422C00F70F75 /* Project.swift */,
 				AAF5E7582640106700AC3271 /* DataSample.swift */,
 				AAFC490B26A979FD002A08F9 /* LogMessage.swift */,
-				C39B106A2695C5390056095E /* HUDState.swift */,
+				AAF290BE26DCE5CA00ABE0E2 /* Sensor.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -1313,6 +1317,7 @@
 				AAF55323264171AB00252345 /* DataSampleRow.swift in Sources */,
 				AAF7D452269F1176009269D4 /* DeploymentView+Logic.swift in Sources */,
 				AA076F7F2698721D0012CD64 /* Color.swift in Sources */,
+				AAF290BF26DCE5CA00ABE0E2 /* Sensor.swift in Sources */,
 				AAF38C16268DED9900F1A590 /* AppIconView.swift in Sources */,
 				AAF0C972260A121B001B76B9 /* HeroView.swift in Sources */,
 				AAFB8E2A2626FADD003DAEC5 /* UserPreferences.swift in Sources */,
@@ -1407,6 +1412,7 @@
 				AA1016FD25E9173A006DC88A /* Network.swift in Sources */,
 				AACCBA892600C32C0042E87B /* ErrorView.swift in Sources */,
 				AA02088F25F651D100FD6B24 /* ScanResult.swift in Sources */,
+				AAF290C026DCE5CA00ABE0E2 /* Sensor.swift in Sources */,
 				AA0B2FFB267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift in Sources */,
 				AA03E98525E3EF13003DA9DA /* ContentView.swift in Sources */,
 				AAEDE6342628807B00B96AE9 /* DropdownView.swift in Sources */,

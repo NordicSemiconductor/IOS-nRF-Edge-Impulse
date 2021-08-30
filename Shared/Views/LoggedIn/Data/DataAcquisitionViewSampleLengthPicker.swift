@@ -13,12 +13,13 @@ struct DataAcquisitionViewSampleLengthPicker: View {
     
     var body: some View {
         ZStack {
-            if viewState.selectedSensor != Constant.unselectedSensor,
+            if let sensor = viewState.selectedSensor,
+               sensor != Constant.unselectedSensor,
                let maxSampleLength = viewState.selectedSensor.maxSampleLengthS {
                 HStack {
                     Slider(value: $viewState.sampleLength, in: 0...Double(maxSampleLength))
                         .accentColor(.universalAccentColor)
-                    Text("\(viewState.sampleLength, specifier: "%.0f") ms")
+                    Text("\(viewState.sampleLength, specifier: "%.0f") \(sensor.sampleLengthUnit)")
                 }
             } else {
                 Text("Unavailable")

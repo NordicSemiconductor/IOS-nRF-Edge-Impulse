@@ -75,10 +75,15 @@ final class DataAcquisitionViewState: ObservableObject {
     func newBLESampleRequest(with hmacKey: String) -> BLESampleRequestWrapper? {
         guard selectedSensor != Constant.unselectedSensor else { return nil }
         let intervalMs =  1.0 / selectedFrequency * 1000.0
-        let sample = BLESampleRequest(label: label, length: Int(sampleLength), hmacKey: hmacKey, category: selectedDataType,
-                                      interval: intervalMs, sensor: selectedSensor)
+        let sample = BLESampleRequest(label: label, length: sampleLengthInMs(), hmacKey: hmacKey,
+                                      category: selectedDataType, interval: intervalMs, sensor: selectedSensor)
         let message = BLESampleRequestMessage(sample: sample)
         return BLESampleRequestWrapper(scheme: .wss, host: .EdgeImpulse, message: message)
+    }
+    
+    func sampleLengthInMs() -> Int {
+        let sampleLengthMultiplier = selectedSensor.isMicrophone ? 1000 : 1
+        return Int(sampleLength) * sampleLengthMultiplier
     }
     
     func startCountdownTimer() {

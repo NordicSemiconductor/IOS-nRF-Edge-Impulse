@@ -176,13 +176,12 @@ private struct SensorSection: View {
     var body: some View {
         
         Section(header: Label(sensor.name, systemImage: sensorIcon)) {
-            sensor.maxSampleLengthS.map { length in
-                HStack {
-                    NordicLabel(title: "Max. Sample Length:", systemImage: "waveform.path.ecg")
-                    Spacer()
-                    Text("\(length) ms").bold()
-                        .foregroundColor(.secondary)
-                }
+            
+            HStack {
+                NordicLabel(title: "Max. Sample Length:", systemImage: "waveform.path.ecg")
+                Spacer()
+                Text(sensor.sampleLengthString).bold()
+                    .foregroundColor(.secondary)
             }
             
             if let frequencies = sensor.frequencies, frequencies.hasItems == true {

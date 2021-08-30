@@ -17,7 +17,7 @@ extension DeviceData {
               let samplingPublisher = deviceHandler?.samplingRequestPublisher(sampleState: viewState) else { return }
         
         samplingPublisher
-            .timeout(.seconds(.timeoutInterval), scheduler: DispatchQueue.main, customError: { DeviceRemoteHandler.Error.timeout })
+            .timeout(.seconds(TimeInterval(viewState.sampleLengthInMs()) + TimeInterval.timeoutInterval), scheduler: DispatchQueue.main, customError: { DeviceRemoteHandler.Error.timeout })
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):

@@ -23,16 +23,6 @@ struct HelloMessage: Codable {
     var supportsSnapshotStreaming: Bool?
 }
 
-struct Sensor: Codable {
-    var name: String
-    var maxSampleLengthS: Int?
-    var frequencies: [Double]?
-}
-
-extension Sensor: Identifiable, Hashable {
-    var id: String { name }
-}
-
 struct WSHelloResponse: Codable {
     var hello: Bool
     var err: String?
