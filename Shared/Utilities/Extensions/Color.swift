@@ -25,6 +25,10 @@ extension Color {
         #endif
     }
     
+    static var disabledTextColor: Color {
+        return Assets.middleGrey.color
+    }
+    
     static var textFieldColor: Color {
         #if os(OSX)
         return Color.primary

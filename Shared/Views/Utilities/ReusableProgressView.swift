@@ -64,9 +64,16 @@ struct ReusableProgressView: View {
             }
             .padding(.top, connectionStatusTopPadding)
             
+            #if os(OSX)
             Button(buttonText, action: buttonAction)
                 .padding(.top, buttonTopPadding)
                 .disabled(!buttonEnabled.wrappedValue)
+            #else
+            Button(buttonText, action: buttonAction)
+                .foregroundColor(buttonEnabled.wrappedValue ? .textColor : .disabledTextColor)
+                .padding(.top, buttonTopPadding)
+                .disabled(!buttonEnabled.wrappedValue)
+            #endif
         }
         .padding(.vertical)
     }
