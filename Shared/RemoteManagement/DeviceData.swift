@@ -360,7 +360,8 @@ extension DeviceData {
                 }
             } receiveValue: { [logger, weak self] request in
                 logger.info("Device Remote Handler Received Sample Request for Sensor \(request.sample.sensor) of length \(request.sample.length)ms named \(request.sample.label).")
-//                self?.stateChanged(of: handler, newState: state)
+                self?.startSampling(BLESampleRequestWrapper(scheme: .wss, host: .EdgeImpulse, message: request),
+                                    for: handler)
             }
             .store(in: &cancellables)
     }
