@@ -289,6 +289,7 @@ class DeviceData: ObservableObject {
 
 // MARK: - Private methods
 extension DeviceData {
+    
     private func getRemoteHandler(for scanResult: ScanResult) -> DeviceRemoteHandler {
         if let handler = remoteHandlers.first(where: { $0 == scanResult }) {
             return handler
@@ -317,6 +318,7 @@ extension DeviceData {
             } else {
                 registeredDevices.append(DeviceWrapper(device: registeredDevice, state: .connected))
             }
+            attachDataSamplingRequestListener(to: handler)
         } else if case .disconnected(let reason) = newState {
             
             if let deviceIndex = self.scanResults.firstIndex(of: ScanResultWrapper(scanResult: handler.scanResult)) {
@@ -337,6 +339,30 @@ extension DeviceData {
             
             removeHandler(handler)
         }
+    }
+    
+    private func attachDataSamplingRequestListener(to handler: DeviceRemoteHandler) {
+        handler.webSocketManager.dataSubject
+            .tryMap { result -> BLESampleRequestMessage in
+                switch result {
+                case .success(let data):
+                    return try JSONDecoder().decode(BLESampleRequestMessage.self, from: data)
+                case .failure(let error):
+                    throw error
+                }
+            }
+            .sink { [logger] completion in
+                switch completion {
+                case .finished:
+                    logger.info("Device remote handler Data funnel completed.")
+                case .failure(let error):
+                    logger.error("Device remote handler Data funnel encountered an error: \(error.localizedDescription).")
+                }
+            } receiveValue: { [logger, weak self] request in
+                logger.info("Device Remote Handler Received Sample Request for Sensor \(request.sample.sensor) of length \(request.sample.length)ms named \(request.sample.label).")
+//                self?.stateChanged(of: handler, newState: state)
+            }
+            .store(in: &cancellables)
     }
     
     private func updateState(_ scanResult: ScanResult) {
