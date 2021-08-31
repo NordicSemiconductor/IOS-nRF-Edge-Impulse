@@ -33,7 +33,7 @@ struct DataAcquisitionView: View {
             
             Section(header: Text("Device")) {
                 ConnectedDevicePicker($appData.dataAquisitionViewState.selectedDevice)
-                    .disabled(appData.dataAquisitionViewState.isSampling)
+                    .disabled($appData.dataAquisitionViewState.isSampling.wrappedValue)
             }
             
             Section(header: Text("Label")) {

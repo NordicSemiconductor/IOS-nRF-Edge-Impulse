@@ -9,18 +9,18 @@ import SwiftUI
 
 struct DataAcquisitionSensorPicker: View {
     
-    @EnvironmentObject var appData: AppData
+    @ObservedObject var viewState: DataAcquisitionViewState
     
     var body: some View {
         ZStack {
-            if let device = appData.dataAquisitionViewState.selectedDevice, device.sensors.hasItems {
-                Picker(selection: $appData.dataAquisitionViewState.selectedSensor, label: EmptyView()) {
+            if let device = viewState.selectedDevice, device.sensors.hasItems {
+                Picker(selection: $viewState.selectedSensor, label: EmptyView()) {
                     ForEach(device.sensors) { sensor in
                         Text(sensor.name).tag(sensor)
                     }
                 }
                 .setAsComboBoxStyle()
-                .disabled(appData.dataAquisitionViewState.isSampling)
+                .disabled($viewState.isSampling.wrappedValue)
             } else {
                 Text("Unavailable")
                     .foregroundColor(Assets.middleGrey.color)
@@ -34,7 +34,7 @@ struct DataAcquisitionSensorPicker: View {
 #if DEBUG
 struct DataAcquisitionSensorPicker_Previews: PreviewProvider {
     static var previews: some View {
-        DataAcquisitionSensorPicker()
+        DataAcquisitionSensorPicker(viewState: DataAcquisitionViewState())
             .environmentObject(Preview.projectsPreviewAppData)
             .previewLayout(.sizeThatFits)
     }

@@ -20,7 +20,7 @@ struct DataAcquisitionView: View {
         ScrollView {
             Section(header: Text("Target").bold()) {
                 ConnectedDevicePicker($appData.dataAquisitionViewState.selectedDevice)
-                    .disabled(appData.dataAquisitionViewState.isSampling)
+                    .disabled($appData.dataAquisitionViewState.isSampling.wrappedValue)
             }
             
             Divider()
@@ -41,7 +41,7 @@ struct DataAcquisitionView: View {
                     .padding(.vertical, 6)
                     
                     Text("Sensor")
-                    DataAcquisitionSensorPicker()
+                    DataAcquisitionSensorPicker(viewState: appData.dataAquisitionViewState)
                     
                     Text("Sample Length")
                     DataAcquisitionViewSampleLengthPicker(viewState: appData.dataAquisitionViewState)
