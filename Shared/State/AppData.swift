@@ -36,6 +36,7 @@ final class AppData: ObservableObject {
     @Published var projectDevelopmentKeys: [Project: ProjectDevelopmentKeysResponse]
     @Published var projectSocketTokens: [Project: Token]
     @Published var samplesForCategory: [DataSample.Category: [DataSample]]
+    @Published internal var dataAquisitionViewState = DataAcquisitionViewState()
     
     // MARK: - Private Properties
     

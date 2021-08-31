@@ -19,11 +19,10 @@ extension AppData {
         }
     }
     
-    func requestNewSampleID(_ configuration: DataAcquisitionViewState,
-                            deliveryBlock: @escaping (StartSamplingResponse?, Error?) -> Void) {
-        guard let sampleMessage = configuration.newSampleMessage(),
+    func requestNewSampleID(deliveryBlock: @escaping (StartSamplingResponse?, Error?) -> Void) {
+        guard let sampleMessage = dataAquisitionViewState.newSampleMessage(),
               let currentProject = selectedProject, let apiKey = apiToken,
-              let startRequest = HTTPRequest.startSampling(sampleMessage, project: currentProject, device: configuration.selectedDevice, using: apiKey) else { return }
+              let startRequest = HTTPRequest.startSampling(sampleMessage, project: currentProject, device: dataAquisitionViewState.selectedDevice, using: apiKey) else { return }
         
         Network.shared.perform(startRequest, responseType: StartSamplingResponse.self)
             .onUnauthorisedUserError(logout)

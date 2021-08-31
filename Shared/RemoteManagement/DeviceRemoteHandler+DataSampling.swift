@@ -10,7 +10,7 @@ import Combine
 
 extension DeviceRemoteHandler {
     
-    func samplingRequestPublisher(sampleState: DataAcquisitionViewState) -> AnyPublisher<Void, Swift.Error>? {
+    func samplingRequestPublisher(_ request: BLESampleRequestWrapper) -> AnyPublisher<Void, Swift.Error>? {
         let requestReceptionResponse = bluetoothManager.receptionSubject
             .onlyDecode(type: SamplingRequestReceivedResponse.self)
             .tryMap { [weak self] response in
@@ -76,7 +76,7 @@ extension DeviceRemoteHandler {
                     throw DeviceRemoteHandler.Error.stringError("Response does not contain valid base64 Data.")
                 }
                 self?.samplingState = .uploadingSample
-                self?.appData.uploadSample(headers: response.headers, body: decodedBody, named: sampleState.label, for: sampleState.selectedDataType, subject: uploadSampleResponseSubject)
+                self?.appData.uploadSample(headers: response.headers, body: decodedBody, named: request.message.sample.label, for: request.dataSampleCategory(), subject: uploadSampleResponseSubject)
             }
             .eraseToAnyPublisher()
         

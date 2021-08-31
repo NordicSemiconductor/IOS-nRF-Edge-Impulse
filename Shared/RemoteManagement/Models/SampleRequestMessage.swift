@@ -104,6 +104,13 @@ struct BLESampleRequestWrapper: Codable {
         self.address = scheme.rawValue + "://" + host.rawValue
         self.message = message
     }
+    
+    func dataSampleCategory() -> DataSample.Category {
+        guard let category = DataSample.Category.allCases.first(where: { message.sample.path.contains($0.rawValue) }) else {
+            return .testing
+        }
+        return category
+    }
 }
 
 struct SamplingRequestReceivedResponse: Codable {

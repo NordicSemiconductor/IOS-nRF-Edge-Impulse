@@ -13,44 +13,44 @@ internal extension DataAcquisitionView {
         guard let device = deviceData.allConnectedAndReadyToUseDevices().first?.device else {
             return
         }
-        viewState.selectedDevice = device
+        appData.dataAquisitionViewState.selectedDevice = device
     }
     
     func startSampling() {
         guard let project = self.appData.selectedProject,
               let hmacKey = self.appData.projectDevelopmentKeys[project]?.hmacKey else {
-            viewState.isSampling = false
-            viewState.progressColor = Assets.red.color
-            viewState.progressString = "Unable to find Project API Key."
+            appData.dataAquisitionViewState.isSampling = false
+            appData.dataAquisitionViewState.progressColor = Assets.red.color
+            appData.dataAquisitionViewState.progressString = "Unable to find Project API Key."
             return
         }
         
-        viewState.progressColor = Assets.sun.color
-        viewState.progressString = "Requesting Sample ID..."
-        appData.requestNewSampleID(viewState) { response, error in
+        appData.dataAquisitionViewState.progressColor = Assets.sun.color
+        appData.dataAquisitionViewState.progressString = "Requesting Sample ID..."
+        appData.requestNewSampleID() { response, error in
             guard let response = response else {
                 let error: Error! = error
-                viewState.isSampling = false
-                viewState.progressColor = Assets.red.color
-                viewState.progressString = error.localizedDescription
+                appData.dataAquisitionViewState.isSampling = false
+                appData.dataAquisitionViewState.progressColor = Assets.red.color
+                appData.dataAquisitionViewState.progressString = error.localizedDescription
                 return
             }
         
-            viewState.progressString = "Obtained Sample ID."
-            guard let request = viewState.newBLESampleRequest(with: hmacKey) else { return }
-            deviceData.startSampling(request, viewState: viewState)
+            appData.dataAquisitionViewState.progressString = "Obtained Sample ID."
+            guard let request = appData.dataAquisitionViewState.newBLESampleRequest(with: hmacKey) else { return }
+            deviceData.startSampling(request, viewState: appData.dataAquisitionViewState)
         }
     }
     
     func onSampleTimerTick(_ date: Date) {
-        guard viewState.isSampling, viewState.progress < 100.0 else {
-            viewState.stopCountdownTimer()
+        guard appData.dataAquisitionViewState.isSampling, appData.dataAquisitionViewState.progress < 100.0 else {
+            appData.dataAquisitionViewState.stopCountdownTimer()
             return
         }
         
-        let numberOfSeconds = Double(viewState.sampleLengthInMs()) / 1000.0
+        let numberOfSeconds = Double(appData.dataAquisitionViewState.sampleLengthInMs()) / 1000.0
         let increment = (1 / numberOfSeconds) * 100.0
-        let newValue = viewState.progress + increment
-        viewState.progress = min(newValue, 100.0)
+        let newValue = appData.dataAquisitionViewState.progress + increment
+        appData.dataAquisitionViewState.progress = min(newValue, 100.0)
     }
 }
