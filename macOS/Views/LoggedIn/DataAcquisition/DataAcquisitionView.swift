@@ -41,7 +41,7 @@ struct DataAcquisitionView: View {
                     .padding(.vertical, 6)
                     
                     Text("Sensor")
-                    DataAcquisitionDevicePicker(viewState: appData.dataAquisitionViewState)
+                    DataAcquisitionSensorPicker()
                     
                     Text("Sample Length")
                     DataAcquisitionViewSampleLengthPicker(viewState: appData.dataAquisitionViewState)

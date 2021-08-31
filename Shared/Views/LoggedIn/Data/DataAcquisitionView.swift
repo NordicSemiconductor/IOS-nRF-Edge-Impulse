@@ -51,9 +51,8 @@ struct DataAcquisitionView: View {
             }
 
             Section(header: Text("Sensor")) {
-                DataAcquisitionDevicePicker(viewState: appData.dataAquisitionViewState)
+                DataAcquisitionSensorPicker()
             }
-            .disabled(appData.dataAquisitionViewState.isSampling)
             
             Section(header: Text("Sample Length")) {
                 DataAcquisitionViewSampleLengthPicker(viewState: appData.dataAquisitionViewState)

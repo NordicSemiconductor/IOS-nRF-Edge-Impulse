@@ -1,5 +1,5 @@
 //
-//  DataAcquisitionDevicePicker.swift
+//  DataAcquisitionSensorPicker.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Dinesh Harjani on 7/6/21.
@@ -7,19 +7,20 @@
 
 import SwiftUI
 
-struct DataAcquisitionDevicePicker: View {
+struct DataAcquisitionSensorPicker: View {
     
-    @ObservedObject var viewState: DataAcquisitionViewState
+    @EnvironmentObject var appData: AppData
     
     var body: some View {
         ZStack {
-            if let device = viewState.selectedDevice, device.sensors.hasItems {
-                Picker(selection: $viewState.selectedSensor, label: EmptyView()) {
+            if let device = appData.dataAquisitionViewState.selectedDevice, device.sensors.hasItems {
+                Picker(selection: $appData.dataAquisitionViewState.selectedSensor, label: EmptyView()) {
                     ForEach(device.sensors) { sensor in
                         Text(sensor.name).tag(sensor)
                     }
                 }
                 .setAsComboBoxStyle()
+                .disabled(appData.dataAquisitionViewState.isSampling)
             } else {
                 Text("Unavailable")
                     .foregroundColor(Assets.middleGrey.color)
@@ -31,9 +32,10 @@ struct DataAcquisitionDevicePicker: View {
 // MARK: - Preview
 
 #if DEBUG
-struct DataAquisitionDevicePicker_Previews: PreviewProvider {
+struct DataAcquisitionSensorPicker_Previews: PreviewProvider {
     static var previews: some View {
-        DataAcquisitionDevicePicker(viewState: DataAcquisitionViewState())
+        DataAcquisitionSensorPicker()
+            .environmentObject(Preview.projectsPreviewAppData)
             .previewLayout(.sizeThatFits)
     }
 }
