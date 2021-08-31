@@ -37,7 +37,8 @@ internal extension DataAcquisitionView {
             }
         
             viewState.progressString = "Obtained Sample ID."
-            deviceData.startSampling(viewState, with: hmacKey)
+            guard let request = viewState.newBLESampleRequest(with: hmacKey) else { return }
+            deviceData.startSampling(request, viewState: viewState)
         }
     }
     

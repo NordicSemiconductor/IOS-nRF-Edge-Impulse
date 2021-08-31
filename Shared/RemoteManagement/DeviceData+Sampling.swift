@@ -9,10 +9,9 @@ import Foundation
 
 extension DeviceData {
     
-    func startSampling(_ viewState: DataAcquisitionViewState, with hmacKey: String) {
+    func startSampling(_ request: BLESampleRequestWrapper, viewState: DataAcquisitionViewState) {
         let deviceHandler = self[viewState.selectedDevice]
-        guard let newSampleMessage = viewState.newBLESampleRequest(with: hmacKey),
-              let samplingPublisher = deviceHandler?.samplingRequestPublisher(sampleState: viewState) else { return }
+        guard let samplingPublisher = deviceHandler?.samplingRequestPublisher(sampleState: viewState) else { return }
         
         samplingPublisher
             .timeout(.seconds(TimeInterval(viewState.sampleLengthInMs()) + TimeInterval.timeoutInterval), scheduler: DispatchQueue.main, customError: { DeviceRemoteHandler.Error.timeout })
@@ -55,7 +54,7 @@ extension DeviceData {
         viewState.isSampling = true
         do {
             viewState.progressString = "Sending Sample Request to Firmware..."
-            try deviceHandler?.sendSampleRequestToBLEFirmware(newSampleMessage)
+            try deviceHandler?.sendSampleRequestToBLEFirmware(request)
         }
         catch (let error) {
             viewState.isSampling = false
