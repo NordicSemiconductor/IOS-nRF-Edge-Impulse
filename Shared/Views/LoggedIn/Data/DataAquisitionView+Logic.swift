@@ -17,6 +17,14 @@ internal extension DataAcquisitionView {
     }
     
     func startSampling() {
+        guard let project = self.appData.selectedProject,
+              let hmacKey = self.appData.projectDevelopmentKeys[project]?.hmacKey else {
+            viewState.isSampling = false
+            viewState.progressColor = Assets.red.color
+            viewState.progressString = "Unable to find Project API Key."
+            return
+        }
+        
         viewState.progressColor = Assets.sun.color
         viewState.progressString = "Requesting Sample ID..."
         appData.requestNewSampleID(viewState) { response, error in
@@ -29,7 +37,7 @@ internal extension DataAcquisitionView {
             }
         
             viewState.progressString = "Obtained Sample ID."
-            deviceData.startSampling(viewState)
+            deviceData.startSampling(viewState, with: hmacKey)
         }
     }
     
