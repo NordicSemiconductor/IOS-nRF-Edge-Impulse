@@ -9,16 +9,15 @@ import Foundation
 
 extension DeviceData {
     
-    func startSampling(_ request: BLESampleRequestWrapper, viewState: DataAcquisitionViewState) {
-        let deviceHandler = self[viewState.selectedDevice]
-        guard let samplingPublisher = deviceHandler?.samplingRequestPublisher(request) else { return }
+    func startSampling(_ request: BLESampleRequestWrapper, for deviceHandler: DeviceRemoteHandler) {
+        guard let samplingPublisher = deviceHandler.samplingRequestPublisher(request) else { return }
         
         dataSamplingCancellable = samplingPublisher
             .timeout(.seconds(TimeInterval(appData.dataAquisitionViewState.sampleLengthInMs()) + TimeInterval.timeoutInterval), scheduler: DispatchQueue.main, customError: { DeviceRemoteHandler.Error.timeout })
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
-                    guard deviceHandler?.samplingState != .completed else { return }
+                    guard deviceHandler.samplingState != .completed else { return }
                     self.appData.dataAquisitionViewState.stopCountdownTimer()
                     self.appData.dataAquisitionViewState.isSampling = false
                     self.appData.dataAquisitionViewState.progressColor = Assets.red.color
@@ -31,8 +30,8 @@ extension DeviceData {
                     break
                 }
             }) { [unowned self] state in
-                viewState.progressString = deviceHandler?.samplingState.userDescription ?? ""
-                switch deviceHandler?.samplingState {
+                self.appData.dataAquisitionViewState.progressString = deviceHandler.samplingState.userDescription
+                switch deviceHandler.samplingState {
                 case .requestStarted:
                     self.appData.dataAquisitionViewState.startCountdownTimer()
                 case .receivingFromFirmware:
@@ -60,7 +59,7 @@ extension DeviceData {
         self.appData.dataAquisitionViewState.progress = 0.0
         do {
             self.appData.dataAquisitionViewState.progressString = "Sending Sample Request to Firmware..."
-            try deviceHandler?.sendSampleRequestToBLEFirmware(request)
+            try deviceHandler.sendSampleRequestToBLEFirmware(request)
         }
         catch (let error) {
             self.appData.dataAquisitionViewState.isSampling = false
