@@ -18,11 +18,7 @@ struct RegisteredDeviceRow: View {
         mainBody()
             .contentShape(Rectangle())
             .onTapGesture {
-                if state == .notConnectable || state == .connected {
-                    selection.wrappedValue = device.deviceId
-                } else if state == .readyToConnect {
-                    deviceData.tryToConnect(device: device)
-                }
+                selection.wrappedValue = device.deviceId
             }
     }
     
