@@ -29,7 +29,11 @@ extension DeviceData {
             }) { [unowned self] state in
                 self.appData.dataAquisitionViewState.progressString = deviceHandler.samplingState.userDescription
                 switch deviceHandler.samplingState {
+                case .requestReceived:
+                    self.appData.dataAquisitionViewState.indeterminateProgress = true
                 case .requestStarted:
+                    self.appData.dataAquisitionViewState.indeterminateProgress = false
+                    self.appData.dataAquisitionViewState.progress = 0.0
                     self.appData.dataAquisitionViewState.startCountdownTimer()
                 case .receivingFromFirmware:
                     self.appData.dataAquisitionViewState.stopCountdownTimer()

@@ -95,6 +95,7 @@ extension DataAcquisitionViewState {
     
     func startCountdownTimer() {
         logger.debug(#function)
+        countdownTimer = Timer.publish(every: 1, on: .main, in: .common)
         countdownTimer.connect()
             .store(in: &timerCancellables)
     }
