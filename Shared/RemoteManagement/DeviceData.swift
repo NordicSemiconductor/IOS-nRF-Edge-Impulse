@@ -152,7 +152,12 @@ class DeviceData: ObservableObject {
         
         handler.connect(apiKey: apiKey)
             .sink { [logger] completion in
-                logger.info("Device remote handler completed connection")
+                switch completion {
+                case .finished:
+                    logger.info("Device remote handler completed connection")
+                case .failure(let error):
+                    logger.error("Device remote handler an error: \(error.localizedDescription).")
+                }
             } receiveValue: { [handler, logger, weak self] state in
                 logger.info("Device remote handler obtained new state: \(state.debugDescription)")
                 self?.stateChanged(of: handler, newState: state)
@@ -352,12 +357,13 @@ extension DeviceData {
                     throw error
                 }
             }
-            .sink { [logger] completion in
+            .sink { [weak self, logger] completion in
                 switch completion {
                 case .finished:
                     logger.info("Device remote handler Data funnel completed.")
                 case .failure(let error):
                     logger.error("Device remote handler Data funnel encountered an error: \(error.localizedDescription).")
+                    self?.stateChanged(of: handler, newState: .disconnected(.error(NordicError.deviceWebSocketDisconnectedError)))
                 }
             } receiveValue: { [logger, weak self] request in
                 logger.info("Device Remote Handler Received Sample Request for Sensor \(request.sample.sensor) of length \(request.sample.length)ms named \(request.sample.label).")

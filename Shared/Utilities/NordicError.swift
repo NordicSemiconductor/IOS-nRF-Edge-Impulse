@@ -16,5 +16,8 @@ struct NordicError: LocalizedError {
 }
 
 extension NordicError {
+    
     static let testError = NordicError(description: "This is a Test Error")
+    
+    static let deviceWebSocketDisconnectedError = NordicError(description: "Lost Device Remote Management connection. Disconnecting from device.")
 }
