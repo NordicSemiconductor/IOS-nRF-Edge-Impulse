@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DeviceDetails: View {
+    
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var deviceData: DeviceData
     @State private var showingAlert = false
@@ -15,53 +16,73 @@ struct DeviceDetails: View {
     let device: Device
     
     var body: some View {
-            FormIniOSListInMacOS {
-                Section(header: Text("Device Information")) {
-                    DeviceInfoRow(title: "ID:", systemImage: "person", content: device.deviceId)
-                    DeviceInfoRow(title: "Type:", systemImage: "t.square", content: device.deviceType)
-                    DeviceInfoRow(title: "Created At:", systemImage: "calendar", content: device.created.toDate()?.formatterString() ?? "")
-                    DeviceInfoRow(title: "Last Seen:", systemImage: "eye", content: device.lastSeen.toDate()?.formatterString() ?? "")
-                }
+        FormIniOSListInMacOS {
+            Section(header: Text("Device Information")) {
+                #if os(macOS)
+                DeviceInfoRow(title: "Name:", systemImage: "character", content: device.name)
+                #endif
                 
-                Section(header: Text("Status")) {
-                    BoolDeviceInfoRow(title: "Connected to Remote Management", systemImage: "network", choice: device.remoteMgmtConnected)
-                    BoolDeviceInfoRow(title: "Supports Snapshot Streaming", systemImage: "arrow.left.and.right", choice: device.supportsSnapshotStreaming)
-                }
-                
-                ForEach(device.sensors) {
-                    SensorSection(sensor: $0)
-                }
-                
-                if let state = deviceData.connectionState(of: device) {
-                    connectionSection(state: state)
-                }
-                
-                deleteSection()
+                DeviceInfoRow(title: "ID:", systemImage: "person", content: device.deviceId)
+                DeviceInfoRow(title: "Type:", systemImage: "t.square", content: device.deviceType)
+                DeviceInfoRow(title: "Created At:", systemImage: "calendar", content: device.created.toDate()?.formatterString() ?? "")
+                DeviceInfoRow(title: "Last Seen:", systemImage: "eye", content: device.lastSeen.toDate()?.formatterString() ?? "")
             }
-            .accentColor(.primary)
-            .alert(isPresented: $showingAlert) {
-                Alert(title: Text("Delete Device"),
-                      message: Text("Are you sure you want to delete this Device?"),
-                      primaryButton: .destructive(Text("Yes"), action: confirmDeleteDevice),
-                      secondaryButton: .default(Text("Cancel"), action: dismissDeleteDevice))
+            
+            #if os(macOS)
+            Divider()
+            #endif
+            
+            Section(header: Text("Status")) {
+                BoolDeviceInfoRow(title: "Connected to Remote Management", systemImage: "network", choice: device.remoteMgmtConnected)
+                BoolDeviceInfoRow(title: "Supports Snapshot Streaming", systemImage: "arrow.left.and.right", choice: device.supportsSnapshotStreaming)
             }
-            .navigationTitle(Text(device.name))
-            .toolbar {
-                if let state = deviceData.connectionState(of: device) {
-                    if case .readyToConnect = state {
-                        Button("Connect") {
-                            deviceData.tryToConnect(device: device)
-                        }
-                    } else if case .connecting = state {
-                        ProgressView()
-                        
-                    } else if case .connected = state {
-                        Button("Disconnect") {
-                            deviceData.disconnect(device: device)
-                        }
+            
+            #if os(macOS)
+            Divider()
+            #endif
+            
+            ForEach(device.sensors) {
+                SensorSection(sensor: $0)
+            }
+            
+            #if os(macOS)
+            Divider()
+            #endif
+            
+            if let state = deviceData.connectionState(of: device) {
+                connectionSection(state: state)
+            }
+            
+            #if os(macOS)
+            Divider()
+            #endif
+            
+            deleteSection()
+        }
+        .accentColor(.primary)
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("Delete Device"),
+                  message: Text("Are you sure you want to delete this Device?"),
+                  primaryButton: .destructive(Text("Yes"), action: confirmDeleteDevice),
+                  secondaryButton: .default(Text("Cancel"), action: dismissDeleteDevice))
+        }
+        .navigationTitle(Text(device.name))
+        .toolbar {
+            if let state = deviceData.connectionState(of: device) {
+                if case .readyToConnect = state {
+                    Button("Connect") {
+                        deviceData.tryToConnect(device: device)
+                    }
+                } else if case .connecting = state {
+                    ProgressView()
+                    
+                } else if case .connected = state {
+                    Button("Disconnect") {
+                        deviceData.disconnect(device: device)
                     }
                 }
             }
+        }
     }
     
     // MARK: Connection section
@@ -97,7 +118,9 @@ struct DeviceDetails: View {
     
     @ViewBuilder
     private func deleteSection() -> some View {
-        Section(footer: Text("Delete this device from the list of registered devices")) {
+        Section(header: Text("Management"),
+                footer: Text("Delete this device from the list of registered devices")) {
+            
             Button("Delete") {
                 showingAlert = true
             }
@@ -107,7 +130,10 @@ struct DeviceDetails: View {
     }
 }
 
+// MARK: - Private
+
 private extension DeviceDetails {
+    
     func confirmDeleteDevice() {
         showingAlert = false
         deviceData.tryToDelete(device: device)
@@ -119,7 +145,10 @@ private extension DeviceDetails {
     }
 }
 
+// MARK: - DeviceInfoRow
+
 private struct DeviceInfoRow: View {
+    
     @EnvironmentObject private var hudState: HUDState
     
     let title: String
@@ -222,6 +251,8 @@ private struct SensorSection: View {
         }
     }
 }
+
+// MARK: - Nordic Label
 
 private struct NordicLabel: View {
     let title: String
