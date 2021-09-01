@@ -14,10 +14,11 @@ extension DeviceRemoteHandler {
         let requestReceptionResponse = bluetoothManager.receptionSubject
             .onlyDecode(type: SamplingRequestReceivedResponse.self)
             .tryMap { [weak self] response in
+                try self?.webSocketManager.send(response.message)
                 guard response.message.sample else {
                     throw DeviceRemoteHandler.Error.stringError("Returned Not Successful")
                 }
-                self?.samplingState = .requestStarted
+                self?.samplingState = .requestStarted // Why is this not 'requestReceived' ??
             }
             .eraseToAnyPublisher()
         
@@ -25,6 +26,7 @@ extension DeviceRemoteHandler {
             .drop(while: { [unowned self] _ in self.samplingState != .requestReceived })
             .onlyDecode(type: SamplingRequestStartedResponse.self)
             .tryMap { [weak self] response in
+                try self?.webSocketManager.send(response.message)
                 guard response.message.sampleStarted else {
                     throw DeviceRemoteHandler.Error.stringError("Sampling failed to start")
                 }
@@ -36,6 +38,7 @@ extension DeviceRemoteHandler {
             .drop(while: { [unowned self] _ in self.samplingState != .requestStarted })
             .onlyDecode(type: SamplingRequestUploadingResponse.self)
             .tryMap { [weak self] response in
+                try self?.webSocketManager.send(response.message)
                 guard response.message.sampleUploading else {
                     throw DeviceRemoteHandler.Error.stringError("Failed to obtain Sample from the Firmware")
                 }
