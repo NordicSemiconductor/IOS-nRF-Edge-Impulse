@@ -7,11 +7,12 @@
 
 import Foundation
 
-struct NordicError: Error {
+struct NordicError: LocalizedError {
     
     let description: String
     
-    var localizedDescription: String { description }
+    var failureReason: String? { description }
+    var errorDescription: String? { description }
 }
 
 extension NordicError {
