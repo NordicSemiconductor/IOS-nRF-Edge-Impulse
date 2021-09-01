@@ -27,8 +27,10 @@ internal extension DataAcquisitionView {
         
         appData.dataAquisitionViewState.progressColor = Assets.sun.color
         appData.dataAquisitionViewState.progressString = "Requesting Sample ID..."
+        
+        // Note: This web Request will trigger a WebSocket Response to start Sampling.
         appData.requestNewSampleID() { response, error in
-            guard let response = response else {
+            guard response != nil else {
                 let error: Error! = error
                 appData.dataAquisitionViewState.isSampling = false
                 appData.dataAquisitionViewState.progressColor = Assets.red.color
@@ -37,9 +39,6 @@ internal extension DataAcquisitionView {
             }
         
             appData.dataAquisitionViewState.progressString = "Obtained Sample ID."
-            guard let request = appData.dataAquisitionViewState.newBLESampleRequest(with: hmacKey),
-                  let deviceHandler = deviceData[appData.dataAquisitionViewState.selectedDevice] else { return }
-            deviceData.startSampling(request, for: deviceHandler)
         }
     }
     

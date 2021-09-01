@@ -85,7 +85,8 @@ class DeviceData: ObservableObject {
     
     private (set) lazy var bluetoothStates = PassthroughSubject<Result<Bool, BluetoothStateError>, Never>()
     
-    var cancellables = Set<AnyCancellable>()
+    internal var cancellables = Set<AnyCancellable>()
+    internal var dataSamplingCancellable: AnyCancellable!
     
     init(scanner: Scanner = Scanner(), registeredDeviceManager: RegisteredDevicesManager = RegisteredDevicesManager(), appData: AppData) {
         self.scanner = scanner
