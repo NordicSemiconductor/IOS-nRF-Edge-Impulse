@@ -81,10 +81,34 @@ final class DataAcquisitionViewState: ObservableObject {
         return BLESampleRequestWrapper(scheme: .wss, host: .EdgeImpulse, message: message)
     }
     
+    func samplingEncounteredAnError(_ errorDescription: String) {
+        stopCountdownTimer()
+        isSampling = false
+        progressColor = Assets.red.color
+        progressString = errorDescription
+    }
+}
+
+// MARK: - Timer
+
+extension DataAcquisitionViewState {
+    
     func startCountdownTimer() {
         logger.debug(#function)
         countdownTimer.connect()
             .store(in: &timerCancellables)
+    }
+    
+    func onSampleTimerTick(_ date: Date) {
+        guard isSampling, progress < 100.0 else {
+            stopCountdownTimer()
+            return
+        }
+        
+        let numberOfSeconds = Double(sampleLengthS)
+        let increment = (1 / numberOfSeconds) * 100.0
+        let newValue = progress + increment
+        progress = min(newValue, 100.0)
     }
     
     func stopCountdownTimer() {

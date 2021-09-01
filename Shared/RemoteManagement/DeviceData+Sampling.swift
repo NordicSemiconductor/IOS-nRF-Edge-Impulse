@@ -18,10 +18,7 @@ extension DeviceData {
                 switch completion {
                 case .failure(let error):
                     guard deviceHandler.samplingState != .completed else { return }
-                    self.appData.dataAquisitionViewState.stopCountdownTimer()
-                    self.appData.dataAquisitionViewState.isSampling = false
-                    self.appData.dataAquisitionViewState.progressColor = Assets.red.color
-                    self.appData.dataAquisitionViewState.progressString = error.localizedDescription
+                    self.appData.dataAquisitionViewState.samplingEncounteredAnError(error.localizedDescription)
                     AppEvents.shared.error = ErrorEvent(error)
                     
                     guard let cancellable = self.dataSamplingCancellable else { return }
@@ -62,9 +59,7 @@ extension DeviceData {
             try deviceHandler.sendSampleRequestToBLEFirmware(request)
         }
         catch (let error) {
-            self.appData.dataAquisitionViewState.isSampling = false
-            self.appData.dataAquisitionViewState.progressColor = Assets.blue.color
-            self.appData.dataAquisitionViewState.progressString = error.localizedDescription
+            self.appData.dataAquisitionViewState.samplingEncounteredAnError(error.localizedDescription)
             AppEvents.shared.error = ErrorEvent(error)
         }
     }

@@ -75,7 +75,7 @@ struct DataAcquisitionView: View {
         }
         .setTitle("Record New Data")
         .onAppear(perform: setInitialSelectedDevice)
-        .onReceive(appData.dataAquisitionViewState.countdownTimer, perform: onSampleTimerTick(_:))
+        .onReceive(appData.dataAquisitionViewState.countdownTimer, perform: appData.dataAquisitionViewState.onSampleTimerTick(_:))
         .frame(minWidth: .minTabWidth)
     }
 }

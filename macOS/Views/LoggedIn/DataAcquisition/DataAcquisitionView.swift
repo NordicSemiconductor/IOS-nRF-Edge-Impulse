@@ -62,7 +62,7 @@ struct DataAcquisitionView: View {
         .setTitle("New Sample")
         .padding(16)
         .onAppear(perform: setInitialSelectedDevice)
-        .onReceive(appData.dataAquisitionViewState.countdownTimer, perform: onSampleTimerTick(_:))
+        .onReceive(appData.dataAquisitionViewState.countdownTimer, perform: appData.dataAquisitionViewState.onSampleTimerTick(_:))
     }
 }
 
