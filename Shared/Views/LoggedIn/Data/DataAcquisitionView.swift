@@ -51,7 +51,7 @@ struct DataAcquisitionView: View {
             }
 
             Section(header: Text("Sensor")) {
-                DataAcquisitionSensorPicker()
+                DataAcquisitionSensorPicker(viewState: appData.dataAquisitionViewState)
             }
             
             Section(header: Text("Sample Length")) {
