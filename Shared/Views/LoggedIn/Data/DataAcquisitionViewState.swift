@@ -25,14 +25,14 @@ final class DataAcquisitionViewState: ObservableObject {
         didSet {
             guard selectedSensor != Constant.unselectedSensor else { return }
             selectedFrequency = selectedSensor.frequencies?.first ?? Constant.unselectedFrequency
-            if let maxSampleLength = selectedSensor.maxSampleLengthS {
-                sampleLength = Double(maxSampleLength) / 2.0
+            if let maxSampleLengthS = selectedSensor.maxSampleLengthS {
+                sampleLengthS = Double(maxSampleLengthS) / 2.0
             } else {
-                sampleLength = Constant.unselectedSampleLength
+                sampleLengthS = Constant.unselectedSampleLength
             }
         }
     }
-    @Published var sampleLength = Constant.unselectedSampleLength
+    @Published var sampleLengthS = Constant.unselectedSampleLength
     @Published var selectedFrequency = Constant.unselectedFrequency
     @Published var progress = 0.0
     @Published var indeterminateProgress = false
@@ -68,22 +68,17 @@ final class DataAcquisitionViewState: ObservableObject {
         guard selectedSensor != Constant.unselectedSensor else { return nil }
         let intervalMs =  1.0 / selectedFrequency * 1000.0
         let message = SampleRequestMessage(category: selectedDataType, intervalMs: intervalMs, label: label,
-                                           lengthMs: Int(sampleLength), sensor: selectedSensor.name)
+                                           lengthMs: Int(sampleLengthS) * 1000, sensor: selectedSensor.name)
         return message
     }
     
     func newBLESampleRequest(with hmacKey: String) -> BLESampleRequestWrapper? {
         guard selectedSensor != Constant.unselectedSensor else { return nil }
         let intervalMs =  1.0 / selectedFrequency * 1000.0
-        let sample = BLESampleRequest(label: label, length: sampleLengthInMs(), hmacKey: hmacKey,
+        let sample = BLESampleRequest(label: label, length: Int(sampleLengthS) * 1000, hmacKey: hmacKey,
                                       category: selectedDataType, interval: intervalMs, sensor: selectedSensor)
         let message = BLESampleRequestMessage(sample: sample)
         return BLESampleRequestWrapper(scheme: .wss, host: .EdgeImpulse, message: message)
-    }
-    
-    func sampleLengthInMs() -> Int {
-        let sampleLengthMultiplier = selectedSensor.isMicrophone ? 1000 : 1
-        return Int(sampleLength) * sampleLengthMultiplier
     }
     
     func startCountdownTimer() {

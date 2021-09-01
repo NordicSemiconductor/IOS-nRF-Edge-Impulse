@@ -13,7 +13,7 @@ extension DeviceData {
         guard let samplingPublisher = deviceHandler.samplingRequestPublisher(request) else { return }
         
         dataSamplingCancellable = samplingPublisher
-            .timeout(.seconds(TimeInterval(appData.dataAquisitionViewState.sampleLengthInMs()) + TimeInterval.timeoutInterval), scheduler: DispatchQueue.main, customError: { DeviceRemoteHandler.Error.timeout })
+            .timeout(.seconds(TimeInterval(appData.dataAquisitionViewState.sampleLengthS) + TimeInterval.timeoutInterval), scheduler: DispatchQueue.main, customError: { DeviceRemoteHandler.Error.timeout })
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):

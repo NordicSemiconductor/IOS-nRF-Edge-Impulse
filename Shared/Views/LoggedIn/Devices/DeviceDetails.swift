@@ -180,8 +180,13 @@ private struct SensorSection: View {
             HStack {
                 NordicLabel(title: "Max. Sample Length:", systemImage: "waveform.path.ecg")
                 Spacer()
-                Text(sensor.sampleLengthString).bold()
-                    .foregroundColor(.secondary)
+                if let maxSampleLengthSeconds = sensor.maxSampleLengthS {
+                    Text("\(maxSampleLengthSeconds, specifier: "%.0d") seconds").bold()
+                        .foregroundColor(.secondary)
+                } else {
+                    Text("N/A")
+                        .foregroundColor(.secondary)
+                }
             }
             
             if let frequencies = sensor.frequencies, frequencies.hasItems == true {

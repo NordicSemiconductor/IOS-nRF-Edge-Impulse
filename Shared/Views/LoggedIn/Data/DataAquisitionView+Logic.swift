@@ -49,7 +49,7 @@ internal extension DataAcquisitionView {
             return
         }
         
-        let numberOfSeconds = Double(appData.dataAquisitionViewState.sampleLengthInMs()) / 1000.0
+        let numberOfSeconds = Double(appData.dataAquisitionViewState.sampleLengthS)
         let increment = (1 / numberOfSeconds) * 100.0
         let newValue = appData.dataAquisitionViewState.progress + increment
         appData.dataAquisitionViewState.progress = min(newValue, 100.0)

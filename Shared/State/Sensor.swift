@@ -14,22 +14,6 @@ struct Sensor: Codable {
     let name: String
     let maxSampleLengthS: Int?
     let frequencies: [Double]?
-    
-    var sampleLengthUnit: String {
-        isMicrophone ? "s" : "ms"
-    }
-    
-    var sampleLengthString: String {
-        guard let maxSampleLengthS = maxSampleLengthS else { return "N/A" }
-        return "\(maxSampleLengthS) \(sampleLengthUnit)"
-    }
-}
-
-// MARK: - isMicrophone()
-
-extension Sensor {
-    
-    var isMicrophone: Bool { name.caseInsensitiveCompare("Microphone") == .orderedSame }
 }
 
 // MARK: - Identifiable, Hashable
