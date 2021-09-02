@@ -79,10 +79,10 @@ private extension DeviceList {
     // MARK: Registered Devices
     @ViewBuilder
     private func buildRegisteredDevicesList() -> some View {
-        DeviceSection(title: "Devices", data: deviceData.registeredDevices) { d in
-            RegisteredDeviceRow(device: d.device, state: d.state, selection: $selectedDeviceId)
+        DeviceSection(title: "Devices", data: deviceData.registeredDevices) { wrapper in
+            RegisteredDeviceRow(wrapper, selection: $selectedDeviceId)
                 .contextMenu {
-                    deviceContextMenu(d)
+                    deviceContextMenu(wrapper)
                 }
         }
     }

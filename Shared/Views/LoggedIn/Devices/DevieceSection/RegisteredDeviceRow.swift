@@ -13,19 +13,20 @@ struct RegisteredDeviceRow: View {
     
     // MARK: Properties
     
-    let device: Device
-    let state: DeviceData.DeviceWrapper.State
+    private let deviceWrapper: DeviceData.DeviceWrapper
+    
+    private var device: Device { deviceWrapper.device}
+    private var state: DeviceData.DeviceWrapper.State { deviceWrapper.state }
     let selection: Binding<String?>
     
     private let isSelected: Bool
     
     // MARK: Init
     
-    init(device: Device, state: DeviceData.DeviceWrapper.State, selection: Binding<String?>) {
-        self.device = device
-        self.state = state
+    init(_ deviceWrapper: DeviceData.DeviceWrapper, selection: Binding<String?>) {
+        self.deviceWrapper = deviceWrapper
         self.selection = selection
-        self.isSelected = device.deviceId == selection.wrappedValue
+        self.isSelected = deviceWrapper.device.deviceId == selection.wrappedValue
     }
     
     var body: some View {
@@ -59,7 +60,7 @@ struct RegisteredDeviceRow_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(DeviceData.DeviceWrapper.State.allCases, id: \.self) { state in
-                RegisteredDeviceRow(device: .connectableMock, state: state, selection: .constant(nil))
+                RegisteredDeviceRow(DeviceData.DeviceWrapper(device: .connectableMock), selection: .constant(nil))
             }
         }
         .previewLayout(.sizeThatFits)
