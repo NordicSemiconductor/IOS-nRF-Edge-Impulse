@@ -23,7 +23,7 @@ struct DeviceDetails: View {
                 #endif
                 
                 DeviceInfoRow(title: "ID:", systemImage: "person", content: device.deviceId)
-                DeviceInfoRow(title: "Type:", systemImage: "t.square", content: device.deviceType)
+                DeviceInfoRow(title: "Type:", systemImage: "t.square", content: device.deviceType.trimmingCharacters(in: .whitespacesAndNewlines))
                 DeviceInfoRow(title: "Created At:", systemImage: "calendar", content: device.created.toDate()?.formatterString() ?? "")
                 DeviceInfoRow(title: "Last Seen:", systemImage: "eye", content: device.lastSeen.toDate()?.formatterString() ?? "")
             }
@@ -162,6 +162,7 @@ private struct DeviceInfoRow: View {
             
             Text(content)
                 .bold()
+                .lineLimit(1)
                 .onLongPressGesture {
                     #if os(iOS)
                     UIPasteboard.general.string = content
