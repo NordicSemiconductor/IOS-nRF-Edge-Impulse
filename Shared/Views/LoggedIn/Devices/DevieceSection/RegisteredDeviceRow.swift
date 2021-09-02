@@ -62,14 +62,7 @@ struct RegisteredDeviceRow: View {
                 .frame(width: 0.1)
                 .disabled(true)
                 .hidden()
-            
-            Image(systemName: "chevron.right")
-                .renderingMode(.template)
-                .foregroundColor(.gray)
-                .padding(.horizontal)
         }
-        .padding(.horizontal, 4)
-        .padding(.vertical, 4)
     }
 }
 
