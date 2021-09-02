@@ -1,5 +1,5 @@
 //
-//  UnregisteredDeviceRow.swift
+//  UnregisteredDeviceView.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Dinesh Harjani on 2/3/21.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-// MARK: - UnregisteredDeviceRow
+// MARK: - UnregisteredDeviceView
 
-struct UnregisteredDeviceRow: View {
+struct UnregisteredDeviceView: View {
     
     // MARK: Private Properties
     
@@ -72,8 +72,8 @@ struct UnregisteredDeviceRow: View {
 struct UnregisteredDeviceRow_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            UnregisteredDeviceRow(.sample)
-            UnregisteredDeviceRow(.unconnectableSample)
+            UnregisteredDeviceView(.sample)
+            UnregisteredDeviceView(.unconnectableSample)
         }
         .previewLayout(.sizeThatFits)
     }

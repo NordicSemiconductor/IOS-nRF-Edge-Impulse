@@ -33,12 +33,12 @@ struct DeviceSection_Previews: PreviewProvider {
             DeviceSection(
                 title: "Scan Results",
                 data: [ScanResult.sample, ScanResult.sample]) { d in
-                UnregisteredDeviceRow(d)
+                UnregisteredDeviceView(d)
             }
             DeviceSection(
                 title: "Scan Results",
                 data: []) { d in
-                UnregisteredDeviceRow(d)
+                UnregisteredDeviceView(d)
             }
         }
         .background(Color.formBackground)
