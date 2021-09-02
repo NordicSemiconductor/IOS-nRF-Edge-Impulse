@@ -8,8 +8,15 @@
 import SwiftUI
 
 struct RegisteredDeviceView: View {
-    let device: Device
-    let connectionState: DeviceData.DeviceWrapper.State
+    
+    private let deviceWrapper: DeviceData.DeviceWrapper
+    
+    private var device: Device { deviceWrapper.device }
+    private var connectionState: DeviceData.DeviceWrapper.State { deviceWrapper.state }
+    
+    init(_ deviceWrapper: DeviceData.DeviceWrapper) {
+        self.deviceWrapper = deviceWrapper
+    }
     
     var body: some View {
         HStack {
@@ -45,10 +52,11 @@ struct RegisteredDeviceView: View {
 
 #if DEBUG
 struct RegisteredDeviceView_Previews: PreviewProvider {
+    
     static var previews: some View {
         Group {
             ForEach(DeviceData.DeviceWrapper.State.allCases, id: \.self) { state in
-                RegisteredDeviceView(device: .connectableMock, connectionState: state)
+                RegisteredDeviceView(DeviceData.DeviceWrapper(device: .connectableMock))
             }
         }
         .previewLayout(.sizeThatFits)
