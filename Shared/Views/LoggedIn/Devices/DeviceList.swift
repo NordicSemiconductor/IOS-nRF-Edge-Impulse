@@ -82,23 +82,23 @@ private extension DeviceList {
         DeviceSection(title: "Devices", data: deviceData.registeredDevices) { d in
             RegisteredDeviceRow(device: d.device, state: d.state, selection: $selectedDeviceId)
                 .contextMenu {
-                    deviceContextMenu(device: d.device, state: d.state)
+                    deviceContextMenu(d)
                 }
         }
     }
     
     @ViewBuilder
-    private func deviceContextMenu(device: Device, state: DeviceData.DeviceWrapper.State) -> some View {
+    private func deviceContextMenu(_ deviceWrapper: DeviceData.DeviceWrapper) -> some View {
         
-        if case .readyToConnect = state {
+        if case .readyToConnect = deviceWrapper.state {
             Button {
-                deviceData.tryToConnect(device: device)
+                deviceData.tryToConnect(device: deviceWrapper.device)
             } label: {
                 Label("Connect", systemImage: "app.connected.to.app.below.fill")
             }
-        } else if case .connected = state {
+        } else if case .connected = deviceWrapper.state {
             Button() {
-                deviceData.disconnect(device: device)
+                deviceData.disconnect(device: deviceWrapper.device)
             } label: {
                 Label {
                     Text("Disconnect")
@@ -111,19 +111,19 @@ private extension DeviceList {
         }
         
         Button(action: {
-            renameDevice = device
+            renameDevice = deviceWrapper.device
         }) {
             Label("Rename", systemImage: "pencil")
         }
         Button {
-            selectedDeviceId = device.deviceId
+            selectedDeviceId = deviceWrapper.device.deviceId
         } label: {
             Label("Get info", systemImage: "info.circle")
         }
         
         Divider()
         Button {
-            deleteDevice = device
+            deleteDevice = deviceWrapper.device
             showDeleteDeviceAlert = true
         } label: {
             Label("Delete", systemImage: "minus.circle")
