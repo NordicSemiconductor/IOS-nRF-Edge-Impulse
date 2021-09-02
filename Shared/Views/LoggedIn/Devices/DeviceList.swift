@@ -78,9 +78,9 @@ private extension DeviceList {
         DeviceSection(title: "Devices", data: deviceData.registeredDevices) { wrapper in
             NavigationLink(destination: DeviceDetails(device: wrapper.device)) {
                 RegisteredDeviceView(device: wrapper.device, connectionState: wrapper.state)
-                    .contextMenu {
-                        deviceContextMenu(wrapper)
-                    }
+            }
+            .contextMenu {
+                deviceContextMenu(wrapper)
             }
         }
     }
