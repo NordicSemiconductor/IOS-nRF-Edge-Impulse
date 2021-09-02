@@ -41,18 +41,6 @@ struct RegisteredDeviceRow: View {
     private func mainBody() -> some View {
         HStack {
             RegisteredDeviceView(device: device, connectionState: state)
-            #if os(iOS)
-            NavigationLink(
-                destination: EmptyView(),
-                tag: 1,
-                selection: .constant(2),
-                label: {
-                    EmptyView()
-                })
-                .hidden()
-                .disabled(true)
-                .frame(width: 0.1)
-            #endif
             
             NavigationLink(
                 destination: DeviceDetails(device: device),
