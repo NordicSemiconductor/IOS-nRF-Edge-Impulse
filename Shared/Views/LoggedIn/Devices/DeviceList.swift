@@ -16,12 +16,9 @@ struct DeviceList: View {
     @EnvironmentObject var deviceData: DeviceData
     @EnvironmentObject var appData: AppData
     
-    @State private var renameDevice: Device? = nil
-    
     @State private var showDeleteDeviceAlert = false
+    @State private var renameDevice: Device? = nil
     @State private var deleteDevice: Device? = nil
-    
-    @State private var selectedDeviceId: String? = nil
     
     private let logger = Logger(category: "DeviceList")
     
@@ -115,11 +112,6 @@ private extension DeviceList {
             renameDevice = deviceWrapper.device
         }) {
             Label("Rename", systemImage: "pencil")
-        }
-        Button {
-            selectedDeviceId = deviceWrapper.device.deviceId
-        } label: {
-            Label("Get info", systemImage: "info.circle")
         }
         
         Divider()
