@@ -29,7 +29,7 @@ struct DeviceList: View {
     
     var body: some View {
         AlertViewContainer(content: {
-            List {
+            FormIniOSListInMacOS {
                 buildRegisteredDevicesList()
                 buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
                 
@@ -68,7 +68,6 @@ private extension DeviceList {
         
         DeviceSection(title: "Add Device", data: scanResult) { s in
             UnregisteredDeviceRow(s.scanResult, isConnecting: s.state == .connecting)
-                .contentShape(Rectangle())
                 .onTapGesture {
                     guard s.scanResult.isConnectable else { return }
                     deviceData.tryToConnect(scanResult: s.scanResult)
@@ -80,10 +79,12 @@ private extension DeviceList {
     @ViewBuilder
     private func buildRegisteredDevicesList() -> some View {
         DeviceSection(title: "Devices", data: deviceData.registeredDevices) { wrapper in
-            RegisteredDeviceRow(wrapper, selection: $selectedDeviceId)
-                .contextMenu {
-                    deviceContextMenu(wrapper)
-                }
+            NavigationLink(destination: DeviceDetails(device: wrapper.device)) {
+                RegisteredDeviceView(device: wrapper.device, connectionState: wrapper.state)
+                    .contextMenu {
+                        deviceContextMenu(wrapper)
+                    }
+            }
         }
     }
     

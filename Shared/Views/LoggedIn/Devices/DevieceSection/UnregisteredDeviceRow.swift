@@ -59,7 +59,6 @@ struct UnregisteredDeviceRow: View {
             }
             .padding(.horizontal)
         }
-        .padding(8)
     }
     
     var deviceForegroundColor: Color {

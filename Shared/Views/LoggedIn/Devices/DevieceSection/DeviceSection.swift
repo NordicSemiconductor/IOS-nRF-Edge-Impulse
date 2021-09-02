@@ -13,33 +13,16 @@ struct DeviceSection<Content: View, D: Identifiable>: View {
     let content: (D) -> Content
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8, content: {
-            Text(title.uppercased())
-                .font(.subheadline)
+        Section(header: Text("Devices")) {
+            ForEach(data) { wrapper in
+                content(wrapper)
+            }
             
-            if data.hasItems {
-                VStack(spacing: 0) {
-                    ForEach(data) { d in
-                        dataView(d)
-                            .background(Color.secondarySystemGroupBackground)
-                        
-                        if d.id != data.last?.id {
-                            Divider()
-                        }
-                    }
-                }
-                .cornerRadius(10)
-            } else {
+            if data.isEmpty {
                 NoDevicesView()
                     .padding()
             }
-        })
-        .padding(.top)
-    }
-    
-    @ViewBuilder
-    func dataView(_ d: D) -> some View {
-        content(d)
+        }
     }
 }
 

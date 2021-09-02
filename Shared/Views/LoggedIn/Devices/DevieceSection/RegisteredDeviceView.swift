@@ -39,13 +39,7 @@ struct RegisteredDeviceView: View {
                     .progressViewStyle(CircularProgressViewStyle())
                     .frame(width: 20, height: 20)
             }
-            
-            Image(systemName: "chevron.right")
-                .renderingMode(.template)
-                .foregroundColor(.gray)
-                .padding(.horizontal)
         }
-        .padding(8)
     }
 }
 
