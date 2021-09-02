@@ -14,22 +14,27 @@ struct DeviceSection<Content: View, D: Identifiable>: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8, content: {
-            Text(title.uppercased()).font(.subheadline)
+            Text(title.uppercased())
+                .font(.subheadline)
             
             if data.hasItems {
                 VStack(spacing: 0) {
                     ForEach(data) { d in
                         dataView(d)
                             .background(Color.secondarySystemGroupBackground)
-                        Divider()
+                        
+                        if d.id != data.last?.id {
+                            Divider()
+                        }
                     }
                 }
                 .cornerRadius(10)
             } else {
-                NoDevicesView().padding()
+                NoDevicesView()
+                    .padding()
             }
         })
-        .padding()
+        .padding(.top)
     }
     
     @ViewBuilder

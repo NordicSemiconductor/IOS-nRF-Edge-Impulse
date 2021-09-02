@@ -29,7 +29,7 @@ struct DeviceList: View {
     
     var body: some View {
         AlertViewContainer(content: {
-            ScrollView {
+            List {
                 buildRegisteredDevicesList()
                 buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
                 
