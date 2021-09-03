@@ -25,9 +25,9 @@ extension BluetoothManager {
         case notConnected, connecting, connected, disconnected, readyToUse
     }
     
-    static let uartServiceId = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
-    static let txCharacteristicId = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
-    static let rxCharacteristicId = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
+    static let uartServiceId = CBUUID(string: "E2A00001-EC31-4EC3-A97A-1C34D87E9878")
+    static let txCharacteristicId = CBUUID(string: "E2A00003-EC31-4EC3-A97A-1C34D87E9878")
+    static let rxCharacteristicId = CBUUID(string: "E2A00002-EC31-4EC3-A97A-1C34D87E9878")
 }
 
 /// `BluetoothManager` is responsible for connection and managing peripheral connection
