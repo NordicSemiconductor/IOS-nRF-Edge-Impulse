@@ -10,22 +10,24 @@ import Combine
 import os
 
 extension DeviceRemoteHandler {
-    enum Error: Swift.Error {
+    
+    enum Error: LocalizedError {
         case anyError(Swift.Error)
         case stringError(String)
         case timeout
         case connectionEstablishFailed
         
-        var localizedDescription: String {
+        var failureReason: String? { errorDescription }
+        var errorDescription: String? {
             switch self {
             case .anyError(let e):
                 return e.localizedDescription
             case .timeout:
-                return "Timeout error"
+                return "Connection timed out."
             case .stringError(let s):
                 return s
             case .connectionEstablishFailed:
-                return "Can not establish connection"
+                return "Unable to establish connection."
             }
         }
     }
@@ -60,7 +62,6 @@ extension DeviceRemoteHandler {
                 return "On Demand"
             }
         }
-        
     }
 }
 
