@@ -77,7 +77,7 @@ private extension DeviceList {
     private func buildRegisteredDevicesList() -> some View {
         DeviceSection(title: "Devices", data: deviceData.registeredDevices) { wrapper in
             NavigationLink(destination: DeviceDetails(device: wrapper.device)) {
-                RegisteredDeviceView(wrapper)
+                RegisteredDeviceView(wrapper.device, connectionState: wrapper.state)
             }
             .contextMenu {
                 deviceContextMenu(wrapper)

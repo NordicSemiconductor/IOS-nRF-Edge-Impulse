@@ -9,13 +9,12 @@ import SwiftUI
 
 struct RegisteredDeviceView: View {
     
-    private let deviceWrapper: DeviceData.DeviceWrapper
+    private let device: Device
+    private let connectionState: DeviceData.DeviceWrapper.State
     
-    private var device: Device { deviceWrapper.device }
-    private var connectionState: DeviceData.DeviceWrapper.State { deviceWrapper.state }
-    
-    init(_ deviceWrapper: DeviceData.DeviceWrapper) {
-        self.deviceWrapper = deviceWrapper
+    init(_ device: Device, connectionState: DeviceData.DeviceWrapper.State) {
+        self.device = device
+        self.connectionState = connectionState
     }
     
     var body: some View {
@@ -56,7 +55,7 @@ struct RegisteredDeviceView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(DeviceData.DeviceWrapper.State.allCases, id: \.self) { state in
-                RegisteredDeviceView(DeviceData.DeviceWrapper(device: .connectableMock))
+                RegisteredDeviceView(.connectableMock, connectionState: state)
             }
         }
         .previewLayout(.sizeThatFits)
