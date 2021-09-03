@@ -14,11 +14,16 @@ import Algorithms
 
 /// Static methods and nested structures
 extension BluetoothManager {
-    struct Error: Swift.Error {
+    
+    struct Error: LocalizedError {
+        static let cantRetreivePeripheral = Error(localizedDescription: "Can't retreive the peripheral.")
+        static let deviceDoesNotAdvertiseEIService = Error(localizedDescription: "This device does not advertise the expected Edge Impulse Remote Management Service.")
+        static let failedToConnect = Error(localizedDescription: "Failed to connect to the peripheral.")
+        
         let localizedDescription: String
         
-        static let cantRetreivePeripheral = Error(localizedDescription: "Can't retreive the peripheral.")
-        static let failedToConnect = Error(localizedDescription: "Failed to connect to the peripheral")
+        var errorDescription: String? { localizedDescription }
+        var failureReason: String? { localizedDescription }
     }
     
     enum State {
@@ -156,12 +161,12 @@ extension BluetoothManager: CBPeripheralDelegate {
             return
         }
         
-        peripheral.services?
-            .filter { $0.uuid == Self.uartServiceId }
-            .forEach {
-                logger.info("Did discovered service: \($0.uuid.uuidString)")
-                peripheral.discoverCharacteristics(nil, for: $0)
-            }
+        guard let uartService = peripheral.services?.first(where: { $0.uuid == Self.uartServiceId }) else {
+            btStateSubject.send(completion: .failure(Error.deviceDoesNotAdvertiseEIService))
+            return
+        }
+        logger.info("Did discover service: \(uartService.uuid.uuidString)")
+        peripheral.discoverCharacteristics(nil, for: uartService)
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Swift.Error?) {
