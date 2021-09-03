@@ -31,7 +31,7 @@ struct SettingsContentView: View {
             }
             
             Section(header: Text("Devices")) {
-                Toggle("Only Scan Devices Advertising 'UART' Service",
+                Toggle("Only Scan Devices Advertising 'Edge Impulse Remote Management' Service",
                        isOn: $preferences.onlyScanUARTDevices)
                     .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
                 

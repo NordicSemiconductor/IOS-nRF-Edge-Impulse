@@ -14,7 +14,7 @@ struct SettingsDevicesView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             
-            Toggle("Only Scan Devices Advertising 'UART' Service",
+            Toggle("Only Scan Devices Advertising 'Edge Impulse Remote Management' Service",
                    isOn: $preferences.onlyScanUARTDevices)
             
             Toggle("Only Scan Connectable Devices",
