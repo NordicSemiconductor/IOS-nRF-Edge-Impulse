@@ -59,10 +59,10 @@ struct DeviceList: View {
 // MARK: - List
 
 private extension DeviceList {
+    
     // MARK: Scan results
     @ViewBuilder
     private func buildScanResultsList(scanResult: [DeviceData.ScanResultWrapper]) -> some View {
-        
         DeviceSection(title: "Add Device", data: scanResult) { s in
             UnregisteredDeviceView(s.scanResult, isConnecting: s.state == .connecting)
                 .onTapGesture {
@@ -75,7 +75,7 @@ private extension DeviceList {
     // MARK: Registered Devices
     @ViewBuilder
     private func buildRegisteredDevicesList() -> some View {
-        DeviceSection(title: "Devices", data: deviceData.registeredDevices) { wrapper in
+        DeviceSection(data: deviceData.registeredDevices) { wrapper in
             NavigationLink(destination: DeviceDetails(device: wrapper.device)) {
                 RegisteredDeviceView(wrapper.device, connectionState: wrapper.state)
             }

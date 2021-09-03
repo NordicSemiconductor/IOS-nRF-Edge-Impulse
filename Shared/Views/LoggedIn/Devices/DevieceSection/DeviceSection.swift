@@ -8,12 +8,19 @@
 import SwiftUI
 
 struct DeviceSection<Content: View, D: Identifiable>: View {
-    let title: String
+    
+    let title: String?
     let data: [D]
     let content: (D) -> Content
     
+    init(title: String? = nil, data: [D], content: @escaping (D) -> Content) {
+        self.title = title
+        self.data = data
+        self.content = content
+    }
+    
     var body: some View {
-        Section(header: Text("Devices")) {
+        Section(header: Text(title ?? "")) {
             ForEach(data) { wrapper in
                 content(wrapper)
             }
