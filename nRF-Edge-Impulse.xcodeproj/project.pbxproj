@@ -34,7 +34,6 @@
 		AA01020C269C5D1D0045D6F2 /* SocketIOJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01020A269C5D1D0045D6F2 /* SocketIOJob.swift */; };
 		AA01020E269C74850045D6F2 /* DownloadDeviceModelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01020D269C74850045D6F2 /* DownloadDeviceModelRequest.swift */; };
 		AA01020F269C74850045D6F2 /* DownloadDeviceModelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01020D269C74850045D6F2 /* DownloadDeviceModelRequest.swift */; };
-		AA010212269C90D70045D6F2 /* McuManager in Frameworks */ = {isa = PBXBuildFile; productRef = AA010211269C90D70045D6F2 /* McuManager */; };
 		AA01902826BA938F00B70E85 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = AA01902726BA938F00B70E85 /* Algorithms */; };
 		AA01902A26BA939700B70E85 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = AA01902926BA939700B70E85 /* Algorithms */; };
 		AA01DA6026395E6000F6DD44 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01DA5F26395E6000F6DD44 /* Date.swift */; };
@@ -95,6 +94,8 @@
 		AA1016FD25E9173A006DC88A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1016FB25E9173A006DC88A /* Network.swift */; };
 		AA10170325E91885006DC88A /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* HTTPRequest.swift */; };
 		AA10170425E91885006DC88A /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* HTTPRequest.swift */; };
+		AA140D2626E2360800F0301C /* McuManager in Frameworks */ = {isa = PBXBuildFile; productRef = AA140D2526E2360800F0301C /* McuManager */; };
+		AA140D2826E2364500F0301C /* McuManager in Frameworks */ = {isa = PBXBuildFile; productRef = AA140D2726E2364500F0301C /* McuManager */; };
 		AA14CA75261490CD004F08FE /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14CA74261490CD004F08FE /* Codable.swift */; };
 		AA14CA76261490CD004F08FE /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14CA74261490CD004F08FE /* Codable.swift */; };
 		AA1C386F26A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C386E26A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift */; };
@@ -228,7 +229,6 @@
 		AAF5E75D26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5E75B26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift */; };
 		AAF7299726298D6D0034B61A /* AppData+LoginState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7299626298D6D0034B61A /* AppData+LoginState.swift */; };
 		AAF7299826298D6D0034B61A /* AppData+LoginState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7299626298D6D0034B61A /* AppData+LoginState.swift */; };
-		AAF7D450269F0EC1009269D4 /* McuManager in Frameworks */ = {isa = PBXBuildFile; productRef = AAF7D44F269F0EC1009269D4 /* McuManager */; };
 		AAF7D452269F1176009269D4 /* DeploymentView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */; };
 		AAF7D453269F1176009269D4 /* DeploymentView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */; };
 		AAF7D45B269F2C22009269D4 /* FormIniOSListInMacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D45A269F2C22009269D4 /* FormIniOSListInMacOS.swift */; };
@@ -483,9 +483,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA140D2626E2360800F0301C /* McuManager in Frameworks */,
 				AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */,
 				C3163D36268DD61900CD3DB5 /* Introspect in Frameworks */,
-				AA010212269C90D70045D6F2 /* McuManager in Frameworks */,
 				AA01902826BA938F00B70E85 /* Algorithms in Frameworks */,
 				C3163D34268DD61000CD3DB5 /* VisualEffects in Frameworks */,
 				AA1EF9E926C2CEF300B85FF3 /* ZIPFoundation in Frameworks */,
@@ -496,9 +496,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA140D2826E2364500F0301C /* McuManager in Frameworks */,
 				AA7F5DE325F8F57D00185328 /* KeychainSwift in Frameworks */,
 				AA0B3000267A2AE400AA0571 /* Introspect in Frameworks */,
-				AAF7D450269F0EC1009269D4 /* McuManager in Frameworks */,
 				AA01902A26BA939700B70E85 /* Algorithms in Frameworks */,
 				AA69E2C7263973FB00BC44D3 /* VisualEffects in Frameworks */,
 				AA1EF9EB26C2CEFC00B85FF3 /* ZIPFoundation in Frameworks */,
@@ -1043,9 +1043,9 @@
 				AAFAE5E425ED11CA00A45A90 /* KeychainSwift */,
 				C3163D33268DD61000CD3DB5 /* VisualEffects */,
 				C3163D35268DD61900CD3DB5 /* Introspect */,
-				AA010211269C90D70045D6F2 /* McuManager */,
 				AA01902726BA938F00B70E85 /* Algorithms */,
 				AA1EF9E826C2CEF300B85FF3 /* ZIPFoundation */,
+				AA140D2526E2360800F0301C /* McuManager */,
 			);
 			productName = "nRF-Edge-Impulse (iOS)";
 			productReference = AA03E96025E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -1069,9 +1069,9 @@
 				AA7F5DE225F8F57D00185328 /* KeychainSwift */,
 				AA69E2C6263973FB00BC44D3 /* VisualEffects */,
 				AA0B2FFF267A2AE400AA0571 /* Introspect */,
-				AAF7D44F269F0EC1009269D4 /* McuManager */,
 				AA01902926BA939700B70E85 /* Algorithms */,
 				AA1EF9EA26C2CEFC00B85FF3 /* ZIPFoundation */,
+				AA140D2726E2364500F0301C /* McuManager */,
 			);
 			productName = "nRF-Edge-Impulse (macOS)";
 			productReference = AA03E96825E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -1151,9 +1151,9 @@
 				AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */,
 				AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
-				AA010210269C90D70045D6F2 /* XCRemoteSwiftPackageReference "mcumgr-ios" */,
 				AA01902626BA938F00B70E85 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+				AA140D2426E2360800F0301C /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */,
 			);
 			productRefGroup = AA03E96125E3EF13003DA9DA /* Products */;
 			projectDirPath = "";
@@ -1917,14 +1917,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		AA010210269C90D70045D6F2 /* XCRemoteSwiftPackageReference "mcumgr-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/JuulLabs-OSS/mcumgr-ios.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		AA01902626BA938F00B70E85 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-algorithms";
@@ -1939,6 +1931,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.1.3;
+			};
+		};
+		AA140D2426E2360800F0301C /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/NordicSemiconductor/IOS-nRF-Connect-Device-Manager.git";
+			requirement = {
+				branch = master;
+				kind = branch;
 			};
 		};
 		AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
@@ -1968,11 +1968,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AA010211269C90D70045D6F2 /* McuManager */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA010210269C90D70045D6F2 /* XCRemoteSwiftPackageReference "mcumgr-ios" */;
-			productName = McuManager;
-		};
 		AA01902726BA938F00B70E85 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AA01902626BA938F00B70E85 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
@@ -1987,6 +1982,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
+		};
+		AA140D2526E2360800F0301C /* McuManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA140D2426E2360800F0301C /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */;
+			productName = McuManager;
+		};
+		AA140D2726E2364500F0301C /* McuManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA140D2426E2360800F0301C /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */;
+			productName = McuManager;
 		};
 		AA1EF9E826C2CEF300B85FF3 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -2007,11 +2012,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
-		};
-		AAF7D44F269F0EC1009269D4 /* McuManager */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA010210269C90D70045D6F2 /* XCRemoteSwiftPackageReference "mcumgr-ios" */;
-			productName = McuManager;
 		};
 		AAFAE5E425ED11CA00A45A90 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
