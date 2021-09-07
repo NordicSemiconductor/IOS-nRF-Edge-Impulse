@@ -15,11 +15,10 @@ final class AppData: ObservableObject {
     
     @Published var apiToken: String? {
         didSet {
-            if let token = apiToken {
-                guard !Constant.isRunningInPreviewMode else { return }
-                keychain.set(token, forKey: KeychainKeys.apiToken.rawValue)
+            if let newToken = apiToken {
+                keychain.write(newToken)
             } else {
-                keychain.delete(KeychainKeys.apiToken.rawValue)
+                keychain.remove()
             }
         }
     }
@@ -49,7 +48,7 @@ final class AppData: ObservableObject {
         self.projectDevelopmentKeys = [Project: ProjectDevelopmentKeysResponse]()
         self.projectSocketTokens = [Project: Token]()
         self.samplesForCategory = [DataSample.Category: [DataSample]]()
-        self.apiToken = keychain.get(KeychainKeys.apiToken.rawValue)
+        self.apiToken = keychain.get("apiToken")
     }
     
     // MARK: - API
@@ -83,7 +82,9 @@ final class AppData: ObservableObject {
     }
 }
 
-private extension AppData {
+// MARK: - AppData
+
+fileprivate extension AppData {
     
     func selectedProjectDidChange() {
         projectDevelopmentKeys = [Project: ProjectDevelopmentKeysResponse]()
@@ -93,11 +94,20 @@ private extension AppData {
     }
 }
 
-// MARK: - KeychainKeys
+// MARK: - KeychainSwift Helpers
 
-private extension AppData {
+fileprivate extension KeychainSwift {
     
-    enum KeychainKeys: String, RawRepresentable {
-        case apiToken
+    func read(key: String = #function) -> String? {
+        get(key)
+    }
+    
+    func write(_ value: String, key: String = #function) {
+        guard !Constant.isRunningInPreviewMode else { return }
+        set(value, forKey: key)
+    }
+    
+    func remove(key: String = #function) {
+        delete(key)
     }
 }
