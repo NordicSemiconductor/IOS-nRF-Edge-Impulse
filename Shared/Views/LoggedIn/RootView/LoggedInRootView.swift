@@ -13,11 +13,6 @@ struct LoggedInRootView: View {
     
     private let logger = Logger(category: "LoggedInRootView")
     
-    enum Error: Swift.Error {
-        case anyError(Swift.Error)
-        case describedError(String)
-    }
-    
     // MARK: Properties
     
     @EnvironmentObject var appData: AppData
