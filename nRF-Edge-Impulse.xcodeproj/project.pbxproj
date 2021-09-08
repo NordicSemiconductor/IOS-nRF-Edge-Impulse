@@ -231,8 +231,6 @@
 		AAF7299826298D6D0034B61A /* AppData+LoginState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7299626298D6D0034B61A /* AppData+LoginState.swift */; };
 		AAF7D452269F1176009269D4 /* DeploymentView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */; };
 		AAF7D453269F1176009269D4 /* DeploymentView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */; };
-		AAF7D45B269F2C22009269D4 /* FormIniOSListInMacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D45A269F2C22009269D4 /* FormIniOSListInMacOS.swift */; };
-		AAF7D45C269F2C22009269D4 /* FormIniOSListInMacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D45A269F2C22009269D4 /* FormIniOSListInMacOS.swift */; };
 		AAF936AB260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */; };
 		AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */; };
 		AAFA2FB626C17174005AD96F /* UploadSampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFA2FB526C17174005AD96F /* UploadSampleRequest.swift */; };
@@ -443,7 +441,6 @@
 		AAF5E75B26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProjectDevelopmentKeysRequest.swift; sourceTree = "<group>"; };
 		AAF7299626298D6D0034B61A /* AppData+LoginState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+LoginState.swift"; sourceTree = "<group>"; };
 		AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentView+Logic.swift"; sourceTree = "<group>"; };
-		AAF7D45A269F2C22009269D4 /* FormIniOSListInMacOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormIniOSListInMacOS.swift; sourceTree = "<group>"; };
 		AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPaneLayoutView.swift; sourceTree = "<group>"; };
 		AAFA2FB526C17174005AD96F /* UploadSampleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadSampleRequest.swift; sourceTree = "<group>"; };
 		AAFAC31B2678BC8F00D486EA /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
@@ -811,7 +808,6 @@
 				AAF38C15268DED9900F1A590 /* AppIconView.swift */,
 				AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */,
 				C39B106D2695DF400056095E /* HUD.swift */,
-				AAF7D45A269F2C22009269D4 /* FormIniOSListInMacOS.swift */,
 				AAE96F0926A58E220089D370 /* AlertViewContainer.swift */,
 				AAEBB92A26CE6D5B006A4DF7 /* ReusableProgressView.swift */,
 				AAB8C87526D536A0004FC21B /* MacAddressView.swift */,
@@ -1303,7 +1299,6 @@
 				AA80988425EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA43B2A825FA574F00C5B5EE /* TabBarLayoutView.swift in Sources */,
 				AAF4F6BD2625C0A700012359 /* LoginErrorView.swift in Sources */,
-				AAF7D45B269F2C22009269D4 /* FormIniOSListInMacOS.swift in Sources */,
 				01D853EC265CF67100D96592 /* GetDevicesRequest.swift in Sources */,
 				AAFDB471264D78AF00F0CD02 /* CollaboratorsHStackView.swift in Sources */,
 				AAFA2FB626C17174005AD96F /* UploadSampleRequest.swift in Sources */,
@@ -1524,7 +1519,6 @@
 				C3A3665A260414BC008D82CC /* UnregisteredDeviceView.swift in Sources */,
 				011D788126BB3CA10035B752 /* TextHeader.swift in Sources */,
 				C37E5ECA262842AA00B9E361 /* Scanner.swift in Sources */,
-				AAF7D45C269F2C22009269D4 /* FormIniOSListInMacOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
