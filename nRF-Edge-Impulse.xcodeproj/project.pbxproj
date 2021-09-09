@@ -553,11 +553,11 @@
 		AA02089425F654C300FD6B24 /* Devices */ = {
 			isa = PBXGroup;
 			children = (
+				AA14FD4326EA310A008128CB /* Details */,
 				0187B39126BD6C5E00E59BFD /* DevieceSection */,
 				015AB1602653D5E700C09196 /* ConnectionStatus.swift */,
 				AAE507B9268F19990017CAED /* RenameDeviceView.swift */,
 				AA02089525F65A3700FD6B24 /* DeviceList.swift */,
-				C3755CD3268F0A9700FE8C69 /* DeviceDetails.swift */,
 				AAA5C7C4269F39EA0012809A /* NoDevicesView.swift */,
 				011D787F26BB3CA10035B752 /* TextHeader.swift */,
 				C3BF6AC72626D662006330C8 /* SignalLevel */,
@@ -669,6 +669,14 @@
 				AA0E584326C6847F00C437DD /* DFUManifest.swift */,
 			);
 			path = Deployment;
+			sourceTree = "<group>";
+		};
+		AA14FD4326EA310A008128CB /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				C3755CD3268F0A9700FE8C69 /* DeviceDetails.swift */,
+			);
+			path = Details;
 			sourceTree = "<group>";
 		};
 		AA263F022603854D0018CF5B /* Views */ = {

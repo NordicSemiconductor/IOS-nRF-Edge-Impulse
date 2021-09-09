@@ -11,15 +11,22 @@ struct DeviceDetails: View {
     
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var deviceData: DeviceData
+    
+    // MARK: Private Properties
+    
     @State private var showingAlert = false
     
-    let wrapper: DeviceData.DeviceWrapper
+    private let device: Device
+    private let state: DeviceData.DeviceWrapper.State
     
-    var device: Device { wrapper.device }
+    // MARK: Init
     
-    init(_ deviceWrapper: DeviceData.DeviceWrapper) {
-        self.wrapper = deviceWrapper
+    init(device: Device, state: DeviceData.DeviceWrapper.State) {
+        self.device = device
+        self.state = state
     }
+    
+    // MARK: View
     
     var body: some View {
         FormIniOSListInMacOS {
@@ -39,7 +46,7 @@ struct DeviceDetails: View {
             #endif
             
             Section(header: Text("Status")) {
-                BoolDeviceInfoRow(title: "Connected to Remote Management", systemImage: "network", choice: device.remoteMgmtConnected)
+//                BoolDeviceInfoRow(title: "Connected to Remote Management", systemImage: "network", choice: device.remoteMgmtConnected)
                 BoolDeviceInfoRow(title: "Supports Snapshot Streaming", systemImage: "arrow.left.and.right", choice: device.supportsSnapshotStreaming)
             }
             
@@ -72,14 +79,14 @@ struct DeviceDetails: View {
         }
         .navigationTitle(Text(device.name))
         .toolbar {
-            if case .readyToConnect = wrapper.state {
+            if case .readyToConnect = state {
                 Button("Connect") {
                     deviceData.tryToConnect(device: device)
                 }
-            } else if case .connecting = wrapper.state {
+            } else if case .connecting = state {
                 ProgressView()
 
-            } else if case .connected = wrapper.state {
+            } else if case .connected = state {
                 Button("Disconnect") {
                     deviceData.disconnect(device: device)
                 }
@@ -90,16 +97,14 @@ struct DeviceDetails: View {
     // MARK: Connection section
     @ViewBuilder
     private func connectionSection() -> some View {
-        
-        let footerText = wrapper.state == .notConnectable ? "The device can't be connected" : ""
-        
+        let footerText = state == .notConnectable ? "The device can't be connected" : ""
         Section(header: Text("Connection"), footer: Text(footerText)) {
-            if case .readyToConnect = wrapper.state {
+            if case .readyToConnect = state {
                 Button("Connect") {
                     deviceData.tryToConnect(device: device)
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
-            } else if case .connecting = wrapper.state {
+            } else if case .connecting = state {
                 HStack {
                     Button("Connect") { }
                     .disabled(true)
@@ -107,7 +112,7 @@ struct DeviceDetails: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
                 
-            } else if case .connected = wrapper.state {
+            } else if case .connected = state {
                 Button("Disconnect") {
                     deviceData.disconnect(device: device)
                 }
@@ -254,28 +259,19 @@ private struct NordicLabel: View {
     }
 }
 
+// MARK: - Preview
+
 #if DEBUG
 struct DeviceDetails_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            DeviceDetails(DeviceData.DeviceWrapper(device: .connectableMock))
-                .navigationTitle("Device")
-                .environmentObject(DeviceData(appData: AppData()))
-                .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro Max"))
-                .previewDisplayName("iPhone 12 Pro Max")
-            
-            DeviceDetails(DeviceData.DeviceWrapper(device: .connectableMock))
-                .navigationTitle("Device")
-                .environmentObject(DeviceData(appData: AppData()))
-                .previewDevice(PreviewDevice(rawValue: "iPhone 12"))
-                .preferredColorScheme(.dark)
-                .previewDisplayName("iPhone 12")
-            
-            DeviceDetails(DeviceData.DeviceWrapper(device: .connectableMock))
-                .navigationTitle("Device")
-                .environmentObject(DeviceData(appData: AppData()))
-                .previewDevice(PreviewDevice(rawValue: "iPhone 12 mini"))
-                .previewDisplayName("iPhone 12 min")
+            ForEach(DeviceData.DeviceWrapper.State.allCases, id: \.self) { state in
+                DeviceDetails(device: .connectableMock, state: state)
+                    .navigationTitle("Device")
+                    .environmentObject(DeviceData(appData: AppData()))
+                    .previewLayout(.sizeThatFits)
+                    .previewDisplayName(String(describing: state).uppercasingFirst)
+            }
         }
     }
 }

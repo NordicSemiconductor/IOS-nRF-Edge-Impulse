@@ -64,7 +64,9 @@ extension LoggedInRootView {
                 switch completion {
                 case .failure(let error):
                     logger.error("Error: \(error.localizedDescription)")
-                    appData.loginState = .error(error)
+                    AppEvents.shared.error = ErrorEvent(error)
+                    appData.logout()
+//                    appData.loginState = .error(error)
                 case .finished:
                     break
                 }
