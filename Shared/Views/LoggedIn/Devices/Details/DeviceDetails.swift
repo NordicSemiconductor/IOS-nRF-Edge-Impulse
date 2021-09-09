@@ -46,8 +46,8 @@ struct DeviceDetails: View {
             #endif
             
             Section(header: Text("Status")) {
-//                BoolDeviceInfoRow(title: "Connected to Remote Management", systemImage: "network", choice: device.remoteMgmtConnected)
-                BoolDeviceInfoRow(title: "Supports Snapshot Streaming", systemImage: "arrow.left.and.right", choice: device.supportsSnapshotStreaming)
+                BoolDeviceInfoRow(title: "Connected to Remote Management", systemImage: "network", enabled: device.remoteMgmtConnected)
+                BoolDeviceInfoRow(title: "Supports Snapshot Streaming", systemImage: "arrow.left.and.right", enabled: device.supportsSnapshotStreaming)
             }
             
             #if os(macOS)
@@ -180,29 +180,6 @@ private struct DeviceInfoRow: View {
                     hudState.show(title: "Copied", systemImage: "doc.on.doc")
                 }
                 .foregroundColor(.secondary)
-        }
-    }
-}
-
-private struct BoolDeviceInfoRow: View {
-    let title: String
-    let systemImage: String?
-    let choice: Bool
-    
-    var body: some View {
-        HStack {
-            Label(
-                title: { Text(title) },
-                icon: {
-                    Image(systemName: systemImage ?? "")
-                        .renderingMode(.template)
-                        .foregroundColor(.universalAccentColor)
-                }
-            )
-            Spacer()
-            choice
-            ? Image(systemName: "checkmark.circle.fill").foregroundColor(.green)
-            : Image(systemName: "xmark.circle.fill").foregroundColor(Assets.red.color)
         }
     }
 }
