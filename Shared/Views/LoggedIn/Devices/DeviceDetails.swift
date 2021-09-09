@@ -205,7 +205,7 @@ private struct SensorSection: View {
 
     var body: some View {
         
-        Section(header: Label(sensor.name, systemImage: sensorIcon)) {
+        Section(header: Label(sensor.name, systemImage: sensor.iconName)) {
             
             HStack {
                 NordicLabel(title: "Max. Sample Length:", systemImage: "waveform.path.ecg")
@@ -230,25 +230,6 @@ private struct SensorSection: View {
                         .foregroundColor(.secondary)
                 }
             }
-        }
-    }
-    
-    private var sensorIcon: String {
-        switch sensor.name {
-        case "Camera":
-            return "camera"
-        case "Microphone":
-            return "mic"
-        case "Accelerometer":
-            return "gyroscope"
-        case "Magnetometer":
-            return "tuningfork"
-        case "Light":
-            return "lightbulb"
-        case "Environment":
-            return "wind"
-        default:
-            return "square"
         }
     }
 }
