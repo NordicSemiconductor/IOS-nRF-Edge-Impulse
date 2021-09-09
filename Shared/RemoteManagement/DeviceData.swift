@@ -174,9 +174,6 @@ class DeviceData: ObservableObject {
     }
     
     // MARK: Connection State
-    func connectionState(of device: Device) -> DeviceWrapper.State? {
-        registeredDevices.first(where: { $0.device == device })?.state
-    }
     
     func connectionState(of scanResult: ScanResult) -> ScanResultWrapper.State? {
         scanResults.first(where: { $0.scanResult == scanResult })?.state
