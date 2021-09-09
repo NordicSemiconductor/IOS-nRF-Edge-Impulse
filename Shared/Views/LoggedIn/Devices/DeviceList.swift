@@ -34,13 +34,6 @@ struct DeviceList: View {
                 MacAddressView()
                 #endif
             }
-            .navigationBarItems(trailing: Group {
-                // Fix for ToolbarItem glitching the Project Menu on iOS.
-                #if os(iOS)
-                Image(systemName: "arrow.clockwise")
-                    .onTapGesture(perform: deviceData.refresh)
-                #endif
-            })
         }, alertView: { device in
             RenameDeviceView($renameDevice, oldName: device.name)
         }, isShowing: $renameDevice)
@@ -51,15 +44,10 @@ struct DeviceList: View {
                   secondaryButton: .default(Text("Cancel"), action: dismissDeleteDevice))
         }
         .toolbar {
-            // On macOS we can use a ToolbarItem instead.
-            #if os(macOS)
+            // Fix for ToolbarItem glitching the Project Menu on iOS.
             ToolbarItem(placement: .destructiveAction) {
-                Button(action: deviceData.refresh, label: {
-                    Label("Refresh", systemImage: "arrow.clockwise")
-                })
-                .keyboardShortcut(KeyEquivalent("r"), modifiers: [.command])
+                refreshToolbarButton()
             }
-            #endif
         }
         .accentColor(.white)
         .background(Color.formBackground)
@@ -131,6 +119,13 @@ private extension DeviceList {
         } label: {
             Label("Delete", systemImage: "minus.circle")
         }
+    }
+    
+    private func refreshToolbarButton() -> some View {
+        Button(action: deviceData.refresh, label: {
+            Label("Refresh", systemImage: "arrow.clockwise")
+        })
+        .keyboardShortcut(KeyEquivalent("r"), modifiers: [.command])
     }
     
     enum ListSection: Int, Identifiable, CaseIterable {
