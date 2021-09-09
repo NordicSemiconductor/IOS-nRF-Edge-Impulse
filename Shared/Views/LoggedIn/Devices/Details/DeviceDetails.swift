@@ -175,12 +175,7 @@ private struct SensorSection: View {
                 let text = ListFormatter.localizedString(
                     byJoining: frequencies.map { "\(String(format: "%.2f", $0)) Hz" })
                 
-                HStack(alignment: .top) {
-                    NordicLabel(title: "Frequencies", systemImage: "wave.3.right")
-                    Spacer()
-                    Text(text).bold()
-                        .foregroundColor(.secondary)
-                }
+                StringDeviceInfoRow(title: "Frequencies:", systemImage: "wave.3.right", content: text)
             }
         }
     }
