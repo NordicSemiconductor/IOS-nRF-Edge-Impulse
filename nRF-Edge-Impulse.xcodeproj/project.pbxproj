@@ -100,6 +100,8 @@
 		AA14CA76261490CD004F08FE /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14CA74261490CD004F08FE /* Codable.swift */; };
 		AA14FD4526EA317E008128CB /* BoolDeviceInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14FD4426EA317E008128CB /* BoolDeviceInfoRow.swift */; };
 		AA14FD4626EA317E008128CB /* BoolDeviceInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14FD4426EA317E008128CB /* BoolDeviceInfoRow.swift */; };
+		AA14FD4826EA3314008128CB /* StringDeviceInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14FD4726EA3314008128CB /* StringDeviceInfoRow.swift */; };
+		AA14FD4926EA3314008128CB /* StringDeviceInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14FD4726EA3314008128CB /* StringDeviceInfoRow.swift */; };
 		AA1C386F26A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C386E26A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift */; };
 		AA1C387026A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C386E26A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift */; };
 		AA1C387126A6DC8100304D69 /* DeploymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D81282608C03A00AE615A /* DeploymentView.swift */; };
@@ -376,6 +378,7 @@
 		AA10170225E91885006DC88A /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
 		AA14CA74261490CD004F08FE /* Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
 		AA14FD4426EA317E008128CB /* BoolDeviceInfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolDeviceInfoRow.swift; sourceTree = "<group>"; };
+		AA14FD4726EA3314008128CB /* StringDeviceInfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringDeviceInfoRow.swift; sourceTree = "<group>"; };
 		AA1C386E26A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentConfigurationView+Logic.swift"; sourceTree = "<group>"; };
 		AA1F07A325F7989400CC41A9 /* BluetoothError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothError.swift; sourceTree = "<group>"; };
 		AA263F05260385690018CF5B /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
@@ -678,6 +681,7 @@
 			isa = PBXGroup;
 			children = (
 				C3755CD3268F0A9700FE8C69 /* DeviceDetails.swift */,
+				AA14FD4726EA3314008128CB /* StringDeviceInfoRow.swift */,
 				AA14FD4426EA317E008128CB /* BoolDeviceInfoRow.swift */,
 			);
 			path = Details;
@@ -1291,6 +1295,7 @@
 				011D788026BB3CA10035B752 /* TextHeader.swift in Sources */,
 				AA14FD4526EA317E008128CB /* BoolDeviceInfoRow.swift in Sources */,
 				AAE96F0A26A58E220089D370 /* AlertViewContainer.swift in Sources */,
+				AA14FD4826EA3314008128CB /* StringDeviceInfoRow.swift in Sources */,
 				AAFC490C26A979FD002A08F9 /* LogMessage.swift in Sources */,
 				AA386B09260CEDD60079F12D /* Previews.swift in Sources */,
 				AA4D06F3268F410E00DFB6A9 /* RenameDeviceRequest.swift in Sources */,
@@ -1509,6 +1514,7 @@
 				AA284060261F537C00EB8637 /* PasswordField.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
 				AA010209269C5CD30045D6F2 /* SocketIOJobResult.swift in Sources */,
+				AA14FD4926EA3314008128CB /* StringDeviceInfoRow.swift in Sources */,
 				AAF4F6BB2625C02E00012359 /* SignedUpView.swift in Sources */,
 				AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
 				AAF7D453269F1176009269D4 /* DeploymentView+Logic.swift in Sources */,

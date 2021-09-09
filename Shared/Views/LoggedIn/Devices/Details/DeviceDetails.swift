@@ -32,13 +32,13 @@ struct DeviceDetails: View {
         FormIniOSListInMacOS {
             Section(header: Text("Device Information")) {
                 #if os(macOS)
-                DeviceInfoRow(title: "Name:", systemImage: "character", content: device.name)
+                StringDeviceInfoRow(title: "Name:", systemImage: "character", content: device.name)
                 #endif
                 
-                DeviceInfoRow(title: "ID:", systemImage: "person", content: device.deviceId)
-                DeviceInfoRow(title: "Type:", systemImage: "t.square", content: device.deviceType.trimmingCharacters(in: .whitespacesAndNewlines))
-                DeviceInfoRow(title: "Created At:", systemImage: "calendar", content: device.created.toDate()?.formatterString() ?? "")
-                DeviceInfoRow(title: "Last Seen:", systemImage: "eye", content: device.lastSeen.toDate()?.formatterString() ?? "")
+                StringDeviceInfoRow(title: "ID:", systemImage: "person", content: device.deviceId)
+                StringDeviceInfoRow(title: "Type:", systemImage: "t.square", content: device.deviceType.trimmingCharacters(in: .whitespacesAndNewlines))
+                StringDeviceInfoRow(title: "Created At:", systemImage: "calendar", content: device.created.toDate()?.formatterString() ?? "")
+                StringDeviceInfoRow(title: "Last Seen:", systemImage: "eye", content: device.lastSeen.toDate()?.formatterString() ?? "")
             }
             
             #if os(macOS)
@@ -152,38 +152,6 @@ private extension DeviceDetails {
     }
 }
 
-// MARK: - DeviceInfoRow
-
-private struct DeviceInfoRow: View {
-    
-    @EnvironmentObject private var hudState: HUDState
-    
-    let title: String
-    let systemImage: String?
-    let content: String
-    
-    var body: some View {
-        HStack {
-            NordicLabel(title: title, systemImage: systemImage ?? "")
-            Spacer()
-            
-            Text(content)
-                .bold()
-                .lineLimit(1)
-                .onLongPressGesture {
-                    #if os(iOS)
-                    UIPasteboard.general.string = content
-                    #elseif os(OSX)
-                    NSPasteboard.general.clearContents()
-                    NSPasteboard.general.setString(content, forType: .string)
-                    #endif
-                    hudState.show(title: "Copied", systemImage: "doc.on.doc")
-                }
-                .foregroundColor(.secondary)
-        }
-    }
-}
-
 private struct SensorSection: View {
     let sensor: Sensor
 
@@ -220,7 +188,7 @@ private struct SensorSection: View {
 
 // MARK: - Nordic Label
 
-private struct NordicLabel: View {
+struct NordicLabel: View {
     let title: String
     let systemImage: String
     
