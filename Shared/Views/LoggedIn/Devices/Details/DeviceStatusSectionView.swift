@@ -57,7 +57,6 @@ struct DeviceStatusSectionView: View {
                 Button("Disconnect") {
                     deviceData.disconnect(device: device)
                 }
-                .foregroundColor(Assets.red.color)
                 .frame(maxWidth: .infinity, alignment: .center)
             default:
                 EmptyView()
