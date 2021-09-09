@@ -39,16 +39,14 @@ struct DeviceDetails: View {
                 StringDeviceInfoRow(title: "Type:", systemImage: "t.square", content: device.deviceType.trimmingCharacters(in: .whitespacesAndNewlines))
                 StringDeviceInfoRow(title: "Created At:", systemImage: "calendar", content: device.created.toDate()?.formatterString() ?? "")
                 StringDeviceInfoRow(title: "Last Seen:", systemImage: "eye", content: device.lastSeen.toDate()?.formatterString() ?? "")
+                BoolDeviceInfoRow(title: "Supports Snapshot Streaming", systemImage: "arrow.left.and.right", enabled: device.supportsSnapshotStreaming)
             }
             
             #if os(macOS)
             Divider()
             #endif
             
-            Section(header: Text("Status")) {
-                BoolDeviceInfoRow(title: "Connected to Remote Management", systemImage: "network", enabled: device.remoteMgmtConnected)
-                BoolDeviceInfoRow(title: "Supports Snapshot Streaming", systemImage: "arrow.left.and.right", enabled: device.supportsSnapshotStreaming)
-            }
+            DeviceStatusSectionView(device: device, state: state)
             
             #if os(macOS)
             Divider()
@@ -57,12 +55,6 @@ struct DeviceDetails: View {
             ForEach(device.sensors) {
                 SensorSection(sensor: $0)
             }
-            
-            #if os(macOS)
-            Divider()
-            #endif
-            
-            connectionSection()
             
             #if os(macOS)
             Divider()
@@ -92,35 +84,6 @@ struct DeviceDetails: View {
                 }
             }
         }
-    }
-    
-    // MARK: Connection section
-    @ViewBuilder
-    private func connectionSection() -> some View {
-        let footerText = state == .notConnectable ? "The device can't be connected" : ""
-        Section(header: Text("Connection"), footer: Text(footerText)) {
-            if case .readyToConnect = state {
-                Button("Connect") {
-                    deviceData.tryToConnect(device: device)
-                }
-                .frame(maxWidth: .infinity, alignment: .center)
-            } else if case .connecting = state {
-                HStack {
-                    Button("Connect") { }
-                    .disabled(true)
-                    ProgressView()
-                }
-                .frame(maxWidth: .infinity, alignment: .center)
-                
-            } else if case .connected = state {
-                Button("Disconnect") {
-                    deviceData.disconnect(device: device)
-                }
-                .foregroundColor(Assets.red.color)
-                .frame(maxWidth: .infinity, alignment: .center)
-            }
-        }
-        
     }
     
     @ViewBuilder
