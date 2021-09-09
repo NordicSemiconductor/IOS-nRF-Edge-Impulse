@@ -26,7 +26,7 @@ final class DataAcquisitionViewState: ObservableObject {
             guard selectedSensor != Constant.unselectedSensor else { return }
             selectedFrequency = selectedSensor.frequencies?.first ?? Constant.unselectedFrequency
             if let maxSampleLengthS = selectedSensor.maxSampleLengthS {
-                sampleLengthS = Double(maxSampleLengthS) / 2.0
+                sampleLengthS = min(10, Double(maxSampleLengthS) / 2.0)
             } else {
                 sampleLengthS = Constant.unselectedSampleLength
             }
