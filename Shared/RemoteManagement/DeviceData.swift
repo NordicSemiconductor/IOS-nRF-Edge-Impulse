@@ -202,6 +202,11 @@ class DeviceData: ObservableObject {
         scanResults
             .firstIndex(where: { $0.scanResult == remoteHandler.scanResult })
             .map { scanResults[$0].state = .notConnected }
+        
+        guard appData.dataAquisitionViewState.selectedDevice == remoteHandler.device else { return }
+        appData.dataAquisitionViewState.selectedDevice = Constant.unselectedDevice
+        appData.dataAquisitionViewState.selectedSensor = Constant.unselectedSensor
+        appData.dataAquisitionViewState.selectedFrequency = Constant.unselectedFrequency
     }
     
     func disconnectAll() {
