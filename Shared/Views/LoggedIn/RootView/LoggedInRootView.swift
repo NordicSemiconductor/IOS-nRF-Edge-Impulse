@@ -53,12 +53,12 @@ extension LoggedInRootView {
               let httpRequest = HTTPRequest.getUser(using: token) else { return }
         appData.loginState = .loading
         userCancellable = Network.shared.perform(httpRequest, responseType: GetUserResponse.self)
+            .onUnauthorisedUserError(appData.logout)
             .compactMap { response -> Project? in
                 hasMadeUserRequest = true
                 appData.loginState = .complete(response.user, response.projects)
                 return response.projects.first
             }
-            .onUnauthorisedUserError(appData.logout)
             .sink(receiveCompletion: { completion in
                 guard !Constant.isRunningInPreviewMode else { return }
                 switch completion {
