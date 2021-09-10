@@ -32,7 +32,7 @@ struct DataAcquisitionView: View {
                     TextField("Label", text: $appData.dataAquisitionViewState.label)
                     
                     Text("Category")
-                    Picker(selection: $appData.dataAquisitionViewState.selectedDataType, label: EmptyView()) {
+                    Picker(selection: $appData.selectedCategory, label: EmptyView()) {
                         ForEach(DataSample.Category.allCases, id: \.self) { dataType in
                             Text(dataType.rawValue.uppercasingFirst).tag(dataType)
                         }

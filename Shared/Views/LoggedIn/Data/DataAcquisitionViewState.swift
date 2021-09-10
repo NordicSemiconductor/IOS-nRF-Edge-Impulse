@@ -20,7 +20,6 @@ final class DataAcquisitionViewState: ObservableObject {
             selectedSensor = selectedDevice.sensors.first ?? Constant.unselectedSensor
         }
     }
-    @Published var selectedDataType = DataSample.Category.training
     @Published var selectedSensor = Constant.unselectedSensor {
         didSet {
             guard selectedSensor != Constant.unselectedSensor else { return }
@@ -64,19 +63,19 @@ final class DataAcquisitionViewState: ObservableObject {
     
     // MARK: API
     
-    func newSampleMessage() -> SampleRequestMessage? {
+    func newSampleMessage(category: DataSample.Category) -> SampleRequestMessage? {
         guard selectedSensor != Constant.unselectedSensor else { return nil }
         let intervalMs =  1.0 / selectedFrequency * 1000.0
-        let message = SampleRequestMessage(category: selectedDataType, intervalMs: intervalMs, label: label,
+        let message = SampleRequestMessage(category: category, intervalMs: intervalMs, label: label,
                                            lengthMs: Int(sampleLengthS) * 1000, sensor: selectedSensor.name)
         return message
     }
     
-    func newBLESampleRequest(with hmacKey: String) -> BLESampleRequestWrapper? {
+    func newBLESampleRequest(category: DataSample.Category, with hmacKey: String) -> BLESampleRequestWrapper? {
         guard selectedSensor != Constant.unselectedSensor else { return nil }
         let intervalMs =  1.0 / selectedFrequency * 1000.0
         let sample = BLESampleRequest(label: label, length: Int(sampleLengthS) * 1000, hmacKey: hmacKey,
-                                      category: selectedDataType, interval: intervalMs, sensor: selectedSensor)
+                                      category: category, interval: intervalMs, sensor: selectedSensor)
         let message = BLESampleRequestMessage(sample: sample)
         return BLESampleRequestWrapper(scheme: .wss, host: .EdgeImpulse, message: message)
     }

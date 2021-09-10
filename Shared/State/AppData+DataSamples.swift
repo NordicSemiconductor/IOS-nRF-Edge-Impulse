@@ -20,7 +20,7 @@ extension AppData {
     }
     
     func requestNewSampleID(deliveryBlock: @escaping (StartSamplingResponse?, Error?) -> Void) {
-        guard let sampleMessage = dataAquisitionViewState.newSampleMessage(),
+        guard let sampleMessage = dataAquisitionViewState.newSampleMessage(category: selectedCategory),
               let currentProject = selectedProject, let apiKey = apiToken,
               let startRequest = HTTPRequest.startSampling(sampleMessage, project: currentProject, device: dataAquisitionViewState.selectedDevice, using: apiKey) else { return }
         

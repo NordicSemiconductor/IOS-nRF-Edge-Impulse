@@ -34,7 +34,9 @@ final class AppData: ObservableObject {
     
     @Published var projectDevelopmentKeys: [Project: ProjectDevelopmentKeysResponse]
     @Published var projectSocketTokens: [Project: Token]
+    
     @Published var samplesForCategory: [DataSample.Category: [DataSample]]
+    @Published var selectedCategory: DataSample.Category = .training
     @Published internal var dataAquisitionViewState = DataAcquisitionViewState()
     
     // MARK: - Private Properties

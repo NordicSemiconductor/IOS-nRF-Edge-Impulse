@@ -14,7 +14,6 @@ struct DataSamplesView: View {
     
     // MARK: Properties
     
-    @State private var selectedCategory: DataSample.Category = .training
     @State private var showDataAcquisitionView = false
     @State private var dataAcquisitionView = DataAcquisitionView()
     
@@ -29,7 +28,7 @@ struct DataSamplesView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            Picker("Category", selection: $selectedCategory) {
+            Picker("Category", selection: $appData.selectedCategory) {
                 ForEach(DataSample.Category.allCases) { dataType in
                     Text(dataType.rawValue.uppercasingFirst)
                         .tag(dataType)
@@ -51,11 +50,11 @@ struct DataSamplesView: View {
             .padding(.top, 8)
             
             List {
-                ForEach(appData.samplesForCategory[selectedCategory] ?? []) { sample in
+                ForEach(appData.samplesForCategory[appData.selectedCategory] ?? []) { sample in
                     DataSampleRow(sample)
                 }
                 
-                DataSamplesFooterView(selectedCategory: selectedCategory)
+                DataSamplesFooterView(selectedCategory: appData.selectedCategory)
             }
             addHiddenDataAcqisitionNavigationLink()
         }

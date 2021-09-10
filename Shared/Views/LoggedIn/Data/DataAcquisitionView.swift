@@ -14,7 +14,14 @@ struct DataAcquisitionView: View {
     
     // MARK: - State
     
+    private let selectedCategory: DataSample.Category
     @State private var keyboardShownOnce = false
+    
+    // MARK: - Init
+    
+    init(_ category: DataSample.Category) {
+        self.selectedCategory = category
+    }
     
     // MARK: - @viewBuilder
     
