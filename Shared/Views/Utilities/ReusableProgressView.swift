@@ -25,8 +25,6 @@ struct ReusableProgressView: View {
     
     let buttonAction: () -> ()
     
-    // MARK: View
-    
     // MARK: Helpers
     
     var connectionStatusTopPadding: CGFloat {
@@ -44,6 +42,8 @@ struct ReusableProgressView: View {
         return 8
         #endif
     }
+    
+    // MARK: View
     
     var body: some View {
         VStack {

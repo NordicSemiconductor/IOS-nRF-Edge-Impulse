@@ -14,21 +14,14 @@ struct DataAcquisitionView: View {
     
     // MARK: - State
     
-    private let selectedCategory: DataSample.Category
     @State private var keyboardShownOnce = false
-    
-    // MARK: - Init
-    
-    init(_ category: DataSample.Category) {
-        self.selectedCategory = category
-    }
     
     // MARK: - @viewBuilder
     
     var body: some View {
         FormIniOSListInMacOS {
             Section(header: Text("Category")) {
-                Picker("Selected", selection: $appData.dataAquisitionViewState.selectedDataType) {
+                Picker("Selected", selection: $appData.selectedCategory) {
                     ForEach(DataSample.Category.allCases) { dataType in
                         Text(dataType.rawValue.uppercasingFirst)
                             .tag(dataType)
