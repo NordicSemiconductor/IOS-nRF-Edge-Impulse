@@ -97,7 +97,7 @@ struct DeviceDetails: View {
             Button("Delete") {
                 showingAlert = true
             }
-            .foregroundColor(Assets.red.color)
+            .foregroundColor(.negativeActionButtonColor)
             .frame(maxWidth: .infinity, alignment: .center)
         }
     }

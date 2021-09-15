@@ -48,6 +48,7 @@ struct DeviceStatusSectionView: View {
                 Button("Connect") {
                     deviceData.tryToConnect(device: device)
                 }
+                .foregroundColor(.positiveActionButtonColor)
                 .frame(maxWidth: .infinity, alignment: .center)
             case .connecting:
                 Button("Connect") { }
@@ -57,6 +58,7 @@ struct DeviceStatusSectionView: View {
                 Button("Disconnect") {
                     deviceData.disconnect(device: device)
                 }
+                .foregroundColor(.negativeActionButtonColor)
                 .frame(maxWidth: .infinity, alignment: .center)
             default:
                 EmptyView()

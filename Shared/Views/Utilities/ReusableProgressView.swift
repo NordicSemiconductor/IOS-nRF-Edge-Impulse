@@ -70,7 +70,7 @@ struct ReusableProgressView: View {
                 .disabled(!buttonEnabled.wrappedValue)
             #else
             Button(buttonText, action: buttonAction)
-                .foregroundColor(buttonEnabled.wrappedValue ? .textColor : .disabledTextColor)
+                .foregroundColor(buttonEnabled.wrappedValue ? .positiveActionButtonColor : .disabledTextColor)
                 .padding(.top, buttonTopPadding)
                 .disabled(!buttonEnabled.wrappedValue)
             #endif

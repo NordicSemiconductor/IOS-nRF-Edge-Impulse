@@ -25,6 +25,18 @@ extension Color {
         #endif
     }
     
+    static var positiveActionButtonColor: Color {
+        #if os(OSX)
+        return Color.primary
+        #elseif os(iOS)
+        return Assets.blue.color
+        #endif
+    }
+    
+    static var negativeActionButtonColor: Color {
+        return Assets.red.color
+    }
+    
     static var disabledTextColor: Color {
         return Assets.middleGrey.color
     }
