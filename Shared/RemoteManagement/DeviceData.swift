@@ -240,14 +240,18 @@ class DeviceData: ObservableObject {
     
     func refresh() {
         scanResults.removeAll()
-        
+        updateRegisteredDevices()
+    }
+    
+    func updateRegisteredDevices() {
         deviceManager.refreshDevices(appData: appData)
             .sink { [logger] completion in
                 switch completion {
                 case .finished:
                     logger.info("Fetch device completed")
-                case .failure(let e):
-                    logger.error("Fetch device failed. Error: \(e.localizedDescription)")
+                case .failure(let error):
+                    logger.error("Fetch device failed. Error: \(error.localizedDescription)")
+                    AppEvents.shared.error = ErrorEvent(error)
                 }
             } receiveValue: { [weak self] devices in
                 guard let self = self else { return }

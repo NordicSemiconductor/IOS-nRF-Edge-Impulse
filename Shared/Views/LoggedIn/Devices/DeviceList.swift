@@ -41,6 +41,7 @@ struct DeviceList: View {
         }, alertView: { device in
             RenameDeviceView($renameDevice, oldName: device.name)
         }, isShowing: $renameDevice)
+        .onAppear(perform: deviceData.updateRegisteredDevices)
         .alert(isPresented: $showDeleteDeviceAlert) {
             Alert(title: Text("Delete Device"),
                   message: Text("Are you sure you want to delete this Device?"),
