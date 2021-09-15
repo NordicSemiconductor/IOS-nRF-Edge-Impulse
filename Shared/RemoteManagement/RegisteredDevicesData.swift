@@ -9,17 +9,14 @@ import Combine
 import SwiftUI
 import os
 
-class RegisteredDevicesManager {
+// MARK: - RegisteredDevicesManager
+
+final class RegisteredDevicesManager {
     private lazy var logger = Logger(Self.self)
     private let network: Network
     
     init(network: Network = .shared) {
         self.network = network
-    }
-    
-    enum Error: Swift.Error {
-        case unauthorized, badRequest
-        case any(Swift.Error)
     }
     
     private func requestData(appData: AppData) -> AnyPublisher<(Project, String), Swift.Error> {
@@ -86,5 +83,27 @@ class RegisteredDevicesManager {
                 return self.network.perform(request, responseType: DeleteDeviceResponse.self)
             }
             .eraseToAnyVoidPublisher()
+    }
+}
+
+// MARK: - Error
+
+extension RegisteredDevicesManager {
+    
+    enum Error: LocalizedError {
+        case unauthorized, badRequest
+        case any(Swift.Error)
+        
+        var failureReason: String? { errorDescription }
+        var errorDescription: String? {
+            switch self {
+            case .unauthorized:
+                return "App is not logged-in."
+            case .badRequest:
+                return "Unable to form HTTP Request."
+            case .any(let error):
+                return error.localizedDescription
+            }
+        }
     }
 }
