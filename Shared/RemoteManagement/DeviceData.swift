@@ -239,6 +239,10 @@ class DeviceData: ObservableObject {
     }
     
     func refresh() {
+        guard appData.isLoggedIn else {
+            logger.info("\(#function): Ignoring call since User is not logged-in.")
+            return
+        }
         scanResults.removeAll()
         updateRegisteredDevices()
     }
