@@ -10,6 +10,7 @@ import SwiftUI
 struct UserContentView: View {
     
     @EnvironmentObject var appData: AppData
+    @EnvironmentObject var deviceData: DeviceData
     
     // MARK: - View
     
@@ -40,7 +41,7 @@ struct UserContentView: View {
                 }
                 
                 Section(header: Text("Account")) {
-                    Button("Logout", action: appData.logout)
+                    Button("Logout", action: logout)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .foregroundColor(.negativeActionButtonColor)
                 }
@@ -49,6 +50,16 @@ struct UserContentView: View {
         default:
             EmptyView()
         }
+    }
+}
+
+// MARK: - Logout
+
+fileprivate extension UserContentView {
+    
+    func logout() {
+        appData.logout()
+        deviceData.disconnectAll()
     }
 }
 

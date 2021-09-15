@@ -78,6 +78,7 @@ fileprivate extension ProjectSelectionView {
     
     func logout() {
         appData.logout()
+        deviceData.disconnectAll()
     }
 }
 
