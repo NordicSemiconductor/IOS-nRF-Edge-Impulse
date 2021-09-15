@@ -27,8 +27,12 @@ struct DeviceList: View {
     var body: some View {
         AlertViewContainer(content: {
             FormIniOSListInMacOS {
-                buildRegisteredDevicesList()
-                buildScanResultsList(scanResult: deviceData.scanResults.filter { $0.state != .connected && !$0.availableViaRegisteredDevices })
+                if appData.isLoggedIn {
+                    buildRegisteredDevicesList()
+                    buildScanResultsList(scanResult: deviceData.scanResults.filter {
+                        $0.state != .connected && !$0.availableViaRegisteredDevices
+                    })
+                }
                 
                 #if os(macOS)
                 MacAddressView()
