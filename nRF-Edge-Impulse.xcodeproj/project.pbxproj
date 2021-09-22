@@ -553,6 +553,7 @@
 		AA02088125F6515900FD6B24 /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
+				AAAC1C6526FB566A002BCED3 /* DFU */,
 				C3846EDB260B2F2C005AEF67 /* Scanner */,
 				C37DD493260C894700D667EA /* BluetoothManager */,
 			);
@@ -675,7 +676,6 @@
 				AA0D812B2608F62700AE615A /* DeploymentViewState.swift */,
 				AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */,
 				AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */,
-				AA0E584326C6847F00C437DD /* DFUManifest.swift */,
 			);
 			path = Deployment;
 			sourceTree = "<group>";
@@ -743,6 +743,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AAAC1C6526FB566A002BCED3 /* DFU */ = {
+			isa = PBXGroup;
+			children = (
+				AA0E584326C6847F00C437DD /* DFUManifest.swift */,
+			);
+			path = DFU;
 			sourceTree = "<group>";
 		};
 		AADDD05D264C28FB000892E1 /* Deployment */ = {
