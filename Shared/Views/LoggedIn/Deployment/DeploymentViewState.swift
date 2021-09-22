@@ -161,29 +161,28 @@ extension DeploymentViewState {
             defer {
                 cleanup(directoryURL)
             }
+            
             let contents = try fileManager.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil, options: [])
-            var binFileData: Data!
-            var manifest: DFUManifest!
-            for file in contents {
-                switch file.pathExtension {
-                case "bin":
-                    logs.append(LogMessage("Reading Binary file..."))
-                    binFileData = try Data(contentsOf: file)
-                case "json":
-                    let jsonData = try Data(contentsOf: file)
-                    logs.append(LogMessage("Reading Manifest file..."))
-                    manifest = try JSONDecoder().decode(DFUManifest.self, from: jsonData)
-                default:
-                    break
-                }
+            guard let manifestFile = contents.first(where: { $0.pathExtension == "json" }) else {
+                throw NordicError(description: "JSON File to parse as Manifest not found.")
             }
-            self.sendModelToDevice(modelData: binFileData, manifest: manifest)
+            
+            let jsonData = try Data(contentsOf: manifestFile)
+            let manifest = try JSONDecoder().decode(DFUManifest.self, from: jsonData)
+            let images = try manifest.files.compactMap({ manifestFile -> (Int, Data) in
+                guard let url = contents.first(where: { $0.absoluteString.contains(manifestFile.file) }) else {
+                    throw NordicError(description: "Unable to find \(manifestFile.file) for Image \(manifestFile.imageIndex)")
+                }
+                return (manifestFile.imageIndex, try Data(contentsOf: url))
+            })
+
+            self.sendModelToDevice(images: images)
         } catch {
             reportError(error)
         }
     }
     
-    func sendModelToDevice(modelData: Data, manifest: DFUManifest) {
+    func sendModelToDevice(images: [(Int, Data)]) {
         guard let device = selectedDeviceHandler else {
             reportError(NordicError(description: "No Device."))
             return
@@ -191,7 +190,7 @@ extension DeploymentViewState {
         
         logs.append(LogMessage("Sending firmware to device..."))
         do {
-            try device.bluetoothManager.sendUpgradeFirmware(modelData, logDelegate: self, firmwareDelegate: self)
+            try device.bluetoothManager.sendUpgradeFirmware(images, logDelegate: self, firmwareDelegate: self)
             status = .performingFirmwareUpdate
         } catch {
             reportError(error)
