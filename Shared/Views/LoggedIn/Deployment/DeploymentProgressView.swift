@@ -1,5 +1,5 @@
 //
-//  DeploymentLogView.swift
+//  DeploymentProgressView.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Dinesh Harjani on 12/7/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DeploymentLogView: View {
+struct DeploymentProgressView: View {
     
     @EnvironmentObject var viewState: DeploymentViewState
     
@@ -25,10 +25,10 @@ struct DeploymentLogView: View {
 // MARK: - Preview
 
 #if DEBUG
-struct DeploymentLogView_Previews: PreviewProvider {
+struct DeploymentProgressView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            DeploymentLogView()
+            DeploymentProgressView()
                 .environmentObject(DeploymentViewState())
         }
         .previewLayout(.sizeThatFits)

@@ -18,7 +18,7 @@ extension DeploymentViewState {
         case downloadingModel, unpackingModelData, performingFirmwareUpdate
         case success, error(_ error: Error)
         
-        var shouldShowLogs: Bool {
+        var shouldShowProgressView: Bool {
             switch self {
             case .buildingModel(_), .downloadingModel, .performingFirmwareUpdate, .success, .error(_):
                 return true

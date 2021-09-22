@@ -20,8 +20,8 @@ struct DeploymentView: View {
     
     var body: some View {
         VStack {
-            if viewState.status.shouldShowLogs {
-                DeploymentLogView()
+            if viewState.status.shouldShowProgressView {
+                DeploymentProgressView()
                     .environmentObject(viewState)
                     .padding(.top)
             } else {
