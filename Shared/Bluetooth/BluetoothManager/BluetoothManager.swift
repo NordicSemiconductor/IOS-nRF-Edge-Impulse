@@ -234,6 +234,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         logger.info("Connected the peripheral: \(peripheral.identifier.uuidString)")
         self.state = .connected
+        self.peripheral = peripheral
         self.peripheral.discoverServices([Self.uartServiceId])
     }
     
