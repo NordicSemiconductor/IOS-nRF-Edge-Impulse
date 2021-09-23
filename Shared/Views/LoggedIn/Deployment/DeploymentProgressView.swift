@@ -9,17 +9,17 @@ import SwiftUI
 
 struct DeploymentProgressView: View {
     
-    var deploymentStatus: Binding<DeploymentViewState.JobStatus>
+    @EnvironmentObject var viewState: DeploymentViewState
     
     var body: some View {
         FormIniOSListInMacOS {
             Section(header: Text("Stages")) {
                 ForEach(DeploymentStage.allCases) { stage in
-                    DeploymentStageView(stage: stage, status: deploymentStatus.wrappedValue)
+                    DeploymentStageView(stage: stage, status: viewState.status, logLine: viewState.lastLogMessage.line)
                 }
             }
             
-            switch deploymentStatus.wrappedValue {
+            switch viewState.status {
             case .error(let error):
                 Section(header: Text("Error Description")) {
                     Label(error.localizedDescription, systemImage: "info")

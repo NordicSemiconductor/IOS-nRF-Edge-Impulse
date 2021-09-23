@@ -21,7 +21,8 @@ struct DeploymentView: View {
     var body: some View {
         VStack {
             if viewState.status.shouldShowProgressView {
-                DeploymentProgressView(deploymentStatus: $viewState.status)
+                DeploymentProgressView()
+                    .environmentObject(viewState)
                     .padding(.top)
             } else {
                 DeploymentConfigurationView()

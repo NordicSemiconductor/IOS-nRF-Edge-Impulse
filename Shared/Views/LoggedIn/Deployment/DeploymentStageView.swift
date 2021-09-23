@@ -11,14 +11,18 @@ import SwiftUI
 
 struct DeploymentStageView: View {
     
+    @EnvironmentObject var viewState: DeploymentViewState
+    
     let name: String
     let stage: DeploymentStage
     let status: DeploymentViewState.JobStatus
+    let logLine: String
     
-    init(stage: DeploymentStage, status: DeploymentViewState.JobStatus) {
+    init(stage: DeploymentStage, status: DeploymentViewState.JobStatus, logLine: String) {
         name = stage.id
         self.stage = stage
         self.status = status
+        self.logLine = logLine
     }
     
     var deploymentFailed: Bool {
@@ -54,10 +58,21 @@ struct DeploymentStageView: View {
             }
             .frame(width: 20, height: 20)
             
-            Text(name)
-                .foregroundColor(stageColor)
+            VStack(alignment: .leading) {
+                Text(name)
+                    .foregroundColor(stageColor)
+                
+                if stage.isInProgress(status) {
+                    Text(logLine)
+                        .font(.caption)
+                        .lineLimit(1)
+                        #if os(macOS)
+                        .padding(.top, 2)
+                        #endif
+                }
+            }
             #if os(macOS)
-                .padding(.leading)
+            .padding(.leading, stage.isInProgress(status) ? 16 : 0)
             #endif
         }
     }

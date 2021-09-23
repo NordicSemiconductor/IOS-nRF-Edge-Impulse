@@ -32,6 +32,7 @@ final class DeploymentViewState: ObservableObject {
     @Published var buildButtonEnable = true
     
     @Published var logs = [LogMessage]()
+    @Published var lastLogMessage = LogMessage("")
     
     // MARK: - Private Properties
     
@@ -46,6 +47,11 @@ final class DeploymentViewState: ObservableObject {
     init() {
         $status
             .sinkReceivingError(receiveValue: onStatusChanged(_:))
+            .store(in: &cancellables)
+        
+        $logs
+            .compactMap({ $0.last })
+            .assign(to: \.lastLogMessage, on: self)
             .store(in: &cancellables)
     }
 }
