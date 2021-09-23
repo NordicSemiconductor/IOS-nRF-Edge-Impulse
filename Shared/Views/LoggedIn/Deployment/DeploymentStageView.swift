@@ -48,6 +48,10 @@ struct DeploymentStageView: View {
                 } else if stage.isInProgress(viewState.status) {
                     ProgressView()
                         .foregroundColor(stageColor)
+                    #if os(macOS)
+                        .scaleEffect(0.5, anchor: .center)
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color.red))
+                    #endif
                 } else {
                     EmptyView()
                 }
@@ -62,13 +66,11 @@ struct DeploymentStageView: View {
                     Text(viewState.lastLogMessage.line)
                         .font(.caption)
                         .lineLimit(1)
-                        #if os(macOS)
                         .padding(.top, 2)
-                        #endif
                 }
             }
             #if os(macOS)
-            .padding(.leading, stage.isInProgress(viewState.status) ? 16 : 0)
+            .padding(.leading, stage.isInProgress(viewState.status) ? 8 : 0)
             #endif
         }
     }
