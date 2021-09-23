@@ -15,7 +15,7 @@ struct DeploymentProgressView: View {
         FormIniOSListInMacOS {
             Section(header: Text("Stages")) {
                 ForEach(DeploymentStage.allCases) { stage in
-                    DeploymentStageView(stage: stage, status: viewState.status, logLine: viewState.lastLogMessage.line)
+                    DeploymentStageView(stage: stage)
                 }
             }
             

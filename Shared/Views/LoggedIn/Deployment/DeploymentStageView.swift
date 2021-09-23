@@ -15,26 +15,22 @@ struct DeploymentStageView: View {
     
     let name: String
     let stage: DeploymentStage
-    let status: DeploymentViewState.JobStatus
-    let logLine: String
     
-    init(stage: DeploymentStage, status: DeploymentViewState.JobStatus, logLine: String) {
+    init(stage: DeploymentStage) {
         name = stage.id
         self.stage = stage
-        self.status = status
-        self.logLine = logLine
     }
     
     var deploymentFailed: Bool {
-        guard case .error(_) = status else { return false }
+        guard case .error(_) = viewState.status else { return false }
         return true
     }
     
     var stageColor: Color {
         guard !deploymentFailed else { return Assets.red.color }
-        if stage.isCompleted(status) {
+        if stage.isCompleted(viewState.status) {
             return Assets.grass.color
-        } else if stage.isInProgress(status) {
+        } else if stage.isInProgress(viewState.status) {
             return Assets.sun.color
         }
         return .disabledTextColor
@@ -46,10 +42,10 @@ struct DeploymentStageView: View {
                 if deploymentFailed {
                     Image(systemName: "xmark")
                         .foregroundColor(stageColor)
-                } else if stage.isCompleted(status) {
+                } else if stage.isCompleted(viewState.status) {
                     Image(systemName: "checkmark")
                         .foregroundColor(stageColor)
-                } else if stage.isInProgress(status) {
+                } else if stage.isInProgress(viewState.status) {
                     ProgressView()
                         .foregroundColor(stageColor)
                 } else {
@@ -62,8 +58,8 @@ struct DeploymentStageView: View {
                 Text(name)
                     .foregroundColor(stageColor)
                 
-                if stage.isInProgress(status) {
-                    Text(logLine)
+                if stage.isInProgress(viewState.status) {
+                    Text(viewState.lastLogMessage.line)
                         .font(.caption)
                         .lineLimit(1)
                         #if os(macOS)
@@ -72,7 +68,7 @@ struct DeploymentStageView: View {
                 }
             }
             #if os(macOS)
-            .padding(.leading, stage.isInProgress(status) ? 16 : 0)
+            .padding(.leading, stage.isInProgress(viewState.status) ? 16 : 0)
             #endif
         }
     }
