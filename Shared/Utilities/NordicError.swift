@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NordicError: LocalizedError {
+struct NordicError: LocalizedError, Hashable {
     
     let description: String
     

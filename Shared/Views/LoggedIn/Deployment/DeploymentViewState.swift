@@ -67,7 +67,7 @@ extension DeploymentViewState {
         socketManager.connect(to: urlString, using: pingConfiguration)
             .receive(on: RunLoop.main)
             .sinkReceivingError(onError: { error in
-                self.reportError(error)
+                self.reportError(NordicError(description: error.localizedDescription))
             }) { status in
                 switch status {
                 case .notConnected:
@@ -91,7 +91,7 @@ extension DeploymentViewState {
             }
             .receive(on: RunLoop.main)
             .sinkReceivingError(onError: { error in
-                self.reportError(error)
+                self.reportError(NordicError(description: error.localizedDescription))
             }) { data in
                 guard let dataString = String(bytes: data, encoding: .utf8) else { return }
                 self.receivedJobData(dataString: dataString)
@@ -118,7 +118,7 @@ extension DeploymentViewState {
         status = .buildRequestSent
         Network.shared.perform(buildRequest, responseType: BuildOnDeviceModelRequestResponse.self)
             .sinkReceivingError(onError: { error in
-                self.reportError(error)
+                self.reportError(NordicError(description: error.localizedDescription))
             }, receiveValue: { response in
                 self.status = .buildingModel(response.id)
             })
@@ -129,7 +129,7 @@ extension DeploymentViewState {
         guard let downloadRequest = HTTPRequest.downloadModelFor(project: selectedProject, using: apiToken) else { return }
         Network.shared.perform(downloadRequest)
             .sinkReceivingError(onError: { error in
-                self.reportError(error)
+                self.reportError(NordicError(description: error.localizedDescription))
             }, receiveValue: { data in
                 self.logs.append(LogMessage("Received \(data.count) bytes of Data."))
                 self.unpackResponse(responseData: data)
@@ -178,7 +178,7 @@ extension DeploymentViewState {
 
             self.sendModelToDevice(images: images)
         } catch {
-            reportError(error)
+            reportError(NordicError(description: error.localizedDescription))
         }
     }
     
@@ -193,7 +193,7 @@ extension DeploymentViewState {
             try device.bluetoothManager.sendUpgradeFirmware(images, logDelegate: self, firmwareDelegate: self)
             status = .performingFirmwareUpdate
         } catch {
-            reportError(error)
+            reportError(NordicError(description: error.localizedDescription))
         }
     }
 }
@@ -258,7 +258,7 @@ internal extension DeploymentViewState {
         }
     }
     
-    func reportError(_ error: Error) {
+    func reportError(_ error: NordicError) {
         logs.append(LogMessage(error))
         status = .error(error)
         
