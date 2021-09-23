@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - DeploymentStageView
+
 struct DeploymentStageView: View {
     
     let name: String
@@ -45,73 +47,39 @@ struct DeploymentStageView: View {
 struct DeploymentStage: Identifiable, CaseIterable {
     
     let id: String
-    let isCompleted: (DeploymentViewState.JobStatus) -> Bool
-    let isInProgress: (DeploymentViewState.JobStatus) -> Bool
+    private let isCompletedStatuses: [DeploymentViewState.JobStatus]
+    private let inProgressStatus: DeploymentViewState.JobStatus
     
-    private init(name: String, isCompleted: @escaping (DeploymentViewState.JobStatus) -> Bool,
-                 isInProgress: @escaping (DeploymentViewState.JobStatus) -> Bool) {
+    // MARK: Init
+    
+    private init(name: String, inProgressStatus: DeploymentViewState.JobStatus,
+                 completedStatuses: [DeploymentViewState.JobStatus]) {
         self.id = name
-        self.isCompleted = isCompleted
-        self.isInProgress = isInProgress
+        self.inProgressStatus = inProgressStatus
+        self.isCompletedStatuses = completedStatuses
     }
     
-    // Cases
+    // MARK: API
     
-    static let building = DeploymentStage(name: "Building...", isCompleted: { status in
-        switch status {
-        case .downloadingModel, .unpackingModelData, .performingFirmwareUpdate, .success:
-            return true
-        default:
-            return false
-        }
-    }, isInProgress: { status in
-        guard case .buildingModel(_) = status else {
-            return false
-        }
-        return true
-    })
+    func isCompleted(_ status: DeploymentViewState.JobStatus) -> Bool {
+        return isCompletedStatuses.contains(status)
+    }
     
-    static let downloading = DeploymentStage(name: "Downloading...", isCompleted: { status in
-        switch status {
-        case .unpackingModelData, .performingFirmwareUpdate, .success:
-            return true
-        default:
-            return false
-        }
-    }, isInProgress: { status in
-        guard case .downloadingModel = status else {
-            return false
-        }
-        return true
-    })
+    func isInProgress(_ status: DeploymentViewState.JobStatus) -> Bool {
+        return status == inProgressStatus
+    }
     
-    static let verifying = DeploymentStage(name: "Verifying...", isCompleted: { status in
-        switch status {
-        case .performingFirmwareUpdate, .success:
-            return true
-        default:
-            return false
-        }
-    }, isInProgress: { status in
-        guard case .unpackingModelData = status else {
-            return false
-        }
-        return true
-    })
+    // MARK: Cases
     
-    static let uploading = DeploymentStage(name: "Uploading...", isCompleted: { status in
-        guard case .success = status else {
-            return false
-        }
-        return true
-    }, isInProgress: { status in
-        guard case .performingFirmwareUpdate = status else {
-            return false
-        }
-        return true
-    })
+    static let building = DeploymentStage(name: "Building...", inProgressStatus: .buildingModel(5), completedStatuses: [.downloadingModel, .unpackingModelData, .performingFirmwareUpdate, .success])
+
+    static let downloading = DeploymentStage(name: "Downloading...", inProgressStatus: .downloadingModel, completedStatuses: [.unpackingModelData, .performingFirmwareUpdate, .success])
     
-    // CaseIterable
+    static let verifying = DeploymentStage(name: "Verifying...", inProgressStatus: .unpackingModelData, completedStatuses: [.performingFirmwareUpdate, .success])
+    
+    static let uploading = DeploymentStage(name: "Uploading...", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
+    
+    // MARK: CaseIterable
     
     static var allCases: [DeploymentStage] = [.building, .downloading, .verifying, .uploading]
 }

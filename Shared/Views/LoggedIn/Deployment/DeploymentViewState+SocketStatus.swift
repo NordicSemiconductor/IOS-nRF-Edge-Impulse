@@ -73,8 +73,8 @@ extension DeploymentViewState {
             switch (lhs, rhs) {
             case (.socketConnecting, .socketConnecting), (.socketConnected, .socketConnected), (.buildRequestSent, .buildRequestSent), (.downloadingModel, .downloadingModel), (.unpackingModelData, .unpackingModelData), (.performingFirmwareUpdate, .performingFirmwareUpdate), (.success, .success):
                 return true
-            case (.buildingModel(let i), .buildingModel(let j)):
-                return i == j
+            case (.buildingModel(_), .buildingModel(_)):
+                return true
             case (.error(let i), .error(let j)):
                 return i == j
             default:
