@@ -38,25 +38,19 @@ struct DeploymentStageView: View {
     
     var body: some View {
         HStack {
-            VStack {
-                if deploymentFailed {
-                    Image(systemName: "xmark")
-                        .foregroundColor(stageColor)
-                } else if stage.isCompleted(viewState.status) {
-                    Image(systemName: "checkmark")
-                        .foregroundColor(stageColor)
-                } else if stage.isInProgress(viewState.status) {
-                    ProgressView()
-                        .foregroundColor(stageColor)
-                    #if os(macOS)
-                        .scaleEffect(0.5, anchor: .center)
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color.red))
-                    #endif
-                } else {
-                    EmptyView()
-                }
+            Image(systemName: stage.symbolName)
+                .foregroundColor(stageColor)
+                .frame(width: 20, height: 20)
+            
+            if stage.isInProgress(viewState.status) {
+                ProgressView()
+                    .foregroundColor(stageColor)
+                    .padding(.horizontal, 6)
+                #if os(macOS)
+                    .scaleEffect(0.5, anchor: .center)
+                    .progressViewStyle(CircularProgressViewStyle(tint: Color.red))
+                #endif
             }
-            .frame(width: 20, height: 20)
             
             VStack(alignment: .leading) {
                 Text(name)
@@ -66,7 +60,9 @@ struct DeploymentStageView: View {
                     Text(viewState.lastLogMessage.line)
                         .font(.caption)
                         .lineLimit(1)
+                    #if os(macOS)
                         .padding(.top, 1)
+                    #endif
                 }
             }
             #if os(macOS)
@@ -81,14 +77,18 @@ struct DeploymentStageView: View {
 struct DeploymentStage: Identifiable, CaseIterable {
     
     let id: String
+    let symbolName: String
+    
     private let isCompletedStatuses: [DeploymentViewState.JobStatus]
     private let inProgressStatus: DeploymentViewState.JobStatus
     
     // MARK: Init
     
-    private init(name: String, inProgressStatus: DeploymentViewState.JobStatus,
+    private init(name: String, symbolName: String,
+                 inProgressStatus: DeploymentViewState.JobStatus,
                  completedStatuses: [DeploymentViewState.JobStatus]) {
         self.id = name
+        self.symbolName = symbolName
         self.inProgressStatus = inProgressStatus
         self.isCompletedStatuses = completedStatuses
     }
@@ -105,19 +105,19 @@ struct DeploymentStage: Identifiable, CaseIterable {
     
     // MARK: Cases
     
-    static let building = DeploymentStage(name: "Building...", inProgressStatus: .buildingModel(5), completedStatuses: [.downloadingModel, .unpackingModelData, .performingFirmwareUpdate, .success])
+    static let building = DeploymentStage(name: "Building...", symbolName: "hammer", inProgressStatus: .buildingModel(5), completedStatuses: [.downloadingModel, .unpackingModelData, .performingFirmwareUpdate, .success])
 
-    static let downloading = DeploymentStage(name: "Downloading...", inProgressStatus: .downloadingModel, completedStatuses: [.unpackingModelData, .performingFirmwareUpdate, .success])
+    static let downloading = DeploymentStage(name: "Downloading...", symbolName: "square.and.arrow.down", inProgressStatus: .downloadingModel, completedStatuses: [.unpackingModelData, .performingFirmwareUpdate, .success])
     
-    static let verifying = DeploymentStage(name: "Verifying...", inProgressStatus: .unpackingModelData, completedStatuses: [.performingFirmwareUpdate, .success])
+    static let verifying = DeploymentStage(name: "Verifying...", symbolName: "list.bullet", inProgressStatus: .unpackingModelData, completedStatuses: [.performingFirmwareUpdate, .success])
     
-    static let uploading = DeploymentStage(name: "Uploading...", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
+    static let uploading = DeploymentStage(name: "Uploading...", symbolName: "square.and.arrow.up", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
     
-    static let confirming = DeploymentStage(name: "Confirming...", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
+    static let confirming = DeploymentStage(name: "Confirming...", symbolName: "metronome", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
     
-    static let applying = DeploymentStage(name: "Applying Update...", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
+    static let applying = DeploymentStage(name: "Applying Update...", symbolName: "bandage", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
     
-    static let completed = DeploymentStage(name: "Completed...", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
+    static let completed = DeploymentStage(name: "Completed!", symbolName: "checkmark", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
     
     // MARK: CaseIterable
     
