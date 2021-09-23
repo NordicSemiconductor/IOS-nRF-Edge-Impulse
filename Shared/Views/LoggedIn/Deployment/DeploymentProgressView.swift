@@ -9,14 +9,12 @@ import SwiftUI
 
 struct DeploymentProgressView: View {
     
-    @EnvironmentObject var viewState: DeploymentViewState
+    var deploymentStatus: Binding<DeploymentViewState.JobStatus>
     
     var body: some View {
         FormIniOSListInMacOS {
-            Section(header: Text("Logs")) {
-                ForEach(viewState.logs, id: \.self) { log in
-                    Text(log.line)
-                }
+            ForEach(DeploymentStage.allCases) { stage in
+                DeploymentStageView(stage: stage, status: deploymentStatus.wrappedValue)
             }
         }
     }
@@ -25,11 +23,11 @@ struct DeploymentProgressView: View {
 // MARK: - Preview
 
 #if DEBUG
-struct DeploymentProgressView_Previews: PreviewProvider {
+struct DeploymentProgressStageView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            DeploymentProgressView()
-                .environmentObject(DeploymentViewState())
+//            DeploymentProgressView()
+//                .environmentObject(DeploymentViewState())
         }
         .previewLayout(.sizeThatFits)
     }

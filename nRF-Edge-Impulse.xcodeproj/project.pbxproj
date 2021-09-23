@@ -251,6 +251,8 @@
 		AAFC490C26A979FD002A08F9 /* LogMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFC490B26A979FD002A08F9 /* LogMessage.swift */; };
 		AAFC490D26A979FD002A08F9 /* LogMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFC490B26A979FD002A08F9 /* LogMessage.swift */; };
 		AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCBE8125E90734001C52B0 /* LoginRequest.swift */; };
+		AAFCEF1026FC826300753559 /* DeploymentStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCEF0F26FC826300753559 /* DeploymentStageView.swift */; };
+		AAFCEF1126FC826300753559 /* DeploymentStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCEF0F26FC826300753559 /* DeploymentStageView.swift */; };
 		AAFDB46B264D5F5600F0CD02 /* MultiColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */; };
 		AAFDB46C264D5F5700F0CD02 /* MultiColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */; };
 		AAFDB46E264D73A800F0CD02 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDB46D264D73A800F0CD02 /* ProjectView.swift */; };
@@ -457,6 +459,7 @@
 		AAFB8E292626FADD003DAEC5 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		AAFC490B26A979FD002A08F9 /* LogMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMessage.swift; sourceTree = "<group>"; };
 		AAFCBE8125E90734001C52B0 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
+		AAFCEF0F26FC826300753559 /* DeploymentStageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentStageView.swift; sourceTree = "<group>"; };
 		AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiColumnView.swift; sourceTree = "<group>"; };
 		AAFDB46D264D73A800F0CD02 /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		AAFDB470264D78AF00F0CD02 /* CollaboratorsHStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorsHStackView.swift; sourceTree = "<group>"; };
@@ -670,9 +673,10 @@
 			children = (
 				AA0D81282608C03A00AE615A /* DeploymentView.swift */,
 				AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */,
-				AA010204269C47C90045D6F2 /* DeploymentProgressView.swift */,
 				AA010201269C460D0045D6F2 /* DeploymentConfigurationView.swift */,
 				AA1C386E26A6DB5300304D69 /* DeploymentConfigurationView+Logic.swift */,
+				AA010204269C47C90045D6F2 /* DeploymentProgressView.swift */,
+				AAFCEF0F26FC826300753559 /* DeploymentStageView.swift */,
 				AA0D812B2608F62700AE615A /* DeploymentViewState.swift */,
 				AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */,
 				AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */,
@@ -1372,6 +1376,7 @@
 				AAE05F202649554F005BBF98 /* SampleRequestMessage.swift in Sources */,
 				AA00508F2695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift in Sources */,
 				0187B39326BD6C7B00E59BFD /* DeviceSection.swift in Sources */,
+				AAFCEF1026FC826300753559 /* DeploymentStageView.swift in Sources */,
 				AA0D81292608C03A00AE615A /* DeploymentView.swift in Sources */,
 				AA008A7725EE422C00F70F75 /* Project.swift in Sources */,
 				AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */,
@@ -1534,6 +1539,7 @@
 				AAF7D453269F1176009269D4 /* DeploymentView+Logic.swift in Sources */,
 				AA28405D261F4F3D00EB8637 /* UsernameField.swift in Sources */,
 				AAF4F6CA2625EC4C00012359 /* SettingsDevicesView.swift in Sources */,
+				AAFCEF1126FC826300753559 /* DeploymentStageView.swift in Sources */,
 				AAFDB46F264D73A800F0CD02 /* ProjectView.swift in Sources */,
 				AA01020C269C5D1D0045D6F2 /* SocketIOJob.swift in Sources */,
 				AA09C79D262EEED400B039F1 /* Collection.swift in Sources */,
@@ -1759,8 +1765,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = P3R8YQEV4L;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1773,7 +1779,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.nRF-Edge-Impulse";
 				PRODUCT_NAME = "nRF Edge Impulse";
-				PROVISIONING_PROFILE_SPECIFIER = "nRF Edge Impulse Mac App Store Provisioning";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1785,8 +1791,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = P3R8YQEV4L;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1799,7 +1805,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.nRF-Edge-Impulse";
 				PRODUCT_NAME = "nRF Edge Impulse";
-				PROVISIONING_PROFILE_SPECIFIER = "nRF Edge Impulse Mac App Store Provisioning";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
