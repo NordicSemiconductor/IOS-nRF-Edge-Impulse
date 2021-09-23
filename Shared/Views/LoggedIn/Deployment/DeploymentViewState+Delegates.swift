@@ -43,7 +43,7 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     
     func upgradeDidFail(inState state: FirmwareUpgradeState, with error: Error) {
         DispatchQueue.main.async { [unowned self] in
-            self.reportError(NordicError(description: error.localizedDescription))
+            self.reportError(error)
         }
     }
     
