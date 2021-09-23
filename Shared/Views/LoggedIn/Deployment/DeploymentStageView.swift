@@ -66,7 +66,7 @@ struct DeploymentStageView: View {
                     Text(viewState.lastLogMessage.line)
                         .font(.caption)
                         .lineLimit(1)
-                        .padding(.top, 2)
+                        .padding(.top, 1)
                 }
             }
             #if os(macOS)
@@ -113,9 +113,15 @@ struct DeploymentStage: Identifiable, CaseIterable {
     
     static let uploading = DeploymentStage(name: "Uploading...", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
     
+    static let confirming = DeploymentStage(name: "Confirming...", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
+    
+    static let applying = DeploymentStage(name: "Applying Update...", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
+    
+    static let completed = DeploymentStage(name: "Completed...", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
+    
     // MARK: CaseIterable
     
-    static var allCases: [DeploymentStage] = [.building, .downloading, .verifying, .uploading]
+    static var allCases: [DeploymentStage] = [.building, .downloading, .verifying, .uploading, .confirming, .applying, .completed]
 }
 
 // MARK: - Preview
