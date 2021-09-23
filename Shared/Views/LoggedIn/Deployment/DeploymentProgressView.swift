@@ -13,8 +13,19 @@ struct DeploymentProgressView: View {
     
     var body: some View {
         FormIniOSListInMacOS {
-            ForEach(DeploymentStage.allCases) { stage in
-                DeploymentStageView(stage: stage, status: deploymentStatus.wrappedValue)
+            Section(header: Text("Stages")) {
+                ForEach(DeploymentStage.allCases) { stage in
+                    DeploymentStageView(stage: stage, status: deploymentStatus.wrappedValue)
+                }
+            }
+            
+            switch deploymentStatus.wrappedValue {
+            case .error(let error):
+                Section(header: Text("Error Description")) {
+                    Label(error.localizedDescription, systemImage: "info")
+                }
+            default:
+                EmptyView()
             }
         }
     }

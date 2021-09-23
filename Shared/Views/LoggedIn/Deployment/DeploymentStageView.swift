@@ -21,15 +21,33 @@ struct DeploymentStageView: View {
         self.status = status
     }
     
+    var deploymentFailed: Bool {
+        guard case .error(_) = status else { return false }
+        return true
+    }
+    
+    var stageColor: Color {
+        guard !deploymentFailed else { return Assets.red.color }
+        if stage.isCompleted(status) {
+            return Assets.grass.color
+        } else if stage.isInProgress(status) {
+            return Assets.sun.color
+        }
+        return .disabledTextColor
+    }
+    
     var body: some View {
         HStack {
             VStack {
-                if stage.isCompleted(status) {
+                if deploymentFailed {
+                    Image(systemName: "xmark")
+                        .foregroundColor(stageColor)
+                } else if stage.isCompleted(status) {
                     Image(systemName: "checkmark")
-                        .foregroundColor(Assets.grass.color)
+                        .foregroundColor(stageColor)
                 } else if stage.isInProgress(status) {
                     ProgressView()
-                        .foregroundColor(Assets.sun.color)
+                        .foregroundColor(stageColor)
                 } else {
                     EmptyView()
                 }
@@ -37,7 +55,10 @@ struct DeploymentStageView: View {
             .frame(width: 20, height: 20)
             
             Text(name)
-                .padding(.horizontal)
+                .foregroundColor(stageColor)
+            #if os(macOS)
+                .padding(.leading)
+            #endif
         }
     }
 }
