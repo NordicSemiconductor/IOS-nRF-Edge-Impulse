@@ -26,13 +26,6 @@ struct DataSamplesView: View {
         GridItem(.fixed(55))
     ]
     
-    #if os(iOS)
-    init() {
-        UITableView.appearance().tableHeaderView = UIView(frame: CGRect(origin: .zero, size: .TableViewPaddingSize))
-        UITableView.appearance().tableFooterView = UIView(frame: CGRect(origin: .zero, size: .TableViewPaddingSize))
-    }
-    #endif
-    
     var body: some View {
         VStack {
             Picker("Category", selection: $appData.selectedCategory) {

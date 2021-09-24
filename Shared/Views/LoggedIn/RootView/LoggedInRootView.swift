@@ -26,6 +26,12 @@ struct LoggedInRootView: View {
     
     // MARK: View
     
+    #if os(iOS)
+    init() {
+        UITableView.appearance().contentInset.top = -19
+    }
+    #endif
+    
     var body: some View {
         layout.view()
             .onAppear() {
