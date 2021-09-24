@@ -16,7 +16,8 @@ struct DataAcquisitionSensorPicker: View {
             if let device = viewState.selectedDevice, device.sensors.hasItems {
                 Picker(selection: $viewState.selectedSensor, label: EmptyView()) {
                     ForEach(device.sensors) { sensor in
-                        Text(sensor.name).tag(sensor)
+                        Text(sensor.name)
+                            .tag(sensor)
                     }
                 }
                 .setAsComboBoxStyle()
