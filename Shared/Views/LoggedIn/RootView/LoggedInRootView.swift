@@ -66,7 +66,6 @@ extension LoggedInRootView {
                     logger.error("Error: \(error.localizedDescription)")
                     AppEvents.shared.error = ErrorEvent(error)
                     appData.logout()
-//                    appData.loginState = .error(error)
                 case .finished:
                     break
                 }
