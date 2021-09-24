@@ -60,7 +60,7 @@ enum Constant {
 
 extension CGFloat {
     
-    static let minTabWidth: CGFloat = {
+    static let minTabWidth: Self = {
         let value: CGFloat
         #if os(OSX)
         value = 400
@@ -70,9 +70,9 @@ extension CGFloat {
         return value
     }()
     
-    static let sidebarWidth: CGFloat = 160
+    static let sidebarWidth: Self = 160
     
-    static let maxTextFieldWidth: CGFloat = 350
+    static let maxTextFieldWidth: Self = 350
 }
 
 // MARK: - Size(s)
@@ -82,6 +82,8 @@ extension CGSize {
     static let SmallImageSize = CGSize(width: 15, height: 15)
     static let ToolbarImageSize = CGSize(width: 30, height: 30)
     static let StandardImageSize = CGSize(width: 40, height: 40)
+    
+    static let TableViewPaddingSize = CGSize(width: 0, height: 8)
 }
 
 // MARK: - TimeInterval

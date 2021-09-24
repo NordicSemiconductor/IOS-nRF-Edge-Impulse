@@ -26,8 +26,15 @@ struct DataSamplesView: View {
         GridItem(.fixed(55))
     ]
     
+    #if os(iOS)
+    init() {
+        UITableView.appearance().tableHeaderView = UIView(frame: CGRect(origin: .zero, size: .TableViewPaddingSize))
+        UITableView.appearance().tableFooterView = UIView(frame: CGRect(origin: .zero, size: .TableViewPaddingSize))
+    }
+    #endif
+    
     var body: some View {
-        VStack(spacing: 8) {
+        VStack {
             Picker("Category", selection: $appData.selectedCategory) {
                 ForEach(DataSample.Category.allCases) { dataType in
                     Text(dataType.rawValue.uppercasingFirst)
@@ -36,7 +43,12 @@ struct DataSamplesView: View {
             }
             .setAsSegmentedControlStyle()
             .padding(.horizontal)
-                        
+                   
+            #if os(macOS)
+            Divider()
+                .padding([.top, .leading, .trailing])
+            #endif
+            
             List {
                 DataSampleHeaderRow()
                 
