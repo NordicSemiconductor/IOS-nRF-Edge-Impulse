@@ -44,8 +44,7 @@ struct RenameDeviceView: View {
             
             switch viewState {
             case .requestIsOngoing:
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
+                CircularProgressView()
                     .padding()
             case .error(let error):
                 Text(error.localizedDescription)

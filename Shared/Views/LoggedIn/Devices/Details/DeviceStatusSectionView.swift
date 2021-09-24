@@ -29,7 +29,7 @@ struct DeviceStatusSectionView: View {
                     NordicLabel(title: "Connecting...", systemImage: "network")
                     Spacer()
                     ConnectionStatus(color: .yellow)
-                    ProgressView()
+                    CircularProgressView()
                         .padding(.leading)
                 case .connected:
                     NordicLabel(title: "Connected", systemImage: "personalhotspot")

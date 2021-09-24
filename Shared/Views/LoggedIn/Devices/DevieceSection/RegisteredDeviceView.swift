@@ -41,9 +41,7 @@ struct RegisteredDeviceView: View {
             Spacer()
             
             if connectionState == .connecting || connectionState == .deleting {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
-                    .frame(width: 20, height: 20)
+                CircularProgressView()
             }
         }
     }

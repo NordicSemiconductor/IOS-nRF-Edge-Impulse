@@ -50,9 +50,7 @@ struct NativeLoginView: View {
             VStack {
                 switch viewState {
                 case .makingRequest:
-                    ProgressView()
-                        .foregroundColor(.accentColor)
-                        .progressViewStyle(CircularProgressViewStyle())
+                    CircularProgressView()
                 default:
                     Link("Forgot your password?", destination: Constant.forgottenPasswordURL)
                         .foregroundColor(Assets.blue.color)

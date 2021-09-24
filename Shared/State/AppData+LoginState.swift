@@ -34,8 +34,7 @@ extension AppData.LoginState {
             }
         case .loading:
             VStack(alignment: .center, spacing: 8) {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
+                CircularProgressView()
                 Text("Loading...")
             }
         default:

@@ -246,6 +246,8 @@
 		AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AAFAE5E425ED11CA00A45A90 /* KeychainSwift */; };
 		AAFAE5EB25ED14E500A45A90 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE5EA25ED14E500A45A90 /* AppData.swift */; };
 		AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFAE5EA25ED14E500A45A90 /* AppData.swift */; };
+		AAFB45FA26FDEC7700B93904 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFB45F926FDEC7700B93904 /* CircularProgressView.swift */; };
+		AAFB45FB26FDEC7700B93904 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFB45F926FDEC7700B93904 /* CircularProgressView.swift */; };
 		AAFB8E2A2626FADD003DAEC5 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFB8E292626FADD003DAEC5 /* UserPreferences.swift */; };
 		AAFB8E2B2626FADD003DAEC5 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFB8E292626FADD003DAEC5 /* UserPreferences.swift */; };
 		AAFC490C26A979FD002A08F9 /* LogMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFC490B26A979FD002A08F9 /* LogMessage.swift */; };
@@ -456,6 +458,7 @@
 		AAFA2FB526C17174005AD96F /* UploadSampleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadSampleRequest.swift; sourceTree = "<group>"; };
 		AAFAC31B2678BC8F00D486EA /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		AAFAE5EA25ED14E500A45A90 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		AAFB45F926FDEC7700B93904 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		AAFB8E292626FADD003DAEC5 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		AAFC490B26A979FD002A08F9 /* LogMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMessage.swift; sourceTree = "<group>"; };
 		AAFCBE8125E90734001C52B0 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
@@ -842,6 +845,7 @@
 				C39B106D2695DF400056095E /* HUD.swift */,
 				AAE96F0926A58E220089D370 /* AlertViewContainer.swift */,
 				AAEBB92A26CE6D5B006A4DF7 /* ReusableProgressView.swift */,
+				AAFB45F926FDEC7700B93904 /* CircularProgressView.swift */,
 				AAB8C87526D536A0004FC21B /* MacAddressView.swift */,
 			);
 			path = Utilities;
@@ -1343,6 +1347,7 @@
 				AAF5E75626400F7300AC3271 /* GetSamplesRequest.swift in Sources */,
 				AAF7299726298D6D0034B61A /* AppData+LoginState.swift in Sources */,
 				AAA87AE3261B28F50097EA74 /* URLImage.swift in Sources */,
+				AAFB45FA26FDEC7700B93904 /* CircularProgressView.swift in Sources */,
 				AA0D812C2608F62700AE615A /* DeploymentViewState.swift in Sources */,
 				AAF0C96C260A0210001B76B9 /* UserView.swift in Sources */,
 				AAF55323264171AB00252345 /* DataSampleRow.swift in Sources */,
@@ -1524,6 +1529,7 @@
 				AA63F87126A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */,
 				AA482F822631A213007B8B64 /* UserContentView.swift in Sources */,
 				AA14FD4C26EA3B98008128CB /* DeviceStatusSectionView.swift in Sources */,
+				AAFB45FB26FDEC7700B93904 /* CircularProgressView.swift in Sources */,
 				AAFB8E2B2626FADD003DAEC5 /* UserPreferences.swift in Sources */,
 				AA1C387726A6DDF500304D69 /* DeploymentProgressView.swift in Sources */,
 				AA0A3EA026AAC27000F9C1E2 /* NSProgressView.swift in Sources */,

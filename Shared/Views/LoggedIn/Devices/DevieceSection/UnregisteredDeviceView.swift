@@ -54,7 +54,7 @@ struct UnregisteredDeviceView: View {
                         .font(.caption)
                         .foregroundColor(Assets.middleGrey.color)
                 } else if isConnecting {
-                    ProgressView()
+                    CircularProgressView()
                 }
             }
             .padding(.horizontal)
