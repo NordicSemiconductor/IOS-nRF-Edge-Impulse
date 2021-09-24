@@ -38,19 +38,13 @@ struct DeploymentStageView: View {
     
     var body: some View {
         HStack {
+            if stage.isInProgress(viewState.status) {
+                CircularProgressView()
+            }
+            
             Image(systemName: stage.symbolName)
                 .foregroundColor(stageColor)
                 .frame(width: 20, height: 20)
-            
-            if stage.isInProgress(viewState.status) {
-                ProgressView()
-                    .foregroundColor(stageColor)
-                    .padding(.horizontal, 6)
-                #if os(macOS)
-                    .scaleEffect(0.5, anchor: .center)
-                    .progressViewStyle(CircularProgressViewStyle(tint: Color.red))
-                #endif
-            }
             
             VStack(alignment: .leading) {
                 Text(name)
@@ -65,9 +59,6 @@ struct DeploymentStageView: View {
                     #endif
                 }
             }
-            #if os(macOS)
-            .padding(.leading, stage.isInProgress(viewState.status) ? 8 : 0)
-            #endif
         }
     }
 }
