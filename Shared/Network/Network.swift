@@ -37,6 +37,9 @@ extension Network {
     public func perform(_ request: HTTPRequest) -> AnyPublisher<Data, Error> {
         return session.dataTaskPublisher(for: request)
             .tryMap() { element -> Data in
+                #if DEBUG
+                print(element.response)
+                #endif
                 guard let httpResponse = element.response as? HTTPURLResponse else {
                     throw URLError(.badServerResponse)
                 }
@@ -83,6 +86,13 @@ extension Network {
                             .eraseToAnyPublisher()
                     }
                 }
+            }
+            .tryCatch { error -> AnyPublisher<T, Error> in
+                if let urlError = error as? URLError, urlError.errorCode == -1200 {
+                    return Fail(error: URLError(.appTransportSecurityRequiresSecureConnection))
+                        .eraseToAnyPublisher()
+                }
+                throw error
             }
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()

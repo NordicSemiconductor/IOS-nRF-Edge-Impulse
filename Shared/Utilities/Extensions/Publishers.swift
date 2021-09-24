@@ -94,9 +94,14 @@ extension Publishers {
         func receive<S: Subscriber>(subscriber: S) where Upstream.Failure == S.Failure, Upstream.Output == S.Input {
             self.upstream
                 .catch { error -> AnyPublisher<Output, Failure> in
-                    if let urlError = error as? URLError, urlError.code == .userAuthenticationRequired {
-                        DispatchQueue.main.async {
-                            unauthorisedUserCallback()
+                    if let urlError = error as? URLError {
+                        switch urlError.code {
+                        case .userAuthenticationRequired, .appTransportSecurityRequiresSecureConnection:
+                            DispatchQueue.main.async {
+                                unauthorisedUserCallback()
+                            }
+                        default:
+                            break
                         }
                     }
                     return Fail<Output, Failure>(error: error).eraseToAnyPublisher()
