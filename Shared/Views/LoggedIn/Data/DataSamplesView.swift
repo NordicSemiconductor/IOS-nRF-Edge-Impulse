@@ -36,20 +36,10 @@ struct DataSamplesView: View {
             }
             .setAsSegmentedControlStyle()
             .padding(.horizontal)
-            
-            MultiColumnView(columns: DataSamplesView.Columns) {
-                Text("")
-                Text("Filename")
-                    .bold()
-                Text("Label")
-                    .foregroundColor(Assets.middleGrey.color)
-                Text("Length")
-                    .fontWeight(.light)
-            }
-            .padding(.horizontal)
-            .padding(.top, 8)
-            
+                        
             List {
+                DataSampleHeaderRow()
+                
                 ForEach(appData.samplesForCategory[appData.selectedCategory] ?? []) { sample in
                     DataSampleRow(sample)
                 }
@@ -62,6 +52,24 @@ struct DataSamplesView: View {
         .toolbar {
             dataAcquisitionToolbarItem()
         }
+    }
+}
+
+// MARK: - DataSampleHeaderRow
+
+struct DataSampleHeaderRow: View {
+    
+    var body: some View {
+        MultiColumnView(columns: DataSamplesView.Columns) {
+            Text("")
+            Text("Filename")
+                .bold()
+            Text("Label")
+                .foregroundColor(Assets.middleGrey.color)
+            Text("Length")
+                .fontWeight(.light)
+        }
+        .lineLimit(1)
     }
 }
 
