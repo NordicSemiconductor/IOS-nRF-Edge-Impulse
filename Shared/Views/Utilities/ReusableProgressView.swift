@@ -53,7 +53,6 @@ struct ReusableProgressView: View {
                 .padding(.horizontal)
             #else
             ProgressView(value: progress.wrappedValue, total: 100.0)
-                .padding(.top, 4)
                 .padding(.horizontal)
             #endif
             
