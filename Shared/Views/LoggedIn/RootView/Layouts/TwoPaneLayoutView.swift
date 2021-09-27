@@ -22,6 +22,7 @@ struct TwoPaneLayoutView: View {
                         }
                     }
                     .accentColor(Assets.blue.color)
+                    .padding(.top)
                 }
                 .listStyle(SidebarListStyle())
                 .toolbarPrincipalImage(Image("Nordic"))
