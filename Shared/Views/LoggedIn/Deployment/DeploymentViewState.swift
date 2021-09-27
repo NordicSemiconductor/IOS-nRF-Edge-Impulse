@@ -41,17 +41,6 @@ final class DeploymentViewState: ObservableObject {
     
     private var project: Project!
     private var apiToken: String!
-    
-    init() {
-        $status
-            .sinkReceivingError(receiveValue: onStatusChanged(_:))
-            .store(in: &cancellables)
-        
-        $logs
-            .compactMap({ $0.last })
-            .assign(to: \.lastLogMessage, on: self)
-            .store(in: &cancellables)
-    }
 }
 
 // MARK: - WebSocket
@@ -117,6 +106,7 @@ extension DeploymentViewState {
     func sendBuildRequest(for selectedProject: Project, using apiToken: String) {
         guard let buildRequest = HTTPRequest.buildModel(project: selectedProject, usingEONCompiler: enableEONCompiler,
                                                         classifier: optimization, using: apiToken) else { return }
+        setupCancellables()
         project = selectedProject
         self.apiToken = apiToken
         status = .buildRequestSent
@@ -277,6 +267,17 @@ internal extension DeploymentViewState {
         } catch {
             logger.debug("Unable to delete file at \(url.absoluteString): \(error.localizedDescription)")
         }
+    }
+    
+    private func setupCancellables() {
+        $status
+            .sinkReceivingError(receiveValue: onStatusChanged(_:))
+            .store(in: &cancellables)
+        
+        $logs
+            .compactMap({ $0.last })
+            .assign(to: \.lastLogMessage, on: self)
+            .store(in: &cancellables)
     }
 }
 
