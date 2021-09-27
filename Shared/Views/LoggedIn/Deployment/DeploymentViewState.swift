@@ -195,7 +195,7 @@ extension DeploymentViewState {
         logs.append(LogMessage("Sending firmware to device..."))
         do {
             try device.bluetoothManager.sendUpgradeFirmware(images, logDelegate: self, firmwareDelegate: self)
-            status = .performingFirmwareUpdate
+            status = .uploading(0)
         } catch {
             reportError(error)
         }
@@ -225,7 +225,7 @@ internal extension DeploymentViewState {
             progressShouldBeIndeterminate = true
         case .unpackingModelData:
             progressShouldBeIndeterminate = true
-        case .performingFirmwareUpdate:
+        case .uploading(_), .confirming, .applying:
             break
         case .error(_):
             buildButtonEnable = true

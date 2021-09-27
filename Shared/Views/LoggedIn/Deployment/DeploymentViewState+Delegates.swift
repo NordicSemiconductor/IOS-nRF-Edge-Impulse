@@ -31,7 +31,14 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     }
     
     func upgradeStateDidChange(from previousState: FirmwareUpgradeState, to newState: FirmwareUpgradeState) {
-        // No-p.
+        switch previousState {
+        case .reset:
+            self.status = .applying
+        case .confirm:
+            self.status = .confirming
+        default:
+            break
+        }
     }
     
     func upgradeDidComplete() {
@@ -57,6 +64,7 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
         let progress = Double(bytesSent) / Double(imageSize) * 100.0
         DispatchQueue.main.async { [unowned self] in
             self.progress = progress
+            self.status = .uploading(Int(progress))
         }
     }
 }

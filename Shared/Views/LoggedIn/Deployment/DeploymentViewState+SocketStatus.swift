@@ -15,12 +15,13 @@ extension DeploymentViewState {
         case idle
         case socketConnecting, socketConnected
         case buildRequestSent, buildingModel(_ id: Int)
-        case downloadingModel, unpackingModelData, performingFirmwareUpdate
+        case downloadingModel, unpackingModelData
+        case uploading(_ id: Int), confirming, applying
         case success, error(_ error: NordicError)
         
         var shouldShowProgressView: Bool {
             switch self {
-            case .buildingModel(_), .downloadingModel, .performingFirmwareUpdate, .success, .error(_):
+            case .buildingModel(_), .downloadingModel, .uploading(_), .confirming, .applying, .success, .error(_):
                 return true
             default:
                 return false
@@ -29,9 +30,11 @@ extension DeploymentViewState {
         
         static func == (lhs: DeploymentViewState.JobStatus, rhs: DeploymentViewState.JobStatus) -> Bool {
             switch (lhs, rhs) {
-            case (.socketConnecting, .socketConnecting), (.socketConnected, .socketConnected), (.buildRequestSent, .buildRequestSent), (.downloadingModel, .downloadingModel), (.unpackingModelData, .unpackingModelData), (.performingFirmwareUpdate, .performingFirmwareUpdate), (.success, .success):
+            case (.socketConnecting, .socketConnecting), (.socketConnected, .socketConnected), (.buildRequestSent, .buildRequestSent), (.downloadingModel, .downloadingModel), (.unpackingModelData, .unpackingModelData), (.confirming, .confirming), (.applying, .applying), (.success, .success):
                 return true
             case (.buildingModel(_), .buildingModel(_)):
+                return true
+            case (.uploading(_), .uploading(_)):
                 return true
             case (.error(let i), .error(let j)):
                 return i == j

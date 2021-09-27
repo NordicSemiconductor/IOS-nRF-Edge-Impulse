@@ -111,19 +111,19 @@ struct DeploymentStage: Identifiable, CaseIterable {
     
     // MARK: Cases
     
-    static let building = DeploymentStage(name: "Building...", symbolName: "hammer", inProgressStatus: .buildingModel(5), completedStatuses: [.downloadingModel, .unpackingModelData, .performingFirmwareUpdate, .success])
+    static let building = DeploymentStage(name: "Building...", symbolName: "hammer", inProgressStatus: .buildingModel(5), completedStatuses: [.downloadingModel, .unpackingModelData, .uploading(1), .applying, .confirming, .success])
 
-    static let downloading = DeploymentStage(name: "Downloading...", symbolName: "square.and.arrow.down", inProgressStatus: .downloadingModel, completedStatuses: [.unpackingModelData, .performingFirmwareUpdate, .success])
+    static let downloading = DeploymentStage(name: "Downloading...", symbolName: "square.and.arrow.down", inProgressStatus: .downloadingModel, completedStatuses: [.unpackingModelData, .uploading(1), .applying, .confirming, .success])
     
-    static let verifying = DeploymentStage(name: "Verifying...", symbolName: "list.bullet", inProgressStatus: .unpackingModelData, completedStatuses: [.performingFirmwareUpdate, .success])
+    static let verifying = DeploymentStage(name: "Verifying...", symbolName: "list.bullet", inProgressStatus: .unpackingModelData, completedStatuses: [.uploading(1), .applying, .confirming, .success])
     
-    static let uploading = DeploymentStage(name: "Uploading...", symbolName: "square.and.arrow.up", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
+    static let uploading = DeploymentStage(name: "Uploading...", symbolName: "square.and.arrow.up", inProgressStatus: .uploading(5), completedStatuses: [.success])
     
-    static let confirming = DeploymentStage(name: "Confirming...", symbolName: "metronome", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
+    static let confirming = DeploymentStage(name: "Confirming...", symbolName: "metronome", inProgressStatus: .confirming, completedStatuses: [.success])
     
-    static let applying = DeploymentStage(name: "Applying Update...", symbolName: "bandage", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
+    static let applying = DeploymentStage(name: "Applying Update...", symbolName: "bandage", inProgressStatus: .applying, completedStatuses: [.success])
     
-    static let completed = DeploymentStage(name: "Completed!", symbolName: "checkmark", inProgressStatus: .performingFirmwareUpdate, completedStatuses: [.success])
+    static let completed = DeploymentStage(name: "Completed!", symbolName: "checkmark", inProgressStatus: .applying, completedStatuses: [.success])
     
     // MARK: CaseIterable
     
