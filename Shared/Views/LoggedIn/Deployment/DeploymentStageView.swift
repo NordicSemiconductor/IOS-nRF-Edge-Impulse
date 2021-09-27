@@ -35,7 +35,7 @@ struct DeploymentStageView: View {
                 .foregroundColor(stageColor)
                 .frame(width: 20, height: 20)
             
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 2) {
                 Text(name)
                     .foregroundColor(stageColor)
                 
@@ -53,7 +53,7 @@ struct DeploymentStageView: View {
                         .padding(.horizontal)
                     #else
                     ProgressView(value: viewState.progress, total: 100.0)
-                        .padding(.top, 1)
+                        .padding(.top, 2)
                     #endif
                 }
             }
