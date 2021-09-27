@@ -11,6 +11,7 @@ import Combine
 struct DeploymentView: View {
     
     @EnvironmentObject var appData: AppData
+    @EnvironmentObject var deviceData: DeviceData
     
     // MARK: - State
     
@@ -19,29 +20,43 @@ struct DeploymentView: View {
     // MARK: - viewBuilder
     
     var body: some View {
-        VStack {
+        FormIniOSListInMacOS {
             if viewState.status.shouldShowProgressView {
-                DeploymentProgressView()
-                    .environmentObject(viewState)
-                    .padding(.top)
+                Section(header: Text("Progress")) {
+                    ForEach(DeploymentStage.allCases) { stage in
+                        DeploymentStageView(stage: stage)
+                            .environmentObject(viewState)
+                    }
+                }
+                
+                switch viewState.status {
+                case .error(let error):
+                    Section(header: Text("Error Description")) {
+                        Label(error.localizedDescription, systemImage: "info")
+                    }
+                default:
+                    EmptyView()
+                }
             } else {
                 DeploymentConfigurationView()
                     .environmentObject(viewState)
-                    .padding(.bottom)
+                    .environmentObject(deviceData)
             }
             
+            #if os(macOS)
             Divider()
                 .padding(.horizontal)
+            #endif
             
             Section {
                 switch viewState.status {
                 case .success, .error(_):
                     Button("Retry", action: retry)
-                        .padding()
+                        .centerTextInsideForm()
                         .disabled(!$viewState.buildButtonEnable.wrappedValue)
                 default:
                     Button("Build", action: connectThenBuild)
-                        .padding()
+                        .centerTextInsideForm()
                         .disabled(!$viewState.buildButtonEnable.wrappedValue)
                     #if os(iOS)
                         .foregroundColor($viewState.buildButtonEnable.wrappedValue ? .positiveActionButtonColor : .disabledTextColor)
@@ -50,6 +65,9 @@ struct DeploymentView: View {
             }
         }
         .background(Color.formBackground)
+        #if os(iOS)
+        .padding(.top)
+        #endif
     }
 }
 

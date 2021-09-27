@@ -54,8 +54,6 @@ struct DeploymentConfigurationView: View {
                         .font(.caption)
                         .foregroundColor(Assets.middleGrey.color)
                 }
-                
-                
             }
         }
         .padding()
