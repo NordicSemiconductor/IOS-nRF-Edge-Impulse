@@ -74,6 +74,10 @@
 		AA04577C2701D97500FC1A41 /* DeploymentProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04577A2701D97500FC1A41 /* DeploymentProgressView.swift */; };
 		AA04577F270208D900FC1A41 /* InferencingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04577E270208D900FC1A41 /* InferencingView.swift */; };
 		AA045780270208D900FC1A41 /* InferencingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04577E270208D900FC1A41 /* InferencingView.swift */; };
+		AA04578227020C1200FC1A41 /* InferencingViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04578127020C1200FC1A41 /* InferencingViewState.swift */; };
+		AA04578327020C1200FC1A41 /* InferencingViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04578127020C1200FC1A41 /* InferencingViewState.swift */; };
+		AA045785270214DE00FC1A41 /* InferencingView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA045784270214DE00FC1A41 /* InferencingView+Logic.swift */; };
+		AA045786270214DE00FC1A41 /* InferencingView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA045784270214DE00FC1A41 /* InferencingView+Logic.swift */; };
 		AA05BC412667B00B003AEE50 /* sample_full_accelerometer_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA05BC402667B00B003AEE50 /* sample_full_accelerometer_data_response.json */; };
 		AA05BC422667B00B003AEE50 /* sample_full_accelerometer_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA05BC402667B00B003AEE50 /* sample_full_accelerometer_data_response.json */; };
 		AA05BC442667CB1F003AEE50 /* sample_full_camera_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA05BC432667CB1F003AEE50 /* sample_full_camera_data_response.json */; };
@@ -372,6 +376,8 @@
 		AA0457772701D23100FC1A41 /* DeploymentConfigurationView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentConfigurationView+Logic.swift"; sourceTree = "<group>"; };
 		AA04577A2701D97500FC1A41 /* DeploymentProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentProgressView.swift; sourceTree = "<group>"; };
 		AA04577E270208D900FC1A41 /* InferencingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferencingView.swift; sourceTree = "<group>"; };
+		AA04578127020C1200FC1A41 /* InferencingViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferencingViewState.swift; sourceTree = "<group>"; };
+		AA045784270214DE00FC1A41 /* InferencingView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InferencingView+Logic.swift"; sourceTree = "<group>"; };
 		AA05BC402667B00B003AEE50 /* sample_full_accelerometer_data_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_full_accelerometer_data_response.json; sourceTree = "<group>"; };
 		AA05BC432667CB1F003AEE50 /* sample_full_camera_data_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_full_camera_data_response.json; sourceTree = "<group>"; };
 		AA05BC462667D098003AEE50 /* StartSamplingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSamplingRequest.swift; sourceTree = "<group>"; };
@@ -679,6 +685,8 @@
 			isa = PBXGroup;
 			children = (
 				AA04577E270208D900FC1A41 /* InferencingView.swift */,
+				AA045784270214DE00FC1A41 /* InferencingView+Logic.swift */,
+				AA04578127020C1200FC1A41 /* InferencingViewState.swift */,
 			);
 			path = Inferencing;
 			sourceTree = "<group>";
@@ -1422,6 +1430,7 @@
 				AAFAC31C2678BC8F00D486EA /* ViewModifiers.swift in Sources */,
 				AAF4F6BA2625C02E00012359 /* SignedUpView.swift in Sources */,
 				AA032988266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */,
+				AA045785270214DE00FC1A41 /* InferencingView+Logic.swift in Sources */,
 				AAF936AB260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
 				012A3EC92666627E00EBB501 /* DeviceData.swift in Sources */,
 				AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */,
@@ -1430,6 +1439,7 @@
 				AAF0C96F260A069F001B76B9 /* User.swift in Sources */,
 				AAF0C9692609FEBE001B76B9 /* GetCurrentUserRequest.swift in Sources */,
 				AAFAE5EB25ED14E500A45A90 /* AppData.swift in Sources */,
+				AA04578227020C1200FC1A41 /* InferencingViewState.swift in Sources */,
 				C337B8E0267A0034003FD0A0 /* Array+ext.swift in Sources */,
 				C3A3665B260414BC008D82CC /* UnregisteredDeviceView.swift in Sources */,
 				AA0457762701D1F600FC1A41 /* DeploymentConfigurationView.swift in Sources */,
@@ -1472,6 +1482,7 @@
 				C3846EE6260B4386005AEF67 /* BluetoothManager.swift in Sources */,
 				AAF4F6C52625E07900012359 /* DeviceList.swift in Sources */,
 				AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */,
+				AA04578327020C1200FC1A41 /* InferencingViewState.swift in Sources */,
 				AAEED04226A7B55700999E51 /* DeploymentConfigurationView.swift in Sources */,
 				AA076F802698721D0012CD64 /* Color.swift in Sources */,
 				AA386B0A260CEDD60079F12D /* Previews.swift in Sources */,
@@ -1566,6 +1577,7 @@
 				AAF5531E2641614B00252345 /* AppData+DataSamples.swift in Sources */,
 				AAE0B233264E94D900FD8F80 /* SettingsDebugView.swift in Sources */,
 				AAFED87825E7F7F900BB7445 /* NativeLoginView.swift in Sources */,
+				AA045786270214DE00FC1A41 /* InferencingView+Logic.swift in Sources */,
 				AA0CD079269DC258000FFF0B /* DeploymentViewState+Delegates.swift in Sources */,
 				AAFAC31D2678BC8F00D486EA /* ViewModifiers.swift in Sources */,
 				AAF38C17268DED9900F1A590 /* AppIconView.swift in Sources */,

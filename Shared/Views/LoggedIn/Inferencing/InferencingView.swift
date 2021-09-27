@@ -9,8 +9,25 @@ import SwiftUI
 
 struct InferencingView: View {
     
+    @EnvironmentObject var deviceData: DeviceData
+    
+    // MARK: - State
+    
+    @StateObject internal var viewState = InferencingViewState()
+    
     var body: some View {
-        Text("Hello, World!")
+        FormIniOSListInMacOS {
+            Section(header: Text("Device")) {
+                ConnectedDevicePicker($viewState.selectedDeviceHandler)
+                    .onAppear(perform: selectFirstAvailableDeviceHandler)
+            }
+            
+            Text("Hello, World!")
+        }
+        .background(Color.formBackground)
+        #if os(iOS)
+        .padding(.top)
+        #endif
     }
 }
 
