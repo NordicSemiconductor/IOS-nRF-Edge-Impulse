@@ -13,7 +13,7 @@ struct DeploymentProgressView: View {
     
     var body: some View {
         FormIniOSListInMacOS {
-            Section(header: Text("Stages")) {
+            Section(header: Text("Progress")) {
                 ForEach(DeploymentStage.allCases) { stage in
                     DeploymentStageView(stage: stage)
                 }

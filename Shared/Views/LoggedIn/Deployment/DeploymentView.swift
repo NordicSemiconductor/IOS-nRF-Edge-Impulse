@@ -33,12 +33,19 @@ struct DeploymentView: View {
             Divider()
                 .padding(.horizontal)
             
-            Section(header: Text("Progress").bold()) {
+            Section {
                 switch viewState.status {
                 case .success, .error(_):
-                    ReusableProgressView(progress: $viewState.progress, isIndeterminate: $viewState.progressShouldBeIndeterminate, statusText: $viewState.statusText, statusColor: $viewState.statusColor, buttonText: "Retry", buttonEnabled: $viewState.buildButtonEnable, buttonAction: retry)
+                    Button("Retry", action: retry)
+                        .padding()
+                        .disabled(!$viewState.buildButtonEnable.wrappedValue)
                 default:
-                    ReusableProgressView(progress: $viewState.progress, isIndeterminate: $viewState.progressShouldBeIndeterminate, statusText: $viewState.statusText, statusColor: $viewState.statusColor, buttonText: "Build", buttonEnabled: $viewState.buildButtonEnable, buttonAction: connectThenBuild)
+                    Button("Build", action: connectThenBuild)
+                        .padding()
+                        .disabled(!$viewState.buildButtonEnable.wrappedValue)
+                    #if os(iOS)
+                        .foregroundColor($viewState.buildButtonEnable.wrappedValue ? .positiveActionButtonColor : .disabledTextColor)
+                    #endif
                 }
             }
         }
