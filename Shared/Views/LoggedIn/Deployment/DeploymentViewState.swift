@@ -14,8 +14,6 @@ import ZIPFoundation
 final class DeploymentViewState: ObservableObject {
 
     @Published var status: JobStatus = .idle
-    @Published var statusText: String = JobStatus.idle.text
-    @Published var statusColor: Color = JobStatus.idle.color
     
     @Published var selectedDevice = Constant.unselectedDevice
     @Published var selectedDeviceHandler: DeviceRemoteHandler! {
@@ -211,8 +209,6 @@ internal extension DeploymentViewState {
     private func onStatusChanged(_ status: JobStatus) {
         progressShouldBeIndeterminate = false
         buildButtonEnable = false
-        statusText = status.text
-        statusColor = status.color
         
         switch status {
         case .idle, .success:
