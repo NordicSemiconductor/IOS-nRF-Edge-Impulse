@@ -13,28 +13,17 @@ struct DeploymentStageView: View {
     
     @EnvironmentObject var viewState: DeploymentViewState
     
-    let name: String
-    let stage: DeploymentStage
+    private let name: String
+    private let stage: DeploymentStage
+    
+    // MARK: Init
     
     init(stage: DeploymentStage) {
         name = stage.id
         self.stage = stage
     }
     
-    var deploymentFailed: Bool {
-        guard case .error(_) = viewState.status else { return false }
-        return true
-    }
-    
-    var stageColor: Color {
-        guard !deploymentFailed else { return Assets.red.color }
-        if stage.isCompleted(viewState.status) {
-            return Assets.grass.color
-        } else if stage.isInProgress(viewState.status) {
-            return Assets.sun.color
-        }
-        return .disabledTextColor
-    }
+    // MARK: View
     
     var body: some View {
         HStack {
@@ -69,6 +58,23 @@ struct DeploymentStageView: View {
                 }
             }
         }
+    }
+    
+    // MARK: API
+    
+    var deploymentFailed: Bool {
+        guard case .error(_) = viewState.status else { return false }
+        return true
+    }
+    
+    var stageColor: Color {
+        guard !deploymentFailed else { return Assets.red.color }
+        if stage.isCompleted(viewState.status) {
+            return Assets.grass.color
+        } else if stage.isInProgress(viewState.status) {
+            return Assets.sun.color
+        }
+        return .disabledTextColor
     }
 }
 

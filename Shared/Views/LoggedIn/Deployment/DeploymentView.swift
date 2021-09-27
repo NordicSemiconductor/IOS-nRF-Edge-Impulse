@@ -22,21 +22,8 @@ struct DeploymentView: View {
     var body: some View {
         FormIniOSListInMacOS {
             if viewState.status.shouldShowProgressView {
-                Section(header: Text("Progress")) {
-                    ForEach(DeploymentStage.allCases) { stage in
-                        DeploymentStageView(stage: stage)
-                            .environmentObject(viewState)
-                    }
-                }
-                
-                switch viewState.status {
-                case .error(let error):
-                    Section(header: Text("Error Description")) {
-                        Label(error.localizedDescription, systemImage: "info")
-                    }
-                default:
-                    EmptyView()
-                }
+                DeploymentProgressView()
+                    .environmentObject(viewState)
             } else {
                 DeploymentConfigurationView()
                     .environmentObject(viewState)

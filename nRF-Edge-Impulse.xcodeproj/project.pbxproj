@@ -70,6 +70,8 @@
 		AA0457762701D1F600FC1A41 /* DeploymentConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0457752701D1F600FC1A41 /* DeploymentConfigurationView.swift */; };
 		AA0457782701D23100FC1A41 /* DeploymentConfigurationView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0457772701D23100FC1A41 /* DeploymentConfigurationView+Logic.swift */; };
 		AA0457792701D23100FC1A41 /* DeploymentConfigurationView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0457772701D23100FC1A41 /* DeploymentConfigurationView+Logic.swift */; };
+		AA04577B2701D97500FC1A41 /* DeploymentProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04577A2701D97500FC1A41 /* DeploymentProgressView.swift */; };
+		AA04577C2701D97500FC1A41 /* DeploymentProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA04577A2701D97500FC1A41 /* DeploymentProgressView.swift */; };
 		AA05BC412667B00B003AEE50 /* sample_full_accelerometer_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA05BC402667B00B003AEE50 /* sample_full_accelerometer_data_response.json */; };
 		AA05BC422667B00B003AEE50 /* sample_full_accelerometer_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA05BC402667B00B003AEE50 /* sample_full_accelerometer_data_response.json */; };
 		AA05BC442667CB1F003AEE50 /* sample_full_camera_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA05BC432667CB1F003AEE50 /* sample_full_camera_data_response.json */; };
@@ -366,6 +368,7 @@
 		AA03E98125E3EF13003DA9DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA0457752701D1F600FC1A41 /* DeploymentConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentConfigurationView.swift; sourceTree = "<group>"; };
 		AA0457772701D23100FC1A41 /* DeploymentConfigurationView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentConfigurationView+Logic.swift"; sourceTree = "<group>"; };
+		AA04577A2701D97500FC1A41 /* DeploymentProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentProgressView.swift; sourceTree = "<group>"; };
 		AA05BC402667B00B003AEE50 /* sample_full_accelerometer_data_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_full_accelerometer_data_response.json; sourceTree = "<group>"; };
 		AA05BC432667CB1F003AEE50 /* sample_full_camera_data_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_full_camera_data_response.json; sourceTree = "<group>"; };
 		AA05BC462667D098003AEE50 /* StartSamplingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSamplingRequest.swift; sourceTree = "<group>"; };
@@ -675,6 +678,7 @@
 				AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */,
 				AA0457752701D1F600FC1A41 /* DeploymentConfigurationView.swift */,
 				AA0457772701D23100FC1A41 /* DeploymentConfigurationView+Logic.swift */,
+				AA04577A2701D97500FC1A41 /* DeploymentProgressView.swift */,
 				AAFCEF0F26FC826300753559 /* DeploymentStageView.swift */,
 				AA0D812B2608F62700AE615A /* DeploymentViewState.swift */,
 				AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */,
@@ -1372,6 +1376,7 @@
 				AAF5E7592640106700AC3271 /* DataSample.swift in Sources */,
 				AA0208A925F65EB400FD6B24 /* Tabs.swift in Sources */,
 				C301A379261F36250010717D /* HelloMessage.swift in Sources */,
+				AA04577B2701D97500FC1A41 /* DeploymentProgressView.swift in Sources */,
 				AAE05F202649554F005BBF98 /* SampleRequestMessage.swift in Sources */,
 				AA00508F2695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift in Sources */,
 				0187B39326BD6C7B00E59BFD /* DeviceSection.swift in Sources */,
@@ -1432,6 +1437,7 @@
 				01E10964265FAEDE000F2EE4 /* RegisteredDeviceView.swift in Sources */,
 				AAFFEB3A25FF9554002287D6 /* NordicError.swift in Sources */,
 				AAEDE637262882D500B96AE9 /* ProjectSelectionView.swift in Sources */,
+				AA04577C2701D97500FC1A41 /* DeploymentProgressView.swift in Sources */,
 				AA80989B25EE959B00091AC0 /* Publishers.swift in Sources */,
 				AAF55324264171AB00252345 /* DataSampleRow.swift in Sources */,
 				C33C10C22609791E0097EA5A /* SignalParameters.swift in Sources */,
