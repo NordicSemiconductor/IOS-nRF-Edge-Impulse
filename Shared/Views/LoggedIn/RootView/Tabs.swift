@@ -11,6 +11,7 @@ enum Tabs: Int, RawRepresentable, CaseIterable {
     case Devices
     case DataAcquisition
     case Deployment
+    case Inferencing
     case Settings
     case User
     
@@ -44,6 +45,9 @@ extension Tabs {
         case .Deployment:
             DeploymentView()
                 .frame(minWidth: .minTabWidth)
+        case .Inferencing:
+            InferencingView()
+                .frame(minWidth: .minTabWidth)
         case .Settings:
             SettingsContentView()
                 .frame(minWidth: .minTabWidth)
@@ -68,6 +72,8 @@ extension Tabs: Identifiable, CustomStringConvertible {
             return "cylinder.split.1x2"
         case .Deployment:
             return "shippingbox"
+        case .Inferencing:
+            return "chart.bar.doc.horizontal"
         case .Settings:
             return "gear"
         case .User:
@@ -83,6 +89,8 @@ extension Tabs: Identifiable, CustomStringConvertible {
             return "Data Acquisition"
         case .Deployment:
             return "Deployment"
+        case .Inferencing:
+            return "Inferencing"
         case .Settings:
             return "Settings"
         case .User:
