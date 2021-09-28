@@ -34,11 +34,11 @@ struct InferencingResponse: Codable {
 
 // MARK: - Inferencing Results
 
-struct InferencingResults: Codable {
+struct InferencingResults: Codable, Hashable {
     
     // MARK: Classification
     
-    struct Classification: Codable {
+    struct Classification: Codable, Hashable {
         
         let label: String
         let value: Double
@@ -46,6 +46,6 @@ struct InferencingResults: Codable {
     
     let type: String
     let classification: [Classification]
-    let anomaly: String
+    let anomaly: Double
 }
 

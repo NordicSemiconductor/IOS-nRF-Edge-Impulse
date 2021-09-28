@@ -31,6 +31,7 @@ final class InferencingViewState: ObservableObject {
             buttonText = isInferencing ? "Stop" : "Start"
         }
     }
+    @Published var results = [InferencingResults]()
     
     // MARK: - Private Properties
     
@@ -49,19 +50,26 @@ extension InferencingViewState {
             return
         }
         
-        selectedDeviceHandler.newInferencingPublisher()
+        selectedDeviceHandler.newStartStopPublisher()
             .sinkReceivingError(onError: { [weak self] error in
                 self?.stopAll()
-            }, receiveValue: { [weak self] updatedState in
-                guard let updatedState = updatedState else { return }
-                self?.selectedDeviceHandler.inferencingState = updatedState
-                
-                switch updatedState {
+            }, receiveValue: { [weak self] _ in
+                switch self?.selectedDeviceHandler.inferencingState {
+                case .started:
+                    self?.results.removeAll()
                 case .stopped:
                     self?.stopAll()
                 default:
                     break
                 }
+            })
+            .store(in: &cancellables)
+        
+        selectedDeviceHandler.newResultsPublisher()
+            .sinkReceivingError(onError: { [weak self] error in
+                self?.stopAll()
+            }, receiveValue: { [weak self] newResult in
+                self?.results.append(newResult)
             })
             .store(in: &cancellables)
         

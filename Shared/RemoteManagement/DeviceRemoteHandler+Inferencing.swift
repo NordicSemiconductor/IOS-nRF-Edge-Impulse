@@ -12,7 +12,7 @@ import Combine
 
 extension DeviceRemoteHandler {
     
-    enum InferencingState {
+    enum InferencingState: Equatable {
         case startRequestSent, started
         case stopRequestSent, stopped
     }
@@ -22,47 +22,52 @@ extension DeviceRemoteHandler {
 
 extension DeviceRemoteHandler {
     
-    func newInferencingPublisher() -> AnyPublisher<InferencingState?, Swift.Error> {
+    func newStartStopPublisher() -> AnyPublisher<Void, Swift.Error> {
         let startInferencingResponse = bluetoothManager.receptionSubject
             .drop(while: { [unowned self] _ in self.inferencingState != .startRequestSent })
             .onlyDecode(type: InferencingResponse.self)
-            .tryMap { response -> InferencingState? in
+            .tryMap { [weak self] response in
                 if let errorDescription = response.error {
                     throw DeviceRemoteHandler.Error.stringError(errorDescription)
                 }
                 guard response.ok else {
                     throw DeviceRemoteHandler.Error.stringError("Start Inferencing Returned no Error, but also 'not OK'.")
                 }
-                guard response.type == "start-inferencing" else { return nil }
-                return .started
-            }
-            .eraseToAnyPublisher()
-        
-        let inferencingResultsResponse = bluetoothManager.receptionSubject
-            .drop(while: { [unowned self] _ in self.inferencingState != .started })
-            .onlyDecode(type: InferencingResults.self)
-            .tryMap { [weak self] response -> InferencingState? in
-                guard response.type == "inference-results" else { return nil }
-                return .started
+                guard response.type.contains("start-inferencing") else { return }
+                self?.inferencingState = .started
             }
             .eraseToAnyPublisher()
         
         let stopInferencingResponse = bluetoothManager.receptionSubject
-            .drop(while: { [unowned self] _ in self.inferencingState != .started })
+            .drop(while: { [unowned self] _ in self.inferencingState != .stopRequestSent })
             .onlyDecode(type: InferencingResponse.self)
-            .tryMap { response -> InferencingState? in
+            .tryMap { [weak self] response in
                 if let errorDescription = response.error {
                     throw DeviceRemoteHandler.Error.stringError(errorDescription)
                 }
                 guard response.ok else {
                     throw DeviceRemoteHandler.Error.stringError("Start Inferencing Returned no Error, but also 'not OK'.")
                 }
-                guard response.type == "stop-inferencing" else { return nil }
-                return .stopped
+                guard response.type.contains("stop-inferencing") else { return }
+                self?.inferencingState = .stopped
             }
             .eraseToAnyPublisher()
         
-        return Publishers.MergeMany([startInferencingResponse, inferencingResultsResponse, stopInferencingResponse])
+        return Publishers.MergeMany([startInferencingResponse, stopInferencingResponse])
+            .eraseToAnyPublisher()
+    }
+    
+    func newResultsPublisher() -> AnyPublisher<InferencingResults, Swift.Error> {
+        return bluetoothManager.receptionSubject
+            .filter({ [unowned self] _ in self.inferencingState == .started })
+//            .gatherData(ofType: InferencingResults.self)
+            .onlyDecode(type: InferencingResults.self)
+            .tryMap { response -> InferencingResults in
+                guard response.type.contains("results") else {
+                    throw DeviceRemoteHandler.Error.stringError("")
+                }
+                return response
+            }
             .eraseToAnyPublisher()
     }
 }

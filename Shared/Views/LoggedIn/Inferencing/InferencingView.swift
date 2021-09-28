@@ -21,6 +21,8 @@ struct InferencingView: View {
                     .onAppear(perform: selectFirstAvailableDeviceHandler)
             }
             
+            Text("\(appData.inferencingViewState.results.count) result(s).")
+            
             Button(appData.inferencingViewState.buttonText, action: appData.inferencingViewState.toggleInferencing)
                 .centerTextInsideForm()
             #if os(iOS)
