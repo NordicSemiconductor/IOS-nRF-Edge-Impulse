@@ -21,11 +21,13 @@ struct InferencingView: View {
                     .onAppear(perform: selectFirstAvailableDeviceHandler)
             }
             
-            Section(header: Text("Results")) {                
-                InferencingResultsHeaderRow()
-                
-                ForEach(appData.inferencingViewState.results, id: \.self) { result in
-                    Text(result.classification.first?.label ?? "A")
+            if let firstRow = appData.inferencingViewState.results.first {
+                Section(header: Text("Results")) {
+                    InferencingResultsHeaderRow()
+                    
+                    ForEach(appData.inferencingViewState.results, id: \.self) { result in
+                        InferencingResultRow(result: result)
+                    }
                 }
             }
             
@@ -57,6 +59,23 @@ struct InferencingResultsHeaderRow: View {
                 .foregroundColor(Assets.middleGrey.color)
             Text("Length")
                 .fontWeight(.light)
+        }
+        .lineLimit(1)
+    }
+}
+
+// MARK: - InferencingResultRow
+
+struct InferencingResultRow: View {
+    
+    let result: InferencingResults
+    
+    var body: some View {
+        MultiColumnView(columns: DataSamplesView.Columns) {
+            ForEach(result.classification, id: \.self) { classification in
+                Text("\(classification.value)")
+                    .fontWeight(.light)
+            }
         }
         .lineLimit(1)
     }
