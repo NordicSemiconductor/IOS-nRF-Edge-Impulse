@@ -21,18 +21,44 @@ struct InferencingView: View {
                     .onAppear(perform: selectFirstAvailableDeviceHandler)
             }
             
-            Text("\(appData.inferencingViewState.results.count) result(s).")
+            Section(header: Text("Results")) {                
+                InferencingResultsHeaderRow()
+                
+                ForEach(appData.inferencingViewState.results, id: \.self) { result in
+                    Text(result.classification.first?.label ?? "A")
+                }
+            }
             
-            Button(appData.inferencingViewState.buttonText, action: appData.inferencingViewState.toggleInferencing)
-                .centerTextInsideForm()
-            #if os(iOS)
-                .foregroundColor(.positiveActionButtonColor)
-            #endif
+            Section(header: Text("")) {
+                Button(appData.inferencingViewState.buttonText, action: appData.inferencingViewState.toggleInferencing)
+                    .centerTextInsideForm()
+                #if os(iOS)
+                    .foregroundColor(.positiveActionButtonColor)
+                #endif
+            }
         }
         .background(Color.formBackground)
         #if os(iOS)
         .padding(.top)
         #endif
+    }
+}
+
+// MARK: - InferencingResultsHeaderRow
+
+struct InferencingResultsHeaderRow: View {
+    
+    var body: some View {
+        MultiColumnView(columns: DataSamplesView.Columns) {
+            Text("")
+            Text("Filename")
+                .bold()
+            Text("Label")
+                .foregroundColor(Assets.middleGrey.color)
+            Text("Length")
+                .fontWeight(.light)
+        }
+        .lineLimit(1)
     }
 }
 
