@@ -9,20 +9,19 @@ import SwiftUI
 
 struct InferencingView: View {
     
+    @EnvironmentObject var appData: AppData
     @EnvironmentObject var deviceData: DeviceData
     
     // MARK: - State
     
-    @StateObject internal var viewState = InferencingViewState()
-    
     var body: some View {
         FormIniOSListInMacOS {
             Section(header: Text("Device")) {
-                ConnectedDevicePicker($viewState.selectedDeviceHandler)
+                ConnectedDevicePicker($appData.inferencingViewState.selectedDeviceHandler)
                     .onAppear(perform: selectFirstAvailableDeviceHandler)
             }
             
-            Button(viewState.buttonText, action: viewState.toggleInferencing)
+            Button(appData.inferencingViewState.buttonText, action: appData.inferencingViewState.toggleInferencing)
                 .centerTextInsideForm()
             #if os(iOS)
                 .foregroundColor(.positiveActionButtonColor)

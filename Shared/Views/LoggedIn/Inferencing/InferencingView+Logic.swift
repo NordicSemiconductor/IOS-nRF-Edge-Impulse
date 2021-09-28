@@ -12,6 +12,6 @@ extension InferencingView {
     // MARK: - API
     
     func selectFirstAvailableDeviceHandler() {
-        viewState.selectedDeviceHandler = deviceData.allConnectedAndReadyToUseDevices().first
+        appData.inferencingViewState.selectedDeviceHandler = deviceData.allConnectedAndReadyToUseDevices().first
     }
 }

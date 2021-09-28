@@ -44,5 +44,60 @@ extension InferencingViewState {
     
     func toggleInferencing() {
         isInferencing.toggle()
+        guard isInferencing else {
+            sendStopRequest()
+            return
+        }
+        
+        selectedDeviceHandler.newInferencingPublisher()
+            .sinkReceivingError(onError: { [weak self] error in
+                self?.stopAll()
+            }, receiveValue: { [weak self] updatedState in
+                guard let updatedState = updatedState else { return }
+                self?.selectedDeviceHandler.inferencingState = updatedState
+                
+                switch updatedState {
+                case .stopped:
+                    self?.stopAll()
+                default:
+                    break
+                }
+            })
+            .store(in: &cancellables)
+        
+        sendStartRequest()
+    }
+}
+
+// MARK: - Private
+
+fileprivate extension InferencingViewState {
+    
+    func sendStartRequest() {
+        selectedDeviceHandler.inferencingState = .startRequestSent
+        do {
+            try selectedDeviceHandler.bluetoothManager.write(InferencingRequest(.start))
+        } catch {
+            stopAll()
+            AppEvents.shared.error = ErrorEvent(error)
+        }
+    }
+    
+    func sendStopRequest() {
+        selectedDeviceHandler.inferencingState = .stopRequestSent
+        do {
+            try selectedDeviceHandler.bluetoothManager.write(InferencingRequest(.stop))
+        } catch {
+            stopAll()
+            AppEvents.shared.error = ErrorEvent(error)
+        }
+    }
+    
+    func stopAll() {
+        if isInferencing {
+            isInferencing.toggle()
+        }
+        cancellables.forEach({ $0.cancel() })
+        cancellables.removeAll()
     }
 }
