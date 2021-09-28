@@ -6,7 +6,10 @@
 //
 
 import SwiftUI
+import Combine
 import OSLog
+
+// MARK: - InferencingViewState
 
 final class InferencingViewState: ObservableObject {
     
@@ -22,7 +25,24 @@ final class InferencingViewState: ObservableObject {
         }
     }
     
+    @Published var buttonText = "Start"
+    @Published var isInferencing = false {
+        didSet {
+            buttonText = isInferencing ? "Stop" : "Start"
+        }
+    }
+    
     // MARK: - Private Properties
     
     private lazy var logger = Logger(Self.self)
+    private var cancellables = Set<AnyCancellable>()
+}
+
+// MARK: - API
+
+extension InferencingViewState {
+    
+    func toggleInferencing() {
+        isInferencing.toggle()
+    }
 }

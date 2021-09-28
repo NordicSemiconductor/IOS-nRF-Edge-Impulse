@@ -22,7 +22,11 @@ struct InferencingView: View {
                     .onAppear(perform: selectFirstAvailableDeviceHandler)
             }
             
-            Text("Hello, World!")
+            Button(viewState.buttonText, action: viewState.toggleInferencing)
+                .centerTextInsideForm()
+            #if os(iOS)
+                .foregroundColor(.positiveActionButtonColor)
+            #endif
         }
         .background(Color.formBackground)
         #if os(iOS)
