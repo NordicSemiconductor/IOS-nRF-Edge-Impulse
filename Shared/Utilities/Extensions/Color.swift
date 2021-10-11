@@ -33,13 +33,11 @@ extension Color {
         #endif
     }
     
-    static var negativeActionButtonColor: Color {
-        return Assets.red.color
-    }
+    static var negativeActionButtonColor: Color { Assets.red.color }
     
-    static var disabledTextColor: Color {
-        return Assets.middleGrey.color
-    }
+    static var succcessfulActionButtonColor: Color { .green }
+    
+    static var disabledTextColor: Color { Assets.middleGrey.color }
     
     static var textFieldColor: Color {
         #if os(OSX)

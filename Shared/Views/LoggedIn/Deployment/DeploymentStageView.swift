@@ -70,7 +70,7 @@ struct DeploymentStageView: View {
     var stageColor: Color {
         guard !deploymentFailed else { return Assets.red.color }
         if stage.isCompleted(viewState.status) {
-            return .green
+            return .succcessfulActionButtonColor
         } else if stage.isInProgress(viewState.status) {
             return Assets.sun.color
         }

@@ -37,7 +37,14 @@ struct DeploymentView: View {
             
             Section {
                 switch viewState.status {
-                case .success, .error(_):
+                case .success:
+                    Button("Success!", action: retry)
+                        .centerTextInsideForm()
+                        .disabled(!$viewState.buildButtonEnable.wrappedValue)
+                    #if os(iOS)
+                        .foregroundColor(.positiveActionButtonColor)
+                    #endif
+                case .error(_):
                     Button("Retry", action: retry)
                         .centerTextInsideForm()
                         .disabled(!$viewState.buildButtonEnable.wrappedValue)
