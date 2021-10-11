@@ -18,16 +18,16 @@ final class DeploymentViewState: ObservableObject {
     @Published var selectedDevice = Constant.unselectedDevice
     @Published var selectedDeviceHandler: DeviceRemoteHandler! {
         didSet {
+            defer { onStatusChanged(status) }
             guard let selectedDeviceHandler = selectedDeviceHandler else { return }
             selectedDevice = selectedDeviceHandler.device ?? Constant.unselectedDevice
-            onStatusChanged(status)
         }
     }
     @Published var progress = 0.0
     @Published var progressShouldBeIndeterminate = false
     @Published var enableEONCompiler = true
     @Published var optimization: Classifier = .Unoptimized
-    @Published var buildButtonEnable = true
+    @Published var buildButtonEnable = false
     
     @Published var logs = [LogMessage]()
     @Published var lastLogMessage = LogMessage("")
