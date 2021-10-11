@@ -36,26 +36,12 @@ struct DeploymentView: View {
             #endif
             
             Section {
-                switch viewState.status {
-                case .success:
-                    Button("Success!", action: retry)
-                        .centerTextInsideForm()
-                        .disabled(!$viewState.buildButtonEnable.wrappedValue)
-                    #if os(iOS)
-                        .foregroundColor(.positiveActionButtonColor)
-                    #endif
-                case .error(_):
-                    Button("Retry", action: retry)
-                        .centerTextInsideForm()
-                        .disabled(!$viewState.buildButtonEnable.wrappedValue)
-                default:
-                    Button("Build", action: connectThenBuild)
-                        .centerTextInsideForm()
-                        .disabled(!$viewState.buildButtonEnable.wrappedValue)
-                    #if os(iOS)
-                        .foregroundColor($viewState.buildButtonEnable.wrappedValue ? .positiveActionButtonColor : .disabledTextColor)
-                    #endif
-                }
+                Button(viewState.buildButtonText, action: buttonAction)
+                    .centerTextInsideForm()
+                    .disabled(!$viewState.buildButtonEnable.wrappedValue)
+                #if os(iOS)
+                    .foregroundColor($viewState.buildButtonEnable.wrappedValue ? .positiveActionButtonColor : .disabledTextColor)
+                #endif
             }
         }
         .background(Color.formBackground)

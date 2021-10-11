@@ -27,6 +27,7 @@ final class DeploymentViewState: ObservableObject {
     @Published var progressShouldBeIndeterminate = false
     @Published var enableEONCompiler = true
     @Published var optimization: Classifier = .Unoptimized
+    @Published var buildButtonText = ""
     @Published var buildButtonEnable = false
     
     @Published var logs = [LogMessage]()
@@ -201,8 +202,12 @@ internal extension DeploymentViewState {
         buildButtonEnable = false
         
         switch status {
-        case .idle, .success:
+        case .idle:
             buildButtonEnable = selectedDeviceHandler != nil
+            buildButtonText = "Build"
+        case .success:
+            buildButtonEnable = selectedDeviceHandler != nil
+            buildButtonText = "Success!"
         case .socketConnecting:
             progressShouldBeIndeterminate = true
         case .socketConnected:
@@ -219,6 +224,7 @@ internal extension DeploymentViewState {
             break
         case .error(_):
             buildButtonEnable = true
+            buildButtonText = "Retry"
         }
     }
     

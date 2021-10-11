@@ -11,6 +11,20 @@ import Foundation
 
 internal extension DeploymentView {
     
+    func buttonAction() {
+        switch viewState.status {
+        case .success, .error(_):
+            retry()
+        default:
+            connectThenBuild()
+        }
+    }
+}
+
+// MARK: - Private
+
+fileprivate extension DeploymentView {
+    
     func connectThenBuild() {
         viewState.$status
             .first {
