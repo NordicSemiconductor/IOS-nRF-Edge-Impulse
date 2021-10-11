@@ -171,7 +171,7 @@ extension DeploymentViewState {
                 return (manifestFile.imageIndex, try Data(contentsOf: url))
             })
 
-            self.sendModelToDevice(images: images)
+            sendModelToDevice(images: images)
         } catch {
             reportError(error)
         }
@@ -260,9 +260,7 @@ internal extension DeploymentViewState {
         logs.append(LogMessage(error))
         status = .error(NordicError(description: error.localizedDescription))
         
-        for cancellable in cancellables {
-            cancellable.cancel()
-        }
+        cancellables.forEach { $0.cancel() }
         cancellables.removeAll()
     }
     

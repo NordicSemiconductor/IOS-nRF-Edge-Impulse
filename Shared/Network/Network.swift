@@ -40,19 +40,24 @@ extension Network {
                 #if DEBUG
                 print(element.response)
                 #endif
+                
                 guard let httpResponse = element.response as? HTTPURLResponse else {
                     throw URLError(.badServerResponse)
                 }
+                
                 if httpResponse.statusCode == 401 {
                     throw URLError(.userAuthenticationRequired)
                 }
+                
                 guard httpResponse.statusCode == 200 else {
-                    #if DEBUG
-                    if let dataAsString = String(data: element.data, encoding: .utf8) {
-                        print("\(request): \(dataAsString)")
+                    if let responseDataAsString = String(data: element.data, encoding: .utf8) {
+                        #if DEBUG
+                        print("\(request): \(responseDataAsString)")
+                        #endif
+                        throw NordicError(description: responseDataAsString)
+                    } else {
+                        throw URLError(.badServerResponse)
                     }
-                    #endif
-                    throw URLError(.badServerResponse)
                 }
                 return element.data
             }
