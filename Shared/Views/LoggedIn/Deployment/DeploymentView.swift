@@ -38,9 +38,9 @@ struct DeploymentView: View {
             Section {
                 Button(viewState.buildButtonText, action: buttonAction)
                     .centerTextInsideForm()
-                    .disabled(!$viewState.buildButtonEnable.wrappedValue)
+                    .disabled(!viewState.buildButtonEnable)
                 #if os(iOS)
-                    .foregroundColor($viewState.buildButtonEnable.wrappedValue ? .positiveActionButtonColor : .disabledTextColor)
+                    .foregroundColor(viewState.buildButtonEnable ? .positiveActionButtonColor : .disabledTextColor)
                 #endif
             }
         }
