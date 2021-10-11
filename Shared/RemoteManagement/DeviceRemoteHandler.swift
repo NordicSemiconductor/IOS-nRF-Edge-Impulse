@@ -105,6 +105,17 @@ class DeviceRemoteHandler {
     func connect(apiKey: String) -> AnyPublisher<ConnectionState, Never> {
         state = .connecting(scanResult)
         
+        let webSocketDataPublisher = webSocketManager.dataSubject
+            .tryMap { (result) -> Data in
+                switch result {
+                case .success(let data):
+                    return data
+                case .failure(let error):
+                    throw error
+                }
+            }
+            .eraseToAnyPublisher()
+        
         let pingConfiguration = WebSocketManager.PingConfiguration()
         return bluetoothManager.connect()
             .drop(while: { $0 != .readyToUse })
@@ -121,23 +132,13 @@ class DeviceRemoteHandler {
                 
                 webSocketHello.hello?.apiKey = apiKey
                 webSocketHello.hello?.deviceId = self.scanResult.id
-                
                 do {
                     try webSocketManager.send(webSocketHello)
                 } catch let e {
                     return Fail(error: e).eraseToAnyPublisher()
                 }
                 
-                return webSocketManager.dataSubject
-                    .tryMap { result in
-                        switch result {
-                        case .success(let data):
-                            return data
-                        case .failure(let error):
-                            throw error
-                        }
-                    }
-                    .eraseToAnyPublisher()
+                return webSocketDataPublisher
             }
             .decode(type: WSHelloResponse.self, decoder: JSONDecoder())
             .flatMap { [registeredDeviceManager] response -> AnyPublisher<Device, Swift.Error> in
