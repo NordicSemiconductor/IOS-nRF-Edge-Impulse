@@ -33,6 +33,7 @@ struct UsernameField: View {
                 .accentColor(Assets.darkGrey.color)
             TextField("Username or E-Mail", text: username)
                 .disableAllAutocorrections()
+                .textContentType(.username)
                 .foregroundColor(.textFieldColor)
                 .modifier(RoundedTextFieldShape(colorScheme == .light ? Assets.lightGrey : Assets.middleGrey, hasTextFieldBelow: true))
                 .disabled(!enabled)

@@ -32,6 +32,7 @@ struct PasswordField: View {
                 .accentColor(Assets.darkGrey.color)
             SecureField("Password", text: password)
                 .disableAllAutocorrections()
+                .textContentType(.password)
                 .foregroundColor(.textFieldColor)
                 .modifier(RoundedTextFieldShape(colorScheme == .light ? Assets.lightGrey : Assets.middleGrey))
                 .padding(.bottom, 8)
