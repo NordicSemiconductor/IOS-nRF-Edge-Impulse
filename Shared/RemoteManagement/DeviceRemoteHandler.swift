@@ -78,7 +78,7 @@ class DeviceRemoteHandler {
     
     private (set) lazy var bluetoothManager = BluetoothManager(peripheralId: self.scanResult.uuid)
     internal var webSocketManager: WebSocketManager!
-    private var cancellables = Set<AnyCancellable>()
+    private lazy var cancellables = Set<AnyCancellable>()
     
     private let registeredDeviceManager: RegisteredDevicesManager
     internal let appData: AppData
@@ -105,16 +105,8 @@ class DeviceRemoteHandler {
     func connect(apiKey: String) -> AnyPublisher<ConnectionState, Never> {
         state = .connecting(scanResult)
         
-        let webSocketDataPublisher = webSocketManager.dataSubject
-            .tryMap { (result) -> Data in
-                switch result {
-                case .success(let data):
-                    return data
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .eraseToAnyPublisher()
+        newBLEDisconnectionCancellable()
+            .store(in: &cancellables)
         
         let pingConfiguration = WebSocketManager.PingConfiguration()
         return bluetoothManager.connect()
@@ -125,20 +117,20 @@ class DeviceRemoteHandler {
                 webSocketManager.connect(to: Self.RemoteManagementURLString, using: pingConfiguration)
                     .drop(while: { $0 != .connected })
             )
-            .flatMap { [webSocketManager] (data, _) -> AnyPublisher<Data, Swift.Error> in
-                guard var webSocketHello = data.message, let webSocketManager = webSocketManager else {
+            .flatMap { [weak self] (data, _) -> AnyPublisher<Data, Swift.Error> in
+                guard var webSocketHello = data.message, let self = self else {
                     return Fail(error: Error.connectionEstablishFailed).eraseToAnyPublisher()
                 }
                 
                 webSocketHello.hello?.apiKey = apiKey
                 webSocketHello.hello?.deviceId = self.scanResult.id
                 do {
-                    try webSocketManager.send(webSocketHello)
+                    try self.webSocketManager.send(webSocketHello)
                 } catch let e {
                     return Fail(error: e).eraseToAnyPublisher()
                 }
                 
-                return webSocketDataPublisher
+                return self.newWebSocketDataPublisher()
             }
             .decode(type: WSHelloResponse.self, decoder: JSONDecoder())
             .flatMap { [registeredDeviceManager] response -> AnyPublisher<Device, Swift.Error> in
@@ -193,6 +185,38 @@ class DeviceRemoteHandler {
     
     func disconnect() {
         disconnect(reason: .onDemand)
+    }
+}
+
+// MARK: - Private
+
+fileprivate extension DeviceRemoteHandler {
+    
+    func newBLEDisconnectionCancellable() -> AnyCancellable {
+        return bluetoothManager.$state
+            .drop(while: { $0 == .connected })
+            .sink(receiveValue: { [weak self] state in
+                switch state {
+                case .notConnected, .disconnected:
+                    self?.disconnect()
+                    break
+                default:
+                    break
+                }
+            })
+    }
+    
+    func newWebSocketDataPublisher() -> AnyPublisher<Data, Swift.Error> {
+        return webSocketManager.dataSubject
+            .tryMap { (result) -> Data in
+                switch result {
+                case .success(let data):
+                    return data
+                case .failure(let error):
+                    throw error
+                }
+            }
+            .eraseToAnyPublisher()
     }
 }
 

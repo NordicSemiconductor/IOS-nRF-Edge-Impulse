@@ -242,6 +242,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         logger.info("Did fail to connect the peripheral: \(peripheral.identifier.uuidString)")
         logger.error("Error: \(error?.localizedDescription ?? "")")
         let e: Swift.Error = error ?? Error.failedToConnect
+        state = .disconnected
         btStateSubject.send(completion: .failure(e))
     }
     
@@ -249,6 +250,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         logger.info("Did disconnect peripheral: \(peripheral)")
         error.map { logger.error("Did disconnect error: \($0.localizedDescription)") }
         self.peripheral = nil
+        state = .disconnected
         
         if let e = error {
             btStateSubject.send(completion: .failure(e))
