@@ -13,9 +13,9 @@ import McuManager
 extension DeploymentViewState: McuMgrLogDelegate {
     
     func log(_ msg: String, ofCategory category: McuMgrLogCategory, atLevel level: McuMgrLogLevel) {
-        guard category != .transport else { return }
-        DispatchQueue.main.async { [unowned self] in
-            self.logs.append(LogMessage(msg))
+        guard category != .transport, msg.rangeOfCharacter(from: CharacterSet.alphanumerics) != nil else { return }
+        DispatchQueue.main.async { [weak self] in
+            self?.logs.append(LogMessage(msg))
         }
     }
 }
@@ -25,46 +25,46 @@ extension DeploymentViewState: McuMgrLogDelegate {
 extension DeploymentViewState: FirmwareUpgradeDelegate {
     
     func upgradeDidStart(controller: FirmwareUpgradeController) {
-        DispatchQueue.main.async { [unowned self] in
-            self.progress = 0.0
+        DispatchQueue.main.async { [weak self] in
+            self?.progress = 0.0
         }
     }
     
     func upgradeStateDidChange(from previousState: FirmwareUpgradeState, to newState: FirmwareUpgradeState) {
         switch previousState {
         case .reset:
-            self.status = .applying
+            status = .applying
         case .confirm:
-            self.status = .confirming
+            status = .confirming
         default:
             break
         }
     }
     
     func upgradeDidComplete() {
-        DispatchQueue.main.async { [unowned self] in
-            self.progress = 100.0
-            self.status = .success
+        DispatchQueue.main.async { [weak self] in
+            self?.progress = 100.0
+            self?.status = .success
         }
     }
     
     func upgradeDidFail(inState state: FirmwareUpgradeState, with error: Error) {
-        DispatchQueue.main.async { [unowned self] in
-            self.reportError(error)
+        DispatchQueue.main.async { [weak self] in
+            self?.reportError(error)
         }
     }
     
     func upgradeDidCancel(state: FirmwareUpgradeState) {
-        DispatchQueue.main.async { [unowned self] in
-            self.status = .error(NordicError(description: "Upgrade Cancelled."))
+        DispatchQueue.main.async { [weak self] in
+            self?.status = .error(NordicError(description: "Upgrade Cancelled."))
         }
     }
     
     func uploadProgressDidChange(bytesSent: Int, imageSize: Int, timestamp: Date) {
         let progress = Double(bytesSent) / Double(imageSize) * 100.0
-        DispatchQueue.main.async { [unowned self] in
-            self.progress = progress
-            self.status = .uploading(Int(progress))
+        DispatchQueue.main.async { [weak self] in
+            self?.progress = progress
+            self?.status = .uploading(Int(progress))
         }
     }
 }
