@@ -13,13 +13,18 @@ struct SettingsDebugView: View {
     
     var body: some View {
         VStack {
-            #if DEBUG
-            Button("Test Error", action: appData.raiseTestError)
-                .padding(.top, 4)
-            #endif
+            Text("Notifications")
+                .font(.subheadline)
+            
+            VStack {
+                #if DEBUG
+                Button("Test Error", action: appData.raiseTestError)
+                    .padding(.top, 4)
+                #endif
+            }
         }
         .lineLimit(1)
-        .frame(width: 80, height: 40)
+        .frame(width: 200, height: 60)
     }
 }
 

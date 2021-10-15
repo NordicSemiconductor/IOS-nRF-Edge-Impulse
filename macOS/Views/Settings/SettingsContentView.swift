@@ -11,10 +11,10 @@ struct SettingsContentView: View {
     
     var body: some View {
         TabView {
-            SettingsDevicesView()
+            SettingsScannerView()
                 .withTabBarStyle()
                 .tabItem {
-                    Label(Tabs.Devices.description, systemImage: Tabs.Devices.systemImageName)
+                    Label("Scanner", systemImage: "dot.radiowaves.left.and.right")
                 }
                 .tag(0)
             
