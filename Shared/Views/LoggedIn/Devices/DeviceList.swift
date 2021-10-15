@@ -29,9 +29,7 @@ struct DeviceList: View {
             FormIniOSListInMacOS {
                 if appData.isLoggedIn {
                     buildRegisteredDevicesList()
-                    buildScanResultsList(scanResult: deviceData.scanResults.filter {
-                        $0.state != .connected && !$0.availableViaRegisteredDevices
-                    })
+                    buildScanResultsList()
                 }
                 
                 #if os(macOS)
@@ -65,8 +63,8 @@ private extension DeviceList {
     
     // MARK: Scan results
     @ViewBuilder
-    private func buildScanResultsList(scanResult: [DeviceData.ScanResultWrapper]) -> some View {
-        DeviceSection(title: "Add Device", data: scanResult) { s in
+    private func buildScanResultsList() -> some View {
+        DeviceSection(title: "Add Device", data: deviceData.unregisteredDevices) { s in
             UnregisteredDeviceView(s.scanResult, isConnecting: s.state == .connecting)
                 .onTapGesture {
                     guard s.scanResult.isConnectable else { return }

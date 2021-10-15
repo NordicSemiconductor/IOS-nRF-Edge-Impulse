@@ -80,7 +80,13 @@ class DeviceData: ObservableObject {
     private var deviceManager = RegisteredDevicesManager()
     private var remoteHandlers: [DeviceRemoteHandler] = []
     
-    @Published fileprivate (set) var scanResults: [ScanResultWrapper] = []
+    @Published fileprivate (set) var scanResults: [ScanResultWrapper] = [] {
+        didSet {
+            unregisteredDevices = scanResults
+                .filter({ $0.state != .connected && !$0.availableViaRegisteredDevices })
+        }
+    }
+    @Published fileprivate (set) var unregisteredDevices: [ScanResultWrapper] = []
     @Published fileprivate (set) var registeredDevices: [DeviceWrapper] = []
     
     private (set) lazy var bluetoothStates = PassthroughSubject<Result<Bool, BluetoothStateError>, Never>()
@@ -93,14 +99,14 @@ class DeviceData: ObservableObject {
         self.deviceManager = registeredDeviceManager
         self.appData = appData
         
-        let settingsPublisher = preferences.$onlyScanConnectableDevices
+        let scannerSettingsPublisher = preferences.$onlyScanConnectableDevices
             .removeDuplicates()
             .combineLatest(preferences.$onlyScanUARTDevices.removeDuplicates())
             .justDoIt { [weak self] _ in
                 self?.scanResults.removeAll()
             }
                 
-        scanner.scan().combineLatest(settingsPublisher)
+        scanner.scan().combineLatest(scannerSettingsPublisher)
             .compactMap { [weak self] (scanResult, _) -> ScanResultWrapper? in
                 if let w = self?.wrapper(for: scanResult), w.scanResult.rssi == scanResult.rssi {
                     return nil
@@ -110,11 +116,11 @@ class DeviceData: ObservableObject {
             }
             .collect(.byTime(RunLoop.main, .seconds(2)))
             .sink { [weak self] wrappers in
-                guard let `self` = self else { return }
+                guard let self = self else { return }
                 guard wrappers.hasItems else { return }
                 var newScanResults = self.scanResults
                 wrappers.forEach { w in
-                    newScanResults.addOrReplaceFirst(w, where: { $0.scanResult.id == w.scanResult.id })
+                    newScanResults.addOrReplaceFirst(w, where: { $0.scanResult == w.scanResult })
                 }
                 self.scanResults = newScanResults
                 wrappers.forEach { self.updateState($0.scanResult) }
