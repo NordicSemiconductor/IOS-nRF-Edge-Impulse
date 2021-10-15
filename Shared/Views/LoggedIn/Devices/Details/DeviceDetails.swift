@@ -129,7 +129,7 @@ private struct SensorSection: View {
                 NordicLabel(title: "Max. Sample Length:", systemImage: "waveform.path.ecg")
                 Spacer()
                 if let maxSampleLengthSeconds = sensor.maxSampleLengthS {
-                    Text("\(maxSampleLengthSeconds, specifier: "%.0d") seconds").bold()
+                    Text("\(maxSampleLengthSeconds, specifier: "%.0d")s").bold()
                         .foregroundColor(.secondary)
                 } else {
                     Text("N/A")
@@ -139,7 +139,7 @@ private struct SensorSection: View {
             
             if let frequencies = sensor.frequencies, frequencies.hasItems == true {
                 let text = ListFormatter.localizedString(
-                    byJoining: frequencies.map { "\(String(format: "%.2f", $0)) Hz" })
+                    byJoining: frequencies.map { "\(String(format: "%.2f", $0))Hz" })
                 
                 StringDeviceInfoRow(title: "Frequencies:", systemImage: "wave.3.right", content: text)
             }
