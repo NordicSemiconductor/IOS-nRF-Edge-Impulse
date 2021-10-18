@@ -23,7 +23,7 @@ struct InferencingView: View {
             
             Section(header: Text("Results")) {
                 if let firstRow = appData.inferencingViewState.results.first {
-                    ScrollView([.horizontal, .vertical], showsIndicators: true) {
+                    ScrollView([.horizontal], showsIndicators: true) {
                         InferencingResultsHeaderRow(firstRow)
                         ForEach(appData.inferencingViewState.results, id: \.self) { result in
                             InferencingResultRow(result)
@@ -36,13 +36,13 @@ struct InferencingView: View {
                 }
             }
             
-            Section(header: Text("")) {
-                Button(appData.inferencingViewState.buttonText, action: appData.inferencingViewState.toggleInferencing)
-                    .centerTextInsideForm()
-                #if os(iOS)
-                    .foregroundColor(.positiveActionButtonColor)
-                #endif
-            }
+            Button(appData.inferencingViewState.buttonText, action: appData.inferencingViewState.toggleInferencing)
+                .centerTextInsideForm()
+                .disabled(!appData.inferencingViewState.buttonEnable)
+            #if os(iOS)
+                .foregroundColor(appData.inferencingViewState.buttonEnable
+                                 ? .positiveActionButtonColor : .disabledTextColor)
+            #endif
         }
         #if os(iOS)
         .padding(.top)

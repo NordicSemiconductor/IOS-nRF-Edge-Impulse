@@ -20,12 +20,17 @@ final class InferencingViewState: ObservableObject {
     @Published var selectedDevice = Constant.unselectedDevice
     @Published var selectedDeviceHandler: DeviceRemoteHandler! {
         didSet {
-            guard let selectedDeviceHandler = selectedDeviceHandler else { return }
+            guard let selectedDeviceHandler = selectedDeviceHandler else {
+                onSuddenDisconnection()
+                return
+            }
             selectedDevice = selectedDeviceHandler.device ?? Constant.unselectedDevice
+            buttonEnable = true
         }
     }
     
     @Published var buttonText = "Start"
+    @Published var buttonEnable = false
     @Published var isInferencing = false {
         didSet {
             buttonText = isInferencing ? "Stop" : "Start"
@@ -44,6 +49,7 @@ final class InferencingViewState: ObservableObject {
 extension InferencingViewState {
     
     func toggleInferencing() {
+        guard let selectedDeviceHandler = selectedDeviceHandler else { return }
         isInferencing.toggle()
         guard isInferencing else {
             sendStopRequest()
@@ -54,7 +60,7 @@ extension InferencingViewState {
             .sinkReceivingError(onError: { [weak self] error in
                 self?.stopAll()
             }, receiveValue: { [weak self] _ in
-                switch self?.selectedDeviceHandler.inferencingState {
+                switch selectedDeviceHandler.inferencingState {
                 case .started:
                     self?.results.removeAll()
                 case .stopped:
@@ -82,6 +88,7 @@ extension InferencingViewState {
 fileprivate extension InferencingViewState {
     
     func sendStartRequest() {
+        guard let selectedDeviceHandler = selectedDeviceHandler else { return }
         selectedDeviceHandler.inferencingState = .startRequestSent
         do {
             try selectedDeviceHandler.bluetoothManager.write(InferencingRequest(.start))
@@ -92,6 +99,7 @@ fileprivate extension InferencingViewState {
     }
     
     func sendStopRequest() {
+        guard let selectedDeviceHandler = selectedDeviceHandler else { return }
         selectedDeviceHandler.inferencingState = .stopRequestSent
         do {
             try selectedDeviceHandler.bluetoothManager.write(InferencingRequest(.stop))
@@ -107,5 +115,19 @@ fileprivate extension InferencingViewState {
         }
         cancellables.forEach({ $0.cancel() })
         cancellables.removeAll()
+    }
+}
+
+// MARK: - Private
+
+fileprivate extension InferencingViewState {
+    
+    func onSuddenDisconnection() {
+        // Don't do
+        // selectedDeviceHandler = nil
+        // or we will end up in an endless loop.
+        isInferencing = false
+        buttonEnable = false
+        stopAll()
     }
 }
