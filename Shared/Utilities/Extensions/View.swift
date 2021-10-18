@@ -124,9 +124,10 @@ extension Picker {
     @ViewBuilder
     func setAsComboBoxStyle() -> some View {
         #if os(iOS)
-        // Can cause crashes in iOS 14.1 with changeable Sections / Cells.
         if #available(iOS 15, *) {
             pickerStyle(MenuPickerStyle())
+                .accentColor(.primary)
+            // Can cause crashes in iOS 14.1 with changeable Sections / Cells.
         } else if #available(iOS 14.4, *) {
             pickerStyle(InlinePickerStyle())
                 .frame(maxHeight: 75)

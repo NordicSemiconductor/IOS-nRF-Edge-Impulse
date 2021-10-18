@@ -31,7 +31,9 @@ extension ConnectedDevicePicker {
         if connectedDevices.hasItems {
             Picker("Selected", selection: selectionBinding) {
                 ForEach(connectedDevices, id: \.self) { handler in
-                    Text(handler.userVisibleName).tag(handler.device)
+                    Text(handler.userVisibleName)
+                        .foregroundColor(.primary)
+                        .tag(handler.device)
                 }
             }
             .setAsComboBoxStyle()
@@ -57,10 +59,12 @@ extension ConnectedDevicePicker {
                 let connectedDevices = deviceData.allConnectedAndReadyToUseDevices().compactMap({ $0.device })
                 if connectedDevices.hasItems {
                     ForEach(connectedDevices) { device in
-                        Text(device.name).tag(device)
+                        Text(device.name)
+                            .tag(device)
                     }
                 } else {
-                    Text("--").tag(Constant.unselectedDevice)
+                    Text("--")
+                        .tag(Constant.unselectedDevice)
                 }
             }
         }
