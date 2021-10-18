@@ -44,10 +44,10 @@ struct InferencingView: View {
                 #endif
             }
         }
-        .background(Color.formBackground)
         #if os(iOS)
         .padding(.top)
         #endif
+        .background(Color.formBackground)
     }
 }
 

@@ -54,6 +54,7 @@ struct DataSamplesView: View {
             addHiddenDataAcqisitionNavigationLink()
         }
         .padding(.vertical)
+        .background(Color.formBackground)
         .toolbar {
             dataAcquisitionToolbarItem()
         }
