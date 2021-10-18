@@ -67,7 +67,7 @@ struct InferencingResultsHeaderRow: View {
     var body: some View {
         LazyVGrid(columns: gridItems) {
             ForEach(result.classification, id: \.self) { classification in
-                Text("\(classification.label)")
+                Text("\(classification.label.uppercasingFirst)")
             }
         }
         .lineLimit(1)
@@ -78,19 +78,28 @@ struct InferencingResultsHeaderRow: View {
 
 struct InferencingResultRow: View {
     
+    static let classificationValueFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.roundingMode = .halfUp
+        formatter.maximumFractionDigits = 4
+        return formatter
+    }()
+    
     let result: InferencingResults
     private let gridItems: [GridItem]
     
     init(_ result: InferencingResults) {
         self.result = result
-        self.gridItems = Array(repeating: GridItem(.fixed(90)),
+        self.gridItems = Array(repeating: GridItem(.fixed(65)),
                                count: result.classification.count)
     }
     
     var body: some View {
         LazyVGrid(columns: gridItems) {
             ForEach(result.classification, id: \.self) { classification in
-                Text("\(classification.value)")
+                Text(InferencingResultRow.classificationValueFormatter.string(from: classification.value as NSNumber) ?? "N/A")
+                    .foregroundColor(classification.value > 0.6
+                                     ? .green : .gray)
                     .fontWeight(.light)
             }
         }
