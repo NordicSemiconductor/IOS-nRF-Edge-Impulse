@@ -73,14 +73,16 @@ struct ScanResult: Identifiable {
     }
     
     static func == (lhs: ScanResult, rhs: ScanResult) -> Bool {
-        lhs.id == rhs.id
+        return lhs.id == rhs.id && lhs.isConnectable == rhs.isConnectable
     }
 }
 
 // MARK: - DeviceScanResult
+
 extension ScanResult: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+        hasher.combine(isConnectable)
     }
 }
 

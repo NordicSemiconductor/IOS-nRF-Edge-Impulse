@@ -54,8 +54,10 @@ extension DeviceData {
         var id: String { scanResult.id + String(scanResult.rssi.value) }
         var availableViaRegisteredDevices: Bool = false
         
-        static func ==(lhs: ScanResultWrapper, rhs: ScanResultWrapper) -> Bool {
-            return lhs.scanResult == rhs.scanResult && lhs.scanResult.rssi == rhs.scanResult.rssi
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+            hasher.combine(state)
+            hasher.combine(scanResult)
         }
         
         static func ==(lhs: ScanResultWrapper, rhs: Device) -> Bool {

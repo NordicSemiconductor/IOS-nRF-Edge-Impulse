@@ -39,7 +39,7 @@ struct DeviceSection_Previews: PreviewProvider {
         Group {
             DeviceSection(
                 title: "Scan Results",
-                data: [ScanResult.sample, ScanResult.sample]) { d in
+                data: [DeviceData.ScanResultWrapper(scanResult: .sample), DeviceData.ScanResultWrapper(scanResult: .sample)]) { d in
                 UnregisteredDeviceView(d)
             }
             DeviceSection(

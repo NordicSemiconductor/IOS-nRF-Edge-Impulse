@@ -11,6 +11,8 @@ import SwiftUI
 
 struct UnregisteredDeviceView: View {
     
+    @EnvironmentObject var deviceData: DeviceData
+    
     // MARK: Private Properties
     
     private let scanResult: ScanResult
@@ -18,9 +20,9 @@ struct UnregisteredDeviceView: View {
     
     // MARK: Init
     
-    init(_ device: ScanResult, isConnecting: Bool = false) {
-        self.scanResult = device
-        self.isConnecting = isConnecting
+    init(_ scanResultWrapper: DeviceData.ScanResultWrapper) {
+        self.scanResult = scanResultWrapper.scanResult
+        self.isConnecting = scanResultWrapper.state == .connecting
     }
     
     // MARK: View
@@ -48,21 +50,28 @@ struct UnregisteredDeviceView: View {
             
             Spacer()
             
-            HStack {
-                if !scanResult.isConnectable {
-                    Text("Not Connectable")
-                        .font(.caption)
-                        .foregroundColor(Assets.middleGrey.color)
-                } else if isConnecting {
-                    CircularProgressView()
-                }
+            if !scanResult.isConnectable {
+                Text("Not Connectable")
+                    .font(.caption)
+                    .foregroundColor(Assets.middleGrey.color)
+                    .padding(.horizontal)
+            } else if isConnecting {
+                CircularProgressView()
+                    .foregroundColor(Assets.middleGrey.color)
+                    .padding(.horizontal)
             }
-            .padding(.horizontal)
         }
+        .contentShape(Rectangle())
+        .onTapGesture(perform: onTap)
     }
     
     var deviceForegroundColor: Color {
-        return Assets.blue.color
+        Assets.blue.color
+    }
+    
+    func onTap() {
+        guard scanResult.isConnectable else { return }
+        deviceData.tryToConnect(scanResult: scanResult)
     }
 }
 
@@ -72,8 +81,8 @@ struct UnregisteredDeviceView: View {
 struct UnregisteredDeviceRow_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            UnregisteredDeviceView(.sample)
-            UnregisteredDeviceView(.unconnectableSample)
+            UnregisteredDeviceView(DeviceData.ScanResultWrapper(scanResult: .sample))
+            UnregisteredDeviceView(DeviceData.ScanResultWrapper(scanResult: .unconnectableSample))
         }
         .previewLayout(.sizeThatFits)
     }
