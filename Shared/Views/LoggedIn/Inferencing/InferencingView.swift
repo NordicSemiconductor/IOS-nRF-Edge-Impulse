@@ -21,13 +21,18 @@ struct InferencingView: View {
                     .onAppear(perform: selectFirstAvailableDeviceHandler)
             }
             
-            if let firstRow = appData.inferencingViewState.results.first {
-                Section(header: Text("Results")) {
-                    InferencingResultsHeaderRow()
-                    
-                    ForEach(appData.inferencingViewState.results, id: \.self) { result in
-                        InferencingResultRow(result: result)
+            Section(header: Text("Results")) {
+                if let firstRow = appData.inferencingViewState.results.first {
+                    ScrollView([.horizontal, .vertical], showsIndicators: true) {
+                        InferencingResultsHeaderRow(firstRow)
+                        ForEach(appData.inferencingViewState.results, id: \.self) { result in
+                            InferencingResultRow(result)
+                        }
                     }
+                } else {
+                    Text("No inference results available yet.")
+                        .foregroundColor(Assets.middleGrey.color)
+                        .font(.caption)
                 }
             }
             
@@ -50,15 +55,20 @@ struct InferencingView: View {
 
 struct InferencingResultsHeaderRow: View {
     
+    let result: InferencingResults
+    private let gridItems: [GridItem]
+    
+    init(_ result: InferencingResults) {
+        self.result = result
+        self.gridItems = Array(repeating: GridItem(.flexible(minimum: 40, maximum: 90)),
+                               count: result.classification.count)
+    }
+    
     var body: some View {
-        MultiColumnView(columns: DataSamplesView.Columns) {
-            Text("")
-            Text("Filename")
-                .bold()
-            Text("Label")
-                .foregroundColor(Assets.middleGrey.color)
-            Text("Length")
-                .fontWeight(.light)
+        LazyVGrid(columns: gridItems) {
+            ForEach(result.classification, id: \.self) { classification in
+                Text("\(classification.label)")
+            }
         }
         .lineLimit(1)
     }
@@ -69,9 +79,16 @@ struct InferencingResultsHeaderRow: View {
 struct InferencingResultRow: View {
     
     let result: InferencingResults
+    private let gridItems: [GridItem]
+    
+    init(_ result: InferencingResults) {
+        self.result = result
+        self.gridItems = Array(repeating: GridItem(.fixed(90)),
+                               count: result.classification.count)
+    }
     
     var body: some View {
-        MultiColumnView(columns: DataSamplesView.Columns) {
+        LazyVGrid(columns: gridItems) {
             ForEach(result.classification, id: \.self) { classification in
                 Text("\(classification.value)")
                     .fontWeight(.light)
