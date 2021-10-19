@@ -22,6 +22,11 @@ struct InferencingView: View {
                 ConnectedDevicePicker($appData.inferencingViewState.selectedDeviceHandler)
             }
             
+            #if os(macOS)
+            Divider()
+                .padding(.horizontal)
+            #endif
+            
             Section(header: Text("Results")) {
                 if let firstRow = appData.inferencingViewState.results.first {
                     ScrollView([.horizontal], showsIndicators: true) {
@@ -30,12 +35,20 @@ struct InferencingView: View {
                             InferencingResultRow(result)
                         }
                     }
+                    
+                    InferencingFooterView()
+                        .environmentObject(appData.inferencingViewState)
                 } else {
                     Text("No inference results available yet.")
                         .foregroundColor(Assets.middleGrey.color)
                         .font(.caption)
                 }
             }
+            
+            #if os(macOS)
+            Divider()
+                .padding(.horizontal)
+            #endif
             
             Button(appData.inferencingViewState.buttonText, action: appData.inferencingViewState.toggleInferencing)
                 .centerTextInsideForm()

@@ -143,6 +143,8 @@
 		AA4E8A7A26947A3600C844FE /* DeploymentViewState+SocketStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */; };
 		AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */; };
 		AA535511261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */; };
+		AA605E57271ECF3A002B3B0A /* InferencingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA605E56271ECF3A002B3B0A /* InferencingFooterView.swift */; };
+		AA605E58271ECF3A002B3B0A /* InferencingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA605E56271ECF3A002B3B0A /* InferencingFooterView.swift */; };
 		AA63F87026A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA63F86F26A1AE82001EDE54 /* DeleteDeviceRequest.swift */; };
 		AA63F87126A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA63F86F26A1AE82001EDE54 /* DeleteDeviceRequest.swift */; };
 		AA69E2C7263973FB00BC44D3 /* VisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = AA69E2C6263973FB00BC44D3 /* VisualEffects */; };
@@ -414,6 +416,7 @@
 		AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameDeviceRequest.swift; sourceTree = "<group>"; };
 		AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentViewState+SocketStatus.swift"; sourceTree = "<group>"; };
 		AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorRow.swift; sourceTree = "<group>"; };
+		AA605E56271ECF3A002B3B0A /* InferencingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferencingFooterView.swift; sourceTree = "<group>"; };
 		AA63F86F26A1AE82001EDE54 /* DeleteDeviceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDeviceRequest.swift; sourceTree = "<group>"; };
 		AA80988325EE518F00091AC0 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		AA80989925EE959B00091AC0 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
@@ -691,6 +694,7 @@
 			isa = PBXGroup;
 			children = (
 				AA04577E270208D900FC1A41 /* InferencingView.swift */,
+				AA605E56271ECF3A002B3B0A /* InferencingFooterView.swift */,
 				AA045784270214DE00FC1A41 /* InferencingView+Logic.swift */,
 				AA04578127020C1200FC1A41 /* InferencingViewState.swift */,
 			);
@@ -1347,6 +1351,7 @@
 				AA14FD4526EA317E008128CB /* BoolDeviceInfoRow.swift in Sources */,
 				AAE96F0A26A58E220089D370 /* AlertViewContainer.swift in Sources */,
 				AA14FD4826EA3314008128CB /* StringDeviceInfoRow.swift in Sources */,
+				AA605E57271ECF3A002B3B0A /* InferencingFooterView.swift in Sources */,
 				AAFC490C26A979FD002A08F9 /* LogMessage.swift in Sources */,
 				AA386B09260CEDD60079F12D /* Previews.swift in Sources */,
 				AA4D06F3268F410E00DFB6A9 /* RenameDeviceRequest.swift in Sources */,
@@ -1511,6 +1516,7 @@
 				AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */,
 				C39B106F2695DF400056095E /* HUD.swift in Sources */,
 				AA9D798E26971D2300A987FB /* SocketIOJobMessage.swift in Sources */,
+				AA605E58271ECF3A002B3B0A /* InferencingFooterView.swift in Sources */,
 				AA03298F266F8CB200C46547 /* DataAquisitionView+Logic.swift in Sources */,
 				AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA05BC482667D098003AEE50 /* StartSamplingRequest.swift in Sources */,
