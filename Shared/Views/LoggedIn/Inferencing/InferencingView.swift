@@ -9,6 +9,8 @@ import SwiftUI
 
 struct InferencingView: View {
     
+    static let CellType = GridItem(.fixed(65))
+    
     @EnvironmentObject var appData: AppData
     @EnvironmentObject var deviceData: DeviceData
     
@@ -60,7 +62,7 @@ struct InferencingResultsHeaderRow: View {
     
     init(_ result: InferencingResults) {
         self.result = result
-        self.gridItems = Array(repeating: GridItem(.flexible(minimum: 40, maximum: 90)),
+        self.gridItems = Array(repeating: InferencingView.CellType,
                                count: result.classification.count)
     }
     
@@ -90,7 +92,7 @@ struct InferencingResultRow: View {
     
     init(_ result: InferencingResults) {
         self.result = result
-        self.gridItems = Array(repeating: GridItem(.fixed(65)),
+        self.gridItems = Array(repeating: InferencingView.CellType,
                                count: result.classification.count)
     }
     
