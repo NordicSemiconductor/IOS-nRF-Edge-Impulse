@@ -198,11 +198,13 @@ class DeviceData: ObservableObject {
         remoteHandlers
             .first(where: { $0.device != nil && $0.device == device })
             .map { [weak self] remoteHandler in
-                if appData.inferencingViewState.selectedDeviceHandler == remoteHandler,
-                    remoteHandler.inferencingState != .stopped || remoteHandler.inferencingState != .stopRequestSent {
-                    appData.inferencingViewState.sendStopRequest()
+                if appData.inferencingViewState.selectedDevice == remoteHandler.device,
+                   remoteHandler.inferencingState != .stopped || remoteHandler.inferencingState != .stopRequestSent {
+                    
+                    appData.inferencingViewState.sendStopRequest(with: remoteHandler)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                         self?.disconnect(remoteHandler: remoteHandler)
+                        self?.appData.inferencingViewState.selectedDevice = .Unselected
                     }
                 } else {
                     self?.disconnect(remoteHandler: remoteHandler)

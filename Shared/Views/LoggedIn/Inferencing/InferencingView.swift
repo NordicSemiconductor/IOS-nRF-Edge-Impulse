@@ -19,7 +19,7 @@ struct InferencingView: View {
     var body: some View {
         FormIniOSListInMacOS {
             Section(header: Text("Device")) {
-                ConnectedDevicePicker($appData.inferencingViewState.selectedDeviceHandler)
+                ConnectedDevicePicker($appData.inferencingViewState.selectedDevice)
             }
             
             #if os(macOS)
@@ -50,7 +50,7 @@ struct InferencingView: View {
                 .padding(.horizontal)
             #endif
             
-            Button(appData.inferencingViewState.buttonText, action: appData.inferencingViewState.toggleInferencing)
+            Button(appData.inferencingViewState.buttonText, action: toggleInferencing)
                 .centerTextInsideForm()
                 .disabled(!appData.inferencingViewState.buttonEnable)
             #if os(iOS)
@@ -62,7 +62,7 @@ struct InferencingView: View {
         .padding(.top)
         #endif
         .background(Color.formBackground)
-        .onAppear(perform: selectFirstAvailableDeviceHandler)
+        .onAppear(perform: selectFirstAvailableDevice)
     }
 }
 

@@ -13,19 +13,15 @@ import OSLog
 
 final class InferencingViewState: ObservableObject {
     
-    @EnvironmentObject var deviceData: DeviceData
-    
     // MARK: - Properties
     
-    @Published var selectedDevice = Constant.unselectedDevice
-    @Published var selectedDeviceHandler: DeviceRemoteHandler! {
+    @Published var selectedDevice = Constant.unselectedDevice {
         didSet {
-            guard let selectedDeviceHandler = selectedDeviceHandler else {
+            if selectedDevice == .Unselected {
                 onSuddenDisconnection()
-                return
+            } else {
+                buttonEnable = true
             }
-            selectedDevice = selectedDeviceHandler.device ?? Constant.unselectedDevice
-            buttonEnable = true
         }
     }
     
@@ -48,19 +44,18 @@ final class InferencingViewState: ObservableObject {
 
 extension InferencingViewState {
     
-    func toggleInferencing() {
-        guard let selectedDeviceHandler = selectedDeviceHandler else { return }
+    func toggleInferencing(with deviceHandler: DeviceRemoteHandler) {
         isInferencing.toggle()
         guard isInferencing else {
-            sendStopRequest()
+            sendStopRequest(with: deviceHandler)
             return
         }
         
-        selectedDeviceHandler.newStartStopPublisher()
+        deviceHandler.newStartStopPublisher()
             .sinkReceivingError(onError: { [weak self] error in
                 self?.stopAll()
             }, receiveValue: { [weak self] _ in
-                switch selectedDeviceHandler.inferencingState {
+                switch deviceHandler.inferencingState {
                 case .started:
                     self?.results.removeAll()
                 case .stopped:
@@ -71,7 +66,7 @@ extension InferencingViewState {
             })
             .store(in: &cancellables)
         
-        selectedDeviceHandler.newResultsPublisher()
+        deviceHandler.newResultsPublisher()
             .sinkReceivingError(onError: { [weak self] error in
                 self?.stopAll()
             }, receiveValue: { [weak self] newResult in
@@ -79,14 +74,13 @@ extension InferencingViewState {
             })
             .store(in: &cancellables)
         
-        sendStartRequest()
+        sendStartRequest(with: deviceHandler)
     }
     
-    func sendStopRequest() {
-        guard let selectedDeviceHandler = selectedDeviceHandler else { return }
-        selectedDeviceHandler.inferencingState = .stopRequestSent
+    func sendStopRequest(with deviceHandler: DeviceRemoteHandler) {
+        deviceHandler.inferencingState = .stopRequestSent
         do {
-            try selectedDeviceHandler.bluetoothManager.write(InferencingRequest(.stop))
+            try deviceHandler.bluetoothManager.write(InferencingRequest(.stop))
         } catch {
             stopAll()
             AppEvents.shared.error = ErrorEvent(error)
@@ -98,11 +92,10 @@ extension InferencingViewState {
 
 fileprivate extension InferencingViewState {
     
-    func sendStartRequest() {
-        guard let selectedDeviceHandler = selectedDeviceHandler else { return }
-        selectedDeviceHandler.inferencingState = .startRequestSent
+    func sendStartRequest(with deviceHandler: DeviceRemoteHandler) {
+        deviceHandler.inferencingState = .startRequestSent
         do {
-            try selectedDeviceHandler.bluetoothManager.write(InferencingRequest(.start))
+            try deviceHandler.bluetoothManager.write(InferencingRequest(.start))
         } catch {
             stopAll()
             AppEvents.shared.error = ErrorEvent(error)
@@ -111,7 +104,7 @@ fileprivate extension InferencingViewState {
     
     func onSuddenDisconnection() {
         // Don't do
-        // selectedDeviceHandler = nil
+        // selectedDevice = nil
         // or we will end up in an endless loop.
         isInferencing = false
         buttonEnable = false
