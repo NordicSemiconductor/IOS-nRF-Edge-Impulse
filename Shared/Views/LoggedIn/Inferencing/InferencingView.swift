@@ -18,7 +18,6 @@ struct InferencingView: View {
         FormIniOSListInMacOS {
             Section(header: Text("Device")) {
                 ConnectedDevicePicker($appData.inferencingViewState.selectedDeviceHandler)
-                    .onAppear(perform: selectFirstAvailableDeviceHandler)
             }
             
             Section(header: Text("Results")) {
@@ -48,6 +47,7 @@ struct InferencingView: View {
         .padding(.top)
         #endif
         .background(Color.formBackground)
+        .onAppear(perform: selectFirstAvailableDeviceHandler)
     }
 }
 

@@ -81,6 +81,17 @@ extension InferencingViewState {
         
         sendStartRequest()
     }
+    
+    func sendStopRequest() {
+        guard let selectedDeviceHandler = selectedDeviceHandler else { return }
+        selectedDeviceHandler.inferencingState = .stopRequestSent
+        do {
+            try selectedDeviceHandler.bluetoothManager.write(InferencingRequest(.stop))
+        } catch {
+            stopAll()
+            AppEvents.shared.error = ErrorEvent(error)
+        }
+    }
 }
 
 // MARK: - Private
@@ -98,15 +109,13 @@ fileprivate extension InferencingViewState {
         }
     }
     
-    func sendStopRequest() {
-        guard let selectedDeviceHandler = selectedDeviceHandler else { return }
-        selectedDeviceHandler.inferencingState = .stopRequestSent
-        do {
-            try selectedDeviceHandler.bluetoothManager.write(InferencingRequest(.stop))
-        } catch {
-            stopAll()
-            AppEvents.shared.error = ErrorEvent(error)
-        }
+    func onSuddenDisconnection() {
+        // Don't do
+        // selectedDeviceHandler = nil
+        // or we will end up in an endless loop.
+        isInferencing = false
+        buttonEnable = false
+        stopAll()
     }
     
     func stopAll() {
@@ -115,19 +124,5 @@ fileprivate extension InferencingViewState {
         }
         cancellables.forEach({ $0.cancel() })
         cancellables.removeAll()
-    }
-}
-
-// MARK: - Private
-
-fileprivate extension InferencingViewState {
-    
-    func onSuddenDisconnection() {
-        // Don't do
-        // selectedDeviceHandler = nil
-        // or we will end up in an endless loop.
-        isInferencing = false
-        buttonEnable = false
-        stopAll()
     }
 }

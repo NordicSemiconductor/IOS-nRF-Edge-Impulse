@@ -197,7 +197,17 @@ class DeviceData: ObservableObject {
     func disconnect(device: Device) {
         remoteHandlers
             .first(where: { $0.device != nil && $0.device == device })
-            .map { self.disconnect(remoteHandler: $0) }
+            .map { [weak self] remoteHandler in
+                if appData.inferencingViewState.selectedDeviceHandler == remoteHandler,
+                    remoteHandler.inferencingState != .stopped || remoteHandler.inferencingState != .stopRequestSent {
+                    appData.inferencingViewState.sendStopRequest()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self?.disconnect(remoteHandler: remoteHandler)
+                    }
+                } else {
+                    self?.disconnect(remoteHandler: remoteHandler)
+                }
+            }
     }
     
     func disconnect(remoteHandler: DeviceRemoteHandler) {
