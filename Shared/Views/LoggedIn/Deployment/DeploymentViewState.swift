@@ -35,7 +35,7 @@ final class DeploymentViewState: ObservableObject {
     
     // MARK: - Private Properties
     
-    private lazy var logger = Logger(Self.self)
+    internal lazy var logger = Logger(Self.self)
     
     private var socketManager: WebSocketManager!
     internal var cancellables = Set<AnyCancellable>()

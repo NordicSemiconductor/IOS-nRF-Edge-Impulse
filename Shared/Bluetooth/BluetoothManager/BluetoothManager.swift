@@ -125,6 +125,7 @@ final class BluetoothManager: NSObject, ObservableObject {
         let bleTransport = McuMgrBleTransport(peripheral)
         bleTransport.logDelegate = logDelegate
         let dfuManager = FirmwareUpgradeManager(transporter: bleTransport, delegate: firmwareDelegate)
+        dfuManager.logDelegate = logDelegate
 
         // Start the firmware upgrade with the image data
         try dfuManager.start(images: images)
@@ -245,6 +246,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         logger.error("Error: \(error?.localizedDescription ?? "")")
         let e: Swift.Error = error ?? Error.failedToConnect
         state = .disconnected
+        disconnect()
         btStateSubject.send(completion: .failure(e))
     }
     
@@ -253,6 +255,7 @@ extension BluetoothManager: CBCentralManagerDelegate {
         error.map { logger.error("Did disconnect error: \($0.localizedDescription)") }
         self.peripheral = nil
         state = .disconnected
+        disconnect()
         
         if let e = error {
             btStateSubject.send(completion: .failure(e))

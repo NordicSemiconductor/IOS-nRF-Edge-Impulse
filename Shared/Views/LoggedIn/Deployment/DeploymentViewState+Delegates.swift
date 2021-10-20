@@ -16,6 +16,7 @@ extension DeploymentViewState: McuMgrLogDelegate {
         guard category != .transport, msg.rangeOfCharacter(from: CharacterSet.alphanumerics) != nil else { return }
         DispatchQueue.main.async { [weak self] in
             self?.logs.append(LogMessage(msg))
+            self?.logger.log("McuMgr: \(msg)")
         }
     }
 }
