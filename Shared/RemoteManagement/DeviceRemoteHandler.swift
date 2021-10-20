@@ -33,7 +33,6 @@ extension DeviceRemoteHandler {
     }
     
     enum ConnectionState: CustomDebugStringConvertible {
-        
         case notConnected, connecting(ScanResult), connected(ScanResult, Device), disconnected(DisconnectReason)
         
         var debugDescription: String {
@@ -48,7 +47,6 @@ extension DeviceRemoteHandler {
                 return "Disconnected. Reason: \(reason)"
             }
         }
-        
     }
     
     enum DisconnectReason: CustomDebugStringConvertible {
@@ -193,10 +191,12 @@ class DeviceRemoteHandler {
 fileprivate extension DeviceRemoteHandler {
     
     func newBLEDisconnectionCancellable() -> AnyCancellable {
-        return bluetoothManager.$state
-            .drop(while: { $0 == .connected })
-            .sink(receiveValue: { [weak self] state in
-                switch state {
+        return bluetoothManager.btStateSubject
+            .drop(while: { $0 != .poweredOn })
+            .sinkReceivingError(onError: { [weak self] error in
+                self?.disconnect(reason: .error(error))
+            }, receiveValue: { [weak self] a in
+                switch self?.bluetoothManager.state {
                 case .notConnected, .disconnected:
                     self?.disconnect()
                     break

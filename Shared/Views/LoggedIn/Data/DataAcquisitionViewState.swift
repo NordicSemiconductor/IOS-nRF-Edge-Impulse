@@ -86,6 +86,12 @@ final class DataAcquisitionViewState: ObservableObject {
         progressColor = Assets.red.color
         progressString = errorDescription
     }
+    
+    func deviceDisconnected() {
+        selectedDevice = Constant.unselectedDevice
+        selectedSensor = Constant.unselectedSensor
+        selectedFrequency = Constant.unselectedFrequency
+    }
 }
 
 // MARK: - Timer

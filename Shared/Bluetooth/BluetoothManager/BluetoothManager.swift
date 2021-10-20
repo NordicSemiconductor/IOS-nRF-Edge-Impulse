@@ -47,7 +47,7 @@ final class BluetoothManager: NSObject, ObservableObject {
     let receptionSubject = PassthroughSubject<Data, Never>()
     
     @Published var state: State = .notConnected
-    private var btStateSubject = PassthroughSubject<CBManagerState, Swift.Error>()
+    internal lazy var btStateSubject = PassthroughSubject<CBManagerState, Swift.Error>()
     
     private let logger = Logger(category: "BluetoothManager")
     
@@ -96,9 +96,11 @@ final class BluetoothManager: NSObject, ObservableObject {
                 do {
                     try self.tryToConnect()
                 } catch let e {
-                    return Fail(error: e).eraseToAnyPublisher()
+                    return Fail(error: e)
+                        .eraseToAnyPublisher()
                 }
-                return self.$state.setFailureType(to: Swift.Error.self).eraseToAnyPublisher()
+                return self.$state.setFailureType(to: Swift.Error.self)
+                    .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
     }

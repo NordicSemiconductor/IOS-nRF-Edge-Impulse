@@ -144,6 +144,7 @@ class DeviceData: ObservableObject {
     }
     
     // MARK: Connecting
+    
     func tryToConnect(scanResult: ScanResult) {
         let handler = getRemoteHandler(for: scanResult)
         guard let keys = appData.selectedProject.map ({ appData.projectDevelopmentKeys[$0] }), let apiKey = keys?.apiKey else {
@@ -159,10 +160,13 @@ class DeviceData: ObservableObject {
         }
         
         handler.connect(apiKey: apiKey)
-            .sink { [logger] completion in
+            .sink { [handler, logger, weak self] completion in
                 switch completion {
                 case .finished:
                     logger.info("Device remote handler completed connection")
+                    guard let self = self else { return }
+                    self.onUnexpectedDisconnectionListener(for: handler)
+                        .store(in: &self.cancellables)
                 case .failure(let error):
                     logger.error("Device remote handler an error: \(error.localizedDescription).")
                 }
@@ -188,6 +192,22 @@ class DeviceData: ObservableObject {
     }
     
     // MARK: Disconnect
+    
+    func onUnexpectedDisconnectionListener(for handler: DeviceRemoteHandler) -> AnyCancellable {
+        return handler.$state
+            .compactMap({ (state) -> DeviceRemoteHandler.DisconnectReason? in
+                guard case let .disconnected(reason) = state else { return nil }
+                return reason
+            })
+            .sink { [weak self] reason in
+                guard case let .error(error) = reason else {
+                    self?.stateChanged(of: handler, newState: .disconnected(.onDemand))
+                    return
+                }
+                self?.stateChanged(of: handler, newState: .disconnected(.error(error)))
+            }
+    }
+    
     func disconnect(scanResult: ScanResult) {
         remoteHandlers
             .first(where: { $0.scanResult == scanResult })
@@ -197,18 +217,8 @@ class DeviceData: ObservableObject {
     func disconnect(device: Device) {
         remoteHandlers
             .first(where: { $0.device != nil && $0.device == device })
-            .map { [weak self] remoteHandler in
-                if appData.inferencingViewState.selectedDevice == remoteHandler.device,
-                   remoteHandler.inferencingState != .stopped || remoteHandler.inferencingState != .stopRequestSent {
-                    
-                    appData.inferencingViewState.sendStopRequest(with: remoteHandler)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        self?.disconnect(remoteHandler: remoteHandler)
-                        self?.appData.inferencingViewState.selectedDevice = .Unselected
-                    }
-                } else {
-                    self?.disconnect(remoteHandler: remoteHandler)
-                }
+            .map { remoteHandler in
+                disconnect(remoteHandler: remoteHandler)
             }
     }
     
@@ -222,11 +232,6 @@ class DeviceData: ObservableObject {
         scanResults
             .firstIndex(where: { $0.scanResult == remoteHandler.scanResult })
             .map { scanResults[$0].state = .notConnected }
-        
-        guard appData.dataAquisitionViewState.selectedDevice == remoteHandler.device else { return }
-        appData.dataAquisitionViewState.selectedDevice = Constant.unselectedDevice
-        appData.dataAquisitionViewState.selectedSensor = Constant.unselectedSensor
-        appData.dataAquisitionViewState.selectedFrequency = Constant.unselectedFrequency
     }
     
     func disconnectAll() {
@@ -366,14 +371,26 @@ extension DeviceData {
                 registeredDevices[deviceIndex].state = .readyToConnect
             }
             
-            switch reason {
-            case .onDemand:
-                break
-            case .error(let e):
+            if appData.dataAquisitionViewState.selectedDevice == handler.device {
+                appData.dataAquisitionViewState.deviceDisconnected()
+            }
+            
+            if case let .error(e) = reason {
                 AppEvents.shared.error = ErrorEvent(e)
             }
             
-            removeHandler(handler)
+            guard appData.inferencingViewState.isInferencing,
+                  appData.inferencingViewState.selectedDevice == handler.device else {
+                removeHandler(handler)
+                return
+            }
+            
+            appData.inferencingViewState.sendStopRequest(with: handler)
+            appData.inferencingViewState.selectedDevice = .Unselected
+            appData.inferencingViewState.isInferencing = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                self?.removeHandler(handler)
+            }
         }
     }
     

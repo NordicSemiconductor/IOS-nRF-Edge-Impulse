@@ -18,7 +18,7 @@ final class InferencingViewState: ObservableObject {
     @Published var selectedDevice = Constant.unselectedDevice {
         didSet {
             if selectedDevice == .Unselected {
-                onSuddenDisconnection()
+                deviceDisconnected()
             } else {
                 buttonEnable = true
             }
@@ -102,12 +102,13 @@ fileprivate extension InferencingViewState {
         }
     }
     
-    func onSuddenDisconnection() {
+    func deviceDisconnected() {
         // Don't do
         // selectedDevice = nil
         // or we will end up in an endless loop.
         isInferencing = false
         buttonEnable = false
+        buttonText = "Start"
         stopAll()
     }
     
