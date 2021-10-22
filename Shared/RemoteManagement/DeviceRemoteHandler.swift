@@ -119,7 +119,8 @@ class DeviceRemoteHandler {
             )
             .flatMap { [weak self] (data, _) -> AnyPublisher<Data, Swift.Error> in
                 guard var webSocketHello = data.message, let self = self else {
-                    return Fail(error: Error.connectionEstablishFailed).eraseToAnyPublisher()
+                    return Fail(error: Error.connectionEstablishFailed)
+                        .eraseToAnyPublisher()
                 }
                 
                 webSocketHello.hello?.apiKey = apiKey

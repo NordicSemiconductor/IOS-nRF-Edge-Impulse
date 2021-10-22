@@ -209,7 +209,8 @@ internal extension DeploymentViewState {
             buildButtonEnable = selectedDeviceHandler != nil
             buildButtonText = "Build"
         case .success:
-            buildButtonEnable = selectedDeviceHandler != nil
+            selectedDevice = .Unselected
+            buildButtonEnable = true
             buildButtonText = "Success!"
         case .socketConnecting:
             progressShouldBeIndeterminate = true
