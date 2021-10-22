@@ -187,6 +187,9 @@ extension DeploymentViewState {
         do {
             try device.bluetoothManager.sendUpgradeFirmware(images, logDelegate: self, firmwareDelegate: self)
             status = .uploading(0)
+            // Disconnect so reset disconnection doesn't cause an error.
+            // McuMgr Library keeps its own connection during DFU.
+            device.disconnect(reason: .dfuReset)
         } catch {
             reportError(error)
         }

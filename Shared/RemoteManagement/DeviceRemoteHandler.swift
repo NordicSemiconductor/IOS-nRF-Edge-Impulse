@@ -50,7 +50,7 @@ extension DeviceRemoteHandler {
     }
     
     enum DisconnectReason: CustomDebugStringConvertible {
-        case error(Swift.Error), onDemand
+        case error(Swift.Error), onDemand, dfuReset
         
         var debugDescription: String {
             switch self {
@@ -58,6 +58,8 @@ extension DeviceRemoteHandler {
                 return e.localizedDescription
             case .onDemand:
                 return "On Demand"
+            case .dfuReset:
+                return "DFU"
             }
         }
     }
@@ -172,7 +174,7 @@ class DeviceRemoteHandler {
             .eraseToAnyPublisher()
     }
     
-    private func disconnect(reason: DisconnectReason) {        
+    internal func disconnect(reason: DisconnectReason) {
         bluetoothManager.disconnect()
         webSocketManager.disconnect()
         
