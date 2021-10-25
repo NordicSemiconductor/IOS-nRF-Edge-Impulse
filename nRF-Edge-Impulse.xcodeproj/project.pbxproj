@@ -50,6 +50,7 @@
 		AA0208A225F65C7600FD6B24 /* LoggedInRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */; };
 		AA0208A925F65EB400FD6B24 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A825F65EB400FD6B24 /* Tabs.swift */; };
 		AA0208AA25F65EB400FD6B24 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A825F65EB400FD6B24 /* Tabs.swift */; };
+		AA02EE0C2726CA3C00DB292A /* UILinearProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02EE0B2726CA3C00DB292A /* UILinearProgressView.swift */; };
 		AA032988266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */; };
 		AA032989266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */; };
 		AA03298B266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03298A266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift */; };
@@ -340,6 +341,7 @@
 		AA0208A025F65C7600FD6B24 /* LoggedInRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInRootView.swift; sourceTree = "<group>"; };
 		AA0208A825F65EB400FD6B24 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		AA02EE052726BAAF00DB292A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		AA02EE0B2726CA3C00DB292A /* UILinearProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILinearProgressView.swift; sourceTree = "<group>"; };
 		AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionViewSampleLengthPicker.swift; sourceTree = "<group>"; };
 		AA03298A266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionFrequencyPicker.swift; sourceTree = "<group>"; };
 		AA03298D266F8CB200C46547 /* DataAquisitionView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataAquisitionView+Logic.swift"; sourceTree = "<group>"; };
@@ -919,6 +921,7 @@
 				AA14CA74261490CD004F08FE /* Codable.swift */,
 				AAFFEB3225FF7A06002287D6 /* ButtonStyles.swift */,
 				AAF0C974260A1482001B76B9 /* CircleAround.swift */,
+				AA02EE0B2726CA3C00DB292A /* UILinearProgressView.swift */,
 				AAFFEB3825FF9554002287D6 /* NordicError.swift */,
 				AA386B08260CEDD60079F12D /* Previews.swift */,
 				AAF4E321261DD193009C387B /* Cache.swift */,
@@ -1247,6 +1250,7 @@
 				AAFA2FB626C17174005AD96F /* UploadSampleRequest.swift in Sources */,
 				AA0B2FFA267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift in Sources */,
 				AA80989A25EE959B00091AC0 /* Publishers.swift in Sources */,
+				AA02EE0C2726CA3C00DB292A /* UILinearProgressView.swift in Sources */,
 				AAF5E75626400F7300AC3271 /* GetSamplesRequest.swift in Sources */,
 				AAF7299726298D6D0034B61A /* AppData+LoginState.swift in Sources */,
 				AAA87AE3261B28F50097EA74 /* URLImage.swift in Sources */,

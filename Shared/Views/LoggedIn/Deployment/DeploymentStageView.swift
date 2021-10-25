@@ -52,7 +52,7 @@ struct DeploymentStageView: View {
                                    isIndeterminate: viewState.progressShouldBeIndeterminate)
                         .padding(.horizontal)
                     #else
-                    ProgressView(value: viewState.progress, total: 100.0)
+                    UILinearProgressView(value: $viewState.progress)
                         .padding(.top, 2)
                     #endif
                 }

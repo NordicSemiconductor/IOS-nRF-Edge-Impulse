@@ -52,7 +52,7 @@ struct ReusableProgressView: View {
                            isIndeterminate: isIndeterminate.wrappedValue)
                 .padding(.horizontal)
             #else
-            ProgressView(value: progress.wrappedValue, total: 100.0)
+            UILinearProgressView(value: progress)
                 .padding(.horizontal)
             #endif
             
