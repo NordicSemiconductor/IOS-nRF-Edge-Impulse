@@ -1,0 +1,65 @@
+//
+//  nRF_Edge_Impulse_Screenshots.swift
+//  nRF Edge Impulse Screenshots
+//
+//  Created by Dinesh Harjani on 25/10/21.
+//
+
+import XCTest
+
+final class nRF_Edge_Impulse_Screenshots: XCTestCase {
+
+    // MARK: - Setup
+    
+    override func setUpWithError() throws {
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+
+        // In UI tests it is usually best to stop immediately when a failure occurs.
+        continueAfterFailure = false
+
+        XCUIDevice.shared.orientation = .portrait
+        
+        // UI tests must launch the application that they test.
+        let app = XCUIApplication()
+        app.launch()
+        setupSnapshot(app)
+        
+        try login(app)
+        _ = app.cells["E6Chemistry"].waitForExistence(timeout: 15)
+    }
+
+    // MARK: - tearDown
+    
+    override func tearDownWithError() throws {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    }
+
+    // MARK: - Tests
+    
+    func testDevices() throws {
+        Snapshot.snapshot("devices")
+    }
+    
+//    func testDeviceDetails() throws {
+//        Snapshot.snapshot("deviceDetails")
+//    }
+}
+
+// MARK: - Private
+
+fileprivate extension nRF_Edge_Impulse_Screenshots {
+    
+    func login(_ app: XCUIApplication) throws {
+        let loginButton = app.buttons["startButton"]
+        guard loginButton.exists else { return }
+        
+        let usernameTextField = try XCTUnwrap(app.textFields["Username or E-Mail"])
+        usernameTextField.typeText("dinesh.harjani")
+        
+        let passwordTextField = try XCTUnwrap(app.secureTextFields.firstMatch)
+        passwordTextField.tap()
+        passwordTextField.typeText("_bzpnes_w-uAzT7eo4Mcg-o-")
+        
+        loginButton.tap()
+    }
+}

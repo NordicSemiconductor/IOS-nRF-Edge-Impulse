@@ -51,6 +51,8 @@
 		AA0208A925F65EB400FD6B24 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A825F65EB400FD6B24 /* Tabs.swift */; };
 		AA0208AA25F65EB400FD6B24 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0208A825F65EB400FD6B24 /* Tabs.swift */; };
 		AA02EE0C2726CA3C00DB292A /* UILinearProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02EE0B2726CA3C00DB292A /* UILinearProgressView.swift */; };
+		AA02EE142726D9C200DB292A /* nRF_Edge_Impulse_Screenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02EE132726D9C200DB292A /* nRF_Edge_Impulse_Screenshots.swift */; };
+		AA02EE202726F03B00DB292A /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA02EE1F2726F03B00DB292A /* SnapshotHelper.swift */; };
 		AA032988266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */; };
 		AA032989266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */; };
 		AA03298B266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03298A266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift */; };
@@ -318,6 +320,16 @@
 		C3DCF4292681353000BF9AD4 /* DeviceData+Sampling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DCF4272681353000BF9AD4 /* DeviceData+Sampling.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AA02EE172726D9C200DB292A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA03E95425E3EF12003DA9DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA03E95F25E3EF13003DA9DA;
+			remoteInfo = "nRF-Edge-Impulse (iOS)";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		011D787F26BB3CA10035B752 /* TextHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextHeader.swift; sourceTree = "<group>"; };
 		012A3EC82666627E00EBB501 /* DeviceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
@@ -342,6 +354,9 @@
 		AA0208A825F65EB400FD6B24 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		AA02EE052726BAAF00DB292A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		AA02EE0B2726CA3C00DB292A /* UILinearProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILinearProgressView.swift; sourceTree = "<group>"; };
+		AA02EE112726D9C200DB292A /* nRF Edge Impulse Screenshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "nRF Edge Impulse Screenshots.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA02EE132726D9C200DB292A /* nRF_Edge_Impulse_Screenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF_Edge_Impulse_Screenshots.swift; sourceTree = "<group>"; };
+		AA02EE1F2726F03B00DB292A /* SnapshotHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionViewSampleLengthPicker.swift; sourceTree = "<group>"; };
 		AA03298A266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionFrequencyPicker.swift; sourceTree = "<group>"; };
 		AA03298D266F8CB200C46547 /* DataAquisitionView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataAquisitionView+Logic.swift"; sourceTree = "<group>"; };
@@ -485,6 +500,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AA02EE0E2726D9C200DB292A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AA03E95D25E3EF13003DA9DA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -574,6 +596,15 @@
 			path = LoggedIn;
 			sourceTree = "<group>";
 		};
+		AA02EE122726D9C200DB292A /* nRF Edge Impulse Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				AA02EE1F2726F03B00DB292A /* SnapshotHelper.swift */,
+				AA02EE132726D9C200DB292A /* nRF_Edge_Impulse_Screenshots.swift */,
+			);
+			path = "nRF Edge Impulse Screenshots";
+			sourceTree = "<group>";
+		};
 		AA03E95325E3EF12003DA9DA = {
 			isa = PBXGroup;
 			children = (
@@ -581,6 +612,7 @@
 				AA03E95825E3EF12003DA9DA /* Shared */,
 				AA03E96225E3EF13003DA9DA /* iOS */,
 				AA03E96925E3EF13003DA9DA /* macOS */,
+				AA02EE122726D9C200DB292A /* nRF Edge Impulse Screenshots */,
 				AA03E96125E3EF13003DA9DA /* Products */,
 				AA7F5DE125F8F57D00185328 /* Frameworks */,
 			);
@@ -605,6 +637,7 @@
 			children = (
 				AA03E96025E3EF13003DA9DA /* nRF Edge Impulse.app */,
 				AA03E96825E3EF13003DA9DA /* nRF Edge Impulse.app */,
+				AA02EE112726D9C200DB292A /* nRF Edge Impulse Screenshots.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1022,6 +1055,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AA02EE102726D9C200DB292A /* nRF Edge Impulse Screenshots */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA02EE192726D9C200DB292A /* Build configuration list for PBXNativeTarget "nRF Edge Impulse Screenshots" */;
+			buildPhases = (
+				AA02EE0D2726D9C200DB292A /* Sources */,
+				AA02EE0E2726D9C200DB292A /* Frameworks */,
+				AA02EE0F2726D9C200DB292A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA02EE182726D9C200DB292A /* PBXTargetDependency */,
+			);
+			name = "nRF Edge Impulse Screenshots";
+			productName = "nRF Edge Impulse Screenshots";
+			productReference = AA02EE112726D9C200DB292A /* nRF Edge Impulse Screenshots.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		AA03E95F25E3EF13003DA9DA /* nRF-Edge-Impulse (iOS) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AA03E98A25E3EF13003DA9DA /* Build configuration list for PBXNativeTarget "nRF-Edge-Impulse (iOS)" */;
@@ -1080,9 +1131,13 @@
 		AA03E95425E3EF12003DA9DA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					AA02EE102726D9C200DB292A = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = AA03E95F25E3EF13003DA9DA;
+					};
 					AA03E95F25E3EF13003DA9DA = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -1114,11 +1169,19 @@
 			targets = (
 				AA03E95F25E3EF13003DA9DA /* nRF-Edge-Impulse (iOS) */,
 				AA03E96725E3EF13003DA9DA /* nRF-Edge-Impulse (macOS) */,
+				AA02EE102726D9C200DB292A /* nRF Edge Impulse Screenshots */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AA02EE0F2726D9C200DB292A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AA03E95E25E3EF13003DA9DA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1189,6 +1252,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AA02EE0D2726D9C200DB292A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA02EE142726D9C200DB292A /* nRF_Edge_Impulse_Screenshots.swift in Sources */,
+				AA02EE202726F03B00DB292A /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AA03E95C25E3EF13003DA9DA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1488,7 +1560,66 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AA02EE182726D9C200DB292A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA03E95F25E3EF13003DA9DA /* nRF-Edge-Impulse (iOS) */;
+			targetProxy = AA02EE172726D9C200DB292A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		AA02EE1A2726D9C200DB292A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P3R8YQEV4L;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "no.nordicsemi.nRF-Edge-Impulse-Screenshots";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "nRF-Edge-Impulse (iOS)";
+			};
+			name = Debug;
+		};
+		AA02EE1B2726D9C200DB292A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P3R8YQEV4L;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "no.nordicsemi.nRF-Edge-Impulse-Screenshots";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "nRF-Edge-Impulse (iOS)";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		AA03E98825E3EF13003DA9DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1708,6 +1839,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AA02EE192726D9C200DB292A /* Build configuration list for PBXNativeTarget "nRF Edge Impulse Screenshots" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA02EE1A2726D9C200DB292A /* Debug */,
+				AA02EE1B2726D9C200DB292A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AA03E95725E3EF12003DA9DA /* Build configuration list for PBXProject "nRF-Edge-Impulse" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
