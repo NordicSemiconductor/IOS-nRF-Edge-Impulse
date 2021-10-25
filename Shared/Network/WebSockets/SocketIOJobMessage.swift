@@ -25,6 +25,10 @@ struct SocketIOJobMessage: Identifiable, Hashable {
     let message: String
     let progress: Double
     
+    var hasUserReadableText: Bool {
+        message.rangeOfCharacter(from: CharacterSet.alphanumerics) != nil
+    }
+    
     // MARK: - Init
     
     init(from inputString: String) throws {

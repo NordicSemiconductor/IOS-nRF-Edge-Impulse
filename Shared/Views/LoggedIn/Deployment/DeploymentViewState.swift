@@ -242,7 +242,7 @@ internal extension DeploymentViewState {
     }
     
     func processJobMessages(_ string: String, for jobId: Int) {
-        if let message = try? SocketIOJobMessage(from: string), !message.message.isEmpty {
+        if let message = try? SocketIOJobMessage(from: string), message.hasUserReadableText {
             guard jobId == message.job.jobId else { return }
             logs.append(LogMessage(message))
             guard message.progress > .leastNonzeroMagnitude else { return }
