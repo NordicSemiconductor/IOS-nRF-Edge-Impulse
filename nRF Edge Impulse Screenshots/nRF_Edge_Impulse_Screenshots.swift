@@ -11,6 +11,8 @@ final class nRF_Edge_Impulse_Screenshots: XCTestCase {
 
     // MARK: - Setup
     
+    var app: XCUIApplication!
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
@@ -20,7 +22,7 @@ final class nRF_Edge_Impulse_Screenshots: XCTestCase {
         XCUIDevice.shared.orientation = .portrait
         
         // UI tests must launch the application that they test.
-        let app = XCUIApplication()
+        app = XCUIApplication()
         app.launch()
         setupSnapshot(app)
         
@@ -37,12 +39,20 @@ final class nRF_Edge_Impulse_Screenshots: XCTestCase {
     // MARK: - Tests
     
     func testDevices() throws {
-        Snapshot.snapshot("devices")
+        Snapshot.snapshot("01Devices")
     }
     
-//    func testDeviceDetails() throws {
-//        Snapshot.snapshot("deviceDetails")
-//    }
+    func testDeviceDetails() throws {
+        let deviceCell = app.cells.containing(NSPredicate(format: "label CONTAINS %@", "E6Chemistry")).element
+        deviceCell.tap()
+        Snapshot.snapshot("02DeviceDetails")
+    }
+    
+    func testDataAcquisition() throws {
+        let dataAcquisitionTab = app.buttons["Data Acquisition"]
+        dataAcquisitionTab.tap()
+        Snapshot.snapshot("03DataAcquisition")
+    }
 }
 
 // MARK: - Private
@@ -50,7 +60,7 @@ final class nRF_Edge_Impulse_Screenshots: XCTestCase {
 fileprivate extension nRF_Edge_Impulse_Screenshots {
     
     func login(_ app: XCUIApplication) throws {
-        let loginButton = app.buttons["startButton"]
+        let loginButton = app.buttons["Login"]
         guard loginButton.exists else { return }
         
         let usernameTextField = try XCTUnwrap(app.textFields["Username or E-Mail"])
