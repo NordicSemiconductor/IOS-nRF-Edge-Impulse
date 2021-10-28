@@ -53,7 +53,7 @@ struct User: Identifiable, Codable {
         self.created = created
         self.photo = URL(string: photo == User.NoImage ? User.PlaceholderImage : photo)!
         
-        if #available(iOS 15.0, *) {
+        if #available(iOS 15.0, macOS 12.0, *) {
             self.nameComponents = try? PersonNameComponents(name)
         } else {
             self.nameComponents = nil
