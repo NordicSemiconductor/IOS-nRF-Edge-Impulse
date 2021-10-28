@@ -18,7 +18,7 @@ final class Network {
     
     // MARK: - Properties
     
-    private lazy var session = URLSession(configuration: .default)
+    private lazy var session = URLSession(configuration: .multiPathEnabled)
     private lazy var imageCache = Cache<URL, Image>()
     
     // MARK: - Singleton

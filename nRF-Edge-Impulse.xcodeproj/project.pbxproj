@@ -268,6 +268,8 @@
 		AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCBE8125E90734001C52B0 /* LoginRequest.swift */; };
 		AAFCEF1026FC826300753559 /* DeploymentStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCEF0F26FC826300753559 /* DeploymentStageView.swift */; };
 		AAFCEF1126FC826300753559 /* DeploymentStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFCEF0F26FC826300753559 /* DeploymentStageView.swift */; };
+		AAFDAA25272AEDA700467592 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDAA24272AEDA700467592 /* URLSession.swift */; };
+		AAFDAA26272AEDA700467592 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDAA24272AEDA700467592 /* URLSession.swift */; };
 		AAFDB46B264D5F5600F0CD02 /* MultiColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */; };
 		AAFDB46C264D5F5700F0CD02 /* MultiColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */; };
 		AAFDB46E264D73A800F0CD02 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDB46D264D73A800F0CD02 /* ProjectView.swift */; };
@@ -473,6 +475,7 @@
 		AAFC490B26A979FD002A08F9 /* LogMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMessage.swift; sourceTree = "<group>"; };
 		AAFCBE8125E90734001C52B0 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		AAFCEF0F26FC826300753559 /* DeploymentStageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentStageView.swift; sourceTree = "<group>"; };
+		AAFDAA24272AEDA700467592 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		AAFDB468264D54D400F0CD02 /* MultiColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiColumnView.swift; sourceTree = "<group>"; };
 		AAFDB46D264D73A800F0CD02 /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		AAFDB470264D78AF00F0CD02 /* CollaboratorsHStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorsHStackView.swift; sourceTree = "<group>"; };
@@ -927,6 +930,7 @@
 				C301A367261F11DA0010717D /* WebSockets */,
 				AAFCBE8025E90720001C52B0 /* Requests */,
 				AAA87AE2261B28F50097EA74 /* URLImage.swift */,
+				AAFDAA24272AEDA700467592 /* URLSession.swift */,
 				AA1016FB25E9173A006DC88A /* Network.swift */,
 			);
 			path = Network;
@@ -1324,6 +1328,7 @@
 				AA80989A25EE959B00091AC0 /* Publishers.swift in Sources */,
 				AA02EE0C2726CA3C00DB292A /* UILinearProgressView.swift in Sources */,
 				AAF5E75626400F7300AC3271 /* GetSamplesRequest.swift in Sources */,
+				AAFDAA25272AEDA700467592 /* URLSession.swift in Sources */,
 				AAF7299726298D6D0034B61A /* AppData+LoginState.swift in Sources */,
 				AAA87AE3261B28F50097EA74 /* URLImage.swift in Sources */,
 				AAFB45FA26FDEC7700B93904 /* CircularProgressView.swift in Sources */,
@@ -1462,6 +1467,7 @@
 				AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */,
 				C39B106F2695DF400056095E /* HUD.swift in Sources */,
 				AA9D798E26971D2300A987FB /* SocketIOJobMessage.swift in Sources */,
+				AAFDAA26272AEDA700467592 /* URLSession.swift in Sources */,
 				AA605E58271ECF3A002B3B0A /* InferencingFooterView.swift in Sources */,
 				AA03298F266F8CB200C46547 /* DataAquisitionView+Logic.swift in Sources */,
 				AA80988525EE518F00091AC0 /* ProjectRow.swift in Sources */,

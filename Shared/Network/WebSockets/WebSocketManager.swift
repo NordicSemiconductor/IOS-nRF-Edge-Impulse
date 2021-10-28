@@ -60,7 +60,7 @@ class WebSocketManager: NSObject {
         }
         
         self.pingConfiguration = pingConfiguration
-        session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
+        session = URLSession(configuration: .multiPathEnabled, delegate: self, delegateQueue: .main)
         task = session.webSocketTask(with: url)
         listen()
         task.resume()
