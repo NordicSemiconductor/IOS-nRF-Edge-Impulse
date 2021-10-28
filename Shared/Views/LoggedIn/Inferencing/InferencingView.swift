@@ -96,6 +96,7 @@ struct InferencingResultRow: View {
     static let classificationValueFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.roundingMode = .halfUp
+        formatter.minimumFractionDigits = 4
         formatter.maximumFractionDigits = 4
         return formatter
     }()
@@ -115,6 +116,7 @@ struct InferencingResultRow: View {
                 Text(InferencingResultRow.classificationValueFormatter.string(from: classification.value as NSNumber) ?? "N/A")
                     .foregroundColor(classification.value > 0.6
                                      ? .green : .gray)
+                    .font(.system(.body, design: .monospaced))
                     .fontWeight(.light)
             }
         }
