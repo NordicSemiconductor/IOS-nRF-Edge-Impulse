@@ -15,7 +15,6 @@ struct DataSamplesView: View {
     // MARK: Properties
     
     @State private var showDataAcquisitionView = false
-    @State private var dataAcquisitionView = DataAcquisitionView()
     
     // MARK: View
     
@@ -84,7 +83,9 @@ struct DataSampleHeaderRow: View {
 private extension DataSamplesView {
     
     func addHiddenDataAcqisitionNavigationLink() -> some View {
-        NavigationLink(destination: dataAcquisitionView, isActive: $showDataAcquisitionView) {
+        NavigationLink(destination:
+                        DataAcquisitionView().environmentObject(appData.dataAquisitionViewState),
+                       isActive: $showDataAcquisitionView) {
             EmptyView()
         }
         .hidden()

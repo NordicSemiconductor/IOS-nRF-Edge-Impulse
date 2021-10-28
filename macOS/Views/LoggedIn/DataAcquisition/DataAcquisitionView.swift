@@ -12,6 +12,7 @@ struct DataAcquisitionView: View {
     // MARK: - State
     
     @EnvironmentObject var appData: AppData
+    @EnvironmentObject var dataAcquisitionViewState: DataAcquisitionViewState
     @EnvironmentObject var deviceData: DeviceData
     
     // MARK: - View
@@ -19,8 +20,8 @@ struct DataAcquisitionView: View {
     var body: some View {
         ScrollView {
             Section(header: Text("Target").bold()) {
-                ConnectedDevicePicker($appData.dataAquisitionViewState.selectedDevice)
-                    .disabled($appData.dataAquisitionViewState.isSampling.wrappedValue)
+                ConnectedDevicePicker($dataAcquisitionViewState.selectedDevice)
+                    .disabled($dataAcquisitionViewState.isSampling.wrappedValue)
             }
             
             Divider()
@@ -29,7 +30,7 @@ struct DataAcquisitionView: View {
             Section(header: Text("Data Collection").bold()) {
                 MultiColumnView {
                     Text("Sample Name")
-                    TextField("Label", text: $appData.dataAquisitionViewState.label)
+                    TextField("Label", text: $dataAcquisitionViewState.label)
                     
                     Text("Category")
                     Picker(selection: $appData.selectedCategory, label: EmptyView()) {
@@ -41,28 +42,28 @@ struct DataAcquisitionView: View {
                     .padding(.vertical, 6)
                     
                     Text("Sensor")
-                    DataAcquisitionSensorPicker(viewState: appData.dataAquisitionViewState)
+                    DataAcquisitionSensorPicker(viewState: dataAcquisitionViewState)
                     
                     Text("Sample Length")
-                    DataAcquisitionViewSampleLengthPicker(viewState: appData.dataAquisitionViewState)
+                    DataAcquisitionViewSampleLengthPicker(viewState: dataAcquisitionViewState)
                     
                     Text("Frequency")
-                    DataAcquisitionFrequencyPicker(viewState: appData.dataAquisitionViewState)
+                    DataAcquisitionFrequencyPicker(viewState: dataAcquisitionViewState)
                 }
-                .disabled(appData.dataAquisitionViewState.isSampling)
+                .disabled(dataAcquisitionViewState.isSampling)
                 
                 Divider()
                     .padding(.vertical)
                 
                 Section(header: Text("Progress").bold()) {
-                    ReusableProgressView(progress: $appData.dataAquisitionViewState.progress, isIndeterminate: $appData.dataAquisitionViewState.indeterminateProgress, statusText: $appData.dataAquisitionViewState.progressString, statusColor: $appData.dataAquisitionViewState.progressColor, buttonText: "Start Sampling", buttonEnabled: $appData.dataAquisitionViewState.samplingButtonEnable, buttonAction: startSampling)
+                    ReusableProgressView(progress: $dataAcquisitionViewState.progress, isIndeterminate: $dataAcquisitionViewState.indeterminateProgress, statusText: $dataAcquisitionViewState.progressString, statusColor: $dataAcquisitionViewState.progressColor, buttonText: "Start Sampling", buttonEnabled: $dataAcquisitionViewState.samplingButtonEnable, buttonAction: startSampling)
                 }
             }
         }
         .setTitle("New Sample")
         .padding(16)
         .onAppear(perform: setInitialSelectedDevice)
-        .onReceive(appData.dataAquisitionViewState.countdownTimer, perform: appData.dataAquisitionViewState.onSampleTimerTick(_:))
+        .onReceive(dataAcquisitionViewState.countdownTimer, perform: dataAcquisitionViewState.onSampleTimerTick(_:))
     }
 }
 

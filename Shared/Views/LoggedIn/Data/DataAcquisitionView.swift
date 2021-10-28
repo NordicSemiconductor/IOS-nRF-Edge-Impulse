@@ -10,6 +10,7 @@ import SwiftUI
 struct DataAcquisitionView: View {
     
     @EnvironmentObject var appData: AppData
+    @EnvironmentObject var dataAcquisitionViewState: DataAcquisitionViewState
     @EnvironmentObject var deviceData: DeviceData
     
     // MARK: - State
@@ -28,21 +29,21 @@ struct DataAcquisitionView: View {
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .disabled(appData.dataAquisitionViewState.isSampling)
+                .disabled(dataAcquisitionViewState.isSampling)
             }
             
             Section(header: Text("Device")) {
-                ConnectedDevicePicker($appData.dataAquisitionViewState.selectedDevice)
-                    .disabled($appData.dataAquisitionViewState.isSampling.wrappedValue)
+                ConnectedDevicePicker($dataAcquisitionViewState.selectedDevice)
+                    .disabled($dataAcquisitionViewState.isSampling.wrappedValue)
             }
             
             Section(header: Text("Label")) {
-                TextField("Label", text: $appData.dataAquisitionViewState.label)
-                    .disabled(appData.dataAquisitionViewState.isSampling)
+                TextField("Label", text: $dataAcquisitionViewState.label)
+                    .disabled(dataAcquisitionViewState.isSampling)
                     .introspectTextField { textField in
                         guard !keyboardShownOnce,
-                              !appData.dataAquisitionViewState.isSampling,
-                              appData.dataAquisitionViewState.label.isEmpty else { return }
+                              !dataAcquisitionViewState.isSampling,
+                              dataAcquisitionViewState.label.isEmpty else { return }
                         keyboardShownOnce = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [textField] in
                             textField.becomeFirstResponder()
@@ -51,18 +52,18 @@ struct DataAcquisitionView: View {
             }
 
             Section(header: Text("Sensor")) {
-                DataAcquisitionSensorPicker(viewState: appData.dataAquisitionViewState)
+                DataAcquisitionSensorPicker(viewState: dataAcquisitionViewState)
             }
             
             Section(header: Text("Sample Length")) {
-                DataAcquisitionViewSampleLengthPicker(viewState: appData.dataAquisitionViewState)
+                DataAcquisitionViewSampleLengthPicker(viewState: dataAcquisitionViewState)
             }
-            .disabled(appData.dataAquisitionViewState.isSampling)
+            .disabled(dataAcquisitionViewState.isSampling)
             
             Section(header: Text("Frequency")) {
-                DataAcquisitionFrequencyPicker(viewState: appData.dataAquisitionViewState)
+                DataAcquisitionFrequencyPicker(viewState: dataAcquisitionViewState)
             }
-            .disabled(appData.dataAquisitionViewState.isSampling)
+            .disabled(dataAcquisitionViewState.isSampling)
             
             #if os(macOS)
             Divider()
@@ -70,12 +71,12 @@ struct DataAcquisitionView: View {
             #endif
             
             Section(header: Text("Progress").bold()) {
-                ReusableProgressView(progress: $appData.dataAquisitionViewState.progress, isIndeterminate: $appData.dataAquisitionViewState.indeterminateProgress, statusText: $appData.dataAquisitionViewState.progressString, statusColor: $appData.dataAquisitionViewState.progressColor, buttonText: "Start Sampling", buttonEnabled: $appData.dataAquisitionViewState.samplingButtonEnable, buttonAction: startSampling)
+                ReusableProgressView(progress: $dataAcquisitionViewState.progress, isIndeterminate: $dataAcquisitionViewState.indeterminateProgress, statusText: $dataAcquisitionViewState.progressString, statusColor: $dataAcquisitionViewState.progressColor, buttonText: "Start Sampling", buttonEnabled: $dataAcquisitionViewState.samplingButtonEnable, buttonAction: startSampling)
             }
         }
         .setTitle("Record New Data")
         .onAppear(perform: setInitialSelectedDevice)
-        .onReceive(appData.dataAquisitionViewState.countdownTimer, perform: appData.dataAquisitionViewState.onSampleTimerTick(_:))
+        .onReceive(dataAcquisitionViewState.countdownTimer, perform: dataAcquisitionViewState.onSampleTimerTick(_:))
         .frame(minWidth: .minTabWidth)
     }
 }
