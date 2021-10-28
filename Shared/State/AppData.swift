@@ -52,6 +52,12 @@ final class AppData: ObservableObject {
         self.projectSocketTokens = [Project: Token]()
         self.samplesForCategory = [DataSample.Category: [DataSample]]()
         self.apiToken = keychain.get("apiToken")
+        
+        // If inferencingViewState changes, make sure appData 'fires' as if a change has happened,
+        // to alert InferencingView.
+        inferencingViewState.objectWillChange
+            .sink(receiveValue: { self.objectWillChange.send() })
+            .store(in: &cancellables)
     }
     
     // MARK: - API
