@@ -12,14 +12,22 @@ struct User: Identifiable, Codable {
     static let NoImage = ""
     static let PlaceholderImage = "https://avatars.githubusercontent.com/u/52098900?s=200&v=4" // Edge Impulse Logo
     
+    private static let NameFormatter: PersonNameComponentsFormatter = {
+        let nameFormatter = PersonNameComponentsFormatter()
+        nameFormatter.style = .medium
+        return nameFormatter
+    }()
+    
     // MARK: - Properties
     
     let id: Int
     let username: String
-    let name: String
     let created: Date
     let createdSince: String
     let photo: URL
+    
+    private let name: String
+    private let nameComponents: PersonNameComponents?
     
     // MARK: - Init
     
@@ -45,8 +53,19 @@ struct User: Identifiable, Codable {
         self.created = created
         self.photo = URL(string: photo == User.NoImage ? User.PlaceholderImage : photo)!
         
+        if #available(iOS 15.0, *) {
+            self.nameComponents = try? PersonNameComponents(name)
+        } else {
+            self.nameComponents = nil
+        }
+        
         let relativeDateFormatter = RelativeDateTimeFormatter()
         self.createdSince = relativeDateFormatter.localizedString(for: created, relativeTo: Date())
+    }
+    
+    var formattedName: String {
+        guard let nameComponents = nameComponents else { return name }
+        return User.NameFormatter.string(from: nameComponents)
     }
 }
 

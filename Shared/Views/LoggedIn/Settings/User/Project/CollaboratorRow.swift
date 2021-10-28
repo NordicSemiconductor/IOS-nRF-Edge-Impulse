@@ -33,11 +33,11 @@ struct CollaboratorRow: View {
             #endif
             
             if let user = appData.user, user == collaborator {
-                Text("\(collaborator.name) (You)")
+                Text("\(collaborator.formattedName) (You)")
                     .foregroundColor(.secondary)
                     .fontWeight(.bold)
             } else {
-                Text(collaborator.name)
+                Text(collaborator.formattedName)
                     .foregroundColor(.secondary)
             }
         }

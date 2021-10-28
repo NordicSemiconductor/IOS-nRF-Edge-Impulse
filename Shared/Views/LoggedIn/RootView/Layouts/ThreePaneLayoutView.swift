@@ -32,7 +32,7 @@ struct ThreePaneLayoutView: View {
                         let userTab = Tabs.User
                         Section(header: Text(userTab.description)) {
                             NavigationLink(destination: userTab.view, tag: userTab, selection: $appData.selectedTab, label: {
-                                Label(user.name, systemImage: userTab.systemImageName)
+                                Label(user.formattedName, systemImage: userTab.systemImageName)
                             })
                         }
                     }
