@@ -31,11 +31,11 @@ struct SettingsContentView: View {
             }
             
             Section(header: Text("Scanner Settings")) {
-                Toggle("Only Scan Devices Advertising 'Edge Impulse Remote Management' Service",
+                Toggle("Show Only Edge Impulse Devices",
                        isOn: $preferences.onlyScanUARTDevices)
                     .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
                 
-                Toggle("Only Scan Connectable Devices",
+                Toggle("Show Only Connectable Devices",
                        isOn: $preferences.onlyScanConnectableDevices)
                     .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
             }
