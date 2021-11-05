@@ -126,7 +126,7 @@ private struct SensorSection: View {
         Section(header: Label(sensor.name, systemImage: sensor.iconName)) {
             
             HStack {
-                NordicLabel(title: "Max. Sample Length:", systemImage: "waveform.path.ecg")
+                NordicLabel(title: "Max. Sample Length:", systemImage: "stopwatch")
                 Spacer()
                 if let maxSampleLengthSeconds = sensor.maxSampleLengthS {
                     Text("\(maxSampleLengthSeconds, specifier: "%.0d")s").bold()
@@ -141,7 +141,7 @@ private struct SensorSection: View {
                 let text = ListFormatter.localizedString(
                     byJoining: frequencies.map { "\(String(format: "%.2f", $0))Hz" })
                 
-                StringDeviceInfoRow(title: "Frequencies:", systemImage: "wave.3.right", content: text)
+                StringDeviceInfoRow(title: "Frequencies:", systemImage: "waveform.path.ecg", content: text)
             }
         }
     }
