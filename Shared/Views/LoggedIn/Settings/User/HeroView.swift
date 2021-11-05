@@ -25,16 +25,9 @@ struct HeroView: View {
     }
     #else
     var body: some View {
-        ZStack {
-            LinearGradient(gradient: Gradient(colors: [Assets.blue.color, Assets.grass.color, .yellow, Assets.red.color]),
-                startPoint: .topLeading, endPoint: .bottomTrailing)
-            
-            VisualEffectBlur(blurStyle: .systemThickMaterial, vibrancyStyle: .none) {
-                UserView(user: user)
-                    .padding(.horizontal)
-            }
-        }
-        .frame(height: 2 * UserView.ImageSize.height)
+        UserView(user: user)
+            .padding(.horizontal)
+            .frame(height: 2 * UserView.ImageSize.height)
     }
     #endif
 }
