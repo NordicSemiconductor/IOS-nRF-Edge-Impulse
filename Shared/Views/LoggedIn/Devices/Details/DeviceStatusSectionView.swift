@@ -19,7 +19,7 @@ struct DeviceStatusSectionView: View {
             HStack {
                 switch state {
                 case .notConnectable:
-                    NordicLabel(title: "The device can't be connected", systemImage: "bolt.horizontal")
+                    NordicLabel(title: "This device is either not in range, or does not support Bluetooth LE Connection.", systemImage: "bolt.horizontal")
                         .foregroundColor(Color.disabledTextColor)
                 case .readyToConnect:
                     NordicLabel(title: "Ready to Connect", systemImage: "network")
