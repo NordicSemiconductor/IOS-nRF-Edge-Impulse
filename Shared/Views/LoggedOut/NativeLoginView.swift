@@ -10,6 +10,7 @@ import Combine
 import Introspect
 
 struct NativeLoginView: View {
+    
     // MARK: - EnvironmentObject(s)
     
     @EnvironmentObject var appData: AppData
@@ -26,6 +27,13 @@ struct NativeLoginView: View {
     
     private let textFieldBackground = Assets.lightGrey.color.opacity(0.5)
     
+    private enum Field: Int, Hashable {
+        case username, password
+    }
+    
+    @available(iOS 15.0, *)
+    @FocusState private var focusedField: Field?
+    
     // MARK: - Body
     
     var body: some View {
@@ -34,16 +42,38 @@ struct NativeLoginView: View {
             
             AppHeaderView()
             
-            UsernameField($username, enabled: !isMakingRequest)
-                .frame(maxWidth: .maxTextFieldWidth)
-                .padding(.horizontal, 16)
-                .introspectTextField { textField in
-                    textField.becomeFirstResponder()
-                }
+            if #available(iOS 15.0, *) {
+                UsernameField($username, enabled: !isMakingRequest)
+                    .frame(maxWidth: .maxTextFieldWidth)
+                    .padding(.horizontal, 16)
+                    .focused($focusedField, equals: .username)
+                    .submitLabel(.next)
+                    .onSubmit {
+                        focusedField = .password
+                    }
+            } else {
+                UsernameField($username, enabled: !isMakingRequest)
+                    .frame(maxWidth: .maxTextFieldWidth)
+                    .padding(.horizontal, 16)
+                    .introspectTextField { textField in
+                        textField.becomeFirstResponder()
+                    }
+            }
             
-            PasswordField($password, enabled: !isMakingRequest)
-                .frame(maxWidth: .maxTextFieldWidth)
-                .padding(.horizontal, 16)
+            if #available(iOS 15.0, *) {
+                PasswordField($password, enabled: !isMakingRequest)
+                    .frame(maxWidth: .maxTextFieldWidth)
+                    .padding(.horizontal, 16)
+                    .focused($focusedField, equals: .password)
+                    .submitLabel(.done)
+                    .onSubmit {
+                        attemptLogin()
+                    }
+            } else {
+                PasswordField($password, enabled: !isMakingRequest)
+                    .frame(maxWidth: .maxTextFieldWidth)
+                    .padding(.horizontal, 16)
+            }
             
             LoginErrorView(viewState: viewState)
             
@@ -69,6 +99,12 @@ struct NativeLoginView: View {
             SignedUpView()
             
             Spacer()
+        }
+        .onAppear() {
+            guard #available(iOS 15.0, *) else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.focusedField = .username
+            }
         }
     }
 }
