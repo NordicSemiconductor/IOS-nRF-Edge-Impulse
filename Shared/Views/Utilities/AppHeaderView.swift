@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AppHeaderView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     private let renderingMode: Image.TemplateRenderingMode
     
     private let templateColor = Assets.middleGrey.color
@@ -25,7 +27,7 @@ struct AppHeaderView: View {
         HStack(alignment: .center, spacing: 8) {
             Image("Nordic")
                 .resizable()
-                .renderingMode(renderingMode)
+                .renderingMode(colorScheme == .light ? renderingMode : .template)
                 .foregroundColor(templateColor)
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 50)
