@@ -23,7 +23,6 @@ struct CollaboratorsHStackView: View {
         HStack {
             Label(title: {
                 Text("Collaborators")
-                    .fontWeight(.bold)
                     .font(.callout)
                 },
                 icon: {

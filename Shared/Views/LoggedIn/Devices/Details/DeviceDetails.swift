@@ -147,15 +147,35 @@ private struct SensorSection: View {
     }
 }
 
-// MARK: - Nordic Label
+// MARK: - NordicLabel
 
 struct NordicLabel: View {
+    
     let title: String
     let systemImage: String
     
     var body: some View {
         Label(
             title: { Text(title) },
+            icon: {
+                Image(systemName: systemImage)
+                    .renderingMode(.template)
+                    .foregroundColor(.universalAccentColor)
+            }
+        )
+    }
+}
+
+// MARK: - NordicDateLabel
+
+struct NordicDateLabel: View {
+    
+    let date: Date
+    let systemImage: String
+    
+    var body: some View {
+        Label(
+            title: { Text(date, style: .date) },
             icon: {
                 Image(systemName: systemImage)
                     .renderingMode(.template)

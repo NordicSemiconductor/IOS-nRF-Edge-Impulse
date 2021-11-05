@@ -25,26 +25,20 @@ struct ProjectView: View {
         FormIniOSListInMacOS {
             #if os(OSX)
             Section(header: Text("Name")) {
-                Label(project.name, systemImage: "character.book.closed.fill")
-                    .font(.headline)
+                NordicLabel(title: project.name, systemImage: "character.book.closed.fill")
             }
             #endif
             
             Section(header: Text("ID")) {
-                Label(String(project.id), systemImage: "key.fill")
+                NordicLabel(title: String(project.id), systemImage: "key.fill")
             }
             
             Section(header: Text("Description")) {
-                Label(project.description, systemImage: "doc.text.fill")
+                NordicLabel(title: project.description, systemImage: "doc.text.fill")
             }
             
             Section(header: Text("Creation Date")) {
-                Label(
-                    title: { Text(project.created, style: .date) },
-                    icon: {
-                        Image(systemName: "clock.fill")
-                    }
-                )
+                NordicDateLabel(date: project.created, systemImage: "clock.fill")
             }
             
             Section(header: Text("Collaborators")) {
