@@ -25,8 +25,8 @@ internal struct BoolDeviceInfoRow: View {
             )
             Spacer()
             
-            Image(systemName: enabled ? "checkmark.circle.fill" : "xmark.circle.fill")
-                .foregroundColor(enabled ? .green : Assets.red.color)
+            Text(enabled ? "Yes" : "No")
+                .foregroundColor(.secondary)
         }
     }
 }
