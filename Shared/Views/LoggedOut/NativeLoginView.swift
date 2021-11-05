@@ -31,7 +31,7 @@ struct NativeLoginView: View {
         case username, password
     }
     
-    @available(iOS 15.0, *)
+    @available(iOS 15.0, macOS 12.0, *)
     @FocusState private var focusedField: Field?
     
     // MARK: - Body
@@ -42,7 +42,7 @@ struct NativeLoginView: View {
             
             AppHeaderView()
             
-            if #available(iOS 15.0, *) {
+            if #available(iOS 15.0, macOS 12.0, *) {
                 UsernameField($username, enabled: !isMakingRequest)
                     .frame(maxWidth: .maxTextFieldWidth)
                     .padding(.horizontal, 16)
@@ -60,7 +60,7 @@ struct NativeLoginView: View {
                     }
             }
             
-            if #available(iOS 15.0, *) {
+            if #available(iOS 15.0, macOS 12.0, *) {
                 PasswordField($password, enabled: !isMakingRequest)
                     .frame(maxWidth: .maxTextFieldWidth)
                     .padding(.horizontal, 16)
@@ -101,7 +101,7 @@ struct NativeLoginView: View {
             Spacer()
         }
         .onAppear() {
-            guard #available(iOS 15.0, *) else { return }
+            guard #available(iOS 15.0, macOS 12.0, *) else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.focusedField = .username
             }
