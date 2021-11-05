@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InferencingView: View {
     
-    static let CellType = GridItem(.fixed(65))
+    static let CellType = GridItem(.fixed(80))
     
     @EnvironmentObject var appData: AppData
     @EnvironmentObject var deviceData: DeviceData

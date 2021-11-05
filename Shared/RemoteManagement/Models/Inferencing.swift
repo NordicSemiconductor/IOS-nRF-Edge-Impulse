@@ -46,6 +46,6 @@ struct InferencingResults: Codable, Hashable {
     
     let type: String
     let classification: [Classification]
-    let anomaly: Double
+    let anomaly: Double?
 }
 

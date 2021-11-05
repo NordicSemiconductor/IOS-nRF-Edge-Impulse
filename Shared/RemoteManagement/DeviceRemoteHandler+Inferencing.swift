@@ -59,7 +59,9 @@ extension DeviceRemoteHandler {
     
     func newResultsPublisher() -> AnyPublisher<InferencingResults, Swift.Error> {
         return bluetoothManager.receptionSubject
-            .filter({ [unowned self] _ in self.inferencingState == .started })
+            .filter({ [unowned self] _ in
+                self.inferencingState == .started
+            })
 //            .gatherData(ofType: InferencingResults.self)
             .onlyDecode(type: InferencingResults.self)
             .tryMap { response -> InferencingResults in
