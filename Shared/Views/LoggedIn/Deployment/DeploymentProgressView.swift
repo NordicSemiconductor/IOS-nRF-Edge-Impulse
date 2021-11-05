@@ -22,7 +22,14 @@ struct DeploymentProgressView: View {
         switch viewState.status {
         case .error(let error):
             Section(header: Text("Error Description")) {
-                Label(error.localizedDescription, systemImage: "info")
+                // Align with the StageView items.
+                HStack(spacing: 2) {
+                    Image(systemName: "info")
+                        .frame(width: 20, height: 20)
+                    
+                    Text(error.localizedDescription)
+                }
+                .padding(.leading, 2)
             }
         default:
             EmptyView()
