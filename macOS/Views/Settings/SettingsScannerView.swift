@@ -18,10 +18,10 @@ struct SettingsScannerView: View {
             
             VStack(alignment: .leading, spacing: 10) {
                 
-                Toggle("Only Scan Devices Advertising 'Edge Impulse Remote Management' Service",
+                Toggle("Show Only Edge Impulse Devices",
                        isOn: $preferences.onlyScanUARTDevices)
                 
-                Toggle("Only Scan Connectable Devices",
+                Toggle("Show Only Connectable Devices",
                        isOn: $preferences.onlyScanConnectableDevices)
             }
         }
