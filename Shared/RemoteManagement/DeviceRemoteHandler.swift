@@ -196,13 +196,20 @@ fileprivate extension DeviceRemoteHandler {
     func newBLEDisconnectionCancellable() -> AnyCancellable {
         return bluetoothManager.btStateSubject
             .drop(while: { $0 != .poweredOn })
+            .filter { [weak self] _ in
+                switch self?.state {
+                case .connected(_, _):
+                    return true
+                default:
+                    return false
+                }
+            }
             .sinkReceivingError(onError: { [weak self] error in
                 self?.disconnect(reason: .error(error))
             }, receiveValue: { [weak self] a in
                 switch self?.bluetoothManager.state {
                 case .notConnected, .disconnected:
                     self?.disconnect()
-                    break
                 default:
                     break
                 }

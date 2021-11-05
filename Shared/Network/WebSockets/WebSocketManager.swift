@@ -45,7 +45,7 @@ class WebSocketManager: NSObject {
     private let logger = Logger(category: String(describing: WebSocketManager.self))
     
     private var session: URLSession!
-    private var pingConfiguration: PingConfiguration!
+    private var pingConfiguration = PingConfiguration()
     private var task: URLSessionWebSocketTask!
     private var cancellables = Set<AnyCancellable>()
     
@@ -60,18 +60,16 @@ class WebSocketManager: NSObject {
         }
         
         self.pingConfiguration = pingConfiguration
-        session = URLSession(configuration: .multiPathEnabled, delegate: self, delegateQueue: .main)
+        session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
         task = session.webSocketTask(with: url)
-        listen()
         task.resume()
-        schedulePings()
-        
         return stateSubject
             .mapError { $0 as Swift.Error }
             .eraseToAnyPublisher()
     }
     
     func disconnect() {
+        logger.debug(#function)
         cancellables.forEach { $0.cancel() }
         cancellables.removeAll()
         if let task = task {
@@ -81,7 +79,6 @@ class WebSocketManager: NSObject {
             session.finishTasksAndInvalidate()
         }
         
-        pingConfiguration = nil
         session = nil
     }
     
@@ -101,10 +98,9 @@ class WebSocketManager: NSObject {
     
     func send(_ string: String) throws {
         task.send(.string(string)) { [weak self] (error) in
-            if let e = error {
-                self?.dataSubject.send(.failure(Error.wsError(e)))
-                self?.logger.error("Send error: \(e.localizedDescription)")
-            }
+            guard let e = error as NSError? else { return }
+            self?.logger.error("Encountered Error: \(e.localizedDescription) sending \(string)")
+            self?.dataSubject.send(.failure(Error.wsError(e)))
         }
     }
 }
@@ -114,11 +110,15 @@ class WebSocketManager: NSObject {
 extension WebSocketManager {
     
     private func listen() {
-        
         task.receive { [weak self] result in
             switch result {
             case .failure(let e):
-                self?.logger.error("Error: \(e.localizedDescription)")
+                if let nsError = e as NSError? {
+                    self?.logger.error("Error (Code \(nsError.code)): \(e.localizedDescription)")
+                } else {
+                    self?.logger.error("Error: \(e.localizedDescription)")
+                }
+                
                 self?.dataSubject.send(.failure(e))
                 self?.stateSubject.send(completion: .failure(.wsError(e)))
             case .success(let msg):
@@ -141,6 +141,7 @@ extension WebSocketManager {
                 self?.listen()
             }
         }
+        logger.debug("Listener Attached.")
     }
     
     private func schedulePings() {
@@ -149,8 +150,8 @@ extension WebSocketManager {
             .publish(every: timeout, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
-                if let pingData = self?.pingConfiguration?.data {
-                    print("Sending Ping Data: \(pingData.hexEncodedString())")
+                if let pingData = self?.pingConfiguration.data {
+                    self?.logger.info("Sending Ping Data: \(pingData.hexEncodedString())")
                     try? self?.send(pingData)
                 }
                 self?.ping()
@@ -198,7 +199,11 @@ extension WebSocketManager: URLSessionWebSocketDelegate {
     
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
         logger.log("Did open web socket with protocol: \(`protocol` ?? "<unknown>")")
-        stateSubject.send(.connected)
+        listen()
+        schedulePings()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            self?.stateSubject.send(.connected)
+        }
     }
     
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
