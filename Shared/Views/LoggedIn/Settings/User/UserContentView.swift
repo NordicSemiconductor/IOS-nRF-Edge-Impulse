@@ -21,6 +21,10 @@ struct UserContentView: View {
                 HeroView(user: user)
                     .listRowInsets(EdgeInsets())
                 
+                #if os(macOS)
+                Divider()
+                #endif
+                
                 Section(header: Text("Projects")) {
                     if projects.isEmpty {
                         VStack(alignment: .center, spacing: 16) {
@@ -39,6 +43,10 @@ struct UserContentView: View {
                         }
                     }
                 }
+                
+                #if os(macOS)
+                Divider()
+                #endif
                 
                 Section(header: Text("Account")) {
                     Button("Logout", action: logout)

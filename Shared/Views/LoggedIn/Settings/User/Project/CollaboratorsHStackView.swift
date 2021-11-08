@@ -20,28 +20,16 @@ struct CollaboratorsHStackView: View {
     // MARK: View
     
     var body: some View {
-        HStack {
-            Label(title: {
-                Text("Collaborators")
-                    .font(.callout)
-                },
-                icon: {
-                    Image(systemName: "person.fill")
-                        .foregroundColor(.primary)
+        ZStack {
+            ForEach(0..<collaborators.count) { i in
+                ZStack(alignment: .leading) {
+                    CircleAround(URLImage(url: collaborators[i].photo, placeholderImage: Image("EdgeImpulse")))
+                        .frame(size: .SmallImageSize)
                 }
-            )
-            
-            ZStack {
-                ForEach(0..<collaborators.count) { i in
-                    ZStack(alignment: .leading) {
-                        CircleAround(URLImage(url: collaborators[i].photo, placeholderImage: Image("EdgeImpulse")))
-                            .frame(size: .SmallImageSize)
-                    }
-                    .offset(x: CGFloat(i) * 12)
-                }
+                .offset(x: CGFloat(i) * 12)
             }
-            .padding(.trailing, CGFloat(collaborators.count) * 9)
         }
+        .padding(.trailing, CGFloat(collaborators.count) * 9)
     }
 }
 

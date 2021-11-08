@@ -22,20 +22,18 @@ struct ProjectRow: View {
     // MARK: - Body
     
     var body: some View {
-        HStack(alignment: .top) {
+        HStack(alignment: .center) {
             CircleAround(URLImage(url: project.logo, placeholderImage: Image("EdgeImpulse")))
-                .frame(size: .StandardImageSize)
+                .frame(size: .ToolbarImageSize)
 
-            VStack(alignment: .leading) {
-                Text(project.name)
-                    .font(.headline)
-                    .bold()
-                
-                CollaboratorsHStackView(project.collaborators)
-            }
-            .padding(.horizontal, 6)
+            Text(project.name)
+                .font(.headline)
+                .bold()
+            
+            CollaboratorsHStackView(project.collaborators)
         }
-        .padding(.vertical)
+        .frame(height: CGSize.ToolbarImageSize.height + CGSize.TableViewPaddingSize.height)
+        .padding(.horizontal, 6)
     }
 }
 
