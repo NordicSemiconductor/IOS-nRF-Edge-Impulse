@@ -128,6 +128,8 @@
 		AA28405D261F4F3D00EB8637 /* UsernameField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA28405B261F4F3D00EB8637 /* UsernameField.swift */; };
 		AA28405F261F537C00EB8637 /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA28405E261F537C00EB8637 /* PasswordField.swift */; };
 		AA284060261F537C00EB8637 /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA28405E261F537C00EB8637 /* PasswordField.swift */; };
+		AA2C516827391AB600E5E16E /* DateDeviceInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2C516727391AB600E5E16E /* DateDeviceInfoRow.swift */; };
+		AA2C516927391AB600E5E16E /* DateDeviceInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2C516727391AB600E5E16E /* DateDeviceInfoRow.swift */; };
 		AA2CDEB62636FF3900A4950E /* AppEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2CDEB52636FF3900A4950E /* AppEvents.swift */; };
 		AA2CDEB72636FF3900A4950E /* AppEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2CDEB52636FF3900A4950E /* AppEvents.swift */; };
 		AA31615C273153DE00812925 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = AA31615B273153DE00812925 /* AppIcon.icns */; };
@@ -403,6 +405,7 @@
 		AA284058261F4DFC00EB8637 /* AppHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderView.swift; sourceTree = "<group>"; };
 		AA28405B261F4F3D00EB8637 /* UsernameField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameField.swift; sourceTree = "<group>"; };
 		AA28405E261F537C00EB8637 /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
+		AA2C516727391AB600E5E16E /* DateDeviceInfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDeviceInfoRow.swift; sourceTree = "<group>"; };
 		AA2CDEB52636FF3900A4950E /* AppEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEvents.swift; sourceTree = "<group>"; };
 		AA31615B273153DE00812925 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = AppIcon.icns; path = "../../../../Downloads/Icons EI/macos/AppIcon.icns"; sourceTree = "<group>"; };
 		AA386B08260CEDD60079F12D /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
@@ -701,6 +704,7 @@
 				C3755CD3268F0A9700FE8C69 /* DeviceDetails.swift */,
 				AA14FD4A26EA3B98008128CB /* DeviceStatusSectionView.swift */,
 				AA14FD4726EA3314008128CB /* StringDeviceInfoRow.swift */,
+				AA2C516727391AB600E5E16E /* DateDeviceInfoRow.swift */,
 				AA14FD4426EA317E008128CB /* BoolDeviceInfoRow.swift */,
 			);
 			path = Details;
@@ -1293,6 +1297,7 @@
 				AAF5531D2641614B00252345 /* AppData+DataSamples.swift in Sources */,
 				AACCBA882600C32C0042E87B /* ErrorView.swift in Sources */,
 				AA01F3D025EFACB000368707 /* Assets.swift in Sources */,
+				AA2C516827391AB600E5E16E /* DateDeviceInfoRow.swift in Sources */,
 				AA03298E266F8CB200C46547 /* DataAquisitionView+Logic.swift in Sources */,
 				AAB8C87626D536A0004FC21B /* MacAddressView.swift in Sources */,
 				AAF5E75C26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift in Sources */,
@@ -1538,6 +1543,7 @@
 				AA284060261F537C00EB8637 /* PasswordField.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
 				AA010209269C5CD30045D6F2 /* SocketIOJobResult.swift in Sources */,
+				AA2C516927391AB600E5E16E /* DateDeviceInfoRow.swift in Sources */,
 				AA14FD4926EA3314008128CB /* StringDeviceInfoRow.swift in Sources */,
 				AAF4F6BB2625C02E00012359 /* SignedUpView.swift in Sources */,
 				AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,

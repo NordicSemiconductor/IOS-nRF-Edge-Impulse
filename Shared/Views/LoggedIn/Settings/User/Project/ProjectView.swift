@@ -23,23 +23,27 @@ struct ProjectView: View {
     
     var body: some View {
         FormIniOSListInMacOS {
-            #if os(OSX)
-            Section(header: Text("Name")) {
-                NordicLabel(title: project.name, systemImage: "character.book.closed.fill")
+            Section(header: Text("Project Information")) {
+                StringDeviceInfoRow(title: "ID", systemImage: "key.fill", content: String(project.id))
+                
+                #if os(macOS)
+                StringDeviceInfoRow(title: "Name", systemImage: "character.book.closed.fill", content: project.name)
+                #endif
+                
+                DateDeviceInfoRow(title: "Creation Date", systemImage: "clock.fill", content: project.created)
             }
-            #endif
             
-            Section(header: Text("ID")) {
-                NordicLabel(title: String(project.id), systemImage: "key.fill")
-            }
+            #if os(macOS)
+            Divider()
+            #endif
             
             Section(header: Text("Description")) {
                 NordicLabel(title: project.description, systemImage: "doc.text.fill")
             }
             
-            Section(header: Text("Creation Date")) {
-                NordicDateLabel(date: project.created, systemImage: "clock.fill")
-            }
+            #if os(macOS)
+            Divider()
+            #endif
             
             Section(header: Text("Collaborators")) {
                 ForEach(project.collaborators) { collaborator in
