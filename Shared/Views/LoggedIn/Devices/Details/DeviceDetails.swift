@@ -32,13 +32,13 @@ struct DeviceDetails: View {
         FormIniOSListInMacOS {
             Section(header: Text("Device Information")) {
                 #if os(macOS)
-                StringDeviceInfoRow(title: "Name:", systemImage: "character", content: device.name)
+                StringDeviceInfoRow(title: "Name", systemImage: "character", content: device.name)
                 #endif
                 
-                StringDeviceInfoRow(title: "ID:", systemImage: "person", content: device.deviceId)
-                StringDeviceInfoRow(title: "Type:", systemImage: "t.square", content: device.deviceType.trimmingCharacters(in: .whitespacesAndNewlines))
-                StringDeviceInfoRow(title: "Created At:", systemImage: "calendar", content: device.created.toDate()?.formatterString() ?? "")
-                StringDeviceInfoRow(title: "Last Seen:", systemImage: "eye", content: device.lastSeen.toDate()?.formatterString() ?? "")
+                StringDeviceInfoRow(title: "ID", systemImage: "person", content: device.deviceId)
+                StringDeviceInfoRow(title: "Type", systemImage: "t.square", content: device.deviceType.trimmingCharacters(in: .whitespacesAndNewlines))
+                StringDeviceInfoRow(title: "Created At", systemImage: "calendar", content: device.created.toDate()?.formatterString() ?? "")
+                StringDeviceInfoRow(title: "Last Seen", systemImage: "eye", content: device.lastSeen.toDate()?.formatterString() ?? "")
                 BoolDeviceInfoRow(title: "Supports Snapshot Streaming", systemImage: "arrow.left.and.right", enabled: device.supportsSnapshotStreaming)
             }
             
@@ -126,7 +126,7 @@ private struct SensorSection: View {
         Section(header: Label(sensor.name, systemImage: sensor.iconName)) {
             
             HStack {
-                NordicLabel(title: "Max. Sample Length:", systemImage: "stopwatch")
+                NordicLabel(title: "Max. Sample Length", systemImage: "stopwatch")
                 Spacer()
                 if let maxSampleLengthSeconds = sensor.maxSampleLengthS {
                     Text("\(maxSampleLengthSeconds, specifier: "%.0d")s").bold()
@@ -141,7 +141,7 @@ private struct SensorSection: View {
                 let text = ListFormatter.localizedString(
                     byJoining: frequencies.map { "\(String(format: "%.2f", $0))Hz" })
                 
-                StringDeviceInfoRow(title: "Frequencies:", systemImage: "waveform.path.ecg", content: text)
+                StringDeviceInfoRow(title: "Frequencies", systemImage: "waveform.path.ecg", content: text)
             }
         }
     }

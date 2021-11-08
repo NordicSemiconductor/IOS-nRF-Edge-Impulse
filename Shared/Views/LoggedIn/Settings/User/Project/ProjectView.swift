@@ -30,7 +30,7 @@ struct ProjectView: View {
                 StringDeviceInfoRow(title: "Name", systemImage: "character.book.closed.fill", content: project.name)
                 #endif
                 
-                DateDeviceInfoRow(title: "Creation Date", systemImage: "clock.fill", content: project.created)
+                DateDeviceInfoRow(title: "Creation Date", systemImage: "calendar", content: project.created)
             }
             
             #if os(macOS)
