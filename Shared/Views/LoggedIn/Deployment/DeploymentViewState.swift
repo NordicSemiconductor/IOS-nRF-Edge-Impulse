@@ -271,6 +271,9 @@ internal extension DeploymentViewState {
     func reportError(_ error: Error) {
         logs.append(LogMessage(error))
         status = .error(NordicError(description: error.localizedDescription))
+        if let currentStage = stages.firstIndex(where: { $0.isInProgress }) {
+            stages[currentStage].declareError()
+        }
         
         cancellables.forEach { $0.cancel() }
         cancellables.removeAll()

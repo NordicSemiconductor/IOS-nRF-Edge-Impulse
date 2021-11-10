@@ -18,6 +18,7 @@ struct DeploymentStage: Identifiable {
     let symbolName: String
     
     var isInProgress: Bool
+    var encounteredAnError: Bool
     var isCompleted: Bool
     
     // MARK: Init
@@ -31,6 +32,7 @@ struct DeploymentStage: Identifiable {
         self.finishedName = finishedName
         self.symbolName = symbolName
         self.isInProgress = false
+        self.encounteredAnError = false
         self.isCompleted = false
     }
     
@@ -44,6 +46,8 @@ struct DeploymentStage: Identifiable {
     var color: Color {
         if isCompleted {
             return .succcessfulActionButtonColor
+        } else if encounteredAnError {
+            return Assets.red.color
         } else if isInProgress {
             return Assets.sun.color
         }
@@ -51,8 +55,15 @@ struct DeploymentStage: Identifiable {
     }
     
     mutating func update(isInProgress: Bool = false, isCompleted: Bool = false) {
+        self.encounteredAnError = false
         self.isInProgress = isInProgress
         self.isCompleted = isCompleted
+    }
+    
+    mutating func declareError() {
+        guard isInProgress else { return }
+        isInProgress = false
+        encounteredAnError = true
     }
 }
 
