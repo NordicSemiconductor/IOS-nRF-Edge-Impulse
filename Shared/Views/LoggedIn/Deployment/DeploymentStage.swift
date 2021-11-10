@@ -5,7 +5,7 @@
 //  Created by Dinesh Harjani on 10/11/21.
 //
 
-import Foundation
+import SwiftUI
 
 // MARK: - DeploymentStage
 
@@ -17,8 +17,8 @@ struct DeploymentStage: Identifiable {
     let finishedName: String
     let symbolName: String
     
-    private let isCompletedStatuses: [DeploymentViewState.JobStatus]
-    private let inProgressStatus: DeploymentViewState.JobStatus
+    var isInProgress: Bool
+    var isCompleted: Bool
     
     // MARK: Init
     
@@ -30,23 +30,29 @@ struct DeploymentStage: Identifiable {
         self.inProgressName = inProgressName
         self.finishedName = finishedName
         self.symbolName = symbolName
-        self.inProgressStatus = inProgressStatus
-        self.isCompletedStatuses = completedStatuses
+        self.isInProgress = false
+        self.isCompleted = false
     }
     
     // MARK: API
     
-    func name(for status: DeploymentViewState.JobStatus) -> String {
-        guard !isCompleted(status) else { return finishedName }
-        return isInProgress(status) ? inProgressName : toDoName
+    var name: String {
+        guard !isCompleted else { return finishedName }
+        return isInProgress ? inProgressName : toDoName
     }
     
-    func isCompleted(_ status: DeploymentViewState.JobStatus) -> Bool {
-        return isCompletedStatuses.contains(status)
+    var color: Color {
+        if isCompleted {
+            return .succcessfulActionButtonColor
+        } else if isInProgress {
+            return Assets.sun.color
+        }
+        return .disabledTextColor
     }
     
-    func isInProgress(_ status: DeploymentViewState.JobStatus) -> Bool {
-        return status == inProgressStatus
+    mutating func update(isInProgress: Bool = false, isCompleted: Bool = false) {
+        self.isInProgress = isInProgress
+        self.isCompleted = isCompleted
     }
 }
 

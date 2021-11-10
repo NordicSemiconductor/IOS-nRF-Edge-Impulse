@@ -30,6 +30,7 @@ final class DeploymentViewState: ObservableObject {
     @Published var buildButtonText = ""
     @Published var buildButtonEnable = false
     
+    @Published var stages = DeploymentStage.allCases
     @Published var logs = [LogMessage]()
     @Published var lastLogMessage = LogMessage("")
     
@@ -206,9 +207,11 @@ internal extension DeploymentViewState {
         
         switch status {
         case .idle:
+            setAllStagesToIdle()
             buildButtonEnable = selectedDeviceHandler != nil
             buildButtonText = "Build"
         case .success:
+            setAllStagesToSuccess()
             selectedDevice = .Unselected
             buildButtonEnable = true
             buildButtonText = "Success!"
@@ -219,13 +222,18 @@ internal extension DeploymentViewState {
         case .buildRequestSent:
             progressShouldBeIndeterminate = true
         case .buildingModel(_):
-            break
+            setStageToInProgress(.building)
         case .downloadingModel:
             progressShouldBeIndeterminate = true
+            setStageToInProgress(.downloading)
         case .unpackingModelData:
             progressShouldBeIndeterminate = true
-        case .uploading(_), .confirming, .applying:
-            break
+        case .uploading(_):
+            setStageToInProgress(.uploading)
+        case .confirming:
+            setStageToInProgress(.confirming)
+        case .applying:
+            setStageToInProgress(.applying)
         case .error(_):
             buildButtonEnable = true
             buildButtonText = "Retry"
@@ -286,6 +294,32 @@ internal extension DeploymentViewState {
             .compactMap({ $0.last })
             .assign(to: \.lastLogMessage, on: self)
             .store(in: &cancellables)
+    }
+}
+
+// MARK: - Stage Logic
+
+fileprivate extension DeploymentViewState {
+    
+    private func setAllStagesToIdle() {
+        for i in stages.indices {
+            stages[i].update(isInProgress: false, isCompleted: false)
+        }
+    }
+    
+    private func setStageToInProgress(_ stage: DeploymentStage) {
+        guard let index = stages.firstIndex(where: { $0.toDoName == stage.id }) else { return }
+        stages[index].update(isInProgress: true)
+        
+        for previousIndex in stages.indices where previousIndex < index {
+            stages[previousIndex].update(isCompleted: true)
+        }
+    }
+    
+    private func setAllStagesToSuccess() {
+        for i in stages.indices {
+            stages[i].update(isCompleted: true)
+        }
     }
 }
 

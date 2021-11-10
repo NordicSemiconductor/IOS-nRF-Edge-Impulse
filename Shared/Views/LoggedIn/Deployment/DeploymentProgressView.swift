@@ -13,7 +13,7 @@ struct DeploymentProgressView: View {
     
     var body: some View {
         Section(header: Text("Progress")) {
-            ForEach(DeploymentStage.allCases) { stage in
+            ForEach(viewState.stages) { stage in
                 DeploymentStageView(stage: stage)
                     .environmentObject(viewState)
             }
