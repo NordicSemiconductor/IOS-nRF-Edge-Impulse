@@ -40,7 +40,7 @@ struct DeploymentStage: Identifiable {
     
     var name: String {
         guard !isCompleted else { return finishedName }
-        return isInProgress ? inProgressName : toDoName
+        return isInProgress || encounteredAnError ? inProgressName : toDoName
     }
     
     var color: Color {
