@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct Device: Codable {
+// MARK: Device
+
+struct Device: Identifiable, Codable {
     enum CodingKeys: String, CodingKey {
         case id, deviceId, created, lastSeen, deviceType, sensors, supportsSnapshotStreaming, name
         case remoteMgmtConnected = "remote_mgmt_connected"
@@ -26,12 +28,16 @@ struct Device: Codable {
     var name: String
 }
 
-extension Device: Identifiable, Hashable {
+// MARK: Hashable
+
+extension Device: Hashable {
     
-    static func == (lhs: Device, rhs: Device) -> Bool {
-        return lhs.deviceId == rhs.deviceId && lhs.name == rhs.name
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(deviceId)
     }
 }
+
+// MARK: Constants
 
 extension Device {
     

@@ -153,9 +153,9 @@ fileprivate extension RenameDeviceView {
                 logger.debug("Request Response failed with Error: \(error.localizedDescription).")
             }, receiveValue: { _ in
                 self.viewState = .success
-                logger.debug("Request Response Successful. Refreshing list of Devices.")
-                self.appData.renamed(device, with: newDeviceName)
-                self.deviceData.refresh()
+                logger.debug("Request Response Successful. Renaming Device.")
+                self.deviceData.renamed(device, to: newDeviceName)
+                self.appData.dataAquisitionViewState.selectedDevice.name = newDeviceName
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
                     self.okButton()
                 }

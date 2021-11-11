@@ -31,12 +31,14 @@ extension ConnectedDevicePicker {
         if connectedDevices.hasItems {
             Picker("Selected", selection: selectionBinding) {
                 ForEach(connectedDevices, id: \.self) { handler in
-                    Text(handler.userVisibleName)
+                    Text(deviceData.name(for: handler))
                         .foregroundColor(.primary)
+                        .lineLimit(1)
                         .tag(handler.device)
                 }
             }
-            .setAsComboBoxStyle()
+            .pickerStyle(.wheel)
+            .frame(height: 75, alignment: .leading)
         } else {
             Text("No Connected Devices")
                 .foregroundColor(Assets.middleGrey.color)

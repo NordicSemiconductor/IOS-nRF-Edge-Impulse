@@ -98,8 +98,8 @@ class DeviceRemoteHandler {
         cancellables.removeAll()
     }
     
-    var userVisibleName: String {
-        device?.name ?? scanResult.name
+    func rename(to newName: String) {
+        device?.name = newName
     }
     
     func connect(apiKey: String) -> AnyPublisher<ConnectionState, Never> {
@@ -262,20 +262,21 @@ extension DeviceRemoteHandler {
 // MARK: - Hashable, Equatable
 
 extension DeviceRemoteHandler: Hashable, Identifiable {
-    static func == (lhs: DeviceRemoteHandler, rhs: DeviceRemoteHandler) -> Bool {
-        lhs.scanResult == rhs.scanResult
-    }
     
-    static func == (lhs: DeviceRemoteHandler, rhs: ScanResult) -> Bool {
-        lhs.scanResult == rhs
+    var id: String {
+        scanResult.id
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(scanResult)
     }
     
-    var id: String {
-        scanResult.id
+    static func == (lhs: DeviceRemoteHandler, rhs: DeviceRemoteHandler) -> Bool {
+        lhs.scanResult == rhs.scanResult
+    }
+    
+    static func == (lhs: DeviceRemoteHandler, rhs: ScanResult) -> Bool {
+        lhs.scanResult == rhs
     }
 }
 

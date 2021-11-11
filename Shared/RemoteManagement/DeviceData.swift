@@ -12,7 +12,7 @@ import os
 
 extension DeviceData {
     struct DeviceWrapper: Identifiable, Hashable {
-        let device: Device
+        var device: Device
         var id: Int { device.id }
         fileprivate (set) var state: State = .notConnectable
         
@@ -281,6 +281,16 @@ class DeviceData: ObservableObject {
         }
         scanResults.removeAll()
         updateRegisteredDevices()
+    }
+    
+    func renamed(_ device: Device, to newName: String) {
+        if let i = registeredDevices.firstIndex(where: { $0.id == device.id }) {
+            registeredDevices[i].device.name = newName
+        }
+        if let i = remoteHandlers.firstIndex(where: { $0.device?.id == device.id }) {
+            remoteHandlers[i].rename(to: newName)
+        }
+        objectWillChange.send()
     }
     
     func updateRegisteredDevices() {
