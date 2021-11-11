@@ -155,7 +155,7 @@ fileprivate extension RenameDeviceView {
                 self.viewState = .success
                 logger.debug("Request Response Successful. Renaming Device.")
                 self.deviceData.renamed(device, to: newDeviceName)
-                self.appData.dataAquisitionViewState.selectedDevice.name = newDeviceName
+                self.deviceData.updateRegisteredDevices()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
                     self.okButton()
                 }
