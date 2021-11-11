@@ -27,3 +27,5 @@ clear_previous_screenshots(true)
 # fastlane action snapshot
 
 concurrent_simulators(false)
+
+project "./nRF-Edge-Impulse.xcodeproj"

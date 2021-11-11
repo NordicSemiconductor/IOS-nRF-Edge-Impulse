@@ -43,7 +43,7 @@ final class nRF_Edge_Impulse_Screenshots: XCTestCase {
     }
     
     func testDeviceDetails() throws {
-        let deviceCell = app.cells.containing(NSPredicate(format: "label CONTAINS %@", "E6Chemistry")).element
+        let deviceCell = app.cells.containing(NSPredicate(format: "label CONTAINS %@", "thingy53")).element
         deviceCell.tap()
         Snapshot.snapshot("02DeviceDetails")
     }
