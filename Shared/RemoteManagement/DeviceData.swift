@@ -185,6 +185,17 @@ class DeviceData: ObservableObject {
         tryToConnect(scanResult: scanResult)
     }
     
+    //MARK: Name
+    
+    func name(for deviceHandler: DeviceRemoteHandler) -> String {
+        guard let device = deviceHandler.device else { return "N/A" }
+        return name(for: device)
+    }
+    
+    func name(for device: Device) -> String {
+        return registeredDevices.first(where: { $0.device.id == device.id })?.device.name ?? "N/A"
+    }
+    
     // MARK: Connection State
     
     func connectionState(of scanResult: ScanResult) -> ScanResultWrapper.State? {
@@ -434,22 +445,22 @@ extension DeviceData {
         }
     }
     
-    private func updateState(_ device: Device) {
+    internal func updateState(_ device: Device) {
         guard let regDeviceIndex = registeredDevices.firstIndex(where: { $0.device == device }) else {
             return
         }
         
         registeredDevices[regDeviceIndex].state = remoteHandlers
             .first(where: { $0.device == device })
-            .flatMap { h -> DeviceWrapper.State? in
-                switch h.state {
+            .flatMap { handler -> DeviceWrapper.State? in
+                switch handler.state {
                 case .connecting: return .connecting
                 case .connected: return .connected
                 default: return nil
                 }
             }
             ?? associatedScanResult(with: device)
-            .map { _ in DeviceWrapper.State.readyToConnect}
+            .map { _ in DeviceWrapper.State.readyToConnect }
         ?? .notConnectable
         
         if let scanResultIndex = scanResults.firstIndex(where: { $0 == device }) {

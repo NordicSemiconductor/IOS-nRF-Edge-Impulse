@@ -37,7 +37,7 @@ struct DeviceList: View {
                 #endif
             }
         }, alertView: { device in
-            RenameDeviceView($renameDevice, oldName: device.name)
+            RenameDeviceView($renameDevice)
         }, isShowing: $renameDevice)
         .onAppear(perform: deviceData.updateRegisteredDevices)
         .alert(isPresented: $showDeleteDeviceAlert) {

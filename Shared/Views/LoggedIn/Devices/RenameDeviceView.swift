@@ -26,11 +26,10 @@ struct RenameDeviceView: View {
     
     // MARK: Init
     
-    init(_ presentedDevice: Binding<Device?>, oldName: String,
-         viewState: ViewState = .waitingForInput) {
+    init(_ presentedDevice: Binding<Device?>, viewState: ViewState = .waitingForInput) {
         self.presentedDevice = presentedDevice
         self.viewState = viewState
-        self.newDeviceName = oldName
+        self.newDeviceName = ""
         self.cancellables = Set<AnyCancellable>()
     }
     
@@ -83,6 +82,10 @@ struct RenameDeviceView: View {
         .padding()
         .frame(width: 350)
         .background(Color.secondarySystemBackground)
+        .onAppear {
+            guard let device = presentedDevice.wrappedValue else { return }
+            newDeviceName = deviceData.name(for: device)
+        }
     }
     
     // MARK: Logic
@@ -151,6 +154,7 @@ fileprivate extension RenameDeviceView {
             }, receiveValue: { _ in
                 self.viewState = .success
                 logger.debug("Request Response Successful. Refreshing list of Devices.")
+                self.appData.renamed(device, with: newDeviceName)
                 self.deviceData.refresh()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
                     self.okButton()
@@ -166,10 +170,10 @@ fileprivate extension RenameDeviceView {
 struct RenameDeviceView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            RenameDeviceView(.constant(Device.connectableMock), oldName: Device.connectableMock.deviceId)
-            RenameDeviceView(.constant(Device.connectableMock), oldName: Device.connectableMock.deviceId, viewState: .requestIsOngoing)
-            RenameDeviceView(.constant(Device.connectableMock), oldName: Device.connectableMock.deviceId, viewState: .error(NordicError.init(description: "A")))
-            RenameDeviceView(.constant(Device.connectableMock), oldName: Device.connectableMock.deviceId, viewState: .success)
+            RenameDeviceView(.constant(Device.connectableMock))
+            RenameDeviceView(.constant(Device.connectableMock), viewState: .requestIsOngoing)
+            RenameDeviceView(.constant(Device.connectableMock), viewState: .error(NordicError.init(description: "A")))
+            RenameDeviceView(.constant(Device.connectableMock), viewState: .success)
         }
         .previewLayout(.sizeThatFits)
         .environmentObject(Preview.mockScannerData)
