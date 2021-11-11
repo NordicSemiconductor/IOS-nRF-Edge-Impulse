@@ -30,10 +30,19 @@ struct Device: Identifiable, Codable {
 
 // MARK: Hashable
 
-extension Device: Hashable {
+extension Device: Hashable, Equatable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(deviceId)
+        hasher.combine(name)
+    }
+    
+    // Do not remove.
+    //
+    // Theory suggests Hashable means automatic Equatable. But, removing this function breaks
+    // parts of the app.
+    static func == (lhs: Device, rhs: Device) -> Bool {
+        return lhs.deviceId == rhs.deviceId && lhs.name == rhs.name
     }
 }
 
