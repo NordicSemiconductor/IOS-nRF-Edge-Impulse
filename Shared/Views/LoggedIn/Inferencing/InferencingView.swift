@@ -120,7 +120,6 @@ struct InferencingResultRow: View {
                     .fontWeight(.light)
             }
         }
-        .lineLimit(1)
     }
 }
 
