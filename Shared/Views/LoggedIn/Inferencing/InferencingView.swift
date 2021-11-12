@@ -58,11 +58,32 @@ struct InferencingView: View {
                                  ? .positiveActionButtonColor : .disabledTextColor)
             #endif
         }
+        .onAppear(perform: selectFirstAvailableDevice)
         #if os(iOS)
         .padding(.top)
         #endif
         .background(Color.formBackground)
-        .onAppear(perform: selectFirstAvailableDevice)
+        .toolbar {
+            if appData.inferencingViewState.buttonEnable {
+                if appData.inferencingViewState.isInferencing {
+                    Button(action: toggleInferencing) {
+                        Label {
+                            Text("Stop")
+                        } icon: {
+                            Image(systemName: "stop.fill")
+                        }
+                    }
+                } else if !appData.inferencingViewState.isInferencing {
+                    Button(action: toggleInferencing) {
+                        Label {
+                            Text("Start")
+                        } icon: {
+                            Image(systemName: "play.fill")
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
