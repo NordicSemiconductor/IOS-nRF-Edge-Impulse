@@ -138,6 +138,8 @@
 		AA386B0A260CEDD60079F12D /* Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA386B08260CEDD60079F12D /* Previews.swift */; };
 		AA43B2A825FA574F00C5B5EE /* TabBarLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */; };
 		AA43B2A925FA58B500C5B5EE /* TabBarLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */; };
+		AA4581CD274536870063EBE7 /* DeploymentInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4581CC274536870063EBE7 /* DeploymentInfoRequest.swift */; };
+		AA4581CE274536870063EBE7 /* DeploymentInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4581CC274536870063EBE7 /* DeploymentInfoRequest.swift */; };
 		AA482F7F26318B11007B8B64 /* View+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F7E26318B11007B8B64 /* View+macOS.swift */; };
 		AA482F812631A213007B8B64 /* UserContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F802631A213007B8B64 /* UserContentView.swift */; };
 		AA482F822631A213007B8B64 /* UserContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F802631A213007B8B64 /* UserContentView.swift */; };
@@ -412,6 +414,7 @@
 		AA3358552745062700060540 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		AA386B08260CEDD60079F12D /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
 		AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarLayoutView.swift; sourceTree = "<group>"; };
+		AA4581CC274536870063EBE7 /* DeploymentInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentInfoRequest.swift; sourceTree = "<group>"; };
 		AA482F7E26318B11007B8B64 /* View+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+macOS.swift"; sourceTree = "<group>"; };
 		AA482F802631A213007B8B64 /* UserContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContentView.swift; sourceTree = "<group>"; };
 		AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameDeviceRequest.swift; sourceTree = "<group>"; };
@@ -882,6 +885,7 @@
 				AA63F86F26A1AE82001EDE54 /* DeleteDeviceRequest.swift */,
 				AA05BC462667D098003AEE50 /* StartSamplingRequest.swift */,
 				AAFA2FB526C17174005AD96F /* UploadSampleRequest.swift */,
+				AA4581CC274536870063EBE7 /* DeploymentInfoRequest.swift */,
 				AA00508E2695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift */,
 				AA01020D269C74850045D6F2 /* DownloadDeviceModelRequest.swift */,
 			);
@@ -1341,6 +1345,7 @@
 				AA80989A25EE959B00091AC0 /* Publishers.swift in Sources */,
 				AA02EE0C2726CA3C00DB292A /* UILinearProgressView.swift in Sources */,
 				AAF5E75626400F7300AC3271 /* GetSamplesRequest.swift in Sources */,
+				AA4581CD274536870063EBE7 /* DeploymentInfoRequest.swift in Sources */,
 				AAFDAA25272AEDA700467592 /* URLSession.swift in Sources */,
 				AAF7299726298D6D0034B61A /* AppData+LoginState.swift in Sources */,
 				AAA87AE3261B28F50097EA74 /* URLImage.swift in Sources */,
@@ -1515,6 +1520,7 @@
 				AA28405A261F4DFC00EB8637 /* AppHeaderView.swift in Sources */,
 				AA0208A225F65C7600FD6B24 /* LoggedInRootView.swift in Sources */,
 				C301A35C261DE9280010717D /* DeviceRemoteHandler.swift in Sources */,
+				AA4581CE274536870063EBE7 /* DeploymentInfoRequest.swift in Sources */,
 				C301A37A261F36250010717D /* HelloMessage.swift in Sources */,
 				AAA5C7C6269F39EA0012809A /* NoDevicesView.swift in Sources */,
 				AA0208AA25F65EB400FD6B24 /* Tabs.swift in Sources */,

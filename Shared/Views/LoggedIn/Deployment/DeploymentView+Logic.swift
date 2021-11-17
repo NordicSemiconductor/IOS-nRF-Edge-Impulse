@@ -59,7 +59,7 @@ fileprivate extension DeploymentView {
     func attemptToBuild() {
         guard let currentProject = appData.selectedProject,
               let apiToken = appData.apiToken else { return }
-        viewState.sendBuildRequest(for: currentProject, using: apiToken)
+        viewState.sendDeploymentInfoRequest(for: currentProject, using: apiToken)
     }
     
     func attemptToConnect() {

@@ -14,7 +14,7 @@ extension DeploymentViewState {
     enum JobStatus: Hashable {
         case idle
         case socketConnecting, socketConnected
-        case buildRequestSent, buildingModel(_ id: Int)
+        case infoRequestSent, buildRequestSent, buildingModel(_ id: Int)
         case downloadingModel, unpackingModelData
         case uploading(_ id: Int), confirming, applying
         case success, error(_ error: NordicError)
@@ -30,7 +30,7 @@ extension DeploymentViewState {
         
         static func == (lhs: DeploymentViewState.JobStatus, rhs: DeploymentViewState.JobStatus) -> Bool {
             switch (lhs, rhs) {
-            case (.socketConnecting, .socketConnecting), (.socketConnected, .socketConnected), (.buildRequestSent, .buildRequestSent), (.downloadingModel, .downloadingModel), (.unpackingModelData, .unpackingModelData), (.confirming, .confirming), (.applying, .applying), (.success, .success):
+            case (.socketConnecting, .socketConnecting), (.socketConnected, .socketConnected), (.infoRequestSent, .infoRequestSent), (.buildRequestSent, .buildRequestSent), (.downloadingModel, .downloadingModel), (.unpackingModelData, .unpackingModelData), (.confirming, .confirming), (.applying, .applying), (.success, .success):
                 return true
             case (.buildingModel(_), .buildingModel(_)):
                 return true

@@ -105,12 +105,29 @@ extension DeploymentViewState {
 
 extension DeploymentViewState {
     
-    func sendBuildRequest(for selectedProject: Project, using apiToken: String) {
-        guard let buildRequest = HTTPRequest.buildModel(project: selectedProject, usingEONCompiler: enableEONCompiler,
-                                                        classifier: optimization, using: apiToken) else { return }
+    func sendDeploymentInfoRequest(for selectedProject: Project, using apiToken: String) {
         setupCancellables()
         project = selectedProject
         self.apiToken = apiToken
+        
+        guard let infoRequest = HTTPRequest.getDeploymentInfo(project: selectedProject, using: apiToken) else { return }
+        status = .infoRequestSent
+        Network.shared.perform(infoRequest, responseType: GetDeploymentInfoResponse.self)
+            .sinkReceivingError(onError: { error in
+                self.reportError(error)
+            }, receiveValue: { response in
+                if response.hasDeployment {
+                    self.downloadModel(for: selectedProject, using: apiToken)
+                } else {
+                    self.sendBuildRequest(for: selectedProject, using: apiToken)
+                }
+            })
+            .store(in: &cancellables)
+    }
+    
+    func sendBuildRequest(for selectedProject: Project, using apiToken: String) {
+        guard let buildRequest = HTTPRequest.buildModel(project: selectedProject, usingEONCompiler: enableEONCompiler,
+                                                        classifier: optimization, using: apiToken) else { return }
         status = .buildRequestSent
         Network.shared.perform(buildRequest, responseType: BuildOnDeviceModelRequestResponse.self)
             .sinkReceivingError(onError: { error in
@@ -219,10 +236,15 @@ internal extension DeploymentViewState {
             progressShouldBeIndeterminate = true
         case .socketConnected:
             break
+        case .infoRequestSent:
+            progressShouldBeIndeterminate = true
+            setStageToInProgress(.building)
+            logs.append(LogMessage("Checking Deployment Status..."))
         case .buildRequestSent:
             progressShouldBeIndeterminate = true
+            logs.append(LogMessage("Sending Build Request..."))
         case .buildingModel(_):
-            setStageToInProgress(.building)
+            break
         case .downloadingModel:
             progressShouldBeIndeterminate = true
             setStageToInProgress(.downloading)
