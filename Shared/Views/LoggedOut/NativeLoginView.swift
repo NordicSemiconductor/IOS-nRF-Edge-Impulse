@@ -31,8 +31,9 @@ struct NativeLoginView: View {
         case username, password
     }
     
-    @available(iOS 15.0, macOS 12.0, *)
-    @FocusState private var focusedField: Field?
+    // TODO: Remove commented out focusedField code when on Xcode 13.2.
+//    @available(iOS 15.0, macOS 12.0, *)
+//    @FocusState private var focusedField: Field?
     
     // MARK: - Body
     
@@ -46,11 +47,11 @@ struct NativeLoginView: View {
                 UsernameField($username, enabled: !isMakingRequest)
                     .frame(maxWidth: .maxTextFieldWidth)
                     .padding(.horizontal, 16)
-                    .focused($focusedField, equals: .username)
+//                    .focused($focusedField, equals: .username)
                     .submitLabel(.next)
-                    .onSubmit {
-                        focusedField = .password
-                    }
+//                    .onSubmit {
+//                        focusedField = .password
+//                    }
             } else {
                 UsernameField($username, enabled: !isMakingRequest)
                     .frame(maxWidth: .maxTextFieldWidth)
@@ -64,7 +65,7 @@ struct NativeLoginView: View {
                 PasswordField($password, enabled: !isMakingRequest)
                     .frame(maxWidth: .maxTextFieldWidth)
                     .padding(.horizontal, 16)
-                    .focused($focusedField, equals: .password)
+//                    .focused($focusedField, equals: .password)
                     .submitLabel(.done)
                     .onSubmit {
                         attemptLogin()
@@ -100,12 +101,12 @@ struct NativeLoginView: View {
             
             Spacer()
         }
-        .onAppear() {
-            guard #available(iOS 15.0, macOS 12.0, *) else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.focusedField = .username
-            }
-        }
+//        .onAppear() {
+//            guard #available(iOS 15.0, macOS 12.0, *) else { return }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                self.focusedField = .username
+//            }
+//        }
     }
 }
 
