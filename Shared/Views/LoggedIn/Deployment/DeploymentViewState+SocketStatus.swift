@@ -19,9 +19,9 @@ extension DeploymentViewState {
         case uploading(_ id: Int), confirming, applying
         case success, error(_ error: NordicError)
         
-        var shouldShowProgressView: Bool {
+        var shouldShowConfigurationView: Bool {
             switch self {
-            case .buildingModel(_), .downloadingModel, .uploading(_), .confirming, .applying, .success, .error(_):
+            case .idle, .socketConnecting, .socketConnected:
                 return true
             default:
                 return false

@@ -17,17 +17,17 @@ struct DeploymentView: View {
     
     @StateObject internal var viewState = DeploymentViewState()
     
-    // MARK: - viewBuilder
+    // MARK: - View
     
     var body: some View {
         FormIniOSListInMacOS {
-            if viewState.status.shouldShowProgressView {
-                DeploymentProgressView()
-                    .environmentObject(viewState)
-            } else {
+            if viewState.status.shouldShowConfigurationView {
                 DeploymentConfigurationView()
                     .environmentObject(viewState)
                     .environmentObject(deviceData)
+            } else {
+                DeploymentProgressView()
+                    .environmentObject(viewState)
             }
             
             #if os(macOS)
@@ -40,7 +40,8 @@ struct DeploymentView: View {
                     .centerTextInsideForm()
                     .disabled(!viewState.buildButtonEnable)
                 #if os(iOS)
-                    .foregroundColor(viewState.buildButtonEnable ? .positiveActionButtonColor : .disabledTextColor)
+                    .foregroundColor(viewState.buildButtonEnable
+                                     ? .positiveActionButtonColor : .disabledTextColor)
                 #endif
             }
         }
