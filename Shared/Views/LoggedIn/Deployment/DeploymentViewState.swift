@@ -9,7 +9,6 @@ import Combine
 import SwiftUI
 import McuManager
 import OSLog
-import ZIPFoundation
 
 final class DeploymentViewState: ObservableObject {
 
@@ -89,66 +88,26 @@ extension DeploymentViewState {
                 self.reportError(error)
             }, receiveValue: { data in
                 self.logs.append(LogMessage("Received \(data.count) bytes of Data."))
-                self.unpackResponse(responseData: data)
+                self.sendModelToDevice(responseData: data)
             })
             .store(in: &cancellables)
     }
     
-    func unpackResponse(responseData: Data) {
-        status = .unpackingModelData
-        do {
-            guard let tempUrlPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first else { return }
-            logs.append(LogMessage("Writing Response Data to disk..."))
-            let zipFileURL = URL(fileURLWithPath: tempUrlPath + "/\(abs(responseData.hashValue)).zip")
-            try responseData.write(to: zipFileURL)
-            defer {
-                cleanup(zipFileURL)
-            }
-        
-            logs.append(LogMessage("Opening up Response Archive..."))
-            guard Archive(url: zipFileURL, accessMode: .read) != nil else {
-                logs.append(LogMessage("Welp! Response Data is not a ZIP file."))
-                throw NordicError(description: "Server did not return a .ZIP file.")
-            }
-            
-            let fileManager = FileManager()
-            let directoryURL = URL(fileURLWithPath: tempUrlPath + "/\(abs(responseData.hashValue))/", isDirectory: true)
-            try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: true, attributes: nil)
-            try fileManager.unzipItem(at: zipFileURL, to: directoryURL)
-            defer {
-                cleanup(directoryURL)
-            }
-            
-            let contents = try fileManager.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil, options: [])
-            guard let manifestFile = contents.first(where: { $0.pathExtension == "json" }) else {
-                throw NordicError(description: "JSON File to parse as Manifest not found.")
-            }
-            
-            let jsonData = try Data(contentsOf: manifestFile)
-            let manifest = try JSONDecoder().decode(DFUManifest.self, from: jsonData)
-            let images = try manifest.files.compactMap({ manifestFile -> (Int, Data) in
-                guard let url = contents.first(where: { $0.absoluteString.contains(manifestFile.file) }) else {
-                    throw NordicError(description: "Unable to find \(manifestFile.file) for Image \(manifestFile.imageIndex)")
-                }
-                return (manifestFile.imageIndex, try Data(contentsOf: url))
-            })
-
-            sendModelToDevice(images: images)
-        } catch {
-            reportError(error)
-        }
-    }
-    
-    func sendModelToDevice(images: [(Int, Data)]) {
+    func sendModelToDevice(responseData: Data) {
         guard let device = selectedDeviceHandler else {
             reportError(NordicError(description: "No Device."))
             return
         }
         
-        logs.append(LogMessage("Sending firmware to device..."))
         do {
-            try device.bluetoothManager.sendUpgradeFirmware(images, logDelegate: self, firmwareDelegate: self)
+            status = .unpackingModelData
+            logs.append(LogMessage("Unpacking Server Response Archive..."))
+            let firmware = try DFUPackage(responseData)
+            
             status = .uploading(0)
+            logs.append(LogMessage("Sending firmware to device..."))
+            try device.bluetoothManager.sendUpgradeFirmware(firmware, logDelegate: self, firmwareDelegate: self)
+            
             // Disconnect so reset disconnection doesn't cause an error.
             // McuMgr Library keeps its own connection during DFU.
             device.disconnect(reason: .dfuReset)
@@ -233,15 +192,6 @@ internal extension DeploymentViewState {
         
         cancellables.forEach { $0.cancel() }
         cancellables.removeAll()
-    }
-    
-    private func cleanup(_ url: URL) {
-        do {
-            let fileManager = FileManager()
-            try fileManager.removeItem(at: url)
-        } catch {
-            logger.debug("Unable to delete file at \(url.absoluteString): \(error.localizedDescription)")
-        }
     }
     
     private func setupCancellables() {

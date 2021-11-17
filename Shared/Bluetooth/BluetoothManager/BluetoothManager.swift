@@ -116,7 +116,7 @@ final class BluetoothManager: NSObject, ObservableObject {
         transmissionSubject.send(encodedData)
     }
     
-    func sendUpgradeFirmware(_ images: [(Int, Data)], logDelegate: McuMgrLogDelegate,
+    func sendUpgradeFirmware(_ firmware: DFUPackage, logDelegate: McuMgrLogDelegate,
                              firmwareDelegate: FirmwareUpgradeDelegate) throws {
         guard let peripheral = peripheral else {
             throw DeviceRemoteHandler.Error.stringError("Peripheral is not available (i.e. 'nil')")
@@ -128,7 +128,7 @@ final class BluetoothManager: NSObject, ObservableObject {
         dfuManager.logDelegate = logDelegate
 
         // Start the firmware upgrade with the image data
-        try dfuManager.start(images: images)
+        try dfuManager.start(images: firmware.images)
     }
     
     func disconnect() {

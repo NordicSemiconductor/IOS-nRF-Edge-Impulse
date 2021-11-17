@@ -140,6 +140,8 @@
 		AA43B2A925FA58B500C5B5EE /* TabBarLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */; };
 		AA4581CD274536870063EBE7 /* DeploymentInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4581CC274536870063EBE7 /* DeploymentInfoRequest.swift */; };
 		AA4581CE274536870063EBE7 /* DeploymentInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4581CC274536870063EBE7 /* DeploymentInfoRequest.swift */; };
+		AA4581D027455FB80063EBE7 /* DFUPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4581CF27455FB80063EBE7 /* DFUPackage.swift */; };
+		AA4581D127455FB80063EBE7 /* DFUPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4581CF27455FB80063EBE7 /* DFUPackage.swift */; };
 		AA482F7F26318B11007B8B64 /* View+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F7E26318B11007B8B64 /* View+macOS.swift */; };
 		AA482F812631A213007B8B64 /* UserContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F802631A213007B8B64 /* UserContentView.swift */; };
 		AA482F822631A213007B8B64 /* UserContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F802631A213007B8B64 /* UserContentView.swift */; };
@@ -415,6 +417,7 @@
 		AA386B08260CEDD60079F12D /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
 		AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarLayoutView.swift; sourceTree = "<group>"; };
 		AA4581CC274536870063EBE7 /* DeploymentInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentInfoRequest.swift; sourceTree = "<group>"; };
+		AA4581CF27455FB80063EBE7 /* DFUPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DFUPackage.swift; sourceTree = "<group>"; };
 		AA482F7E26318B11007B8B64 /* View+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+macOS.swift"; sourceTree = "<group>"; };
 		AA482F802631A213007B8B64 /* UserContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContentView.swift; sourceTree = "<group>"; };
 		AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameDeviceRequest.swift; sourceTree = "<group>"; };
@@ -776,6 +779,7 @@
 			isa = PBXGroup;
 			children = (
 				AA0E584326C6847F00C437DD /* DFUManifest.swift */,
+				AA4581CF27455FB80063EBE7 /* DFUPackage.swift */,
 			);
 			path = DFU;
 			sourceTree = "<group>";
@@ -1363,6 +1367,7 @@
 				AAFDB46E264D73A800F0CD02 /* ProjectView.swift in Sources */,
 				AAFFEB3025FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
 				C39B106B2695C5390056095E /* HUDState.swift in Sources */,
+				AA4581D027455FB80063EBE7 /* DFUPackage.swift in Sources */,
 				AA03E98225E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				C33C10C32609791E0097EA5A /* SignalLevel.swift in Sources */,
 				AA010208269C5CD30045D6F2 /* SocketIOJobResult.swift in Sources */,
@@ -1562,6 +1567,7 @@
 				AA28405D261F4F3D00EB8637 /* UsernameField.swift in Sources */,
 				AA8511CC273BEB1C008CF5C7 /* DeploymentStage.swift in Sources */,
 				AAF4F6CA2625EC4C00012359 /* SettingsScannerView.swift in Sources */,
+				AA4581D127455FB80063EBE7 /* DFUPackage.swift in Sources */,
 				AAFCEF1126FC826300753559 /* DeploymentStageView.swift in Sources */,
 				AAFDB46F264D73A800F0CD02 /* ProjectView.swift in Sources */,
 				AA01020C269C5D1D0045D6F2 /* SocketIOJob.swift in Sources */,
