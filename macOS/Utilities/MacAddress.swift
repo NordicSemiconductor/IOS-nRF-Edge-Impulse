@@ -22,6 +22,11 @@ final class MacAddress {
     }
     
     func get() -> String? {
+        // TODO: Fix for macOS 12 or remove.
+        if #available(macOS 12.0, *) {
+            return nil // App Sandbox doesn't allow us to call system_profiler.
+        }
+        
         // Ensure Exclusive Access. Or attempt to, at least - the previous way we had to
         // launch the system_profiler process crashed the app randomly with 'Simultaneous
         // access' error.
