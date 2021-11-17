@@ -145,8 +145,8 @@
 		AA482F822631A213007B8B64 /* UserContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F802631A213007B8B64 /* UserContentView.swift */; };
 		AA4D06F3268F410E00DFB6A9 /* RenameDeviceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */; };
 		AA4D06F4268F410E00DFB6A9 /* RenameDeviceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */; };
-		AA4E8A7926947A3600C844FE /* DeploymentViewState+SocketStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */; };
-		AA4E8A7A26947A3600C844FE /* DeploymentViewState+SocketStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */; };
+		AA4E8A7926947A3600C844FE /* DeploymentViewState+WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4E8A7826947A3600C844FE /* DeploymentViewState+WebSocket.swift */; };
+		AA4E8A7A26947A3600C844FE /* DeploymentViewState+WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4E8A7826947A3600C844FE /* DeploymentViewState+WebSocket.swift */; };
 		AA535510261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */; };
 		AA535511261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */; };
 		AA605E57271ECF3A002B3B0A /* InferencingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA605E56271ECF3A002B3B0A /* InferencingFooterView.swift */; };
@@ -418,7 +418,7 @@
 		AA482F7E26318B11007B8B64 /* View+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+macOS.swift"; sourceTree = "<group>"; };
 		AA482F802631A213007B8B64 /* UserContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContentView.swift; sourceTree = "<group>"; };
 		AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameDeviceRequest.swift; sourceTree = "<group>"; };
-		AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentViewState+SocketStatus.swift"; sourceTree = "<group>"; };
+		AA4E8A7826947A3600C844FE /* DeploymentViewState+WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentViewState+WebSocket.swift"; sourceTree = "<group>"; };
 		AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorRow.swift; sourceTree = "<group>"; };
 		AA605E56271ECF3A002B3B0A /* InferencingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferencingFooterView.swift; sourceTree = "<group>"; };
 		AA63F86F26A1AE82001EDE54 /* DeleteDeviceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDeviceRequest.swift; sourceTree = "<group>"; };
@@ -699,7 +699,7 @@
 				AA8511CA273BEB1C008CF5C7 /* DeploymentStage.swift */,
 				AAFCEF0F26FC826300753559 /* DeploymentStageView.swift */,
 				AA0D812B2608F62700AE615A /* DeploymentViewState.swift */,
-				AA4E8A7826947A3600C844FE /* DeploymentViewState+SocketStatus.swift */,
+				AA4E8A7826947A3600C844FE /* DeploymentViewState+WebSocket.swift */,
 				AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */,
 			);
 			path = Deployment;
@@ -1408,7 +1408,7 @@
 				C39B106E2695DF400056095E /* HUD.swift in Sources */,
 				AA28405F261F537C00EB8637 /* PasswordField.swift in Sources */,
 				AA8511CB273BEB1C008CF5C7 /* DeploymentStage.swift in Sources */,
-				AA4E8A7926947A3600C844FE /* DeploymentViewState+SocketStatus.swift in Sources */,
+				AA4E8A7926947A3600C844FE /* DeploymentViewState+WebSocket.swift in Sources */,
 				AAFDB46B264D5F5600F0CD02 /* MultiColumnView.swift in Sources */,
 				AA0457782701D23100FC1A41 /* DeploymentConfigurationView+Logic.swift in Sources */,
 				AA01F3DF25EFDC5000368707 /* Constant.swift in Sources */,
@@ -1508,7 +1508,7 @@
 				AA0050902695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift in Sources */,
 				AA10170425E91885006DC88A /* HTTPRequest.swift in Sources */,
 				AA01DA6126395E6000F6DD44 /* Date.swift in Sources */,
-				AA4E8A7A26947A3600C844FE /* DeploymentViewState+SocketStatus.swift in Sources */,
+				AA4E8A7A26947A3600C844FE /* DeploymentViewState+WebSocket.swift in Sources */,
 				AAF4F6C72625EB7300012359 /* SettingsContentView.swift in Sources */,
 				AA01F3E025EFDC5000368707 /* Constant.swift in Sources */,
 				AAB8C87726D536A0004FC21B /* MacAddressView.swift in Sources */,

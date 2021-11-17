@@ -38,67 +38,11 @@ final class DeploymentViewState: ObservableObject {
     
     internal lazy var logger = Logger(Self.self)
     
-    private var socketManager: WebSocketManager!
+    internal var socketManager: WebSocketManager!
     internal var cancellables = Set<AnyCancellable>()
     
     private var project: Project!
     private var apiToken: String!
-}
-
-// MARK: - WebSocket
-
-extension DeploymentViewState {
-    
-    func connect(using socketToken: Token) {
-        guard let request = HTTPRequest(scheme: .wss, host: .EdgeImpulse, path: "/socket.io/", parameters: ["token": socketToken.socketToken, "EIO": "3", "transport": "websocket"]),
-              let urlString = request.url?.absoluteString else {
-            reportError(NordicError(description: "Unable to make HTTPRequest."))
-            return
-        }
-        
-        status = .socketConnecting
-        socketManager = WebSocketManager()
-        let pingConfiguration = WebSocketManager.PingConfiguration(data: "2".data(using: .utf8))
-        socketManager.connect(to: urlString, using: pingConfiguration)
-            .receive(on: RunLoop.main)
-            .sinkReceivingError(onError: { error in
-                self.reportError(error)
-            }) { status in
-                switch status {
-                case .notConnected:
-                    self.reportError(NordicError(description: "Disconnected."))
-                case .connecting:
-                    self.status = .socketConnecting
-                case .connected:
-                    self.status = .socketConnected
-                }
-            }
-            .store(in: &cancellables)
-        
-        socketManager.dataSubject
-            .tryMap { result -> Data in
-                switch result {
-                case .success(let data):
-                    return data
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .receive(on: RunLoop.main)
-            .sinkReceivingError(onError: { error in
-                self.reportError(error)
-            }) { data in
-                guard let dataString = String(bytes: data, encoding: .utf8) else { return }
-                self.receivedJobData(dataString: dataString)
-            }
-            .store(in: &cancellables)
-    }
-    
-    func disconnect() {
-        guard let socketManager = socketManager else { return }
-        socketManager.disconnect()
-        self.socketManager = nil
-    }
 }
 
 // MARK: - Requests
@@ -265,19 +209,7 @@ internal extension DeploymentViewState {
     func receivedJobData(dataString: String) {
         switch status {
         case .buildingModel(let jobId):
-            processJobMessages(dataString, for: jobId)
-        default:
-            break
-        }
-    }
-    
-    func processJobMessages(_ string: String, for jobId: Int) {
-        if let message = try? SocketIOJobMessage(from: string), message.hasUserReadableText {
-            guard jobId == message.job.jobId else { return }
-            logs.append(LogMessage(message))
-            guard message.progress > .leastNonzeroMagnitude else { return }
-            progress = message.progress
-        } else if let jobResult = try? SocketIOJobResult(from: string), jobResult.job.jobId == jobId {
+            guard let jobResult = processJobMessages(dataString, for: jobId) else { return }
             guard jobResult.success else {
                 reportError(NordicError(description: "Server returned Job was not successful."))
                 return
@@ -287,6 +219,8 @@ internal extension DeploymentViewState {
             disconnect()
             status = .downloadingModel
             downloadModel(for: project, using: apiToken)
+        default:
+            break
         }
     }
     
