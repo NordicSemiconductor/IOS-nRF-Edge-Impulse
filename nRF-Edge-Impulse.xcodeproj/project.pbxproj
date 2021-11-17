@@ -132,8 +132,8 @@
 		AA2C516927391AB600E5E16E /* DateDeviceInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2C516727391AB600E5E16E /* DateDeviceInfoRow.swift */; };
 		AA2CDEB62636FF3900A4950E /* AppEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2CDEB52636FF3900A4950E /* AppEvents.swift */; };
 		AA2CDEB72636FF3900A4950E /* AppEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2CDEB52636FF3900A4950E /* AppEvents.swift */; };
-		AA31615C273153DE00812925 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = AA31615B273153DE00812925 /* AppIcon.icns */; };
 		AA32792D2604C66B00A0CA6A /* DataAcquisitionViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */; };
+		AA3358562745062700060540 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = AA3358552745062700060540 /* AppIcon.icns */; };
 		AA386B09260CEDD60079F12D /* Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA386B08260CEDD60079F12D /* Previews.swift */; };
 		AA386B0A260CEDD60079F12D /* Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA386B08260CEDD60079F12D /* Previews.swift */; };
 		AA43B2A825FA574F00C5B5EE /* TabBarLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */; };
@@ -409,7 +409,7 @@
 		AA28405E261F537C00EB8637 /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
 		AA2C516727391AB600E5E16E /* DateDeviceInfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDeviceInfoRow.swift; sourceTree = "<group>"; };
 		AA2CDEB52636FF3900A4950E /* AppEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEvents.swift; sourceTree = "<group>"; };
-		AA31615B273153DE00812925 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = AppIcon.icns; path = "../../../../Downloads/Icons EI/macos/AppIcon.icns"; sourceTree = "<group>"; };
+		AA3358552745062700060540 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		AA386B08260CEDD60079F12D /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
 		AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarLayoutView.swift; sourceTree = "<group>"; };
 		AA482F7E26318B11007B8B64 /* View+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+macOS.swift"; sourceTree = "<group>"; };
@@ -668,7 +668,7 @@
 				AA482F7D26318AF6007B8B64 /* Utilities */,
 				AA03E96A25E3EF13003DA9DA /* Info.plist */,
 				AA03E96B25E3EF13003DA9DA /* macOS.entitlements */,
-				AA31615B273153DE00812925 /* AppIcon.icns */,
+				AA3358552745062700060540 /* AppIcon.icns */,
 				AA0D90AD260E1F1100A455B7 /* nRF_Edge_ImpulseApp.swift */,
 			);
 			path = macOS;
@@ -1216,7 +1216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA03E98725E3EF13003DA9DA /* Assets.xcassets in Resources */,
-				AA31615C273153DE00812925 /* AppIcon.icns in Resources */,
+				AA3358562745062700060540 /* AppIcon.icns in Resources */,
 				AA0349F8266A5356005125D4 /* sample_hello_message.json in Resources */,
 				AAE5B63625F23A4500AA003D /* sample_projects.json in Resources */,
 				AAF5532126416EB300252345 /* sample_datasamples.json in Resources */,
