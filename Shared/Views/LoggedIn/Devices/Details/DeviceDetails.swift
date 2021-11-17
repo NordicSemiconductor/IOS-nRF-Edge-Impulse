@@ -54,11 +54,11 @@ struct DeviceDetails: View {
             
             ForEach(device.sensors) {
                 SensorSection(sensor: $0)
+                
+                #if os(macOS)
+                Divider()
+                #endif
             }
-            
-            #if os(macOS)
-            Divider()
-            #endif
             
             deleteSection()
         }
