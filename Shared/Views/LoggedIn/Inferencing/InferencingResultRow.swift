@@ -53,17 +53,9 @@ struct InferencingResultRow: View {
 #if DEBUG
 struct InferencingResultRow_Previews: PreviewProvider {
     
-    static var previewResults = InferencingResults(type: "hello", classification: [
-            InferencingResults.Classification(label: "Red Bull", value: 0.5),
-            InferencingResults.Classification(label: "Mercedes", value: 0.4),
-            InferencingResults.Classification(label: "Ferrari", value: 0.3),
-            InferencingResults.Classification(label: "Aston Martin", value: 0.75),
-            InferencingResults.Classification(label: "Alpine", value: 0.6)
-        ], anomaly: 0.5)
-    
     static var previews: some View {
         Group {
-            InferencingResultRow(InferencingResultRow_Previews.previewResults)
+            InferencingResultRow(Preview.inferencingResults)
         }
         .previewLayout(.sizeThatFits)
     }

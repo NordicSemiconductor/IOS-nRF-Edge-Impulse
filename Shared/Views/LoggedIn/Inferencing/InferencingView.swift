@@ -93,6 +93,8 @@ struct InferencingView: View {
 struct InferencingView_Previews: PreviewProvider {
     static var previews: some View {
         InferencingView()
+            .environmentObject(Preview.projectsPreviewAppData)
+            .environmentObject(Preview.mockScannerData)
     }
 }
 #endif

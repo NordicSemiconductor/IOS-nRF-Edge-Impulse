@@ -40,7 +40,7 @@ struct InferencingResultsHeaderRow_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            InferencingResultsHeaderRow(InferencingResultRow_Previews.previewResults)
+            InferencingResultsHeaderRow(Preview.inferencingResults)
         }
         .previewLayout(.sizeThatFits)
     }
