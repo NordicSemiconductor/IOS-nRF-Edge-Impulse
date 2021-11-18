@@ -206,32 +206,6 @@ internal extension DeploymentViewState {
     }
 }
 
-// MARK: - Stage Logic
-
-fileprivate extension DeploymentViewState {
-    
-    private func setAllStagesToIdle() {
-        for i in stages.indices {
-            stages[i].update(isInProgress: false, isCompleted: false)
-        }
-    }
-    
-    private func setStageToInProgress(_ stage: DeploymentStage) {
-        guard let index = stages.firstIndex(where: { $0.toDoName == stage.id }) else { return }
-        stages[index].update(isInProgress: true)
-        
-        for previousIndex in stages.indices where previousIndex < index {
-            stages[previousIndex].update(isCompleted: true)
-        }
-    }
-    
-    private func setAllStagesToSuccess() {
-        for i in stages.indices {
-            stages[i].update(isCompleted: true)
-        }
-    }
-}
-
 // MARK: - DeploymentViewState.Classifier
 
 extension DeploymentViewState {

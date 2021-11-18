@@ -57,7 +57,6 @@ struct DeploymentStage: Identifiable {
     }
     
     mutating func setProgress(_ value: Int) {
-        self.isInProgress = true
         self.progress = value
     }
     
