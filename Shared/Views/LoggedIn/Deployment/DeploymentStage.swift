@@ -17,9 +17,10 @@ struct DeploymentStage: Identifiable {
     let finishedName: String
     let symbolName: String
     
-    var isInProgress: Bool
-    var encounteredAnError: Bool
-    var isCompleted: Bool
+    private(set) var isInProgress: Bool
+    private(set) var progress: Int
+    private(set) var encounteredAnError: Bool
+    private(set) var isCompleted: Bool
     
     // MARK: Init
     
@@ -32,6 +33,7 @@ struct DeploymentStage: Identifiable {
         self.finishedName = finishedName
         self.symbolName = symbolName
         self.isInProgress = false
+        self.progress = 0
         self.encounteredAnError = false
         self.isCompleted = false
     }
@@ -52,6 +54,11 @@ struct DeploymentStage: Identifiable {
             return Assets.sun.color
         }
         return .disabledTextColor
+    }
+    
+    mutating func setProgress(_ value: Int) {
+        self.isInProgress = true
+        self.progress = value
     }
     
     mutating func update(isInProgress: Bool = false, isCompleted: Bool = false) {
