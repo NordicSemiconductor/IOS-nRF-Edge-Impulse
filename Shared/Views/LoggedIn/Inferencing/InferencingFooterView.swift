@@ -21,11 +21,18 @@ struct InferencingFooterView: View {
         HStack {
             Spacer()
             
-            Text("\(viewState.results.count) Results")
-                .font(.footnote)
+            if viewState.results.isEmpty {
+                Text("No Results Available yet.")
+                    .foregroundColor(Assets.middleGrey.color)
+            } else if viewState.results.count == 1 {
+                Text("1 Result")
+            } else {
+                Text("\(viewState.results.count) Results")
+            }
             
             Spacer()
         }
+        .font(.footnote)
     }
 }
 
@@ -37,6 +44,8 @@ struct InferencingFooterView_Previews: PreviewProvider {
         Group {
             InferencingFooterView()
                 .environmentObject(InferencingViewState())
+            InferencingFooterView()
+                .environmentObject(Preview.projectsPreviewAppData.inferencingViewState)
         }
         .previewLayout(.sizeThatFits)
     }

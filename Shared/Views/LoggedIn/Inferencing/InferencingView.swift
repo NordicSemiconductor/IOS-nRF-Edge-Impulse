@@ -35,14 +35,10 @@ struct InferencingView: View {
                             InferencingResultRow(result)
                         }
                     }
-                    
-                    InferencingFooterView()
-                        .environmentObject(appData.inferencingViewState)
-                } else {
-                    Text("No inference results available yet.")
-                        .foregroundColor(Assets.middleGrey.color)
-                        .font(.caption)
                 }
+                
+                InferencingFooterView()
+                    .environmentObject(appData.inferencingViewState)
             }
             
             #if os(macOS)
