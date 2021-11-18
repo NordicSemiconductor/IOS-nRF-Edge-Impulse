@@ -195,6 +195,8 @@
 		AAE0B236264E960C00FD8F80 /* AppData+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE0B234264E953E00FD8F80 /* AppData+Debug.swift */; };
 		AAE507BA268F19990017CAED /* RenameDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE507B9268F19990017CAED /* RenameDeviceView.swift */; };
 		AAE507BB268F19990017CAED /* RenameDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE507B9268F19990017CAED /* RenameDeviceView.swift */; };
+		AAE58D97274669C900AB1FEE /* InferencingResultRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE58D96274669C900AB1FEE /* InferencingResultRow.swift */; };
+		AAE58D98274669C900AB1FEE /* InferencingResultRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE58D96274669C900AB1FEE /* InferencingResultRow.swift */; };
 		AAE5B63525F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAE5B63625F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAE96F0A26A58E220089D370 /* AlertViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE96F0926A58E220089D370 /* AlertViewContainer.swift */; };
@@ -446,6 +448,7 @@
 		AAE0B232264E94D900FD8F80 /* SettingsDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDebugView.swift; sourceTree = "<group>"; };
 		AAE0B234264E953E00FD8F80 /* AppData+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+Debug.swift"; sourceTree = "<group>"; };
 		AAE507B9268F19990017CAED /* RenameDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameDeviceView.swift; sourceTree = "<group>"; };
+		AAE58D96274669C900AB1FEE /* InferencingResultRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferencingResultRow.swift; sourceTree = "<group>"; };
 		AAE5B63425F23A4500AA003D /* sample_projects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_projects.json; sourceTree = "<group>"; };
 		AAE96F0926A58E220089D370 /* AlertViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewContainer.swift; sourceTree = "<group>"; };
 		AAEBB92A26CE6D5B006A4DF7 /* ReusableProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProgressView.swift; sourceTree = "<group>"; };
@@ -684,6 +687,7 @@
 			isa = PBXGroup;
 			children = (
 				AA04577E270208D900FC1A41 /* InferencingView.swift */,
+				AAE58D96274669C900AB1FEE /* InferencingResultRow.swift */,
 				AA605E56271ECF3A002B3B0A /* InferencingFooterView.swift */,
 				AA045784270214DE00FC1A41 /* InferencingView+Logic.swift */,
 				AA04578127020C1200FC1A41 /* InferencingViewState.swift */,
@@ -1411,6 +1415,7 @@
 				AAF5E75326400A3A00AC3271 /* DataSamplesView.swift in Sources */,
 				AACB65CF27032027002D4384 /* Inferencing.swift in Sources */,
 				C39B106E2695DF400056095E /* HUD.swift in Sources */,
+				AAE58D97274669C900AB1FEE /* InferencingResultRow.swift in Sources */,
 				AA28405F261F537C00EB8637 /* PasswordField.swift in Sources */,
 				AA8511CB273BEB1C008CF5C7 /* DeploymentStage.swift in Sources */,
 				AA4E8A7926947A3600C844FE /* DeploymentViewState+WebSocket.swift in Sources */,
@@ -1479,6 +1484,7 @@
 				AA01020F269C74850045D6F2 /* DownloadDeviceModelRequest.swift in Sources */,
 				AA14FD4626EA317E008128CB /* BoolDeviceInfoRow.swift in Sources */,
 				AAE05F212649554F005BBF98 /* SampleRequestMessage.swift in Sources */,
+				AAE58D98274669C900AB1FEE /* InferencingResultRow.swift in Sources */,
 				AA045780270208D900FC1A41 /* InferencingView.swift in Sources */,
 				AA4D06F4268F410E00DFB6A9 /* RenameDeviceRequest.swift in Sources */,
 				AA008A7825EE422C00F70F75 /* Project.swift in Sources */,
