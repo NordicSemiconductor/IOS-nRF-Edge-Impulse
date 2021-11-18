@@ -25,7 +25,8 @@ struct InferencingResultRow: View {
     init(_ result: InferencingResults) {
         self.result = result
         self.gridItems = Array(repeating: InferencingView.CellType,
-                               count: result.classification.count)
+                               // +1 for Anomaly
+                               count: result.classification.count + 1)
     }
     
     var body: some View {
@@ -37,6 +38,12 @@ struct InferencingResultRow: View {
                     .font(.system(.body, design: .monospaced))
                     .fontWeight(.light)
             }
+            
+            Text(InferencingResultRow.classificationValueFormatter.string(from: NSNumber(value: result.anomaly ?? 0.0)) ?? "N/A")
+                .foregroundColor(result.anomaly ?? 0.0 > 0.6
+                                 ? .green : .gray)
+                .font(.system(.body, design: .monospaced))
+                .fontWeight(.light)
         }
     }
 }
@@ -47,11 +54,11 @@ struct InferencingResultRow: View {
 struct InferencingResultRow_Previews: PreviewProvider {
     
     static var previewResults = InferencingResults(type: "hello", classification: [
-            InferencingResults.Classification(label: "new", value: 0.5),
-            InferencingResults.Classification(label: "new", value: 0.4),
-            InferencingResults.Classification(label: "new", value: 0.3),
-            InferencingResults.Classification(label: "new", value: 0.75),
-            InferencingResults.Classification(label: "new", value: 0.6)
+            InferencingResults.Classification(label: "Red Bull", value: 0.5),
+            InferencingResults.Classification(label: "Mercedes", value: 0.4),
+            InferencingResults.Classification(label: "Ferrari", value: 0.3),
+            InferencingResults.Classification(label: "Aston Martin", value: 0.75),
+            InferencingResults.Classification(label: "Alpine", value: 0.6)
         ], anomaly: 0.5)
     
     static var previews: some View {

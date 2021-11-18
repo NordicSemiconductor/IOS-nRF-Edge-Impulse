@@ -197,6 +197,8 @@
 		AAE507BB268F19990017CAED /* RenameDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE507B9268F19990017CAED /* RenameDeviceView.swift */; };
 		AAE58D97274669C900AB1FEE /* InferencingResultRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE58D96274669C900AB1FEE /* InferencingResultRow.swift */; };
 		AAE58D98274669C900AB1FEE /* InferencingResultRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE58D96274669C900AB1FEE /* InferencingResultRow.swift */; };
+		AAE58D9A27466D4700AB1FEE /* InferencingResultsHeaderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE58D9927466D4700AB1FEE /* InferencingResultsHeaderRow.swift */; };
+		AAE58D9B27466D4700AB1FEE /* InferencingResultsHeaderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE58D9927466D4700AB1FEE /* InferencingResultsHeaderRow.swift */; };
 		AAE5B63525F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAE5B63625F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAE96F0A26A58E220089D370 /* AlertViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE96F0926A58E220089D370 /* AlertViewContainer.swift */; };
@@ -449,6 +451,7 @@
 		AAE0B234264E953E00FD8F80 /* AppData+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+Debug.swift"; sourceTree = "<group>"; };
 		AAE507B9268F19990017CAED /* RenameDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameDeviceView.swift; sourceTree = "<group>"; };
 		AAE58D96274669C900AB1FEE /* InferencingResultRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferencingResultRow.swift; sourceTree = "<group>"; };
+		AAE58D9927466D4700AB1FEE /* InferencingResultsHeaderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferencingResultsHeaderRow.swift; sourceTree = "<group>"; };
 		AAE5B63425F23A4500AA003D /* sample_projects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_projects.json; sourceTree = "<group>"; };
 		AAE96F0926A58E220089D370 /* AlertViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewContainer.swift; sourceTree = "<group>"; };
 		AAEBB92A26CE6D5B006A4DF7 /* ReusableProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProgressView.swift; sourceTree = "<group>"; };
@@ -687,6 +690,7 @@
 			isa = PBXGroup;
 			children = (
 				AA04577E270208D900FC1A41 /* InferencingView.swift */,
+				AAE58D9927466D4700AB1FEE /* InferencingResultsHeaderRow.swift */,
 				AAE58D96274669C900AB1FEE /* InferencingResultRow.swift */,
 				AA605E56271ECF3A002B3B0A /* InferencingFooterView.swift */,
 				AA045784270214DE00FC1A41 /* InferencingView+Logic.swift */,
@@ -1408,6 +1412,7 @@
 				AA05BC472667D098003AEE50 /* StartSamplingRequest.swift in Sources */,
 				AAEED04426A7B68800999E51 /* ConnectedDevicePicker.swift in Sources */,
 				AAF4F6C32625C8C600012359 /* ThreePaneLayoutView.swift in Sources */,
+				AAE58D9A27466D4700AB1FEE /* InferencingResultsHeaderRow.swift in Sources */,
 				AA482F812631A213007B8B64 /* UserContentView.swift in Sources */,
 				AAEBB92B26CE6D5B006A4DF7 /* ReusableProgressView.swift in Sources */,
 				C3755CD4268F0A9700FE8C69 /* DeviceDetails.swift in Sources */,
@@ -1573,6 +1578,7 @@
 				AA28405D261F4F3D00EB8637 /* UsernameField.swift in Sources */,
 				AA8511CC273BEB1C008CF5C7 /* DeploymentStage.swift in Sources */,
 				AAF4F6CA2625EC4C00012359 /* SettingsScannerView.swift in Sources */,
+				AAE58D9B27466D4700AB1FEE /* InferencingResultsHeaderRow.swift in Sources */,
 				AA4581D127455FB80063EBE7 /* DFUPackage.swift in Sources */,
 				AAFCEF1126FC826300753559 /* DeploymentStageView.swift in Sources */,
 				AAFDB46F264D73A800F0CD02 /* ProjectView.swift in Sources */,

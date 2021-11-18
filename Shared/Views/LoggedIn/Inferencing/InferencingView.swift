@@ -87,29 +87,6 @@ struct InferencingView: View {
     }
 }
 
-// MARK: - InferencingResultsHeaderRow
-
-struct InferencingResultsHeaderRow: View {
-    
-    let result: InferencingResults
-    private let gridItems: [GridItem]
-    
-    init(_ result: InferencingResults) {
-        self.result = result
-        self.gridItems = Array(repeating: InferencingView.CellType,
-                               count: result.classification.count)
-    }
-    
-    var body: some View {
-        LazyVGrid(columns: gridItems) {
-            ForEach(result.classification, id: \.self) { classification in
-                Text("\(classification.label.uppercasingFirst)")
-            }
-        }
-        .lineLimit(1)
-    }
-}
-
 // MARK: - Preview
 
 #if DEBUG
