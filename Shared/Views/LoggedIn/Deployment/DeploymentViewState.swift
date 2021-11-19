@@ -22,7 +22,6 @@ final class DeploymentViewState: ObservableObject {
             selectedDevice = selectedDeviceHandler.device ?? Constant.unselectedDevice
         }
     }
-    @Published var progress = 0.0
     @Published var enableEONCompiler = true
     @Published var optimization: Classifier = .Unoptimized
     @Published var buildButtonText = ""

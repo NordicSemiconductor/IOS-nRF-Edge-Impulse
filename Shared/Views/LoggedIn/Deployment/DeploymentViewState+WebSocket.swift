@@ -76,8 +76,7 @@ extension DeploymentViewState {
            jobId == message.job.jobId {
             
             logs.append(LogMessage(message))
-            guard message.progress > .leastNonzeroMagnitude else { return nil }
-            progress = message.progress
+            progressManager.setProgress(value: message.progress)
         }
         return nil
     }

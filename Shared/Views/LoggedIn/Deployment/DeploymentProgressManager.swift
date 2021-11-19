@@ -14,6 +14,7 @@ final class DeploymentProgressManager: ObservableObject {
     // MARK: Properties
     
     @Published var stages: [DeploymentStage]
+    @Published var progress: Double
     
     var currentStage: DeploymentStage! {
         stages.first { $0.isInProgress }
@@ -23,6 +24,7 @@ final class DeploymentProgressManager: ObservableObject {
     
     init() {
         self.stages = DeploymentStage.allCases
+        self.progress = 0.0
         for i in stages.indices {
             stages[i].update(isInProgress: false, isCompleted: false)
             stages[i].setProgress(0)
@@ -35,8 +37,7 @@ final class DeploymentProgressManager: ObservableObject {
 internal extension DeploymentProgressManager {
     
     var isIndeterminate: Bool {
-        guard let currentStage = currentStage else { return true }
-        return currentStage.isIndeterminate
+        currentStage?.isIndeterminate ?? true
     }
     
     func inProgress(_ stage: DeploymentStage) {
@@ -46,6 +47,13 @@ internal extension DeploymentProgressManager {
         for previousIndex in stages.indices where previousIndex < index {
             stages[previousIndex].update(isCompleted: true)
         }
+    }
+    
+    func setProgress(value: Double) {
+        guard value > .leastNonzeroMagnitude,
+              let index = stages.firstIndex(where: { $0.isInProgress }) else { return }
+        stages[index].setProgress(value)
+        progress = value
     }
     
     func onError(_ error: Error) {

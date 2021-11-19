@@ -27,7 +27,7 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     
     func upgradeDidStart(controller: FirmwareUpgradeController) {
         DispatchQueue.main.async { [weak self] in
-            self?.progress = 0.0
+            self?.progressManager.setProgress(value: 0.0)
         }
     }
     
@@ -44,7 +44,7 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     
     func upgradeDidComplete() {
         DispatchQueue.main.async { [weak self] in
-            self?.progress = 100.0
+            self?.progressManager.setProgress(value: 100.0)
             self?.status = .success
         }
     }
@@ -64,7 +64,7 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     func uploadProgressDidChange(bytesSent: Int, imageSize: Int, timestamp: Date) {
         let progress = Double(bytesSent) / Double(imageSize) * 100.0
         DispatchQueue.main.async { [weak self] in
-            self?.progress = progress
+            self?.progressManager.setProgress(value: progress)
             self?.status = .uploading(Int(progress))
         }
     }
