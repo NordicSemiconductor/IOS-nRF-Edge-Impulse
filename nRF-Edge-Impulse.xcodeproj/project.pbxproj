@@ -199,8 +199,8 @@
 		AAE58D98274669C900AB1FEE /* InferencingResultRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE58D96274669C900AB1FEE /* InferencingResultRow.swift */; };
 		AAE58D9A27466D4700AB1FEE /* InferencingResultsHeaderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE58D9927466D4700AB1FEE /* InferencingResultsHeaderRow.swift */; };
 		AAE58D9B27466D4700AB1FEE /* InferencingResultsHeaderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE58D9927466D4700AB1FEE /* InferencingResultsHeaderRow.swift */; };
-		AAE58D9D27468F3000AB1FEE /* DeploymentViewState+DeploymentStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE58D9C27468F3000AB1FEE /* DeploymentViewState+DeploymentStage.swift */; };
-		AAE58D9E27468F3000AB1FEE /* DeploymentViewState+DeploymentStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE58D9C27468F3000AB1FEE /* DeploymentViewState+DeploymentStage.swift */; };
+		AAE58D9D27468F3000AB1FEE /* DeploymentProgressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE58D9C27468F3000AB1FEE /* DeploymentProgressManager.swift */; };
+		AAE58D9E27468F3000AB1FEE /* DeploymentProgressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE58D9C27468F3000AB1FEE /* DeploymentProgressManager.swift */; };
 		AAE5B63525F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAE5B63625F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAE96F0A26A58E220089D370 /* AlertViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE96F0926A58E220089D370 /* AlertViewContainer.swift */; };
@@ -454,7 +454,7 @@
 		AAE507B9268F19990017CAED /* RenameDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameDeviceView.swift; sourceTree = "<group>"; };
 		AAE58D96274669C900AB1FEE /* InferencingResultRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferencingResultRow.swift; sourceTree = "<group>"; };
 		AAE58D9927466D4700AB1FEE /* InferencingResultsHeaderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferencingResultsHeaderRow.swift; sourceTree = "<group>"; };
-		AAE58D9C27468F3000AB1FEE /* DeploymentViewState+DeploymentStage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentViewState+DeploymentStage.swift"; sourceTree = "<group>"; };
+		AAE58D9C27468F3000AB1FEE /* DeploymentProgressManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentProgressManager.swift; sourceTree = "<group>"; };
 		AAE5B63425F23A4500AA003D /* sample_projects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_projects.json; sourceTree = "<group>"; };
 		AAE96F0926A58E220089D370 /* AlertViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewContainer.swift; sourceTree = "<group>"; };
 		AAEBB92A26CE6D5B006A4DF7 /* ReusableProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProgressView.swift; sourceTree = "<group>"; };
@@ -712,8 +712,8 @@
 				AA04577A2701D97500FC1A41 /* DeploymentProgressView.swift */,
 				AA8511CA273BEB1C008CF5C7 /* DeploymentStage.swift */,
 				AAFCEF0F26FC826300753559 /* DeploymentStageView.swift */,
+				AAE58D9C27468F3000AB1FEE /* DeploymentProgressManager.swift */,
 				AA0D812B2608F62700AE615A /* DeploymentViewState.swift */,
-				AAE58D9C27468F3000AB1FEE /* DeploymentViewState+DeploymentStage.swift */,
 				AA4E8A7826947A3600C844FE /* DeploymentViewState+WebSocket.swift */,
 				AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */,
 			);
@@ -1442,7 +1442,7 @@
 				AA28405C261F4F3D00EB8637 /* UsernameField.swift in Sources */,
 				AAF0C96F260A069F001B76B9 /* User.swift in Sources */,
 				AAF0C9692609FEBE001B76B9 /* GetCurrentUserRequest.swift in Sources */,
-				AAE58D9D27468F3000AB1FEE /* DeploymentViewState+DeploymentStage.swift in Sources */,
+				AAE58D9D27468F3000AB1FEE /* DeploymentProgressManager.swift in Sources */,
 				AAFAE5EB25ED14E500A45A90 /* AppData.swift in Sources */,
 				AA04578227020C1200FC1A41 /* InferencingViewState.swift in Sources */,
 				C337B8E0267A0034003FD0A0 /* Array+ext.swift in Sources */,
@@ -1540,7 +1540,7 @@
 				AAA87ADE261B143B0097EA74 /* String.swift in Sources */,
 				AA28405A261F4DFC00EB8637 /* AppHeaderView.swift in Sources */,
 				AA0208A225F65C7600FD6B24 /* LoggedInRootView.swift in Sources */,
-				AAE58D9E27468F3000AB1FEE /* DeploymentViewState+DeploymentStage.swift in Sources */,
+				AAE58D9E27468F3000AB1FEE /* DeploymentProgressManager.swift in Sources */,
 				C301A35C261DE9280010717D /* DeviceRemoteHandler.swift in Sources */,
 				AA4581CE274536870063EBE7 /* DeploymentInfoRequest.swift in Sources */,
 				C301A37A261F36250010717D /* HelloMessage.swift in Sources */,

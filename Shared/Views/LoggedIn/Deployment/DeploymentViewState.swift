@@ -29,7 +29,7 @@ final class DeploymentViewState: ObservableObject {
     @Published var buildButtonText = ""
     @Published var buildButtonEnable = false
     
-    @Published var stages = DeploymentStage.allCases
+    @Published var progressManager = DeploymentProgressManager()
     @Published var logs = [LogMessage]()
     @Published var lastLogMessage = LogMessage("")
     
@@ -127,11 +127,11 @@ internal extension DeploymentViewState {
         
         switch status {
         case .idle:
-            setAllStagesToIdle()
+            progressManager = DeploymentProgressManager()
             buildButtonEnable = selectedDeviceHandler != nil
             buildButtonText = "Build"
         case .success:
-            setAllStagesToSuccess()
+            progressManager.success()
             selectedDevice = .Unselected
             buildButtonEnable = true
             buildButtonText = "Success!"
@@ -141,7 +141,7 @@ internal extension DeploymentViewState {
             break
         case .infoRequestSent:
             progressShouldBeIndeterminate = true
-            setStageToInProgress(.building)
+            progressManager.inProgress(.building)
             logs.append(LogMessage("Checking Deployment Status..."))
         case .buildRequestSent:
             progressShouldBeIndeterminate = true
@@ -150,15 +150,15 @@ internal extension DeploymentViewState {
             break
         case .downloadingModel:
             progressShouldBeIndeterminate = true
-            setStageToInProgress(.downloading)
+            progressManager.inProgress(.downloading)
         case .unpackingModelData:
             progressShouldBeIndeterminate = true
         case .uploading(_):
-            setStageToInProgress(.uploading)
+            progressManager.inProgress(.uploading)
         case .confirming:
-            setStageToInProgress(.confirming)
+            progressManager.inProgress(.confirming)
         case .applying:
-            setStageToInProgress(.applying)
+            progressManager.inProgress(.applying)
         case .error(_):
             buildButtonEnable = true
             buildButtonText = "Retry"
@@ -186,9 +186,7 @@ internal extension DeploymentViewState {
     func reportError(_ error: Error) {
         logs.append(LogMessage(error))
         status = .error(NordicError(description: error.localizedDescription))
-        if let currentStage = stages.firstIndex(where: { $0.isInProgress }) {
-            stages[currentStage].declareError()
-        }
+        progressManager.onError(error)
         
         cancellables.forEach { $0.cancel() }
         cancellables.removeAll()
