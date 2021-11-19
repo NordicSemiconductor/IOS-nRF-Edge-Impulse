@@ -34,6 +34,11 @@ final class DeploymentProgressManager: ObservableObject {
 
 internal extension DeploymentProgressManager {
     
+    var isIndeterminate: Bool {
+        guard let currentStage = currentStage else { return true }
+        return currentStage.isIndeterminate
+    }
+    
     func inProgress(_ stage: DeploymentStage) {
         guard let index = stages.firstIndex(where: { $0.toDoName == stage.id }) else { return }
         stages[index].update(isInProgress: true)

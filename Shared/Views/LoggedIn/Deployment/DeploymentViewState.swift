@@ -23,7 +23,6 @@ final class DeploymentViewState: ObservableObject {
         }
     }
     @Published var progress = 0.0
-    @Published var progressShouldBeIndeterminate = false
     @Published var enableEONCompiler = true
     @Published var optimization: Classifier = .Unoptimized
     @Published var buildButtonText = ""
@@ -122,7 +121,6 @@ extension DeploymentViewState {
 internal extension DeploymentViewState {
     
     private func onStatusChanged(_ status: JobStatus) {
-        progressShouldBeIndeterminate = false
         buildButtonEnable = false
         
         switch status {
@@ -136,23 +134,20 @@ internal extension DeploymentViewState {
             buildButtonEnable = true
             buildButtonText = "Success!"
         case .socketConnecting:
-            progressShouldBeIndeterminate = true
+            break
         case .socketConnected:
             break
         case .infoRequestSent:
-            progressShouldBeIndeterminate = true
             progressManager.inProgress(.building)
             logs.append(LogMessage("Checking Deployment Status..."))
         case .buildRequestSent:
-            progressShouldBeIndeterminate = true
             logs.append(LogMessage("Sending Build Request..."))
         case .buildingModel(_):
             break
         case .downloadingModel:
-            progressShouldBeIndeterminate = true
             progressManager.inProgress(.downloading)
         case .unpackingModelData:
-            progressShouldBeIndeterminate = true
+            break
         case .uploading(_):
             progressManager.inProgress(.uploading)
         case .confirming:
