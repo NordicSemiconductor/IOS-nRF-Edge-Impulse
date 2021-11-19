@@ -27,7 +27,6 @@ final class DeploymentProgressManager: ObservableObject {
         self.progress = 0.0
         for i in stages.indices {
             stages[i].update(isInProgress: false, isCompleted: false)
-            stages[i].setProgress(0)
         }
     }
 }
@@ -50,9 +49,7 @@ internal extension DeploymentProgressManager {
     }
     
     func setProgress(value: Double) {
-        guard value > .leastNonzeroMagnitude,
-              let index = stages.firstIndex(where: { $0.isInProgress }) else { return }
-        stages[index].setProgress(value)
+        guard value > .leastNonzeroMagnitude else { return }
         progress = value
     }
     
@@ -64,7 +61,7 @@ internal extension DeploymentProgressManager {
     func success() {
         for i in stages.indices {
             stages[i].update(isCompleted: true)
-            stages[i].setProgress(100)
         }
+        progress = 100.0
     }
 }
