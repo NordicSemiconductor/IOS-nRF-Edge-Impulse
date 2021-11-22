@@ -11,16 +11,17 @@ import SwiftUI
 
 struct DeploymentStageView: View {
     
-    @EnvironmentObject var viewState: DeploymentViewState
-    
-    private let name: String
     private let stage: DeploymentStage
+    private let logLine: String
+    
+    @ObservedObject private var progressManager: DeploymentProgressManager
     
     // MARK: Init
     
-    init(stage: DeploymentStage) {
-        name = stage.id
+    init(stage: DeploymentStage, progressManager: DeploymentProgressManager, logLine: String) {
         self.stage = stage
+        self.logLine = logLine
+        self.progressManager = progressManager
     }
     
     // MARK: View
@@ -40,7 +41,7 @@ struct DeploymentStageView: View {
                     .foregroundColor(stage.color)
 
                 if stage.isInProgress {
-                    Text(viewState.lastLogMessage.line)
+                    Text(logLine)
                         .font(.caption)
                         .lineLimit(1)
                     #if os(macOS)
@@ -48,23 +49,16 @@ struct DeploymentStageView: View {
                     #endif
 
                     #if os(OSX)
-                    NSProgressView(value: $viewState.progressManager.progress, maxValue: 100.0,
-                                   isIndeterminate: viewState.progressManager.isIndeterminate)
+                    NSProgressView(value: $progressManager.progress, maxValue: 100.0,
+                                   isIndeterminate: progressManager.isIndeterminate)
                         .padding(.horizontal)
                     #else
-                    UILinearProgressView(value: $viewState.progressManager.progress)
+                    UILinearProgressView(value: $progressManager.progress)
                         .padding(.top, 2)
                     #endif
                 }
             }
         }
-    }
-    
-    // MARK: API
-    
-    var deploymentFailed: Bool {
-        guard case .error(_) = viewState.status else { return false }
-        return true
     }
 }
 

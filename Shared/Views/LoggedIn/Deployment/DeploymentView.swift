@@ -30,6 +30,10 @@ struct DeploymentView: View {
                     .environmentObject(viewState)
             }
             
+            if let error = viewState.error {
+                DeploymentErrorView(error: error)
+            }
+            
             #if os(macOS)
             Divider()
                 .padding(.horizontal)

@@ -14,25 +14,10 @@ struct DeploymentProgressView: View {
     var body: some View {
         Section(header: Text("Progress")) {
             ForEach(viewState.progressManager.stages) { stage in
-                DeploymentStageView(stage: stage)
-                    .environmentObject(viewState)
+                DeploymentStageView(stage: stage,
+                                    progressManager: viewState.progressManager,
+                                    logLine: viewState.lastLogMessage.line)
             }
-        }
-        
-        switch viewState.status {
-        case .error(let error):
-            Section(header: Text("Error Description")) {
-                // Align with the StageView items.
-                HStack(spacing: 2) {
-                    Image(systemName: "info")
-                        .frame(width: 20, height: 20)
-                    
-                    Text(error.localizedDescription)
-                }
-                .padding(.leading, 2)
-            }
-        default:
-            EmptyView()
         }
     }
 }
@@ -42,7 +27,13 @@ struct DeploymentProgressView: View {
 #if DEBUG
 struct DeploymentProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        DeploymentProgressView()
+        Group {
+            FormIniOSListInMacOS {
+                DeploymentProgressView()
+                    .environmentObject(DeploymentViewState())
+            }
+            .previewLayout(.sizeThatFits)
+        }
     }
 }
 #endif
