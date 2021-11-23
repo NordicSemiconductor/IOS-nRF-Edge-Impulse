@@ -10,6 +10,10 @@ import Foundation
 extension DeploymentConfigurationView {
     
     func selectFirstAvailableDeviceHandler() {
-        viewState.selectedDeviceHandler = deviceData.allConnectedAndReadyToUseDevices().first
+        guard let connectedDevice = deviceData.allConnectedAndReadyToUseDevices().first else {
+            viewState.selectedDevice = .Unselected
+            return
+        }
+        viewState.selectedDeviceHandler = connectedDevice
     }
 }
