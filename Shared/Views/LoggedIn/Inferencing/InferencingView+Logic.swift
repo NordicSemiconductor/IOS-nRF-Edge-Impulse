@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 extension InferencingView {
     
@@ -13,7 +14,11 @@ extension InferencingView {
     
     func selectFirstAvailableDevice() {
         guard let deviceRemoteHandler = deviceData.allConnectedOrConnectingDevices().first,
-              let device = deviceRemoteHandler.device else { return }
+              let device = deviceRemoteHandler.device else {
+                  Logger(category: String(describing: Self.self)).debug("\(#function) no connected device found. Setting Device to Unselected.")
+                  appData.inferencingViewState.selectedDevice = .Unselected
+                  return
+              }
         appData.inferencingViewState.selectedDevice = device
     }
     
