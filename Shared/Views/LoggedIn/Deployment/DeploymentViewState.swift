@@ -24,7 +24,7 @@ final class DeploymentViewState: ObservableObject {
     }
     @Published var enableEONCompiler = true
     @Published var optimization: Classifier = .Unoptimized
-    @Published var buildButtonText = ""
+    @Published var buildButtonText = "Build"
     @Published var buildButtonEnable = false
     
     @Published var progressManager = DeploymentProgressManager()
