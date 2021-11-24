@@ -33,6 +33,8 @@ struct DeviceList: View {
                 }
                 
                 #if os(macOS)
+                Divider()
+                
                 MacAddressView()
                 #endif
             }
