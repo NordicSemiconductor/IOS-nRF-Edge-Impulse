@@ -176,7 +176,21 @@ internal extension DeploymentViewState {
             // If we don't disconnect, the Server will do it for us.
             disconnect()
             status = .downloadingModel
-            downloadModel(for: project, using: apiToken)
+            
+            guard let infoRequest = HTTPRequest.getDeploymentInfo(project: project, using: apiToken) else { return }
+            self.logs.append(LogMessage("Checking Deployment Info once again before attempting to download."))
+            Network.shared.perform(infoRequest, responseType: GetDeploymentInfoResponse.self)
+                .sinkReceivingError(onError: { [weak self] error in
+                    self?.reportError(error)
+                }, receiveValue: { [weak self] response in
+                    guard let self = self else { return }
+                    if response.hasDeployment {
+                        self.downloadModel(for: self.project, using: self.apiToken)
+                    } else {
+                        self.reportError(NordicError(description: "There is no deployment available for this project. Please check the website or contact Edge Impulse."))
+                    }
+                })
+                .store(in: &cancellables)
         default:
             break
         }
