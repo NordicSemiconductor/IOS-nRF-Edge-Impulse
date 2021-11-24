@@ -52,9 +52,7 @@ extension DeploymentViewState {
     }
     
     func sendDeploymentInfoRequest(for selectedProject: Project, using apiToken: String) {
-        setupCancellables()
-        project = selectedProject
-        self.apiToken = apiToken
+        setupNewDeployment(for: selectedProject, using: apiToken)
         
         guard let infoRequest = HTTPRequest.getDeploymentInfo(project: selectedProject, using: apiToken) else { return }
         status = .infoRequestSent
@@ -205,7 +203,10 @@ internal extension DeploymentViewState {
         cancellables.removeAll()
     }
     
-    private func setupCancellables() {
+    private func setupNewDeployment(for project: Project, using apiToken: String) {
+        self.project = project
+        self.apiToken = apiToken
+        
         $status
             .sinkReceivingError(receiveValue: onStatusChanged(_:))
             .store(in: &cancellables)
