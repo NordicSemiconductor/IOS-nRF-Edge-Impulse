@@ -30,7 +30,7 @@ struct DeploymentView: View {
                     .environmentObject(viewState)
             }
             
-            if let error = viewState.error {
+            if let error = viewState.progressManager.error {
                 DeploymentErrorView(error: error)
             }
             

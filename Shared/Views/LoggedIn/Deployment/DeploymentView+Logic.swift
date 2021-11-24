@@ -32,7 +32,7 @@ fileprivate extension DeploymentView {
               let apiToken = appData.apiToken else {
             
                   viewState.status = .error(NordicError(description: "Tokens are missing."))
-                  viewState.progressManager.onError(NordicError(description: "Tokens are missing."))
+                  viewState.reportError(NordicError(description: "Tokens are missing."))
                   return
         }
         viewState.connect(for: currentProject, using: socketToken, and: apiToken)

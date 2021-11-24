@@ -46,11 +46,6 @@ final class DeploymentViewState: ObservableObject {
 
 extension DeploymentViewState {
     
-    var error: NordicError? {
-        guard case let .error(error) = status else { return nil }
-        return error
-    }
-    
     func sendDeploymentInfoRequest(for selectedProject: Project, using apiToken: String) {
         setupNewDeployment(for: selectedProject, using: apiToken)
         
