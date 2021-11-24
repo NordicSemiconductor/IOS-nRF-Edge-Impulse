@@ -20,7 +20,6 @@ extension DeploymentViewState {
         
         setupNewDeployment(for: project, using: apiToken)
         progressManager.inProgress(.online)
-        status = .socketConnecting
         socketManager = WebSocketManager()
         let pingConfiguration = WebSocketManager.PingConfiguration(data: "2".data(using: .utf8))
         logs.append(LogMessage("Opening WebSocket..."))
@@ -36,7 +35,6 @@ extension DeploymentViewState {
                     self.logs.append(LogMessage("Handshaking..."))
                 case .connected:
                     self.progressManager.completed(.online)
-                    self.status = .socketConnected
                     self.logs.append(LogMessage("Connected!"))
                     self.sendDeploymentInfoRequest(for: project, using: apiToken)
                 }

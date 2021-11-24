@@ -17,7 +17,7 @@ final class DeploymentViewState: ObservableObject {
     @Published var selectedDevice = Constant.unselectedDevice
     @Published var selectedDeviceHandler: DeviceRemoteHandler! {
         didSet {
-            defer { onStatusChanged(status); onProgressUpdate() }
+            defer { onProgressUpdate() }
             guard let selectedDeviceHandler = selectedDeviceHandler else { return }
             selectedDevice = selectedDeviceHandler.device ?? Constant.unselectedDevice
         }
@@ -48,7 +48,7 @@ extension DeploymentViewState {
     
     func sendDeploymentInfoRequest(for selectedProject: Project, using apiToken: String) {
         guard let infoRequest = HTTPRequest.getDeploymentInfo(project: selectedProject, using: apiToken) else { return }
-        status = .infoRequestSent
+        progressManager.inProgress(.building)
         Network.shared.perform(infoRequest, responseType: GetDeploymentInfoResponse.self)
             .sinkReceivingError(onError: { error in
                 self.reportError(error)
@@ -65,7 +65,7 @@ extension DeploymentViewState {
     func sendBuildRequest(for selectedProject: Project, using apiToken: String) {
         guard let buildRequest = HTTPRequest.buildModel(project: selectedProject, usingEONCompiler: enableEONCompiler,
                                                         classifier: optimization, using: apiToken) else { return }
-        status = .buildRequestSent
+        progressManager.inProgress(.building)
         Network.shared.perform(buildRequest, responseType: BuildOnDeviceModelRequestResponse.self)
             .sinkReceivingError(onError: { error in
                 self.reportError(error)
@@ -77,11 +77,13 @@ extension DeploymentViewState {
     
     func downloadModel(for selectedProject: Project, using apiToken: String) {
         guard let downloadRequest = HTTPRequest.downloadModelFor(project: selectedProject, using: apiToken) else { return }
+        self.progressManager.inProgress(.downloading)
         Network.shared.perform(downloadRequest)
             .sinkReceivingError(onError: { error in
                 self.reportError(error)
             }, receiveValue: { data in
                 self.logs.append(LogMessage("Received \(data.count) bytes of Data."))
+                self.progressManager.completed(.downloading)
                 self.sendModelToDevice(responseData: data)
             })
             .store(in: &cancellables)
@@ -94,11 +96,10 @@ extension DeploymentViewState {
         }
         
         do {
-            status = .unpackingModelData
             logs.append(LogMessage("Unpacking Server Response Archive..."))
             let firmware = try DFUPackage(responseData)
             
-            status = .uploading(0)
+            progressManager.inProgress(.uploading)
             logs.append(LogMessage("Sending firmware to device..."))
             try device.bluetoothManager.sendUpgradeFirmware(firmware, logDelegate: self, firmwareDelegate: self)
             
@@ -135,44 +136,6 @@ extension DeploymentViewState: DeploymentProgressManagerDelegate {
 
 internal extension DeploymentViewState {
     
-    private func onStatusChanged(_ status: JobStatus) {
-        buildButtonEnable = false
-        switch status {
-        case .idle:
-            buildButtonEnable = selectedDeviceHandler != nil
-            buildButtonText = "Build"
-        case .success:
-            progressManager.success = true
-            selectedDevice = .Unselected
-            buildButtonEnable = true
-            buildButtonText = "Success!"
-        case .socketConnecting:
-            break
-        case .socketConnected:
-            break
-        case .infoRequestSent:
-            progressManager.inProgress(.building)
-            logs.append(LogMessage("Checking Deployment Status..."))
-        case .buildRequestSent:
-            logs.append(LogMessage("Sending Build Request..."))
-        case .buildingModel(_):
-            break
-        case .downloadingModel:
-            progressManager.inProgress(.downloading)
-        case .unpackingModelData:
-            break
-        case .uploading(_):
-            progressManager.inProgress(.uploading)
-        case .confirming:
-            progressManager.inProgress(.confirming)
-        case .applying:
-            progressManager.inProgress(.applying)
-        case .error(_):
-            buildButtonEnable = true
-            buildButtonText = "Retry"
-        }
-    }
-    
     func receivedJobData(dataString: String) {
         switch status {
         case .buildingModel(let jobId):
@@ -184,7 +147,6 @@ internal extension DeploymentViewState {
             
             // If we don't disconnect, the Server will do it for us.
             disconnect()
-            status = .downloadingModel
             
             guard let infoRequest = HTTPRequest.getDeploymentInfo(project: project, using: apiToken) else { return }
             self.logs.append(LogMessage("Checking Deployment Info once again before attempting to download."))
@@ -217,10 +179,6 @@ internal extension DeploymentViewState {
         self.project = project
         self.apiToken = apiToken
         self.progressManager.delegate = self
-        
-        $status
-            .sinkReceivingError(receiveValue: onStatusChanged(_:))
-            .store(in: &cancellables)
         
         $logs
             .compactMap({ $0.last })
