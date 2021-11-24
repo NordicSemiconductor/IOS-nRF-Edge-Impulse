@@ -47,8 +47,6 @@ final class DeploymentViewState: ObservableObject {
 extension DeploymentViewState {
     
     func sendDeploymentInfoRequest(for selectedProject: Project, using apiToken: String) {
-        setupNewDeployment(for: selectedProject, using: apiToken)
-        
         guard let infoRequest = HTTPRequest.getDeploymentInfo(project: selectedProject, using: apiToken) else { return }
         status = .infoRequestSent
         Network.shared.perform(infoRequest, responseType: GetDeploymentInfoResponse.self)
@@ -198,7 +196,7 @@ internal extension DeploymentViewState {
         cancellables.removeAll()
     }
     
-    private func setupNewDeployment(for project: Project, using apiToken: String) {
+    func setupNewDeployment(for project: Project, using apiToken: String) {
         self.project = project
         self.apiToken = apiToken
         

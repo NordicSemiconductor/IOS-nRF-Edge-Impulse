@@ -21,13 +21,13 @@ struct DeploymentView: View {
     
     var body: some View {
         FormIniOSListInMacOS {
-            if viewState.status.shouldShowConfigurationView {
+            if viewState.progressManager.started {
+                DeploymentProgressView()
+                    .environmentObject(viewState)
+            } else {
                 DeploymentConfigurationView()
                     .environmentObject(viewState)
                     .environmentObject(deviceData)
-            } else {
-                DeploymentProgressView()
-                    .environmentObject(viewState)
             }
             
             if let error = viewState.progressManager.error {
