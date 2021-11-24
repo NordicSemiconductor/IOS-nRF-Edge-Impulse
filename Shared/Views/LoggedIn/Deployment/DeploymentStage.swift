@@ -25,8 +25,7 @@ struct DeploymentStage: Identifiable {
     // MARK: Init
     
     private init(toDoName: String, inProgressName: String, finishedName: String,
-                 symbolName: String, isIndeterminate: Bool, inProgressStatus: DeploymentViewState.JobStatus,
-                 completedStatuses: [DeploymentViewState.JobStatus]) {
+                 symbolName: String, isIndeterminate: Bool) {
         self.id = toDoName
         self.toDoName = toDoName
         self.inProgressName = inProgressName
@@ -75,21 +74,21 @@ extension DeploymentStage: CaseIterable {
     
     // MARK: Cases
     
-    static let online = DeploymentStage(toDoName: "Connect to Server", inProgressName: "Connecting to Server...", finishedName: "Connected to Edge Impulse", symbolName: "network", isIndeterminate: false, inProgressStatus: .socketConnecting, completedStatuses: [.socketConnected, .downloadingModel, .unpackingModelData, .uploading(1), .applying, .confirming, .success])
+    static let online = DeploymentStage(toDoName: "Connect to Server", inProgressName: "Connecting to Server...", finishedName: "Connected to Edge Impulse", symbolName: "network", isIndeterminate: false)
     
-    static let building = DeploymentStage(toDoName: "Build", inProgressName: "Building...", finishedName: "Built", symbolName: "hammer", isIndeterminate: false, inProgressStatus: .buildingModel(5), completedStatuses: [.downloadingModel, .unpackingModelData, .uploading(1), .applying, .confirming, .success])
+    static let building = DeploymentStage(toDoName: "Build", inProgressName: "Building...", finishedName: "Built", symbolName: "hammer", isIndeterminate: false)
 
-    static let downloading = DeploymentStage(toDoName: "Download", inProgressName: "Downloading...", finishedName: "Downloaded", symbolName: "square.and.arrow.down", isIndeterminate: false, inProgressStatus: .downloadingModel, completedStatuses: [.unpackingModelData, .uploading(1), .applying, .confirming, .success])
+    static let downloading = DeploymentStage(toDoName: "Download", inProgressName: "Downloading...", finishedName: "Downloaded", symbolName: "square.and.arrow.down", isIndeterminate: false)
     
-    static let verifying = DeploymentStage(toDoName: "Verify", inProgressName: "Verifying...", finishedName: "Verified", symbolName: "list.bullet", isIndeterminate: true, inProgressStatus: .unpackingModelData, completedStatuses: [.uploading(1), .applying, .confirming, .success])
+    static let verifying = DeploymentStage(toDoName: "Verify", inProgressName: "Verifying...", finishedName: "Verified", symbolName: "list.bullet", isIndeterminate: true)
     
-    static let uploading = DeploymentStage(toDoName: "Upload", inProgressName: "Uploading...", finishedName: "Uploaded", symbolName: "square.and.arrow.up", isIndeterminate: false, inProgressStatus: .uploading(5), completedStatuses: [.success])
+    static let uploading = DeploymentStage(toDoName: "Upload", inProgressName: "Uploading...", finishedName: "Uploaded", symbolName: "square.and.arrow.up", isIndeterminate: false)
     
-    static let confirming = DeploymentStage(toDoName: "Confirm", inProgressName: "Confirming...", finishedName: "Confirmed", symbolName: "metronome", isIndeterminate: true, inProgressStatus: .confirming, completedStatuses: [.success])
+    static let confirming = DeploymentStage(toDoName: "Confirm", inProgressName: "Confirming...", finishedName: "Confirmed", symbolName: "metronome", isIndeterminate: true)
     
-    static let applying = DeploymentStage(toDoName: "Update", inProgressName: "Applying Update...", finishedName: "Updated", symbolName: "bandage", isIndeterminate: true, inProgressStatus: .applying, completedStatuses: [.success])
+    static let applying = DeploymentStage(toDoName: "Update", inProgressName: "Applying Update...", finishedName: "Updated", symbolName: "bandage", isIndeterminate: true)
     
-    static let completed = DeploymentStage(toDoName: "Complete", inProgressName: "Completing...", finishedName: "Completed", symbolName: "checkmark", isIndeterminate: true, inProgressStatus: .applying, completedStatuses: [.success])
+    static let completed = DeploymentStage(toDoName: "Complete", inProgressName: "Completing...", finishedName: "Completed", symbolName: "checkmark", isIndeterminate: true)
     
     // MARK: CaseIterable
     
