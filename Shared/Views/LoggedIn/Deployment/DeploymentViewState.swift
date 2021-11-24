@@ -17,7 +17,7 @@ final class DeploymentViewState: ObservableObject {
     @Published var selectedDevice = Constant.unselectedDevice
     @Published var selectedDeviceHandler: DeviceRemoteHandler! {
         didSet {
-            defer { onStatusChanged(status) }
+            defer { onStatusChanged(status); onProgressUpdate() }
             guard let selectedDeviceHandler = selectedDeviceHandler else { return }
             selectedDevice = selectedDeviceHandler.device ?? Constant.unselectedDevice
         }
@@ -111,16 +111,34 @@ extension DeploymentViewState {
     }
 }
 
+// MARK: - DeploymentProgressManagerDelegate
+
+extension DeploymentViewState: DeploymentProgressManagerDelegate {
+    
+    func onProgressUpdate() {
+        guard progressManager.error == nil && !progressManager.success else {
+            buildButtonEnable = true
+            buildButtonText = progressManager.success ? "Success!" : "Retry"
+            return
+        }
+        
+        if !progressManager.started {
+            buildButtonEnable = selectedDeviceHandler != nil
+            buildButtonText = progressManager.success ? "Success!" : "Build"
+        } else {
+            buildButtonEnable = false
+        }
+    }
+}
+
 // MARK: - Logic
 
 internal extension DeploymentViewState {
     
     private func onStatusChanged(_ status: JobStatus) {
         buildButtonEnable = false
-        
         switch status {
         case .idle:
-            progressManager = DeploymentProgressManager()
             buildButtonEnable = selectedDeviceHandler != nil
             buildButtonText = "Build"
         case .success:
@@ -189,7 +207,6 @@ internal extension DeploymentViewState {
     
     func reportError(_ error: Error) {
         logs.append(LogMessage(error))
-        status = .error(NordicError(description: error.localizedDescription))
         progressManager.onError(error)
         
         cancellables.forEach { $0.cancel() }
@@ -199,6 +216,7 @@ internal extension DeploymentViewState {
     func setupNewDeployment(for project: Project, using apiToken: String) {
         self.project = project
         self.apiToken = apiToken
+        self.progressManager.delegate = self
         
         $status
             .sinkReceivingError(receiveValue: onStatusChanged(_:))

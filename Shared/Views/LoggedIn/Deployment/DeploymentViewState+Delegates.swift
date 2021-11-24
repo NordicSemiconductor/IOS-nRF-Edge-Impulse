@@ -46,7 +46,6 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     func upgradeDidComplete() {
         DispatchQueue.main.async { [weak self] in
             self?.progressManager.success = true
-            self?.status = .success
         }
     }
     
@@ -58,7 +57,7 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     
     func upgradeDidCancel(state: FirmwareUpgradeState) {
         DispatchQueue.main.async { [weak self] in
-            self?.status = .error(NordicError(description: "Upgrade Cancelled."))
+            self?.reportError(NordicError(description: "Upgrade Cancelled."))
         }
     }
     

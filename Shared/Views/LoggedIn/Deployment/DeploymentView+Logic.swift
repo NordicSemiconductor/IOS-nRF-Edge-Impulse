@@ -12,10 +12,9 @@ import Foundation
 internal extension DeploymentView {
     
     func buttonAction() {
-        switch viewState.status {
-        case .success, .error(_):
+        if viewState.progressManager.success || viewState.progressManager.error != nil {
             retry()
-        default:
+        } else {
             start()
         }
     }
@@ -31,7 +30,6 @@ fileprivate extension DeploymentView {
               let socketToken = appData.projectSocketTokens[currentProject],
               let apiToken = appData.apiToken else {
             
-                  viewState.status = .error(NordicError(description: "Tokens are missing."))
                   viewState.reportError(NordicError(description: "Tokens are missing."))
                   return
         }
@@ -42,6 +40,7 @@ fileprivate extension DeploymentView {
         viewState.disconnect()
         viewState.logs.removeAll()
         viewState.progressManager = DeploymentProgressManager()
+        viewState.progressManager.delegate = viewState
         viewState.status = .idle
     }
 }

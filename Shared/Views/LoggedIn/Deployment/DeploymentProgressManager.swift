@@ -18,6 +18,11 @@ final class DeploymentProgressManager: ObservableObject {
     @Published var started: Bool
     @Published var success: Bool {
         didSet {
+            defer {
+                delegate?.onProgressUpdate()
+            }
+            
+            guard success else { return }
             for i in stages.indices {
                 stages[i].update(isCompleted: true)
             }
@@ -26,9 +31,14 @@ final class DeploymentProgressManager: ObservableObject {
     }
     
     private(set) var error: Error?
+    weak var delegate: DeploymentProgressManagerDelegate?
     
     var currentStage: DeploymentStage! {
         stages.first { $0.isInProgress }
+    }
+    
+    var isIndeterminate: Bool {
+        currentStage?.isIndeterminate ?? true
     }
     
     // MARK: Init
@@ -44,13 +54,16 @@ final class DeploymentProgressManager: ObservableObject {
     }
 }
 
+// MARK: - Delegate
+
+protocol DeploymentProgressManagerDelegate: AnyObject {
+    
+    func onProgressUpdate()
+}
+
 // MARK: - Public API
 
 internal extension DeploymentProgressManager {
-    
-    var isIndeterminate: Bool {
-        currentStage?.isIndeterminate ?? true
-    }
     
     func inProgress(_ stage: DeploymentStage) {
         guard let index = stages.firstIndex(where: { $0.toDoName == stage.id }) else { return }
@@ -60,16 +73,19 @@ internal extension DeploymentProgressManager {
         for previousIndex in stages.indices where previousIndex < index {
             stages[previousIndex].update(isCompleted: true)
         }
+        delegate?.onProgressUpdate()
     }
     
     func completed(_ stage: DeploymentStage) {
         guard let index = stages.firstIndex(where: { $0.toDoName == stage.id }) else { return }
         stages[index].update(isCompleted: true)
+        delegate?.onProgressUpdate()
     }
     
     func onError(_ error: Error) {
         guard let currentStage = stages.firstIndex(where: { $0.isInProgress }) else { return }
         self.error = error
         stages[currentStage].declareError()
+        delegate?.onProgressUpdate()
     }
 }
