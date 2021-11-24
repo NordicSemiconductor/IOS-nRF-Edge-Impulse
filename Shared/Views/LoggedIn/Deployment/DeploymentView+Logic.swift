@@ -16,7 +16,7 @@ internal extension DeploymentView {
         case .success, .error(_):
             retry()
         default:
-            connectThenBuild()
+            start()
         }
     }
 }
@@ -25,49 +25,23 @@ internal extension DeploymentView {
 
 fileprivate extension DeploymentView {
     
-    func connectThenBuild() {
-        viewState.$status
-            .first {
-                switch $0 {
-                case .socketConnected, .error(_):
-                    return true
-                default:
-                    return false
-                }
-            }
-            .receive(on: RunLoop.main)
-            .sink { status in
-                switch status {
-                case .socketConnected:
-                    attemptToBuild()
-                default:
-                    break
-                }
-            }
-            .store(in: &viewState.cancellables)
-        
-        attemptToConnect()
+    func start() {
+        guard viewState.selectedDeviceHandler != nil,
+              let currentProject = appData.selectedProject,
+              let socketToken = appData.projectSocketTokens[currentProject],
+              let apiToken = appData.apiToken else {
+            
+                  viewState.status = .error(NordicError(description: "Tokens are missing."))
+                  viewState.progressManager.onError(NordicError(description: "Tokens are missing."))
+                  return
+        }
+        viewState.connect(for: currentProject, using: socketToken, and: apiToken)
     }
     
     func retry() {
         viewState.disconnect()
         viewState.logs.removeAll()
+        viewState.progressManager = DeploymentProgressManager()
         viewState.status = .idle
-    }
-    
-    func attemptToBuild() {
-        guard let currentProject = appData.selectedProject,
-              let apiToken = appData.apiToken else { return }
-        viewState.sendDeploymentInfoRequest(for: currentProject, using: apiToken)
-    }
-    
-    func attemptToConnect() {
-        guard viewState.selectedDeviceHandler != nil,
-              let currentProject = appData.selectedProject,
-              let socketToken = appData.projectSocketTokens[currentProject] else {
-            viewState.status = .error(NordicError(description: "Tokens are missing."))
-            return
-        }
-        viewState.connect(using: socketToken)
     }
 }

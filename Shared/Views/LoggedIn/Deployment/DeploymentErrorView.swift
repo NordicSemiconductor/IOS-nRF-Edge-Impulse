@@ -11,7 +11,7 @@ import SwiftUI
 
 struct DeploymentErrorView: View {
     
-    let error: NordicError
+    let error: Error
     
     var body: some View {
         Section(header: Text("Error Description")) {
@@ -39,7 +39,7 @@ struct DeploymentErrorView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             FormIniOSListInMacOS {
-                DeploymentErrorView(error: .testError)
+                DeploymentErrorView(error: NordicError.testError)
             }
         }
         .previewLayout(.sizeThatFits)

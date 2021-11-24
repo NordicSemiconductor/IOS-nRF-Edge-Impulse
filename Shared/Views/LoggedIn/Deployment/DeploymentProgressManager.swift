@@ -54,6 +54,7 @@ internal extension DeploymentProgressManager {
     
     func inProgress(_ stage: DeploymentStage) {
         guard let index = stages.firstIndex(where: { $0.toDoName == stage.id }) else { return }
+        started = true
         stages[index].update(isInProgress: true)
         
         for previousIndex in stages.indices where previousIndex < index {
