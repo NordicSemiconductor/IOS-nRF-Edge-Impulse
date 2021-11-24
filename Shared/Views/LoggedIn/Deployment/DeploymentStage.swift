@@ -75,6 +75,8 @@ extension DeploymentStage: CaseIterable {
     
     // MARK: Cases
     
+    static let online = DeploymentStage(toDoName: "Connect to Server", inProgressName: "Connecting to Server...", finishedName: "Connected to Edge Impulse", symbolName: "network", isIndeterminate: false, inProgressStatus: .socketConnecting, completedStatuses: [.socketConnected, .downloadingModel, .unpackingModelData, .uploading(1), .applying, .confirming, .success])
+    
     static let building = DeploymentStage(toDoName: "Build", inProgressName: "Building...", finishedName: "Built", symbolName: "hammer", isIndeterminate: false, inProgressStatus: .buildingModel(5), completedStatuses: [.downloadingModel, .unpackingModelData, .uploading(1), .applying, .confirming, .success])
 
     static let downloading = DeploymentStage(toDoName: "Download", inProgressName: "Downloading...", finishedName: "Downloaded", symbolName: "square.and.arrow.down", isIndeterminate: false, inProgressStatus: .downloadingModel, completedStatuses: [.unpackingModelData, .uploading(1), .applying, .confirming, .success])
@@ -91,5 +93,5 @@ extension DeploymentStage: CaseIterable {
     
     // MARK: CaseIterable
     
-    static var allCases: [DeploymentStage] = [.building, .downloading, .verifying, .uploading, .confirming, .applying, .completed]
+    static var allCases: [DeploymentStage] = [.online, .building, .downloading, .verifying, .uploading, .confirming, .applying, .completed]
 }

@@ -15,6 +15,17 @@ final class DeploymentProgressManager: ObservableObject {
     
     @Published var stages: [DeploymentStage]
     @Published var progress: Double
+    @Published var started: Bool
+    @Published var success: Bool {
+        didSet {
+            for i in stages.indices {
+                stages[i].update(isCompleted: true)
+            }
+            progress = 100.0
+        }
+    }
+    
+    private(set) var error: Error?
     
     var currentStage: DeploymentStage! {
         stages.first { $0.isInProgress }
@@ -25,6 +36,8 @@ final class DeploymentProgressManager: ObservableObject {
     init() {
         self.stages = DeploymentStage.allCases
         self.progress = 0.0
+        self.started = false
+        self.success = false
         for i in stages.indices {
             stages[i].update(isInProgress: false, isCompleted: false)
         }
@@ -48,20 +61,14 @@ internal extension DeploymentProgressManager {
         }
     }
     
-    func setProgress(value: Double) {
-        guard value > .leastNonzeroMagnitude else { return }
-        progress = value
+    func completed(_ stage: DeploymentStage) {
+        guard let index = stages.firstIndex(where: { $0.toDoName == stage.id }) else { return }
+        stages[index].update(isCompleted: true)
     }
     
     func onError(_ error: Error) {
         guard let currentStage = stages.firstIndex(where: { $0.isInProgress }) else { return }
+        self.error = error
         stages[currentStage].declareError()
-    }
-    
-    func success() {
-        for i in stages.indices {
-            stages[i].update(isCompleted: true)
-        }
-        progress = 100.0
     }
 }

@@ -131,7 +131,7 @@ internal extension DeploymentViewState {
             buildButtonEnable = selectedDeviceHandler != nil
             buildButtonText = "Build"
         case .success:
-            progressManager.success()
+            progressManager.success = true
             selectedDevice = .Unselected
             buildButtonEnable = true
             buildButtonText = "Success!"

@@ -18,6 +18,7 @@ extension DeploymentViewState {
             return
         }
         
+        progressManager.inProgress(.online)
         status = .socketConnecting
         socketManager = WebSocketManager()
         let pingConfiguration = WebSocketManager.PingConfiguration(data: "2".data(using: .utf8))
@@ -32,6 +33,7 @@ extension DeploymentViewState {
                 case .connecting:
                     self.status = .socketConnecting
                 case .connected:
+                    self.progressManager.completed(.online)
                     self.status = .socketConnected
                 }
             }
@@ -76,7 +78,7 @@ extension DeploymentViewState {
            jobId == message.job.jobId {
             
             logs.append(LogMessage(message))
-            progressManager.setProgress(value: message.progress)
+            progressManager.progress = message.progress
         }
         return nil
     }
