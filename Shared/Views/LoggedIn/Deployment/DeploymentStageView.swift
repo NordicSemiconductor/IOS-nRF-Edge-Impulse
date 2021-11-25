@@ -65,9 +65,20 @@ struct DeploymentStageView: View {
 // MARK: - Preview
 
 #if DEBUG
-//struct DeploymentStageView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DeploymentStageView()
-//    }
-//}
+struct DeploymentStageView_Previews: PreviewProvider {
+    
+    static let onlineInProgress: DeploymentProgressManager = {
+        let manager = DeploymentProgressManager()
+        manager.started = true
+        manager.inProgress(.online)
+        return manager
+    }()
+    
+    static var previews: some View {
+        Group {
+            DeploymentStageView(stage: onlineInProgress.currentStage, progressManager: onlineInProgress, logLine: "This is a test.")
+        }
+        .frame(width: 300)
+    }
+}
 #endif
