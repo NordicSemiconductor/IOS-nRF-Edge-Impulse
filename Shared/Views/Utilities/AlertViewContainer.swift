@@ -42,7 +42,7 @@ struct AlertViewContainer<Container: View, AlertView: View, BindingIdentifiable:
                 alertView(identifiable)
                     .cornerRadius(20.0)
                     .shadow(radius: 20.0)
-                    .animation(.spring())
+                    .animation(.spring(), value: 10)
                     .transition(.move(edge: .top))
                     .introspectTextField { textField in
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
