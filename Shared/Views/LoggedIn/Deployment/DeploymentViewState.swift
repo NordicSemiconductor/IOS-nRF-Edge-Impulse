@@ -12,8 +12,6 @@ import OSLog
 
 final class DeploymentViewState: ObservableObject {
 
-    @Published var status: JobStatus = .idle
-    
     @Published var selectedDevice = Constant.unselectedDevice
     @Published var selectedDeviceHandler: DeviceRemoteHandler! {
         didSet {
@@ -40,6 +38,7 @@ final class DeploymentViewState: ObservableObject {
     
     private var project: Project!
     private var apiToken: String!
+    private var buildJobId: Int!
 }
 
 // MARK: - Requests
@@ -70,7 +69,7 @@ extension DeploymentViewState {
             .sinkReceivingError(onError: { error in
                 self.reportError(error)
             }, receiveValue: { response in
-                self.status = .buildingModel(response.id)
+                self.buildJobId = response.id
             })
             .store(in: &cancellables)
     }
@@ -137,34 +136,31 @@ extension DeploymentViewState: DeploymentProgressManagerDelegate {
 internal extension DeploymentViewState {
     
     func receivedJobData(dataString: String) {
-        switch status {
-        case .buildingModel(let jobId):
-            guard let jobResult = processJobMessages(dataString, for: jobId) else { return }
-            guard jobResult.success else {
-                reportError(NordicError(description: "Server returned Job was not successful."))
-                return
-            }
-            
-            // If we don't disconnect, the Server will do it for us.
-            disconnect()
-            
-            guard let infoRequest = HTTPRequest.getDeploymentInfo(project: project, using: apiToken) else { return }
-            self.logs.append(LogMessage("Checking Deployment Info once again before attempting to download."))
-            Network.shared.perform(infoRequest, responseType: GetDeploymentInfoResponse.self)
-                .sinkReceivingError(onError: { [weak self] error in
-                    self?.reportError(error)
-                }, receiveValue: { [weak self] response in
-                    guard let self = self else { return }
-                    if response.hasDeployment {
-                        self.downloadModel(for: self.project, using: self.apiToken)
-                    } else {
-                        self.reportError(NordicError(description: "There is no deployment available for this project. Please check the website or contact Edge Impulse."))
-                    }
-                })
-                .store(in: &cancellables)
-        default:
-            break
+        guard let jobId = buildJobId else { return }
+        
+        guard let jobResult = processJobMessages(dataString, for: jobId) else { return }
+        guard jobResult.success else {
+            reportError(NordicError(description: "Server returned Job was not successful."))
+            return
         }
+        
+        // If we don't disconnect, the Server will do it for us.
+        disconnect()
+        
+        guard let infoRequest = HTTPRequest.getDeploymentInfo(project: project, using: apiToken) else { return }
+        self.logs.append(LogMessage("Checking Deployment Info once again before attempting to download."))
+        Network.shared.perform(infoRequest, responseType: GetDeploymentInfoResponse.self)
+            .sinkReceivingError(onError: { [weak self] error in
+                self?.reportError(error)
+            }, receiveValue: { [weak self] response in
+                guard let self = self else { return }
+                if response.hasDeployment {
+                    self.downloadModel(for: self.project, using: self.apiToken)
+                } else {
+                    self.reportError(NordicError(description: "There is no deployment available for this project. Please check the website or contact Edge Impulse."))
+                }
+            })
+            .store(in: &cancellables)
     }
     
     func reportError(_ error: Error) {
@@ -178,6 +174,7 @@ internal extension DeploymentViewState {
     func setupNewDeployment(for project: Project, using apiToken: String) {
         self.project = project
         self.apiToken = apiToken
+        self.buildJobId = nil
         self.progressManager.delegate = self
         
         $logs
