@@ -7,36 +7,37 @@
 
 import SwiftUI
 
+// MARK: - RegisteredDeviceView
+
 struct RegisteredDeviceView: View {
     
     private let device: Device
+    private let text: String
     private let connectionState: DeviceData.DeviceWrapper.State
+    
+    // MARK: Init
     
     init(_ device: Device, connectionState: DeviceData.DeviceWrapper.State) {
         self.device = device
+        var text = device.name
+        if connectionState == .deleting {
+            text += " (Deleting...)"
+        }
+        self.text = text
         self.connectionState = connectionState
     }
+    
+    // MARK: View
     
     var body: some View {
         HStack {
             DeviceIconView(name: "cpu", color: connectionState.color)
             
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(device.name)
-                        .font(.headline)
-                        .bold()
-                        .lineLimit(1)
-                        .foregroundColor(connectionState == .deleting ? .gray : .textColor)
-                }
-                
-                Text(connectionState == .deleting ? "Deleting..." : "ID: \(device.deviceId)")
-                    .labelStyle(IconOnTheRightLabelStyle())
-                    .padding(.vertical, 2)
-                    .foregroundColor(Assets.middleGrey.color)
-                    .lineLimit(1)
-            }
-            .padding(.horizontal, 4)
+            Text(text)
+                .font(.headline)
+                .bold()
+                .lineLimit(1)
+                .foregroundColor(connectionState == .deleting ? .gray : .textColor)
             
             Spacer()
             
@@ -46,6 +47,8 @@ struct RegisteredDeviceView: View {
         }
     }
 }
+
+// MARK: - Preview
 
 #if DEBUG
 struct RegisteredDeviceView_Previews: PreviewProvider {
