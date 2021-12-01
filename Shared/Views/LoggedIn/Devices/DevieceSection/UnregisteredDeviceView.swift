@@ -38,27 +38,30 @@ struct UnregisteredDeviceView: View {
                     .foregroundColor(deviceForegroundColor)
                     .bold()
                 
-                HStack {
-                    SignalLevel(rssi: scanResult.rssi)
-                        .frame(width: 20, height: 15, alignment: .center)
-                    
-                    Text("\(scanResult.rssi.value) dB")
-                        .foregroundColor(deviceForegroundColor)
+                if !scanResult.isConnectable {
+                    Text("Not Connectable")
+                        .font(.caption)
+                        .foregroundColor(Assets.middleGrey.color)
                 }
+                
+
             }
             .padding(.horizontal, 4)
             
             Spacer()
             
-            if !scanResult.isConnectable {
-                Text("Not Connectable")
-                    .font(.caption)
-                    .foregroundColor(Assets.middleGrey.color)
-                    .padding(.horizontal)
-            } else if isConnecting {
+            if isConnecting {
                 CircularProgressView()
                     .foregroundColor(Assets.middleGrey.color)
-                    .padding(.horizontal)
+                    .padding(.horizontal, 4)
+            }
+            
+            HStack {
+                SignalLevel(rssi: scanResult.rssi)
+                    .frame(width: 20, height: 15, alignment: .center)
+
+                Text("\(scanResult.rssi.value) dB")
+                    .foregroundColor(deviceForegroundColor)
             }
         }
         .contentShape(Rectangle())
@@ -82,6 +85,7 @@ struct UnregisteredDeviceRow_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             UnregisteredDeviceView(DeviceData.ScanResultWrapper(scanResult: .sample))
+            UnregisteredDeviceView(Preview.connectingDeviceWrapper)
             UnregisteredDeviceView(DeviceData.ScanResultWrapper(scanResult: .unconnectableSample))
         }
         .previewLayout(.sizeThatFits)

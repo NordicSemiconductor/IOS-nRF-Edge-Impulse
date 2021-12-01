@@ -40,6 +40,13 @@ struct Preview {
     
     static let projectsPreviewAppData = previewAppData(.complete(previewUser, previewProjects))
     
+    static let connectingDeviceWrapper: DeviceData.ScanResultWrapper = {
+        let scanResult = ScanResult(name: "Test Device", uuid: UUID(), rssi: .outOfRange, advertisementData: .connectableMock)
+        var wrapper = DeviceData.ScanResultWrapper(scanResult: scanResult)
+        wrapper.state = .connecting
+        return wrapper
+    }()
+    
     static let noDevicesAppData: AppData = {
         let appData = AppData()
         appData.loginState = .complete(previewUser, Preview.previewProjects)
