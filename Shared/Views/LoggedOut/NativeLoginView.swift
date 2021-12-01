@@ -128,9 +128,7 @@ fileprivate extension NativeLoginView {
     }
     
     func attemptLogin() {
-        let lowercaseUsername = username.lowercased(with: .current)
-        let parameters = LoginParameters(username: lowercaseUsername,
-                                         password: password)
+        let parameters = LoginParameters(username: username, password: password)
         guard let httpRequest = HTTPRequest.login(parameters) else {
             // Show error.
             return
