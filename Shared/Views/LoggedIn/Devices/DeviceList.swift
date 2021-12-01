@@ -186,7 +186,7 @@ struct DeviceList_Previews: PreviewProvider {
                     .environmentObject(Preview.noDevicesScannerData)
                     .previewDevice("iPhone 12 mini")
             }
-            .setBackgroundColor(Assets.blue)
+            .setupNavBarBackground()
             .setSingleColumnNavigationViewStyle()
             
             NavigationView {
@@ -197,7 +197,7 @@ struct DeviceList_Previews: PreviewProvider {
                     .previewDevice("iPhone 12")
                     .previewDisplayName("Registered Devices")
             }
-            .setBackgroundColor(Assets.blue)
+            .setupNavBarBackground()
             .setSingleColumnNavigationViewStyle()
             
             NavigationView {
@@ -207,7 +207,7 @@ struct DeviceList_Previews: PreviewProvider {
                     .environmentObject(Preview.isScanningButNoDevicesScannerData)
                     .previewDevice("iPhone 12 mini")
             }
-            .setBackgroundColor(Assets.blue)
+            .setupNavBarBackground()
             .setSingleColumnNavigationViewStyle()
             
             NavigationView {
@@ -218,7 +218,7 @@ struct DeviceList_Previews: PreviewProvider {
                     .environmentObject(Preview.mockScannerData)
                     .previewDevice("iPad Pro (12.9-inch) (4th generation)")
             }
-            .setBackgroundColor(Assets.blue)
+            .setupNavBarBackground()
             .setSingleColumnNavigationViewStyle()
             
             NavigationView {
@@ -228,7 +228,7 @@ struct DeviceList_Previews: PreviewProvider {
                     .environmentObject(Preview.mockScannerData)
                     .previewDevice("iPad Pro (12.9-inch) (4th generation)")
             }
-            .setBackgroundColor(Assets.blue)
+            .setupNavBarBackground()
             .setSingleColumnNavigationViewStyle()
         }
         #endif

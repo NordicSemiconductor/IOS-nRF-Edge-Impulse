@@ -71,14 +71,14 @@ struct SettingsContentView_Previews: PreviewProvider {
                     .setTitle("Settings")
                     .environmentObject(AppData())
             }
-            .setBackgroundColor(.blue)
+            .setupNavBarBackground()
             
             NavigationView {
                 SettingsContentView()
                     .setTitle("Settings")
                     .environmentObject(Preview.noDevicesAppData)
             }
-            .setBackgroundColor(.blue)
+            .setupNavBarBackground()
         }
         .previewDevice("iPhone 12 mini")
     }

@@ -28,7 +28,7 @@ struct TwoPaneLayoutView: View {
                 .toolbarPrincipalImage(Image("Nordic"))
                 .setTitle("nRF Edge Impulse")
             }
-            .setBackgroundColor(.blue)
+            .setupNavBarBackground()
             .setSingleColumnNavigationViewStyle()
             .frame(width: 215, alignment: .leading)
             

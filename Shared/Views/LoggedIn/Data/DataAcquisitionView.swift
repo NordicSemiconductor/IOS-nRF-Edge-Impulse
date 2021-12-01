@@ -99,7 +99,7 @@ struct DataAcquisitionView_Previews: PreviewProvider {
                     .environmentObject(Preview.projectsPreviewAppData)
                     .environmentObject(Preview.mockScannerData)
             }
-            .setBackgroundColor(.blue)
+            .setupNavBarBackground()
         }
         .previewDevice("iPhone 12 mini")
     }

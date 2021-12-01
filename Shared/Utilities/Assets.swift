@@ -13,6 +13,8 @@ enum Assets: String {
     
     // MARK: - Colors
     
+    case navBarBackground = "NavBar"
+    
     case blue = "NordicBlue"
     case sky = "NordicSky"
     case blueslate = "NordicBlueslate"
