@@ -7,6 +7,28 @@
 
 import SwiftUI
 
+// MARK: - EnabledTextView
+
+struct EnabledTextView: ViewModifier {
+    
+    let enabled: Bool
+    
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(enabled ? .textColor : .disabledTextColor)
+            .disabled(!enabled)
+    }
+}
+
+// MARK: View
+
+extension View {
+    
+    func textEnabled(_ enabled: Bool) -> some View {
+        modifier(EnabledTextView(enabled: enabled))
+    }
+}
+
 // MARK: - CircularButtonShape
 
 struct CircularButtonShape: ViewModifier {

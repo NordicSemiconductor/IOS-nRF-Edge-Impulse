@@ -22,6 +22,7 @@ struct DataAcquisitionViewSampleLengthPicker: View {
                         Slider(value: $viewState.sampleLengthS, in: 0...Double(maxSampleLength))
                             .accentColor(.universalAccentColor)
                         Text("\(Int(viewState.sampleLengthS)) seconds")
+                            .textEnabled(!viewState.isSampling)
                     }
                     
                     #if os(iOS)
@@ -48,6 +49,7 @@ struct DataAcquisitionViewSampleLengthPicker: View {
                                 viewState.sampleLengthS = min(Double($0) ?? 0, maxSampleLengthS)
                             }
                         ))
+                            .textEnabled(!viewState.isSampling)
                         //                .keyboardType(.numberPad)
                     }
                 }
