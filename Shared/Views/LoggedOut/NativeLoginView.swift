@@ -97,7 +97,7 @@ struct NativeLoginView: View {
             }
             .padding(.vertical, 8)
             
-            SignedUpView()
+            SignUpView()
             
             Spacer()
         }

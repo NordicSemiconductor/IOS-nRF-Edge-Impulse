@@ -239,8 +239,8 @@
 		AAF38C1D268E16C800F1A590 /* AppData+Deployment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF38C1B268E16C800F1A590 /* AppData+Deployment.swift */; };
 		AAF4E322261DD193009C387B /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4E321261DD193009C387B /* Cache.swift */; };
 		AAF4E323261DD193009C387B /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4E321261DD193009C387B /* Cache.swift */; };
-		AAF4F6BA2625C02E00012359 /* SignedUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6B92625C02E00012359 /* SignedUpView.swift */; };
-		AAF4F6BB2625C02E00012359 /* SignedUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6B92625C02E00012359 /* SignedUpView.swift */; };
+		AAF4F6BA2625C02E00012359 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6B92625C02E00012359 /* SignUpView.swift */; };
+		AAF4F6BB2625C02E00012359 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6B92625C02E00012359 /* SignUpView.swift */; };
 		AAF4F6BD2625C0A700012359 /* LoginErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6BC2625C0A700012359 /* LoginErrorView.swift */; };
 		AAF4F6BE2625C0A700012359 /* LoginErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6BC2625C0A700012359 /* LoginErrorView.swift */; };
 		AAF4F6C32625C8C600012359 /* ThreePaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6C22625C8C600012359 /* ThreePaneLayoutView.swift */; };
@@ -477,7 +477,7 @@
 		AAF38C18268E159A00F1A590 /* GetSocketTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSocketTokenRequest.swift; sourceTree = "<group>"; };
 		AAF38C1B268E16C800F1A590 /* AppData+Deployment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+Deployment.swift"; sourceTree = "<group>"; };
 		AAF4E321261DD193009C387B /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
-		AAF4F6B92625C02E00012359 /* SignedUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedUpView.swift; sourceTree = "<group>"; };
+		AAF4F6B92625C02E00012359 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		AAF4F6BC2625C0A700012359 /* LoginErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginErrorView.swift; sourceTree = "<group>"; };
 		AAF4F6C22625C8C600012359 /* ThreePaneLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreePaneLayoutView.swift; sourceTree = "<group>"; };
 		AAF4F6C62625EB7300012359 /* SettingsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsContentView.swift; sourceTree = "<group>"; };
@@ -977,7 +977,7 @@
 				AA28405B261F4F3D00EB8637 /* UsernameField.swift */,
 				AA28405E261F537C00EB8637 /* PasswordField.swift */,
 				AAF4F6BC2625C0A700012359 /* LoginErrorView.swift */,
-				AAF4F6B92625C02E00012359 /* SignedUpView.swift */,
+				AAF4F6B92625C02E00012359 /* SignUpView.swift */,
 				AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */,
 			);
 			path = LoggedOut;
@@ -1437,7 +1437,7 @@
 				AA0457782701D23100FC1A41 /* DeploymentConfigurationView+Logic.swift in Sources */,
 				AA01F3DF25EFDC5000368707 /* Constant.swift in Sources */,
 				AAFAC31C2678BC8F00D486EA /* ViewModifiers.swift in Sources */,
-				AAF4F6BA2625C02E00012359 /* SignedUpView.swift in Sources */,
+				AAF4F6BA2625C02E00012359 /* SignUpView.swift in Sources */,
 				AA032988266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift in Sources */,
 				AA045785270214DE00FC1A41 /* InferencingView+Logic.swift in Sources */,
 				AAF936AB260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
@@ -1584,7 +1584,7 @@
 				AA010209269C5CD30045D6F2 /* SocketIOJobResult.swift in Sources */,
 				AA2C516927391AB600E5E16E /* DateDeviceInfoRow.swift in Sources */,
 				AA14FD4926EA3314008128CB /* StringDeviceInfoRow.swift in Sources */,
-				AAF4F6BB2625C02E00012359 /* SignedUpView.swift in Sources */,
+				AAF4F6BB2625C02E00012359 /* SignUpView.swift in Sources */,
 				AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
 				AAF7D453269F1176009269D4 /* DeploymentView+Logic.swift in Sources */,
 				AA28405D261F4F3D00EB8637 /* UsernameField.swift in Sources */,

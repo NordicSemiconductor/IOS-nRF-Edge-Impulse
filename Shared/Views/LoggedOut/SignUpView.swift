@@ -1,5 +1,5 @@
 //
-//  SignedUpView.swift
+//  SignUpView.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Dinesh Harjani on 13/4/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SignedUpView: View {
+struct SignUpView: View {
     
     var body: some View {
         HStack {
@@ -24,7 +24,7 @@ struct SignedUpView: View {
 #if DEBUG
 struct SignedUpView_Previews: PreviewProvider {
     static var previews: some View {
-        SignedUpView()
+        SignUpView()
             .previewLayout(.sizeThatFits)
     }
 }
