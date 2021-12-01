@@ -7,9 +7,22 @@
 
 import SwiftUI
 
+// MARK: - View
+
+extension View {
+    
+    func enabledForeground(_ enabled: Bool) -> some View {
+        modifier(EnabledForegroundView(enabled: enabled))
+    }
+    
+    func enabledAccent(_ enabled: Bool) -> some View {
+        modifier(EnabledAccentView(enabled: enabled))
+    }
+}
+
 // MARK: - EnabledTextView
 
-struct EnabledTextView: ViewModifier {
+struct EnabledForegroundView: ViewModifier {
     
     let enabled: Bool
     
@@ -20,12 +33,16 @@ struct EnabledTextView: ViewModifier {
     }
 }
 
-// MARK: View
+// MARK: - EnabledAccentView
 
-extension View {
+struct EnabledAccentView: ViewModifier {
     
-    func textEnabled(_ enabled: Bool) -> some View {
-        modifier(EnabledTextView(enabled: enabled))
+    let enabled: Bool
+    
+    func body(content: Content) -> some View {
+        content
+            .accentColor(enabled ? .universalAccentColor : .disabledTextColor)
+            .disabled(!enabled)
     }
 }
 

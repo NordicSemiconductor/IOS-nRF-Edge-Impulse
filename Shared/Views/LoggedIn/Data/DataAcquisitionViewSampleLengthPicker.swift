@@ -20,9 +20,9 @@ struct DataAcquisitionViewSampleLengthPicker: View {
                 VStack {
                     HStack {
                         Slider(value: $viewState.sampleLengthS, in: 0...Double(maxSampleLength))
-                            .accentColor(.universalAccentColor)
+                            .enabledAccent(!viewState.isSampling)
                         Text("\(Int(viewState.sampleLengthS)) seconds")
-                            .textEnabled(!viewState.isSampling)
+                            .enabledForeground(!viewState.isSampling)
                     }
                     
                     #if os(iOS)
@@ -49,7 +49,7 @@ struct DataAcquisitionViewSampleLengthPicker: View {
                                 viewState.sampleLengthS = min(Double($0) ?? 0, maxSampleLengthS)
                             }
                         ))
-                            .textEnabled(!viewState.isSampling)
+                            .enabledForeground(!viewState.isSampling)
                         //                .keyboardType(.numberPad)
                     }
                 }

@@ -39,7 +39,7 @@ struct DataAcquisitionView: View {
             
             Section(header: Text("Label")) {
                 TextField("Label", text: $dataAcquisitionViewState.label)
-                    .textEnabled(!dataAcquisitionViewState.isSampling)
+                    .enabledForeground(!dataAcquisitionViewState.isSampling)
                     .introspectTextField { textField in
                         guard !keyboardShownOnce,
                               !dataAcquisitionViewState.isSampling,
