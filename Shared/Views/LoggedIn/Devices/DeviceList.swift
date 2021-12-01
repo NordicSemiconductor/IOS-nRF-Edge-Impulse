@@ -36,6 +36,7 @@ struct DeviceList: View {
                 Divider()
                 
                 MacAddressView()
+                    .padding(.vertical, 4)
                 #endif
             }
         }, alertView: { device in
