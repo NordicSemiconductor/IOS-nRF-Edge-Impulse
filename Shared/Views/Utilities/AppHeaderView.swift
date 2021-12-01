@@ -13,7 +13,7 @@ struct AppHeaderView: View {
     
     private let renderingMode: Image.TemplateRenderingMode
     
-    private let templateColor = Assets.middleGrey.color
+    private let templateColor = Color.white
     
     // MARK: Init
     
@@ -39,7 +39,7 @@ struct AppHeaderView: View {
             
             Image("EdgeImpulse")
                 .resizable()
-                .renderingMode(renderingMode)
+                .renderingMode(colorScheme == .light ? renderingMode : .template)
                 .foregroundColor(templateColor)
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 90)
