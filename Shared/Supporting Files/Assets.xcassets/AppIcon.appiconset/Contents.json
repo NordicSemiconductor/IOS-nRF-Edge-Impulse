@@ -13,6 +13,12 @@
       "size" : "20x20"
     },
     {
+      "filename" : "AppIcon-29.png",
+      "idiom" : "iphone",
+      "scale" : "1x",
+      "size" : "29x29"
+    },
+    {
       "filename" : "AppIcon-29@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
@@ -25,13 +31,13 @@
       "size" : "29x29"
     },
     {
-      "filename" : "nRF Edge Impulse copy-7.jpg",
+      "filename" : "AppIcon-40@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "nRF Edge Impulse copy-6.jpg",
+      "filename" : "AppIcon-40@3x.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
@@ -49,37 +55,37 @@
       "size" : "60x60"
     },
     {
-      "filename" : "nRF Edge Impulse copy-13.jpg",
+      "filename" : "AppIcon-20~ipad.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "20x20"
     },
     {
-      "filename" : "nRF Edge Impulse copy-11.jpg",
+      "filename" : "AppIcon-20@2x~ipad.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "nRF Edge Impulse copy-26.jpg",
+      "filename" : "AppIcon-29~ipad.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "29x29"
     },
     {
-      "filename" : "nRF Edge Impulse copy-22.jpg",
+      "filename" : "AppIcon-29@2x~ipad.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "nRF Edge Impulse copy-12.jpg",
+      "filename" : "AppIcon-40~ipad.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "40x40"
     },
     {
-      "filename" : "nRF Edge Impulse copy-8.jpg",
+      "filename" : "AppIcon-40@2x~ipad.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
@@ -97,7 +103,7 @@
       "size" : "76x76"
     },
     {
-      "filename" : "nRF Edge Impulse copy-16.jpg",
+      "filename" : "AppIcon-83.5@2x~ipad.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
@@ -107,6 +113,18 @@
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
+    },
+    {
+      "filename" : "AppIcon-60@2x~car.png",
+      "idiom" : "car",
+      "scale" : "2x",
+      "size" : "60x60"
+    },
+    {
+      "filename" : "AppIcon-60@3x~car.png",
+      "idiom" : "car",
+      "scale" : "3x",
+      "size" : "60x60"
     },
     {
       "idiom" : "mac",
