@@ -91,7 +91,7 @@ struct NativeLoginView: View {
                         attemptLogin()
                     }
                     .keyboardShortcut(.defaultAction)
-                    .modifier(CircularButtonShape(backgroundAsset: isLoginButtonDisabled ? .lightGrey : .blue))
+                    .modifier(CircularButtonShape(backgroundAsset: isLoginButtonDisabled ? .darkGrey : .blue))
                     .disabled(isLoginButtonDisabled)
                 }
             }

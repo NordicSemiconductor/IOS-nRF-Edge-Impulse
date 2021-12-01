@@ -12,7 +12,7 @@ struct SignedUpView: View {
     var body: some View {
         HStack {
             Text("Don't have an account?")
-                .foregroundColor(Assets.darkGrey.color)
+                .foregroundColor(Assets.middleGrey.color)
             Link("Sign Up", destination: Constant.signupURL)
                 .foregroundColor(Assets.blue.color)
         }
