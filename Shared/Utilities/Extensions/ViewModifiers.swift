@@ -14,16 +14,14 @@ struct CircularButtonShape: ViewModifier {
     let backgroundAsset: Assets
     
     func body(content: Content) -> some View {
-        #if os(iOS)
         content
+        #if os(iOS)
             .frame(width: 80, height: 12)
             .font(.headline)
             .foregroundColor(.white)
             .padding()
             .background(backgroundAsset.color)
             .cornerRadius(30)
-        #else
-        content
         #endif
     }
 }
@@ -52,16 +50,14 @@ struct RoundedTextFieldShape: ViewModifier {
     }
     
     func body(content: Content) -> some View {
-        #if os(iOS)
         content
+        #if os(iOS)
             .frame(maxWidth: 320)
             .frame(height: 20)
             .padding()
             .background(backgroundAsset.color)
             .cornerRadius(30)
             .padding(.bottom, hasTextFieldBelow ? 16 : 0)
-        #else
-        content
         #endif
     }
 }

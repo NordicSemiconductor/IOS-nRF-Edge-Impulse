@@ -79,11 +79,9 @@ extension View {
     // MARK: - UITextField
     
     func disableAllAutocorrections() -> some View {
+        disableAutocorrection(true)
         #if os(iOS)
-        return autocapitalization(.none)
-            .disableAutocorrection(true)
-        #else
-        return disableAutocorrection(true)
+            .autocapitalization(.none)
         #endif
     }
 
@@ -129,10 +127,9 @@ extension Picker {
     }
     
     func setAsSegmentedControlStyle() -> some View {
-        #if os(iOS)
-        pickerStyle(SegmentedPickerStyle())
-        #else
         self
+        #if os(iOS)
+            .pickerStyle(SegmentedPickerStyle())
         #endif
     }
 }
@@ -142,10 +139,9 @@ extension Picker {
 extension NavigationView {
     
     func setSingleColumnNavigationViewStyle() -> some View {
-        #if os(iOS)
-        navigationViewStyle(StackNavigationViewStyle())
-        #else
         self
+        #if os(iOS)
+            .navigationViewStyle(StackNavigationViewStyle())
         #endif
     }
     

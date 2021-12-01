@@ -62,12 +62,10 @@ struct ProjectSelectionView: View {
     }
     
     private func styleForMacOS() -> some View {
-        #if os(OSX)
         return self
+        #if os(OSX)
             .background(Color.black.opacity(0.3))
             .cornerRadius(8)
-        #else
-        return self
         #endif
     }
 }
