@@ -21,7 +21,7 @@ final class DeploymentViewState: ObservableObject {
         }
     }
     @Published var enableEONCompiler = true
-    @Published var optimization: Classifier = .Unoptimized
+    @Published var optimization: Classifier = .Default
     @Published var buildButtonText = "Build"
     @Published var buildButtonEnable = false
     
@@ -189,7 +189,34 @@ internal extension DeploymentViewState {
 extension DeploymentViewState {
     
     enum Classifier: String, RawRepresentable, CaseIterable {
+        case Default
         case Quantized
         case Unoptimized
+        
+        var requestValue: String? {
+            switch self {
+            case .Default:
+                return nil
+            case .Quantized:
+                return "int8"
+            case .Unoptimized:
+                return "float32"
+            }
+        }
+        
+        var userDescription: String {
+            guard let requestParameter = requestValue else {
+                return "(Set by Server)"
+            }
+            return "(\(requestParameter))"
+        }
+        
+        static var userCaption: String {
+            #if os(iOS)
+            "Should you encounter any Build issues regarding this setting, we recommend [getting in touch with Edge Impulse](https://www.edgeimpulse.com/contact-us) for more information."
+            #else
+            "Should you encounter any Build issues regarding this setting, we recommend getting in touch with Edge Impulse for more information."
+            #endif
+        }
     }
 }

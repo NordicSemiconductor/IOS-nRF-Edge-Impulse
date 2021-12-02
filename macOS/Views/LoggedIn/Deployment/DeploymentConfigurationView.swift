@@ -42,18 +42,19 @@ struct DeploymentConfigurationView: View {
                     Text("Classifier")
                     Picker(selection: $viewState.optimization, label: EmptyView()) {
                         ForEach(DeploymentViewState.Classifier.allCases, id: \.self) { classifier in
-                            Text(classifier.rawValue).tag(classifier)
+                            DeploymentClassifierView(classifier)
+                                .tag(classifier)
                         }
                     }
                     .pickerStyle(RadioGroupPickerStyle())
-                    .horizontalRadioGroupLayout()
                     .padding(.vertical, 6)
                     
                     Text("")
-                    Text("\(DeploymentViewState.Classifier.Quantized.rawValue) is recommended for best performance. ")
+                    Text(DeploymentViewState.Classifier.userCaption)
                         .font(.caption)
                         .foregroundColor(Assets.middleGrey.color)
                 }
+                .padding(.top)
             }
         }
         .padding()

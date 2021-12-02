@@ -33,12 +33,14 @@ struct DeploymentConfigurationView: View {
         Section(header: Text("Classifier")) {
             Picker("Classifier", selection: $viewState.optimization) {
                 ForEach(DeploymentViewState.Classifier.allCases, id: \.self) { classifier in
-                    Text(classifier.rawValue).tag(classifier)
+                    DeploymentClassifierView(classifier)
+                        .tag(classifier)
                 }
             }
-            .pickerStyle(SegmentedPickerStyle())
+            .pickerStyle(.wheel)
+            .frame(height: 75, alignment: .leading)
             
-            Text("\(DeploymentViewState.Classifier.Quantized.rawValue) is recommended for best performance. ")
+            Text(DeploymentViewState.Classifier.userCaption)
                 .font(.caption)
                 .foregroundColor(Assets.middleGrey.color)
         }
@@ -50,7 +52,11 @@ struct DeploymentConfigurationView: View {
 #if DEBUG
 struct DeploymentConfigurationView_Previews: PreviewProvider {
     static var previews: some View {
-        DeploymentConfigurationView()
+        Form {
+            DeploymentConfigurationView()
+        }
+        .environmentObject(Preview.mockRegisteredDevices)
+        .environmentObject(DeploymentViewState())
     }
 }
 #endif

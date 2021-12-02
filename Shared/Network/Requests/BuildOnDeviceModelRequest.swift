@@ -39,24 +39,10 @@ struct BuildOnDeviceModelRequestResponse: APIResponse {
 fileprivate struct BuildOnDeviceModelRequestBody: Codable {
     
     let engine: String
-    let modelType: String
+    let modelType: String?
     
     init(isEONCompilerEnabled: Bool, classifier: DeploymentViewState.Classifier) {
         self.engine = isEONCompilerEnabled ? "tflite-eon" : "tflite"
         self.modelType = classifier.requestValue
-    }
-}
-
-// MARK: - DeploymentViewState.Classifier
-
-fileprivate extension DeploymentViewState.Classifier {
-    
-    var requestValue: String {
-        switch self {
-        case .Quantized:
-            return "int8"
-        case .Unoptimized:
-            return "float32"
-        }
     }
 }
