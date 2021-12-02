@@ -9,12 +9,11 @@ import Foundation
 
 extension HTTPRequest {
     
-    static func getDeploymentInfo(project: Project, using apiToken: String) -> HTTPRequest? {
+    static func getDeploymentInfo(project: Project, using projectApiToken: String) -> HTTPRequest? {
         guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/deployment",
                                             parameters: ["type": "nordic-thingy53"]) else { return nil }
         httpRequest.setMethod(.GET)
-        let jwtValue = "jwt=" + apiToken
-        httpRequest.setHeaders(["cookie": jwtValue])
+        httpRequest.setHeaders(["x-api-key": projectApiToken])
         return httpRequest
     }
 }

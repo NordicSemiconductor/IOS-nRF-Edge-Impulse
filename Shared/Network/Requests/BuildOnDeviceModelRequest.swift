@@ -10,7 +10,7 @@ import Foundation
 extension HTTPRequest {
     
     static func buildModel(project: Project, usingEONCompiler: Bool, classifier: DeploymentViewState.Classifier,
-                           using apiToken: String) -> HTTPRequest? {
+                           using projectApiToken: String) -> HTTPRequest? {
         let body = BuildOnDeviceModelRequestBody(isEONCompilerEnabled: usingEONCompiler, classifier: classifier)
         guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/jobs/build-ondevice-model",
                                             parameters: ["type": "nordic-thingy53"]),
@@ -19,8 +19,7 @@ extension HTTPRequest {
         }
         
         httpRequest.setMethod(.POST)
-        let jwtValue = "jwt=" + apiToken
-        httpRequest.setHeaders(["cookie": jwtValue, "Accept": "application/json", "Content-Type": "application/json"])
+        httpRequest.setHeaders(["x-api-key": projectApiToken, "Accept": "application/json", "Content-Type": "application/json"])
         httpRequest.setBody(bodyData)
         return httpRequest
     }

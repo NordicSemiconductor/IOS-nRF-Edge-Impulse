@@ -37,7 +37,7 @@ final class DeploymentViewState: ObservableObject {
     internal var cancellables = Set<AnyCancellable>()
     
     private var project: Project!
-    private var apiToken: String!
+    private var projectApiToken: String!
     private var buildJobId: Int!
 }
 
@@ -45,25 +45,25 @@ final class DeploymentViewState: ObservableObject {
 
 extension DeploymentViewState {
     
-    func sendDeploymentInfoRequest(for selectedProject: Project, using apiToken: String) {
-        guard let infoRequest = HTTPRequest.getDeploymentInfo(project: selectedProject, using: apiToken) else { return }
+    func sendDeploymentInfoRequest(for selectedProject: Project, using projectApiToken: String) {
+        guard let infoRequest = HTTPRequest.getDeploymentInfo(project: selectedProject, using: projectApiToken) else { return }
         progressManager.inProgress(.building)
         Network.shared.perform(infoRequest, responseType: GetDeploymentInfoResponse.self)
             .sinkReceivingError(onError: { error in
                 self.reportError(error)
             }, receiveValue: { response in
                 if response.hasDeployment {
-                    self.downloadModel(for: selectedProject, using: apiToken)
+                    self.downloadModel(for: selectedProject, using: projectApiToken)
                 } else {
-                    self.sendBuildRequest(for: selectedProject, using: apiToken)
+                    self.sendBuildRequest(for: selectedProject, using: projectApiToken)
                 }
             })
             .store(in: &cancellables)
     }
     
-    func sendBuildRequest(for selectedProject: Project, using apiToken: String) {
+    func sendBuildRequest(for selectedProject: Project, using projectApiToken: String) {
         guard let buildRequest = HTTPRequest.buildModel(project: selectedProject, usingEONCompiler: enableEONCompiler,
-                                                        classifier: optimization, using: apiToken) else { return }
+                                                        classifier: optimization, using: projectApiToken) else { return }
         progressManager.inProgress(.building)
         Network.shared.perform(buildRequest, responseType: BuildOnDeviceModelRequestResponse.self)
             .sinkReceivingError(onError: { error in
@@ -74,8 +74,8 @@ extension DeploymentViewState {
             .store(in: &cancellables)
     }
     
-    func downloadModel(for selectedProject: Project, using apiToken: String) {
-        guard let downloadRequest = HTTPRequest.downloadModelFor(project: selectedProject, using: apiToken) else { return }
+    func downloadModel(for selectedProject: Project, using projectApiToken: String) {
+        guard let downloadRequest = HTTPRequest.downloadModelFor(project: selectedProject, using: projectApiToken) else { return }
         self.progressManager.inProgress(.downloading)
         Network.shared.perform(downloadRequest)
             .sinkReceivingError(onError: { error in
@@ -147,7 +147,7 @@ internal extension DeploymentViewState {
         // If we don't disconnect, the Server will do it for us.
         disconnect()
         
-        guard let infoRequest = HTTPRequest.getDeploymentInfo(project: project, using: apiToken) else { return }
+        guard let infoRequest = HTTPRequest.getDeploymentInfo(project: project, using: projectApiToken) else { return }
         self.logs.append(LogMessage("Checking Deployment Info once again before attempting to download."))
         Network.shared.perform(infoRequest, responseType: GetDeploymentInfoResponse.self)
             .sinkReceivingError(onError: { [weak self] error in
@@ -155,7 +155,7 @@ internal extension DeploymentViewState {
             }, receiveValue: { [weak self] response in
                 guard let self = self else { return }
                 if response.hasDeployment {
-                    self.downloadModel(for: self.project, using: self.apiToken)
+                    self.downloadModel(for: self.project, using: self.projectApiToken)
                 } else {
                     self.reportError(NordicError(description: "There is no deployment available for this project. Please check the website or contact Edge Impulse."))
                 }
@@ -171,9 +171,9 @@ internal extension DeploymentViewState {
         cancellables.removeAll()
     }
     
-    func setupNewDeployment(for project: Project, using apiToken: String) {
+    func setupNewDeployment(for project: Project, using projectApiToken: String) {
         self.project = project
-        self.apiToken = apiToken
+        self.projectApiToken = projectApiToken
         self.buildJobId = nil
         self.progressManager.delegate = self
         

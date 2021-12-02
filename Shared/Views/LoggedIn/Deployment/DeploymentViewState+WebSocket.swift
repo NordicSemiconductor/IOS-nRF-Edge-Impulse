@@ -11,14 +11,14 @@ import SwiftUI
 
 extension DeploymentViewState {
     
-    func connect(for project: Project, using socketToken: Token, and apiToken: String) {
+    func connect(for project: Project, using socketToken: Token, and projectApiToken: String) {
         guard let request = HTTPRequest(scheme: .wss, host: .EdgeImpulse, path: "/socket.io/", parameters: ["token": socketToken.socketToken, "EIO": "3", "transport": "websocket"]),
               let urlString = request.url?.absoluteString else {
             reportError(NordicError(description: "Unable to make HTTPRequest."))
             return
         }
         
-        setupNewDeployment(for: project, using: apiToken)
+        setupNewDeployment(for: project, using: projectApiToken)
         progressManager.inProgress(.online)
         socketManager = WebSocketManager()
         let pingConfiguration = WebSocketManager.PingConfiguration(data: "2".data(using: .utf8))
@@ -36,7 +36,7 @@ extension DeploymentViewState {
                 case .connected:
                     self.progressManager.completed(.online)
                     self.logs.append(LogMessage("Connected!"))
-                    self.sendDeploymentInfoRequest(for: project, using: apiToken)
+                    self.sendDeploymentInfoRequest(for: project, using: projectApiToken)
                 }
             }
             .store(in: &cancellables)

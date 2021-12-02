@@ -28,12 +28,12 @@ fileprivate extension DeploymentView {
         guard viewState.selectedDeviceHandler != nil,
               let currentProject = appData.selectedProject,
               let socketToken = appData.projectSocketTokens[currentProject],
-              let apiToken = appData.apiToken else {
+              let projectApiKey = appData.projectDevelopmentKeys[currentProject]?.apiKey else {
             
                   viewState.reportError(NordicError(description: "Tokens are missing."))
                   return
         }
-        viewState.connect(for: currentProject, using: socketToken, and: apiToken)
+        viewState.connect(for: currentProject, using: socketToken, and: projectApiKey)
     }
     
     func retry() {
