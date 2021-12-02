@@ -35,7 +35,7 @@ extension Color {
     
     static var negativeActionButtonColor: Color { Assets.red.color }
     
-    static var succcessfulActionButtonColor: Color { .green }
+    static var succcessfulActionButtonColor: Color { Assets.blue.color }
     
     static var disabledTextColor: Color { Assets.middleGrey.color }
     

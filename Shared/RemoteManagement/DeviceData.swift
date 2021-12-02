@@ -24,7 +24,7 @@ extension DeviceData {
                 case .notConnectable:
                     return .gray
                 case .readyToConnect:
-                    return Assets.lake.color
+                    return Assets.blue.color
                 case .connected:
                     return .green
                 case .connecting:
