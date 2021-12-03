@@ -31,14 +31,14 @@ struct RenameButtonsView: View {
     var body: some View {
         HStack(spacing: 16) {
             Button("OK", action: okFunction)
-                .foregroundColor(.textColor)
+                .foregroundColor(.positiveActionButtonColor)
                 .disabled(!enabled)
                 .keyboardShortcut(.defaultAction)
             
             switch viewState {
             case .waitingForInput:
                 Button("Cancel", action: cancelFunction)
-                    .foregroundColor(Assets.red.color)
+                    .foregroundColor(.textColor)
                     .disabled(!enabled)
             default:
                 EmptyView()
