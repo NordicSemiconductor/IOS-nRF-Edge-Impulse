@@ -26,7 +26,7 @@ struct DeviceSection<Content: View, D: Identifiable>: View {
             }
             
             if data.isEmpty {
-                NoDevicesView()
+                NoDevicesFoundView()
                     .padding()
             }
         }

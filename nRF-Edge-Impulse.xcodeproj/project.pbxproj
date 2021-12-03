@@ -174,8 +174,8 @@
 		AA9D798D26971D2300A987FB /* SocketIOJobMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9D798C26971D2300A987FB /* SocketIOJobMessage.swift */; };
 		AA9D798E26971D2300A987FB /* SocketIOJobMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9D798C26971D2300A987FB /* SocketIOJobMessage.swift */; };
 		AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */; };
-		AAA5C7C5269F39EA0012809A /* NoDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5C7C4269F39EA0012809A /* NoDevicesView.swift */; };
-		AAA5C7C6269F39EA0012809A /* NoDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5C7C4269F39EA0012809A /* NoDevicesView.swift */; };
+		AAA5C7C5269F39EA0012809A /* NoDevicesFoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5C7C4269F39EA0012809A /* NoDevicesFoundView.swift */; };
+		AAA5C7C6269F39EA0012809A /* NoDevicesFoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5C7C4269F39EA0012809A /* NoDevicesFoundView.swift */; };
 		AAA87ADD261B143B0097EA74 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA87ADC261B143B0097EA74 /* String.swift */; };
 		AAA87ADE261B143B0097EA74 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA87ADC261B143B0097EA74 /* String.swift */; };
 		AAA87AE3261B28F50097EA74 /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA87AE2261B28F50097EA74 /* URLImage.swift */; };
@@ -443,7 +443,7 @@
 		AA9CFCCE26610C76001B7751 /* sample_full_microphone_data_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_full_microphone_data_response.json; sourceTree = "<group>"; };
 		AA9D798C26971D2300A987FB /* SocketIOJobMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOJobMessage.swift; sourceTree = "<group>"; };
 		AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionViewState.swift; sourceTree = "<group>"; };
-		AAA5C7C4269F39EA0012809A /* NoDevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDevicesView.swift; sourceTree = "<group>"; };
+		AAA5C7C4269F39EA0012809A /* NoDevicesFoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDevicesFoundView.swift; sourceTree = "<group>"; };
 		AAA87ADC261B143B0097EA74 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		AAA87AE2261B28F50097EA74 /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
 		AAB8C87126D52205004FC21B /* MacAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacAddress.swift; sourceTree = "<group>"; };
@@ -608,7 +608,7 @@
 				015AB1602653D5E700C09196 /* ConnectionStatus.swift */,
 				AAE507B9268F19990017CAED /* RenameDeviceView.swift */,
 				AA02089525F65A3700FD6B24 /* DeviceList.swift */,
-				AAA5C7C4269F39EA0012809A /* NoDevicesView.swift */,
+				AAA5C7C4269F39EA0012809A /* NoDevicesFoundView.swift */,
 				011D787F26BB3CA10035B752 /* TextHeader.swift */,
 				C3BF6AC72626D662006330C8 /* SignalLevel */,
 			);
@@ -1416,7 +1416,7 @@
 				AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */,
 				AA27C2B3266E48F4002D1652 /* DataAcquisitionSensorPicker.swift in Sources */,
 				AA02089625F65A3700FD6B24 /* DeviceList.swift in Sources */,
-				AAA5C7C5269F39EA0012809A /* NoDevicesView.swift in Sources */,
+				AAA5C7C5269F39EA0012809A /* NoDevicesFoundView.swift in Sources */,
 				AA9D798D26971D2300A987FB /* SocketIOJobMessage.swift in Sources */,
 				AA63F87026A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */,
 				AAEDE636262882BF00B96AE9 /* ProjectSelectionView.swift in Sources */,
@@ -1555,7 +1555,7 @@
 				C301A35C261DE9280010717D /* DeviceRemoteHandler.swift in Sources */,
 				AA4581CE274536870063EBE7 /* DeploymentInfoRequest.swift in Sources */,
 				C301A37A261F36250010717D /* HelloMessage.swift in Sources */,
-				AAA5C7C6269F39EA0012809A /* NoDevicesView.swift in Sources */,
+				AAA5C7C6269F39EA0012809A /* NoDevicesFoundView.swift in Sources */,
 				AA0208AA25F65EB400FD6B24 /* Tabs.swift in Sources */,
 				AA2CDEB72636FF3900A4950E /* AppEvents.swift in Sources */,
 				01D853F0265D0B8D00D96592 /* Device.swift in Sources */,
