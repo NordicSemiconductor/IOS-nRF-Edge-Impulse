@@ -67,7 +67,7 @@ private extension DeviceList {
     // MARK: Scan results
     @ViewBuilder
     private func buildScanResultsList() -> some View {
-        DeviceSection(title: "Add Device", data: deviceData.unregisteredDevices) { s in
+        DeviceSection(title: "Add Device", data: deviceData.unregisteredDevices, emptyContentView: NoDevicesFoundView()) { s in
             UnregisteredDeviceView(s)
         }
     }
@@ -75,7 +75,7 @@ private extension DeviceList {
     // MARK: Registered Devices
     @ViewBuilder
     private func buildRegisteredDevicesList() -> some View {
-        DeviceSection(data: deviceData.registeredDevices) { wrapper in
+        DeviceSection(data: deviceData.registeredDevices, emptyContentView: NoRegisteredDevicesView()) { wrapper in
             NavigationLink(destination: DeviceDetails(device: wrapper.device, state: wrapper.state)) {
                 RegisteredDeviceView(wrapper.device, connectionState: wrapper.state)
             }

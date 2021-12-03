@@ -7,17 +7,26 @@
 
 import SwiftUI
 
-struct DeviceSection<Content: View, D: Identifiable>: View {
+// MARK: - DeviceSection
+
+struct DeviceSection<Content: View, EmptyContent: View, D: Identifiable>: View {
     
-    let title: String?
-    let data: [D]
-    let content: (D) -> Content
+    private let title: String?
+    private let data: [D]
+    private let emptyContentView: EmptyContent
+    private let content: (D) -> Content
     
-    init(title: String? = nil, data: [D], content: @escaping (D) -> Content) {
+    // MARK: Init
+    
+    init(title: String? = nil, data: [D], emptyContentView: EmptyContent,
+         content: @escaping (D) -> Content) {
         self.title = title
         self.data = data
+        self.emptyContentView = emptyContentView
         self.content = content
     }
+    
+    // MARK: View
     
     var body: some View {
         Section(header: Text(title ?? "")) {
@@ -26,12 +35,13 @@ struct DeviceSection<Content: View, D: Identifiable>: View {
             }
             
             if data.isEmpty {
-                NoDevicesFoundView()
-                    .padding()
+                emptyContentView
             }
         }
     }
 }
+
+// MARK: - Preview
 
 #if DEBUG
 struct DeviceSection_Previews: PreviewProvider {
@@ -39,12 +49,12 @@ struct DeviceSection_Previews: PreviewProvider {
         Group {
             DeviceSection(
                 title: "Scan Results",
-                data: [DeviceData.ScanResultWrapper(scanResult: .sample), DeviceData.ScanResultWrapper(scanResult: .sample)]) { d in
+                data: [DeviceData.ScanResultWrapper(scanResult: .sample), DeviceData.ScanResultWrapper(scanResult: .sample)], emptyContentView: NoDevicesFoundView()) { d in
                 UnregisteredDeviceView(d)
             }
             DeviceSection(
                 title: "Scan Results",
-                data: []) { d in
+                data: [], emptyContentView: NoRegisteredDevicesView()) { d in
                 UnregisteredDeviceView(d)
             }
         }
