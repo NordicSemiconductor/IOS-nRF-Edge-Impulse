@@ -63,21 +63,7 @@ struct RenameDeviceView: View {
                     .padding(4)
             }
             
-            HStack(spacing: 8) {
-                Button("OK", action: okButton)
-                    .foregroundColor(.textColor)
-                    .disabled(!buttonEnabled)
-                    .keyboardShortcut(.defaultAction)
-                
-                switch viewState {
-                case .waitingForInput:
-                    Button("Cancel", action: dismiss)
-                        .foregroundColor(Assets.red.color)
-                        .disabled(!buttonEnabled)
-                default:
-                    EmptyView()
-                }
-            }
+            RenameButtonsView(viewState, enabled: buttonEnabled, okFunction: okButton, cancelFunction: dismiss)
         }
         .padding()
         .frame(width: 350)
