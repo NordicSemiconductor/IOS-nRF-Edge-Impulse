@@ -606,10 +606,10 @@
 		AA02089425F654C300FD6B24 /* Devices */ = {
 			isa = PBXGroup;
 			children = (
+				AA798186275A33D5008BDAC3 /* RenameDevice */,
 				AA14FD4326EA310A008128CB /* Details */,
 				0187B39126BD6C5E00E59BFD /* DevieceSection */,
 				015AB1602653D5E700C09196 /* ConnectionStatus.swift */,
-				AAE507B9268F19990017CAED /* RenameDeviceView.swift */,
 				AA02089525F65A3700FD6B24 /* DeviceList.swift */,
 				AA798183275A223F008BDAC3 /* NoRegisteredDevicesView.swift */,
 				AAA5C7C4269F39EA0012809A /* NoDevicesFoundView.swift */,
@@ -789,6 +789,14 @@
 				AAFDB46D264D73A800F0CD02 /* ProjectView.swift */,
 			);
 			path = Project;
+			sourceTree = "<group>";
+		};
+		AA798186275A33D5008BDAC3 /* RenameDevice */ = {
+			isa = PBXGroup;
+			children = (
+				AAE507B9268F19990017CAED /* RenameDeviceView.swift */,
+			);
+			path = RenameDevice;
 			sourceTree = "<group>";
 		};
 		AA7F5DE125F8F57D00185328 /* Frameworks */ = {
