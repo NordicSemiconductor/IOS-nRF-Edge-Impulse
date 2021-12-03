@@ -15,6 +15,7 @@ struct PasswordField: View {
     
     private var password: Binding<String>
     private var enabled: Bool
+    @State private var shouldRevealPassword = false
     
     // MARK: - Init
     
@@ -30,13 +31,29 @@ struct PasswordField: View {
             Image(systemName: "key.fill")
                 .frame(size: .StandardImageSize)
                 .accentColor(Assets.darkGrey.color)
-            SecureField("Password", text: password)
+            
+            HStack {
+                ZStack {
+                    if shouldRevealPassword {
+                        TextField("Password", text: password)
+                    } else {
+                        SecureField("Password", text: password)
+                    }
+                }
                 .disableAllAutocorrections()
                 .textContentType(.password)
                 .foregroundColor(.textFieldColor)
-                .modifier(RoundedTextFieldShape(colorScheme == .light ? Assets.lightGrey : Assets.middleGrey))
-                .padding(.bottom, 8)
                 .disabled(!enabled)
+                
+                Button(action: {
+                    shouldRevealPassword.toggle()
+                }) {
+                    Image(systemName: shouldRevealPassword ? "eye.slash" : "eye")
+                        .accentColor(Assets.darkGrey.color)
+                }
+            }
+            .modifier(RoundedTextFieldShape(colorScheme == .light ? Assets.lightGrey : Assets.middleGrey))
+            .padding(.vertical, 8)
         }
     }
 }
