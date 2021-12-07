@@ -63,7 +63,7 @@ struct TextFieldAlert {
   
     let title: String
     let message: String?
-    @Binding var text: String?
+    @Binding var text: String
     var isPresented: Binding<Bool>? = nil
     let onPositiveAction: () -> Void
   
@@ -98,14 +98,14 @@ final class UITextFieldAlertViewController: UIViewController {
     
     private let alertTitle: String
     private let message: String?
-    @Binding private var text: String?
+    @Binding private var text: String
     private var isPresented: Binding<Bool>?
     private let onPositiveButton: () -> Void
     private var subscription: AnyCancellable?
     
     // MARK: Init
     
-    init(title: String, message: String?, text: Binding<String?>, isPresented: Binding<Bool>?,
+    init(title: String, message: String?, text: Binding<String>, isPresented: Binding<Bool>?,
          onPositiveAction: @escaping () -> Void) {
         self.alertTitle = title
         self.message = message
@@ -132,15 +132,16 @@ final class UITextFieldAlertViewController: UIViewController {
         let alertViewController = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)
         alertViewController.addTextField { [weak self] textField in
             guard let self = self else { return }
+            textField.textContentType = .name
             textField.text = self.text
           
             self.subscription = NotificationCenter.default
                 .publisher(for: UITextField.textDidChangeNotification, object: textField)
-                .map { ($0.object as? UITextField)?.text }
+                .map { ($0.object as? UITextField)?.text ?? "" }
                 .assign(to: \.text, on: self)
         }
 
-        alertViewController.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+        alertViewController.addAction(UIAlertAction(title: "Done", style: .default) { [weak self] _ in
             self?.isPresented?.wrappedValue = false
             self?.onPositiveButton()
         })
