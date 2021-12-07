@@ -17,19 +17,17 @@ struct DeviceList: View {
     @EnvironmentObject var appData: AppData
     
     @State private var showDeleteDeviceAlert = false
-    
     @State private var showRenameDeviceAlert = false
-    @State private var renameText: String? = nil
+    @State private var renameText: String = ""
     
-    @State private var renameDevice: Device? = nil
-    @State private var deleteDevice: Device? = nil
+    @State private var alertDevice: Device? = nil
     
     private let logger = Logger(category: "DeviceList")
     
     // MARK: View
     
     var body: some View {
-        AlertViewContainer(content: {
+        TextFieldAlertViewContainer(content: {
             FormIniOSListInMacOS {
                 if appData.isLoggedIn {
                     buildRegisteredDevicesList()
@@ -43,12 +41,10 @@ struct DeviceList: View {
                     .padding(.vertical, 4)
                 #endif
             }
-        }, alertView: { device in
-            RenameDeviceView($renameDevice)
-        }, title: "Rename Device", text: $renameText, isShowing: $renameDevice, isPresented: $showRenameDeviceAlert, onPositiveAction: {
-            guard let device = renameDevice, let newName = renameText else { return }
-            appData.renameDevice(device, to: newName) {
-                self.deviceData.renamed(device, to: newName)
+        }, title: "Rename Device", message: "Type your new Device name here", text: $renameText, isPresented: $showRenameDeviceAlert, onPositiveAction: {
+            guard let device = alertDevice else { return }
+            appData.renameDevice(device, to: renameText) {
+                self.deviceData.renamed(device, to: renameText)
                 self.deviceData.updateRegisteredDevices()
             }
         })
@@ -119,7 +115,7 @@ private extension DeviceList {
         }
         
         Button(action: {
-            renameDevice = deviceWrapper.device
+            alertDevice = deviceWrapper.device
             if let updatedWrapper = deviceData.registeredDevices.first(where: { $0.id == deviceWrapper.id }) {
                 renameText = updatedWrapper.device.name
             } else {
@@ -132,7 +128,7 @@ private extension DeviceList {
         
         Divider()
         Button {
-            deleteDevice = deviceWrapper.device
+            alertDevice = deviceWrapper.device
             showDeleteDeviceAlert = true
         } label: {
             Label("Delete", systemImage: "minus.circle")
@@ -168,15 +164,15 @@ private extension DeviceList {
     
     func confirmDeleteDevice() {
         showDeleteDeviceAlert = false
-        guard let device = deleteDevice else { return }
+        guard let device = alertDevice else { return }
         
         deviceData.tryToDelete(device: device)
-        deleteDevice = nil
+        alertDevice = nil
     }
     
     func dismissDeleteDevice() {
         showDeleteDeviceAlert = false
-        deleteDevice = nil
+        alertDevice = nil
     }
 }
 

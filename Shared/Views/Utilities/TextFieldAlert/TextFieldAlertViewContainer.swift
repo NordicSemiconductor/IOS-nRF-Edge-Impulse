@@ -1,5 +1,5 @@
 //
-//  RenameDeviceAlertView.swift
+//  TextFieldAlertViewContainer.swift
 //  nRF-Edge-Impulse
 //
 //  Created by Dinesh Harjani on 19/7/21.
@@ -8,29 +8,25 @@
 import SwiftUI
 import Combine
 
-struct AlertViewContainer<Container: View, AlertView: View, BindingIdentifiable: Identifiable>: View {
+struct TextFieldAlertViewContainer<Container: View>: View {
     
     // MARK: Private Properties
     
     private var content: () -> Container
-    private var alertView: (BindingIdentifiable) -> AlertView
-    private var isShowing: Binding<BindingIdentifiable?>
     private let title: String
-    private var text: Binding<String?>
+    private let message: String
+    private var text: Binding<String>
     private var isPresented: Binding<Bool>
     private let onPositiveAction: () -> Void
     
     // MARK: Init
     
-    init(@ViewBuilder content: @escaping () -> Container,
-         @ViewBuilder alertView: @escaping (BindingIdentifiable) -> AlertView,
-         title: String, text: Binding<String?>,
-         isShowing: Binding<BindingIdentifiable?>, isPresented: Binding<Bool>,
+    init(@ViewBuilder content: @escaping () -> Container, title: String,
+         message: String, text: Binding<String>, isPresented: Binding<Bool>,
          onPositiveAction: @escaping () -> Void) {
         self.content = content
-        self.alertView = alertView
-        self.isShowing = isShowing
         self.title = title
+        self.message = message
         self.text = text
         self.isPresented = isPresented
         self.onPositiveAction = onPositiveAction
@@ -42,7 +38,7 @@ struct AlertViewContainer<Container: View, AlertView: View, BindingIdentifiable:
         #if os(iOS)
         ZStack {
             if isPresented.wrappedValue {
-                TextFieldAlert(title: title, message: "", text: self.text, isPresented: isPresented,
+                TextFieldAlert(title: title, message: message, text: self.text, isPresented: isPresented,
                                onPositiveAction: onPositiveAction)
                     .dismissable(isPresented)
             }
@@ -50,8 +46,8 @@ struct AlertViewContainer<Container: View, AlertView: View, BindingIdentifiable:
         }
         #elseif os(OSX)
         content()
-            .sheet(item: isShowing) { identifiable in
-                alertView(identifiable)
+            .sheet(isPresented: isPresented) {
+                TextFieldAlertView(title: title, message: message, text: self.text, isShowing: isPresented, onPositiveAction: onPositiveAction)
                     .introspectTextField { textField in
                         textField.becomeFirstResponder()
                     }
