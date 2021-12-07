@@ -17,6 +17,10 @@ struct DeviceList: View {
     @EnvironmentObject var appData: AppData
     
     @State private var showDeleteDeviceAlert = false
+    
+    @State private var showRenameDeviceAlert = false
+    @State private var renameText: String? = nil
+    
     @State private var renameDevice: Device? = nil
     @State private var deleteDevice: Device? = nil
     
@@ -41,7 +45,13 @@ struct DeviceList: View {
             }
         }, alertView: { device in
             RenameDeviceView($renameDevice)
-        }, isShowing: $renameDevice)
+        }, title: "Rename Device", text: $renameText, isShowing: $renameDevice, isPresented: $showRenameDeviceAlert, onPositiveAction: {
+            guard let device = renameDevice, let newName = renameText else { return }
+            appData.renameDevice(device, to: newName) {
+                self.deviceData.renamed(device, to: newName)
+                self.deviceData.updateRegisteredDevices()
+            }
+        })
         .onAppear(perform: deviceData.updateRegisteredDevices)
         .alert(isPresented: $showDeleteDeviceAlert) {
             Alert(title: Text("Delete Device"),
@@ -110,6 +120,12 @@ private extension DeviceList {
         
         Button(action: {
             renameDevice = deviceWrapper.device
+            if let updatedWrapper = deviceData.registeredDevices.first(where: { $0.id == deviceWrapper.id }) {
+                renameText = updatedWrapper.device.name
+            } else {
+                renameText = deviceWrapper.device.name
+            }
+            showRenameDeviceAlert = true
         }) {
             Label("Rename", systemImage: "pencil")
         }

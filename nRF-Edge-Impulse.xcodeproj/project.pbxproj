@@ -161,6 +161,8 @@
 		AA798185275A223F008BDAC3 /* NoRegisteredDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA798183275A223F008BDAC3 /* NoRegisteredDevicesView.swift */; };
 		AA798188275A3437008BDAC3 /* RenameButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA798187275A3437008BDAC3 /* RenameButtonsView.swift */; };
 		AA798189275A3437008BDAC3 /* RenameButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA798187275A3437008BDAC3 /* RenameButtonsView.swift */; };
+		AA79818B275A5170008BDAC3 /* AppData+Rename.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA79818A275A5170008BDAC3 /* AppData+Rename.swift */; };
+		AA79818C275A5170008BDAC3 /* AppData+Rename.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA79818A275A5170008BDAC3 /* AppData+Rename.swift */; };
 		AA7E6659274BC66200B8CE12 /* DeploymentErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7E6658274BC66200B8CE12 /* DeploymentErrorView.swift */; };
 		AA7E665A274BC66200B8CE12 /* DeploymentErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7E6658274BC66200B8CE12 /* DeploymentErrorView.swift */; };
 		AA7F5DE325F8F57D00185328 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AA7F5DE225F8F57D00185328 /* KeychainSwift */; };
@@ -441,6 +443,7 @@
 		AA63F86F26A1AE82001EDE54 /* DeleteDeviceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDeviceRequest.swift; sourceTree = "<group>"; };
 		AA798183275A223F008BDAC3 /* NoRegisteredDevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoRegisteredDevicesView.swift; sourceTree = "<group>"; };
 		AA798187275A3437008BDAC3 /* RenameButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameButtonsView.swift; sourceTree = "<group>"; };
+		AA79818A275A5170008BDAC3 /* AppData+Rename.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+Rename.swift"; sourceTree = "<group>"; };
 		AA7E6658274BC66200B8CE12 /* DeploymentErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentErrorView.swift; sourceTree = "<group>"; };
 		AA80988325EE518F00091AC0 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		AA80989925EE959B00091AC0 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
@@ -964,6 +967,7 @@
 				AA9342472681F713001CD754 /* DataContainer.swift */,
 				AAFAE5EA25ED14E500A45A90 /* AppData.swift */,
 				AAF7299626298D6D0034B61A /* AppData+LoginState.swift */,
+				AA79818A275A5170008BDAC3 /* AppData+Rename.swift */,
 				AAF5531C2641614B00252345 /* AppData+DataSamples.swift */,
 				AAF38C1B268E16C800F1A590 /* AppData+Deployment.swift */,
 				AAE0B234264E953E00FD8F80 /* AppData+Debug.swift */,
@@ -1421,6 +1425,7 @@
 				C301A369261F12890010717D /* WebSocketManager.swift in Sources */,
 				AAF5E7592640106700AC3271 /* DataSample.swift in Sources */,
 				AA0208A925F65EB400FD6B24 /* Tabs.swift in Sources */,
+				AA79818B275A5170008BDAC3 /* AppData+Rename.swift in Sources */,
 				C301A379261F36250010717D /* HelloMessage.swift in Sources */,
 				AA04577B2701D97500FC1A41 /* DeploymentProgressView.swift in Sources */,
 				AAE05F202649554F005BBF98 /* SampleRequestMessage.swift in Sources */,
@@ -1493,6 +1498,7 @@
 				01E10964265FAEDE000F2EE4 /* RegisteredDeviceView.swift in Sources */,
 				AAFFEB3A25FF9554002287D6 /* NordicError.swift in Sources */,
 				AAEDE637262882D500B96AE9 /* ProjectSelectionView.swift in Sources */,
+				AA79818C275A5170008BDAC3 /* AppData+Rename.swift in Sources */,
 				AA04577C2701D97500FC1A41 /* DeploymentProgressView.swift in Sources */,
 				AA80989B25EE959B00091AC0 /* Publishers.swift in Sources */,
 				AAF55324264171AB00252345 /* DataSampleRow.swift in Sources */,
