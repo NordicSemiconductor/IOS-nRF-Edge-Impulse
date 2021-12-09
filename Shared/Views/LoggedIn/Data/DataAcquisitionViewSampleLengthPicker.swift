@@ -50,7 +50,9 @@ struct DataAcquisitionViewSampleLengthPicker: View {
                             }
                         ))
                             .enabledForeground(!viewState.isSampling)
-                        //                .keyboardType(.numberPad)
+                        #if os(iOS)
+                            .keyboardType(.numberPad)
+                        #endif
                     }
                 }
             } else {
