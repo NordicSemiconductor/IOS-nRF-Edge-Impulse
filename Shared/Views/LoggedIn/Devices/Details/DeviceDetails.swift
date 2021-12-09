@@ -76,11 +76,8 @@ struct DeviceDetails: View {
                     deviceData.tryToConnect(device: device)
                 }
             } else if case .connecting = state {
-                #if os(iOS)
-                ProgressView()
-                #elseif os(macOS)
-                Button("Connecting...") { }.disabled(true)
-                #endif
+                CircularProgressView()
+                    .foregroundColor(.textColor)
             } else if case .connected = state {
                 Button("Disconnect") {
                     deviceData.disconnect(device: device)
