@@ -40,9 +40,15 @@ struct DeploymentConfigurationView: View {
             .pickerStyle(.wheel)
             .frame(height: 75, alignment: .leading)
             
+            #if os(iOS)
+            Text(DeploymentViewState.Classifier.attributedUserCaption)
+                .font(.caption)
+                .foregroundColor(Assets.middleGrey.color)
+            #else
             Text(DeploymentViewState.Classifier.userCaption)
                 .font(.caption)
                 .foregroundColor(Assets.middleGrey.color)
+            #endif
         }
     }
 }

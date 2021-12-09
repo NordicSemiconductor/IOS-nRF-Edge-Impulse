@@ -211,12 +211,18 @@ extension DeploymentViewState {
             return "(\(requestParameter))"
         }
         
-        static var userCaption: String {
-            #if os(iOS)
-            "Should you encounter any Build issues regarding this setting, we recommend [getting in touch with Edge Impulse](https://www.edgeimpulse.com/contact-us) for more information."
-            #else
-            "Should you encounter any Build issues regarding this setting, we recommend getting in touch with Edge Impulse for more information."
-            #endif
+        static var userCaption = "Should you encounter any Build issues regarding this setting, we recommend getting in touch with Edge Impulse for more information."
+        
+        #if os(iOS)
+        static var attributedUserCaption: AttributedString {
+            var attributedString = AttributedString(DeploymentViewState.Classifier.userCaption)
+            if let range = attributedString.range(of: "getting in touch with Edge Impulse"),
+               let link = URL(string: "https://www.edgeimpulse.com/contact-us") {
+                attributedString[range].link = link
+                attributedString[range].foregroundColor = Assets.blue.color
+            }
+            return attributedString
         }
+        #endif
     }
 }
