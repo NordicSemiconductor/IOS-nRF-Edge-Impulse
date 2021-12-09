@@ -8,9 +8,6 @@
 import Foundation
 import Combine
 import SwiftUI
-#if os(OSX)
-import AppKit
-#endif
 
 // MARK: - Network
 

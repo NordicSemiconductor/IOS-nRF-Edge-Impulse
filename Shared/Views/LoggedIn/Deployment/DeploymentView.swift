@@ -49,9 +49,6 @@ struct DeploymentView: View {
                 #endif
             }
         }
-        #if os(iOS)
-        .padding(.top)
-        #endif
         .background(Color.formBackground)
     }
 }

@@ -55,9 +55,6 @@ struct InferencingView: View {
             #endif
         }
         .onAppear(perform: selectFirstAvailableDevice)
-        #if os(iOS)
-        .padding(.top)
-        #endif
         .background(Color.formBackground)
         .toolbar {
             if appData.inferencingViewState.buttonEnable {
