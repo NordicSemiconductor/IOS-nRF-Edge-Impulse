@@ -29,6 +29,7 @@ struct EnabledForegroundView: ViewModifier {
     func body(content: Content) -> some View {
         content
             .foregroundColor(enabled ? .textColor : .disabledTextColor)
+            .accentColor(Assets.blue.color)
             .disabled(!enabled)
     }
 }
