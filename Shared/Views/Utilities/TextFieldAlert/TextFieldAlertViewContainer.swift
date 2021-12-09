@@ -134,6 +134,7 @@ final class UITextFieldAlertViewController: UIViewController {
             guard let self = self else { return }
             textField.textContentType = .name
             textField.text = self.text
+            textField.clearButtonMode = .always
           
             self.subscription = NotificationCenter.default
                 .publisher(for: UITextField.textDidChangeNotification, object: textField)
