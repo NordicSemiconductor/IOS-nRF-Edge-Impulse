@@ -57,7 +57,7 @@ struct ThreePaneLayoutView: View {
         .frame(
             minWidth: .sidebarWidth + .minTabWidth * 2,
             maxWidth: .sidebarWidth + .minTabWidth * 2,
-            minHeight: 400,
+            minHeight: 720,
             maxHeight: .infinity,
             alignment: .leading
         )
