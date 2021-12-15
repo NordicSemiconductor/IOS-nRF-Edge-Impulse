@@ -38,12 +38,12 @@ struct ThreePaneLayoutView: View {
                     }
                 }
                 .listStyle(SidebarListStyle())
-                .frame(minWidth: .sidebarWidth)
                 
                 SmallAppIconAndVersionView()
                     .padding(.horizontal)
                     .padding(.vertical, 8)
             }
+            .frame(minWidth: .sidebarWidth)
             
             AppHeaderView(.template)
                 .frame(maxWidth: 120)
