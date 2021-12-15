@@ -27,13 +27,15 @@ struct NativeLoginView: View {
     
     private let textFieldBackground = Assets.lightGrey.color.opacity(0.5)
     
+    // MARK: - FocusedField
+    
+    #if os(iOS)
+    @FocusState private var focusedField: Field?
+    
     private enum Field: Int, Hashable {
         case username, password
     }
-    
-    // TODO: Remove commented out focusedField code when on Xcode 13.2.
-//    @available(iOS 15.0, macOS 12.0, *)
-//    @FocusState private var focusedField: Field?
+    #endif
     
     // MARK: - Body
     
@@ -43,38 +45,38 @@ struct NativeLoginView: View {
             
             AppHeaderView()
             
-            if #available(iOS 15.0, macOS 12.0, *) {
-                UsernameField($username, enabled: !isMakingRequest)
-                    .frame(maxWidth: .maxTextFieldWidth)
-                    .padding(.horizontal, 16)
-//                    .focused($focusedField, equals: .username)
-                    .submitLabel(.next)
-//                    .onSubmit {
-//                        focusedField = .password
-//                    }
-            } else {
-                UsernameField($username, enabled: !isMakingRequest)
-                    .frame(maxWidth: .maxTextFieldWidth)
-                    .padding(.horizontal, 16)
-                    .introspectTextField { textField in
-                        textField.becomeFirstResponder()
-                    }
-            }
+            #if os(iOS)
+            UsernameField($username, enabled: !isMakingRequest)
+                .frame(maxWidth: .maxTextFieldWidth)
+                .padding(.horizontal, 16)
+                .focused($focusedField, equals: .username)
+                .submitLabel(.next)
+                .onSubmit {
+                    focusedField = .password
+                }
+            #else
+            UsernameField($username, enabled: !isMakingRequest)
+                .frame(maxWidth: .maxTextFieldWidth)
+                .padding(.horizontal, 16)
+                .introspectTextField { textField in
+                    textField.becomeFirstResponder()
+                }
+            #endif
             
-            if #available(iOS 15.0, macOS 12.0, *) {
-                PasswordField($password, enabled: !isMakingRequest)
-                    .frame(maxWidth: .maxTextFieldWidth)
-                    .padding(.horizontal, 16)
-//                    .focused($focusedField, equals: .password)
-                    .submitLabel(.done)
-                    .onSubmit {
-                        attemptLogin()
-                    }
-            } else {
-                PasswordField($password, enabled: !isMakingRequest)
-                    .frame(maxWidth: .maxTextFieldWidth)
-                    .padding(.horizontal, 16)
-            }
+            #if os(iOS)
+            PasswordField($password, enabled: !isMakingRequest)
+                .frame(maxWidth: .maxTextFieldWidth)
+                .padding(.horizontal, 16)
+                .focused($focusedField, equals: .password)
+                .submitLabel(.done)
+                .onSubmit {
+                    attemptLogin()
+                }
+            #else
+            PasswordField($password, enabled: !isMakingRequest)
+                .frame(maxWidth: .maxTextFieldWidth)
+                .padding(.horizontal, 16)
+            #endif
             
             LoginErrorView(viewState: viewState)
             
@@ -101,12 +103,13 @@ struct NativeLoginView: View {
             
             Spacer()
         }
-//        .onAppear() {
-//            guard #available(iOS 15.0, macOS 12.0, *) else { return }
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                self.focusedField = .username
-//            }
-//        }
+        #if os(iOS)
+        .onAppear() {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.focusedField = .username
+            }
+        }
+        #endif
     }
 }
 
