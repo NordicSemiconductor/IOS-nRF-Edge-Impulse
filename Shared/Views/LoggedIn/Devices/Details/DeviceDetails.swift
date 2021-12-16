@@ -89,7 +89,10 @@ struct DeviceDetails: View {
     @ViewBuilder
     private func deleteSection() -> some View {
         Section(header: Text("Management"),
-                footer: Text("Delete this device from the list of registered devices")) {
+                footer: Text("Deletes this device from the list of registered devices.")
+                    .font(.caption2)
+                    .foregroundColor(Assets.middleGrey.color)
+                    .frame(maxWidth: .infinity, alignment: .center)) {
             
             Button("Delete") {
                 showingAlert = true
