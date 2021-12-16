@@ -41,6 +41,7 @@ fileprivate extension DeploymentView {
         viewState.logs.removeAll()
         viewState.progressManager = DeploymentProgressManager()
         viewState.progressManager.delegate = viewState
-        viewState.buildButtonText = "Build"
+        viewState.selectedDeviceHandler = nil
+        viewState.onProgressUpdate()
     }
 }
