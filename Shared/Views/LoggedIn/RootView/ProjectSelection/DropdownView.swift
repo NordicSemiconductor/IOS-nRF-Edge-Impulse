@@ -32,7 +32,6 @@ struct DropdownView: View {
             #endif
         }
         .font(currentProject != nil ? .headline : .callout)
-        .foregroundColor(currentProject != nil ? .white : Assets.lightGrey.color)
     }
 }
 

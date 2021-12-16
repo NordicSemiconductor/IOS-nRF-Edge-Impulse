@@ -14,6 +14,9 @@ enum Assets: String {
     // MARK: - Colors
     
     case navBarBackground = "NavBar"
+    #if os(OSX)
+    case projectSelectorToolbarBackground = "MacProjectSelectorBackground"
+    #endif
     
     case blue = "NordicBlue"
     case sky = "NordicSky"

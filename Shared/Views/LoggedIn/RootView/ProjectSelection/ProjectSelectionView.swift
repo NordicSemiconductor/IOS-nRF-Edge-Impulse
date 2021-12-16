@@ -49,7 +49,6 @@ struct ProjectSelectionView: View {
                     }),
                     secondaryButton: .cancel(Text("No")))
             })
-        
     }
     
     // MARK: ToolbarItem
@@ -64,7 +63,7 @@ struct ProjectSelectionView: View {
     private func styleForMacOS() -> some View {
         return self
         #if os(OSX)
-            .background(Color.black.opacity(0.3))
+            .background(Assets.projectSelectorToolbarBackground.color)
             .cornerRadius(8)
         #endif
     }
