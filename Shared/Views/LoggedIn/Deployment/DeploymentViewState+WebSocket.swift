@@ -36,7 +36,12 @@ extension DeploymentViewState {
                 case .connected:
                     self.progressManager.completed(.online)
                     self.logs.append(LogMessage("Connected!"))
-                    self.sendDeploymentInfoRequest(for: project, using: projectApiToken)
+                    
+                    if self.enableCachedServerBuilds {
+                        self.sendDeploymentInfoRequest(for: project, using: projectApiToken)
+                    } else {
+                        self.sendBuildRequest(for: project, using: projectApiToken)
+                    }
                 }
             }
             .store(in: &cancellables)

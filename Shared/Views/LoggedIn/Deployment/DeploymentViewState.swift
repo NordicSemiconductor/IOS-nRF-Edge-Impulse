@@ -22,6 +22,7 @@ final class DeploymentViewState: ObservableObject {
     }
     @Published var enableEONCompiler = true
     @Published var optimization: Classifier = .Default
+    @Published var enableCachedServerBuilds = true
     @Published var buildButtonText = "Build"
     @Published var buildButtonEnable = false
     

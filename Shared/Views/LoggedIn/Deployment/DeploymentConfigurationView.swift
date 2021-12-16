@@ -20,14 +20,13 @@ struct DeploymentConfigurationView: View {
         
         Section(header: Text("Optimizations")) {
             Toggle(isOn: $viewState.enableEONCompiler, label: {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Enable EON™ Compiler")
-                    Text("Same accuracy, up to 50% less memory. Open source.")
-                        .font(.caption)
-                        .foregroundColor(Assets.middleGrey.color)
-                }
+                Text("Enable EON™ Compiler")
             })
             .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
+            
+            Text("Same accuracy, up to 50% less memory. Open source.")
+                .font(.caption)
+                .foregroundColor(Assets.middleGrey.color)
         }
         
         Section(header: Text("Classifier")) {
@@ -49,6 +48,17 @@ struct DeploymentConfigurationView: View {
                 .font(.caption)
                 .foregroundColor(Assets.middleGrey.color)
             #endif
+        }
+        
+        Section(header: Text("Build")) {
+            Toggle(isOn: $viewState.enableCachedServerBuilds, label: {
+                Text("Enable Cached Builds")
+            })
+            .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
+            
+            Text("When enabled, we will check if there's an existing build in the Server matching your configuration.")
+                .font(.caption)
+                .foregroundColor(Assets.middleGrey.color)
         }
     }
 }

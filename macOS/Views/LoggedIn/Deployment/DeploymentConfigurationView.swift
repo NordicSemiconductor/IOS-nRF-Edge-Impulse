@@ -34,7 +34,7 @@ struct DeploymentConfigurationView: View {
                     
                     Text("")
                     Text("Same accuracy, up to 50% less memory. Open source.")
-                        .font(.caption)
+                        .font(.callout)
                         .foregroundColor(Assets.middleGrey.color)
                 }
                 
@@ -51,7 +51,23 @@ struct DeploymentConfigurationView: View {
                     
                     Text("")
                     Text(DeploymentViewState.Classifier.userCaption)
-                        .font(.caption)
+                        .font(.callout)
+                        .foregroundColor(Assets.middleGrey.color)
+                }
+                .padding(.top)
+                
+                MultiColumnView {
+                    Text("Build")
+                    VStack(alignment: .leading, spacing: 4) {
+                        Toggle(isOn: $viewState.enableCachedServerBuilds, label: {
+                            Text("Enable Cached Builds")
+                        })
+                        .toggleStyle(CheckboxToggleStyle())
+                    }
+                    
+                    Text("")
+                    Text("When enabled, we will check if there's an existing build in the Server matching your configuration.")
+                        .font(.callout)
                         .foregroundColor(Assets.middleGrey.color)
                 }
                 .padding(.top)
