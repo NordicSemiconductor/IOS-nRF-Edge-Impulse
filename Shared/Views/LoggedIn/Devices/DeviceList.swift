@@ -81,7 +81,7 @@ private extension DeviceList {
     // MARK: Registered Devices
     @ViewBuilder
     private func buildRegisteredDevicesList() -> some View {
-        DeviceSection(data: deviceData.registeredDevices, emptyContentView: NoRegisteredDevicesView()) { wrapper in
+        DeviceSection(title: "Devices", data: deviceData.registeredDevices, emptyContentView: NoRegisteredDevicesView()) { wrapper in
             NavigationLink(destination: DeviceDetails(device: wrapper.device, state: wrapper.state)) {
                 RegisteredDeviceView(wrapper.device, connectionState: wrapper.state)
             }
