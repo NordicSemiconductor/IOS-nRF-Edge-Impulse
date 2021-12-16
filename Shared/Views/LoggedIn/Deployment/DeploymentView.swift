@@ -10,12 +10,12 @@ import Combine
 
 struct DeploymentView: View {
     
+    // MARK: - State
+    
     @EnvironmentObject var appData: AppData
     @EnvironmentObject var deviceData: DeviceData
     
-    // MARK: - State
-    
-    @StateObject internal var viewState = DeploymentViewState()
+    @EnvironmentObject var viewState: DeploymentViewState
     
     // MARK: - View
     
@@ -63,6 +63,7 @@ struct DeploymentView_Previews: PreviewProvider {
             DeploymentView()
                 .setTitle(Tabs.Deployment.description)
                 .wrapInNavigationViewForiOS()
+                .environmentObject(DeploymentViewState())
                 .environmentObject(Preview.noDevicesAppData)
                 .environmentObject(Preview.noDevicesScannerData)    
         }

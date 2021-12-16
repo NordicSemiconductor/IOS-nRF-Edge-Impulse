@@ -44,6 +44,7 @@ struct TwoPaneLayoutView: View {
                         .setAsDetailView(title: appData.selectedTab?.description)
                 case .Deployment?:
                     DeploymentView()
+                        .environmentObject(appData.deploymentViewState)
                         .setAsDetailView(title: appData.selectedTab?.description)
                 case .Inferencing?:
                     InferencingView()

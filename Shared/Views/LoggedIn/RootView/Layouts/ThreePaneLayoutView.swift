@@ -21,7 +21,7 @@ struct ThreePaneLayoutView: View {
                 List {
                     Section(header: Text("Menu")) {
                         ForEach(Tabs.availableCases) { tab in
-                            NavigationLink(destination: tab.view, tag: tab, selection: $appData.selectedTab,
+                            NavigationLink(destination: tab.view(with: appData), tag: tab, selection: $appData.selectedTab,
                                 label: {
                                     Label(tab.description, systemImage: tab.systemImageName)
                                 })
@@ -31,7 +31,7 @@ struct ThreePaneLayoutView: View {
                     if let user = appData.user {
                         let userTab = Tabs.User
                         Section(header: Text(userTab.description)) {
-                            NavigationLink(destination: userTab.view, tag: userTab, selection: $appData.selectedTab, label: {
+                            NavigationLink(destination: userTab.view(with: appData), tag: userTab, selection: $appData.selectedTab, label: {
                                 Label(user.formattedName, systemImage: userTab.systemImageName)
                             })
                         }

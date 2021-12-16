@@ -19,7 +19,7 @@ struct TabBarLayoutView: View {
     var body: some View {
         TabView {
             ForEach(Tabs.availableCases) { tab in
-                tab.view
+                tab.view(with: appData)
                     .setTitle(tab.description)
                     .toolbar {
                         ProjectSelectionView()

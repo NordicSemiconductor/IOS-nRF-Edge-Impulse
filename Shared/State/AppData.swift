@@ -39,6 +39,7 @@ final class AppData: ObservableObject {
     @Published var selectedCategory: DataSample.Category = .training
     @Published internal var dataAquisitionViewState = DataAcquisitionViewState()
     @Published internal var inferencingViewState = InferencingViewState()
+    @Published internal var deploymentViewState = DeploymentViewState()
     
     // MARK: - Private Properties
     

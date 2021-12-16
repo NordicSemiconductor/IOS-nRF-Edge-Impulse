@@ -34,7 +34,7 @@ enum Tabs: Int, RawRepresentable, CaseIterable {
 extension Tabs {
     
     @ViewBuilder
-    var view: some View {
+    func view(with appData: AppData) -> some View {
         switch self {
         case .Devices:
              DeviceList()
@@ -44,6 +44,7 @@ extension Tabs {
                 .frame(minWidth: .minTabWidth)
         case .Deployment:
             DeploymentView()
+                .environmentObject(appData.deploymentViewState)
                 .frame(minWidth: .minTabWidth)
         case .Inferencing:
             InferencingView()
