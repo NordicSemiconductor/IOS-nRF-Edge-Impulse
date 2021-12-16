@@ -45,11 +45,9 @@ struct ThreePaneLayoutView: View {
             }
             .frame(minWidth: .sidebarWidth)
             
-            AppHeaderView(.template)
-                .frame(maxWidth: 120)
+            AppHeaderView()
             
-            AppHeaderView(.template)
-                .frame(maxWidth: 120)
+            AppHeaderView()
         }.toolbar {
             ProjectSelectionView()
                 .toolbarItem()

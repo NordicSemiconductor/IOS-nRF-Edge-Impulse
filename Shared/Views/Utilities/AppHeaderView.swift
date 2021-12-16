@@ -53,9 +53,10 @@ struct AppHeaderView: View {
 struct AppHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            AppHeaderView()
+            AppHeaderView(.original)
             AppHeaderView(.template)
         }
+        .background(Color.black)
         .previewLayout(.sizeThatFits)
     }
 }
