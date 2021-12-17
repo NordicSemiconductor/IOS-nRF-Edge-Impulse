@@ -36,6 +36,11 @@ struct LoggedInRootView: View {
         layout.view()
             .onAppear() {
                 guard !hasMadeUserRequest, !Constant.isRunningInPreviewMode else { return }
+                
+                guard Network.shared.isReachable() else {
+                    appData.logout()
+                    return
+                }
                 requestUser()
             }
             .onDisappear() {

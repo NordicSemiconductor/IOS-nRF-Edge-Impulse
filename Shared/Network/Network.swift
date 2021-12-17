@@ -8,6 +8,8 @@
 import Foundation
 import Combine
 import SwiftUI
+import SystemConfiguration
+import os
 
 // MARK: - Network
 
@@ -15,8 +17,11 @@ final class Network {
     
     // MARK: - Properties
     
+    private lazy var logger = Logger(Self.self)
+    
     private lazy var session = URLSession(configuration: .multiPathEnabled)
     private lazy var imageCache = Cache<URL, Image>()
+    private lazy var reachability = SCNetworkReachabilityCreateWithName(nil, "www.edgeimpulse.com")
     
     // MARK: - Singleton
     
@@ -29,11 +34,31 @@ final class Network {
 
 extension Network {
     
+    // MARK: - Reachability
+    
+    public func isReachable() -> Bool {
+        guard let reachability = reachability else {
+            logger.error("\(#function): Nil reachability property.")
+            return false
+        }
+        
+        var flags = SCNetworkReachabilityFlags()
+        SCNetworkReachabilityGetFlags(reachability, &flags)
+
+        let isReachable = flags.contains(.reachable)
+        let connectionRequired = flags.contains(.connectionRequired)
+        let canConnectAutomatically = flags.contains(.connectionOnDemand) || flags.contains(.connectionOnTraffic)
+        let canConnectWithoutIntervention = canConnectAutomatically && !flags.contains(.interventionRequired)
+        let result = isReachable && (!connectionRequired || canConnectWithoutIntervention)
+        logger.debug("\(#function): Result \(result)")
+        return isReachable && (!connectionRequired || canConnectWithoutIntervention)
+    }
+    
     // MARK: - HTTPRequest
     
     public func perform(_ request: HTTPRequest) -> AnyPublisher<Data, Error> {
         return session.dataTaskPublisher(for: request)
-            .tryMap() { element -> Data in
+            .tryMap() { [logger] element -> Data in
                 #if DEBUG
                 print(element.response)
                 #endif
@@ -49,7 +74,7 @@ extension Network {
                 guard httpResponse.statusCode == 200 else {
                     if let responseDataAsString = String(data: element.data, encoding: .utf8) {
                         #if DEBUG
-                        print("\(request): \(responseDataAsString)")
+                        logger.debug("\(request): \(responseDataAsString)")
                         #endif
                         throw NordicError(description: responseDataAsString)
                     } else {

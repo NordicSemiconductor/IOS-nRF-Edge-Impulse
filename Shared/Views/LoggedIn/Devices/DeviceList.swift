@@ -48,6 +48,7 @@ struct DeviceList: View {
                 self.deviceData.updateRegisteredDevices()
             }
         })
+        .background(Color.formBackground)
         .onAppear(perform: deviceData.updateRegisteredDevices)
         .alert(isPresented: $showDeleteDeviceAlert) {
             Alert(title: Text("Delete Device"),
@@ -62,7 +63,6 @@ struct DeviceList: View {
             }
         }
         .accentColor(.white)
-        .background(Color.formBackground)
     }
 }
 
