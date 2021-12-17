@@ -48,6 +48,7 @@ struct ThreePaneLayoutView: View {
             AppHeaderView()
             
             AppHeaderView()
+                .frame(minWidth: .minTabWidth)
         }.toolbar {
             ProjectSelectionView()
                 .toolbarItem()
