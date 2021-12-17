@@ -21,7 +21,7 @@ final class Network {
     
     private lazy var session = URLSession(configuration: .multiPathEnabled)
     private lazy var imageCache = Cache<URL, Image>()
-    private lazy var reachability = SCNetworkReachabilityCreateWithName(nil, "www.edgeimpulse.com")
+    private lazy var reachability = SCNetworkReachabilityCreateWithName(nil, HTTPHost.EdgeImpulse.rawValue)
     
     // MARK: - Singleton
     
@@ -35,6 +35,18 @@ final class Network {
 extension Network {
     
     // MARK: - Reachability
+    
+    public func getReachabilityPublisher() -> AnyPublisher<Bool, Error> {
+        return CurrentValueSubject<Bool, Error>(isReachable())
+            .tryMap { isReachable in
+                guard isReachable else {
+                    throw NordicError(description: "Unable to reach \(HTTPHost.EdgeImpulse.rawValue).")
+                }
+                return true
+            }
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
     
     public func isReachable() -> Bool {
         guard let reachability = reachability else {
@@ -57,10 +69,10 @@ extension Network {
     // MARK: - HTTPRequest
     
     public func perform(_ request: HTTPRequest) -> AnyPublisher<Data, Error> {
-        return session.dataTaskPublisher(for: request)
+        let sessionRequestPublisher = session.dataTaskPublisher(for: request)
             .tryMap() { [logger] element -> Data in
                 #if DEBUG
-                print(element.response)
+                logger.debug("\(element.response)")
                 #endif
                 
                 guard let httpResponse = element.response as? HTTPURLResponse else {
@@ -84,6 +96,12 @@ extension Network {
                 return element.data
             }
             .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+        
+        return getReachabilityPublisher()
+            .flatMap { _ -> AnyPublisher<Data, Error> in
+                return sessionRequestPublisher
+            }
             .eraseToAnyPublisher()
     }
     
