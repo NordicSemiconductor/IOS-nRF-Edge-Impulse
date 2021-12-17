@@ -15,7 +15,7 @@ struct CircularProgressView: View {
     
     // MARK: Init
     
-    init(tintColor: Color = .textColor) {
+    init(tintColor: Color = Assets.textColor.color) {
         self.tintColor = tintColor
     }
     

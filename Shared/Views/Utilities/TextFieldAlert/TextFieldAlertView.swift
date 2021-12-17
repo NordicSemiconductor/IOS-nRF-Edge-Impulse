@@ -40,7 +40,7 @@ struct TextFieldAlertView: View {
     var body: some View {
         VStack(alignment: .center) {
             Text(title)
-                .foregroundColor(.textColor)
+                .foregroundColor(Assets.textColor.color)
                 .font(.headline)
             
             TextField(message, text: text)

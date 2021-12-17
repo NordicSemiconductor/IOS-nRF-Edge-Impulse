@@ -16,7 +16,7 @@ struct NoRegisteredDevicesView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 30, height: 30)
-                .foregroundColor(.textColor)
+                .foregroundColor(Assets.textColor.color)
             
             Text("No Registered Devices")
                 .font(.title3)

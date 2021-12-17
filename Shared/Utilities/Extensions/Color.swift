@@ -17,14 +17,6 @@ extension Color {
         #endif
     }
     
-    static var textColor: Color {
-        #if os(OSX)
-        return Color.primary
-        #elseif os(iOS)
-        return Color(.label)
-        #endif
-    }
-    
     static var positiveActionButtonColor: Color {
         #if os(OSX)
         return Color.primary

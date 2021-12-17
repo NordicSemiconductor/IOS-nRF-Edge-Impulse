@@ -25,7 +25,7 @@ struct DeploymentClassifierView: View {
         HStack {
             Text(classifier.rawValue)
                 .font(.body)
-                .foregroundColor(.textColor)
+                .foregroundColor(Assets.textColor.color)
             
             Text(classifier.userDescription)
                 .font(.callout)

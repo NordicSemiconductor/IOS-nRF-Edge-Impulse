@@ -77,7 +77,7 @@ struct DeviceDetails: View {
                 }
             } else if case .connecting = state {
                 CircularProgressView()
-                    .foregroundColor(.textColor)
+                    .foregroundColor(Assets.textColor.color)
             } else if case .connected = state {
                 Button("Disconnect") {
                     deviceData.disconnect(device: device)

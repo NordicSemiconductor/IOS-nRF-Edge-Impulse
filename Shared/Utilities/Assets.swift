@@ -14,6 +14,7 @@ enum Assets: String {
     // MARK: - Colors
     
     case navBarBackground = "NavBar"
+    case textColor = "PrimaryTextColor"
     #if os(OSX)
     case projectSelectorToolbarBackground = "MacProjectSelectorBackground"
     #endif

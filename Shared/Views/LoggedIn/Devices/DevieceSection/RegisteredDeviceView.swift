@@ -37,7 +37,7 @@ struct RegisteredDeviceView: View {
                 .font(.headline)
                 .bold()
                 .lineLimit(1)
-                .foregroundColor(connectionState == .deleting ? .gray : .textColor)
+                .foregroundColor(connectionState == .deleting ? .gray : Assets.textColor.color)
             
             Spacer()
             

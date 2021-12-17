@@ -17,7 +17,7 @@ struct NoDevicesFoundView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 30, height: 30)
-                .foregroundColor(.textColor)
+                .foregroundColor(Assets.textColor.color)
             
             Text("Can't find your Thingy:53?")
                 .font(.title3)

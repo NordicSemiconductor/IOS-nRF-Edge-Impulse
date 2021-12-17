@@ -62,7 +62,7 @@ extension Network {
         let canConnectAutomatically = flags.contains(.connectionOnDemand) || flags.contains(.connectionOnTraffic)
         let canConnectWithoutIntervention = canConnectAutomatically && !flags.contains(.interventionRequired)
         let result = isReachable && (!connectionRequired || canConnectWithoutIntervention)
-        logger.debug("\(#function): Result \(result)")
+        logger.debug("\(#function): \(result)")
         return isReachable && (!connectionRequired || canConnectWithoutIntervention)
     }
     

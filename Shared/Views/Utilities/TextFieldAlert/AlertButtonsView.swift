@@ -30,7 +30,7 @@ struct AlertButtonsView: View {
                 .keyboardShortcut(.defaultAction)
             
             Button("Cancel", action: cancelFunction)
-                .foregroundColor(.textColor)
+                .foregroundColor(Assets.textColor.color)
         }
         .padding(.horizontal)
     }
