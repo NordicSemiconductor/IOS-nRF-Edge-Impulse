@@ -65,6 +65,7 @@ struct ReusableProgressView: View {
             
             #if os(OSX)
             Button(buttonText, action: buttonAction)
+                .foregroundColor(Assets.textColor.color)
                 .padding(.top, buttonTopPadding)
                 .disabled(!buttonEnabled.wrappedValue)
             #else

@@ -60,6 +60,7 @@ struct ThreePaneLayoutView: View {
             maxHeight: .infinity,
             alignment: .leading
         )
+//        .frame(width: 1280, height: 748) // Frame for 1280x800 screenshots.
     }
 }
 
