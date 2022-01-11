@@ -6,15 +6,34 @@
 //
 
 import SwiftUI
+import BetterSafariView
 
 struct SignUpView: View {
+    
+    // MARK: - Properties
+    
+    @State private var showSafariView = false
+    
+    private let safariViewConfiguration =
+        SafariView.Configuration(entersReaderIfAvailable: false, barCollapsingEnabled: true)
+    
+    // MARK: - View
     
     var body: some View {
         HStack {
             Text("Don't have an account?")
                 .foregroundColor(Assets.middleGrey.color)
-            Link("Sign Up", destination: Constant.signupURL)
-                .foregroundColor(Assets.blue.color)
+            
+            Button(action: {
+                showSafariView = true
+            }) {
+                Text("Sign Up")
+                    .foregroundColor(Assets.blue.color)
+            }
+            .safariView(isPresented: $showSafariView) {
+                SafariView(url: Constant.signupURL, configuration: safariViewConfiguration)
+                    .dismissButtonStyle(.done)
+            }
         }
     }
 }
@@ -24,8 +43,13 @@ struct SignUpView: View {
 #if DEBUG
 struct SignedUpView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView()
-            .previewLayout(.sizeThatFits)
+        Group {
+            SignUpView()
+            
+            SignUpView()
+                .preferredColorScheme(.dark)
+        }
+        .previewLayout(.sizeThatFits)
     }
 }
 #endif

@@ -196,6 +196,8 @@
 		AACB65D027032027002D4384 /* Inferencing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB65CE27032027002D4384 /* Inferencing.swift */; };
 		AACCBA882600C32C0042E87B /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCBA872600C32C0042E87B /* ErrorView.swift */; };
 		AACCBA892600C32C0042E87B /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCBA872600C32C0042E87B /* ErrorView.swift */; };
+		AADFFE99278D8A5F001454A1 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADFFE98278D8A5F001454A1 /* SignUpView.swift */; };
+		AADFFE9C278D8BD5001454A1 /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = AADFFE9B278D8BD5001454A1 /* BetterSafariView */; };
 		AAE05F202649554F005BBF98 /* SampleRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE05F1F2649554F005BBF98 /* SampleRequestMessage.swift */; };
 		AAE05F212649554F005BBF98 /* SampleRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE05F1F2649554F005BBF98 /* SampleRequestMessage.swift */; };
 		AAE0B233264E94D900FD8F80 /* SettingsDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE0B232264E94D900FD8F80 /* SettingsDebugView.swift */; };
@@ -246,7 +248,6 @@
 		AAF4E322261DD193009C387B /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4E321261DD193009C387B /* Cache.swift */; };
 		AAF4E323261DD193009C387B /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4E321261DD193009C387B /* Cache.swift */; };
 		AAF4F6BA2625C02E00012359 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6B92625C02E00012359 /* SignUpView.swift */; };
-		AAF4F6BB2625C02E00012359 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6B92625C02E00012359 /* SignUpView.swift */; };
 		AAF4F6BD2625C0A700012359 /* LoginErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6BC2625C0A700012359 /* LoginErrorView.swift */; };
 		AAF4F6BE2625C0A700012359 /* LoginErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6BC2625C0A700012359 /* LoginErrorView.swift */; };
 		AAF4F6C32625C8C600012359 /* ThreePaneLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6C22625C8C600012359 /* ThreePaneLayoutView.swift */; };
@@ -462,6 +463,7 @@
 		AACB65CE27032027002D4384 /* Inferencing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inferencing.swift; sourceTree = "<group>"; };
 		AACCBA862600BF370042E87B /* nRF-Edge-Impulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "nRF-Edge-Impulse.entitlements"; sourceTree = "<group>"; };
 		AACCBA872600C32C0042E87B /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		AADFFE98278D8A5F001454A1 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		AAE05F1F2649554F005BBF98 /* SampleRequestMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleRequestMessage.swift; sourceTree = "<group>"; };
 		AAE0B232264E94D900FD8F80 /* SettingsDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDebugView.swift; sourceTree = "<group>"; };
 		AAE0B234264E953E00FD8F80 /* AppData+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+Debug.swift"; sourceTree = "<group>"; };
@@ -557,6 +559,7 @@
 				C3163D36268DD61900CD3DB5 /* Introspect in Frameworks */,
 				AA01902826BA938F00B70E85 /* Algorithms in Frameworks */,
 				C3163D34268DD61000CD3DB5 /* VisualEffects in Frameworks */,
+				AADFFE9C278D8BD5001454A1 /* BetterSafariView in Frameworks */,
 				AA1EF9E926C2CEF300B85FF3 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -762,6 +765,7 @@
 		AA263F022603854D0018CF5B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AADFFE97278D8A4B001454A1 /* LoggedOut */,
 				AA263F03260385530018CF5B /* LoggedIn */,
 				AAF4F6C82625EBEC00012359 /* Settings */,
 			);
@@ -829,6 +833,14 @@
 				AAEED04126A7B55700999E51 /* DeploymentConfigurationView.swift */,
 			);
 			path = Deployment;
+			sourceTree = "<group>";
+		};
+		AADFFE97278D8A4B001454A1 /* LoggedOut */ = {
+			isa = PBXGroup;
+			children = (
+				AADFFE98278D8A5F001454A1 /* SignUpView.swift */,
+			);
+			path = LoggedOut;
 			sourceTree = "<group>";
 		};
 		AAEDE62F2628458100B96AE9 /* Settings */ = {
@@ -1157,6 +1169,7 @@
 				AA01902726BA938F00B70E85 /* Algorithms */,
 				AA1EF9E826C2CEF300B85FF3 /* ZIPFoundation */,
 				AA140D2526E2360800F0301C /* McuManager */,
+				AADFFE9B278D8BD5001454A1 /* BetterSafariView */,
 			);
 			productName = "nRF-Edge-Impulse (iOS)";
 			productReference = AA03E96025E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -1225,6 +1238,7 @@
 				AA01902626BA938F00B70E85 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				AA140D2426E2360800F0301C /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */,
+				AADFFE9A278D8BD5001454A1 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
 			);
 			productRefGroup = AA03E96125E3EF13003DA9DA /* Products */;
 			projectDirPath = "";
@@ -1601,6 +1615,7 @@
 				AAE96F0B26A58E220089D370 /* TextFieldAlertViewContainer.swift in Sources */,
 				C3BB69BC26A9D37C003731FF /* ElementPreview.swift in Sources */,
 				AA03CB0026D64DFE004CF3FC /* DeviceIconView.swift in Sources */,
+				AADFFE99278D8A5F001454A1 /* SignUpView.swift in Sources */,
 				AA63F87126A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */,
 				AA482F822631A213007B8B64 /* UserContentView.swift in Sources */,
 				AA14FD4C26EA3B98008128CB /* DeviceStatusSectionView.swift in Sources */,
@@ -1615,7 +1630,6 @@
 				AA010209269C5CD30045D6F2 /* SocketIOJobResult.swift in Sources */,
 				AA2C516927391AB600E5E16E /* DateDeviceInfoRow.swift in Sources */,
 				AA14FD4926EA3314008128CB /* StringDeviceInfoRow.swift in Sources */,
-				AAF4F6BB2625C02E00012359 /* SignUpView.swift in Sources */,
 				AAF936AC260226BA00ED9546 /* TwoPaneLayoutView.swift in Sources */,
 				AAF7D453269F1176009269D4 /* DeploymentView+Logic.swift in Sources */,
 				AA28405D261F4F3D00EB8637 /* UsernameField.swift in Sources */,
@@ -2010,6 +2024,14 @@
 				minimumVersion = 1.0.3;
 			};
 		};
+		AADFFE9A278D8BD5001454A1 /* XCRemoteSwiftPackageReference "BetterSafariView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stleamist/BetterSafariView";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -2065,6 +2087,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
+		};
+		AADFFE9B278D8BD5001454A1 /* BetterSafariView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AADFFE9A278D8BD5001454A1 /* XCRemoteSwiftPackageReference "BetterSafariView" */;
+			productName = BetterSafariView;
 		};
 		AAFAE5E425ED11CA00A45A90 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
