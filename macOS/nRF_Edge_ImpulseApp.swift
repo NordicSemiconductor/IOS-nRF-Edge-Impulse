@@ -22,6 +22,12 @@ struct nRF_Edge_ImpulseApp: App {
         }
         .windowToolbarStyle(UnifiedWindowToolbarStyle(showsTitle: false))
         .commands {
+            CommandGroup(before: .appTermination) {
+                logoutCommand()
+                
+                Divider()
+            }
+            
             CommandGroup(after: CommandGroupPlacement.windowList) {
                 Divider()
                 
@@ -64,6 +70,13 @@ extension nRF_Edge_ImpulseApp {
             dataContainer.appData.selectedTab = .Settings
         }
         .keyboardShortcut(",", modifiers: .command)
+    }
+    
+    @ViewBuilder
+    func logoutCommand() -> some View {
+        Button("Logout") {
+            dataContainer.appData.logout()
+        }
     }
     
     @ViewBuilder
