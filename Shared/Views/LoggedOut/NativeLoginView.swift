@@ -85,9 +85,7 @@ struct NativeLoginView: View {
                 case .makingRequest:
                     CircularProgressView()
                 default:
-                    Link("Forgot your password?", destination: Constant.forgottenPasswordURL)
-                        .foregroundColor(Assets.blue.color)
-                        
+                    ForgotYourPasswordView()
                     
                     Button("Login") {
                         attemptLogin()
