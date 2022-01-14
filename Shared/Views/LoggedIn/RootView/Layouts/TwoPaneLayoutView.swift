@@ -15,18 +15,16 @@ struct TwoPaneLayoutView: View {
         HStack {
             NavigationView {
                 List {
-                    Section(header: Text("Menu")) {
-                        ForEach(Tabs.availableCases) { tab in
-                            HorizontalTabView(tab: tab)
-                                .withoutListRowInsets()
-                        }
+                    ForEach(Tabs.availableCases) { tab in
+                        HorizontalTabView(tab: tab)
+                            .withoutListRowInsets()
                     }
-                    .accentColor(Assets.blue.color)
-                    .padding(.top)
                 }
                 .listStyle(SidebarListStyle())
+                .accentColor(Assets.blue.color)
                 .toolbarPrincipalImage(Image("Nordic"))
                 .setTitle("nRF Edge Impulse")
+                .padding(.top, -4)
             }
             .setupNavBarBackground()
             .setSingleColumnNavigationViewStyle()
