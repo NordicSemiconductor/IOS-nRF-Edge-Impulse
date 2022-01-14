@@ -19,7 +19,7 @@ struct ThreePaneLayoutView: View {
         NavigationView {
             VStack(alignment: .leading) {
                 List {
-                    Section(header: Text("Menu")) {
+                    Section(header: Text("Tabs")) {
                         ForEach(Tabs.availableCases) { tab in
                             NavigationLink(destination: tab.view(with: appData), tag: tab, selection: $appData.selectedTab,
                                 label: {
@@ -27,6 +27,9 @@ struct ThreePaneLayoutView: View {
                                 })
                         }
                     }
+                    #if os(OSX)
+                    .collapsible(false)
+                    #endif
                     
                     if let user = appData.user {
                         let userTab = Tabs.User
@@ -35,6 +38,9 @@ struct ThreePaneLayoutView: View {
                                 Label(user.formattedName, systemImage: userTab.systemImageName)
                             })
                         }
+                        #if os(OSX)
+                        .collapsible(false)
+                        #endif
                     }
                 }
                 .listStyle(SidebarListStyle())
