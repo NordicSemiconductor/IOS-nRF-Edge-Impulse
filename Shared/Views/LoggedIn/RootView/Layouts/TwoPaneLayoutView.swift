@@ -51,7 +51,9 @@ struct TwoPaneLayoutView: View {
                     SettingsContentView()
                         .setAsDetailView(title: appData.selectedTab?.description)
                 default:
-                    AppHeaderView(.template)
+                    AppHeaderView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color.formBackground)
                         .setAsDetailView(title: nil)
                 }
             }
