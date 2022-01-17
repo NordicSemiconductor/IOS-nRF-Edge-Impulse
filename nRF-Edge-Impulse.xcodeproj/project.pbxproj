@@ -106,8 +106,6 @@
 		AA1016FD25E9173A006DC88A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1016FB25E9173A006DC88A /* Network.swift */; };
 		AA10170325E91885006DC88A /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* HTTPRequest.swift */; };
 		AA10170425E91885006DC88A /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10170225E91885006DC88A /* HTTPRequest.swift */; };
-		AA140D2626E2360800F0301C /* McuManager in Frameworks */ = {isa = PBXBuildFile; productRef = AA140D2526E2360800F0301C /* McuManager */; };
-		AA140D2826E2364500F0301C /* McuManager in Frameworks */ = {isa = PBXBuildFile; productRef = AA140D2726E2364500F0301C /* McuManager */; };
 		AA14CA75261490CD004F08FE /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14CA74261490CD004F08FE /* Codable.swift */; };
 		AA14CA76261490CD004F08FE /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14CA74261490CD004F08FE /* Codable.swift */; };
 		AA14FD4526EA317E008128CB /* BoolDeviceInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14FD4426EA317E008128CB /* BoolDeviceInfoRow.swift */; };
@@ -179,6 +177,8 @@
 		AA9CFCD026610C76001B7751 /* sample_full_microphone_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA9CFCCE26610C76001B7751 /* sample_full_microphone_data_response.json */; };
 		AA9D798D26971D2300A987FB /* SocketIOJobMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9D798C26971D2300A987FB /* SocketIOJobMessage.swift */; };
 		AA9D798E26971D2300A987FB /* SocketIOJobMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9D798C26971D2300A987FB /* SocketIOJobMessage.swift */; };
+		AAA496DA2795902D00D77BD1 /* McuManager in Frameworks */ = {isa = PBXBuildFile; productRef = AAA496D92795902D00D77BD1 /* McuManager */; };
+		AAA496DE2795923400D77BD1 /* McuManager in Frameworks */ = {isa = PBXBuildFile; productRef = AAA496DD2795923400D77BD1 /* McuManager */; };
 		AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */; };
 		AAA5C7C5269F39EA0012809A /* NoDevicesFoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5C7C4269F39EA0012809A /* NoDevicesFoundView.swift */; };
 		AAA5C7C6269F39EA0012809A /* NoDevicesFoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5C7C4269F39EA0012809A /* NoDevicesFoundView.swift */; };
@@ -558,9 +558,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA140D2626E2360800F0301C /* McuManager in Frameworks */,
 				AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */,
 				C3163D36268DD61900CD3DB5 /* Introspect in Frameworks */,
+				AAA496DA2795902D00D77BD1 /* McuManager in Frameworks */,
 				AA01902826BA938F00B70E85 /* Algorithms in Frameworks */,
 				C3163D34268DD61000CD3DB5 /* VisualEffects in Frameworks */,
 				AADFFE9C278D8BD5001454A1 /* BetterSafariView in Frameworks */,
@@ -572,7 +572,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA140D2826E2364500F0301C /* McuManager in Frameworks */,
+				AAA496DE2795923400D77BD1 /* McuManager in Frameworks */,
 				AA7F5DE325F8F57D00185328 /* KeychainSwift in Frameworks */,
 				AA0B3000267A2AE400AA0571 /* Introspect in Frameworks */,
 				AA01902A26BA939700B70E85 /* Algorithms in Frameworks */,
@@ -1174,8 +1174,8 @@
 				C3163D35268DD61900CD3DB5 /* Introspect */,
 				AA01902726BA938F00B70E85 /* Algorithms */,
 				AA1EF9E826C2CEF300B85FF3 /* ZIPFoundation */,
-				AA140D2526E2360800F0301C /* McuManager */,
 				AADFFE9B278D8BD5001454A1 /* BetterSafariView */,
+				AAA496D92795902D00D77BD1 /* McuManager */,
 			);
 			productName = "nRF-Edge-Impulse (iOS)";
 			productReference = AA03E96025E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -1201,7 +1201,7 @@
 				AA0B2FFF267A2AE400AA0571 /* Introspect */,
 				AA01902926BA939700B70E85 /* Algorithms */,
 				AA1EF9EA26C2CEFC00B85FF3 /* ZIPFoundation */,
-				AA140D2726E2364500F0301C /* McuManager */,
+				AAA496DD2795923400D77BD1 /* McuManager */,
 			);
 			productName = "nRF-Edge-Impulse (macOS)";
 			productReference = AA03E96825E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -1243,8 +1243,8 @@
 				AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				AA01902626BA938F00B70E85 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
-				AA140D2426E2360800F0301C /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */,
 				AADFFE9A278D8BD5001454A1 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
+				AAA496D82795902D00D77BD1 /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */,
 			);
 			productRefGroup = AA03E96125E3EF13003DA9DA /* Products */;
 			projectDirPath = "";
@@ -2012,14 +2012,6 @@
 				minimumVersion = 0.1.3;
 			};
 		};
-		AA140D2426E2360800F0301C /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/NordicSemiconductor/IOS-nRF-Connect-Device-Manager.git";
-			requirement = {
-				branch = develop;
-				kind = branch;
-			};
-		};
 		AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
@@ -2034,6 +2026,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.3;
+			};
+		};
+		AAA496D82795902D00D77BD1 /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/NordicSemiconductor/IOS-nRF-Connect-Device-Manager";
+			requirement = {
+				branch = master;
+				kind = branch;
 			};
 		};
 		AADFFE9A278D8BD5001454A1 /* XCRemoteSwiftPackageReference "BetterSafariView" */ = {
@@ -2070,16 +2070,6 @@
 			package = AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
 		};
-		AA140D2526E2360800F0301C /* McuManager */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA140D2426E2360800F0301C /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */;
-			productName = McuManager;
-		};
-		AA140D2726E2364500F0301C /* McuManager */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA140D2426E2360800F0301C /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */;
-			productName = McuManager;
-		};
 		AA1EF9E826C2CEF300B85FF3 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
@@ -2099,6 +2089,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
+		};
+		AAA496D92795902D00D77BD1 /* McuManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAA496D82795902D00D77BD1 /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */;
+			productName = McuManager;
+		};
+		AAA496DD2795923400D77BD1 /* McuManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAA496D82795902D00D77BD1 /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */;
+			productName = McuManager;
 		};
 		AADFFE9B278D8BD5001454A1 /* BetterSafariView */ = {
 			isa = XCSwiftPackageProductDependency;
