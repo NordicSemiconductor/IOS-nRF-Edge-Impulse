@@ -32,6 +32,7 @@ struct TabBarLayoutView: View {
                     .tag(tab.rawValue)
             }
         }
+        .background(Color.formBackground)
         .accentColor(Assets.blue.color)
         #if os(iOS)
         .introspectTabBarController { tabBarController in

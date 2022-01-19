@@ -57,6 +57,7 @@ struct TwoPaneLayoutView: View {
                         .setAsDetailView(title: nil)
                 }
             }
+            .background(Color.formBackground)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
