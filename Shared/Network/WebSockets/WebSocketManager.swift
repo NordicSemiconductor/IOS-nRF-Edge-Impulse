@@ -37,7 +37,10 @@ extension WebSocketManager {
     }
 }
 
-class WebSocketManager: NSObject {
+// MARK: - WebSocketManager
+
+final class WebSocketManager: NSObject {
+    
     /**
      Subscribe to listen to all data received via WebSocket.
      */
@@ -59,6 +62,7 @@ class WebSocketManager: NSObject {
             return Fail(error: Error.wrongUrl).eraseToAnyPublisher()
         }
         
+        logger.debug(#function)
         self.pingConfiguration = pingConfiguration
         session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
         task = session.webSocketTask(with: url)
