@@ -13,7 +13,7 @@ struct SocketIOJobMessage: Identifiable, Hashable {
     
     // Use https://regexr.com/ to check RegExes.
     static let MainRegEx: NSRegularExpression! =
-        try? NSRegularExpression(pattern: #"[0-9]+\[".+",\{"data":"(.*)"\}\]"#, options: [])
+        try? NSRegularExpression(pattern: #"[0-9]+\[".+",\{"data":"(.*)"(,.*)?\}\]"#, options: [])
     static let ProgressRegEx: NSRegularExpression! =
         try? NSRegularExpression(pattern: #"\[([0-9]+)\/([0-9]+)\].+"#, options: [])
     
@@ -38,7 +38,7 @@ struct SocketIOJobMessage: Identifiable, Hashable {
         let cleanStringRange = NSRange(cleanString.startIndex..<cleanString.endIndex, in: cleanString)
         guard let match = Self.MainRegEx.firstMatch(in: cleanString, options: [], range: cleanStringRange),
               // +1 because the full string is returned as the first match
-              match.numberOfRanges == 2 else { throw NordicError.testError }
+              match.numberOfRanges >= 2 else { throw NordicError.testError }
         
         message = String(cleanString[Range(match.range(at: 1), in: cleanString)!])
         

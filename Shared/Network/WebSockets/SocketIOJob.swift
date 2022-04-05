@@ -32,6 +32,6 @@ struct SocketIOJob: Identifiable, Hashable {
         
         kind = String(cleanString[Range(match.range(at: 1), in: cleanString)!])
         jobId = Int(String(cleanString[Range(match.range(at: 2), in: cleanString)!]))!
-        id = inputString.hashValue + jobId
+        id = abs(inputString.hashValue) + jobId
     }
 }
