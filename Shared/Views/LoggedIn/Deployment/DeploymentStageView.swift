@@ -48,6 +48,13 @@ struct DeploymentStageView: View {
                         .padding(.top, 1)
                     #endif
 
+                    if let transferSpeed = progressManager.speed {
+                        Text(String(format: "Speed: %.2f kB/s", transferSpeed))
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
+                    }
+                    
                     #if os(OSX)
                     NSProgressView(value: $progressManager.progress, maxValue: 100.0,
                                    isIndeterminate: progressManager.isIndeterminate)
@@ -74,9 +81,17 @@ struct DeploymentStageView_Previews: PreviewProvider {
         return manager
     }()
     
+    static let uploadingWithSpeed: DeploymentProgressManager = {
+        let manager = DeploymentProgressManager()
+        manager.started = true
+        manager.inProgress(.uploading, speed: 14)
+        return manager
+    }()
+    
     static var previews: some View {
         Group {
             DeploymentStageView(stage: onlineInProgress.currentStage, progressManager: onlineInProgress, logLine: "This is a test.")
+            DeploymentStageView(stage: uploadingWithSpeed.currentStage, progressManager: uploadingWithSpeed, logLine: "I feel the need...")
         }
         .frame(width: 300)
     }

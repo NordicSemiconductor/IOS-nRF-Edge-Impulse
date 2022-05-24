@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - DeploymentStage
 
-struct DeploymentStage: Identifiable {
+struct DeploymentStage: Identifiable, Hashable {
     
     let id: String
     let toDoName: String

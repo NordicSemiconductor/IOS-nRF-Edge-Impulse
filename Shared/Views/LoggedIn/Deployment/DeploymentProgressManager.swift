@@ -15,6 +15,7 @@ final class DeploymentProgressManager: ObservableObject {
     
     @Published var stages: [DeploymentStage]
     @Published var progress: Double
+    @Published var speed: Double?
     @Published var started: Bool
     @Published var success: Bool {
         didSet {
@@ -46,6 +47,7 @@ final class DeploymentProgressManager: ObservableObject {
     init() {
         self.stages = DeploymentStage.allCases
         self.progress = 0.0
+        self.speed = nil
         self.started = false
         self.success = false
         for i in stages.indices {
@@ -65,9 +67,10 @@ protocol DeploymentProgressManagerDelegate: AnyObject {
 
 internal extension DeploymentProgressManager {
     
-    func inProgress(_ stage: DeploymentStage) {
+    func inProgress(_ stage: DeploymentStage, speed: Double? = nil) {
         guard let index = stages.firstIndex(where: { $0.toDoName == stage.id }) else { return }
         started = true
+        self.speed = speed
         stages[index].update(isInProgress: true)
         
         for previousIndex in stages.indices where previousIndex < index {

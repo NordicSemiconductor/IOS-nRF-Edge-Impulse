@@ -36,6 +36,9 @@ final class DeploymentViewState: ObservableObject {
     
     internal var socketManager: WebSocketManager!
     internal var cancellables = Set<AnyCancellable>()
+    internal var uploadInitialBytes: Int = 0
+    internal var uploadImageSize: Int!
+    internal var uploadTimestamp: Date!
     
     private var project: Project!
     private var projectApiToken: String!
@@ -176,12 +179,18 @@ internal extension DeploymentViewState {
         self.project = project
         self.projectApiToken = projectApiToken
         self.buildJobId = nil
-        self.progressManager.delegate = self
+        progressManager.delegate = self
         
         $logs
             .compactMap({ $0.last })
             .assign(to: \.lastLogMessage, on: self)
             .store(in: &cancellables)
+    }
+    
+    func cleanupState() {
+        uploadInitialBytes = 0
+        uploadImageSize = nil
+        uploadTimestamp = nil
     }
 }
 
