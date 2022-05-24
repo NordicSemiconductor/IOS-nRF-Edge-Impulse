@@ -9,7 +9,7 @@ import Foundation
 import CoreBluetooth
 import os
 import Combine
-import McuManager
+import iOSMcuManagerLibrary
 import Algorithms
 
 /// Static methods and nested structures

@@ -7,7 +7,7 @@
 
 import Combine
 import SwiftUI
-import McuManager
+import iOSMcuManagerLibrary
 import OSLog
 
 final class DeploymentViewState: ObservableObject {
