@@ -128,7 +128,8 @@ final class BluetoothManager: NSObject, ObservableObject {
         dfuManager.logDelegate = logDelegate
 
         // Start the firmware upgrade with the image data
-        try dfuManager.start(images: firmware.images)
+        let pipelinedConfiguration = FirmwareUpgradeConfiguration(pipelineDepth: 3, byteAlignment: .fourByte)
+        try dfuManager.start(images: firmware.images, using: pipelinedConfiguration)
     }
     
     func disconnect() {
