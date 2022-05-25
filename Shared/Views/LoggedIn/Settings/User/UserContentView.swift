@@ -49,12 +49,12 @@ struct UserContentView: View {
                 }
                 
                 #if os(macOS)
-                Divider()
-                #endif
-                
+                macOSAccountSectionView()
+                #else
                 Section(header: Text("Account")) {
                     Button("Logout", action: logout)
                         .frame(maxWidth: .infinity, alignment: .center)
+                        .foregroundColor(.positiveActionButtonColor)
                 }
                 
                 Section(content: {
@@ -62,9 +62,10 @@ struct UserContentView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .foregroundColor(.negativeActionButtonColor)
                 }, footer: {
-                    Text("Deleting your Edge Impulse User Account will permanently cause a loss of all Data uniquely associated with it, and cannot be reversed.")
+                    Text(Strings.accountDeletionFooter)
                         .font(.caption)
                 })
+                #endif
             }
             .setTitle("User")
             .alert(isPresented: $showingDeleteUserAccountAlert) {
@@ -81,7 +82,7 @@ struct UserContentView: View {
 
 // MARK: - Logout
 
-fileprivate extension UserContentView {
+internal extension UserContentView {
     
     func logout() {
         appData.logout()
@@ -91,7 +92,7 @@ fileprivate extension UserContentView {
 
 // MARK: - Delete User Account
 
-fileprivate extension UserContentView {
+internal extension UserContentView {
     
     func showDeleteUserAccountAlert() {
         showingDeleteUserAccountAlert = true

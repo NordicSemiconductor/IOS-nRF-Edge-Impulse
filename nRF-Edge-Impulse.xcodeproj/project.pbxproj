@@ -100,6 +100,9 @@
 		AA0BE23B283E4B5C002E5FCB /* AppData+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE239283E4B5C002E5FCB /* AppData+Delete.swift */; };
 		AA0BE23D283E7485002E5FCB /* DeleteUserProjectRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE23C283E7485002E5FCB /* DeleteUserProjectRequest.swift */; };
 		AA0BE23E283E7485002E5FCB /* DeleteUserProjectRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE23C283E7485002E5FCB /* DeleteUserProjectRequest.swift */; };
+		AA0BE242283E7A95002E5FCB /* UserContentView+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE240283E7A95002E5FCB /* UserContentView+Account.swift */; };
+		AA0BE244283E7BCD002E5FCB /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE243283E7BCD002E5FCB /* Strings.swift */; };
+		AA0BE245283E7BCD002E5FCB /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE243283E7BCD002E5FCB /* Strings.swift */; };
 		AA0CD078269DC258000FFF0B /* DeploymentViewState+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */; };
 		AA0CD079269DC258000FFF0B /* DeploymentViewState+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */; };
 		AA0D81292608C03A00AE615A /* DeploymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D81282608C03A00AE615A /* DeploymentView.swift */; };
@@ -423,6 +426,8 @@
 		AA0BE236283E4987002E5FCB /* DeleteCurrentUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCurrentUserRequest.swift; sourceTree = "<group>"; };
 		AA0BE239283E4B5C002E5FCB /* AppData+Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+Delete.swift"; sourceTree = "<group>"; };
 		AA0BE23C283E7485002E5FCB /* DeleteUserProjectRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserProjectRequest.swift; sourceTree = "<group>"; };
+		AA0BE240283E7A95002E5FCB /* UserContentView+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserContentView+Account.swift"; sourceTree = "<group>"; };
+		AA0BE243283E7BCD002E5FCB /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentViewState+Delegates.swift"; sourceTree = "<group>"; };
 		AA0D81282608C03A00AE615A /* DeploymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentView.swift; sourceTree = "<group>"; };
 		AA0D812B2608F62700AE615A /* DeploymentViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentViewState.swift; sourceTree = "<group>"; };
@@ -733,6 +738,14 @@
 			path = Inferencing;
 			sourceTree = "<group>";
 		};
+		AA0BE23F283E7A79002E5FCB /* User */ = {
+			isa = PBXGroup;
+			children = (
+				AA0BE240283E7A95002E5FCB /* UserContentView+Account.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		AA0D81272608C00F00AE615A /* Deployment */ = {
 			isa = PBXGroup;
 			children = (
@@ -869,6 +882,7 @@
 		AAF4F6C82625EBEC00012359 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				AA0BE23F283E7A79002E5FCB /* User */,
 				AAF4F6C92625EC4C00012359 /* SettingsScannerView.swift */,
 				AAE0B232264E94D900FD8F80 /* SettingsDebugView.swift */,
 				AAF4F6C62625EB7300012359 /* SettingsContentView.swift */,
@@ -966,6 +980,7 @@
 		AAFED86625E7DE6900BB7445 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AA0BE243283E7BCD002E5FCB /* Strings.swift */,
 				AA03E95B25E3EF13003DA9DA /* Assets.xcassets */,
 				AAE5B63425F23A4500AA003D /* sample_projects.json */,
 				AAF5531F26416EB300252345 /* sample_datasamples.json */,
@@ -1415,6 +1430,7 @@
 				C3BF6AAC26244907006330C8 /* Logger+Ext.swift in Sources */,
 				AAF0C975260A1482001B76B9 /* CircleAround.swift in Sources */,
 				AAFCBE8225E90734001C52B0 /* LoginRequest.swift in Sources */,
+				AA0BE244283E7BCD002E5FCB /* Strings.swift in Sources */,
 				AA80988425EE518F00091AC0 /* ProjectRow.swift in Sources */,
 				AA43B2A825FA574F00C5B5EE /* TabBarLayoutView.swift in Sources */,
 				AAF4F6BD2625C0A700012359 /* LoginErrorView.swift in Sources */,
@@ -1528,6 +1544,7 @@
 				AAFDB472264D78AF00F0CD02 /* CollaboratorsHStackView.swift in Sources */,
 				AAF5E75D26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift in Sources */,
 				AA02087025F648C200FD6B24 /* View.swift in Sources */,
+				AA0BE242283E7A95002E5FCB /* UserContentView+Account.swift in Sources */,
 				AAE507BB268F19990017CAED /* TextFieldAlertView.swift in Sources */,
 				AA14CA76261490CD004F08FE /* Codable.swift in Sources */,
 				AAF38C1A268E159A00F1A590 /* GetSocketTokenRequest.swift in Sources */,
@@ -1642,6 +1659,7 @@
 				AA03CB0026D64DFE004CF3FC /* DeviceIconView.swift in Sources */,
 				AADFFE99278D8A5F001454A1 /* SignUpView.swift in Sources */,
 				AA63F87126A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */,
+				AA0BE245283E7BCD002E5FCB /* Strings.swift in Sources */,
 				AA482F822631A213007B8B64 /* UserContentView.swift in Sources */,
 				AA14FD4C26EA3B98008128CB /* DeviceStatusSectionView.swift in Sources */,
 				AAFB45FB26FDEC7700B93904 /* CircularProgressView.swift in Sources */,

@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - String
+
 extension String {
     
     var uppercasingFirst: String {
@@ -21,6 +23,7 @@ extension String {
 }
 
 // MARK: - String + Date
+
 extension String {
     func toDate(_ format: String? = nil) -> Date? {
         if let f = format {
