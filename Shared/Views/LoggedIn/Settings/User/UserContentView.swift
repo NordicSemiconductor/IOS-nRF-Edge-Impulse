@@ -12,6 +12,10 @@ struct UserContentView: View {
     @EnvironmentObject var appData: AppData
     @EnvironmentObject var deviceData: DeviceData
     
+    // MARK: - Private
+    
+    @State private var showingDeleteUserAccountAlert = false
+    
     // MARK: - View
     
     var body: some View {
@@ -30,7 +34,7 @@ struct UserContentView: View {
                         VStack(alignment: .center, spacing: 16) {
                             Image(systemName: "moon.stars.fill")
                                 .resizable()
-                                .frame(width: 90, height: 90, alignment: .center)
+                                .frame(width: 60, height: 60, alignment: .center)
                                 .foregroundColor(Assets.blueslate.color)
                             Text("Your Project List is empty.")
                         }
@@ -51,10 +55,24 @@ struct UserContentView: View {
                 Section(header: Text("Account")) {
                     Button("Logout", action: logout)
                         .frame(maxWidth: .infinity, alignment: .center)
-                        .foregroundColor(.negativeActionButtonColor)
                 }
+                
+                Section(content: {
+                    Button("Delete", action: showDeleteUserAccountAlert)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .foregroundColor(.negativeActionButtonColor)
+                }, footer: {
+                    Text("Deleting your Edge Impulse User Account will permanently cause a loss of all Data uniquely associated with it, and cannot be reversed.")
+                        .font(.caption)
+                })
             }
             .setTitle("User")
+            .alert(isPresented: $showingDeleteUserAccountAlert) {
+                Alert(title: Text("Delete User Account"),
+                      message: Text("Are you sure you want to delete your Edge Impulse User Account?"),
+                      primaryButton: .destructive(Text("Yes"), action: confirmDeleteUserAccount),
+                      secondaryButton: .default(Text("Cancel"), action: dismissDeleteUserAccount))
+            }
         default:
             EmptyView()
         }
@@ -68,6 +86,24 @@ fileprivate extension UserContentView {
     func logout() {
         appData.logout()
         deviceData.disconnectAll()
+    }
+}
+
+// MARK: - Delete User Account
+
+fileprivate extension UserContentView {
+    
+    func showDeleteUserAccountAlert() {
+        showingDeleteUserAccountAlert = true
+    }
+    
+    func confirmDeleteUserAccount() {
+        showingDeleteUserAccountAlert = false
+        appData.deleteUserAccount()
+    }
+    
+    func dismissDeleteUserAccount() {
+        showingDeleteUserAccountAlert = false
     }
 }
 

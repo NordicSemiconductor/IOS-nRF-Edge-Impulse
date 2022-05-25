@@ -14,7 +14,6 @@ extension AppData {
               let renameRequest = HTTPRequest.renameDevice(device, as: newName,
                                                            in: currentProject, using: apiKey) else { return }
         
-        
         Network.shared.perform(renameRequest, responseType: RenameDeviceResponse.self)
             .sinkReceivingError(onError: { error in
                 AppEvents.shared.error = ErrorEvent(error)
