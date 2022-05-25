@@ -33,20 +33,44 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     }
     
     func upgradeStateDidChange(from previousState: FirmwareUpgradeState, to newState: FirmwareUpgradeState) {
-        switch previousState {
-        case .reset:
-            progressManager.inProgress(.applying)
-        case .confirm:
-            progressManager.inProgress(.confirming)
-        default:
-            break
+        DispatchQueue.main.async { [weak self] in
+            switch previousState {
+            case .confirm:
+                self?.progressManager.inProgress(.confirming)
+            case .reset:
+                guard let self = self else { return }
+                let expectedSwapTimeInSeconds = 45
+                var remainingSwapTimeInSeconds = 0
+                
+                self.progressManager.inProgress(.applying)
+                self.progressManager.progress = 0.0
+                self.logs.append(LogMessage("Time Remaining: \(expectedSwapTimeInSeconds) seconds"))
+                self.resetCountdownTimer
+                    .autoconnect()
+                    .receive(on: DispatchQueue.main)
+                    .sink(receiveValue: { a in
+                        remainingSwapTimeInSeconds += 1
+                        self.progressManager.progress = Double(remainingSwapTimeInSeconds) / Double(expectedSwapTimeInSeconds) * 100
+                        self.logs.append(LogMessage("Time Remaining: \(expectedSwapTimeInSeconds - remainingSwapTimeInSeconds) seconds"))
+                        guard remainingSwapTimeInSeconds == expectedSwapTimeInSeconds else { return }
+                        
+                        self.progressManager.success = self.uploadSuccessCallbackReceived
+                        if !self.uploadSuccessCallbackReceived {
+                            self.upgradeDidFail(inState: .reset, with: FirmwareUpgradeError.connectionFailedAfterReset)
+                        }
+                        self.cleanupState()
+                        self.cancellables.removeAll()
+                    })
+                    .store(in: &self.cancellables)
+            default:
+                break
+            }
         }
     }
     
     func upgradeDidComplete() {
         DispatchQueue.main.async { [weak self] in
-            self?.progressManager.success = true
-            self?.cleanupState()
+            self?.uploadSuccessCallbackReceived = true
         }
     }
     

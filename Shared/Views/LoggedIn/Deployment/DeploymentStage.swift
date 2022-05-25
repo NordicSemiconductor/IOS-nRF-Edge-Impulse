@@ -86,7 +86,7 @@ extension DeploymentStage: CaseIterable {
     
     static let confirming = DeploymentStage(toDoName: "Confirm", inProgressName: "Confirming...", finishedName: "Confirmed", symbolName: "metronome", isIndeterminate: true)
     
-    static let applying = DeploymentStage(toDoName: "Update", inProgressName: "Applying Update...", finishedName: "Updated", symbolName: "bandage", isIndeterminate: true)
+    static let applying = DeploymentStage(toDoName: "Update", inProgressName: "Applying Update...", finishedName: "Updated", symbolName: "bandage", isIndeterminate: false)
     
     static let completed = DeploymentStage(toDoName: "Complete", inProgressName: "Completing...", finishedName: "Completed", symbolName: "checkmark", isIndeterminate: true)
     

@@ -39,6 +39,8 @@ final class DeploymentViewState: ObservableObject {
     internal var uploadInitialBytes: Int = 0
     internal var uploadImageSize: Int!
     internal var uploadTimestamp: Date!
+    internal var resetCountdownTimer = Timer.publish(every: 1, on: .main, in: .common)
+    internal var uploadSuccessCallbackReceived = false
     
     private var project: Project!
     private var projectApiToken: String!
