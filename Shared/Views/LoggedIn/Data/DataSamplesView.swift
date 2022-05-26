@@ -34,15 +34,19 @@ struct DataSamplesView: View {
                 }
             }
             .setAsSegmentedControlStyle()
-            .padding(.horizontal)
-                   
             #if os(macOS)
-            Divider()
-                .padding([.top, .leading, .trailing])
+            .padding([.horizontal, .bottom])
+            #else
+            .padding(.horizontal)
             #endif
             
             List {
                 DataSampleHeaderRow()
+                
+                #if os(macOS)
+                Divider()
+                    .foregroundColor(.primary)
+                #endif
                 
                 ForEach(appData.samplesForCategory[appData.selectedCategory] ?? []) { sample in
                     DataSampleRow(sample)
@@ -50,6 +54,9 @@ struct DataSamplesView: View {
                 
                 DataSamplesFooterView(selectedCategory: appData.selectedCategory)
             }
+            #if os(macOS)
+            .background(Color.secondarySystemBackground)
+            #endif
             addHiddenDataAcqisitionNavigationLink()
         }
         .padding(.vertical)
