@@ -9,6 +9,10 @@ import Foundation
 
 enum Strings {
     
+    static let logoutFooter = """
+        There are no adverse affects to Logging Out for your User. This is a Safe Operation.
+        """
+    
     static let deleteUserAccount = "Delete User Account"
     static let deleteUserAccountDescription = "Are you sure you want to delete your Edge Impulse User Account?"
     

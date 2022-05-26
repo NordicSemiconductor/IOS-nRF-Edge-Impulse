@@ -21,66 +21,56 @@ struct UserContentView: View {
     var body: some View {
         switch appData.loginState {
         case .complete(let user, let projects):
-            List {
+            VStack {
                 HeroView(user: user)
-                    .listRowInsets(EdgeInsets())
+                    .padding()
                 
-                Divider()
-                
-                Section(header: Text("Projects")) {
-                    if projects.isEmpty {
-                        VStack(alignment: .center, spacing: 16) {
-                            Image(systemName: "moon.stars.fill")
-                                .resizable()
-                                .frame(width: 60, height: 60, alignment: .center)
-                                .foregroundColor(Assets.blueslate.color)
-                            Text("Your Project List is empty.")
+                List {
+                    Section(header: Text("Projects")) {
+                        if projects.isEmpty {
+                            VStack(alignment: .center, spacing: 16) {
+                                Image(systemName: "moon.stars.fill")
+                                    .resizable()
+                                    .frame(width: 60, height: 60, alignment: .center)
+                                    .foregroundColor(Assets.blueslate.color)
+                                Text("Your Project List is empty.")
+                            }
+                            .frame(maxWidth: .infinity)
                         }
-                        .frame(maxWidth: .infinity)
-                    }
-                    
-                    ForEach(projects) { project in
-                        NavigationLink(destination: ProjectView(project)) {
-                            ProjectRow(project)
+                        
+                        ForEach(projects) { project in
+                            NavigationLink(destination: ProjectView(project)) {
+                                ProjectRow(project)
+                            }
                         }
                     }
                 }
                 
-                Section(content: {
-                    HStack {
-                        VStack {
-                            Image(systemName: "person.badge.clock")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 30, height: 30, alignment: .center)
-                            
+                List {
+                    Section {
+                        MultiColumnView {
                             Button("Logout", action: logout)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                        }
-                        
-                        Divider()
-                            .foregroundColor(Assets.lightGrey.color)
-                        
-                        VStack {
-                            Image(systemName: "person.badge.minus")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 30, height: 30, alignment: .center)
                             
-                            Button("Delete", action: showDeleteUserAccountAlert)
-                                .frame(maxWidth: .infinity, alignment: .center)
+                            Text(Strings.logoutFooter)
+                                .font(.callout)
+                                .foregroundColor(Assets.middleGrey.color)
                         }
-                        .foregroundColor(.negativeActionButtonColor)
+                        .withTabBarStyle()
+                        
+                        MultiColumnView {
+                            Button("Delete", action: showDeleteUserAccountAlert)
+                                .foregroundColor(.negativeActionButtonColor)
+                            
+                            Text(Strings.accountDeletionFooter)
+                                .foregroundColor(Assets.middleGrey.color)
+                                .font(.callout)
+                        }
+                        .withTabBarStyle()
+                    } header: {
+                        Text("User")
                     }
-                    .padding(4)
-                    .withTabBarStyle()
-                }, header: {
-                    Text("Account")
-                }, footer: {
-                    Text(Strings.accountDeletionFooter)
-                        .font(.body)
-                        .foregroundColor(Assets.middleGrey.color)
-                })
+                }
+                .frame(alignment: .bottom)
             }
             .setTitle("User")
             .alert(isPresented: $showingDeleteUserAccountAlert) {
