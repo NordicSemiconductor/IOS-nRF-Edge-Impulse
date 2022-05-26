@@ -30,11 +30,19 @@ struct InferencingView: View {
             Section(header: Text("Results")) {
                 if let firstRow = appData.inferencingViewState.results.first {
                     ScrollView([.horizontal], showsIndicators: true) {
+                        
                         InferencingResultsHeaderRow(firstRow)
+                        
+                        Divider()
+                            .foregroundColor(.primary)
+                        
                         ForEach(appData.inferencingViewState.results, id: \.self) { result in
                             InferencingResultRow(result)
                         }
                     }
+                    #if os(macOS)
+                    .background(Color.secondarySystemBackground)
+                    #endif
                 }
                 
                 InferencingFooterView()
