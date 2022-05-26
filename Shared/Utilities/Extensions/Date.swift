@@ -20,6 +20,7 @@ extension Date {
 // MARK: - Format
 
 extension Date {
+    
     func formatterString(dateStyle: DateFormatter.Style = .short, timeStyle: DateFormatter.Style = .short) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = dateStyle

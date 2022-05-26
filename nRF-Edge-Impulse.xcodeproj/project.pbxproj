@@ -241,8 +241,6 @@
 		AAF0C96D260A0210001B76B9 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C96B260A0210001B76B9 /* UserView.swift */; };
 		AAF0C96F260A069F001B76B9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C96E260A069F001B76B9 /* User.swift */; };
 		AAF0C970260A069F001B76B9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C96E260A069F001B76B9 /* User.swift */; };
-		AAF0C972260A121B001B76B9 /* HeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C971260A121B001B76B9 /* HeroView.swift */; };
-		AAF0C973260A121B001B76B9 /* HeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C971260A121B001B76B9 /* HeroView.swift */; };
 		AAF0C975260A1482001B76B9 /* CircleAround.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C974260A1482001B76B9 /* CircleAround.swift */; };
 		AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0C974260A1482001B76B9 /* CircleAround.swift */; };
 		AAF290BF26DCE5CA00ABE0E2 /* Sensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF290BE26DCE5CA00ABE0E2 /* Sensor.swift */; };
@@ -500,7 +498,6 @@
 		AAF0C9682609FEBE001B76B9 /* GetCurrentUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentUserRequest.swift; sourceTree = "<group>"; };
 		AAF0C96B260A0210001B76B9 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		AAF0C96E260A069F001B76B9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		AAF0C971260A121B001B76B9 /* HeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroView.swift; sourceTree = "<group>"; };
 		AAF0C974260A1482001B76B9 /* CircleAround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleAround.swift; sourceTree = "<group>"; };
 		AAF290BE26DCE5CA00ABE0E2 /* Sensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensor.swift; sourceTree = "<group>"; };
 		AAF290C126DD03F500ABE0E2 /* DataSamplesFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSamplesFooterView.swift; sourceTree = "<group>"; };
@@ -616,7 +613,6 @@
 			children = (
 				AA535515261C7FEF007B2C94 /* Project */,
 				AAF0C96B260A0210001B76B9 /* UserView.swift */,
-				AAF0C971260A121B001B76B9 /* HeroView.swift */,
 				AA482F802631A213007B8B64 /* UserContentView.swift */,
 				AA2B11AC283F8F1A006C75AF /* UserContentView+Logic.swift */,
 			);
@@ -1456,7 +1452,6 @@
 				AA076F7F2698721D0012CD64 /* Color.swift in Sources */,
 				AAF290BF26DCE5CA00ABE0E2 /* Sensor.swift in Sources */,
 				AAF38C16268DED9900F1A590 /* AppIconView.swift in Sources */,
-				AAF0C972260A121B001B76B9 /* HeroView.swift in Sources */,
 				AAFB8E2A2626FADD003DAEC5 /* UserPreferences.swift in Sources */,
 				AA03298B266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift in Sources */,
 				AAFDB46E264D73A800F0CD02 /* ProjectView.swift in Sources */,
@@ -1619,7 +1614,6 @@
 				AA0D812D2608F62700AE615A /* DeploymentViewState.swift in Sources */,
 				C3DCF4292681353000BF9AD4 /* DeviceData+Sampling.swift in Sources */,
 				AAF0C96D260A0210001B76B9 /* UserView.swift in Sources */,
-				AAF0C973260A121B001B76B9 /* HeroView.swift in Sources */,
 				012A3ECA2666627E00EBB501 /* DeviceData.swift in Sources */,
 				AA0050902695C1B600E9FC62 /* BuildOnDeviceModelRequest.swift in Sources */,
 				AA10170425E91885006DC88A /* HTTPRequest.swift in Sources */,

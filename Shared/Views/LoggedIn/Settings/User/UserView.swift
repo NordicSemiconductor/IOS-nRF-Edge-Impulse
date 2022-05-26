@@ -25,15 +25,21 @@ struct UserView: View {
                 .frame(width: UserView.ImageSize.width,
                        height: UserView.ImageSize.width)
 
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(user.formattedName)
                     .font(.headline)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text("Joined \(user.createdSince)")
-                    .font(.subheadline)
+                
+                Text("Joined \(user.created.formatterString(dateStyle: .medium, timeStyle: .none))")
+                    .font(.callout)
+                    .foregroundColor(Assets.lightGrey.color)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Text("(\(user.createdSince))")
+                    .font(.callout)
                     .fontWeight(.light)
-                    .foregroundColor(.gray)
+                    .foregroundColor(Assets.lightGrey.color)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
@@ -58,6 +64,7 @@ struct UserView_Previews: PreviewProvider {
         Group {
             UserView(user: Preview.previewUser)
         }
+        .frame(width: 300)
         .previewLayout(.sizeThatFits)
     }
 }

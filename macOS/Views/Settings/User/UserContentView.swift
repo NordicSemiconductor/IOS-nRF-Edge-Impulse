@@ -21,56 +21,53 @@ struct UserContentView: View {
     var body: some View {
         switch appData.loginState {
         case .complete(let user, let projects):
-            VStack {
-                HeroView(user: user)
-                    .padding()
+            List {
+                Section(header: Text("User")) {
+                    UserView(user: user)
+                        .withTabBarStyle()
+                }
                 
-                List {
-                    Section(header: Text("Projects")) {
-                        if projects.isEmpty {
-                            VStack(alignment: .center, spacing: 16) {
-                                Image(systemName: "moon.stars.fill")
-                                    .resizable()
-                                    .frame(width: 60, height: 60, alignment: .center)
-                                    .foregroundColor(Assets.blueslate.color)
-                                Text("Your Project List is empty.")
-                            }
-                            .frame(maxWidth: .infinity)
+                Section(header: Text("Projects")) {
+                    if projects.isEmpty {
+                        VStack(alignment: .center, spacing: 16) {
+                            Image(systemName: "moon.stars.fill")
+                                .resizable()
+                                .frame(width: 60, height: 60, alignment: .center)
+                                .foregroundColor(Assets.blueslate.color)
+                            Text("Your Project List is empty.")
                         }
-                        
-                        ForEach(projects) { project in
-                            NavigationLink(destination: ProjectView(project)) {
-                                ProjectRow(project)
-                            }
+                        .frame(maxWidth: .infinity)
+                    }
+                    
+                    ForEach(projects) { project in
+                        NavigationLink(destination: ProjectView(project)) {
+                            ProjectRow(project)
                         }
                     }
                 }
                 
-                List {
-                    Section {
-                        MultiColumnView {
-                            Button("Logout", action: logout)
-                            
-                            Text(Strings.logoutFooter)
-                                .font(.callout)
-                                .foregroundColor(Assets.middleGrey.color)
-                        }
-                        .withTabBarStyle()
+                Section {
+                    MultiColumnView {
+                        Button("Logout", action: logout)
                         
-                        MultiColumnView {
-                            Button("Delete", action: showDeleteUserAccountAlert)
-                                .foregroundColor(.negativeActionButtonColor)
-                            
-                            Text(Strings.accountDeletionFooter)
-                                .foregroundColor(Assets.middleGrey.color)
-                                .font(.callout)
-                        }
-                        .withTabBarStyle()
-                    } header: {
-                        Text("User")
+                        Text(Strings.logoutFooter)
+                            .font(.callout)
+                            .foregroundColor(Assets.middleGrey.color)
                     }
+                    .withTabBarStyle()
+                    
+                    MultiColumnView {
+                        Button("Delete", action: showDeleteUserAccountAlert)
+                            .foregroundColor(.negativeActionButtonColor)
+                        
+                        Text(Strings.accountDeletionFooter)
+                            .foregroundColor(Assets.middleGrey.color)
+                            .font(.callout)
+                    }
+                    .withTabBarStyle()
+                } header: {
+                    Text("Account")
                 }
-                .frame(alignment: .bottom)
             }
             .setTitle("User")
             .alert(isPresented: $showingDeleteUserAccountAlert) {

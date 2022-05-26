@@ -22,8 +22,7 @@ struct UserContentView: View {
         switch appData.loginState {
         case .complete(let user, let projects):
             List {
-                HeroView(user: user)
-                    .listRowInsets(EdgeInsets())
+                UserView(user: user)
                 
                 Section(header: Text("Projects")) {
                     if projects.isEmpty {
