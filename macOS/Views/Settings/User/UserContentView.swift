@@ -84,10 +84,7 @@ struct UserContentView: View {
             }
             .setTitle("User")
             .alert(isPresented: $showingDeleteUserAccountAlert) {
-                Alert(title: Text(Strings.deleteUserAccount),
-                      message: Text(Strings.deleteUserAccountDescription),
-                      primaryButton: .destructive(Text("Yes"), action: confirmDeleteUserAccount),
-                      secondaryButton: .default(Text("Cancel"), action: dismissDeleteUserAccount))
+                return deleteUserAccountAlert()
             }
         default:
             EmptyView()
@@ -95,8 +92,12 @@ struct UserContentView: View {
     }
 }
 
+// MARK: - Preview
+
+#if DEBUG
 struct UserContentView_Previews: PreviewProvider {
     static var previews: some View {
         UserContentView()
     }
 }
+#endif

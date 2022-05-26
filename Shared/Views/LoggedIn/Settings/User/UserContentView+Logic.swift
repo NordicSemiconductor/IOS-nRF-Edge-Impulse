@@ -25,6 +25,13 @@ internal extension UserContentView {
         showingDeleteUserAccountAlert = true
     }
     
+    func deleteUserAccountAlert() -> Alert {
+        Alert(title: Text(Strings.deleteUserAccount),
+              message: Text(Strings.deleteUserAccountDescription),
+              primaryButton: .destructive(Text("Yes"), action: confirmDeleteUserAccount),
+              secondaryButton: .default(Text("Cancel"), action: dismissDeleteUserAccount))
+    }
+    
     func confirmDeleteUserAccount() {
         showingDeleteUserAccountAlert = false
         appData.deleteUserAccount()
