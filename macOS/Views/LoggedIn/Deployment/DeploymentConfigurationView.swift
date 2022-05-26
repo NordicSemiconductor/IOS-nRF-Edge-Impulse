@@ -37,6 +37,7 @@ struct DeploymentConfigurationView: View {
                         .font(.callout)
                         .foregroundColor(Assets.middleGrey.color)
                 }
+                .withTabBarStyle()
                 
                 MultiColumnView {
                     Text("Classifier")
@@ -54,6 +55,7 @@ struct DeploymentConfigurationView: View {
                         .font(.callout)
                         .foregroundColor(Assets.middleGrey.color)
                 }
+                .withTabBarStyle()
                 .padding(.top)
                 
                 MultiColumnView {
@@ -70,6 +72,7 @@ struct DeploymentConfigurationView: View {
                         .font(.callout)
                         .foregroundColor(Assets.middleGrey.color)
                 }
+                .withTabBarStyle()
                 .padding(.top)
             }
         }
