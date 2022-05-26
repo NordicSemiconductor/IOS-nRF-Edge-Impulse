@@ -33,6 +33,9 @@ struct NoDevicesFoundView: View {
                 .padding(.top)
         }
         .padding()
+        #if os(macOS)
+        .background(Color.secondarySystemBackground)
+        #endif
     }
 }
 
