@@ -34,7 +34,7 @@ struct ProjectSelectionView: View {
                 Divider()
 
                 Button(action: logout) {
-                    Label("Logout", systemImage: "person.fill.xmark")
+                    Label("Logout", systemImage: "person.badge.clock")
                 }
             } label: {
                 DropdownView(currentProject: appData.selectedProject ?? appData.projects?.first)
@@ -42,7 +42,7 @@ struct ProjectSelectionView: View {
             .alert(isPresented: $showingAlert, content: {
                 Alert(
                     title: Text("Are you sure you want to switch the project?"),
-                    message: Text("If you switch the project all connected devices will be disconnected"),
+                    message: Text("If you switch the project all connected devices will be disconnected."),
                     primaryButton: .default(Text("Yes"), action: {
                         deviceData.disconnectAll()
                         appData.selectedProject = preselectedProject

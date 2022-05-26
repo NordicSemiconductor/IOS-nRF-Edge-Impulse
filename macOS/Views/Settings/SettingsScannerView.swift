@@ -15,6 +15,7 @@ struct SettingsScannerView: View {
         VStack {
             Text("Filtering")
                 .font(.subheadline)
+                .bold()
             
             VStack(alignment: .leading, spacing: 10) {
                 

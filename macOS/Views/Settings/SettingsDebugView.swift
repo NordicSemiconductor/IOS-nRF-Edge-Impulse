@@ -15,6 +15,7 @@ struct SettingsDebugView: View {
         VStack {
             Text("Notifications")
                 .font(.subheadline)
+                .bold()
             
             VStack {
                 #if DEBUG

@@ -12,16 +12,34 @@ extension UserContentView {
     
     @ViewBuilder
     func macOSAccountSectionView() -> some View {
-        Divider()
-        
         Section(content: {
-            Button("Logout", action: logout)
-                .frame(maxWidth: .infinity, alignment: .center)
-            
-            Button("Delete", action: showDeleteUserAccountAlert)
-                .frame(maxWidth: .infinity, alignment: .center)
+            HStack {
+                VStack {
+                    Image(systemName: "person.badge.clock")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30, alignment: .center)
+                    
+                    Button("Logout", action: logout)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                }
+                
+                Divider()
+                    .foregroundColor(Assets.lightGrey.color)
+                
+                VStack {
+                    Image(systemName: "person.badge.minus")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30, alignment: .center)
+                    
+                    Button("Delete", action: showDeleteUserAccountAlert)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                }
                 .foregroundColor(.negativeActionButtonColor)
-                .padding(.top)
+            }
+            .padding(4)
+            .withTabBarStyle()
         }, header: {
             Text("Account")
         }, footer: {
