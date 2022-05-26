@@ -100,7 +100,6 @@
 		AA0BE23B283E4B5C002E5FCB /* AppData+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE239283E4B5C002E5FCB /* AppData+Delete.swift */; };
 		AA0BE23D283E7485002E5FCB /* DeleteUserProjectRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE23C283E7485002E5FCB /* DeleteUserProjectRequest.swift */; };
 		AA0BE23E283E7485002E5FCB /* DeleteUserProjectRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE23C283E7485002E5FCB /* DeleteUserProjectRequest.swift */; };
-		AA0BE242283E7A95002E5FCB /* UserContentView+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE240283E7A95002E5FCB /* UserContentView+Account.swift */; };
 		AA0BE244283E7BCD002E5FCB /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE243283E7BCD002E5FCB /* Strings.swift */; };
 		AA0BE245283E7BCD002E5FCB /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE243283E7BCD002E5FCB /* Strings.swift */; };
 		AA0CD078269DC258000FFF0B /* DeploymentViewState+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */; };
@@ -138,6 +137,9 @@
 		AA284060261F537C00EB8637 /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA28405E261F537C00EB8637 /* PasswordField.swift */; };
 		AA2A1127283D007A00A35029 /* iOSMcuManagerLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = AA2A1126283D007A00A35029 /* iOSMcuManagerLibrary */; };
 		AA2A1129283D00E300A35029 /* iOSMcuManagerLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = AA2A1128283D00E300A35029 /* iOSMcuManagerLibrary */; };
+		AA2B11AB283F8EF5006C75AF /* UserContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2B11AA283F8EF5006C75AF /* UserContentView.swift */; };
+		AA2B11AD283F8F1A006C75AF /* UserContentView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2B11AC283F8F1A006C75AF /* UserContentView+Logic.swift */; };
+		AA2B11AE283F8F1A006C75AF /* UserContentView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2B11AC283F8F1A006C75AF /* UserContentView+Logic.swift */; };
 		AA2C516827391AB600E5E16E /* DateDeviceInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2C516727391AB600E5E16E /* DateDeviceInfoRow.swift */; };
 		AA2C516927391AB600E5E16E /* DateDeviceInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2C516727391AB600E5E16E /* DateDeviceInfoRow.swift */; };
 		AA2CDEB62636FF3900A4950E /* AppEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2CDEB52636FF3900A4950E /* AppEvents.swift */; };
@@ -153,7 +155,6 @@
 		AA4581D127455FB80063EBE7 /* DFUPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4581CF27455FB80063EBE7 /* DFUPackage.swift */; };
 		AA482F7F26318B11007B8B64 /* View+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F7E26318B11007B8B64 /* View+macOS.swift */; };
 		AA482F812631A213007B8B64 /* UserContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F802631A213007B8B64 /* UserContentView.swift */; };
-		AA482F822631A213007B8B64 /* UserContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F802631A213007B8B64 /* UserContentView.swift */; };
 		AA4D06F3268F410E00DFB6A9 /* RenameDeviceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */; };
 		AA4D06F4268F410E00DFB6A9 /* RenameDeviceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */; };
 		AA4E8A7926947A3600C844FE /* DeploymentViewState+WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4E8A7826947A3600C844FE /* DeploymentViewState+WebSocket.swift */; };
@@ -426,7 +427,6 @@
 		AA0BE236283E4987002E5FCB /* DeleteCurrentUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCurrentUserRequest.swift; sourceTree = "<group>"; };
 		AA0BE239283E4B5C002E5FCB /* AppData+Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+Delete.swift"; sourceTree = "<group>"; };
 		AA0BE23C283E7485002E5FCB /* DeleteUserProjectRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserProjectRequest.swift; sourceTree = "<group>"; };
-		AA0BE240283E7A95002E5FCB /* UserContentView+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserContentView+Account.swift"; sourceTree = "<group>"; };
 		AA0BE243283E7BCD002E5FCB /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentViewState+Delegates.swift"; sourceTree = "<group>"; };
 		AA0D81282608C03A00AE615A /* DeploymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentView.swift; sourceTree = "<group>"; };
@@ -445,6 +445,8 @@
 		AA284058261F4DFC00EB8637 /* AppHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderView.swift; sourceTree = "<group>"; };
 		AA28405B261F4F3D00EB8637 /* UsernameField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameField.swift; sourceTree = "<group>"; };
 		AA28405E261F537C00EB8637 /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
+		AA2B11AA283F8EF5006C75AF /* UserContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContentView.swift; sourceTree = "<group>"; };
+		AA2B11AC283F8F1A006C75AF /* UserContentView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserContentView+Logic.swift"; sourceTree = "<group>"; };
 		AA2C516727391AB600E5E16E /* DateDeviceInfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDeviceInfoRow.swift; sourceTree = "<group>"; };
 		AA2CDEB52636FF3900A4950E /* AppEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEvents.swift; sourceTree = "<group>"; };
 		AA386B08260CEDD60079F12D /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
@@ -616,6 +618,7 @@
 				AAF0C96B260A0210001B76B9 /* UserView.swift */,
 				AAF0C971260A121B001B76B9 /* HeroView.swift */,
 				AA482F802631A213007B8B64 /* UserContentView.swift */,
+				AA2B11AC283F8F1A006C75AF /* UserContentView+Logic.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -741,7 +744,7 @@
 		AA0BE23F283E7A79002E5FCB /* User */ = {
 			isa = PBXGroup;
 			children = (
-				AA0BE240283E7A95002E5FCB /* UserContentView+Account.swift */,
+				AA2B11AA283F8EF5006C75AF /* UserContentView.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1491,6 +1494,7 @@
 				AA798184275A223F008BDAC3 /* NoRegisteredDevicesView.swift in Sources */,
 				AAA5C7C5269F39EA0012809A /* NoDevicesFoundView.swift in Sources */,
 				AA9D798D26971D2300A987FB /* SocketIOJobMessage.swift in Sources */,
+				AA2B11AD283F8F1A006C75AF /* UserContentView+Logic.swift in Sources */,
 				AA63F87026A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */,
 				AAEDE636262882BF00B96AE9 /* ProjectSelectionView.swift in Sources */,
 				AA03CAFF26D64DFE004CF3FC /* DeviceIconView.swift in Sources */,
@@ -1542,9 +1546,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAFDB472264D78AF00F0CD02 /* CollaboratorsHStackView.swift in Sources */,
+				AA2B11AB283F8EF5006C75AF /* UserContentView.swift in Sources */,
 				AAF5E75D26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift in Sources */,
 				AA02087025F648C200FD6B24 /* View.swift in Sources */,
-				AA0BE242283E7A95002E5FCB /* UserContentView+Account.swift in Sources */,
 				AAE507BB268F19990017CAED /* TextFieldAlertView.swift in Sources */,
 				AA14CA76261490CD004F08FE /* Codable.swift in Sources */,
 				AAF38C1A268E159A00F1A590 /* GetSocketTokenRequest.swift in Sources */,
@@ -1597,6 +1601,7 @@
 				AAF0C976260A1482001B76B9 /* CircleAround.swift in Sources */,
 				C39B106F2695DF400056095E /* HUD.swift in Sources */,
 				AA9D798E26971D2300A987FB /* SocketIOJobMessage.swift in Sources */,
+				AA2B11AE283F8F1A006C75AF /* UserContentView+Logic.swift in Sources */,
 				AAFDAA26272AEDA700467592 /* URLSession.swift in Sources */,
 				AA605E58271ECF3A002B3B0A /* InferencingFooterView.swift in Sources */,
 				AA03298F266F8CB200C46547 /* DataAquisitionView+Logic.swift in Sources */,
@@ -1660,7 +1665,6 @@
 				AADFFE99278D8A5F001454A1 /* SignUpView.swift in Sources */,
 				AA63F87126A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */,
 				AA0BE245283E7BCD002E5FCB /* Strings.swift in Sources */,
-				AA482F822631A213007B8B64 /* UserContentView.swift in Sources */,
 				AA14FD4C26EA3B98008128CB /* DeviceStatusSectionView.swift in Sources */,
 				AAFB45FB26FDEC7700B93904 /* CircularProgressView.swift in Sources */,
 				AAFB8E2B2626FADD003DAEC5 /* UserPreferences.swift in Sources */,

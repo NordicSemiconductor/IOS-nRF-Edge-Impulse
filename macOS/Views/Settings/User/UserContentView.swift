@@ -1,8 +1,8 @@
 //
 //  UserContentView.swift
-//  nRF-Edge-Impulse
+//  nRF-Edge-Impulse (macOS)
 //
-//  Created by Dinesh Harjani on 22/4/21.
+//  Created by Dinesh Harjani on 26/5/22.
 //
 
 import SwiftUI
@@ -25,6 +25,8 @@ struct UserContentView: View {
                 HeroView(user: user)
                     .listRowInsets(EdgeInsets())
                 
+                Divider()
+                
                 Section(header: Text("Projects")) {
                     if projects.isEmpty {
                         VStack(alignment: .center, spacing: 16) {
@@ -44,19 +46,40 @@ struct UserContentView: View {
                     }
                 }
                 
-                Section(header: Text("Account")) {
-                    Button("Logout", action: logout)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .foregroundColor(.positiveActionButtonColor)
-                }
-                
                 Section(content: {
-                    Button("Delete", action: showDeleteUserAccountAlert)
-                        .frame(maxWidth: .infinity, alignment: .center)
+                    HStack {
+                        VStack {
+                            Image(systemName: "person.badge.clock")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 30, height: 30, alignment: .center)
+                            
+                            Button("Logout", action: logout)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        }
+                        
+                        Divider()
+                            .foregroundColor(Assets.lightGrey.color)
+                        
+                        VStack {
+                            Image(systemName: "person.badge.minus")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 30, height: 30, alignment: .center)
+                            
+                            Button("Delete", action: showDeleteUserAccountAlert)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        }
                         .foregroundColor(.negativeActionButtonColor)
+                    }
+                    .padding(4)
+                    .withTabBarStyle()
+                }, header: {
+                    Text("Account")
                 }, footer: {
                     Text(Strings.accountDeletionFooter)
-                        .font(.caption)
+                        .font(.body)
+                        .foregroundColor(Assets.middleGrey.color)
                 })
             }
             .setTitle("User")
@@ -72,25 +95,8 @@ struct UserContentView: View {
     }
 }
 
-// MARK: - Preview
-
-#if DEBUG
 struct UserContentView_Previews: PreviewProvider {
-    
-    static let loggedInWithoutUser: AppData = {
-        let appData = AppData()
-        appData.apiToken = "A"
-        appData.loginState = .empty
-        return appData
-    }()
-    
     static var previews: some View {
-        Group {
-            UserContentView()
-                .environmentObject(Preview.noProjectsAppData)
-            UserContentView()
-                .environmentObject(Preview.projectsPreviewAppData)
-        }
+        UserContentView()
     }
 }
-#endif
