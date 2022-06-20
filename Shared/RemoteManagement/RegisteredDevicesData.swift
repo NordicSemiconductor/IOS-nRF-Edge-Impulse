@@ -73,16 +73,16 @@ final class RegisteredDevicesManager {
     }
     
     @discardableResult
-    func deleteDevice(deviceId: String, appData: AppData) -> AnyPublisher<Void, Swift.Error> {
+    func deleteDevice(deviceId: String, appData: AppData) -> AnyPublisher<DeleteDeviceResponse, Swift.Error> {
         return requestData(appData: appData)
             .flatMap { (project, token) -> AnyPublisher<DeleteDeviceResponse, Swift.Error> in
-                guard let request = HTTPRequest.deleteDevice(deviceId, from: project, using: token) else {
+                guard let request = HTTPRequest.deleteDevice("AAA", from: project, using: token) else {
                     return Fail(error: Error.badRequest).eraseToAnyPublisher()
                 }
                 
                 return self.network.perform(request, responseType: DeleteDeviceResponse.self)
             }
-            .eraseToAnyVoidPublisher()
+            .eraseToAnyPublisher()
     }
 }
 
