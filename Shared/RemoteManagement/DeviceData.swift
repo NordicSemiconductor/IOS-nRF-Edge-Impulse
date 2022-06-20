@@ -314,38 +314,38 @@ class DeviceData: ObservableObject {
     }
     
     // MARK: Delete device
+    
     func tryToDelete(device: Device) {
-        guard let wrapperIndex = wrapper(for: device)
-                .flatMap ({self.registeredDevices.firstIndex(of: $0)}) else { return }
-        if case .deleting = registeredDevices[wrapperIndex].state {
-            return
-        } else if case .connected = registeredDevices[wrapperIndex].state {
+        guard let i = registeredDevices.firstIndex(where: { $0.device == device }) else { return }
+        switch registeredDevices[i].state {
+        case .connected:
             disconnect(device: device)
+        case .deleting:
+            // Error: Operation already in-progress.
+            return
+        default:
+            // Continue.
+            break
         }
         
-        registeredDevices[wrapperIndex].state = .deleting
+        let previousState = registeredDevices[i].state
+        registeredDevices[i].state = .deleting
         
         deviceManager.deleteDevice(deviceId: device.deviceId, appData: appData)
-            .compactMap { [weak self] _ -> Device? in
-                guard let `self` = self else { return nil }
-                return self.wrapper(for: device)
-                    .flatMap { self.registeredDevices.firstIndex(of: $0) }
-                    .map { self.registeredDevices.remove(at: $0) }
-                    .map(\.device)
-            }
-            .sink { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let e):
-                    AppEvents.shared.error = ErrorEvent(e)
-                    self.updateState(self.registeredDevices[wrapperIndex].device)
+            .sinkReceivingError(onError: { [weak self] error in
+                self?.registeredDevices[i].state = previousState
+                AppEvents.shared.error = ErrorEvent(title: "Error", localizedDescription: error.localizedDescription)
+            }, receiveValue: { [weak self] response in
+                if let errorMessage = response.error {
+                    self?.registeredDevices[i].state = previousState
+                    AppEvents.shared.error = ErrorEvent(title: "Error", localizedDescription: errorMessage)
+                } else {
+                    self?.registeredDevices.removeAll(where: {
+                        $0.device == device
+                    })
                 }
-            } receiveValue: { device in
-                
-            }
+            })
             .store(in: &cancellables)
-
     }
 }
 
