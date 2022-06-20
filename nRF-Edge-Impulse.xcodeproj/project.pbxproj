@@ -447,6 +447,7 @@
 		AA2B11AC283F8F1A006C75AF /* UserContentView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserContentView+Logic.swift"; sourceTree = "<group>"; };
 		AA2C516727391AB600E5E16E /* DateDeviceInfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDeviceInfoRow.swift; sourceTree = "<group>"; };
 		AA2CDEB52636FF3900A4950E /* AppEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEvents.swift; sourceTree = "<group>"; };
+		AA31F92C28607A4C008D124E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		AA386B08260CEDD60079F12D /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
 		AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarLayoutView.swift; sourceTree = "<group>"; };
 		AA4581CC274536870063EBE7 /* DeploymentInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentInfoRequest.swift; sourceTree = "<group>"; };
@@ -519,6 +520,7 @@
 		AAF5E75526400F7300AC3271 /* GetSamplesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSamplesRequest.swift; sourceTree = "<group>"; };
 		AAF5E7582640106700AC3271 /* DataSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSample.swift; sourceTree = "<group>"; };
 		AAF5E75B26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProjectDevelopmentKeysRequest.swift; sourceTree = "<group>"; };
+		AAF60FE3285A238E002B8E1D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AAF7299626298D6D0034B61A /* AppData+LoginState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+LoginState.swift"; sourceTree = "<group>"; };
 		AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentView+Logic.swift"; sourceTree = "<group>"; };
 		AAF936AA260226BA00ED9546 /* TwoPaneLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPaneLayoutView.swift; sourceTree = "<group>"; };
@@ -674,6 +676,8 @@
 				AA03E96225E3EF13003DA9DA /* iOS */,
 				AA03E96925E3EF13003DA9DA /* macOS */,
 				AA02EE122726D9C200DB292A /* nRF Edge Impulse Screenshots */,
+				AAF60FE3285A238E002B8E1D /* README.md */,
+				AA31F92C28607A4C008D124E /* LICENSE */,
 				AA03E96125E3EF13003DA9DA /* Products */,
 				AA7F5DE125F8F57D00185328 /* Frameworks */,
 			);
@@ -1951,7 +1955,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.nRF-Edge-Impulse";
 				PRODUCT_NAME = "nRF Edge Impulse";
@@ -1978,7 +1982,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nordicsemi.nRF-Edge-Impulse";
 				PRODUCT_NAME = "nRF Edge Impulse";
