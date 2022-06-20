@@ -25,7 +25,7 @@ extension Publisher {
         }
     }
     
-    func sinkReceivingError(onError errorValue: ((Self.Failure) -> Void)? = nil,      
+    func sinkReceivingError(onError errorValue: ((Error) -> Void)? = nil,
                             receiveValue: @escaping ((Self.Output) -> Void)) -> AnyCancellable {
         self.sink(receiveCompletion: { completion in
             switch completion {
@@ -39,7 +39,7 @@ extension Publisher {
         }) { result in
             if let apiResponse = result as? APIResponse, !apiResponse.success {
                 let errorMessage = apiResponse.error ?? "Server returned 'request was not a success' response."
-                AppEvents.shared.error = ErrorEvent(title: "Error", localizedDescription: errorMessage)
+                errorValue?((ErrorEvent(title: "Error", localizedDescription: errorMessage)))
                 return
             }
             receiveValue(result)
