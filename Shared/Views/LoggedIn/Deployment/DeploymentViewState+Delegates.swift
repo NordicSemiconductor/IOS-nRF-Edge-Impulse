@@ -12,12 +12,11 @@ import iOSMcuManagerLibrary
 
 extension DeploymentViewState: McuMgrLogDelegate {
     
+    @MainActor
     func log(_ msg: String, ofCategory category: McuMgrLogCategory, atLevel level: McuMgrLogLevel) {
         guard category != .transport, msg.rangeOfCharacter(from: CharacterSet.alphanumerics) != nil else { return }
-        DispatchQueue.main.async { [weak self] in
-            self?.logs.append(LogMessage(msg))
-            self?.logger.log("McuMgr: \(msg)")
-        }
+        logs.append(LogMessage(msg))
+        logger.log("McuMgr: \(msg)")
     }
 }
 
@@ -25,93 +24,83 @@ extension DeploymentViewState: McuMgrLogDelegate {
 
 extension DeploymentViewState: FirmwareUpgradeDelegate {
     
+    @MainActor
     func upgradeDidStart(controller: FirmwareUpgradeController) {
-        DispatchQueue.main.async { [weak self] in
-            self?.progressManager.inProgress(.uploading)
-            self?.progressManager.progress = 0.0
-        }
+        progressManager.inProgress(.uploading)
+        progressManager.progress = 0.0
     }
     
+    @MainActor
     func upgradeStateDidChange(from previousState: FirmwareUpgradeState, to newState: FirmwareUpgradeState) {
-        DispatchQueue.main.async { [weak self] in
-            switch previousState {
-            case .confirm:
-                self?.progressManager.inProgress(.confirming)
-            case .reset:
-                guard let self = self else { return }
-                let expectedSwapTimeInSeconds = 45
-                var remainingSwapTimeInSeconds = 0
-                
-                self.progressManager.inProgress(.applying)
-                self.progressManager.progress = 0.0
-                self.logs.append(LogMessage("Time Remaining: \(expectedSwapTimeInSeconds) seconds"))
-                self.resetCountdownTimer
-                    .autoconnect()
-                    .receive(on: DispatchQueue.main)
-                    .sink(receiveValue: { a in
-                        remainingSwapTimeInSeconds += 1
-                        self.progressManager.progress = Double(remainingSwapTimeInSeconds) / Double(expectedSwapTimeInSeconds) * 100
-                        self.logs.append(LogMessage("Time Remaining: \(expectedSwapTimeInSeconds - remainingSwapTimeInSeconds) seconds"))
-                        guard remainingSwapTimeInSeconds == expectedSwapTimeInSeconds else { return }
-                        
-                        self.progressManager.success = self.uploadSuccessCallbackReceived
-                        if !self.uploadSuccessCallbackReceived {
-                            self.upgradeDidFail(inState: .reset, with: FirmwareUpgradeError.connectionFailedAfterReset)
-                        }
-                        self.cleanupState()
-                        self.cancellables.removeAll()
-                    })
-                    .store(in: &self.cancellables)
-            default:
-                break
-            }
+        switch previousState {
+        case .confirm:
+            progressManager.inProgress(.confirming)
+        case .reset:
+            let expectedSwapTimeInSeconds = 45
+            var remainingSwapTimeInSeconds = 0
+            
+            progressManager.inProgress(.applying)
+            progressManager.progress = 0.0
+            logs.append(LogMessage("Time Remaining: \(expectedSwapTimeInSeconds) seconds"))
+            resetCountdownTimer
+                .autoconnect()
+                .receive(on: DispatchQueue.main)
+                .sink(receiveValue: { [weak self] a in
+                    remainingSwapTimeInSeconds += 1
+                    self?.progressManager.progress = Double(remainingSwapTimeInSeconds) / Double(expectedSwapTimeInSeconds) * 100
+                    self?.logs.append(LogMessage("Time Remaining: \(expectedSwapTimeInSeconds - remainingSwapTimeInSeconds) seconds"))
+                    guard remainingSwapTimeInSeconds == expectedSwapTimeInSeconds else { return }
+                    
+                    self?.progressManager.success = self?.uploadSuccessCallbackReceived ?? false
+                    if !(self?.uploadSuccessCallbackReceived ?? false) {
+                        self?.upgradeDidFail(inState: .reset, with: FirmwareUpgradeError.connectionFailedAfterReset)
+                    }
+                    self?.cleanupState()
+                    self?.cancellables.removeAll()
+                })
+                .store(in: &cancellables)
+        default:
+            break
         }
     }
     
+    @MainActor
     func upgradeDidComplete() {
-        DispatchQueue.main.async { [weak self] in
-            self?.uploadSuccessCallbackReceived = true
-        }
+        uploadSuccessCallbackReceived = true
     }
     
+    @MainActor
     func upgradeDidFail(inState state: FirmwareUpgradeState, with error: Error) {
-        DispatchQueue.main.async { [weak self] in
-            self?.reportError(error)
-            self?.cleanupState()
-        }
+        reportError(error)
+        cleanupState()
     }
     
     func upgradeDidCancel(state: FirmwareUpgradeState) {
-        DispatchQueue.main.async { [weak self] in
-            self?.reportError(NordicError(description: "Upgrade Cancelled."))
-            self?.cleanupState()
-        }
+        reportError(NordicError(description: "Upgrade Cancelled."))
+        cleanupState()
     }
     
+    @MainActor
     func uploadProgressDidChange(bytesSent: Int, imageSize: Int, timestamp: Date) {
         let progress = Double(bytesSent) / Double(imageSize) * 100.0
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            
-            self.progressManager.progress = progress
-            
-            if self.uploadImageSize == nil || self.uploadImageSize != imageSize {
-                self.uploadTimestamp = timestamp
-                self.uploadImageSize = imageSize
-                self.uploadInitialBytes = bytesSent
-            }
-            
-            // Date.timeIntervalSince1970 returns seconds
-            let msSinceUploadBegan = (timestamp.timeIntervalSince1970 - self.uploadTimestamp.timeIntervalSince1970) * 1000
-            guard bytesSent < imageSize else {
-                // bytes / ms = kB/s
-                self.progressManager.speed = Double(imageSize - self.uploadInitialBytes) / msSinceUploadBegan
-                return
-            }
-            
-            let bytesSentSinceUploadBegan = bytesSent - self.uploadInitialBytes
-            // bytes / ms = kB/s
-            self.progressManager.speed = Double(bytesSentSinceUploadBegan) / msSinceUploadBegan
+        progressManager.progress = progress
+        
+        if uploadImageSize == nil || uploadImageSize != imageSize {
+            uploadTimestamp = timestamp
+            uploadImageSize = imageSize
+            uploadInitialBytes = bytesSent
         }
+        
+        // Date.timeIntervalSince1970 returns seconds
+        let msSinceUploadBegan = (timestamp.timeIntervalSince1970 - self.uploadTimestamp.timeIntervalSince1970) * 1000
+        guard bytesSent < imageSize else {
+            // bytes / ms = kB/s
+            progressManager.speed = Double(imageSize - uploadInitialBytes) / msSinceUploadBegan
+            return
+        }
+        
+        let bytesSentSinceUploadBegan = bytesSent - uploadInitialBytes
+        // bytes / ms = kB/s
+        progressManager.speed = Double(bytesSentSinceUploadBegan) / msSinceUploadBegan
     }
 }
