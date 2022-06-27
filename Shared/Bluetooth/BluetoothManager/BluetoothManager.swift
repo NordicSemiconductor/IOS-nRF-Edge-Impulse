@@ -55,6 +55,7 @@ final class BluetoothManager: NSObject, ObservableObject {
     private var peripheral: CBPeripheral!
     private var txCharacteristic: CBCharacteristic!
     private var rxCharacteristic: CBCharacteristic!
+    private var dfuManager: FirmwareUpgradeManager!
     private lazy var jsonEncoder: JSONEncoder = {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .withoutEscapingSlashes
@@ -124,7 +125,7 @@ final class BluetoothManager: NSObject, ObservableObject {
         
         let bleTransport = McuMgrBleTransport(peripheral)
         bleTransport.logDelegate = logDelegate
-        let dfuManager = FirmwareUpgradeManager(transporter: bleTransport, delegate: firmwareDelegate)
+        dfuManager = FirmwareUpgradeManager(transporter: bleTransport, delegate: firmwareDelegate)
         dfuManager.logDelegate = logDelegate
 
         // Start the firmware upgrade with the image data
