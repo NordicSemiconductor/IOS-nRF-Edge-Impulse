@@ -30,7 +30,7 @@ struct PasswordField: View {
         HStack(alignment: .lastTextBaseline) {
             Image(systemName: "key.fill")
                 .frame(size: .StandardImageSize)
-                .accentColor(Assets.darkGrey.color)
+                .accentColor(.nordicDarkGrey)
             
             HStack {
                 ZStack {
@@ -49,10 +49,10 @@ struct PasswordField: View {
                     shouldRevealPassword.toggle()
                 }) {
                     Image(systemName: shouldRevealPassword ? "eye.slash" : "eye")
-                        .accentColor(Assets.darkGrey.color)
+                        .accentColor(.nordicDarkGrey)
                 }
             }
-            .modifier(RoundedTextFieldShape(colorScheme == .light ? Assets.lightGrey : Assets.middleGrey))
+            .modifier(RoundedTextFieldShape(colorScheme == .light ? .nordicLightGrey : .nordicMiddleGrey))
             .padding(.vertical, 8)
         }
     }

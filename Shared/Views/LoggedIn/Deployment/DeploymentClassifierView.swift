@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import iOS_Common_Libraries
 
 // MARK: - DeploymentClassifierView
 
@@ -29,7 +30,7 @@ struct DeploymentClassifierView: View {
             
             Text(classifier.userDescription)
                 .font(.callout)
-                .foregroundColor(Assets.middleGrey.color)
+                .foregroundColor(.nordicMiddleGrey)
         }
     }
 }

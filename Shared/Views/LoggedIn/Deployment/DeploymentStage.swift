@@ -48,9 +48,9 @@ struct DeploymentStage: Identifiable, Hashable {
         if isCompleted {
             return .succcessfulActionButtonColor
         } else if encounteredAnError {
-            return Assets.red.color
+            return .nordicRed
         } else if isInProgress {
-            return Assets.sun.color
+            return .nordicSun
         }
         return .disabledTextColor
     }

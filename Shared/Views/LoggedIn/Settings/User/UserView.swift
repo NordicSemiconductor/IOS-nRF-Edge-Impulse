@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import iOS_Common_Libraries
 
 struct UserView: View {
     
@@ -33,13 +34,13 @@ struct UserView: View {
                 
                 Text("Joined \(user.created.formatterString(dateStyle: .medium, timeStyle: .none))")
                     .font(.callout)
-                    .foregroundColor(Assets.lightGrey.color)
+                    .foregroundColor(.nordicLightGrey)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text("(\(user.createdSince))")
                     .font(.callout)
                     .fontWeight(.light)
-                    .foregroundColor(Assets.lightGrey.color)
+                    .foregroundColor(.nordicLightGrey)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
@@ -51,8 +52,6 @@ struct UserView: View {
 // MARK: - Preview
 
 #if DEBUG
-import iOS_Common_Libraries
-
 struct UserView_Previews: PreviewProvider {
     
     static let loggedInWithoutUser: AppData = {

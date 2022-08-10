@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import iOS_Common_Libraries
 
 struct DeploymentConfigurationView: View {
     
@@ -22,11 +23,11 @@ struct DeploymentConfigurationView: View {
             Toggle(isOn: $viewState.enableEONCompiler, label: {
                 Text("Enable EON™ Compiler")
             })
-            .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
+            .toggleStyle(SwitchToggleStyle(tint: .nordicBlue))
             
             Text("Same accuracy, up to 50% less memory. Open source.")
                 .font(.caption)
-                .foregroundColor(Assets.middleGrey.color)
+                .foregroundColor(.nordicMiddleGrey)
         }
         
         Section(header: Text("Classifier")) {
@@ -42,11 +43,11 @@ struct DeploymentConfigurationView: View {
             #if os(iOS)
             Text(DeploymentViewState.Classifier.attributedUserCaption)
                 .font(.caption)
-                .foregroundColor(Assets.middleGrey.color)
+                .foregroundColor(.nordicMiddleGrey)
             #else
             Text(DeploymentViewState.Classifier.userCaption)
                 .font(.caption)
-                .foregroundColor(Assets.middleGrey.color)
+                .foregroundColor(.nordicMiddleGrey)
             #endif
         }
         
@@ -54,11 +55,11 @@ struct DeploymentConfigurationView: View {
             Toggle(isOn: $viewState.enableCachedServerBuilds, label: {
                 Text("Enable Cached Builds")
             })
-            .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
+            .toggleStyle(SwitchToggleStyle(tint: .nordicBlue))
             
             Text("When enabled, we will check if there's an existing build in the Server matching your configuration.")
                 .font(.caption)
-                .foregroundColor(Assets.middleGrey.color)
+                .foregroundColor(.nordicMiddleGrey)
         }
     }
 }

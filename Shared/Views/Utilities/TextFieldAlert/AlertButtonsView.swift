@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import iOS_Common_Libraries
 
 // MARK: - AlertButtonsView
 
@@ -26,7 +27,7 @@ struct AlertButtonsView: View {
     var body: some View {
         HStack(spacing: 16) {
             Button("OK", action: okFunction)
-                .foregroundColor(.positiveActionButtonColor)
+                .foregroundColor(Color.positiveActionButtonColor)
                 .keyboardShortcut(.defaultAction)
             
             Button("Cancel", action: cancelFunction)

@@ -24,7 +24,7 @@ struct DeviceStatusSectionView: View {
                 case .readyToConnect:
                     NordicLabel(title: "Ready to Connect", systemImage: "network")
                     Spacer()
-                    ConnectionStatus(color: Assets.blue.color)
+                    ConnectionStatus(color: .nordicBlue)
                 case .connecting:
                     NordicLabel(title: "Connecting...", systemImage: "network")
                     Spacer()

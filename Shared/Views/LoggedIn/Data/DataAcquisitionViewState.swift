@@ -5,7 +5,7 @@
 //  Created by Dinesh Harjani on 19/3/21.
 //
 
-import Foundation
+import SwiftUI
 import OSLog
 import Combine
 import iOS_Common_Libraries
@@ -37,7 +37,7 @@ final class DataAcquisitionViewState: ObservableObject {
     @Published var progress = 0.0
     @Published var indeterminateProgress = false
     @Published var progressString = "Idle"
-    @Published var progressColor = Assets.middleGrey.color
+    @Published var progressColor = Color.nordicMiddleGrey
     @Published var isSampling = false
     @Published var samplingButtonEnable = true
     
@@ -84,7 +84,7 @@ final class DataAcquisitionViewState: ObservableObject {
     func samplingEncounteredAnError(_ errorDescription: String) {
         stopCountdownTimer()
         isSampling = false
-        progressColor = Assets.red.color
+        progressColor = .nordicRed
         progressString = errorDescription
     }
     

@@ -77,7 +77,7 @@ struct DataSampleHeaderRow: View {
             Text("Filename")
                 .bold()
             Text("Label")
-                .foregroundColor(Assets.middleGrey.color)
+                .foregroundColor(.nordicMiddleGrey)
             Text("Length")
                 .fontWeight(.light)
         }

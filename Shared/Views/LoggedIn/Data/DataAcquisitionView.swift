@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import iOS_Common_Libraries
 
 struct DataAcquisitionView: View {
     
@@ -99,7 +100,7 @@ struct DataAcquisitionView_Previews: PreviewProvider {
                     .environmentObject(Preview.projectsPreviewAppData)
                     .environmentObject(Preview.mockScannerData)
             }
-            .setupNavBarBackground()
+            .setupNavBarBackground(with: Assets.navBarBackground.color)
         }
         .previewDevice("iPhone 12 mini")
     }

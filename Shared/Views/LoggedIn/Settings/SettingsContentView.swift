@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import iOS_Common_Libraries
 
 struct SettingsContentView: View {
     
@@ -33,11 +34,11 @@ struct SettingsContentView: View {
             Section(header: Text("Scanner Settings")) {
                 Toggle("Show Only Edge Impulse Devices",
                        isOn: $preferences.onlyScanUARTDevices)
-                    .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
+                .toggleStyle(SwitchToggleStyle(tint: .nordicBlue))
                 
                 Toggle("Show Only Connectable Devices",
                        isOn: $preferences.onlyScanConnectableDevices)
-                    .toggleStyle(SwitchToggleStyle(tint: Assets.blue.color))
+                .toggleStyle(SwitchToggleStyle(tint: .nordicBlue))
             }
             
             #if DEBUG
@@ -56,7 +57,7 @@ struct SettingsContentView: View {
                 }
             }
         }
-        .accentColor(Assets.blue.color)
+        .accentColor(.nordicBlue)
     }
 }
 
@@ -71,14 +72,14 @@ struct SettingsContentView_Previews: PreviewProvider {
                     .setTitle("Settings")
                     .environmentObject(AppData())
             }
-            .setupNavBarBackground()
+            .setupNavBarBackground(with: Assets.navBarBackground.color)
             
             NavigationView {
                 SettingsContentView()
                     .setTitle("Settings")
                     .environmentObject(Preview.noDevicesAppData)
             }
-            .setupNavBarBackground()
+            .setupNavBarBackground(with: Assets.navBarBackground.color)
         }
         .previewDevice("iPhone 12 mini")
     }

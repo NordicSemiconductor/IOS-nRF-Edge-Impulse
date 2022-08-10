@@ -112,7 +112,7 @@ private extension DeviceList {
                         .foregroundColor(Color.blue)
                 }
             }
-            .foregroundColor(Assets.red.color)
+            .foregroundColor(.nordicRed)
         }
         
         Button(action: {
@@ -199,7 +199,7 @@ struct DeviceList_Previews: PreviewProvider {
                     .environmentObject(Preview.noDevicesScannerData)
                     .previewDevice("iPhone 12 mini")
             }
-            .setupNavBarBackground()
+            .setupNavBarBackground(with: Assets.navBarBackground.color)
             .setSingleColumnNavigationViewStyle()
             
             NavigationView {
@@ -210,7 +210,7 @@ struct DeviceList_Previews: PreviewProvider {
                     .previewDevice("iPhone 12")
                     .previewDisplayName("Registered Devices")
             }
-            .setupNavBarBackground()
+            .setupNavBarBackground(with: Assets.navBarBackground.color)
             .setSingleColumnNavigationViewStyle()
             
             NavigationView {
@@ -220,7 +220,7 @@ struct DeviceList_Previews: PreviewProvider {
                     .environmentObject(Preview.isScanningButNoDevicesScannerData)
                     .previewDevice("iPhone 12 mini")
             }
-            .setupNavBarBackground()
+            .setupNavBarBackground(with: Assets.navBarBackground.color)
             .setSingleColumnNavigationViewStyle()
             
             NavigationView {
@@ -231,7 +231,7 @@ struct DeviceList_Previews: PreviewProvider {
                     .environmentObject(Preview.mockScannerData)
                     .previewDevice("iPad Pro (12.9-inch) (4th generation)")
             }
-            .setupNavBarBackground()
+            .setupNavBarBackground(with: Assets.navBarBackground.color)
             .setSingleColumnNavigationViewStyle()
             
             NavigationView {
@@ -241,7 +241,7 @@ struct DeviceList_Previews: PreviewProvider {
                     .environmentObject(Preview.mockScannerData)
                     .previewDevice("iPad Pro (12.9-inch) (4th generation)")
             }
-            .setupNavBarBackground()
+            .setupNavBarBackground(with: Assets.navBarBackground.color)
             .setSingleColumnNavigationViewStyle()
         }
         #endif

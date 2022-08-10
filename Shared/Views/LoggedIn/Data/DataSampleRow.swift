@@ -25,7 +25,7 @@ struct DataSampleRow: View {
             Text(sample.filename)
                 .bold()
             Text(sample.label)
-                .foregroundColor(Assets.middleGrey.color)
+                .foregroundColor(.nordicMiddleGrey)
             Text(sample.totalLengthInSeconds())
                 .fontWeight(.light)
         }

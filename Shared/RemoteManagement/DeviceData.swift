@@ -24,11 +24,11 @@ extension DeviceData {
                 case .notConnectable:
                     return .gray
                 case .readyToConnect:
-                    return Assets.blue.color
+                    return .nordicBlue
                 case .connected:
                     return .green
                 case .connecting:
-                    return Assets.fall.color
+                    return .nordicFall
                 case .deleting:
                     return .gray
                 }

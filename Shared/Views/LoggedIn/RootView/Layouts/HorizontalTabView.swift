@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import iOS_Common_Libraries
 
 struct HorizontalTabView: View {
     
@@ -25,8 +26,8 @@ struct HorizontalTabView: View {
         })
         .keyboardShortcut(tab.keyboardShortcutKey, modifiers: [.command])
         .buttonStyle(TabBarListButtonStyle())
-        .accentColor(appData.selectedTab != tab ? Assets.blue.color : Color.white)
-        .background(appData.selectedTab == tab ? Assets.blue.color : Color.clear)
+        .accentColor(appData.selectedTab != tab ? .nordicBlue : .white)
+        .background(appData.selectedTab == tab ? .nordicBlue : Color.clear)
         .cornerRadius(8)
     }
 }
@@ -34,8 +35,6 @@ struct HorizontalTabView: View {
 // MARK: - Preview
 
 #if DEBUG
-import iOS_Common_Libraries
-
 struct HorizontalTabView_Previews: PreviewProvider {
     
     static var previews: some View {

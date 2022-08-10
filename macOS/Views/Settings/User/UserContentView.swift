@@ -33,7 +33,7 @@ struct UserContentView: View {
                             Image(systemName: "moon.stars.fill")
                                 .resizable()
                                 .frame(width: 60, height: 60, alignment: .center)
-                                .foregroundColor(Assets.blueslate.color)
+                                .foregroundColor(.nordicBlueslate)
                             Text("Your Project List is empty.")
                         }
                         .frame(maxWidth: .infinity)
@@ -52,7 +52,7 @@ struct UserContentView: View {
                         
                         Text(Strings.logoutFooter)
                             .font(.callout)
-                            .foregroundColor(Assets.middleGrey.color)
+                            .foregroundColor(.nordicMiddleGrey)
                     }
                     .withTabBarStyle()
                     
@@ -61,7 +61,7 @@ struct UserContentView: View {
                             .foregroundColor(.negativeActionButtonColor)
                         
                         Text(Strings.accountDeletionFooter)
-                            .foregroundColor(Assets.middleGrey.color)
+                            .foregroundColor(.nordicMiddleGrey)
                             .font(.callout)
                     }
                     .withTabBarStyle()

@@ -30,12 +30,12 @@ struct UsernameField: View {
         HStack(alignment: .lastTextBaseline) {
             Image(systemName: "person.fill")
                 .frame(size: .StandardImageSize)
-                .accentColor(Assets.darkGrey.color)
+                .accentColor(.nordicDarkGrey)
             TextField("Username or E-Mail", text: username)
                 .disableAllAutocorrections()
                 .textContentType(.username)
                 .foregroundColor(.textFieldColor)
-                .modifier(RoundedTextFieldShape(colorScheme == .light ? Assets.lightGrey : Assets.middleGrey, hasTextFieldBelow: true))
+                .modifier(RoundedTextFieldShape(colorScheme == .light ? .nordicLightGrey : .nordicMiddleGrey, hasTextFieldBelow: true))
                 .disabled(!enabled)
         }
         .introspectTextField { textfield in

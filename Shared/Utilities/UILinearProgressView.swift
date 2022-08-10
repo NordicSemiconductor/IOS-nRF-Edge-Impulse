@@ -20,7 +20,7 @@ struct UILinearProgressView: UIViewRepresentable {
     func makeUIView(context: Context) -> UIProgressView {
         let progressView = UIProgressView()
         progressView.progress = Float(value / 100.0)
-        progressView.progressTintColor = Assets.blue.uiColor
+        progressView.progressTintColor = Color.nordicBlue.uiColor
         return progressView
     }
     

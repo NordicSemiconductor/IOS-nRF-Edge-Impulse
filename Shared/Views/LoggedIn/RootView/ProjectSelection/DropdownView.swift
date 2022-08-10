@@ -46,7 +46,7 @@ struct DropdownView_Previews: PreviewProvider {
             DropdownView(currentProject: nil)
             DropdownView(currentProject: Preview.previewProjects.first)
         }
-        .background(Assets.blue.color)
+        .background(Color.nordicBlue)
         .previewLayout(.sizeThatFits)
     }
 }

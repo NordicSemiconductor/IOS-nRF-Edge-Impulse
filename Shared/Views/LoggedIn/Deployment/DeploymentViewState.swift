@@ -232,7 +232,7 @@ extension DeploymentViewState {
             if let range = attributedString.range(of: "getting in touch with Edge Impulse"),
                let link = URL(string: "https://www.edgeimpulse.com/contact-us") {
                 attributedString[range].link = link
-                attributedString[range].foregroundColor = Assets.blue.color
+                attributedString[range].foregroundColor = .nordicBlue
             }
             return attributedString
         }

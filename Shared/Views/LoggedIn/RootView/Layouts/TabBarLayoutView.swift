@@ -33,7 +33,7 @@ struct TabBarLayoutView: View {
             }
         }
         .background(Color.formBackground)
-        .accentColor(Assets.blue.color)
+        .accentColor(.nordicBlue)
         #if os(iOS)
         .introspectTabBarController { tabBarController in
             guard #available(iOS 15.0, *) else { return }

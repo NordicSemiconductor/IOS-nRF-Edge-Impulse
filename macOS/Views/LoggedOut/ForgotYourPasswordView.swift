@@ -14,7 +14,7 @@ struct ForgotYourPasswordView: View {
     
     var body: some View {
         Link("Forgot your password?", destination: Constant.forgottenPasswordURL)
-            .foregroundColor(Assets.blue.color)
+            .foregroundColor(.nordicBlue)
     }
 }
 

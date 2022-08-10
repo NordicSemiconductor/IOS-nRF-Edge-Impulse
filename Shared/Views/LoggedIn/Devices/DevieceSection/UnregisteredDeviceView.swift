@@ -30,7 +30,7 @@ struct UnregisteredDeviceView: View {
     var body: some View {
         HStack {
             DeviceIconView(name: scanResult.isConnectable ? "cpu" : "bolt.slash",
-                           color: Assets.darkGrey.color)
+                           color: .nordicDarkGrey)
             
             VStack(alignment: .leading) {
                 Text(scanResult.name)
@@ -41,7 +41,7 @@ struct UnregisteredDeviceView: View {
                 if !scanResult.isConnectable {
                     Text("Not Connectable")
                         .font(.caption)
-                        .foregroundColor(Assets.middleGrey.color)
+                        .foregroundColor(.nordicMiddleGrey)
                 }
                 
 
@@ -52,7 +52,7 @@ struct UnregisteredDeviceView: View {
             
             if isConnecting {
                 CircularProgressView()
-                    .foregroundColor(Assets.middleGrey.color)
+                    .foregroundColor(.nordicMiddleGrey)
                     .padding(.horizontal, 4)
             }
             
@@ -68,9 +68,7 @@ struct UnregisteredDeviceView: View {
         .onTapGesture(perform: onTap)
     }
     
-    var deviceForegroundColor: Color {
-        Assets.blue.color
-    }
+    var deviceForegroundColor: Color { .nordicBlue }
     
     func onTap() {
         guard scanResult.isConnectable else { return }

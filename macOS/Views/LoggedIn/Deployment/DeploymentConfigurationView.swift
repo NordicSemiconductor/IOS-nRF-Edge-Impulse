@@ -35,7 +35,7 @@ struct DeploymentConfigurationView: View {
                     Text("")
                     Text("Same accuracy, up to 50% less memory. Open source.")
                         .font(.callout)
-                        .foregroundColor(Assets.middleGrey.color)
+                        .foregroundColor(.nordicMiddleGrey)
                 }
                 .withTabBarStyle()
                 
@@ -53,7 +53,7 @@ struct DeploymentConfigurationView: View {
                     Text("")
                     Text(DeploymentViewState.Classifier.userCaption)
                         .font(.callout)
-                        .foregroundColor(Assets.middleGrey.color)
+                        .foregroundColor(.nordicMiddleGrey)
                 }
                 .withTabBarStyle()
                 .padding(.top)
@@ -70,7 +70,7 @@ struct DeploymentConfigurationView: View {
                     Text("")
                     Text("When enabled, we will check if there's an existing build in the Server matching your configuration.")
                         .font(.callout)
-                        .foregroundColor(Assets.middleGrey.color)
+                        .foregroundColor(.nordicMiddleGrey)
                 }
                 .withTabBarStyle()
                 .padding(.top)

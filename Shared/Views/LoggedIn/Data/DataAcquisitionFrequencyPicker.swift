@@ -23,7 +23,7 @@ struct DataAcquisitionFrequencyPicker: View {
                 .setAsComboBoxStyle()
             } else {
                 Text("Unavailable")
-                    .foregroundColor(Assets.middleGrey.color)
+                    .foregroundColor(.nordicMiddleGrey)
             }
         }
     }

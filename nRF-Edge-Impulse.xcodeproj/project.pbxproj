@@ -86,8 +86,6 @@
 		AA05BC452667CB1F003AEE50 /* sample_full_camera_data_response.json in Resources */ = {isa = PBXBuildFile; fileRef = AA05BC432667CB1F003AEE50 /* sample_full_camera_data_response.json */; };
 		AA05BC472667D098003AEE50 /* StartSamplingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA05BC462667D098003AEE50 /* StartSamplingRequest.swift */; };
 		AA05BC482667D098003AEE50 /* StartSamplingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA05BC462667D098003AEE50 /* StartSamplingRequest.swift */; };
-		AA076F7F2698721D0012CD64 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA076F7E2698721D0012CD64 /* Color.swift */; };
-		AA076F802698721D0012CD64 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA076F7E2698721D0012CD64 /* Color.swift */; };
 		AA09C79C262EEED400B039F1 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09C79B262EEED400B039F1 /* Collection.swift */; };
 		AA09C79D262EEED400B039F1 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09C79B262EEED400B039F1 /* Collection.swift */; };
 		AA0A3EA026AAC27000F9C1E2 /* NSProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0A3E9F26AAC27000F9C1E2 /* NSProgressView.swift */; };
@@ -420,7 +418,6 @@
 		AA05BC402667B00B003AEE50 /* sample_full_accelerometer_data_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_full_accelerometer_data_response.json; sourceTree = "<group>"; };
 		AA05BC432667CB1F003AEE50 /* sample_full_camera_data_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_full_camera_data_response.json; sourceTree = "<group>"; };
 		AA05BC462667D098003AEE50 /* StartSamplingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSamplingRequest.swift; sourceTree = "<group>"; };
-		AA076F7E2698721D0012CD64 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		AA09C79B262EEED400B039F1 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		AA0A3E9F26AAC27000F9C1E2 /* NSProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSProgressView.swift; sourceTree = "<group>"; };
 		AA0B2FF9267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceRemoteHandler+DataSampling.swift"; sourceTree = "<group>"; };
@@ -1085,7 +1082,6 @@
 				C3BF6AAB26244907006330C8 /* Logger+Ext.swift */,
 				AA09C79B262EEED400B039F1 /* Collection.swift */,
 				AA80989925EE959B00091AC0 /* Publishers.swift */,
-				AA076F7E2698721D0012CD64 /* Color.swift */,
 				AA02086E25F648C200FD6B24 /* View.swift */,
 				AAFAC31B2678BC8F00D486EA /* ViewModifiers.swift */,
 				AA01DA5F26395E6000F6DD44 /* Date.swift */,
@@ -1460,7 +1456,6 @@
 				AAF0C96C260A0210001B76B9 /* UserView.swift in Sources */,
 				AAF55323264171AB00252345 /* DataSampleRow.swift in Sources */,
 				AAF7D452269F1176009269D4 /* DeploymentView+Logic.swift in Sources */,
-				AA076F7F2698721D0012CD64 /* Color.swift in Sources */,
 				AAF290BF26DCE5CA00ABE0E2 /* Sensor.swift in Sources */,
 				AAF38C16268DED9900F1A590 /* AppIconView.swift in Sources */,
 				AAFB8E2A2626FADD003DAEC5 /* UserPreferences.swift in Sources */,
@@ -1587,7 +1582,6 @@
 				AAFAE5EC25ED14E500A45A90 /* AppData.swift in Sources */,
 				AA04578327020C1200FC1A41 /* InferencingViewState.swift in Sources */,
 				AAEED04226A7B55700999E51 /* DeploymentConfigurationView.swift in Sources */,
-				AA076F802698721D0012CD64 /* Color.swift in Sources */,
 				AA386B0A260CEDD60079F12D /* Previews.swift in Sources */,
 				AA01020F269C74850045D6F2 /* DownloadDeviceModelRequest.swift in Sources */,
 				AA14FD4626EA317E008128CB /* BoolDeviceInfoRow.swift in Sources */,

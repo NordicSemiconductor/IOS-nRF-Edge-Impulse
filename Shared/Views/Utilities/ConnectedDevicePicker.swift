@@ -42,7 +42,7 @@ extension ConnectedDevicePicker {
             .frame(height: 75, alignment: .leading)
         } else {
             Text("No Connected Devices")
-                .foregroundColor(Assets.middleGrey.color)
+                .foregroundColor(.nordicMiddleGrey)
                 .multilineTextAlignment(.leading)
         }
     }

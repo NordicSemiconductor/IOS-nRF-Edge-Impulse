@@ -7,6 +7,7 @@
 
 import SwiftUI
 import BetterSafariView
+import iOS_Common_Libraries
 
 // MARK: - iOS Only View
 
@@ -26,7 +27,7 @@ struct ForgotYourPasswordView: View {
             showSafariView = true
         }) {
             Text("Forgot your password?")
-                .foregroundColor(Assets.blue.color)
+                .foregroundColor(.nordicBlue)
         }
         .safariView(isPresented: $showSafariView) {
             SafariView(url: Constant.forgottenPasswordURL, configuration: safariViewConfiguration)

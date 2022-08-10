@@ -46,7 +46,7 @@ struct TextFieldAlertView: View {
             TextField(message, text: text)
                 .disableAllAutocorrections()
                 .foregroundColor(.textFieldColor)
-                .modifier(RoundedTextFieldShape(.lightGrey))
+                .modifier(RoundedTextFieldShape(.nordicLightGrey))
                 .frame(maxWidth: 300)
                 .padding(4)
             

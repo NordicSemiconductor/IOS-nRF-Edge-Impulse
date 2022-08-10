@@ -92,7 +92,7 @@ struct DeviceDetails: View {
         Section(header: Text("Management"),
                 footer: Text("Deletes this device from the list of registered devices.")
                     .font(.caption2)
-                    .foregroundColor(Assets.middleGrey.color)
+                    .foregroundColor(.nordicMiddleGrey)
                     .frame(maxWidth: .infinity, alignment: .center)) {
             
             Button("Delete") {

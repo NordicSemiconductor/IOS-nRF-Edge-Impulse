@@ -25,7 +25,7 @@ struct NativeLoginView: View {
     
     // MARK: - Properties
     
-    private let textFieldBackground = Assets.lightGrey.color.opacity(0.5)
+    private let textFieldBackground = Color.nordicLightGrey.opacity(0.5)
     
     // MARK: - FocusedField
     
@@ -91,7 +91,7 @@ struct NativeLoginView: View {
                         attemptLogin()
                     }
                     .keyboardShortcut(.defaultAction)
-                    .modifier(CircularButtonShape(backgroundAsset: isLoginButtonDisabled ? .darkGrey : .blue))
+                    .modifier(CircularButtonShape(backgroundColor: isLoginButtonDisabled ? .nordicDarkGrey : .nordicBlue))
                     .disabled(isLoginButtonDisabled)
                 }
             }

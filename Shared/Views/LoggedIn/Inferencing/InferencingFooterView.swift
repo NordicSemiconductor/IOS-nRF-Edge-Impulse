@@ -23,7 +23,7 @@ struct InferencingFooterView: View {
             
             if viewState.results.isEmpty {
                 Text("No Results Available yet.")
-                    .foregroundColor(Assets.middleGrey.color)
+                    .foregroundColor(.nordicMiddleGrey)
             } else if viewState.results.count == 1 {
                 Text("1 Result")
             } else {

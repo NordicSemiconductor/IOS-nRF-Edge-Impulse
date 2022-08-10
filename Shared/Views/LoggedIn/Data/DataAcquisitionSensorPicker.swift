@@ -24,7 +24,7 @@ struct DataAcquisitionSensorPicker: View {
                 .disabled($viewState.isSampling.wrappedValue)
             } else {
                 Text("Unavailable")
-                    .foregroundColor(Assets.middleGrey.color)
+                    .foregroundColor(.nordicMiddleGrey)
             }
         }
     }

@@ -29,7 +29,7 @@ struct NoDevicesFoundView: View {
                 """)
                 .lineSpacing(4.0)
                 .font(.body)
-                .foregroundColor(Assets.middleGrey.color)
+                .foregroundColor(.nordicMiddleGrey)
                 .padding(.top)
         }
         .padding()

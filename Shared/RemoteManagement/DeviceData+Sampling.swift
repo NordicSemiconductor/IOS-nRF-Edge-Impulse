@@ -39,7 +39,7 @@ extension DeviceData {
                     self.appData.dataAquisitionViewState.stopCountdownTimer()
                     self.appData.dataAquisitionViewState.progress = 100.0
                     self.appData.dataAquisitionViewState.indeterminateProgress = true
-                    self.appData.dataAquisitionViewState.progressColor = Assets.blue.color
+                    self.appData.dataAquisitionViewState.progressColor = .nordicBlue
                 case .completed:
                     self.appData.dataAquisitionViewState.stopCountdownTimer()
                     self.appData.dataAquisitionViewState.progress = 100.0

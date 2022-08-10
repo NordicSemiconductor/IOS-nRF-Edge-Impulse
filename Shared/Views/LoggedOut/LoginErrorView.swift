@@ -19,9 +19,9 @@ struct LoginErrorView: View {
             HStack {
                 Image(systemName: "info.circle.fill")
                     .frame(size: .ToolbarImageSize)
-                    .foregroundColor(Assets.red.color)
+                    .foregroundColor(.nordicRed)
                 Text(message)
-                    .foregroundColor(Assets.red.color)
+                    .foregroundColor(.nordicRed)
             }
         default:
             EmptyView()

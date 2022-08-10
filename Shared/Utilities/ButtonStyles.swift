@@ -16,6 +16,6 @@ struct TabBarListButtonStyle: ButtonStyle {
         configuration.label
             .padding(.leading, 8)
             .frame(maxWidth: .infinity, minHeight: Self.Height, maxHeight: Self.Height)
-            .background(configuration.isPressed ? Assets.blue.color : Color.clear)
+            .background(configuration.isPressed ? .nordicBlue : Color.clear)
     }
 }

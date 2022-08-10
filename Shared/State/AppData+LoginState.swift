@@ -30,7 +30,7 @@ extension AppData.LoginState {
             VStack(alignment: .center, spacing: 8) {
                 ErrorView(error: error)
                 Button("Retry", action: onRetry)
-                    .modifier(CircularButtonShape(backgroundAsset: .blue))
+                    .modifier(CircularButtonShape(backgroundColor: .nordicBlue))
             }
         case .loading:
             VStack(alignment: .center, spacing: 8) {

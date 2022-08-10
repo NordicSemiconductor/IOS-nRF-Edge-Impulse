@@ -17,7 +17,7 @@ internal extension DataAcquisitionView {
     }
     
     func startSampling() {
-        appData.dataAquisitionViewState.progressColor = Assets.sun.color
+        appData.dataAquisitionViewState.progressColor = .nordicSun
         appData.dataAquisitionViewState.progressString = "Requesting Sample ID..."
         
         // Note: This web Request will trigger a WebSocket Response to start Sampling.

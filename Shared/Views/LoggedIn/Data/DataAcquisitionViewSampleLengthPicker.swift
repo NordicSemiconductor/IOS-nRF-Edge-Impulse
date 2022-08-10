@@ -58,7 +58,7 @@ struct DataAcquisitionViewSampleLengthPicker: View {
                 }
             } else {
                 Text("Unavailable")
-                    .foregroundColor(Assets.middleGrey.color)
+                    .foregroundColor(.nordicMiddleGrey)
             }
         }
     }

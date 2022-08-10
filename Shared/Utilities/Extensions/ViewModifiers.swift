@@ -29,7 +29,7 @@ struct EnabledForegroundView: ViewModifier {
     func body(content: Content) -> some View {
         content
             .foregroundColor(enabled ? Assets.textColor.color : .disabledTextColor)
-            .accentColor(Assets.blue.color)
+            .accentColor(.nordicBlue)
             .disabled(!enabled)
     }
 }
@@ -51,7 +51,7 @@ struct EnabledAccentView: ViewModifier {
 
 struct CircularButtonShape: ViewModifier {
     
-    let backgroundAsset: Assets
+    let backgroundColor: Color
     
     func body(content: Content) -> some View {
         content
@@ -60,7 +60,7 @@ struct CircularButtonShape: ViewModifier {
             .font(.headline)
             .foregroundColor(.white)
             .padding()
-            .background(backgroundAsset.color)
+            .background(backgroundColor)
             .cornerRadius(30)
         #endif
     }
@@ -81,11 +81,11 @@ struct IconOnTheRightLabelStyle: LabelStyle {
 
 struct RoundedTextFieldShape: ViewModifier {
     
-    private let backgroundAsset: Assets
+    private let backgroundColor: Color
     private let hasTextFieldBelow: Bool
     
-    init(_ backgroundAsset: Assets, hasTextFieldBelow: Bool = false) {
-        self.backgroundAsset = backgroundAsset
+    init(_ backgroundColor: Color, hasTextFieldBelow: Bool = false) {
+        self.backgroundColor = backgroundColor
         self.hasTextFieldBelow = hasTextFieldBelow
     }
     
@@ -95,7 +95,7 @@ struct RoundedTextFieldShape: ViewModifier {
             .frame(maxWidth: 320)
             .frame(height: 20)
             .padding()
-            .background(backgroundAsset.color)
+            .background(backgroundColor)
             .cornerRadius(30)
             .padding(.bottom, hasTextFieldBelow ? 16 : 0)
         #endif

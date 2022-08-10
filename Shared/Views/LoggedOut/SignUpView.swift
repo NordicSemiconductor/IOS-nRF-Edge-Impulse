@@ -7,6 +7,7 @@
 
 import SwiftUI
 import BetterSafariView
+import iOS_Common_Libraries
 
 struct SignUpView: View {
     
@@ -22,13 +23,13 @@ struct SignUpView: View {
     var body: some View {
         HStack {
             Text("Don't have an account?")
-                .foregroundColor(Assets.middleGrey.color)
+                .foregroundColor(.nordicMiddleGrey)
             
             Button(action: {
                 showSafariView = true
             }) {
                 Text("Sign Up")
-                    .foregroundColor(Assets.blue.color)
+                    .foregroundColor(.nordicBlue)
             }
             .safariView(isPresented: $showSafariView) {
                 SafariView(url: Constant.signupURL, configuration: safariViewConfiguration)
