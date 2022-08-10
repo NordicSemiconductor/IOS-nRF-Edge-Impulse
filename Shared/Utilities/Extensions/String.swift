@@ -25,6 +25,7 @@ extension String {
 // MARK: - String + Date
 
 extension String {
+    
     func toDate(_ format: String? = nil) -> Date? {
         if let f = format {
             let dateFormatter = DateFormatter()

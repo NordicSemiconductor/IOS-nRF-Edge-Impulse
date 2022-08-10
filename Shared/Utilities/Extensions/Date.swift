@@ -7,16 +7,6 @@
 
 import Foundation
 
-extension Date {
-    
-    static func currentYear() -> Int {
-        guard let calendar = NSCalendar(calendarIdentifier: .gregorian) else {
-            fatalError("Failed call to NSCalendar with Gregorian Calendar.")
-        }
-        return calendar.component(.year, from: Date())
-    }
-}
-
 // MARK: - Format
 
 extension Date {
