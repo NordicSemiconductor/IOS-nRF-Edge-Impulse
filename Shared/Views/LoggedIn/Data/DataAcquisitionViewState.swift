@@ -8,6 +8,7 @@
 import Foundation
 import OSLog
 import Combine
+import iOS_Common_Libraries
 
 final class DataAcquisitionViewState: ObservableObject {
     

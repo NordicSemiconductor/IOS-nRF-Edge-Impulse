@@ -35,6 +35,8 @@ struct DataSamplesFooterView: View {
 // MARK: - Preview
 
 #if DEBUG
+import iOS_Common_Libraries
+
 struct DataSamplesFooterView_Previews: PreviewProvider {
     static var previews: some View {
         Group {

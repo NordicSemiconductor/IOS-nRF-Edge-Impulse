@@ -70,6 +70,8 @@ struct DataAcquisitionView: View {
 // MARK: - Preview
 
 #if DEBUG
+import iOS_Common_Libraries
+
 struct DataAcquisitionView_Previews: PreviewProvider {
     
     static let noProjectsAppData: AppData = {

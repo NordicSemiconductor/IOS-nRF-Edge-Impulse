@@ -34,6 +34,8 @@ struct HorizontalTabView: View {
 // MARK: - Preview
 
 #if DEBUG
+import iOS_Common_Libraries
+
 struct HorizontalTabView_Previews: PreviewProvider {
     
     static var previews: some View {

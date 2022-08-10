@@ -35,7 +35,7 @@ struct LoggedInRootView: View {
     var body: some View {
         layout.view()
             .onAppear() {
-                guard !hasMadeUserRequest, !Constant.isRunningInPreviewMode else { return }
+                guard !hasMadeUserRequest, !Constant.isRunningInPreviewMode() else { return }
                 
                 guard Network.shared.isReachable() else {
                     appData.logout()
@@ -71,7 +71,7 @@ extension LoggedInRootView {
                 return response.projects.first
             }
             .sink(receiveCompletion: { completion in
-                guard !Constant.isRunningInPreviewMode else { return }
+                guard !Constant.isRunningInPreviewMode() else { return }
                 switch completion {
                 case .failure(let error):
                     logger.error("Error: \(error.localizedDescription)")
@@ -124,6 +124,8 @@ extension LoggedInRootView {
 // MARK: - Preview
 
 #if DEBUG
+import iOS_Common_Libraries
+
 struct LoggedInRootView_Previews: PreviewProvider {
     static var previews: some View {
         #if os(OSX)

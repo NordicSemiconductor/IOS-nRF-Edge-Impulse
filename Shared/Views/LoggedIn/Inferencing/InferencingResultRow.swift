@@ -51,6 +51,8 @@ struct InferencingResultRow: View {
 // MARK: - Preview
 
 #if DEBUG
+import iOS_Common_Libraries
+
 struct InferencingResultRow_Previews: PreviewProvider {
     
     static var previews: some View {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import iOS_Common_Libraries
 
 struct DeploymentView: View {
     
@@ -56,13 +57,15 @@ struct DeploymentView: View {
 // MARK: - Preview
 
 #if DEBUG
+import iOS_Common_Libraries
+
 struct DeploymentView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
             DeploymentView()
                 .setTitle(Tabs.Deployment.description)
-                .wrapInNavigationViewForiOS()
+                .wrapInNavigationViewForiOS(with: Assets.navBarBackground.color)
                 .environmentObject(DeploymentViewState())
                 .environmentObject(Preview.noDevicesAppData)
                 .environmentObject(Preview.noDevicesScannerData)    

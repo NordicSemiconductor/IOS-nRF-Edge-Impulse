@@ -496,6 +496,8 @@ extension DeviceData {
 }
 
 #if DEBUG
+import iOS_Common_Libraries
+
 extension Preview {
     // MARK: - ScannerData
     

@@ -26,7 +26,7 @@ struct TwoPaneLayoutView: View {
                 .setTitle("nRF Edge Impulse")
                 .padding(.top, -4)
             }
-            .setupNavBarBackground()
+            .setupNavBarBackground(with: Assets.navBarBackground.color)
             .setSingleColumnNavigationViewStyle()
             .frame(width: 215, alignment: .leading)
             
@@ -74,13 +74,15 @@ private extension View {
                 ProjectSelectionView()
                     .toolbarItem()
             }
-            .wrapInNavigationViewForiOS()
+            .wrapInNavigationViewForiOS(with: Assets.navBarBackground.color)
     }
 }
 
 // MARK: - Preview
 
 #if DEBUG
+import iOS_Common_Libraries
+
 struct TwoPaneLayoutView_Previews: PreviewProvider {
     static var previews: some View {
         #if os(OSX)

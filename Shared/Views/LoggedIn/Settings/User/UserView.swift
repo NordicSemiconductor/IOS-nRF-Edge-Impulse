@@ -51,6 +51,8 @@ struct UserView: View {
 // MARK: - Preview
 
 #if DEBUG
+import iOS_Common_Libraries
+
 struct UserView_Previews: PreviewProvider {
     
     static let loggedInWithoutUser: AppData = {

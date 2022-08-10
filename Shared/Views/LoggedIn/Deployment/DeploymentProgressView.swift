@@ -25,6 +25,8 @@ struct DeploymentProgressView: View {
 // MARK: - Preview
 
 #if DEBUG
+import iOS_Common_Libraries
+
 struct DeploymentProgressView_Previews: PreviewProvider {
     static var previews: some View {
         Group {

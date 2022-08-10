@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import iOS_Common_Libraries
 
 extension Color {
     
@@ -30,36 +31,4 @@ extension Color {
     static var succcessfulActionButtonColor: Color { Assets.blue.color }
     
     static var disabledTextColor: Color { Assets.middleGrey.color }
-    
-    static var textFieldColor: Color {
-        #if os(OSX)
-        return Color.primary
-        #elseif os(iOS)
-        return Color(.black)
-        #endif
-    }
-    
-    static var formBackground: Color {
-        #if os(OSX)
-        return .clear
-        #elseif os(iOS)
-        return Color(UIColor.systemGroupedBackground)
-        #endif
-    }
-    
-    static var secondarySystemBackground: Color {
-        #if os(OSX)
-        return Color(.controlBackgroundColor)
-        #elseif os(iOS)
-        return Color(UIColor.secondarySystemBackground)
-        #endif
-    }
-    
-    static var secondarySystemGroupBackground: Color {
-        #if os(OSX)
-        return Color(.controlBackgroundColor)
-        #elseif os(iOS)
-        return Color(UIColor.secondarySystemGroupedBackground)
-        #endif
-    }
 }

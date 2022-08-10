@@ -8,6 +8,7 @@
 import Foundation
 import KeychainSwift
 import Combine
+import iOS_Common_Libraries
 
 final class AppData: ObservableObject {
     
@@ -113,7 +114,7 @@ fileprivate extension KeychainSwift {
     }
     
     func write(_ value: String, key: String = #function) {
-        guard !Constant.isRunningInPreviewMode else { return }
+        guard !Constant.isRunningInPreviewMode() else { return }
         set(value, forKey: key)
     }
     

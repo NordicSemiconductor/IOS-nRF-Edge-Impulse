@@ -7,16 +7,11 @@
 
 import Foundation
 import CoreGraphics
+import iOS_Common_Libraries
 
 // MARK: - Constant
 
-enum Constant {
-    
-    // MARK: - Preview
-    
-    static var isRunningInPreviewMode: Bool {
-        ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
-    }
+extension Constant {
     
     // MARK: - Unselected
     
@@ -49,10 +44,6 @@ enum Constant {
     
     static let aboutEdgeImpulse: String = {
        return "We are easy to reach!\n\nTo contact us, holler us on Twitter @NordicTweets. You can also use our DevZone forums (devzone.nordicsemi.com) where you will receive quick support for your inquiries."
-    }()
-    
-    static let copyright: String = {
-        return "Copyright © \(Date.currentYear()) Nordic Semiconductor ASA"
     }()
 }
 

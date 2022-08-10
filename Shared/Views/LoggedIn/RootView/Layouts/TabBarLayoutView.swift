@@ -25,7 +25,7 @@ struct TabBarLayoutView: View {
                         ProjectSelectionView()
                             .toolbarItem()
                     }
-                    .wrapInNavigationViewForiOS()
+                    .wrapInNavigationViewForiOS(with: Assets.navBarBackground.color)
                     .tabItem {
                         Label(tab.description, systemImage: tab.systemImageName)
                     }
@@ -50,6 +50,8 @@ struct TabBarLayoutView: View {
 // MARK: - Preview
 
 #if DEBUG
+import iOS_Common_Libraries
+
 struct TabBarLayoutView_Previews: PreviewProvider {
     static var previews: some View {
         Group {

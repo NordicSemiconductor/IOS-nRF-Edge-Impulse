@@ -122,6 +122,8 @@
 		AA14FD4926EA3314008128CB /* StringDeviceInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14FD4726EA3314008128CB /* StringDeviceInfoRow.swift */; };
 		AA14FD4B26EA3B98008128CB /* DeviceStatusSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14FD4A26EA3B98008128CB /* DeviceStatusSectionView.swift */; };
 		AA14FD4C26EA3B98008128CB /* DeviceStatusSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14FD4A26EA3B98008128CB /* DeviceStatusSectionView.swift */; };
+		AA1944FE28A3C92900903157 /* iOSCommonLibraries in Frameworks */ = {isa = PBXBuildFile; productRef = AA1944FD28A3C92900903157 /* iOSCommonLibraries */; };
+		AA19450028A3C93900903157 /* iOSCommonLibraries in Frameworks */ = {isa = PBXBuildFile; productRef = AA1944FF28A3C93900903157 /* iOSCommonLibraries */; };
 		AA1C387126A6DC8100304D69 /* DeploymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D81282608C03A00AE615A /* DeploymentView.swift */; };
 		AA1EF9E926C2CEF300B85FF3 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AA1EF9E826C2CEF300B85FF3 /* ZIPFoundation */; };
 		AA1EF9EB26C2CEFC00B85FF3 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AA1EF9EA26C2CEFC00B85FF3 /* ZIPFoundation */; };
@@ -576,6 +578,7 @@
 				AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */,
 				C3163D36268DD61900CD3DB5 /* Introspect in Frameworks */,
 				AA01902826BA938F00B70E85 /* Algorithms in Frameworks */,
+				AA1944FE28A3C92900903157 /* iOSCommonLibraries in Frameworks */,
 				AA2A1127283D007A00A35029 /* iOSMcuManagerLibrary in Frameworks */,
 				C3163D34268DD61000CD3DB5 /* VisualEffects in Frameworks */,
 				AADFFE9C278D8BD5001454A1 /* BetterSafariView in Frameworks */,
@@ -587,6 +590,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA19450028A3C93900903157 /* iOSCommonLibraries in Frameworks */,
 				AA7F5DE325F8F57D00185328 /* KeychainSwift in Frameworks */,
 				AA0B3000267A2AE400AA0571 /* Introspect in Frameworks */,
 				AA01902A26BA939700B70E85 /* Algorithms in Frameworks */,
@@ -1206,6 +1210,7 @@
 				AA1EF9E826C2CEF300B85FF3 /* ZIPFoundation */,
 				AADFFE9B278D8BD5001454A1 /* BetterSafariView */,
 				AA2A1126283D007A00A35029 /* iOSMcuManagerLibrary */,
+				AA1944FD28A3C92900903157 /* iOSCommonLibraries */,
 			);
 			productName = "nRF-Edge-Impulse (iOS)";
 			productReference = AA03E96025E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -1232,6 +1237,7 @@
 				AA01902926BA939700B70E85 /* Algorithms */,
 				AA1EF9EA26C2CEFC00B85FF3 /* ZIPFoundation */,
 				AA2A1128283D00E300A35029 /* iOSMcuManagerLibrary */,
+				AA1944FF28A3C93900903157 /* iOSCommonLibraries */,
 			);
 			productName = "nRF-Edge-Impulse (macOS)";
 			productReference = AA03E96825E3EF13003DA9DA /* nRF Edge Impulse.app */;
@@ -1275,6 +1281,7 @@
 				AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				AADFFE9A278D8BD5001454A1 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
 				AAA496D82795902D00D77BD1 /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */,
+				AA1944FC28A3C92900903157 /* XCRemoteSwiftPackageReference "IOS-Common-Libraries" */,
 			);
 			productRefGroup = AA03E96125E3EF13003DA9DA /* Products */;
 			projectDirPath = "";
@@ -2050,6 +2057,14 @@
 				minimumVersion = 0.1.3;
 			};
 		};
+		AA1944FC28A3C92900903157 /* XCRemoteSwiftPackageReference "IOS-Common-Libraries" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/NordicPlayground/IOS-Common-Libraries";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
@@ -2107,6 +2122,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
+		};
+		AA1944FD28A3C92900903157 /* iOSCommonLibraries */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA1944FC28A3C92900903157 /* XCRemoteSwiftPackageReference "IOS-Common-Libraries" */;
+			productName = iOSCommonLibraries;
+		};
+		AA1944FF28A3C93900903157 /* iOSCommonLibraries */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA1944FC28A3C92900903157 /* XCRemoteSwiftPackageReference "IOS-Common-Libraries" */;
+			productName = iOSCommonLibraries;
 		};
 		AA1EF9E826C2CEF300B85FF3 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -8,6 +8,8 @@
 import Foundation
 
 #if DEBUG
+import iOS_Common_Libraries
+
 extension AppData {
     
     func raiseTestError() {

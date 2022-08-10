@@ -59,6 +59,8 @@ struct ProjectView: View {
 // MARK: - Preview
 
 #if DEBUG
+import iOS_Common_Libraries
+
 struct ProjectView_Previews: PreviewProvider {
     static var previews: some View {
         ProjectView(Project.Sample)

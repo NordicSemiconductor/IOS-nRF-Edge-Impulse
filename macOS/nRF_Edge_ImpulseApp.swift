@@ -8,6 +8,7 @@
 import Foundation
 
 import SwiftUI
+import iOS_Common_Libraries
 
 @main
 struct nRF_Edge_ImpulseApp: App {

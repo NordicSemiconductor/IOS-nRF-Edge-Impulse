@@ -33,6 +33,8 @@ struct DataAcquisitionSensorPicker: View {
 // MARK: - Preview
 
 #if DEBUG
+import iOS_Common_Libraries
+
 struct DataAcquisitionSensorPicker_Previews: PreviewProvider {
     static var previews: some View {
         DataAcquisitionSensorPicker(viewState: DataAcquisitionViewState())
