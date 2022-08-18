@@ -8,18 +8,7 @@
 import Foundation
 import Combine
 import os
-
-extension Data {
-    struct HexEncodingOptions: OptionSet {
-        let rawValue: Int
-        static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
-    }
-
-    func hexEncodedString(options: HexEncodingOptions = [], separator: String = "") -> String {
-        let format = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
-        return self.map { String(format: format, $0) }.joined(separator: separator)
-    }
-}
+import iOS_Common_Libraries
 
 /// Static constants and structures
 extension WebSocketManager {

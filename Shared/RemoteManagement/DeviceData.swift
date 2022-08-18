@@ -18,7 +18,6 @@ extension DeviceData {
         
         enum State: CaseIterable {
             case notConnectable, readyToConnect, connecting, connected, deleting
-            
             var color: Color {
                 switch self {
                 case .notConnectable:
