@@ -10,6 +10,7 @@ import Combine
 import SwiftUI
 import SystemConfiguration
 import os
+import iOS_Common_Libraries
 
 // MARK: - Network
 
@@ -176,7 +177,7 @@ extension Network {
 
 // MARK: - EdgeImpulseErrorResponse
 
-struct EdgeImpulseErrorResponse: APIResponse, LocalizedError {
+struct EdgeImpulseErrorResponse: HTTPResponse, LocalizedError {
     
     let success: Bool
     let error: String?

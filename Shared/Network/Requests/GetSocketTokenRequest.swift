@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import iOS_Common_Libraries
 
 // MARK: - Request
 
@@ -21,7 +22,7 @@ extension HTTPRequest {
 
 // MARK: - Response
 
-struct GetSocketTokenResponse: APIResponse {
+struct GetSocketTokenResponse: HTTPResponse {
     
     let success: Bool
     let error: String?

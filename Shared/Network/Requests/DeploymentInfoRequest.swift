@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import iOS_Common_Libraries
 
 extension HTTPRequest {
     
@@ -20,7 +21,7 @@ extension HTTPRequest {
 
 // MARK: - Response
 
-struct GetDeploymentInfoResponse: APIResponse {
+struct GetDeploymentInfoResponse: HTTPResponse {
     
     let success: Bool
     let error: String?

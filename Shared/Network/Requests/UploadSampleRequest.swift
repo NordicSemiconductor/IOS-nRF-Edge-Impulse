@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import iOS_Common_Libraries
 
 extension HTTPRequest {
     
-    static func uploadSample(_ headers: SamplingRequestFinishedResponse.Headers, body: Data, name: String,
+    static func uploadSample(_ headers: SamplingRequestFinishedResponse.Headers,
+                             body: Data, name: String,
                              category: DataSample.Category) -> HTTPRequest? {
         guard var httpRequest = HTTPRequest(host: .EdgeImpulseIngestionAPI, path: "/api/\(category.rawValue)/data") else {
             return nil

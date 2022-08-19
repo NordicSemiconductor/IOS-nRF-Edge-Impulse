@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import iOS_Common_Libraries
 
 // MARK: - Request
 
 extension HTTPRequest {
+    
     static func getDevices(for project: Project, using apiToken: String) -> HTTPRequest? {
         var request = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/devices")
         let jwtValue = "jwt=" + apiToken
@@ -28,14 +30,14 @@ extension HTTPRequest {
 
 // MARK: - Response
 
-struct GetDeviceListResponse: APIResponse {
+struct GetDeviceListResponse: HTTPResponse {
     let success: Bool
     let error: String?
     
     let devices: [Device]
 }
 
-struct GetDeviceResponse: APIResponse {
+struct GetDeviceResponse: HTTPResponse {
     let success: Bool
     let error: String?
     

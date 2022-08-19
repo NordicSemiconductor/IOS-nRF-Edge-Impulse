@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import iOS_Common_Libraries
 
 extension HTTPRequest {
     
-    static func startSampling(_ sampleMessage: SampleRequestMessage, project: Project, device: Device,
+    static func startSampling(_ sampleMessage: SampleRequestMessage,
+                              project: Project, device: Device,
                               using apiToken: String) -> HTTPRequest? {
         guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/device/\(device.deviceId)/start-sampling"),
               let bodyData = try? JSONEncoder().encode(sampleMessage) else {
@@ -26,7 +28,7 @@ extension HTTPRequest {
 
 // MARK: - Response
 
-struct StartSamplingResponse: APIResponse {
+struct StartSamplingResponse: HTTPResponse {
     
     let id: Int
     let success: Bool

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import iOS_Common_Libraries
 
 // MARK: - Request
 
@@ -23,7 +24,7 @@ extension HTTPRequest {
 
 // MARK: - Response
 
-struct GetSamplesResponse: APIResponse {
+struct GetSamplesResponse: HTTPResponse {
     
     let success: Bool
     let error: String?

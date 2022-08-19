@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import iOS_Common_Libraries
 
 // MARK: - Request
 
@@ -32,7 +33,7 @@ fileprivate struct RenameDeviceBody: Codable {
 
 // MARK: - Response
 
-struct RenameDeviceResponse: APIResponse {
+struct RenameDeviceResponse: HTTPResponse {
     
     let success: Bool
     let error: String?

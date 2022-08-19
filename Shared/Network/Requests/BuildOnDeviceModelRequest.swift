@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import iOS_Common_Libraries
 
 extension HTTPRequest {
     
@@ -27,7 +28,7 @@ extension HTTPRequest {
 
 // MARK: - Response
 
-struct BuildOnDeviceModelRequestResponse: APIResponse {
+struct BuildOnDeviceModelRequestResponse: HTTPResponse {
     
     let id: Int
     let success: Bool

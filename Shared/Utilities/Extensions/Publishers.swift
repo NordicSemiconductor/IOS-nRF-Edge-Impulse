@@ -25,7 +25,7 @@ extension Publisher {
                 break
             }
         }) { result in
-            if let apiResponse = result as? APIResponse, !apiResponse.success {
+            if let apiResponse = result as? HTTPResponse, !apiResponse.success {
                 let errorMessage = apiResponse.error ?? "Server returned 'request was not a success' response."
                 errorValue?((ErrorEvent(title: "Error", localizedDescription: errorMessage)))
                 return
@@ -45,7 +45,7 @@ extension Publisher {
                 break
             }
         }) { result in
-            if let apiResponse = result as? APIResponse, !apiResponse.success {
+            if let apiResponse = result as? HTTPResponse, !apiResponse.success {
                 let errorMessage = apiResponse.error ?? "Server returned 'request was not a success' response."
                 AppEvents.shared.error = ErrorEvent(title: "Error", localizedDescription: errorMessage)
                 return

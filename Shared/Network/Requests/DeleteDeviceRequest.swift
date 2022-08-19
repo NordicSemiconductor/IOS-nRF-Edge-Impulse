@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import iOS_Common_Libraries
 
 // MARK: - Delete Device Request
 
 extension HTTPRequest {
     
-    static func deleteDevice(_ deviceId: String, from project: Project, using apiToken: String) -> HTTPRequest? {
+    static func deleteDevice(_ deviceId: String, from project: Project,
+                             using apiToken: String) -> HTTPRequest? {
         guard var request = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/\(project.id)/device/\(deviceId)") else {
             return nil
         }
@@ -25,7 +27,7 @@ extension HTTPRequest {
 
 // MARK: - Response
 
-struct DeleteDeviceResponse: APIResponse {
+struct DeleteDeviceResponse: HTTPResponse {
     
     let success: Bool
     let error: String?
