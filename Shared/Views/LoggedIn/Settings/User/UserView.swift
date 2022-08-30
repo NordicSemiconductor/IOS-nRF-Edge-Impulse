@@ -34,13 +34,13 @@ struct UserView: View {
                 
                 Text("Joined \(user.created.formatterString(dateStyle: .medium, timeStyle: .none))")
                     .font(.callout)
-                    .foregroundColor(.nordicLightGrey)
+                    .foregroundColor(.nordicMiddleGrey)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text("(\(user.createdSince))")
                     .font(.callout)
                     .fontWeight(.light)
-                    .foregroundColor(.nordicLightGrey)
+                    .foregroundColor(.nordicMiddleGrey)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
         }

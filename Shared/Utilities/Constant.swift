@@ -29,18 +29,8 @@ extension Constant {
     
     // MARK: - App
     
-    static let appName: String = {
-        return Bundle(for: AppData.self).object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
-            ?? "nRF Edge Impulse"
-    }()
-    
-    static let appVersion: String = {
-        guard let versionNumber = Bundle(for: AppData.self).object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
-              let buildNumber = Bundle(for: AppData.self).object(forInfoDictionaryKey: "CFBundleVersion") as? String else {
-            return "N/A"
-        }
-        return "\(versionNumber) (#\(buildNumber))"
-    }()
+    static let appName = Constant.appName(forBundleWithClass: AppData.self)
+    static let appVersion = Constant.appVersion(forBundleWithClass: AppData.self)
     
     static let aboutEdgeImpulse: String = {
        return "We are easy to reach!\n\nTo contact us, holler us on Twitter @NordicTweets. You can also use our DevZone forums (devzone.nordicsemi.com) where you will receive quick support for your inquiries."
