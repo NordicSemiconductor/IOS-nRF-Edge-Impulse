@@ -25,7 +25,7 @@ struct SmallAppIconAndVersionView: View {
 
 // MARK: - Preview
 
-struct AppIconView_Previews: PreviewProvider {
+struct SmallAppIconView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             SmallAppIconAndVersionView()
