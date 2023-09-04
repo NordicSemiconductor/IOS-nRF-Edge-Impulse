@@ -14,7 +14,8 @@ struct DataAcquisitionFrequencyPicker: View {
     
     var body: some View {
         ZStack {
-            if let sensor = viewState.selectedSensor, sensor != Constant.unselectedSensor, let frequencies = sensor.frequencies {
+            let sensor = viewState.selectedSensor
+            if sensor != Constant.unselectedSensor, let frequencies = sensor.frequencies {
                 Picker(selection: $viewState.selectedFrequency, label: EmptyView()) {
                     ForEach(frequencies, id: \.self) { frequency in
                         Text("\(frequency, specifier: "%.2f") Hz").tag(frequency)

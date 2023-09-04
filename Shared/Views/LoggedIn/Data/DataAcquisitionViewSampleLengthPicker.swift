@@ -14,9 +14,8 @@ struct DataAcquisitionViewSampleLengthPicker: View {
     
     var body: some View {
         ZStack {
-            if let sensor = viewState.selectedSensor,
-               sensor != Constant.unselectedSensor,
-               let maxSampleLength = viewState.selectedSensor.maxSampleLengthS {
+            let sensor = viewState.selectedSensor
+            if sensor != Constant.unselectedSensor, let maxSampleLength = viewState.selectedSensor.maxSampleLengthS {
                 
                 VStack {
                     HStack {

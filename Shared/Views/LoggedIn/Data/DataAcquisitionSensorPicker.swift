@@ -13,7 +13,8 @@ struct DataAcquisitionSensorPicker: View {
     
     var body: some View {
         ZStack {
-            if let device = viewState.selectedDevice, device.sensors.hasItems {
+            let device = viewState.selectedDevice
+            if device.sensors.hasItems {
                 Picker(selection: $viewState.selectedSensor, label: EmptyView()) {
                     ForEach(device.sensors) { sensor in
                         Text(sensor.name)
