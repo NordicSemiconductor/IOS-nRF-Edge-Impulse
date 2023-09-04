@@ -13,7 +13,7 @@ struct SocketIOJobMessage: Identifiable, Hashable {
     
     // Use https://regexr.com/ to check RegExes.
     static let MainRegEx: NSRegularExpression! =
-        try? NSRegularExpression(pattern: #"[0-9]+\[".+",\{"data":"(.*)"(,.*)?\}\]"#, options: [])
+        try? NSRegularExpression(pattern: #"[0-9]+\[".+",\{"data":"(.*?)"(,.*)?\}\]"#, options: [])
     static let ProgressRegEx: NSRegularExpression! =
         try? NSRegularExpression(pattern: #"\[([0-9]+)\/([0-9]+)\].+"#, options: [])
     
