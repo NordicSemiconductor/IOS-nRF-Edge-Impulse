@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 import os
+import iOS_Common_Libraries
 
 extension DeviceData {
     struct DeviceWrapper: Identifiable, Hashable {
