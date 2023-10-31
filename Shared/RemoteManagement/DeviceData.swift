@@ -498,7 +498,7 @@ extension DeviceData {
 #if DEBUG
 import iOS_Common_Libraries
 
-extension Preview {
+extension iOS_Common_Libraries.Preview {
     // MARK: - ScannerData
     
     static let noDevicesScannerData: DeviceData = {
