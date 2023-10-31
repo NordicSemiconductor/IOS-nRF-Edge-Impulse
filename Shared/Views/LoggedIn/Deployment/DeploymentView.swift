@@ -68,7 +68,7 @@ struct DeploymentView_Previews: PreviewProvider {
                 .wrapInNavigationViewForiOS(with: Assets.navBarBackground.color)
                 .environmentObject(DeploymentViewState())
                 .environmentObject(Preview.noDevicesAppData)
-                .environmentObject(Preview.noDevicesScannerData)    
+                .environmentObject(Preview.noDevicesScannerData)
         }
     }
 }
