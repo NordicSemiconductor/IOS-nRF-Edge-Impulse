@@ -8,6 +8,7 @@
 import Foundation
 import OSLog
 import ZIPFoundation
+import iOSMcuManagerLibrary
 
 // MARK: - DFUPackage
 
@@ -17,7 +18,7 @@ struct DFUPackage {
     
     // MARK: Properties
     
-    let images: [(Int, Data)]
+    let images: [ImageManager.Image]
     
     // MARK: Init
     
@@ -50,11 +51,13 @@ struct DFUPackage {
 
         let jsonData = try Data(contentsOf: manifestFile)
         let manifest = try JSONDecoder().decode(DFUManifest.self, from: jsonData)
-        self.images = try manifest.files.compactMap({ manifestFile -> (Int, Data) in
+        self.images = try manifest.files.compactMap({ manifestFile -> ImageManager.Image in
             guard let url = contents.first(where: { $0.absoluteString.contains(manifestFile.file) }) else {
                 throw NordicError(description: "Unable to find \(manifestFile.file) for Image \(manifestFile.imageIndex)")
             }
-            return (manifestFile.imageIndex, try Data(contentsOf: url))
+            let imageData = try Data(contentsOf: url)
+            let hash = try McuMgrImage(data: imageData).hash
+            return ImageManager.Image(image: manifestFile.imageIndex, hash: hash, data: imageData)
         })
     }
 }
