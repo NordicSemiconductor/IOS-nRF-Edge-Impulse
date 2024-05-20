@@ -129,8 +129,6 @@
 		AA28405A261F4DFC00EB8637 /* AppHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA284058261F4DFC00EB8637 /* AppHeaderView.swift */; };
 		AA28405C261F4F3D00EB8637 /* UsernameField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA28405B261F4F3D00EB8637 /* UsernameField.swift */; };
 		AA28405D261F4F3D00EB8637 /* UsernameField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA28405B261F4F3D00EB8637 /* UsernameField.swift */; };
-		AA28405F261F537C00EB8637 /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA28405E261F537C00EB8637 /* PasswordField.swift */; };
-		AA284060261F537C00EB8637 /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA28405E261F537C00EB8637 /* PasswordField.swift */; };
 		AA2A1127283D007A00A35029 /* iOSMcuManagerLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = AA2A1126283D007A00A35029 /* iOSMcuManagerLibrary */; };
 		AA2A1129283D00E300A35029 /* iOSMcuManagerLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = AA2A1128283D00E300A35029 /* iOSMcuManagerLibrary */; };
 		AA2B11AB283F8EF5006C75AF /* UserContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2B11AA283F8EF5006C75AF /* UserContentView.swift */; };
@@ -435,7 +433,6 @@
 		AA27C2B2266E48F4002D1652 /* DataAcquisitionSensorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionSensorPicker.swift; sourceTree = "<group>"; };
 		AA284058261F4DFC00EB8637 /* AppHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderView.swift; sourceTree = "<group>"; };
 		AA28405B261F4F3D00EB8637 /* UsernameField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameField.swift; sourceTree = "<group>"; };
-		AA28405E261F537C00EB8637 /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
 		AA2B11AA283F8EF5006C75AF /* UserContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContentView.swift; sourceTree = "<group>"; };
 		AA2B11AC283F8F1A006C75AF /* UserContentView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserContentView+Logic.swift"; sourceTree = "<group>"; };
 		AA2C516727391AB600E5E16E /* DateDeviceInfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDeviceInfoRow.swift; sourceTree = "<group>"; };
@@ -1040,7 +1037,6 @@
 			isa = PBXGroup;
 			children = (
 				AA28405B261F4F3D00EB8637 /* UsernameField.swift */,
-				AA28405E261F537C00EB8637 /* PasswordField.swift */,
 				AAF4F6BC2625C0A700012359 /* LoginErrorView.swift */,
 				AAFB7C8C27904BFA0095A278 /* ForgotYourPasswordView.swift */,
 				AAF4F6B92625C02E00012359 /* SignUpView.swift */,
@@ -1503,7 +1499,6 @@
 				AACB65CF27032027002D4384 /* Inferencing.swift in Sources */,
 				C39B106E2695DF400056095E /* HUD.swift in Sources */,
 				AAE58D97274669C900AB1FEE /* InferencingResultRow.swift in Sources */,
-				AA28405F261F537C00EB8637 /* PasswordField.swift in Sources */,
 				AA8511CB273BEB1C008CF5C7 /* DeploymentStage.swift in Sources */,
 				AA4E8A7926947A3600C844FE /* DeploymentViewState+WebSocket.swift in Sources */,
 				AAFDB46B264D5F5600F0CD02 /* MultiColumnView.swift in Sources */,
@@ -1659,7 +1654,6 @@
 				C337B8E1267A0034003FD0A0 /* Array+ext.swift in Sources */,
 				AA0E584526C6847F00C437DD /* DFUManifest.swift in Sources */,
 				AA27C2B4266E48F4002D1652 /* DataAcquisitionSensorPicker.swift in Sources */,
-				AA284060261F537C00EB8637 /* PasswordField.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
 				AAFB7C8F2790531A0095A278 /* ForgotYourPasswordView.swift in Sources */,
 				AA010209269C5CD30045D6F2 /* SocketIOJobResult.swift in Sources */,
