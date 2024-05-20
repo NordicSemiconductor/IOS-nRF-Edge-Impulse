@@ -76,28 +76,3 @@ struct IconOnTheRightLabelStyle: LabelStyle {
         }
     }
 }
-
-// MARK: - RoundedTextFieldShape
-
-struct RoundedTextFieldShape: ViewModifier {
-    
-    private let backgroundColor: Color
-    private let hasTextFieldBelow: Bool
-    
-    init(_ backgroundColor: Color, hasTextFieldBelow: Bool = false) {
-        self.backgroundColor = backgroundColor
-        self.hasTextFieldBelow = hasTextFieldBelow
-    }
-    
-    func body(content: Content) -> some View {
-        content
-        #if os(iOS)
-            .frame(maxWidth: 320)
-            .frame(height: 20)
-            .padding()
-            .background(backgroundColor)
-            .cornerRadius(30)
-            .padding(.bottom, hasTextFieldBelow ? 16 : 0)
-        #endif
-    }
-}
