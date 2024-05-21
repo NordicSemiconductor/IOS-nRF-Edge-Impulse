@@ -85,9 +85,15 @@ struct NativeLoginView: View {
             .frame(maxWidth: .maxTextFieldWidth)
             .padding(.horizontal, 16)
             #else
-            PasswordField(binding: $password, enabled: !isMakingRequest)
-                .frame(maxWidth: .maxTextFieldWidth)
-                .padding(.horizontal, 16)
+            HStack(alignment: .lastTextBaseline) {
+                Image(systemName: "key.fill")
+                    .frame(size: .StandardImageSize)
+                    .accentColor(.nordicDarkGrey)
+                
+                PasswordField(binding: $password, enabled: !isMakingRequest)
+            }
+            .frame(maxWidth: .maxTextFieldWidth)
+            .padding(.horizontal, 16)
             #endif
             
             LoginErrorView(viewState: viewState)
