@@ -22,23 +22,23 @@ struct DataAcquisitionView: View {
     
     var body: some View {
         FormIniOSListInMacOS {
-            Section(header: Text("Category")) {
+            Section("Category") {
                 Picker("Selected", selection: $appData.selectedCategory) {
                     ForEach(DataSample.Category.allCases) { dataType in
                         Text(dataType.rawValue.uppercasingFirst)
                             .tag(dataType)
                     }
                 }
-                .pickerStyle(SegmentedPickerStyle())
+                .pickerStyle(.segmented)
                 .disabled(dataAcquisitionViewState.isSampling)
             }
             
-            Section(header: Text("Device")) {
+            Section("Device") {
                 ConnectedDevicePicker($dataAcquisitionViewState.selectedDevice)
                     .disabled($dataAcquisitionViewState.isSampling.wrappedValue)
             }
             
-            Section(header: Text("Label")) {
+            Section("Label") {
                 TextField("Label", text: $dataAcquisitionViewState.label)
                     .enabledForeground(!dataAcquisitionViewState.isSampling)
                     .introspectTextField { textField in

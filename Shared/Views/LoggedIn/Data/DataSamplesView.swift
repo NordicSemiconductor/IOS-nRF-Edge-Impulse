@@ -43,11 +43,6 @@ struct DataSamplesView: View {
             List {
                 DataSampleHeaderRow()
                 
-                #if os(macOS)
-                Divider()
-                    .foregroundColor(.primary)
-                #endif
-                
                 ForEach(appData.samplesForCategory[appData.selectedCategory] ?? []) { sample in
                     DataSampleRow(sample)
                 }
