@@ -249,7 +249,7 @@ extension DeviceRemoteHandler {
             case .requestStarted:
                 return "Sampling Started"
             case .receivingFromFirmware:
-                return "Sampling Complete. Receiving Firmware..."
+                return "Sampling Complete. Receiving Data..."
             case .uploadingSample:
                 return "Uploading Firmware to Edge Impulse..."
             case .completed:
