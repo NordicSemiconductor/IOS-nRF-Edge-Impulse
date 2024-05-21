@@ -52,7 +52,7 @@ struct DataSamplesView: View {
             #if os(macOS)
             .background(Color.secondarySystemBackground)
             #endif
-            addHiddenDataAcqisitionNavigationLink()
+            addHiddenDataAcquisitionNavigationLink()
         }
         .padding(.vertical)
         .background(Color.formBackground)
@@ -84,7 +84,7 @@ struct DataSampleHeaderRow: View {
 
 private extension DataSamplesView {
     
-    func addHiddenDataAcqisitionNavigationLink() -> some View {
+    func addHiddenDataAcquisitionNavigationLink() -> some View {
         NavigationLink(destination:
                         DataAcquisitionView().environmentObject(appData.dataAquisitionViewState),
                        isActive: $showDataAcquisitionView) {
