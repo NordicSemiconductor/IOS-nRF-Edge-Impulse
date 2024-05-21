@@ -12,6 +12,8 @@ import iOS_Common_Libraries
 
 struct NativeLoginView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     // MARK: - EnvironmentObject(s)
     
     @EnvironmentObject var appData: AppData
@@ -65,16 +67,25 @@ struct NativeLoginView: View {
             #endif
             
             #if os(iOS)
-            PasswordField($password, enabled: !isMakingRequest)
-                .frame(maxWidth: .maxTextFieldWidth)
-                .padding(.horizontal, 16)
-                .focused($focusedField, equals: .password)
-                .submitLabel(.done)
-                .onSubmit {
-                    attemptLogin()
-                }
+            HStack(alignment: .lastTextBaseline) {
+                Image(systemName: "key.fill")
+                    .frame(size: .StandardImageSize)
+                    .accentColor(.nordicDarkGrey)
+                
+                PasswordField(binding: $password, enabled: !isMakingRequest)
+                    .foregroundColor(.textFieldColor)
+                    .modifier(RoundedTextFieldShape(colorScheme == .light ? .nordicLightGrey : .nordicMiddleGrey))
+                    .padding(.vertical, 8)
+                    .focused($focusedField, equals: .password)
+                    .submitLabel(.done)
+                    .onSubmit {
+                        attemptLogin()
+                    }
+            }
+            .frame(maxWidth: .maxTextFieldWidth)
+            .padding(.horizontal, 16)
             #else
-            PasswordField($password, enabled: !isMakingRequest)
+            PasswordField(binding: $password, enabled: !isMakingRequest)
                 .frame(maxWidth: .maxTextFieldWidth)
                 .padding(.horizontal, 16)
             #endif
