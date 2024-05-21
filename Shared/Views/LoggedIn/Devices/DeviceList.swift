@@ -36,8 +36,6 @@ struct DeviceList: View {
                 }
                 
                 #if os(macOS)
-                Divider()
-                
                 MacAddressView()
                     .padding(.vertical, 4)
                 #endif
