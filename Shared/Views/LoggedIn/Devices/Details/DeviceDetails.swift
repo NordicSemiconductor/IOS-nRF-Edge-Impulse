@@ -43,22 +43,10 @@ struct DeviceDetails: View {
                 BoolDeviceInfoRow(title: "Supports Snapshot Streaming", systemImage: "arrow.left.and.right", enabled: device.supportsSnapshotStreaming)
             }
             
-            #if os(macOS)
-            Divider()
-            #endif
-            
             DeviceStatusSectionView(device: device, state: state)
-            
-            #if os(macOS)
-            Divider()
-            #endif
             
             ForEach(device.sensors) {
                 SensorSection(sensor: $0)
-                
-                #if os(macOS)
-                Divider()
-                #endif
             }
             
             deleteSection()
