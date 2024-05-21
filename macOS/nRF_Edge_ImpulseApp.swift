@@ -82,7 +82,7 @@ extension nRF_Edge_ImpulseApp {
     
     @ViewBuilder
     func aboutAppCommand() -> some View {
-        Button("About \(Constant.appName)") {
+        Button("About nRF Edge Impulse") {
             NSApplication.shared.orderFrontStandardAboutPanel(
                 options: [
                     NSApplication.AboutPanelOptionKey.credits: NSAttributedString(
