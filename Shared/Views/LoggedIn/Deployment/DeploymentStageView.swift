@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import iOS_Common_Libraries
 
 // MARK: - DeploymentStageView
 
@@ -60,8 +61,14 @@ struct DeploymentStageView: View {
                                    isIndeterminate: progressManager.isIndeterminate)
                         .padding(.trailing)
                     #else
-                    UILinearProgressView(value: $progressManager.progress)
-                        .padding(.top, 2)
+                    if progressManager.isIndeterminate {
+                        IndeterminateProgressView()
+                            .accentColor(.universalAccentColor)
+                            .padding(.top, 2)
+                    } else {
+                        UILinearProgressView(value: $progressManager.progress)
+                            .padding(.top, 2)
+                    }
                     #endif
                 }
             }
