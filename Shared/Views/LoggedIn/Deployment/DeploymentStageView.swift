@@ -29,10 +29,6 @@ struct DeploymentStageView: View {
     
     var body: some View {
         HStack {
-            if stage.isInProgress {
-                CircularProgressView()
-            }
-            
             Image(systemName: stage.symbolName)
                 .foregroundColor(stage.color)
                 .frame(width: 20, height: 20)
