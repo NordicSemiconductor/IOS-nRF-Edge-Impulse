@@ -18,10 +18,12 @@ struct DataAcquisitionFrequencyPicker: View {
             if sensor != Constant.unselectedSensor, let frequencies = sensor.frequencies {
                 Picker(selection: $viewState.selectedFrequency, label: EmptyView()) {
                     ForEach(frequencies, id: \.self) { frequency in
-                        Text("\(frequency, specifier: "%.2f") Hz").tag(frequency)
+                        Text("\(frequency, specifier: "%.2f") Hz")
+                            .tag(frequency)
                     }
                 }
-                .setAsComboBoxStyle()
+                .accentColor(.universalAccentColor)
+                .pickerStyle(.menu)
             } else {
                 Text("Unavailable")
                     .foregroundColor(.nordicMiddleGrey)

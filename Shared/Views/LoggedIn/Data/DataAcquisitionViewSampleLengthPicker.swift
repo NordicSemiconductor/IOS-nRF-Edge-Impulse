@@ -32,7 +32,6 @@ struct DataAcquisitionViewSampleLengthPicker: View {
                     HStack {
                         #if os(iOS)
                         Text("Text Input")
-                            .foregroundColor(.disabledTextColor)
                             .frame(height: 40)
                         Spacer()
                         #endif
@@ -49,9 +48,10 @@ struct DataAcquisitionViewSampleLengthPicker: View {
                                 viewState.sampleLengthS = min(Double($0) ?? 0, maxSampleLengthS)
                             }
                         ))
-                            .enabledForeground(!viewState.isSampling)
+                        .multilineTextAlignment(.trailing)
+                        .enabledForeground(!viewState.isSampling)
                         #if os(iOS)
-                            .keyboardType(.numberPad)
+                        .keyboardType(.numberPad)
                         #endif
                     }
                 }

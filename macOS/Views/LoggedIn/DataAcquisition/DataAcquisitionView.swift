@@ -37,7 +37,8 @@ struct DataAcquisitionView: View {
                         ForEach(DataSample.Category.allCases, id: \.self) { dataType in
                             Text(dataType.rawValue.uppercasingFirst).tag(dataType)
                         }
-                    }.pickerStyle(RadioGroupPickerStyle())
+                    }
+                    .pickerStyle(.radioGroup)
                     .horizontalRadioGroupLayout()
                     .padding(.vertical, 6)
                     
