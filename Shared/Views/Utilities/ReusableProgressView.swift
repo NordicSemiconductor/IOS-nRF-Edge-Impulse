@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import iOS_Common_Libraries
 
 // MARK: - ReusableProgressView
 
@@ -52,8 +53,14 @@ struct ReusableProgressView: View {
                            isIndeterminate: isIndeterminate.wrappedValue)
                 .padding(.horizontal)
             #else
-            UILinearProgressView(value: progress)
-                .padding(.horizontal)
+            if isIndeterminate.wrappedValue {
+                IndeterminateProgressView()
+                    .accentColor(.universalAccentColor)
+                    .padding(.horizontal)
+            } else {
+                UILinearProgressView(value: progress)
+                    .padding(.horizontal)
+            }
             #endif
             
             HStack {
@@ -78,16 +85,3 @@ struct ReusableProgressView: View {
         .padding(.vertical)
     }
 }
-
-// MARK: - Preview
-
-#if DEBUG
-//struct ReusableProgressView_Previews: PreviewProvider {
-//    
-//    static var noOp: () -> () = { }
-//    
-//    static var previews: some View {
-//        ReusableProgressView(buttonAction: noOp)
-//    }
-//}
-#endif
