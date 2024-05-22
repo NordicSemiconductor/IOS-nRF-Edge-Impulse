@@ -35,11 +35,6 @@ struct DeploymentView: View {
                 DeploymentErrorView(error: error)
             }
             
-            #if os(macOS)
-            Divider()
-                .padding(.horizontal)
-            #endif
-            
             Section {
                 Button(viewState.buildButtonText, action: buttonAction)
                     .centerTextInsideForm()
