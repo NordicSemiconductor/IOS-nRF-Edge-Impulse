@@ -33,13 +33,12 @@ extension ConnectedDevicePicker {
             Picker("Selected", selection: selectionBinding) {
                 ForEach(connectedDevices, id: \.self) { handler in
                     Text(deviceData.name(for: handler))
-                        .foregroundColor(.primary)
                         .lineLimit(1)
                         .tag(handler.device)
                 }
             }
-            .pickerStyle(.wheel)
-            .frame(height: 75, alignment: .leading)
+            .accentColor(.universalAccentColor)
+            .pickerStyle(.menu)
         } else {
             Text("No Connected Devices")
                 .foregroundColor(.nordicMiddleGrey)
