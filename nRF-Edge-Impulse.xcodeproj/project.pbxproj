@@ -123,8 +123,6 @@
 		AA1EF9EB26C2CEFC00B85FF3 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AA1EF9EA26C2CEFC00B85FF3 /* ZIPFoundation */; };
 		AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
-		AA27C2B3266E48F4002D1652 /* DataAcquisitionSensorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27C2B2266E48F4002D1652 /* DataAcquisitionSensorPicker.swift */; };
-		AA27C2B4266E48F4002D1652 /* DataAcquisitionSensorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27C2B2266E48F4002D1652 /* DataAcquisitionSensorPicker.swift */; };
 		AA284059261F4DFC00EB8637 /* AppHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA284058261F4DFC00EB8637 /* AppHeaderView.swift */; };
 		AA28405A261F4DFC00EB8637 /* AppHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA284058261F4DFC00EB8637 /* AppHeaderView.swift */; };
 		AA28405C261F4F3D00EB8637 /* UsernameField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA28405B261F4F3D00EB8637 /* UsernameField.swift */; };
@@ -430,7 +428,6 @@
 		AA14FD4A26EA3B98008128CB /* DeviceStatusSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStatusSectionView.swift; sourceTree = "<group>"; };
 		AA1F07A325F7989400CC41A9 /* BluetoothError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothError.swift; sourceTree = "<group>"; };
 		AA263F05260385690018CF5B /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
-		AA27C2B2266E48F4002D1652 /* DataAcquisitionSensorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionSensorPicker.swift; sourceTree = "<group>"; };
 		AA284058261F4DFC00EB8637 /* AppHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderView.swift; sourceTree = "<group>"; };
 		AA28405B261F4F3D00EB8637 /* UsernameField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameField.swift; sourceTree = "<group>"; };
 		AA2B11AA283F8EF5006C75AF /* UserContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContentView.swift; sourceTree = "<group>"; };
@@ -894,7 +891,6 @@
 				AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */,
 				AAA584F02604C4D500AB5BF9 /* DataAcquisitionViewState.swift */,
 				AA03298D266F8CB200C46547 /* DataAquisitionView+Logic.swift */,
-				AA27C2B2266E48F4002D1652 /* DataAcquisitionSensorPicker.swift */,
 				AA032987266F85E700C46547 /* DataAcquisitionViewSampleLengthPicker.swift */,
 				AA03298A266F89CF00C46547 /* DataAcquisitionFrequencyPicker.swift */,
 			);
@@ -1476,7 +1472,6 @@
 				AA0D81292608C03A00AE615A /* DeploymentView.swift in Sources */,
 				AA008A7725EE422C00F70F75 /* Project.swift in Sources */,
 				AAA584F12604C4D500AB5BF9 /* DataAcquisitionViewState.swift in Sources */,
-				AA27C2B3266E48F4002D1652 /* DataAcquisitionSensorPicker.swift in Sources */,
 				AA02089625F65A3700FD6B24 /* DeviceList.swift in Sources */,
 				AA798184275A223F008BDAC3 /* NoRegisteredDevicesView.swift in Sources */,
 				AAA5C7C5269F39EA0012809A /* NoDevicesFoundView.swift in Sources */,
@@ -1653,7 +1648,6 @@
 				AA0A3EA026AAC27000F9C1E2 /* NSProgressView.swift in Sources */,
 				C337B8E1267A0034003FD0A0 /* Array+ext.swift in Sources */,
 				AA0E584526C6847F00C437DD /* DFUManifest.swift in Sources */,
-				AA27C2B4266E48F4002D1652 /* DataAcquisitionSensorPicker.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
 				AAFB7C8F2790531A0095A278 /* ForgotYourPasswordView.swift in Sources */,
 				AA010209269C5CD30045D6F2 /* SocketIOJobResult.swift in Sources */,

@@ -42,7 +42,7 @@ struct DataAcquisitionView: View {
                     .padding(.vertical, 6)
                     
                     Text("Sensor")
-                    DataAcquisitionSensorPicker(viewState: dataAcquisitionViewState)
+                    InlinePicker(title: "", selectedValue: $dataAcquisitionViewState.selectedSensor, possibleValues: dataAcquisitionViewState.selectedDevice.sensors)
                     
                     Text("Sample Length")
                     DataAcquisitionViewSampleLengthPicker(viewState: dataAcquisitionViewState)

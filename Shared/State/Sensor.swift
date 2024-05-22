@@ -40,6 +40,13 @@ struct Sensor: Codable {
     }
 }
 
+// MARK: - CustomStringConvertible
+
+extension Sensor: CustomStringConvertible {
+    
+    var description: String { name }
+}
+
 // MARK: - Identifiable, Hashable
 
 extension Sensor: Identifiable, Hashable {

@@ -8,6 +8,8 @@
 import SwiftUI
 import iOS_Common_Libraries
 
+// MARK: - DataAcquisitionView
+
 struct DataAcquisitionView: View {
     
     @EnvironmentObject var appData: AppData
@@ -18,7 +20,7 @@ struct DataAcquisitionView: View {
     
     @State private var keyboardShownOnce = false
     
-    // MARK: - @viewBuilder
+    // MARK: - View (iOS Only)
     
     var body: some View {
         FormIniOSListInMacOS {
@@ -38,38 +40,35 @@ struct DataAcquisitionView: View {
                     .disabled($dataAcquisitionViewState.isSampling.wrappedValue)
             }
             
-            Section("Label") {
-                TextField("Label", text: $dataAcquisitionViewState.label)
-                    .enabledForeground(!dataAcquisitionViewState.isSampling)
-                    .introspectTextField { textField in
-                        guard !keyboardShownOnce,
-                              !dataAcquisitionViewState.isSampling,
-                              dataAcquisitionViewState.label.isEmpty else { return }
-                        keyboardShownOnce = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [textField] in
-                            textField.becomeFirstResponder()
+            Section("Data Collection") {
+                HStack {
+                    Text("Label")
+                    
+                    TextField("Label", text: $dataAcquisitionViewState.label)
+                        .multilineTextAlignment(.trailing)
+                        .enabledForeground(!dataAcquisitionViewState.isSampling)
+                        .introspectTextField { textField in
+                            guard !keyboardShownOnce,
+                                  !dataAcquisitionViewState.isSampling,
+                                  dataAcquisitionViewState.label.isEmpty else { return }
+                            keyboardShownOnce = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [textField] in
+                                textField.becomeFirstResponder()
+                            }
                         }
-                    }
-            }
-
-            Section(header: Text("Sensor")) {
-                DataAcquisitionSensorPicker(viewState: dataAcquisitionViewState)
-            }
-            
-            Section(header: Text("Sample Length")) {
+                }
+                
+                InlinePicker(title: "Sensor", selectedValue: $dataAcquisitionViewState.selectedSensor, possibleValues: dataAcquisitionViewState.selectedDevice.sensors)
+                
                 DataAcquisitionViewSampleLengthPicker(viewState: dataAcquisitionViewState)
+                
+                HStack {
+                    Text("Frequency")
+                    
+                    DataAcquisitionFrequencyPicker(viewState: dataAcquisitionViewState)
+                }
             }
             .disabled(dataAcquisitionViewState.isSampling)
-            
-            Section(header: Text("Frequency")) {
-                DataAcquisitionFrequencyPicker(viewState: dataAcquisitionViewState)
-            }
-            .disabled(dataAcquisitionViewState.isSampling)
-            
-            #if os(macOS)
-            Divider()
-                .padding(.horizontal)
-            #endif
             
             Section(header: Text("Progress").bold()) {
                 ReusableProgressView(progress: $dataAcquisitionViewState.progress, isIndeterminate: $dataAcquisitionViewState.indeterminateProgress, statusText: $dataAcquisitionViewState.progressString, statusColor: $dataAcquisitionViewState.progressColor, buttonText: "Start Sampling", buttonEnabled: $dataAcquisitionViewState.samplingButtonEnable, buttonAction: startSampling)
