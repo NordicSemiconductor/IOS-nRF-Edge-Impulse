@@ -34,10 +34,10 @@ struct DeploymentStageView: View {
                 .frame(width: 20, height: 20)
             
             VStack(alignment: .leading, spacing: 2) {
-                Text(stage.name)
+                Text(stage.status)
                     .foregroundColor(stage.color)
 
-                if stage.isInProgress {
+                if stage.inProgress {
                     Text(logLine)
                         .font(.caption)
                         .lineLimit(1)

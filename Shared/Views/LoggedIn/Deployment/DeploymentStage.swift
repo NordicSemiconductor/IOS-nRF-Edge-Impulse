@@ -6,65 +6,40 @@
 //
 
 import SwiftUI
+import iOS_Common_Libraries
 
 // MARK: - DeploymentStage
 
-struct DeploymentStage: Identifiable, Hashable {
+struct DeploymentStage: PipelineStage {
     
     let id: String
-    let toDoName: String
-    let inProgressName: String
-    let finishedName: String
+    let todoStatus: String
+    let inProgressStatus: String
+    let completedStatus: String
     let symbolName: String
     let isIndeterminate: Bool
     
-    private(set) var isInProgress: Bool
-    private(set) var encounteredAnError: Bool
-    private(set) var isCompleted: Bool
+    var progress: Float
+    var totalProgress: Float
+    var inProgress: Bool
+    var encounteredAnError: Bool
+    var completed: Bool
     
     // MARK: Init
     
-    private init(toDoName: String, inProgressName: String, finishedName: String,
+    private init(todoStatus: String, inProgressStatus: String, completedStatus: String,
                  symbolName: String, isIndeterminate: Bool) {
-        self.id = toDoName
-        self.toDoName = toDoName
-        self.inProgressName = inProgressName
-        self.finishedName = finishedName
+        self.id = todoStatus
+        self.todoStatus = todoStatus
+        self.inProgressStatus = inProgressStatus
+        self.completedStatus = completedStatus
         self.symbolName = symbolName
         self.isIndeterminate = isIndeterminate
-        self.isInProgress = false
+        self.progress = .zero
+        self.totalProgress = 100.0
+        self.inProgress = false
         self.encounteredAnError = false
-        self.isCompleted = false
-    }
-    
-    // MARK: API
-    
-    var name: String {
-        guard !isCompleted else { return finishedName }
-        return isInProgress || encounteredAnError ? inProgressName : toDoName
-    }
-    
-    var color: Color {
-        if isCompleted {
-            return .succcessfulActionButtonColor
-        } else if encounteredAnError {
-            return .nordicRed
-        } else if isInProgress {
-            return .nordicSun
-        }
-        return .disabledTextColor
-    }
-    
-    mutating func update(isInProgress: Bool = false, isCompleted: Bool = false) {
-        self.encounteredAnError = false
-        self.isInProgress = isInProgress
-        self.isCompleted = isCompleted
-    }
-    
-    mutating func declareError() {
-        guard isInProgress else { return }
-        isInProgress = false
-        encounteredAnError = true
+        self.completed = false
     }
 }
 
@@ -74,21 +49,21 @@ extension DeploymentStage: CaseIterable {
     
     // MARK: Cases
     
-    static let online = DeploymentStage(toDoName: "Connect to Server", inProgressName: "Connecting to Server...", finishedName: "Connected to Edge Impulse", symbolName: "network", isIndeterminate: false)
+    static let online = DeploymentStage(todoStatus: "Connect to Server", inProgressStatus: "Connecting to Server...", completedStatus: "Connected to Edge Impulse", symbolName: "network", isIndeterminate: false)
     
-    static let building = DeploymentStage(toDoName: "Build", inProgressName: "Building...", finishedName: "Built", symbolName: "hammer", isIndeterminate: false)
+    static let building = DeploymentStage(todoStatus: "Build", inProgressStatus: "Building...", completedStatus: "Built", symbolName: "hammer", isIndeterminate: false)
 
-    static let downloading = DeploymentStage(toDoName: "Download", inProgressName: "Downloading...", finishedName: "Downloaded", symbolName: "square.and.arrow.down", isIndeterminate: false)
+    static let downloading = DeploymentStage(todoStatus: "Download", inProgressStatus: "Downloading...", completedStatus: "Downloaded", symbolName: "square.and.arrow.down", isIndeterminate: false)
     
-    static let verifying = DeploymentStage(toDoName: "Verify", inProgressName: "Verifying...", finishedName: "Verified", symbolName: "list.bullet", isIndeterminate: true)
+    static let verifying = DeploymentStage(todoStatus: "Verify", inProgressStatus: "Verifying...", completedStatus: "Verified", symbolName: "list.bullet", isIndeterminate: true)
     
-    static let uploading = DeploymentStage(toDoName: "Upload", inProgressName: "Uploading...", finishedName: "Uploaded", symbolName: "square.and.arrow.up", isIndeterminate: false)
+    static let uploading = DeploymentStage(todoStatus: "Upload", inProgressStatus: "Uploading...", completedStatus: "Uploaded", symbolName: "square.and.arrow.up", isIndeterminate: false)
     
-    static let confirming = DeploymentStage(toDoName: "Confirm", inProgressName: "Confirming...", finishedName: "Confirmed", symbolName: "checkerboard.shield", isIndeterminate: true)
+    static let confirming = DeploymentStage(todoStatus: "Confirm", inProgressStatus: "Confirming...", completedStatus: "Confirmed", symbolName: "checkerboard.shield", isIndeterminate: true)
     
-    static let applying = DeploymentStage(toDoName: "Update", inProgressName: "Applying Update...", finishedName: "Updated", symbolName: "rectangle.2.swap", isIndeterminate: false)
+    static let applying = DeploymentStage(todoStatus: "Update", inProgressStatus: "Applying Update...", completedStatus: "Updated", symbolName: "rectangle.2.swap", isIndeterminate: false)
     
-    static let completed = DeploymentStage(toDoName: "Complete", inProgressName: "Completing...", finishedName: "Completed", symbolName: "checkmark", isIndeterminate: true)
+    static let completed = DeploymentStage(todoStatus: "Complete", inProgressStatus: "Completing...", completedStatus: "Completed", symbolName: "checkmark", isIndeterminate: true)
     
     // MARK: CaseIterable
     
