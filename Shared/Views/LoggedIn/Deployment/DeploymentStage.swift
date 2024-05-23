@@ -49,9 +49,9 @@ extension DeploymentStage: CaseIterable {
     
     // MARK: Cases
     
-    static let online = DeploymentStage(todoStatus: "Connect to Server", inProgressStatus: "Connecting to Server...", completedStatus: "Connected to Edge Impulse", symbolName: "network", isIndeterminate: false)
+    static let online = DeploymentStage(todoStatus: "Connect to Server", inProgressStatus: "Connecting to Server...", completedStatus: "Connected to Edge Impulse", symbolName: "network", isIndeterminate: true)
     
-    static let building = DeploymentStage(todoStatus: "Build", inProgressStatus: "Building...", completedStatus: "Built", symbolName: "hammer", isIndeterminate: false)
+    static let building = DeploymentStage(todoStatus: "Build", inProgressStatus: "Building...", completedStatus: "Built", symbolName: "hammer", isIndeterminate: true)
 
     static let downloading = DeploymentStage(todoStatus: "Download", inProgressStatus: "Downloading...", completedStatus: "Downloaded", symbolName: "square.and.arrow.down", isIndeterminate: false)
     

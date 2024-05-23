@@ -86,7 +86,7 @@ extension DeploymentViewState {
            jobId == message.job.jobId {
             
             logs.append(LogMessage(message))
-            progressManager.progress = message.progress
+            progressManager.inProgress(.building, progress: Float(message.progress))
         }
         return nil
     }

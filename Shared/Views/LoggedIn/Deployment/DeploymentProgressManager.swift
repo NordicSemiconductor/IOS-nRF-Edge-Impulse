@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import iOS_Common_Libraries
 
 // MARK: - DeploymentProgressManager
 
@@ -14,7 +15,6 @@ final class DeploymentProgressManager: ObservableObject {
     // MARK: Properties
     
     @Published var stages: [DeploymentStage]
-    @Published var progress: Double
     @Published var speed: Double?
     @Published var started: Bool
     @Published var success: Bool {
@@ -25,10 +25,14 @@ final class DeploymentProgressManager: ObservableObject {
             
             guard success else { return }
             for i in stages.indices {
-                stages[i].update(isCompleted: true)
+                stages[i].complete()
             }
-            progress = 100.0
         }
+    }
+    
+    var speedString: String? {
+        guard let speed else { return nil }
+        return String(format: "Speed: %.2f kB/s", speed)
     }
     
     private(set) var error: Error?
@@ -46,12 +50,11 @@ final class DeploymentProgressManager: ObservableObject {
     
     init() {
         self.stages = DeploymentStage.allCases
-        self.progress = 0.0
         self.speed = nil
         self.started = false
         self.success = false
         for i in stages.indices {
-            stages[i].update(inProgress: false, isCompleted: false)
+            stages[i].update(inProgress: false)
         }
     }
 }
@@ -67,26 +70,27 @@ protocol DeploymentProgressManagerDelegate: AnyObject {
 
 internal extension DeploymentProgressManager {
     
-    func inProgress(_ stage: DeploymentStage, speed: Double? = nil) {
-        guard let index = stages.firstIndex(where: { $0.id == stage.id }) else { return }
+    func inProgress(_ stage: DeploymentStage, progress: Float? = nil,
+                    speed: Double? = nil) {
+        guard let index = stages.firstIndex(where: \.id, equals: stage.id) else { return }
         started = true
         self.speed = speed
-        stages[index].update(inProgress: true)
+        stages[index].update(inProgress: true, progressValue: progress)
         
         for previousIndex in stages.indices where previousIndex < index {
-            stages[previousIndex].update(isCompleted: true)
+            stages[previousIndex].complete()
         }
         delegate?.onProgressUpdate()
     }
     
     func completed(_ stage: DeploymentStage) {
-        guard let index = stages.firstIndex(where: { $0.id == stage.id }) else { return }
-        stages[index].update(isCompleted: true)
+        guard let index = stages.firstIndex(where: \.id, equals: stage.id) else { return }
+        stages[index].complete()
         delegate?.onProgressUpdate()
     }
     
     func onError(_ error: Error) {
-        guard let currentStage = stages.firstIndex(where: { $0.inProgress }) else { return }
+        guard let currentStage = stages.firstTrueIndex(for: \.inProgress) else { return }
         self.error = error
         stages[currentStage].declareError()
         delegate?.onProgressUpdate()

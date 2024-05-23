@@ -26,8 +26,7 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     
     @MainActor
     func upgradeDidStart(controller: FirmwareUpgradeController) {
-        progressManager.inProgress(.uploading)
-        progressManager.progress = 0.0
+        progressManager.inProgress(.uploading, progress: 0.0)
     }
     
     @MainActor
@@ -39,15 +38,14 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
             let expectedSwapTimeInSeconds = 45
             var remainingSwapTimeInSeconds = 0
             
-            progressManager.inProgress(.applying)
-            progressManager.progress = 0.0
+            progressManager.inProgress(.applying, progress: 0.0)
             logs.append(LogMessage("Time Remaining: \(expectedSwapTimeInSeconds) seconds"))
             resetCountdownTimer
                 .autoconnect()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveValue: { [weak self] a in
                     remainingSwapTimeInSeconds += 1
-                    self?.progressManager.progress = Double(remainingSwapTimeInSeconds) / Double(expectedSwapTimeInSeconds) * 100
+                    self?.progressManager.inProgress(.applying, progress: Float(remainingSwapTimeInSeconds) / Float(expectedSwapTimeInSeconds) * 100)
                     self?.logs.append(LogMessage("Time Remaining: \(expectedSwapTimeInSeconds - remainingSwapTimeInSeconds) seconds"))
                     guard remainingSwapTimeInSeconds == expectedSwapTimeInSeconds else { return }
                     
@@ -82,8 +80,8 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     
     @MainActor
     func uploadProgressDidChange(bytesSent: Int, imageSize: Int, timestamp: Date) {
-        let progress = Double(bytesSent) / Double(imageSize) * 100.0
-        progressManager.progress = progress
+        let progress = Float(bytesSent) / Float(imageSize) * 100.0
+        progressManager.inProgress(.uploading, progress: progress)
         
         if uploadImageSize == nil || uploadImageSize != imageSize {
             uploadTimestamp = timestamp
