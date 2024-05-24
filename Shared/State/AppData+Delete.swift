@@ -32,7 +32,7 @@ extension AppData {
         guard let user = user, let apiKey = apiToken,
               let deleteUserAccountRequest = HTTPRequest.deleteUser(user.id, using: apiKey) else { return }
         
-        var projectsToDelete = Set<Project>(projects ?? [])
+        var projectsToDelete = Set<Project>(projects)
         for project in projectsToDelete {
             deleteProject(project, deliveryBlock: { [weak self] in
                 if let error = $0 {

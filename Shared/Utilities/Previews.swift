@@ -39,7 +39,7 @@ extension Preview {
         return try? decode(filename: "sample_hello_message")
     }()
     
-    static let projectsPreviewAppData = previewAppData(.complete(previewUser, previewProjects))
+    static let projectsPreviewAppData = previewAppData(.complete)
     
     static let connectingDeviceWrapper: DeviceData.ScanResultWrapper = {
         let scanResult = ScanResult(name: "Test Device", uuid: UUID(), rssi: .outOfRange, advertisementData: .connectableMock)
@@ -50,13 +50,16 @@ extension Preview {
     
     static let noDevicesAppData: AppData = {
         let appData = AppData()
-        appData.loginState = .complete(previewUser, Preview.previewProjects)
+        appData.user = previewUser
+        appData.projects = previewProjects
+        appData.loginState = .complete
         return appData
     }()
     
     static let noProjectsAppData: AppData = {
         let appData = AppData()
-        appData.loginState = .complete(previewUser, [])
+        appData.user = previewUser
+        appData.loginState = .complete
         return appData
     }()
     

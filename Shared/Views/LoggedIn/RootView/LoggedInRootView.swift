@@ -67,7 +67,9 @@ extension LoggedInRootView {
             .onUnauthorisedUserError(appData.logout)
             .compactMap { response -> Project? in
                 hasMadeUserRequest = true
-                appData.loginState = .complete(response.user, response.projects)
+                appData.projects = response.projects
+                appData.user = response.user
+                appData.loginState = .complete
                 return response.projects.first
             }
             .sink(receiveCompletion: { completion in

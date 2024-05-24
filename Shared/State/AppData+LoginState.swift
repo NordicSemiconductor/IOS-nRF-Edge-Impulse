@@ -15,7 +15,7 @@ extension AppData {
         case error(_ error: Error)
         case empty
         case loading
-        case complete(_ user: User, _ projects: [Project])
+        case complete
     }
 }
 
@@ -62,7 +62,7 @@ struct AppDataViewState_Previews: PreviewProvider {
         Group {
             AppData.LoginState.loading
                 .view(onRetry: {})
-            AppData.LoginState.complete(Preview.previewUser, Preview.previewProjects)
+            AppData.LoginState.complete
                 .view(onRetry: {})
             AppData.LoginState.empty
                 .view(onRetry: {})

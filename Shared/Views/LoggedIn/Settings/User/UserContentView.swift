@@ -20,13 +20,12 @@ struct UserContentView: View {
     // MARK: - View
     
     var body: some View {
-        switch appData.loginState {
-        case .complete(let user, let projects):
+        if let user = appData.user {
             List {
                 UserView(user: user)
                 
                 Section(header: Text("Projects")) {
-                    if projects.isEmpty {
+                    if appData.projects.isEmpty {
                         VStack(alignment: .center, spacing: 16) {
                             Image(systemName: "moon.stars.fill")
                                 .resizable()
@@ -37,7 +36,7 @@ struct UserContentView: View {
                         .frame(maxWidth: .infinity)
                     }
                     
-                    ForEach(projects) { project in
+                    ForEach(appData.projects) { project in
                         NavigationLink(destination: ProjectView(project)) {
                             ProjectRow(project)
                         }
@@ -63,7 +62,7 @@ struct UserContentView: View {
             .alert(isPresented: $showingDeleteUserAccountAlert) {
                 return deleteUserAccountAlert()
             }
-        default:
+        } else {
             EmptyView()
         }
     }

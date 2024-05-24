@@ -19,7 +19,7 @@ struct ProjectSelectionView: View {
     
     var body: some View {
             Menu {
-                ForEach(appData.projects ?? []) { project in
+                ForEach(appData.projects) { project in
                     Button(project.name) {
                         if deviceData.allConnectedOrConnectingDevices().hasItems {
                             preselectedProject = project
@@ -37,7 +37,7 @@ struct ProjectSelectionView: View {
                     Label("Logout", systemImage: "person.badge.clock")
                 }
             } label: {
-                DropdownView(currentProject: appData.selectedProject ?? appData.projects?.first)
+                DropdownView(currentProject: appData.selectedProject ?? appData.projects.first)
             }
             .alert(isPresented: $showingAlert, content: {
                 Alert(

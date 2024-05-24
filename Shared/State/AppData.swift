@@ -35,6 +35,8 @@ final class AppData: ObservableObject {
     
     @Published var projectDevelopmentKeys: [Project: ProjectDevelopmentKeysResponse]
     @Published var projectSocketTokens: [Project: Token]
+    @Published var projects: [Project] = []
+    @Published var user: User?
     
     @Published var samplesForCategory: [DataSample.Category: [DataSample]]
     @Published var selectedCategory: DataSample.Category = .training
@@ -66,26 +68,10 @@ final class AppData: ObservableObject {
     
     var isLoggedIn: Bool { apiToken != nil }
     
-    var user: User? {
-        switch loginState {
-        case .complete(let user, _):
-            return user
-        default:
-            return nil
-        }
-    }
-    
-    var projects: [Project]? {
-        switch loginState {
-        case .complete(_, let projects):
-            return projects
-        default:
-            return nil
-        }
-    }
-    
     func logout() {
         selectedProject = Project.Unselected
+        projects = []
+        user = nil
         projectSocketTokens = [Project: Token]()
         apiToken = nil
         loginState = .empty
