@@ -9,20 +9,21 @@ import SwiftUI
 import Combine
 import iOS_Common_Libraries
 
+// MARK: - DeploymentView
+
 struct DeploymentView: View {
     
-    // MARK: - State
+    // MARK: State
     
     @EnvironmentObject var appData: AppData
     @EnvironmentObject var deviceData: DeviceData
-    
     @EnvironmentObject var viewState: DeploymentViewState
     
-    // MARK: - View
+    // MARK: View
     
     var body: some View {
         FormIniOSListInMacOS {
-            if viewState.progressManager.started {
+            if viewState.pipelineManager.started {
                 DeploymentProgressView()
                     .environmentObject(viewState)
             } else {
@@ -31,7 +32,7 @@ struct DeploymentView: View {
                     .environmentObject(deviceData)
             }
             
-            if let error = viewState.progressManager.error {
+            if let error = viewState.pipelineManager.error {
                 DeploymentErrorView(error: error)
             }
             

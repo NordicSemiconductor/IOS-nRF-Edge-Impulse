@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import iOS_Common_Libraries
 
 // MARK: - Logic
 
 internal extension DeploymentView {
     
     func buttonAction() {
-        if viewState.progressManager.success || viewState.progressManager.error != nil {
+        if viewState.pipelineManager.success || viewState.pipelineManager.error != nil {
             retry()
         } else {
             start()
@@ -33,15 +34,16 @@ fileprivate extension DeploymentView {
                   viewState.reportError(NordicError(description: "Tokens are missing."))
                   return
         }
+        viewState.buildButtonEnable = false
         viewState.connect(for: currentProject, using: socketToken, and: projectApiKey)
     }
     
     func retry() {
         viewState.disconnect()
         viewState.logs.removeAll()
-        viewState.progressManager = DeploymentProgressManager()
-        viewState.progressManager.delegate = viewState
+        viewState.pipelineManager = PipelineManager(initialStages: DeploymentStage.allCases)
         viewState.selectedDeviceHandler = nil
-        viewState.onProgressUpdate()
+        viewState.buildButtonEnable = false
+        viewState.buildButtonText = "Build"
     }
 }

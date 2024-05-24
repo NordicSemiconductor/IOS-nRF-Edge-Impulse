@@ -11,14 +11,20 @@ import iOSMcuManagerLibrary
 import OSLog
 import iOS_Common_Libraries
 
+// MARK: - DeploymentViewState
+
 final class DeploymentViewState: ObservableObject {
 
-    @Published var selectedDevice = Constant.unselectedDevice
+    @Published var selectedDevice: Device = .Unselected
     @Published var selectedDeviceHandler: DeviceRemoteHandler! {
         didSet {
-            defer { onProgressUpdate() }
-            guard let selectedDeviceHandler = selectedDeviceHandler else { return }
-            selectedDevice = selectedDeviceHandler.device ?? Constant.unselectedDevice
+            guard let selectedDeviceHandler else {
+                buildButtonEnable = false
+                return
+            }
+            selectedDevice = selectedDeviceHandler.device ?? .Unselected
+            guard !pipelineManager.inProgress else { return }
+            buildButtonEnable = selectedDevice != .Unselected
         }
     }
     @Published var enableEONCompiler = true
@@ -27,11 +33,17 @@ final class DeploymentViewState: ObservableObject {
     @Published var buildButtonText = "Build"
     @Published var buildButtonEnable = false
     
-    @Published var progressManager = DeploymentProgressManager()
+    @Published var pipelineManager = PipelineManager(initialStages: DeploymentStage.allCases)
     @Published var logs = [LogMessage]()
     @Published var lastLogMessage = LogMessage("")
     
-    // MARK: - Private Properties
+    @Published var speed: Double?
+    var speedString: String? {
+        guard let speed else { return nil }
+        return String(format: "Speed: %.2f kB/s", speed)
+    }
+    
+    // MARK: Private Properties
     
     internal lazy var logger = Logger(Self.self)
     
@@ -54,7 +66,7 @@ extension DeploymentViewState {
     
     func sendDeploymentInfoRequest(for selectedProject: Project, using projectApiToken: String) {
         guard let infoRequest = HTTPRequest.getDeploymentInfo(project: selectedProject, using: projectApiToken) else { return }
-        progressManager.inProgress(.building)
+        pipelineManager.inProgress(.building)
         Network.shared.perform(infoRequest, responseType: GetDeploymentInfoResponse.self)
             .sinkReceivingError(onError: { error in
                 self.reportError(error)
@@ -71,7 +83,7 @@ extension DeploymentViewState {
     func sendBuildRequest(for selectedProject: Project, using projectApiToken: String) {
         guard let buildRequest = HTTPRequest.buildModel(project: selectedProject, usingEONCompiler: enableEONCompiler,
                                                         classifier: optimization, using: projectApiToken) else { return }
-        progressManager.inProgress(.building)
+        pipelineManager.inProgress(.building)
         Network.shared.perform(buildRequest, responseType: BuildOnDeviceModelRequestResponse.self)
             .sinkReceivingError(onError: { error in
                 self.reportError(error)
@@ -83,20 +95,20 @@ extension DeploymentViewState {
     
     func downloadModel(for selectedProject: Project, using projectApiToken: String) {
         guard let downloadRequest = HTTPRequest.downloadModelFor(project: selectedProject, using: projectApiToken) else { return }
-        self.progressManager.inProgress(.downloading)
+        pipelineManager.inProgress(.downloading)
         Network.shared.perform(downloadRequest)
             .sinkReceivingError(onError: { error in
                 self.reportError(error)
             }, receiveValue: { data in
                 self.logs.append(LogMessage("Received \(data.count) bytes of Data."))
-                self.progressManager.completed(.downloading)
+                self.pipelineManager.completed(.downloading)
                 self.sendModelToDevice(responseData: data)
             })
             .store(in: &cancellables)
     }
     
     func sendModelToDevice(responseData: Data) {
-        guard let device = selectedDeviceHandler else {
+        guard let selectedDeviceHandler else {
             reportError(NordicError(description: "No Device."))
             return
         }
@@ -105,35 +117,15 @@ extension DeploymentViewState {
             logs.append(LogMessage("Unpacking Server Response Archive..."))
             let firmware = try DFUPackage(responseData)
             
-            progressManager.inProgress(.uploading)
+            pipelineManager.inProgress(.uploading)
             logs.append(LogMessage("Sending firmware to device..."))
-            try device.bluetoothManager.sendUpgradeFirmware(firmware, logDelegate: self, firmwareDelegate: self)
+            try selectedDeviceHandler.bluetoothManager.sendUpgradeFirmware(firmware, logDelegate: self, firmwareDelegate: self)
             
             // Disconnect so reset disconnection doesn't cause an error.
             // McuMgr Library keeps its own connection during DFU.
-            device.disconnect(reason: .dfuReset)
+            selectedDeviceHandler.disconnect(reason: .dfuReset)
         } catch {
             reportError(error)
-        }
-    }
-}
-
-// MARK: - DeploymentProgressManagerDelegate
-
-extension DeploymentViewState: DeploymentProgressManagerDelegate {
-    
-    func onProgressUpdate() {
-        guard progressManager.error == nil && !progressManager.success else {
-            buildButtonEnable = true
-            buildButtonText = progressManager.success ? "Success!" : "Retry"
-            return
-        }
-        
-        if !progressManager.started {
-            buildButtonEnable = selectedDeviceHandler != nil
-            buildButtonText = progressManager.success ? "Success!" : "Build"
-        } else {
-            buildButtonEnable = false
         }
     }
 }
@@ -143,9 +135,9 @@ extension DeploymentViewState: DeploymentProgressManagerDelegate {
 internal extension DeploymentViewState {
     
     func receivedJobData(dataString: String) {
-        guard let jobId = buildJobId else { return }
+        guard let buildJobId else { return }
         
-        guard let jobResult = processJobMessages(dataString, for: jobId) else { return }
+        guard let jobResult = processJobMessages(dataString, for: buildJobId) else { return }
         guard jobResult.success else {
             reportError(NordicError(description: "Server returned Job was not successful."))
             return
@@ -172,7 +164,9 @@ internal extension DeploymentViewState {
     
     func reportError(_ error: Error) {
         logs.append(LogMessage(error))
-        progressManager.onError(error)
+        pipelineManager.onError(error)
+        buildButtonEnable = true
+        buildButtonText = "Retry"
         
         cancellables.forEach { $0.cancel() }
         cancellables.removeAll()
@@ -182,7 +176,6 @@ internal extension DeploymentViewState {
         self.project = project
         self.projectApiToken = projectApiToken
         self.buildJobId = nil
-        progressManager.delegate = self
         
         $logs
             .compactMap({ $0.last })
@@ -218,10 +211,7 @@ extension DeploymentViewState {
         }
         
         var userDescription: String {
-            guard let requestParameter = requestValue else {
-                return "(Set by Server)"
-            }
-            return "(\(requestParameter))"
+            requestValue ?? "(Set by Server)"
         }
         
         static var userCaption = "Should you encounter any Build issues regarding this setting, we recommend getting in touch with Edge Impulse for more information."

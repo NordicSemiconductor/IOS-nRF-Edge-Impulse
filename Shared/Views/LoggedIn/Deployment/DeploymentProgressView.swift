@@ -14,9 +14,9 @@ struct DeploymentProgressView: View {
     
     var body: some View {
         Section("Progress") {
-            ForEach(viewState.progressManager.stages) { stage in
+            ForEach(viewState.pipelineManager.stages) { stage in
                 PipelineView(stage: stage, logLine: viewState.lastLogMessage.line,
-                             accessoryLine: viewState.progressManager.speedString)
+                             accessoryLine: viewState.speedString)
                 .accentColor(.universalAccentColor)
             }
         }

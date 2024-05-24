@@ -20,7 +20,7 @@ extension DeploymentViewState {
         }
         
         setupNewDeployment(for: project, using: projectApiToken)
-        progressManager.inProgress(.online)
+        pipelineManager.inProgress(.online)
         socketManager = WebSocketManager()
         let pingConfiguration = WebSocketManager.PingConfiguration(data: "2".data(using: .utf8))
         logs.append(LogMessage("Opening WebSocket..."))
@@ -35,7 +35,7 @@ extension DeploymentViewState {
                 case .connecting:
                     self.logs.append(LogMessage("Handshaking..."))
                 case .connected:
-                    self.progressManager.completed(.online)
+                    self.pipelineManager.completed(.online)
                     self.logs.append(LogMessage("Connected!"))
                     
                     if self.enableCachedServerBuilds {
@@ -78,15 +78,16 @@ extension DeploymentViewState {
 extension DeploymentViewState {
     
     func processJobMessages(_ string: String, for jobId: Int) -> SocketIOJobResult? {
-        if let jobResult = try? SocketIOJobResult(from: string), jobResult.job.jobId == jobId {
+        if let jobResult = try? SocketIOJobResult(from: string),
+           jobResult.job.jobId == jobId {
             return jobResult
         }
         
-        if let message = try? SocketIOJobMessage(from: string), message.hasUserReadableText,
-           jobId == message.job.jobId {
+        if let message = try? SocketIOJobMessage(from: string),
+           message.hasUserReadableText, jobId == message.job.jobId {
             
             logs.append(LogMessage(message))
-            progressManager.inProgress(.building, progress: Float(message.progress))
+            pipelineManager.inProgress(.building, progress: Float(message.progress))
         }
         return nil
     }
