@@ -12,11 +12,12 @@ import iOSMcuManagerLibrary
 
 extension DeploymentViewState: McuMgrLogDelegate {
     
-    @MainActor
     func log(_ msg: String, ofCategory category: McuMgrLogCategory, atLevel level: McuMgrLogLevel) {
         guard category != .transport, msg.rangeOfCharacter(from: CharacterSet.alphanumerics) != nil else { return }
-        logs.append(LogMessage(msg))
-        logger.log("McuMgr: \(msg)")
+        DispatchQueue.main.async {
+            self.logs.append(LogMessage(msg))
+            self.logger.log("McuMgr: \(msg)")
+        }
     }
 }
 
@@ -44,7 +45,7 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
             resetCountdownTimer
                 .autoconnect()
                 .receive(on: DispatchQueue.main)
-                .sink(receiveValue: { [weak self] a in
+                .sink(receiveValue: { [weak self] _ in
                     remainingSwapTimeInSeconds += 1
                     self?.pipelineManager.inProgress(.applying, progress: Float(remainingSwapTimeInSeconds) / Float(expectedSwapTimeInSeconds) * 100)
                     self?.logs.append(LogMessage("Time Remaining: \(expectedSwapTimeInSeconds - remainingSwapTimeInSeconds) seconds"))

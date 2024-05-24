@@ -179,6 +179,7 @@ internal extension DeploymentViewState {
         
         $logs
             .compactMap({ $0.last })
+            .receive(on: DispatchQueue.main)
             .assign(to: \.lastLogMessage, on: self)
             .store(in: &cancellables)
     }
