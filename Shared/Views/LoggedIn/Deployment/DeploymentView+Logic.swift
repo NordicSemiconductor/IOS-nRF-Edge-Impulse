@@ -34,6 +34,7 @@ fileprivate extension DeploymentView {
                   viewState.reportError(NordicError(description: "Tokens are missing."))
                   return
         }
+        viewState.speed = nil
         viewState.buildButtonEnable = false
         viewState.connect(for: currentProject, using: socketToken, and: projectApiKey)
     }
@@ -42,6 +43,7 @@ fileprivate extension DeploymentView {
         viewState.disconnect()
         viewState.logs.removeAll()
         viewState.pipelineManager = PipelineManager(initialStages: DeploymentStage.allCases)
+        viewState.speed = nil
         viewState.selectedDeviceHandler = nil
         viewState.buildButtonEnable = false
         viewState.buildButtonText = "Build"

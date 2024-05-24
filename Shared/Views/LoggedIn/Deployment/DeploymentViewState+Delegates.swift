@@ -33,6 +33,7 @@ extension DeploymentViewState: FirmwareUpgradeDelegate {
     func upgradeStateDidChange(from previousState: FirmwareUpgradeState, to newState: FirmwareUpgradeState) {
         switch previousState {
         case .confirm:
+            speed = nil
             pipelineManager.inProgress(.confirming)
         case .reset:
             let expectedSwapTimeInSeconds = 45
