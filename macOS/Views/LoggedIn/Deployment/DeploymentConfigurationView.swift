@@ -7,10 +7,16 @@
 
 import SwiftUI
 
+// MARK: - DeploymentConfigurationView
+
 struct DeploymentConfigurationView: View {
+    
+    // MARK: Properties
     
     @EnvironmentObject var deviceData: DeviceData
     @EnvironmentObject var viewState: DeploymentViewState
+    
+    // MARK: View
     
     var body: some View {
         ScrollView {
@@ -43,11 +49,11 @@ struct DeploymentConfigurationView: View {
                     Text("Classifier")
                     Picker(selection: $viewState.optimization, label: EmptyView()) {
                         ForEach(DeploymentViewState.Classifier.allCases, id: \.self) { classifier in
-                            DeploymentClassifierView(classifier)
+                            Text(classifier.description)
                                 .tag(classifier)
                         }
                     }
-                    .pickerStyle(RadioGroupPickerStyle())
+                    .pickerStyle(.radioGroup)
                     .padding(.vertical, 6)
                     
                     Text("")
@@ -64,7 +70,7 @@ struct DeploymentConfigurationView: View {
                         Toggle(isOn: $viewState.enableCachedServerBuilds, label: {
                             Text("Enable Cached Builds")
                         })
-                        .toggleStyle(CheckboxToggleStyle())
+                        .toggleStyle(.checkbox)
                     }
                     
                     Text("")

@@ -256,8 +256,6 @@
 		AAF4F6C72625EB7300012359 /* SettingsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6C62625EB7300012359 /* SettingsContentView.swift */; };
 		AAF4F6CA2625EC4C00012359 /* SettingsScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6C92625EC4C00012359 /* SettingsScannerView.swift */; };
 		AAF5054725F11E45003AFED7 /* DataAcquisitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */; };
-		AAF53080275901FB006217DF /* DeploymentClassifierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5307F275901FB006217DF /* DeploymentClassifierView.swift */; };
-		AAF53081275901FB006217DF /* DeploymentClassifierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5307F275901FB006217DF /* DeploymentClassifierView.swift */; };
 		AAF5531D2641614B00252345 /* AppData+DataSamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5531C2641614B00252345 /* AppData+DataSamples.swift */; };
 		AAF5531E2641614B00252345 /* AppData+DataSamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF5531C2641614B00252345 /* AppData+DataSamples.swift */; };
 		AAF5532026416EB300252345 /* sample_datasamples.json in Resources */ = {isa = PBXBuildFile; fileRef = AAF5531F26416EB300252345 /* sample_datasamples.json */; };
@@ -495,7 +493,6 @@
 		AAF4F6C62625EB7300012359 /* SettingsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsContentView.swift; sourceTree = "<group>"; };
 		AAF4F6C92625EC4C00012359 /* SettingsScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScannerView.swift; sourceTree = "<group>"; };
 		AAF5054625F11E45003AFED7 /* DataAcquisitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisitionView.swift; sourceTree = "<group>"; };
-		AAF5307F275901FB006217DF /* DeploymentClassifierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentClassifierView.swift; sourceTree = "<group>"; };
 		AAF5531C2641614B00252345 /* AppData+DataSamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+DataSamples.swift"; sourceTree = "<group>"; };
 		AAF5531F26416EB300252345 /* sample_datasamples.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_datasamples.json; sourceTree = "<group>"; };
 		AAF55322264171AB00252345 /* DataSampleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSampleRow.swift; sourceTree = "<group>"; };
@@ -740,7 +737,6 @@
 				AAF7D451269F1176009269D4 /* DeploymentView+Logic.swift */,
 				AA0457752701D1F600FC1A41 /* DeploymentConfigurationView.swift */,
 				AA0457772701D23100FC1A41 /* DeploymentConfigurationView+Logic.swift */,
-				AAF5307F275901FB006217DF /* DeploymentClassifierView.swift */,
 				AA04577A2701D97500FC1A41 /* DeploymentProgressView.swift */,
 				AA8511CA273BEB1C008CF5C7 /* DeploymentStage.swift */,
 				AA0D812B2608F62700AE615A /* DeploymentViewState.swift */,
@@ -1475,7 +1471,6 @@
 				AA05BC472667D098003AEE50 /* StartSamplingRequest.swift in Sources */,
 				AAEED04426A7B68800999E51 /* ConnectedDevicePicker.swift in Sources */,
 				AAF4F6C32625C8C600012359 /* ThreePaneLayoutView.swift in Sources */,
-				AAF53080275901FB006217DF /* DeploymentClassifierView.swift in Sources */,
 				AAE58D9A27466D4700AB1FEE /* InferencingResultsHeaderRow.swift in Sources */,
 				AA482F812631A213007B8B64 /* UserContentView.swift in Sources */,
 				AAEBB92B26CE6D5B006A4DF7 /* ReusableProgressView.swift in Sources */,
@@ -1536,7 +1531,6 @@
 				AA1C387126A6DC8100304D69 /* DeploymentView.swift in Sources */,
 				C3755CD5268F0A9700FE8C69 /* DeviceDetails.swift in Sources */,
 				AAF290C326DD03F500ABE0E2 /* DataSamplesFooterView.swift in Sources */,
-				AAF53081275901FB006217DF /* DeploymentClassifierView.swift in Sources */,
 				AACCBA892600C32C0042E87B /* ErrorView.swift in Sources */,
 				AA02088F25F651D100FD6B24 /* ScanResult.swift in Sources */,
 				AAF290C026DCE5CA00ABE0E2 /* Sensor.swift in Sources */,

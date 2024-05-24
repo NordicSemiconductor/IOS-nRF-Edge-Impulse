@@ -8,18 +8,24 @@
 import SwiftUI
 import iOS_Common_Libraries
 
+// MARK: - DeploymentConfigurationView
+
 struct DeploymentConfigurationView: View {
+    
+    // MARK: Private Properties
     
     @EnvironmentObject var deviceData: DeviceData
     @EnvironmentObject var viewState: DeploymentViewState
     
+    // MARK: View
+    
     var body: some View {
-        Section(header: Text("Device")) {
+        Section("Device") {
             ConnectedDevicePicker($viewState.selectedDeviceHandler)
                 .onAppear(perform: selectFirstAvailableDeviceHandler)
         }
         
-        Section(header: Text("Optimizations")) {
+        Section("Optimizations") {
             Toggle(isOn: $viewState.enableEONCompiler, label: {
                 Text("Enable EON™ Compiler")
             })
@@ -30,28 +36,15 @@ struct DeploymentConfigurationView: View {
                 .foregroundColor(.nordicMiddleGrey)
         }
         
-        Section(header: Text("Classifier")) {
-            Picker("Classifier", selection: $viewState.optimization) {
-                ForEach(DeploymentViewState.Classifier.allCases, id: \.self) { classifier in
-                    DeploymentClassifierView(classifier)
-                        .tag(classifier)
-                }
-            }
-            .pickerStyle(.wheel)
-            .frame(height: 75, alignment: .leading)
+        Section("Classifier") {
+            InlinePicker(title: "Classifier", selectedValue: $viewState.optimization)
             
-            #if os(iOS)
             Text(DeploymentViewState.Classifier.attributedUserCaption)
                 .font(.caption)
                 .foregroundColor(.nordicMiddleGrey)
-            #else
-            Text(DeploymentViewState.Classifier.userCaption)
-                .font(.caption)
-                .foregroundColor(.nordicMiddleGrey)
-            #endif
         }
         
-        Section(header: Text("Build")) {
+        Section("Build") {
             Toggle(isOn: $viewState.enableCachedServerBuilds, label: {
                 Text("Enable Cached Builds")
             })

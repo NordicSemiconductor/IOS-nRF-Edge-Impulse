@@ -195,15 +195,15 @@ internal extension DeploymentViewState {
 
 extension DeploymentViewState {
     
-    enum Classifier: String, RawRepresentable, CaseIterable {
+    enum Classifier: String, RawRepresentable, CaseIterable, CustomStringConvertible {
         case Default
         case Quantized
         case Unoptimized
         
-        var requestValue: String? {
+        var requestValue: String {
             switch self {
             case .Default:
-                return nil
+                return "Set by Server"
             case .Quantized:
                 return "int8"
             case .Unoptimized:
@@ -211,8 +211,8 @@ extension DeploymentViewState {
             }
         }
         
-        var userDescription: String {
-            requestValue ?? "(Set by Server)"
+        var description: String {
+            rawValue + " (\(requestValue))"
         }
         
         static var userCaption = "Should you encounter any Build issues regarding this setting, we recommend getting in touch with Edge Impulse for more information."
