@@ -7,20 +7,21 @@
 
 import SwiftUI
 
+// MARK: - UserContentView
+
 struct UserContentView: View {
     
     @EnvironmentObject var appData: AppData
     @EnvironmentObject var deviceData: DeviceData
     
-    // MARK: - Private
+    // MARK: Private
     
     @State internal var showingDeleteUserAccountAlert = false
     
-    // MARK: - View
+    // MARK: View
     
     var body: some View {
-        switch appData.loginState {
-        case .complete(let user, let projects):
+        if let user = appData.user {
             List {
                 Section(header: Text("User")) {
                     UserView(user: user)
@@ -28,7 +29,7 @@ struct UserContentView: View {
                 }
                 
                 Section(header: Text("Projects")) {
-                    if projects.isEmpty {
+                    if appData.projects.isEmpty {
                         VStack(alignment: .center, spacing: 16) {
                             Image(systemName: "moon.stars.fill")
                                 .resizable()
@@ -39,7 +40,7 @@ struct UserContentView: View {
                         .frame(maxWidth: .infinity)
                     }
                     
-                    ForEach(projects) { project in
+                    ForEach(appData.projects) { project in
                         NavigationLink(destination: ProjectView(project)) {
                             ProjectRow(project)
                         }
@@ -73,7 +74,7 @@ struct UserContentView: View {
             .alert(isPresented: $showingDeleteUserAccountAlert) {
                 return deleteUserAccountAlert()
             }
-        default:
+        } else {
             EmptyView()
         }
     }

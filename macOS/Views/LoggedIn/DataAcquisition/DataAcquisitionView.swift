@@ -77,7 +77,8 @@ struct DataAcquisitionView_Previews: PreviewProvider {
     
     static let noProjectsAppData: AppData = {
         let appData = AppData()
-        appData.loginState = .complete(Preview.previewUser, [])
+        appData.user = Preview.previewUser
+        appData.loginState = .complete
         return appData
     }()
     
