@@ -10,10 +10,16 @@ import Foundation
 import SwiftUI
 import iOS_Common_Libraries
 
+// MARK: - Mac Edge Impulse App
+
 @main
 struct nRF_Edge_ImpulseApp: App {
     
-    @StateObject var dataContainer = DataContainer()
+    // MARK: Properties
+    
+    @StateObject private var dataContainer = DataContainer()
+    
+    // MARK: View
     
     var body: some Scene {
         WindowGroup {
@@ -43,6 +49,16 @@ struct nRF_Edge_ImpulseApp: App {
             
             CommandGroup(replacing: .appInfo) {
                 aboutAppCommand()
+            }
+            
+            CommandGroup(replacing: .help) {
+                openGitHubIssue()
+                goToDevZone()
+                
+                Divider()
+                
+                contactEdgeImpulseCommand()
+                openEdgeImpulseForum()
             }
         }
         
@@ -94,5 +110,42 @@ extension nRF_Edge_ImpulseApp {
                     NSApplication.AboutPanelOptionKey(rawValue: "Copyright"): Constant.copyright]
             )
         }
+    }
+    
+    // MARK: Help
+    
+    @ViewBuilder
+    func openGitHubIssue() -> some View {
+        Button("Open Issue") {
+            openUrl("https://github.com/NordicSemiconductor/IOS-nRF-Edge-Impulse/issues")
+        }
+    }
+    
+    @ViewBuilder
+    func goToDevZone() -> some View {
+        Button("Go to Nordic DevZone") {
+            openUrl("https://devzone.nordicsemi.com/")
+        }
+    }
+    
+    @ViewBuilder
+    func contactEdgeImpulseCommand() -> some View {
+        Button("Contact Edge Impulse") {
+            openUrl("https://edgeimpulse.com/contact")
+        }
+    }
+    
+    @ViewBuilder
+    func openEdgeImpulseForum() -> some View {
+        Button("Go to Edge Impulse Forum") {
+            openUrl("https://forum.edgeimpulse.com/")
+        }
+    }
+    
+    // MARK: - Private
+    
+    private func openUrl(_ urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        NSWorkspace.shared.open(url)
     }
 }
