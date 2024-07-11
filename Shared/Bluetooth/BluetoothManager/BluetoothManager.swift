@@ -125,7 +125,7 @@ final class BluetoothManager: NSObject, ObservableObject {
         
         let bleTransport = McuMgrBleTransport(peripheral)
         bleTransport.logDelegate = logDelegate
-        dfuManager = FirmwareUpgradeManager(transporter: bleTransport, delegate: firmwareDelegate)
+        dfuManager = FirmwareUpgradeManager(transport: bleTransport, delegate: firmwareDelegate)
         dfuManager.logDelegate = logDelegate
 
         // Start the firmware upgrade with the image data
