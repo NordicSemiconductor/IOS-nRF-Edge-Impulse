@@ -93,6 +93,8 @@ extension DeploymentViewState {
             .store(in: &cancellables)
     }
     
+    // MARK: downloadModel
+    
     func downloadModel(for selectedProject: Project, using projectApiToken: String) {
         guard let downloadRequest = HTTPRequest.downloadModelFor(project: selectedProject, using: projectApiToken) else { return }
         pipelineManager.inProgress(.downloading)
@@ -107,6 +109,8 @@ extension DeploymentViewState {
             .store(in: &cancellables)
     }
     
+    // MARK: sendModelToDevice
+    
     func sendModelToDevice(responseData: Data) {
         guard let selectedDeviceHandler else {
             reportError(NordicError(description: "No Device."))
@@ -115,7 +119,17 @@ extension DeploymentViewState {
         
         do {
             logs.append(LogMessage("Unpacking Server Response Archive..."))
-            let firmware = try DFUPackage(responseData)
+            
+            guard let tempUrlPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first else {
+                throw NordicError(description: "Unable to write to Cache Directory.")
+            }
+            let dataFileURL = URL(fileURLWithPath: tempUrlPath + "/\(abs(responseData.hashValue)).zip")
+            try responseData.write(to: dataFileURL)
+            defer {
+                cleanup(url: dataFileURL)
+            }
+            
+            let firmware = try McuMgrPackage(from: dataFileURL)
             
             pipelineManager.inProgress(.uploading)
             logs.append(LogMessage("Sending firmware to device..."))
@@ -188,6 +202,17 @@ internal extension DeploymentViewState {
         uploadInitialBytes = 0
         uploadImageSize = nil
         uploadTimestamp = nil
+    }
+    
+    // MARK: cleanup(url:)
+    
+    private func cleanup(url: URL) {
+        do {
+            let fileManager = FileManager()
+            try fileManager.removeItem(at: url)
+        } catch {
+            logs.append(LogMessage(error.localizedDescription))
+        }
     }
 }
 

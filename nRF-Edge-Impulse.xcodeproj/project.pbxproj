@@ -106,8 +106,6 @@
 		AA0D812C2608F62700AE615A /* DeploymentViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D812B2608F62700AE615A /* DeploymentViewState.swift */; };
 		AA0D812D2608F62700AE615A /* DeploymentViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D812B2608F62700AE615A /* DeploymentViewState.swift */; };
 		AA0D90AE260E1F1100A455B7 /* nRF_Edge_ImpulseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D90AD260E1F1100A455B7 /* nRF_Edge_ImpulseApp.swift */; };
-		AA0E584426C6847F00C437DD /* DFUManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0E584326C6847F00C437DD /* DFUManifest.swift */; };
-		AA0E584526C6847F00C437DD /* DFUManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0E584326C6847F00C437DD /* DFUManifest.swift */; };
 		AA14CA75261490CD004F08FE /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14CA74261490CD004F08FE /* Codable.swift */; };
 		AA14CA76261490CD004F08FE /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14CA74261490CD004F08FE /* Codable.swift */; };
 		AA14FD4526EA317E008128CB /* BoolDeviceInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA14FD4426EA317E008128CB /* BoolDeviceInfoRow.swift */; };
@@ -147,8 +145,6 @@
 		AA43B2A925FA58B500C5B5EE /* TabBarLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */; };
 		AA4581CD274536870063EBE7 /* DeploymentInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4581CC274536870063EBE7 /* DeploymentInfoRequest.swift */; };
 		AA4581CE274536870063EBE7 /* DeploymentInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4581CC274536870063EBE7 /* DeploymentInfoRequest.swift */; };
-		AA4581D027455FB80063EBE7 /* DFUPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4581CF27455FB80063EBE7 /* DFUPackage.swift */; };
-		AA4581D127455FB80063EBE7 /* DFUPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4581CF27455FB80063EBE7 /* DFUPackage.swift */; };
 		AA482F7F26318B11007B8B64 /* View+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F7E26318B11007B8B64 /* View+macOS.swift */; };
 		AA482F812631A213007B8B64 /* UserContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA482F802631A213007B8B64 /* UserContentView.swift */; };
 		AA4D06F3268F410E00DFB6A9 /* RenameDeviceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */; };
@@ -417,7 +413,6 @@
 		AA0D81282608C03A00AE615A /* DeploymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentView.swift; sourceTree = "<group>"; };
 		AA0D812B2608F62700AE615A /* DeploymentViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentViewState.swift; sourceTree = "<group>"; };
 		AA0D90AD260E1F1100A455B7 /* nRF_Edge_ImpulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nRF_Edge_ImpulseApp.swift; sourceTree = "<group>"; };
-		AA0E584326C6847F00C437DD /* DFUManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DFUManifest.swift; sourceTree = "<group>"; };
 		AA14CA74261490CD004F08FE /* Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
 		AA14FD4426EA317E008128CB /* BoolDeviceInfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolDeviceInfoRow.swift; sourceTree = "<group>"; };
 		AA14FD4726EA3314008128CB /* StringDeviceInfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringDeviceInfoRow.swift; sourceTree = "<group>"; };
@@ -436,7 +431,6 @@
 		AA38DEB828AFAE7B0020CAF1 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		AA43B2A725FA574F00C5B5EE /* TabBarLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarLayoutView.swift; sourceTree = "<group>"; };
 		AA4581CC274536870063EBE7 /* DeploymentInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentInfoRequest.swift; sourceTree = "<group>"; };
-		AA4581CF27455FB80063EBE7 /* DFUPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DFUPackage.swift; sourceTree = "<group>"; };
 		AA482F7E26318B11007B8B64 /* View+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+macOS.swift"; sourceTree = "<group>"; };
 		AA482F802631A213007B8B64 /* UserContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContentView.swift; sourceTree = "<group>"; };
 		AA4D06F2268F410E00DFB6A9 /* RenameDeviceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameDeviceRequest.swift; sourceTree = "<group>"; };
@@ -607,7 +601,6 @@
 		AA02088125F6515900FD6B24 /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
-				AAAC1C6526FB566A002BCED3 /* DFU */,
 				C3846EDB260B2F2C005AEF67 /* Scanner */,
 				C37DD493260C894700D667EA /* BluetoothManager */,
 			);
@@ -825,15 +818,6 @@
 				AA02EE052726BAAF00DB292A /* XCTest.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		AAAC1C6526FB566A002BCED3 /* DFU */ = {
-			isa = PBXGroup;
-			children = (
-				AA0E584326C6847F00C437DD /* DFUManifest.swift */,
-				AA4581CF27455FB80063EBE7 /* DFUPackage.swift */,
-			);
-			path = DFU;
 			sourceTree = "<group>";
 		};
 		AADDD05D264C28FB000892E1 /* Deployment */ = {
@@ -1362,7 +1346,6 @@
 				AA0BE23D283E7485002E5FCB /* DeleteUserProjectRequest.swift in Sources */,
 				AAE0B236264E960C00FD8F80 /* AppData+Debug.swift in Sources */,
 				AAF5054725F11E45003AFED7 /* DataAcquisitionView.swift in Sources */,
-				AA0E584426C6847F00C437DD /* DFUManifest.swift in Sources */,
 				AA14CA75261490CD004F08FE /* Codable.swift in Sources */,
 				AA0BE23A283E4B5C002E5FCB /* AppData+Delete.swift in Sources */,
 				015AB1612653D5E700C09196 /* ConnectionStatus.swift in Sources */,
@@ -1437,7 +1420,6 @@
 				AAFDB46E264D73A800F0CD02 /* ProjectView.swift in Sources */,
 				AAFFEB3025FF6A29002287D6 /* HorizontalTabView.swift in Sources */,
 				C39B106B2695C5390056095E /* HUDState.swift in Sources */,
-				AA4581D027455FB80063EBE7 /* DFUPackage.swift in Sources */,
 				AA03E98225E3EF13003DA9DA /* nRF_Edge_ImpulseApp.swift in Sources */,
 				C33C10C32609791E0097EA5A /* SignalLevel.swift in Sources */,
 				AA38DEB628AF90D10020CAF1 /* HTTPHost.swift in Sources */,
@@ -1637,7 +1619,6 @@
 				AA0A3EA026AAC27000F9C1E2 /* NSProgressView.swift in Sources */,
 				AA733FB92C6B770600782D90 /* LoginButtonView.swift in Sources */,
 				C337B8E1267A0034003FD0A0 /* Array+ext.swift in Sources */,
-				AA0E584526C6847F00C437DD /* DFUManifest.swift in Sources */,
 				AA01F3D125EFACB000368707 /* Assets.swift in Sources */,
 				AAFB7C8F2790531A0095A278 /* ForgotYourPasswordView.swift in Sources */,
 				AA010209269C5CD30045D6F2 /* SocketIOJobResult.swift in Sources */,
@@ -1649,7 +1630,6 @@
 				AA8511CC273BEB1C008CF5C7 /* DeploymentStage.swift in Sources */,
 				AAF4F6CA2625EC4C00012359 /* SettingsScannerView.swift in Sources */,
 				AAE58D9B27466D4700AB1FEE /* InferencingResultsHeaderRow.swift in Sources */,
-				AA4581D127455FB80063EBE7 /* DFUPackage.swift in Sources */,
 				AAFDB46F264D73A800F0CD02 /* ProjectView.swift in Sources */,
 				AA01020C269C5D1D0045D6F2 /* SocketIOJob.swift in Sources */,
 				AA09C79D262EEED400B039F1 /* Collection.swift in Sources */,
