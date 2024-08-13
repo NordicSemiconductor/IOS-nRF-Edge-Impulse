@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import Introspect
 import iOS_Common_Libraries
 
 struct NativeLoginView: View {
@@ -35,13 +34,11 @@ struct NativeLoginView: View {
     
     // MARK: - FocusedField
     
-    #if os(iOS)
     @FocusState private var focusedField: Field?
     
     private enum Field: Int, Hashable {
         case username, password
     }
-    #endif
     
     // MARK: - Body
     
@@ -52,7 +49,6 @@ struct NativeLoginView: View {
                 
                 AppHeaderView()
                 
-                #if os(iOS)
                 UsernameField($username, enabled: !isMakingRequest)
                     .frame(maxWidth: .maxTextFieldWidth)
                     .padding(.horizontal, 16)
@@ -61,14 +57,6 @@ struct NativeLoginView: View {
                     .onSubmit {
                         focusedField = .password
                     }
-                #else
-                UsernameField($username, enabled: !isMakingRequest)
-                    .frame(maxWidth: .maxTextFieldWidth)
-                    .padding(.horizontal, 16)
-                    .introspectTextField { textField in
-                        textField.becomeFirstResponder()
-                    }
-                #endif
                 
                 #if os(iOS)
                 HStack(alignment: .lastTextBaseline) {
@@ -97,6 +85,7 @@ struct NativeLoginView: View {
                         .accentColor(.nordicDarkGrey)
                     
                     PasswordField(binding: $password, enabled: !isMakingRequest)
+                        .focused($focusedField, equals: .password)
                 }
                 .frame(maxWidth: .maxTextFieldWidth)
                 .padding(.horizontal, 16)
@@ -122,13 +111,11 @@ struct NativeLoginView: View {
                                              totpToken: mfaToken)
             attemptLogin(with: parameters)
         })
-        #if os(iOS)
         .onAppear() {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.focusedField = .username
             }
         }
-        #endif
     }
 }
 
