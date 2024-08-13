@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - ThreePaneLayoutView
+
 struct ThreePaneLayoutView: View {
     
     // MARK: Properties
@@ -18,13 +20,13 @@ struct ThreePaneLayoutView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                List {
-                    Section(header: Text("Tabs")) {
+                List(selection: $appData.selectedTab) {
+                    Section("Tabs") {
                         ForEach(Tabs.availableCases) { tab in
-                            NavigationLink(destination: tab.view(with: appData), tag: tab, selection: $appData.selectedTab,
-                                label: {
-                                    Label(tab.description, systemImage: tab.systemImageName)
-                                })
+                            NavigationLink(destination: tab.view(with: appData)) {
+                                Label(tab.description, systemImage: tab.systemImageName)
+                                    .tag(tab)
+                            }
                         }
                     }
                     #if os(OSX)
@@ -33,10 +35,11 @@ struct ThreePaneLayoutView: View {
                     
                     if let user = appData.user {
                         let userTab = Tabs.User
-                        Section(header: Text(userTab.description)) {
-                            NavigationLink(destination: userTab.view(with: appData), tag: userTab, selection: $appData.selectedTab, label: {
+                        Section(userTab.description) {
+                            NavigationLink(destination: userTab.view(with: appData)) {
                                 Label(user.formattedName, systemImage: userTab.systemImageName)
-                            })
+                                    .tag(userTab)
+                            }
                         }
                         #if os(OSX)
                         .collapsible(false)
