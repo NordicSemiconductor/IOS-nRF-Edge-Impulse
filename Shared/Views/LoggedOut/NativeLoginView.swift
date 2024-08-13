@@ -115,7 +115,7 @@ struct NativeLoginView: View {
                 
                 Spacer()
             }
-        }, title: "MFA Token", message: "Please type your Multi-Factor Authentication here", text: $mfaToken, isPresented: $showMFAAlert, onPositiveAction: {
+        }, title: "MFA Token", message: "Please type your Multi-Factor Authentication here", text: $mfaToken, textContentType: .oneTimeCode, isPresented: $showMFAAlert, onPositiveAction: {
             showMFAAlert = false
             let parameters = LoginParameters(username: username,
                                              password: password,

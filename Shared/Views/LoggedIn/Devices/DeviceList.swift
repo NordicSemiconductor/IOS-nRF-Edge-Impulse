@@ -40,7 +40,7 @@ struct DeviceList: View {
                     .padding(.vertical, 4)
                 #endif
             }
-        }, title: "Rename Device", message: "Type your new Device name here", text: $renameText, isPresented: $showRenameDeviceAlert, onPositiveAction: {
+        }, title: "Rename Device", message: "Type your new Device name here", text: $renameText, textContentType: .name, isPresented: $showRenameDeviceAlert, onPositiveAction: {
             guard let device = alertDevice else { return }
             appData.renameDevice(device, to: renameText) {
                 self.deviceData.renamed(device, to: renameText)

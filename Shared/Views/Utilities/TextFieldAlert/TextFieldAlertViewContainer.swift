@@ -16,18 +16,20 @@ struct TextFieldAlertViewContainer<Container: View>: View {
     private let title: String
     private let message: String
     private var text: Binding<String>
+    private let textContentType: UITextContentType
     private var isPresented: Binding<Bool>
     private let onPositiveAction: () -> Void
     
     // MARK: Init
     
     init(@ViewBuilder content: @escaping () -> Container, title: String,
-         message: String, text: Binding<String>, isPresented: Binding<Bool>,
-         onPositiveAction: @escaping () -> Void) {
+         message: String, text: Binding<String>, textContentType: UITextContentType,
+         isPresented: Binding<Bool>, onPositiveAction: @escaping () -> Void) {
         self.content = content
         self.title = title
         self.message = message
         self.text = text
+        self.textContentType = textContentType
         self.isPresented = isPresented
         self.onPositiveAction = onPositiveAction
     }
@@ -38,7 +40,7 @@ struct TextFieldAlertViewContainer<Container: View>: View {
         #if os(iOS)
         ZStack {
             if isPresented.wrappedValue {
-                TextFieldAlert(title: title, message: message, text: self.text, isPresented: isPresented,
+                TextFieldAlert(title: title, message: message, text: self.text, textContentType: textContentType, isPresented: isPresented,
                                onPositiveAction: onPositiveAction)
                     .dismissable(isPresented)
             }
@@ -64,14 +66,15 @@ struct TextFieldAlert {
     let title: String
     let message: String?
     @Binding var text: String
+    let textContentType: UITextContentType
     var isPresented: Binding<Bool>? = nil
     let onPositiveAction: () -> Void
   
     // MARK: Modifiers
   
     func dismissable(_ isPresented: Binding<Bool>) -> TextFieldAlert {
-        TextFieldAlert(title: title, message: message, text: $text, isPresented: isPresented,
-                       onPositiveAction: onPositiveAction)
+        TextFieldAlert(title: title, message: message, text: $text, textContentType: textContentType,
+                       isPresented: isPresented, onPositiveAction: onPositiveAction)
     }
 }
 
@@ -81,6 +84,7 @@ extension TextFieldAlert: UIViewControllerRepresentable {
   
     func makeUIViewController(context: UIViewControllerRepresentableContext<TextFieldAlert>) -> UIViewControllerType {
         UITextFieldAlertViewController(title: title, message: message, text: $text,
+                                       textContentType: textContentType,
                                        isPresented: isPresented, onPositiveAction: onPositiveAction)
     }
 
@@ -99,17 +103,20 @@ final class UITextFieldAlertViewController: UIViewController {
     private let alertTitle: String
     private let message: String?
     @Binding private var text: String
+    private let textContentType: UITextContentType
     private var isPresented: Binding<Bool>?
     private let onPositiveButton: () -> Void
     private var subscription: AnyCancellable?
     
     // MARK: Init
     
-    init(title: String, message: String?, text: Binding<String>, isPresented: Binding<Bool>?,
-         onPositiveAction: @escaping () -> Void) {
+    init(title: String, message: String?, text: Binding<String>,
+         textContentType: UITextContentType = .name,
+         isPresented: Binding<Bool>?, onPositiveAction: @escaping () -> Void) {
         self.alertTitle = title
         self.message = message
         self._text = text
+        self.textContentType = textContentType
         self.isPresented = isPresented
         self.onPositiveButton = onPositiveAction
         super.init(nibName: nil, bundle: nil)
@@ -132,7 +139,7 @@ final class UITextFieldAlertViewController: UIViewController {
         let alertViewController = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)
         alertViewController.addTextField { [weak self] textField in
             guard let self = self else { return }
-            textField.textContentType = .name
+            textField.textContentType = textContentType
             textField.text = self.text
             textField.clearButtonMode = .always
           
