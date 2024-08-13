@@ -91,7 +91,6 @@
 		AA0A3EA026AAC27000F9C1E2 /* NSProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0A3E9F26AAC27000F9C1E2 /* NSProgressView.swift */; };
 		AA0B2FFA267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0B2FF9267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift */; };
 		AA0B2FFB267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0B2FF9267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift */; };
-		AA0B3000267A2AE400AA0571 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = AA0B2FFF267A2AE400AA0571 /* Introspect */; };
 		AA0BE237283E4987002E5FCB /* DeleteCurrentUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE236283E4987002E5FCB /* DeleteCurrentUserRequest.swift */; };
 		AA0BE238283E4987002E5FCB /* DeleteCurrentUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE236283E4987002E5FCB /* DeleteCurrentUserRequest.swift */; };
 		AA0BE23A283E4B5C002E5FCB /* AppData+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE239283E4B5C002E5FCB /* AppData+Delete.swift */; };
@@ -313,7 +312,6 @@
 		C301A379261F36250010717D /* HelloMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C301A378261F36250010717D /* HelloMessage.swift */; };
 		C301A37A261F36250010717D /* HelloMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C301A378261F36250010717D /* HelloMessage.swift */; };
 		C3163D34268DD61000CD3DB5 /* VisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = C3163D33268DD61000CD3DB5 /* VisualEffects */; };
-		C3163D36268DD61900CD3DB5 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C3163D35268DD61900CD3DB5 /* Introspect */; };
 		C337B8E0267A0034003FD0A0 /* Array+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C337B8DF267A0034003FD0A0 /* Array+ext.swift */; };
 		C337B8E1267A0034003FD0A0 /* Array+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C337B8DF267A0034003FD0A0 /* Array+ext.swift */; };
 		C33C10C12609791E0097EA5A /* SignalParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33C10BF2609791E0097EA5A /* SignalParameters.swift */; };
@@ -549,7 +547,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAFAE5E525ED11CA00A45A90 /* KeychainSwift in Frameworks */,
-				C3163D36268DD61900CD3DB5 /* Introspect in Frameworks */,
 				AA01902826BA938F00B70E85 /* Algorithms in Frameworks */,
 				AA1944FE28A3C92900903157 /* iOSCommonLibraries in Frameworks */,
 				AA2A1127283D007A00A35029 /* iOSMcuManagerLibrary in Frameworks */,
@@ -565,7 +562,6 @@
 			files = (
 				AA19450028A3C93900903157 /* iOSCommonLibraries in Frameworks */,
 				AA7F5DE325F8F57D00185328 /* KeychainSwift in Frameworks */,
-				AA0B3000267A2AE400AA0571 /* Introspect in Frameworks */,
 				AA01902A26BA939700B70E85 /* Algorithms in Frameworks */,
 				AA69E2C7263973FB00BC44D3 /* VisualEffects in Frameworks */,
 				AA2A1129283D00E300A35029 /* iOSMcuManagerLibrary in Frameworks */,
@@ -1161,7 +1157,6 @@
 			packageProductDependencies = (
 				AAFAE5E425ED11CA00A45A90 /* KeychainSwift */,
 				C3163D33268DD61000CD3DB5 /* VisualEffects */,
-				C3163D35268DD61900CD3DB5 /* Introspect */,
 				AA01902726BA938F00B70E85 /* Algorithms */,
 				AA1EF9E826C2CEF300B85FF3 /* ZIPFoundation */,
 				AADFFE9B278D8BD5001454A1 /* BetterSafariView */,
@@ -1189,7 +1184,6 @@
 			packageProductDependencies = (
 				AA7F5DE225F8F57D00185328 /* KeychainSwift */,
 				AA69E2C6263973FB00BC44D3 /* VisualEffects */,
-				AA0B2FFF267A2AE400AA0571 /* Introspect */,
 				AA01902926BA939700B70E85 /* Algorithms */,
 				AA1EF9EA26C2CEFC00B85FF3 /* ZIPFoundation */,
 				AA2A1128283D00E300A35029 /* iOSMcuManagerLibrary */,
@@ -1232,7 +1226,6 @@
 			packageReferences = (
 				AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */,
-				AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				AA01902626BA938F00B70E85 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				AADFFE9A278D8BD5001454A1 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
@@ -1989,14 +1982,6 @@
 				minimumVersion = 0.2.1;
 			};
 		};
-		AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.3;
-			};
-		};
 		AA1944FC28A3C92900903157 /* XCRemoteSwiftPackageReference "IOS-Common-Libraries" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/NordicPlayground/IOS-Common-Libraries";
@@ -2058,11 +2043,6 @@
 			package = AA01902626BA938F00B70E85 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
 			productName = Algorithms;
 		};
-		AA0B2FFF267A2AE400AA0571 /* Introspect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
-			productName = Introspect;
-		};
 		AA1944FD28A3C92900903157 /* iOSCommonLibraries */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AA1944FC28A3C92900903157 /* XCRemoteSwiftPackageReference "IOS-Common-Libraries" */;
@@ -2117,11 +2097,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */;
 			productName = VisualEffects;
-		};
-		C3163D35268DD61900CD3DB5 /* Introspect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA0B2FFC267A2ADA00AA0571 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
-			productName = Introspect;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

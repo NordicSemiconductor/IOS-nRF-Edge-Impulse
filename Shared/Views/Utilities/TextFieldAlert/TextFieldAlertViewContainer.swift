@@ -47,9 +47,6 @@ struct TextFieldAlertViewContainer<Container: View>: View {
         content()
             .sheet(isPresented: isPresented) {
                 TextFieldAlertView(title: title, message: message, text: self.text, isShowing: isPresented, onPositiveAction: onPositiveAction)
-                    .introspectTextField { textField in
-                        textField.becomeFirstResponder()
-                    }
             }
         #endif
     }
