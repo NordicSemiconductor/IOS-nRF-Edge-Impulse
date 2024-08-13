@@ -163,6 +163,7 @@
 		AA63F87126A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA63F86F26A1AE82001EDE54 /* DeleteDeviceRequest.swift */; };
 		AA69E2C7263973FB00BC44D3 /* VisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = AA69E2C6263973FB00BC44D3 /* VisualEffects */; };
 		AA710DB5260391D800A4935F /* DataAcquisitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA263F05260385690018CF5B /* DataAcquisitionView.swift */; };
+		AA733FB82C6B5EBD00782D90 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA733FB72C6B5EBD00782D90 /* LoginButtonView.swift */; };
 		AA798184275A223F008BDAC3 /* NoRegisteredDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA798183275A223F008BDAC3 /* NoRegisteredDevicesView.swift */; };
 		AA798185275A223F008BDAC3 /* NoRegisteredDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA798183275A223F008BDAC3 /* NoRegisteredDevicesView.swift */; };
 		AA798188275A3437008BDAC3 /* AlertButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA798187275A3437008BDAC3 /* AlertButtonsView.swift */; };
@@ -442,6 +443,7 @@
 		AA53550F261C7AFC007B2C94 /* CollaboratorRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaboratorRow.swift; sourceTree = "<group>"; };
 		AA605E56271ECF3A002B3B0A /* InferencingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferencingFooterView.swift; sourceTree = "<group>"; };
 		AA63F86F26A1AE82001EDE54 /* DeleteDeviceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDeviceRequest.swift; sourceTree = "<group>"; };
+		AA733FB72C6B5EBD00782D90 /* LoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonView.swift; sourceTree = "<group>"; };
 		AA798183275A223F008BDAC3 /* NoRegisteredDevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoRegisteredDevicesView.swift; sourceTree = "<group>"; };
 		AA798187275A3437008BDAC3 /* AlertButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertButtonsView.swift; sourceTree = "<group>"; };
 		AA79818A275A5170008BDAC3 /* AppData+Rename.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+Rename.swift"; sourceTree = "<group>"; };
@@ -1022,6 +1024,7 @@
 			children = (
 				AA28405B261F4F3D00EB8637 /* UsernameField.swift */,
 				AAF4F6BC2625C0A700012359 /* LoginErrorView.swift */,
+				AA733FB72C6B5EBD00782D90 /* LoginButtonView.swift */,
 				AAFB7C8C27904BFA0095A278 /* ForgotYourPasswordView.swift */,
 				AAF4F6B92625C02E00012359 /* SignUpView.swift */,
 				AAFED87625E7F7F900BB7445 /* NativeLoginView.swift */,
@@ -1464,6 +1467,7 @@
 				AA798184275A223F008BDAC3 /* NoRegisteredDevicesView.swift in Sources */,
 				AAA5C7C5269F39EA0012809A /* NoDevicesFoundView.swift in Sources */,
 				AA9D798D26971D2300A987FB /* SocketIOJobMessage.swift in Sources */,
+				AA733FB82C6B5EBD00782D90 /* LoginButtonView.swift in Sources */,
 				AA2B11AD283F8F1A006C75AF /* UserContentView+Logic.swift in Sources */,
 				AA63F87026A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */,
 				AAEDE636262882BF00B96AE9 /* ProjectSelectionView.swift in Sources */,

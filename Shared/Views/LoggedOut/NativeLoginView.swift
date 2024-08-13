@@ -98,22 +98,8 @@ struct NativeLoginView: View {
             
             LoginErrorView(viewState: viewState)
             
-            VStack {
-                switch viewState {
-                case .makingRequest:
-                    CircularProgressView()
-                default:
-                    ForgotYourPasswordView()
-                    
-                    Button("Login") {
-                        attemptLogin()
-                    }
-                    .keyboardShortcut(.defaultAction)
-                    .modifier(CircularButtonShape(backgroundColor: isLoginButtonDisabled ? .nordicDarkGrey : .nordicBlue))
-                    .disabled(isLoginButtonDisabled)
-                }
-            }
-            .padding(.vertical, 8)
+            LoginButtonView(viewState: viewState, loginDisabled: isLoginButtonDisabled,
+                            loginAction: attemptLogin)
             
             SignUpView()
             
