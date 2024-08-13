@@ -158,6 +158,7 @@ fileprivate extension NativeLoginView {
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
+                    mfaToken = ""
                     viewState = .error(error.localizedDescription)
                 default:
                     break
@@ -169,9 +170,11 @@ fileprivate extension NativeLoginView {
                         showMFAAlert = true
                     } else {
                         viewState = .error(error)
+                        mfaToken = ""
                     }
                     return
                 }
+                mfaToken = ""
                 appData.apiToken = loginResponse.token
             })
         viewState = .makingRequest
