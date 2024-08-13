@@ -29,6 +29,13 @@ extension HTTPRequest {
 struct LoginParameters: Codable {
     let username: String
     let password: String
+    let totpToken: String?
+    
+    init(username: String, password: String, totpToken: String? = nil) {
+        self.username = username
+        self.password = password
+        self.totpToken = totpToken
+    }
 }
 
 // MARK: - LoginResponse
