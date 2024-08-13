@@ -7,11 +7,13 @@
 
 import SwiftUI
 
+// MARK: - CollaboratorsHStackView
+
 struct CollaboratorsHStackView: View {
     
     private let collaborators: [User]
     
-    // MARK: - Init
+    // MARK: Init
     
     init(_ collaborators: [User]) {
         self.collaborators = collaborators
@@ -21,7 +23,7 @@ struct CollaboratorsHStackView: View {
     
     var body: some View {
         ZStack {
-            ForEach(0..<collaborators.count) { i in
+            ForEach(0..<collaborators.count, id: \.self) { i in
                 ZStack(alignment: .leading) {
                     CircleAround(URLImage(url: collaborators[i].photo, placeholderImage: Image("EdgeImpulse")))
                         .frame(size: .SmallImageSize)
