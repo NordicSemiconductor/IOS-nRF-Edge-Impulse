@@ -15,6 +15,7 @@ struct TabBarLayoutView: View {
     
     // MARK: Init
     
+    #if os(iOS)
     init() {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -22,6 +23,7 @@ struct TabBarLayoutView: View {
         UITabBar.appearance().standardAppearance = appearance
         UITabBar.appearance().scrollEdgeAppearance = appearance
     }
+    #endif
     
     // MARK: View
     

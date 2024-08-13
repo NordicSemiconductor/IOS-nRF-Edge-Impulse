@@ -37,7 +37,9 @@ struct UsernameField: View {
             TextField("Username or E-Mail", text: username)
                 .disableAllAutocorrections()
                 .textContentType(.username)
+            #if os(iOS)
                 .keyboardType(.emailAddress)
+            #endif
                 .foregroundColor(.textFieldColor)
                 .modifier(RoundedTextFieldShape(colorScheme == .light ? .nordicLightGrey : .nordicMiddleGrey, hasTextFieldBelow: true))
                 .disabled(!enabled)
