@@ -116,8 +116,6 @@
 		AA1944FE28A3C92900903157 /* iOSCommonLibraries in Frameworks */ = {isa = PBXBuildFile; productRef = AA1944FD28A3C92900903157 /* iOSCommonLibraries */; };
 		AA19450028A3C93900903157 /* iOSCommonLibraries in Frameworks */ = {isa = PBXBuildFile; productRef = AA1944FF28A3C93900903157 /* iOSCommonLibraries */; };
 		AA1C387126A6DC8100304D69 /* DeploymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D81282608C03A00AE615A /* DeploymentView.swift */; };
-		AA1EF9E926C2CEF300B85FF3 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AA1EF9E826C2CEF300B85FF3 /* ZIPFoundation */; };
-		AA1EF9EB26C2CEFC00B85FF3 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AA1EF9EA26C2CEFC00B85FF3 /* ZIPFoundation */; };
 		AA1F07A425F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA1F07A525F7989400CC41A9 /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F07A325F7989400CC41A9 /* BluetoothError.swift */; };
 		AA284059261F4DFC00EB8637 /* AppHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA284058261F4DFC00EB8637 /* AppHeaderView.swift */; };
@@ -552,7 +550,6 @@
 				AA2A1127283D007A00A35029 /* iOSMcuManagerLibrary in Frameworks */,
 				C3163D34268DD61000CD3DB5 /* VisualEffects in Frameworks */,
 				AADFFE9C278D8BD5001454A1 /* BetterSafariView in Frameworks */,
-				AA1EF9E926C2CEF300B85FF3 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,7 +562,6 @@
 				AA01902A26BA939700B70E85 /* Algorithms in Frameworks */,
 				AA69E2C7263973FB00BC44D3 /* VisualEffects in Frameworks */,
 				AA2A1129283D00E300A35029 /* iOSMcuManagerLibrary in Frameworks */,
-				AA1EF9EB26C2CEFC00B85FF3 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1158,7 +1154,6 @@
 				AAFAE5E425ED11CA00A45A90 /* KeychainSwift */,
 				C3163D33268DD61000CD3DB5 /* VisualEffects */,
 				AA01902726BA938F00B70E85 /* Algorithms */,
-				AA1EF9E826C2CEF300B85FF3 /* ZIPFoundation */,
 				AADFFE9B278D8BD5001454A1 /* BetterSafariView */,
 				AA2A1126283D007A00A35029 /* iOSMcuManagerLibrary */,
 				AA1944FD28A3C92900903157 /* iOSCommonLibraries */,
@@ -1185,7 +1180,6 @@
 				AA7F5DE225F8F57D00185328 /* KeychainSwift */,
 				AA69E2C6263973FB00BC44D3 /* VisualEffects */,
 				AA01902926BA939700B70E85 /* Algorithms */,
-				AA1EF9EA26C2CEFC00B85FF3 /* ZIPFoundation */,
 				AA2A1128283D00E300A35029 /* iOSMcuManagerLibrary */,
 				AA1944FF28A3C93900903157 /* iOSCommonLibraries */,
 			);
@@ -1227,7 +1221,6 @@
 				AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */,
 				AA01902626BA938F00B70E85 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
-				AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				AADFFE9A278D8BD5001454A1 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
 				AAA496D82795902D00D77BD1 /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */,
 				AA1944FC28A3C92900903157 /* XCRemoteSwiftPackageReference "IOS-Common-Libraries" */,
@@ -1990,14 +1983,6 @@
 				kind = branch;
 			};
 		};
-		AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.12;
-			};
-		};
 		AA69E2C3263973F000BC44D3 /* XCRemoteSwiftPackageReference "VisualEffects" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/twostraws/VisualEffects.git";
@@ -2052,16 +2037,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AA1944FC28A3C92900903157 /* XCRemoteSwiftPackageReference "IOS-Common-Libraries" */;
 			productName = iOSCommonLibraries;
-		};
-		AA1EF9E826C2CEF300B85FF3 /* ZIPFoundation */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
-			productName = ZIPFoundation;
-		};
-		AA1EF9EA26C2CEFC00B85FF3 /* ZIPFoundation */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA1EF9E726C2CEF300B85FF3 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
-			productName = ZIPFoundation;
 		};
 		AA2A1126283D007A00A35029 /* iOSMcuManagerLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
