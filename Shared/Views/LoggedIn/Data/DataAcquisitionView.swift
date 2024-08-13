@@ -7,7 +7,6 @@
 
 import SwiftUI
 import iOS_Common_Libraries
-import Introspect
 
 // MARK: - DataAcquisitionView
 
@@ -19,6 +18,11 @@ struct DataAcquisitionView: View {
     
     // MARK: - State
     
+    private enum Field: Int, Hashable {
+        case label
+    }
+    
+    @FocusState private var focusedField: Field?
     @State private var keyboardShownOnce = false
     
     // MARK: - View (iOS Only)
@@ -46,15 +50,16 @@ struct DataAcquisitionView: View {
                     Text("Label")
                     
                     TextField("Label", text: $dataAcquisitionViewState.label)
+                        .focused($focusedField, equals: .label)
                         .multilineTextAlignment(.trailing)
                         .enabledForeground(!dataAcquisitionViewState.isSampling)
-                        .introspectTextField { textField in
+                        .onAppear {
                             guard !keyboardShownOnce,
                                   !dataAcquisitionViewState.isSampling,
                                   dataAcquisitionViewState.label.isEmpty else { return }
                             keyboardShownOnce = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [textField] in
-                                textField.becomeFirstResponder()
+                            withAnimation {
+                                focusedField = .label
                             }
                         }
                 }
