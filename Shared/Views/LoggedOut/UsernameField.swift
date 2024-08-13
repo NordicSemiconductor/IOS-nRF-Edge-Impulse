@@ -7,42 +7,40 @@
 
 import SwiftUI
 import iOS_Common_Libraries
-import Introspect
+
+// MARK: - UsernameField
 
 struct UsernameField: View {
     
     @Environment(\.colorScheme) var colorScheme
     
-    // MARK: - Private Properties
+    // MARK: Private Properties
     
     private var username: Binding<String>
     private var enabled: Bool
     
-    // MARK: - Init
+    // MARK: Init
     
     init(_ binding: Binding<String>, enabled: Bool) {
         self.username = binding
         self.enabled = enabled
     }
     
-    // MARK: - Body
+    // MARK: Body
     
     var body: some View {
         HStack(alignment: .lastTextBaseline) {
             Image(systemName: "person.fill")
                 .frame(size: .StandardImageSize)
                 .accentColor(.nordicDarkGrey)
+            
             TextField("Username or E-Mail", text: username)
                 .disableAllAutocorrections()
                 .textContentType(.username)
+                .keyboardType(.emailAddress)
                 .foregroundColor(.textFieldColor)
                 .modifier(RoundedTextFieldShape(colorScheme == .light ? .nordicLightGrey : .nordicMiddleGrey, hasTextFieldBelow: true))
                 .disabled(!enabled)
-        }
-        .introspectTextField { textfield in
-            #if os(iOS)
-            textfield.keyboardType = .emailAddress
-            #endif
         }
     }
 }
