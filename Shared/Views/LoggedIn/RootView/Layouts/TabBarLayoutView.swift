@@ -6,13 +6,22 @@
 //
 
 import SwiftUI
-#if os(iOS)
-import Introspect
-#endif
+
+// MARK: - TabBarLayoutView
 
 struct TabBarLayoutView: View {
     
     @EnvironmentObject var appData: AppData
+    
+    // MARK: Init
+    
+    init() {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        
+        UITabBar.appearance().standardAppearance = appearance
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+    }
     
     // MARK: View
     
@@ -34,16 +43,6 @@ struct TabBarLayoutView: View {
         }
         .background(Color.formBackground)
         .accentColor(.nordicBlue)
-        #if os(iOS)
-        .introspectTabBarController { tabBarController in
-            guard #available(iOS 15.0, *) else { return }
-            let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            
-            tabBarController.tabBar.standardAppearance = appearance
-            tabBarController.tabBar.scrollEdgeAppearance = appearance
-        }
-        #endif
     }
 }
 
