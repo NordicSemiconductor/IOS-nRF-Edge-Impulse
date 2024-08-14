@@ -16,6 +16,8 @@ struct UserContentView: View {
     
     // MARK: Private
     
+    @State internal var deleteUserPassword = ""
+    @State internal var deleteUserTotpToken = ""
     @State internal var showingDeleteUserAccountAlert = false
     
     // MARK: View
@@ -71,8 +73,29 @@ struct UserContentView: View {
                 }
             }
             .setTitle("User")
-            .alert(isPresented: $showingDeleteUserAccountAlert) {
-                return deleteUserAccountAlert()
+            .alert(Strings.deleteUserAccount,
+                   isPresented: $showingDeleteUserAccountAlert) {
+                Button("Cancel", role: .cancel) {
+                    dismissDeleteUserAccount()
+                    deleteUserPassword = ""
+                    deleteUserTotpToken = ""
+                }
+                
+                Button("Delete", role: .destructive) {
+                    dismissDeleteUserAccount()
+                    confirmDeleteUserAccount(with: deleteUserPassword,
+                                             and: deleteUserTotpToken)
+                }
+                
+                TextField("Password", text: $deleteUserPassword)
+                    .textContentType(.password)
+                
+                if user.mfaConfigured {
+                    TextField("Authenticator Code", text: $deleteUserTotpToken)
+                        .textContentType(.oneTimeCode)
+                }
+            } message: {
+                Text(Strings.deleteUserAccountDescription)
             }
         } else {
             EmptyView()
