@@ -13,7 +13,7 @@ extension Preview {
     
     // MARK: - AppData
     
-    static var previewUser = User(id: 3, username: "independence.day", name: "ID4", created: Date())
+    static var previewUser = User(id: 3, username: "independence.day", name: "ID4", created: Date(), mfaConfigured: false)
     
     static var previewProjects: [Project]! = {
         return try? decode(filename: "sample_projects")

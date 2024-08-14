@@ -7,7 +7,11 @@
 
 import Foundation
 
+// MARK: - User
+
 struct User: Identifiable, Codable {
+    
+    // MARK: Static
     
     static let NoImage = ""
     static let PlaceholderImage = "https://avatars.githubusercontent.com/u/52098900?s=200&v=4" // Edge Impulse Logo
@@ -18,13 +22,14 @@ struct User: Identifiable, Codable {
         return nameFormatter
     }()
     
-    // MARK: - Properties
+    // MARK: Properties
     
     let id: Int
     let username: String
     let created: Date
     let createdSince: String
     let photo: URL
+    let mfaConfigured: Bool
     
     private let name: String
     private let nameComponents: PersonNameComponents?
@@ -37,21 +42,25 @@ struct User: Identifiable, Codable {
         let username = try container.decode(String.self, forKey: .username)
         let name = try container.decode(String.self, forKey: .name)
         let photo = try container.decode(String.self, forKey: .photo)
+        let mfaConfigured = try container.decode(Bool.self, forKey: .mfaConfigured)
         
         let createdString = try container.decode(String.self, forKey: .created)
         guard let created = createdString.formatAsDate() else {
             throw DecodingError.dataCorruptedError(forKey: .created, in: container,
                                                    debugDescription: "`Created` Date String does not match expected format.")
         }
-        self.init(id: id, username: username, name: name, created: created, photo: photo)
+        self.init(id: id, username: username, name: name, created: created, photo: photo,
+                  mfaConfigured: mfaConfigured)
     }
     
-    init(id: Int, username: String, name: String, created: Date, photo: String = NoImage) {
+    init(id: Int, username: String, name: String, created: Date, photo: String = NoImage,
+         mfaConfigured: Bool) {
         self.id = id
         self.username = username
         self.name = name
         self.created = created
         self.photo = URL(string: photo == User.NoImage ? User.PlaceholderImage : photo)!
+        self.mfaConfigured = mfaConfigured
         
         if #available(iOS 15.0, macOS 12.0, *) {
             self.nameComponents = try? PersonNameComponents(name)
