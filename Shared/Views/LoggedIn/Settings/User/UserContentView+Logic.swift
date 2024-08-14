@@ -22,19 +22,14 @@ internal extension UserContentView {
 internal extension UserContentView {
     
     func showDeleteUserAccountAlert() {
+        deleteUserPassword = ""
+        deleteUserTotpToken = ""
         showingDeleteUserAccountAlert = true
     }
     
-    func deleteUserAccountAlert() -> Alert {
-        Alert(title: Text(Strings.deleteUserAccount),
-              message: Text(Strings.deleteUserAccountDescription),
-              primaryButton: .destructive(Text("Yes"), action: confirmDeleteUserAccount),
-              secondaryButton: .default(Text("Cancel"), action: dismissDeleteUserAccount))
-    }
-    
-    func confirmDeleteUserAccount() {
+    func confirmDeleteUserAccount(with password: String, and totpToken: String) {
         showingDeleteUserAccountAlert = false
-        appData.deleteUserAccount()
+        appData.deleteUserAccount(with: password, and: totpToken)
     }
     
     func dismissDeleteUserAccount() {

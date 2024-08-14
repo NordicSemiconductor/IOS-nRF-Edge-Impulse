@@ -8,16 +8,20 @@
 import SwiftUI
 import iOS_Common_Libraries
 
+// MARK: - UserContentView
+
 struct UserContentView: View {
     
     @EnvironmentObject var appData: AppData
     @EnvironmentObject var deviceData: DeviceData
     
-    // MARK: - Private
+    // MARK: Private
     
+    @State internal var deleteUserPassword = ""
+    @State internal var deleteUserTotpToken = ""
     @State internal var showingDeleteUserAccountAlert = false
     
-    // MARK: - View
+    // MARK: View
     
     var body: some View {
         if let user = appData.user {
@@ -43,7 +47,7 @@ struct UserContentView: View {
                     }
                 }
                 
-                Section(header: Text("Account")) {
+                Section("Account") {
                     Button("Logout", action: logout)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .foregroundColor(.positiveActionButtonColor)
@@ -59,8 +63,29 @@ struct UserContentView: View {
                 })
             }
             .setTitle("User")
-            .alert(isPresented: $showingDeleteUserAccountAlert) {
-                return deleteUserAccountAlert()
+            .alert(Strings.deleteUserAccount,
+                   isPresented: $showingDeleteUserAccountAlert) {
+                Button("Cancel", role: .cancel) {
+                    dismissDeleteUserAccount()
+                    deleteUserPassword = ""
+                    deleteUserTotpToken = ""
+                }
+                
+                Button("Delete", role: .destructive) {
+                    dismissDeleteUserAccount()
+                    confirmDeleteUserAccount(with: deleteUserPassword,
+                                             and: deleteUserTotpToken)
+                }
+                
+                TextField("Password", text: $deleteUserPassword)
+                    .textContentType(.password)
+                
+                if user.mfaConfigured {
+                    TextField("Authenticator Code", text: $deleteUserTotpToken)
+                        .textContentType(.oneTimeCode)
+                }
+            } message: {
+                Text(Strings.deleteUserAccountDescription)
             }
         } else {
             EmptyView()

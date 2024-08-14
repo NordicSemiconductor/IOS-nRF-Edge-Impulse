@@ -95,8 +95,6 @@
 		AA0BE238283E4987002E5FCB /* DeleteCurrentUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE236283E4987002E5FCB /* DeleteCurrentUserRequest.swift */; };
 		AA0BE23A283E4B5C002E5FCB /* AppData+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE239283E4B5C002E5FCB /* AppData+Delete.swift */; };
 		AA0BE23B283E4B5C002E5FCB /* AppData+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE239283E4B5C002E5FCB /* AppData+Delete.swift */; };
-		AA0BE23D283E7485002E5FCB /* DeleteUserProjectRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE23C283E7485002E5FCB /* DeleteUserProjectRequest.swift */; };
-		AA0BE23E283E7485002E5FCB /* DeleteUserProjectRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE23C283E7485002E5FCB /* DeleteUserProjectRequest.swift */; };
 		AA0BE244283E7BCD002E5FCB /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE243283E7BCD002E5FCB /* Strings.swift */; };
 		AA0BE245283E7BCD002E5FCB /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0BE243283E7BCD002E5FCB /* Strings.swift */; };
 		AA0CD078269DC258000FFF0B /* DeploymentViewState+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */; };
@@ -401,7 +399,6 @@
 		AA0B2FF9267A1A7F00AA0571 /* DeviceRemoteHandler+DataSampling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceRemoteHandler+DataSampling.swift"; sourceTree = "<group>"; };
 		AA0BE236283E4987002E5FCB /* DeleteCurrentUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCurrentUserRequest.swift; sourceTree = "<group>"; };
 		AA0BE239283E4B5C002E5FCB /* AppData+Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+Delete.swift"; sourceTree = "<group>"; };
-		AA0BE23C283E7485002E5FCB /* DeleteUserProjectRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserProjectRequest.swift; sourceTree = "<group>"; };
 		AA0BE243283E7BCD002E5FCB /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		AA0CD077269DC258000FFF0B /* DeploymentViewState+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeploymentViewState+Delegates.swift"; sourceTree = "<group>"; };
 		AA0D81282608C03A00AE615A /* DeploymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeploymentView.swift; sourceTree = "<group>"; };
@@ -914,7 +911,6 @@
 				AAFCBE8125E90734001C52B0 /* LoginRequest.swift */,
 				AAF0C9682609FEBE001B76B9 /* GetCurrentUserRequest.swift */,
 				AA0BE236283E4987002E5FCB /* DeleteCurrentUserRequest.swift */,
-				AA0BE23C283E7485002E5FCB /* DeleteUserProjectRequest.swift */,
 				AAF5E75B26403BCD00AC3271 /* GetProjectDevelopmentKeysRequest.swift */,
 				AAF5E75526400F7300AC3271 /* GetSamplesRequest.swift */,
 				AAF38C18268E159A00F1A590 /* GetSocketTokenRequest.swift */,
@@ -1322,7 +1318,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA0BE23D283E7485002E5FCB /* DeleteUserProjectRequest.swift in Sources */,
 				AAE0B236264E960C00FD8F80 /* AppData+Debug.swift in Sources */,
 				AAF5054725F11E45003AFED7 /* DataAcquisitionView.swift in Sources */,
 				AA14CA75261490CD004F08FE /* Codable.swift in Sources */,
@@ -1581,7 +1576,6 @@
 				AA798189275A3437008BDAC3 /* AlertButtonsView.swift in Sources */,
 				AA535511261C7AFC007B2C94 /* CollaboratorRow.swift in Sources */,
 				AAB8C87226D52205004FC21B /* MacAddress.swift in Sources */,
-				AA0BE23E283E7485002E5FCB /* DeleteUserProjectRequest.swift in Sources */,
 				012A3ECD2666694E00EBB501 /* RegisteredDevicesData.swift in Sources */,
 				AAE0B235264E953E00FD8F80 /* AppData+Debug.swift in Sources */,
 				AACB65D027032027002D4384 /* Inferencing.swift in Sources */,

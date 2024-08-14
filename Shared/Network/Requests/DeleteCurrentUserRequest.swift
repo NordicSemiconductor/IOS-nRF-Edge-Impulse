@@ -12,12 +12,29 @@ import iOS_Common_Libraries
 
 extension HTTPRequest {
     
-    static func deleteUser(_ userId: Int, using apiToken: String) -> HTTPRequest? {
-        guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/users/\(userId)") else { return nil }
+    static func deleteUser(with parameters: DeleteUserParameters,
+                           using apiToken: String) -> HTTPRequest? {
+        guard var httpRequest = HTTPRequest(host: .EdgeImpulse, path: "/v1/api/user/"),
+              let bodyData = try? JSONEncoder().encode(parameters) else { return nil }
+        
         let jwtValue = "jwt=" + apiToken
         httpRequest.setMethod(.DELETE)
         httpRequest.setHeaders(["cookie": jwtValue])
+        httpRequest.setHeaders(["Content-Type": "application/json"])
+        httpRequest.setBody(bodyData)
         return httpRequest
+    }
+}
+
+// MARK: - DeleteUserParameters
+
+struct DeleteUserParameters: Codable {
+    let password: String
+    let totpToken: String?
+    
+    init(password: String, totpToken: String? = nil) {
+        self.password = password
+        self.totpToken = totpToken
     }
 }
 
