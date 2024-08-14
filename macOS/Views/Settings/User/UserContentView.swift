@@ -73,30 +73,7 @@ struct UserContentView: View {
                 }
             }
             .setTitle("User")
-            .alert(Strings.deleteUserAccount,
-                   isPresented: $showingDeleteUserAccountAlert) {
-                Button("Cancel", role: .cancel) {
-                    dismissDeleteUserAccount()
-                    deleteUserPassword = ""
-                    deleteUserTotpToken = ""
-                }
-                
-                Button("Delete", role: .destructive) {
-                    dismissDeleteUserAccount()
-                    confirmDeleteUserAccount(with: deleteUserPassword,
-                                             and: deleteUserTotpToken)
-                }
-                
-                TextField("Password", text: $deleteUserPassword)
-                    .textContentType(.password)
-                
-                if user.mfaConfigured {
-                    TextField("Authenticator Code", text: $deleteUserTotpToken)
-                        .textContentType(.oneTimeCode)
-                }
-            } message: {
-                Text(Strings.deleteUserAccountDescription)
-            }
+            .modifier(alertViewModifier(for: user))
         } else {
             EmptyView()
         }
