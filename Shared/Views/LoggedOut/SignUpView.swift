@@ -6,19 +6,13 @@
 //
 
 import SwiftUI
-import BetterSafariView
 import iOS_Common_Libraries
+
+// MARK: - SignUpView
 
 struct SignUpView: View {
     
-    // MARK: - Properties
-    
-    @State private var showSafariView = false
-    
-    private let safariViewConfiguration =
-        SafariView.Configuration(entersReaderIfAvailable: false, barCollapsingEnabled: true)
-    
-    // MARK: - View
+    // MARK: View
     
     var body: some View {
         HStack {
@@ -26,14 +20,9 @@ struct SignUpView: View {
                 .foregroundColor(.nordicMiddleGrey)
             
             Button(action: {
-                showSafariView = true
             }) {
                 Text("Sign Up")
                     .foregroundColor(.nordicBlue)
-            }
-            .safariView(isPresented: $showSafariView) {
-                SafariView(url: Constant.signupURL, configuration: safariViewConfiguration)
-                    .dismissButtonStyle(.done)
             }
         }
     }

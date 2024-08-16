@@ -195,7 +195,6 @@
 		AACCBA882600C32C0042E87B /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCBA872600C32C0042E87B /* ErrorView.swift */; };
 		AACCBA892600C32C0042E87B /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCBA872600C32C0042E87B /* ErrorView.swift */; };
 		AADFFE99278D8A5F001454A1 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADFFE98278D8A5F001454A1 /* SignUpView.swift */; };
-		AADFFE9C278D8BD5001454A1 /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = AADFFE9B278D8BD5001454A1 /* BetterSafariView */; };
 		AAE05F202649554F005BBF98 /* SampleRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE05F1F2649554F005BBF98 /* SampleRequestMessage.swift */; };
 		AAE05F212649554F005BBF98 /* SampleRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE05F1F2649554F005BBF98 /* SampleRequestMessage.swift */; };
 		AAE0B233264E94D900FD8F80 /* SettingsDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE0B232264E94D900FD8F80 /* SettingsDebugView.swift */; };
@@ -543,7 +542,6 @@
 				AA01902826BA938F00B70E85 /* Algorithms in Frameworks */,
 				AA1944FE28A3C92900903157 /* iOSCommonLibraries in Frameworks */,
 				AA2A1127283D007A00A35029 /* iOSMcuManagerLibrary in Frameworks */,
-				AADFFE9C278D8BD5001454A1 /* BetterSafariView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1145,7 +1143,6 @@
 			packageProductDependencies = (
 				AAFAE5E425ED11CA00A45A90 /* KeychainSwift */,
 				AA01902726BA938F00B70E85 /* Algorithms */,
-				AADFFE9B278D8BD5001454A1 /* BetterSafariView */,
 				AA2A1126283D007A00A35029 /* iOSMcuManagerLibrary */,
 				AA1944FD28A3C92900903157 /* iOSCommonLibraries */,
 			);
@@ -1210,7 +1207,6 @@
 			packageReferences = (
 				AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				AA01902626BA938F00B70E85 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
-				AADFFE9A278D8BD5001454A1 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
 				AAA496D82795902D00D77BD1 /* XCRemoteSwiftPackageReference "IOS-nRF-Connect-Device-Manager" */,
 				AA1944FC28A3C92900903157 /* XCRemoteSwiftPackageReference "IOS-Common-Libraries" */,
 			);
@@ -1978,14 +1974,6 @@
 				kind = branch;
 			};
 		};
-		AADFFE9A278D8BD5001454A1 /* XCRemoteSwiftPackageReference "BetterSafariView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/stleamist/BetterSafariView";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -2031,11 +2019,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AAFAE5E325ED11CA00A45A90 /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
-		};
-		AADFFE9B278D8BD5001454A1 /* BetterSafariView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AADFFE9A278D8BD5001454A1 /* XCRemoteSwiftPackageReference "BetterSafariView" */;
-			productName = BetterSafariView;
 		};
 		AAFAE5E425ED11CA00A45A90 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
