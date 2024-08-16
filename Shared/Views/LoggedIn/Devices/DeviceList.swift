@@ -28,19 +28,18 @@ struct DeviceList: View {
     // MARK: View
     
     var body: some View {
-        TextFieldAlertViewContainer(content: {
-            FormIniOSListInMacOS {
-                if appData.isLoggedIn {
-                    buildRegisteredDevicesList()
-                    buildScanResultsList()
-                }
-                
-                #if os(macOS)
-                MacAddressView()
-                    .padding(.vertical, 4)
-                #endif
+        FormIniOSListInMacOS {
+            if appData.isLoggedIn {
+                buildRegisteredDevicesList()
+                buildScanResultsList()
             }
-        }, title: "Rename Device", message: "New Device name here", text: $renameText, isPresented: $showRenameDeviceAlert, onPositiveAction: {
+            
+            #if os(macOS)
+            MacAddressView()
+                .padding(.vertical, 4)
+            #endif
+        }
+        .textFieldAlert(title: "Rename Device", message: "New Device name here", isPresented: $showRenameDeviceAlert, text: $renameText, onPositiveAction: {
             guard let device = alertDevice else { return }
             appData.renameDevice(device, to: renameText) {
                 self.deviceData.renamed(device, to: renameText)

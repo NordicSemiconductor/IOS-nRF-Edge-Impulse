@@ -157,6 +157,8 @@
 		AA727E112C6F7D8A00282953 /* ASWebAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA727E0F2C6F7D8A00282953 /* ASWebAuthenticationManager.swift */; };
 		AA727E122C6F810000282953 /* ForgotYourPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFB7C8C27904BFA0095A278 /* ForgotYourPasswordView.swift */; };
 		AA727E132C6F812000282953 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4F6B92625C02E00012359 /* SignUpView.swift */; };
+		AA727E152C6F9F1500282953 /* TextFieldAlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA727E142C6F9F1500282953 /* TextFieldAlertModifier.swift */; };
+		AA727E162C6F9F1500282953 /* TextFieldAlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA727E142C6F9F1500282953 /* TextFieldAlertModifier.swift */; };
 		AA733FB82C6B5EBD00782D90 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA733FB72C6B5EBD00782D90 /* LoginButtonView.swift */; };
 		AA733FB92C6B770600782D90 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA733FB72C6B5EBD00782D90 /* LoginButtonView.swift */; };
 		AA798184275A223F008BDAC3 /* NoRegisteredDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA798183275A223F008BDAC3 /* NoRegisteredDevicesView.swift */; };
@@ -207,8 +209,6 @@
 		AAE58D9B27466D4700AB1FEE /* InferencingResultsHeaderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE58D9927466D4700AB1FEE /* InferencingResultsHeaderRow.swift */; };
 		AAE5B63525F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
 		AAE5B63625F23A4500AA003D /* sample_projects.json in Resources */ = {isa = PBXBuildFile; fileRef = AAE5B63425F23A4500AA003D /* sample_projects.json */; };
-		AAE96F0A26A58E220089D370 /* TextFieldAlertViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE96F0926A58E220089D370 /* TextFieldAlertViewContainer.swift */; };
-		AAE96F0B26A58E220089D370 /* TextFieldAlertViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE96F0926A58E220089D370 /* TextFieldAlertViewContainer.swift */; };
 		AAEBB92B26CE6D5B006A4DF7 /* ReusableProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEBB92A26CE6D5B006A4DF7 /* ReusableProgressView.swift */; };
 		AAEBB92C26CE6D5B006A4DF7 /* ReusableProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEBB92A26CE6D5B006A4DF7 /* ReusableProgressView.swift */; };
 		AAEDE6312628459600B96AE9 /* SettingsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEDE6302628459600B96AE9 /* SettingsContentView.swift */; };
@@ -427,6 +427,7 @@
 		AA605E56271ECF3A002B3B0A /* InferencingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferencingFooterView.swift; sourceTree = "<group>"; };
 		AA63F86F26A1AE82001EDE54 /* DeleteDeviceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDeviceRequest.swift; sourceTree = "<group>"; };
 		AA727E0F2C6F7D8A00282953 /* ASWebAuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASWebAuthenticationManager.swift; sourceTree = "<group>"; };
+		AA727E142C6F9F1500282953 /* TextFieldAlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlertModifier.swift; sourceTree = "<group>"; };
 		AA733FB72C6B5EBD00782D90 /* LoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonView.swift; sourceTree = "<group>"; };
 		AA798183275A223F008BDAC3 /* NoRegisteredDevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoRegisteredDevicesView.swift; sourceTree = "<group>"; };
 		AA79818A275A5170008BDAC3 /* AppData+Rename.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+Rename.swift"; sourceTree = "<group>"; };
@@ -454,7 +455,6 @@
 		AAE58D96274669C900AB1FEE /* InferencingResultRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferencingResultRow.swift; sourceTree = "<group>"; };
 		AAE58D9927466D4700AB1FEE /* InferencingResultsHeaderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferencingResultsHeaderRow.swift; sourceTree = "<group>"; };
 		AAE5B63425F23A4500AA003D /* sample_projects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_projects.json; sourceTree = "<group>"; };
-		AAE96F0926A58E220089D370 /* TextFieldAlertViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlertViewContainer.swift; sourceTree = "<group>"; };
 		AAEBB92A26CE6D5B006A4DF7 /* ReusableProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProgressView.swift; sourceTree = "<group>"; };
 		AAEDE6302628459600B96AE9 /* SettingsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsContentView.swift; sourceTree = "<group>"; };
 		AAEDE6322628803500B96AE9 /* DropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
@@ -720,14 +720,6 @@
 			path = Deployment;
 			sourceTree = "<group>";
 		};
-		AA0EF4C6275F85EC00A959CC /* TextFieldAlert */ = {
-			isa = PBXGroup;
-			children = (
-				AAE96F0926A58E220089D370 /* TextFieldAlertViewContainer.swift */,
-			);
-			path = TextFieldAlert;
-			sourceTree = "<group>";
-		};
 		AA14FD4326EA310A008128CB /* Details */ = {
 			isa = PBXGroup;
 			children = (
@@ -872,7 +864,6 @@
 		AAF7D459269F2BC0009269D4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				AA0EF4C6275F85EC00A959CC /* TextFieldAlert */,
 				AACCBA872600C32C0042E87B /* ErrorView.swift */,
 				AA284058261F4DFC00EB8637 /* AppHeaderView.swift */,
 				AAEED04326A7B68800999E51 /* ConnectedDevicePicker.swift */,
@@ -882,6 +873,7 @@
 				AAEBB92A26CE6D5B006A4DF7 /* ReusableProgressView.swift */,
 				AAFB45F926FDEC7700B93904 /* CircularProgressView.swift */,
 				AAB8C87526D536A0004FC21B /* MacAddressView.swift */,
+				AA727E142C6F9F1500282953 /* TextFieldAlertModifier.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1328,7 +1320,6 @@
 				AAF290C226DD03F500ABE0E2 /* DataSamplesFooterView.swift in Sources */,
 				011D788026BB3CA10035B752 /* TextHeader.swift in Sources */,
 				AA14FD4526EA317E008128CB /* BoolDeviceInfoRow.swift in Sources */,
-				AAE96F0A26A58E220089D370 /* TextFieldAlertViewContainer.swift in Sources */,
 				AA14FD4826EA3314008128CB /* StringDeviceInfoRow.swift in Sources */,
 				AA605E57271ECF3A002B3B0A /* InferencingFooterView.swift in Sources */,
 				AAFC490C26A979FD002A08F9 /* LogMessage.swift in Sources */,
@@ -1365,6 +1356,7 @@
 				AA0D812C2608F62700AE615A /* DeploymentViewState.swift in Sources */,
 				AAF0C96C260A0210001B76B9 /* UserView.swift in Sources */,
 				AAF55323264171AB00252345 /* DataSampleRow.swift in Sources */,
+				AA727E152C6F9F1500282953 /* TextFieldAlertModifier.swift in Sources */,
 				AAF7D452269F1176009269D4 /* DeploymentView+Logic.swift in Sources */,
 				AA38DEB928AFAE7B0020CAF1 /* Network.swift in Sources */,
 				AAF290BF26DCE5CA00ABE0E2 /* Sensor.swift in Sources */,
@@ -1559,7 +1551,6 @@
 				AAE0B235264E953E00FD8F80 /* AppData+Debug.swift in Sources */,
 				AACB65D027032027002D4384 /* Inferencing.swift in Sources */,
 				AA9342492681F713001CD754 /* DataContainer.swift in Sources */,
-				AAE96F0B26A58E220089D370 /* TextFieldAlertViewContainer.swift in Sources */,
 				C3BB69BC26A9D37C003731FF /* ElementPreview.swift in Sources */,
 				AA03CB0026D64DFE004CF3FC /* DeviceIconView.swift in Sources */,
 				AA63F87126A1AE82001EDE54 /* DeleteDeviceRequest.swift in Sources */,
@@ -1600,6 +1591,7 @@
 				AAF5E75726400F7300AC3271 /* GetSamplesRequest.swift in Sources */,
 				AAF7299826298D6D0034B61A /* AppData+LoginState.swift in Sources */,
 				C3A3665A260414BC008D82CC /* UnregisteredDeviceView.swift in Sources */,
+				AA727E162C6F9F1500282953 /* TextFieldAlertModifier.swift in Sources */,
 				011D788126BB3CA10035B752 /* TextHeader.swift in Sources */,
 				C37E5ECA262842AA00B9E361 /* Scanner.swift in Sources */,
 			);

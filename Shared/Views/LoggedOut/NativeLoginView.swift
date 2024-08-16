@@ -43,69 +43,67 @@ struct NativeLoginView: View {
     // MARK: - Body
     
     var body: some View {
-        TextFieldAlertViewContainer(content: {
-            VStack(alignment: .center) {
-                Spacer()
+        VStack(alignment: .center) {
+            Spacer()
+            
+            AppHeaderView()
+            
+            UsernameField($username, enabled: !isMakingRequest)
+                .frame(maxWidth: .maxTextFieldWidth)
+                .padding(.horizontal, 16)
+                .focused($focusedField, equals: .username)
+                .submitLabel(.next)
+                .onSubmit {
+                    focusedField = .password
+                }
+            
+            #if os(iOS)
+            HStack(alignment: .lastTextBaseline) {
+                Image(systemName: "key.fill")
+                    .frame(size: .StandardImageSize)
+                    .accentColor(.nordicDarkGrey)
                 
-                AppHeaderView()
-                
-                UsernameField($username, enabled: !isMakingRequest)
-                    .frame(maxWidth: .maxTextFieldWidth)
-                    .padding(.horizontal, 16)
-                    .focused($focusedField, equals: .username)
-                    .submitLabel(.next)
+                PasswordField(binding: $password, enabled: !isMakingRequest)
+                    .foregroundColor(.textFieldColor)
+                    .modifier(RoundedTextFieldShape(colorScheme == .light ? .nordicLightGrey : .nordicMiddleGrey))
+                    .padding(.vertical, 8)
+                    .focused($focusedField, equals: .password)
+                    .submitLabel(.done)
                     .onSubmit {
-                        focusedField = .password
+                        let parameters = LoginParameters(username: username,
+                                                         password: password)
+                        attemptLogin(with: parameters)
                     }
-                
-                #if os(iOS)
-                HStack(alignment: .lastTextBaseline) {
-                    Image(systemName: "key.fill")
-                        .frame(size: .StandardImageSize)
-                        .accentColor(.nordicDarkGrey)
-                    
-                    PasswordField(binding: $password, enabled: !isMakingRequest)
-                        .foregroundColor(.textFieldColor)
-                        .modifier(RoundedTextFieldShape(colorScheme == .light ? .nordicLightGrey : .nordicMiddleGrey))
-                        .padding(.vertical, 8)
-                        .focused($focusedField, equals: .password)
-                        .submitLabel(.done)
-                        .onSubmit {
-                            let parameters = LoginParameters(username: username,
-                                                             password: password)
-                            attemptLogin(with: parameters)
-                        }
-                }
-                .frame(maxWidth: .maxTextFieldWidth)
-                .padding(.horizontal, 16)
-                #else
-                HStack(alignment: .lastTextBaseline) {
-                    Image(systemName: "key.fill")
-                        .frame(size: .StandardImageSize)
-                        .accentColor(.nordicDarkGrey)
-                    
-                    PasswordField(binding: $password, enabled: !isMakingRequest)
-                        .focused($focusedField, equals: .password)
-                }
-                .frame(maxWidth: .maxTextFieldWidth)
-                .padding(.horizontal, 16)
-                #endif
-                
-                LoginErrorView(viewState: viewState)
-                
-                LoginButtonView(viewState: viewState, loginDisabled: isLoginButtonDisabled,
-                                loginAction: {
-                    let parameters = LoginParameters(username: username,
-                                                     password: password)
-                    attemptLogin(with: parameters)
-                })
-                
-                SignUpView()
-                
-                Spacer()
             }
-        }, title: "MFA Token", message: "Type your Authentication Token here", text: $mfaToken, isPresented: $showMFAAlert, onPositiveAction: {
-            showMFAAlert = false
+            .frame(maxWidth: .maxTextFieldWidth)
+            .padding(.horizontal, 16)
+            #else
+            HStack(alignment: .lastTextBaseline) {
+                Image(systemName: "key.fill")
+                    .frame(size: .StandardImageSize)
+                    .accentColor(.nordicDarkGrey)
+                
+                PasswordField(binding: $password, enabled: !isMakingRequest)
+                    .focused($focusedField, equals: .password)
+            }
+            .frame(maxWidth: .maxTextFieldWidth)
+            .padding(.horizontal, 16)
+            #endif
+            
+            LoginErrorView(viewState: viewState)
+            
+            LoginButtonView(viewState: viewState, loginDisabled: isLoginButtonDisabled,
+                            loginAction: {
+                let parameters = LoginParameters(username: username,
+                                                 password: password)
+                attemptLogin(with: parameters)
+            })
+            
+            SignUpView()
+            
+            Spacer()
+        }
+        .textFieldAlert(title: "MFA Token", message: "Type your Authentication Token here", isPresented: $showMFAAlert, text: $mfaToken, onPositiveAction: {
             let parameters = LoginParameters(username: username,
                                              password: password,
                                              totpToken: mfaToken)
