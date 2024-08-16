@@ -26,6 +26,7 @@ struct SignUpView: View {
                 Text("Sign Up")
                     .foregroundColor(.nordicBlue)
             }
+            .buttonStyle(.plain)
         }
     }
 }

@@ -22,6 +22,7 @@ struct ForgotYourPasswordView: View {
             Text("Forgot your password?")
                 .foregroundColor(.nordicBlue)
         }
+        .buttonStyle(.plain)
     }
 }
 
