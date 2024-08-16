@@ -7,6 +7,7 @@
 
 import SwiftUI
 import iOS_Common_Libraries
+import AuthenticationServices
 
 // MARK: - iOS Only View
 
@@ -16,7 +17,7 @@ struct ForgotYourPasswordView: View {
     
     var body: some View {
         Button(action: {
-            
+            ASWebAuthenticationManager.shared.openForgotYourPassword()
         }) {
             Text("Forgot your password?")
                 .foregroundColor(.nordicBlue)

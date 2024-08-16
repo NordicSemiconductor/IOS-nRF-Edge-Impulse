@@ -7,6 +7,7 @@
 
 import SwiftUI
 import iOS_Common_Libraries
+import AuthenticationServices
 
 // MARK: - SignUpView
 
@@ -20,6 +21,7 @@ struct SignUpView: View {
                 .foregroundColor(.nordicMiddleGrey)
             
             Button(action: {
+                ASWebAuthenticationManager.shared.openSignUpBrowser()
             }) {
                 Text("Sign Up")
                     .foregroundColor(.nordicBlue)

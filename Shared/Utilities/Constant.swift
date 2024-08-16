@@ -22,11 +22,6 @@ extension Constant {
     static let unselectedSampleLength: Double = 0.0
     static let unselectedFrequency: Double = 0.0
     
-    // MARK: - URL(s)
-    
-    static let signupURL: URL! = URL(string: "https://studio.edgeimpulse.com/signup")
-    static let forgottenPasswordURL: URL! = URL(string: "https://studio.edgeimpulse.com/forgot-password")
-    
     // MARK: - App
     
     static let appName = Constant.appName(forBundleWithClass: AppData.self)
