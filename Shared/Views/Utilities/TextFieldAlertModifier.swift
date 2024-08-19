@@ -11,12 +11,12 @@ import SwiftUI
 
 struct TextFieldAlertModifier: ViewModifier {
     
-    // MARK: Properties
+    // MARK: Private Properties
     
-    let title: String
-    let message: String
-    @Binding var isPresented: Bool
-    @Binding var text: String
+    private let title: String
+    private let message: String
+    @Binding private var isPresented: Bool
+    @Binding private var text: String
     private let onPositiveAction: () -> Void
     
     // MARK: Init
