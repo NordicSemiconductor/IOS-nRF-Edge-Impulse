@@ -101,7 +101,7 @@ extension DeploymentViewState {
         Network.shared.perform(downloadRequest)
             .sinkReceivingError(onError: { error in
                 self.reportError(error)
-            }, receiveValue: { data in
+            }, receiveValue: { (data: Data) in
                 self.logs.append(LogMessage("Received \(data.count) bytes of Data."))
                 self.pipelineManager.completed(.downloading)
                 self.sendModelToDevice(responseData: data)

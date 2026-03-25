@@ -8,9 +8,15 @@
 import SwiftUI
 import iOS_Common_Libraries
 
+// MARK: - TwoPaneLayoutView
+
 struct TwoPaneLayoutView: View {
     
+    // MARK: Environment
+    
     @EnvironmentObject var appData: AppData
+    
+    // MARK: view
     
     var body: some View {
         HStack {
@@ -28,7 +34,6 @@ struct TwoPaneLayoutView: View {
                 .padding(.top, -4)
             }
             .setupNavBarBackground(with: Assets.navBarBackground.color)
-            .setSingleColumnNavigationViewStyle()
             .frame(width: 215, alignment: .leading)
             
             // Don't use appData.selectedTab?.view because SwiftUI will not switch well within them
