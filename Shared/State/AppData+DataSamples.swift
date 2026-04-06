@@ -69,6 +69,7 @@ private extension AppData {
         }
         
         Network.shared.perform(httpRequest, responseType: GetSamplesResponse.self)
+            .receive(on: RunLoop.main)
             .onUnauthorisedUserError(logout)
             .sinkOrRaiseAppEventError { [weak self] samplesResponse in
                 self?.samplesForCategory[category] = samplesResponse.samples
@@ -84,6 +85,7 @@ private extension AppData {
         }
         
         Network.shared.perform(httpRequest, responseType: ProjectDevelopmentKeysResponse.self)
+            .receive(on: RunLoop.main)
             .onUnauthorisedUserError(logout)
             .sinkOrRaiseAppEventError { [weak self] projectKeysResponse in
                 guard let self = self, let currentProject = self.selectedProject else {

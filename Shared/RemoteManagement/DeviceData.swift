@@ -295,6 +295,7 @@ class DeviceData: ObservableObject {
     
     func updateRegisteredDevices() {
         deviceManager.refreshDevices(appData: appData)
+            .receive(on: RunLoop.main)
             .sink { [logger] completion in
                 switch completion {
                 case .finished:

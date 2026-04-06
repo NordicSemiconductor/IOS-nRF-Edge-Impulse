@@ -64,6 +64,7 @@ extension LoggedInRootView {
               let httpRequest = HTTPRequest.getUser(using: token) else { return }
         appData.loginState = .loading
         userCancellable = Network.shared.perform(httpRequest, responseType: GetUserResponse.self)
+            .receive(on: RunLoop.main)
             .onUnauthorisedUserError(appData.logout)
             .compactMap { response -> Project? in
                 hasMadeUserRequest = true

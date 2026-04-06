@@ -15,6 +15,7 @@ extension AppData {
               let tokenRequest = HTTPRequest.getSocketToken(for: currentProject, using: apiKey) else { return }
 
         Network.shared.perform(tokenRequest, responseType: GetSocketTokenResponse.self)
+            .receive(on: RunLoop.main)
             .onUnauthorisedUserError(logout)
             .sinkOrRaiseAppEventError { [weak self] response in
                 self?.projectSocketTokens[currentProject] = response.token

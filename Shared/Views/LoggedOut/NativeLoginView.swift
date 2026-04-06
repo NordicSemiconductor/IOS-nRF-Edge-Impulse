@@ -139,7 +139,9 @@ fileprivate extension NativeLoginView {
             // Show error.
             return
         }
+        
         loginCancellable = Network.shared.perform(httpRequest, responseType: LoginResponse.self)
+            .receive(on: RunLoop.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
