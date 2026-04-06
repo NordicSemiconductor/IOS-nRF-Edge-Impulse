@@ -15,7 +15,7 @@ extension DeviceData {
     struct DeviceWrapper: Identifiable, Hashable {
         var device: Device
         var id: Int { device.id }
-        fileprivate (set) var state: State = .notConnectable
+        fileprivate(set) var state: State = .notConnectable
         
         enum State: CaseIterable {
             case notConnectable, readyToConnect, connecting, connected, deleting
@@ -82,16 +82,16 @@ class DeviceData: ObservableObject {
     private var deviceManager = RegisteredDevicesManager()
     private var remoteHandlers: [DeviceRemoteHandler] = []
     
-    @Published fileprivate (set) var scanResults: [ScanResultWrapper] = [] {
+    @Published fileprivate(set) var scanResults: [ScanResultWrapper] = [] {
         didSet {
             unregisteredDevices = scanResults
                 .filter({ $0.state != .connected && !$0.availableViaRegisteredDevices })
         }
     }
-    @Published fileprivate (set) var unregisteredDevices: [ScanResultWrapper] = []
-    @Published fileprivate (set) var registeredDevices: [DeviceWrapper] = []
+    @Published fileprivate(set) var unregisteredDevices: [ScanResultWrapper] = []
+    @Published fileprivate(set) var registeredDevices: [DeviceWrapper] = []
     
-    private (set) lazy var bluetoothStates = PassthroughSubject<Result<Bool, BluetoothStateError>, Never>()
+    private(set) lazy var bluetoothStates = PassthroughSubject<Result<Bool, BluetoothStateError>, Never>()
     
     internal var cancellables = Set<AnyCancellable>()
     internal var dataSamplingCancellable: AnyCancellable!
@@ -131,13 +131,13 @@ class DeviceData: ObservableObject {
         refresh()
     }
     
-    subscript (scanResult: ScanResult) -> DeviceRemoteHandler? {
+    subscript(scanResult: ScanResult) -> DeviceRemoteHandler? {
         get {
             remoteHandlers.first(where: { $0.scanResult == scanResult })
         }
     }
     
-    subscript (device: Device) -> DeviceRemoteHandler? {
+    subscript(device: Device) -> DeviceRemoteHandler? {
         get {
             remoteHandlers.first(where: { $0.device == device })
         }

@@ -69,14 +69,14 @@ class DeviceRemoteHandler {
     private static let RemoteManagementURLString = "wss://remote-mgmt.edgeimpulse.com"
     private let logger = Logger(category: "DeviceRemoteHandler")
     
-    private (set) var scanResult: ScanResult
-    private (set) var device: Device?
+    private(set) var scanResult: ScanResult
+    private(set) var device: Device?
     
     @Published var state: ConnectionState = .notConnected
     @Published var samplingState: SamplingState = .standby
     @Published var inferencingState: InferencingState = .stopped
     
-    private (set) lazy var bluetoothManager = BluetoothManager(peripheralId: self.scanResult.uuid)
+    private(set) lazy var bluetoothManager = BluetoothManager(peripheralId: self.scanResult.uuid)
     internal var webSocketManager: WebSocketManager!
     private lazy var cancellables = Set<AnyCancellable>()
     

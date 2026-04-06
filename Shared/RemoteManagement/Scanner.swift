@@ -15,12 +15,12 @@ final class Scanner: NSObject {
     
     private lazy var logger = Logger(Self.self)
     private lazy var bluetoothManager = CBCentralManager(delegate: self, queue: nil)
-    private (set) lazy var devicePublisher = PassthroughSubject<ScanResult, Never>()
+    private(set) lazy var devicePublisher = PassthroughSubject<ScanResult, Never>()
     
-    @Published private (set) var managerState: CBManagerState = .unknown
+    @Published private(set) var managerState: CBManagerState = .unknown
     
     @Published private var shouldScan = false
-    @Published private (set) var isScanning = false
+    @Published private(set) var isScanning = false
     
     let userPreferences: UserPreferences
     private var cancellable = Set<AnyCancellable>()
