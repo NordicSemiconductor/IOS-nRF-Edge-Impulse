@@ -130,7 +130,7 @@ final class BluetoothManager: NSObject, ObservableObject {
 
         // Start the firmware upgrade with the image data
         let pipelinedConfiguration = FirmwareUpgradeConfiguration(pipelineDepth: 3, byteAlignment: .fourByte)
-        try dfuManager.start(package: firmware, using: pipelinedConfiguration)
+        dfuManager.start(package: firmware, using: pipelinedConfiguration)
     }
     
     func disconnect() {
