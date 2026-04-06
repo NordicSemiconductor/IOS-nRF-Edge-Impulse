@@ -60,6 +60,7 @@ final class AppData: ObservableObject {
         // If inferencingViewState changes, make sure appData 'fires' as if a change has happened,
         // to alert InferencingView.
         inferencingViewState.objectWillChange
+            .receive(on: RunLoop.main)
             .sink(receiveValue: { self.objectWillChange.send() })
             .store(in: &cancellables)
     }

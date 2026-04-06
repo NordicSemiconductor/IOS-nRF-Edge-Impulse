@@ -12,6 +12,7 @@ import iOS_Common_Libraries
 struct URLImage: View {
     
     let placeholderImage: Image
+    
     @StateObject private var loader: URLImageLoader
     
     // MARK: - Init
@@ -60,6 +61,7 @@ final class URLImageLoader: ObservableObject {
     
     func load() {
         cancellable = Network.shared.downloadImage(for: url)
+            .receive(on: RunLoop.main)
             .assign(to: \.image, on: self)
     }
 }

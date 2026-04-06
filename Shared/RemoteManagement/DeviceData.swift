@@ -333,6 +333,7 @@ class DeviceData: ObservableObject {
         registeredDevices[i].state = .deleting
         
         deviceManager.deleteDevice(deviceId: device.deviceId, appData: appData)
+            .receive(on: RunLoop.main)
             .sinkReceivingError(onError: { [weak self] error in
                 self?.registeredDevices[i].state = previousState
                 AppEvents.shared.error = ErrorEvent(title: "Error", localizedDescription: error.localizedDescription)
@@ -426,6 +427,7 @@ extension DeviceData {
                     throw error
                 }
             }
+            .receive(on: RunLoop.main)
             .sink { [weak self, logger] completion in
                 switch completion {
                 case .finished:
