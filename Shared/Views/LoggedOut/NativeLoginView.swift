@@ -178,23 +178,3 @@ internal extension NativeLoginView {
         case error(_ message: String)
     }
 }
-
-// MARK: - Preview
-
-#if DEBUG
-struct NativeLoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            NativeLoginView()
-                .preferredColorScheme(.light)
-        }
-        #if os(iOS)
-        Group {
-            NativeLoginView()
-                .previewDevice("iPad Pro (11-inch) (2nd generation)")
-                .preferredColorScheme(.dark)
-        }
-        #endif
-    }
-}
-#endif
