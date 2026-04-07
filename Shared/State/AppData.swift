@@ -10,9 +10,11 @@ import KeychainSwift
 import Combine
 import iOS_Common_Libraries
 
+// MARK: - AppData
+
 final class AppData: ObservableObject {
     
-    // MARK: - Public Properties
+    // MARK: Public Properties
     
     @Published var apiToken: String? {
         didSet {
@@ -44,12 +46,12 @@ final class AppData: ObservableObject {
     @Published internal var inferencingViewState = InferencingViewState()
     @Published internal var deploymentViewState = DeploymentViewState()
     
-    // MARK: - Private Properties
+    // MARK: Private Properties
     
     private lazy var keychain = KeychainSwift(keyPrefix: Constant.appName)
     internal var cancellables = Set<AnyCancellable>()
     
-    // MARK: - Init
+    // MARK: init
     
     init() {
         self.projectDevelopmentKeys = [Project: ProjectDevelopmentKeysResponse]()
@@ -65,7 +67,7 @@ final class AppData: ObservableObject {
             .store(in: &cancellables)
     }
     
-    // MARK: - API
+    // MARK: API
     
     var isLoggedIn: Bool { apiToken != nil }
     

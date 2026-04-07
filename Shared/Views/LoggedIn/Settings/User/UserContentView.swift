@@ -12,6 +12,8 @@ import iOS_Common_Libraries
 
 struct UserContentView: View {
     
+    // MARK: Environment
+    
     @EnvironmentObject var appData: AppData
     @EnvironmentObject var deviceData: DeviceData
     
@@ -21,12 +23,12 @@ struct UserContentView: View {
     @State internal var deleteUserTotpToken = ""
     @State internal var showingDeleteUserAccountAlert = false
     
-    // MARK: View
+    // MARK: view
     
     var body: some View {
         if let user = appData.user {
             List {
-                UserView(user: user)
+                UserView(user)
                 
                 Section(header: Text("Projects")) {
                     if appData.projects.isEmpty {

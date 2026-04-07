@@ -9,16 +9,27 @@ import SwiftUI
 import Combine
 import iOS_Common_Libraries
 
+// MARK: - UserView
+
 struct UserView: View {
     
     static let ImageSize = CGSize(width: 40, height: 40)
     
-    // MARK: - Properties
+    // MARK: Environment
     
-    let user: User
     @EnvironmentObject var appData: AppData
     
-    // MARK: - View
+    // MARK: Properties
+    
+    private let user: User
+    
+    // MARK: init
+    
+    init(_ user: User) {
+        self.user = user
+    }
+    
+    // MARK: view
     
     var body: some View {
         HStack(spacing: 16) {
@@ -37,7 +48,7 @@ struct UserView: View {
                     .foregroundColor(.nordicMiddleGrey)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text("(\(user.createdSince))")
+                Text(user.createdSince)
                     .font(.callout)
                     .fontWeight(.light)
                     .foregroundColor(.nordicMiddleGrey)
@@ -63,7 +74,7 @@ struct UserView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            UserView(user: Preview.previewUser)
+            UserView(Preview.previewUser)
         }
         .frame(width: 300)
         .previewLayout(.sizeThatFits)

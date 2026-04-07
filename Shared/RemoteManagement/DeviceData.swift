@@ -11,11 +11,17 @@ import Combine
 import os
 import iOS_Common_Libraries
 
+// MARK: - DeviceData.DeviceWrapper
+
 extension DeviceData {
+    
     struct DeviceWrapper: Identifiable, Hashable {
+        
         var device: Device
         var id: Int { device.id }
         fileprivate(set) var state: State = .notConnectable
+        
+        // MARK: State
         
         enum State: CaseIterable {
             case notConnectable, readyToConnect, connecting, connected, deleting
@@ -44,7 +50,10 @@ extension DeviceData {
         }
     }
     
+    // MARK: ScanResultWrapper
+    
     struct ScanResultWrapper: Identifiable, Hashable {
+        
         enum State {
             case notConnected, connecting, connected
         }
@@ -65,6 +74,8 @@ extension DeviceData {
         }
     }
 
+    // MARK: BluetoothStateError
+    
     enum BluetoothStateError: Swift.Error {
         case poweredOff
         case unsupported
@@ -73,7 +84,10 @@ extension DeviceData {
     }
 }
 
+// MARK: - DeviceData
+
 class DeviceData: ObservableObject {
+    
     @ObservedObject var appData: AppData
     @ObservedObject var preferences = UserPreferences.shared
     
@@ -128,6 +142,7 @@ class DeviceData: ObservableObject {
                 wrappers.forEach { self.updateState($0.scanResult) }
             }
             .store(in: &cancellables)
+        
         refresh()
     }
     
@@ -352,6 +367,7 @@ class DeviceData: ObservableObject {
 }
 
 // MARK: - Private methods
+
 extension DeviceData {
     
     private func getRemoteHandler(for scanResult: ScanResult) -> DeviceRemoteHandler {
@@ -502,6 +518,7 @@ extension DeviceData {
 import iOS_Common_Libraries
 
 extension iOS_Common_Libraries.Preview {
+    
     // MARK: - ScannerData
     
     static let noDevicesScannerData: DeviceData = {

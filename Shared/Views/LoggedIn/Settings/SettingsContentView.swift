@@ -14,7 +14,7 @@ struct SettingsContentView: View {
     
     @ObservedObject var preferences = UserPreferences.shared
     
-    // MARK: - View
+    // MARK: view
     
     var body: some View {
         Form {
@@ -23,14 +23,16 @@ struct SettingsContentView: View {
             }) {
                 if let user = appData.user {
                     NavigationLink(destination: UserContentView()) {
-                        UserView(user: user)
+                        UserView(user)
                     }
+                    
+                    Text("Boo \(user.username)")
                 } else {
                     Text("User Data Unavailable")
                         .foregroundColor(.gray)
                 }
             }
-            
+
             Section(header: Text("Scanner Settings")) {
                 Toggle("Show Only Edge Impulse Devices",
                        isOn: $preferences.onlyScanUARTDevices)
@@ -49,11 +51,11 @@ struct SettingsContentView: View {
             #endif
             
             Section(header: Text("About App")) {
-                HStack {
-                    Text("Application Version")
-                    Spacer()
+                LabeledContent {
                     Text(Constant.appVersion)
                         .foregroundColor(.gray)
+                } label: {
+                    Text("Application Version")
                 }
             }
         }
